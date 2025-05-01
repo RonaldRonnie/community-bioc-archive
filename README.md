@@ -1,3 +1,5 @@
+[convert.py](https://github.com/waldronlab/community-bioc-archive/blob/devel/convert.py) thanks to Gemini
+
 # Slack Archive Index
 
 Channels:
