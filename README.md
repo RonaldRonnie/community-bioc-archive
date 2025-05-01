@@ -1,4 +1,16 @@
-[convert.py](https://github.com/waldronlab/community-bioc-archive/blob/devel/convert.py) thanks to Gemini
+# Instructions
+
+Download [convert.py](https://github.com/waldronlab/community-bioc-archive/blob/devel/convert.py) (written by Gemini 2.5 Pro (Experimental))
+
+Run:
+
+```bash
+% python convert.py
+# (note: path to Slack export directory must not contain spaces)
+Enter the path to the main Slack export directory (default: '.'): 
+
+Enter the directory to save Markdown files (default: 'markdown_export'):
+```
 
 # Slack Archive Index
 
