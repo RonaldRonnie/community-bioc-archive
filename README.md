@@ -1,2 +1,28 @@
-# community-bioc-archive
-Text archive of community-bioc Slack public channels
+# Slack Archive Index
+
+Channels:
+
+- [#bioc-builds](bioc-builds.md)
+- [#bioc-conference-everyone](bioc-conference-everyone.md)
+- [#bioc_africa](bioc_africa.md)
+- [#bugsigdb](bugsigdb.md)
+- [#containers](containers.md)
+- [#developers-forum](developers-forum.md)
+- [#documentation-translation](documentation-translation.md)
+- [#edam-collaboration](edam-collaboration.md)
+- [#events](events.md)
+- [#funding](funding.md)
+- [#general](general.md)
+- [#introductions](introductions.md)
+- [#jobs](jobs.md)
+- [#meetups](meetups.md)
+- [#metabolomics](metabolomics.md)
+- [#miaverse](miaverse.md)
+- [#osca-book](osca-book.md)
+- [#outreachy](outreachy.md)
+- [#package_submissions](package_submissions.md)
+- [#random](random.md)
+- [#singlecell-queries](singlecell-queries.md)
+- [#singularity](singularity.md)
+- [#tidiness_in_bioc](tidiness_in_bioc.md)
+- [#translation-fr](translation-fr.md)
