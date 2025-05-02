@@ -1,0 +1,681 @@
+---
+title: "#cpp"
+format: gfm
+---
+
+
+## 2022-05-17
+
+*23:49:28 - @Dirk Eddelbuettel has joined the channel*
+**Dirk Eddelbuettel** (23:49:28):
+> set the channel description: R and C++
+
+*23:56:58 - @Kristian Ullrich has joined the channel*
+**Kristian Ullrich** (23:59:27):
+> Thank you for setting up this dedicated rcpp channel. Looking forward to communicate, learn and contribute.
+
+
+## 2022-05-18
+
+*06:06:02 - @Martin Morgan has joined the channel*
+**Martin Morgan** (06:07:37):
+> would it be ok to change the channel name to #cpp, since Rcpp is kind of branded:wink:, there are other C++ solutions in R, and probably the Bioconductor community on slack probably isn't big enough to support multiple C++ channels?
+
+*06:19:01 - @Vince Carey has joined the channel*
+**Dirk Eddelbuettel** (08:05:23):
+> has renamed the channel from "rcpp" to "cpp"
+
+*11:11:28 - @Artem Sokolov has joined the channel*
+*14:05:05 - @Alan O'C has joined the channel*
+
+## 2022-05-19
+
+**Martin Morgan** (18:17:52):
+> @Aidan Lakshmanposted in the#generalchannel about debugging a memory corruption problem in C code. It turns out this was due to a missing `PROTECT()`. Since these are very tricky to spot, and since C++ abstractions in R provide a straight-forward way around this, and because I'd like to explore the {cpp11} package a bit, and because I seem to know only one STL data structure (the priority queue, which happens to be appropriate for the problem) I thought I'd post an alternative implementation here.
+> 
+> My re-implementation is
+> ```
+> #include <tuple>
+> #include <queue>
+> 
+> #include "cpp11.hpp"
+> using namespace cpp11;
+> 
+> [[cpp11::register]]
+> integers trimCovar_cpp(doubles fm, integers firstSeqPos, integers secondSeqPos,
+>                        int nv, int nr)
+> {
+>     // cpp11 takes care of coercion, type, allocation, etc.
+> 
+>     // Use a 'priority queue' to store triples of score, row, and
+>     // column. Tied scores go to the lowest row / column indexes.
+>     typedef std::tuple<double, int, int> triple; // score, row, column
+>     std::priority_queue< triple > corrs; // smallest scores priority queue
+> 
+>     // original C code with minor updates for C++ idioms
+>     for (const int cv1 : firstSeqPos) {
+>         const int colv1 = (cv1 - 1) * nr;
+>         for (const int cv2 : secondSeqPos) {
+>             const int colv2 = (cv2 - 1) * nr;
+> 
+>             // KL Divergence
+>             double score = 0;
+>             for (int k = 0; k < nr; k++) {
+>                 const double p1 = fm[colv1 + k];
+>                 const double p2 = fm[colv2 + k];
+>                 if (p1 != 0 && p2 != 0)
+>                     score += p1 * log(p1 / p2);
+>             }
+> 
+>             // save in priority queue
+>             const triple elt(score, cv1, cv2);
+>             if (corrs.size() <= nv) {
+>                 corrs.push(elt);
+>             } else if (corrs.top() > elt) {
+>                 corrs.push(elt);
+>                 corrs.pop();
+>             }
+>         }
+>         check_user_interrupt();  // safe check; stack unwinds correctly
+>     }
+> 
+>     // Create integers from ordered scores. Ensure output in revese
+>     // order (lowest score first).
+>     int idx = 2 * corrs.size();
+>     writable::integers ans(idx);
+>     for (; !corrs.empty(); corrs.pop(), idx -= 2) {
+>         const triple value = corrs.top();
+>         ans[idx - 2] = std::get<1>(value); // cv1
+>         ans[idx - 1] = std::get<2>(value); // cv2
+>     }
+> 
+>     return ans;
+> }
+> ```
+> Use from R (better to make a package, of course...) is
+> ```
+> fm <- matrix(
+>     c(0.5, 0.5, 0.0, 0.0, 0.0, 0.5,
+>       0.5, 0.5, 1.0, 1.0, 1.0, 0.5),
+>     nrow = 2,
+>     byrow = TRUE
+> )
+> firstSeqPos <- 1:3
+> secondSeqPos <- 4:6
+> nv <- 3
+> nr <- nrow(fm)
+> 
+> cpp11::cpp_source("stackoverflow_72306204.cpp")
+> trimCovar_cpp(fm, firstSeqPos, secondSeqPos, nv, nr)
+> ```
+> (I'm not really sure whether I've got the arguments or even the return value correct; the StackOverflow post didn't include a fully reproducible example).
+> 
+> For reference:
+> 1. The {cpp11}[vignette](https://cran.r-project.org/web/packages/cpp11/vignettes/cpp11.html).
+> 2. C++ reference pages for[priority_queue](https://en.cppreference.com/w/cpp/container/priority_queue)and[tuple](https://en.cppreference.com/w/cpp/utility/tuple)
+> 3. A very useful post on[using Rcpp for identifying largest N values](https://gallery.rcpp.org/articles/top-elements-from-vectors-using-priority-queue/)using a priority queue, generalize a StackOverflow answer I provided.
+
+*18:40:50 - @Aidan Lakshman has joined the channel*
+*18:42:12 - @Peter Hickey has joined the channel*
+**Aidan Lakshman** (18:43:10):
+> Oop I didn't realize there were more channels besides general and random, still learning slack:sweat_smile:Thanks for the reimplementation, and apologies for not including a reproducible example, unfortunately the codebase was pretty long and not super conducive to including on an SO post. I do have a .RData file with input data for this function that I can forward along
+
+**Aidan Lakshman** (18:45:15) (in thread):
+> This`.RData`has 5 elements corresponding to the inputs:`fm`,`firstSeqPos`,`secondSeqPos`,`num_vals`, and`nr`.
+  - File (Binary): [testcaseCovar.RData](https://community-bioc.slack.com/files/U34P8RS3B/F03G8BYMG3U/testcasecovar.rdata)
+
+**Aidan Lakshman** (18:46:59) (in thread):
+> Here’s the output of calling it with my current function. I’ll confess that I haven’t rigorously bugchecked this yet so if you find that it’s doing something different than I think it is, please let me know:sweat_smile:. Also you can play around with adjusting the value of`num_vals`, just make sure that it isn’t larger than`length(firstSeqPos)*length(secondSeqPos)`or there’ll be issues (as Hervé pointed out in the other thread)
+  - File (Plain Text): [expOut.txt](https://community-bioc.slack.com/files/U34P8RS3B/F03G5F59Y85/expout.txt)
+
+**Martin Morgan** (18:52:40) (in thread):
+> Thanks; I'll take a look. For the simple example I use, I added a line to print out cv1 / cv2 / score as they are calculated
+> ```
+> // save in priority queue
+>             std::cout << cv1 << " " << cv2 << " " << score << std::endl;
+>             triple elt(score, cv1, cv2);
+>             ...
+> ```
+> and then..
+> ```
+> > cpp11::cpp_source("stackoverflow_72306204.cpp")
+> > trimCovar_cpp(fm, firstSeqPos, secondSeqPos, nv, nr)
+> 1 4 -0.346574
+> 1 5 -0.346574
+> 1 6 0
+> 2 4 -0.346574
+> 2 5 -0.346574
+> 2 6 0
+> 3 4 0
+> 3 5 0
+> 3 6 0.693147
+> [1] 3 4 3 5 3 6
+> ```
+> and then compared calling your code
+> ```
+> > dyn.load("stackoverflow_72306204.so")
+> > .Call("trimCovar", fm, firstSeqPos, secondSeqPos, nv, nr)
+> [1] 2 5 2 4 1 5
+> ```
+> so it seems like you're actually identifying the***smallest***scores? I didn't really want to get into the re-implementation, just the notion that {cpp11} / {Rcpp} and the STL can be pretty helpful...
+
+**Aidan Lakshman** (19:16:05) (in thread):
+> Yep, I’m trying to identify the smallest scores. I’m using KL divergence, so closer to zero indicates higher correlation between the two observations (or at least that their distributions are more similar). There shouldn’t ever be a case where the score is negative though, not sure what might be causing that…
+> 
+> at one point early on I had mistakenly been looking for the largest scores--apologies if theres a leftover comment somewhere still indicating that
+
+**Aidan Lakshman** (19:20:31) (in thread):
+> Just for background on this, the idea for this script comes from a modification of the idea in[this paper](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.98.032407), essentially we can get a big speed boost on DCA (or other residue-level analyses) by compressing the initial sequence to just the positions with high likelihood of contributing to the final score. It ends up not affecting the final result significantly, but dramatically speeds up computation.
+> 
+> This particular C function I was writing is the correlation compression of a pair of`XStringSet`objects. The original paper only considers the top two most frequent alleles and is only looking at a single sequence, so I made some modifications to support multiple alleles and also to find correlations between sequences rather than within them. At the moment I’m only using mutual information, but eventually I’ll get around to reworking my DCA implementation to support Potts models (it currently only works on Ising models)
+  - Attachment (Physical Review E): [Correlation-compressed direct-coupling analysis](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.98.032407)
+    > Learning Ising or Potts models from data has become an important topic in statistical physics and computational biology, with applications to predictions of structural contacts in proteins and other areas of biological data analysis. The corresponding inference problems are challenging since the normalization constant (partition function) of the Ising or Potts distribution cannot be computed efficiently on large instances. Different ways to address this issue have resulted in a substantial amount of methodological literature. In this paper we investigate how these methods could be used on much larger data sets than studied previously. We focus on a central aspect, that in practice these inference problems are almost always severely undersampled, and the operational result is almost always a small set of leading predictions. We therefore explore an approach where the data are prefiltered based on empirical correlations, which can be computed directly even for very large problems. Inference is only used on the much smaller instance in a subsequent step of the analysis. We show that in several relevant model classes such a combined approach gives results of almost the same quality as inference on the whole data set. It can therefore provide a potentially very large computational speedup at the price of only marginal decrease in prediction quality. We also show that the results on whole-genome epistatic couplings that were obtained in a recent computation-intensive study can be retrieved by our approach. The method of this paper hence opens up the possibility to learn parameters describing pairwise dependences among whole genomes in a computationally feasible and expedient manner.
+
+**Martin Morgan** (20:42:31) (in thread):
+> Thanks for the context; I tweaked my implementation to return the smallest scores (changing the comparator to`std::less<>`and the criterion for addition to the priority queue) so that the smallest values are returned; ties are still handled differently (mine favors smaller indexes) and mine returns the smallest last, rather than first...
+
+**Aidan Lakshman** (21:59:32) (in thread):
+> :raised_hands:nice! I didn't think too hard about ties or sorting because I end up just taking all the unique values out when it's passed back to R—the right approach would probably be to favor entries to minimize duplicates, but that ends up being a lot of additional code for a relatively small performance gain
+
+
+## 2022-05-20
+
+*12:05:06 - @Nicholas Cooley has joined the channel*
+
+## 2022-07-11
+
+**Kristian Ullrich** (02:22:44):
+> Hi, I have ported the nucleotide distance calculations from the nice c++ software KaKs_Calculator2 into my package MSA2dist. Anyhow, I have still some C++ warnings porting the C++ code and would like to resolve them so that it passes the build process (on my Mac everything build without warnings due to some other compilers I guess). Since I am not at all an expert in C++ I was wondering if anyone knows this warning:
+> ```
+> warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+> ```
+> I guess it is related to the fact that in the original source code somtimes the for loops do not use`{…}`but only a single indented line after the for expression. Is that correct?
+
+**Kristian Ullrich** (02:43:40):
+> This would be one example for such a warning:
+
+**Kristian Ullrich** (02:43:49):
+> `for (it=0; it<nfree; it++) ``	if (ix[it]==i)``		break;``	for (i1=it; i1<nfree-1; i1++) ``		ix[i1]=ix[i1+1];``	for (i1=0,nfree--; i1<nfree; i1++) ``		for (i2=0; i2<nfree; i2++)``		H[i1*nfree+i2]=C[(i1+(i1>=it))*(nfree+1) + i2+(i2>=it)];`
+
+**Dirk Eddelbuettel** (08:10:29):
+> The compiler is correct.  In the above, atfer the initial for loop,*only the if is included *and the two following for loops are**not**nested within the outer one.  C and C++ are not Python, indentation does not create logical structure and you need { } if you want more than one statement inside a for (or if or while ...)
+> 
+> So I think  you meant this
+> ```
+> for (it=0; it<nfree; it++) {
+>     if (ix[it]==i)
+>         break;
+>     for (i1=it; i1<nfree-1; i1++)
+>         ix[i1]=ix[i1+1];
+>     for (i1=0,nfree--; i1<nfree; i1++)
+>         for (i2=0; i2<nfree; i2++)
+> 	        H[i1*nfree+i2]=C[(i1+(i1>=it))*(nfree+1) + i2+(i2>=it)]; (edited)
+> }
+> ```
+
+**Dirk Eddelbuettel** (08:11:37):
+> But you could even be more explicit as is often recommended and do
+> ```
+> for (it=0; it<nfree; it++) {
+>     if (ix[it]==i) {
+>        break;
+>     }
+>     for (i1=it; i1<nfree-1; i1++) {
+>         ix[i1]=ix[i1+1];
+>     }
+>     for (i1=0,nfree--; i1<nfree; i1++) {
+>         for (i2=0; i2<nfree; i2++) {
+> 	        H[i1*nfree+i2]=C[(i1+(i1>=it))*(nfree+1) + i2+(i2>=it)]; (edited)
+>         }
+>     }
+> }
+> ```
+
+**Kristian Ullrich** (11:07:24):
+> Thank you, I tried to fix most of the source code and add`{}`where ever I found it missing. For me playing around a bit, it was interesting to see that e.g.:
+
+**Kristian Ullrich** (11:10:32):
+> `int n=10;``for(i=0; i<n; i++)``    if(i==5)``        break;``    else``        i=i+1;`would interpret the`if`and`else`in the for loop, whereas:`int n=10;``for(i=0; i<n; i++)``    i=i+1; i=i-1;`would only use the first expression in the for loop. (Just a non-functional example to show the structure)
+
+**Dirk Eddelbuettel** (11:17:18):
+> It behaves exactly as specified.  The if, whether or not it has an else, is one 'statement'.  Your for loop is not as the semicolon splits**two**statements of which only the first runs.  Try to poke around some introductory books on C or C++, I am sure it is explained very gently somewhere.  Overall, this is just part of the 'gives you enough rope' philosophy in the language.  There are many idioms that**can**be used expressively, and you see this lack of curlies where it**clearly**applies to just  one statement in a lot of places -- including a lot of base R code.   Yet style guides and recommendations generally say 'do not do that'.   Most of us learned by time wasted debugging that the recommendation has merit.  Good luck.
+
+**Kristian Ullrich** (11:32:09):
+> Thanks for your detailed explanation.
+
+
+## 2022-07-16
+
+**Kristian Ullrich** (01:36:31):
+> Hi, I was able to resolve almost all compile warnings. There are two left and maybe someone would know how to solve them.
+
+**Kristian Ullrich** (01:37:51):
+> The first one should be I guess rather easy and I would need to define the variable before the if statement:
+> ```
+> KaKs.cpp:509:12: warning: 'fkaks' may be used uninitialized in this function [-Wmaybe-uninitialized]
+>   509 |       else if (fkaks==1) {
+>       |            ^~
+> ```
+
+**Kristian Ullrich** (01:39:33):
+> However, the second one is not clear for me at the moment, the warning states that the variable`d0`is not used. However, the variable is used in a for loop in the original source code?
+> ```
+> GY94.cpp:1152:10: warning: variable 'd0' set but not used [-Wunused-but-set-variable]
+>  1152 |   double d0[3], ts[3], tv[3];  /* rates at positions and 4-fold sites */
+> ```
+
+**Kristian Ullrich** (01:39:55):
+> The source code is:
+> ```
+> double d0[3], ts[3], tv[3];  /* rates at positions and 4-fold sites */
+> for (i=0; i<3; d0[i]=ts[i]=tv[i]=0, i++);
+> ```
+
+**Martin Morgan** (04:53:16):
+> I think the message is saying that you go to all the trouble of computing d0 but then do not use d0 elsewhere in the function.
+
+**Kristian Ullrich** (08:39:48):
+> Thanks, I will just remove the variables from the source code and check if the Ka/Ks are still consistent with the original software output.
+
+
+## 2022-09-19
+
+**Kristian Ullrich** (02:38:56):
+> Hi, I would have a question on computing time using either Rcpp::DataFrame.push_back versus Rcpp::List.push_back. In my hands the DataFrame push_back is slower than List push_back. As a consequence I am now converting the output list into a DataFrame outside rcpp. Is that known?
+
+**Dirk Eddelbuettel** (07:53:16):
+> In short, you should really "do neither one". See Rcpp FAQ 5.11, and other places. As`push_back()`on R data structures will always be expensive it should be avoided. Instead, grow vectors, either C++ STL ones via push back or either Rcpp or C++ STL ones by pre-allocating, then assemble in a list (which you can convert to a data frame). There are a few examples online.  Let me know if you need more concete help.
+
+**Kristian Ullrich** (09:43:37):
+> Thx, I will change into C++ STL
+
+**Kristian Ullrich** (11:17:14):
+> Thx, again, the kaks calculation now comes into the range of the seqinr::kaks implementation:slightly_smiling_face:, but can handle a bunch of more models.
+
+**Kristian Ullrich** (11:18:05):
+> ```
+> > library(MSA2dist)
+> > data(hiv)
+> > system.time(seqinr::kaks(dnastring2aln(hiv)))
+>    user  system elapsed 
+>   0.003   0.000   0.003 
+> > system.time(dnastring2kaks(hiv, model="NG"))
+>    user  system elapsed 
+>   0.016   0.000   0.016
+> ```
+
+**Martin Morgan** (12:27:45):
+> I'll just mention that 'push back' in R can sometimes have very poor performance (when implemented via 'copy & append' concatenation) and this is what Rcpp::*push_back suffers from (basically, a C++ interface to R data structures & algorithms)
+> ```
+> > n <- 50000
+> > system.time({ x <- integer(); for (i in seq_len(n)) x <- c(x, i) })
+>    user  system elapsed
+>   9.970   0.465  10.440
+> ```
+> but that there are very performant alternatives (e.g., pre-allocate & fill, or even [surprisingly] direct indexing)
+> ```
+> > system.time({ x <- integer(n); for (i in seq_len(n)) x[[i]]  <- i })
+>    user  system elapsed
+>   0.007   0.000   0.008
+> > system.time({ x <- integer(); for (i in seq_len(n)) x[[i]] <- i })
+>    user  system elapsed
+>   0.008   0.001   0.009
+> ```
+> It's worth-while to understand this. The 'copy & append' makes a copy of x each iteration, so at least 50000 copies, and the amount of data increases with each copy, so the time scales as, approximately, the square of`n`. Pre-allocate avoids this, simply inserting values into an existing vector.
+> 
+> The direct indexing approach is also surprising / interesting -- several years ago the performance was the same as copy & append, because each new element`x[[i]]`extended`x`by 1 and then added a new element, so again polynomial time. The change making this approach (much) more efficient -- instead of growing by 1, grow by a small multiple of the current length larger than 1, maybe 1.02, so that several elements can be inserted without triggering a copy. There is a small waste of space (the unused .02 of the final vector) but it transforms the growing data from a polynomial problem to a logarithmic one. I find this pretty cool. The R code is still slower than C++ (because the R loop is interpreted, for instance) but simply growing the vector is no longer likely the bottleneck.
+> 
+> I think there are two things relevant to#cpp. One is that it may sometimes not be necessary to reach into that powerful toolbox (which requires knowledge, and complicates debugging) to address performance issues. The other is almost the converse, that in C / C++ one has more direct access to algorithms, data structures (priority queues are a favorite of mine), and existing libraries that are efficient in space and time and hard to implement in a clear way in R. These provide compelling scenarios for adopting C / C++ to augment R.
+
+
+## 2022-10-04
+
+*11:43:53 - @Daniel Keitley has joined the channel*
+
+## 2022-10-05
+
+**Kristian Ullrich** (13:25:46):
+> Hi, one question related to licence and cpp builds. I used the MIT licence for the initial version 1.0.0 of my R package. Anyhow, now I ported c++ code into it which was originally under GPLv3. I guess since it will be compiled during installation of the R package I would need to change the complete R package license into GPLv3, correct?
+
+**Dirk Eddelbuettel** (14:04:26) (in thread):
+> <not a lawyer, not even staying at a holiday express> That seems correct to me. If you take code from another project and copy or "inject" it into yours, then you have to honor its copyright and license.  That is for example why some command-line facing tools (and I think this includes either`python`or`ipython`) don't have GNU readline support.  But again for actual legal advice contact a professional.
+
+**Kristian Ullrich** (14:09:59) (in thread):
+> Thx, the c++ code from their software in version 2.0 was published under GPLv3. The newest version now is published with just one statement in the journal (KaKs_Calculator 3.0 is freely available for academic use only) so not suitable for Bioconductor, if I correctly intepret the regulations: “Licenses restricting use, e.g., to academic or non-profit researchers, are not suitable for**Bioconductor**.”
+
+**Dirk Eddelbuettel** (14:13:08) (in thread):
+> Correct.  Debian has a set rules (DFSG, if you want to look that up) that clearly state the same thing.  Usage restriction means it cannot be free software.   Those rules go back a long time and have influenced a lot of other repositories and endeavors.
+
+**Kristian Ullrich** (14:23:23) (in thread):
+> Thx, again, I am now contacting the MPG lawyers what to do:slightly_smiling_face:
+
+
+## 2022-11-02
+
+**Aidan Lakshman** (14:35:02):
+> quick question for people on C memory allocation--Writing R Extensions says:
+> > Do not assume memory allocated from`R_Calloc`and`R_Realloc`comes from the same pool as used by`malloc`: in particular do not use`free`or`strdup`with it.
+> Is it safe to use`memset`on a memory allocated using`R_Calloc`?
+> 
+> I’m trying to track down a very difficult to reproduce bug in some R code, and I’m suspecting the answer is either this or a vector I forgot to call`free()`on.
+> 
+> I figured that`memset`should be safe since`R_Calloc`is supposed to return aligned memory in the same way as`malloc`, but I’m not an expert on this kind of thing.
+
+**Dirk Eddelbuettel** (15:06:50):
+> > or a vector I forgot to call`free()`on.
+> I have found`valgrind`(with proper options, but start with the basics i.e.`R CMD check --use-valgrind`) to be rather helpful. I would not expect`memset`to play a role but one never knows. I prefer`R_Calloc()`(and general`calloc()`because they initialize with zeros).
+
+**Aidan Lakshman** (15:35:24):
+> I’m expecting the error to be a stray memory leak, but I figured I’d ask about`memset`just so I knew best practices for`R_Calloc`in the future. Unfortunately developing on OSX makes using`valgrind`a bit tricky, but that’s next on my list if`R CMD CHECK`continues to crash. Thanks!
+
+**Dirk Eddelbuettel** (15:39:00):
+> You can rely on`docker`then, or maybe you have departmental or other server somewhere (or you could even abuse github actions).`valgrind`is exceptionally good at finding these I found.
+
+
+## 2023-02-22
+
+**Aidan Lakshman** (21:31:35):
+> quick question about the C interface--does the returned value from`VECTOR_ELT`need to be`PROTECT`’ed? For reference, the list I’m calling it on is already protected. trying to track down a memory leak:stuck_out_tongue:edit: chance I fixed it, something else was unprotected and adding the protect statement there is making it execute properly during`gctorture`…still verifying it’s actually working though
+> 
+> edit2: just kidding, still not working.:confused:edit3: just wanted to give an update, I’ve resolved this issue--`VECTOR_ELT`and`SET_VECTOR_ELT`both don’t need protection if the original list was protected. I was running into issues because I didn’t understand that protection is by value and not by reference, which I’ve since corrected.
+
+
+## 2023-02-23
+
+**Martin Morgan** (05:23:17) (in thread):
+> For your original question,`VECTOR_ELT`is implicitly protected by the protection on the list itself, yes...
+
+**Aidan Lakshman** (12:10:39) (in thread):
+> hmmm….alright, I’ll have to dig a little deeper on this then. Thank you!
+
+
+## 2023-06-19
+
+*05:10:12 - @Pierre-Paul Axisa has joined the channel*
+
+## 2024-02-22
+
+**Kristian Ullrich** (12:50:26):
+> Hi, I would have a question regarding kmer creation in parallel with Rcpp. I have implemented it with RcppThread and get sometimes the following error and somtimes it is just working fine.
+> ```
+> Warning: stack imbalance in '<-', 2 then 0
+> ```
+
+**Kristian Ullrich** (12:51:20):
+> Here is the corresponding header file`get_named_integer_vector.h``
+
+**Kristian Ullrich** (12:51:40):
+> #ifndef GET_NAMED_INTEGER_VECTOR_H
+> #define GET_NAMED_INTEGER_VECTOR_H
+> 
+> #include <vector>
+> #include <string>
+> #include <tuple>
+> 
+> std::tuple<std::vector<std::string>, std::vector<int>> get_named_integer_vector(const std::vector<std::string>& mers_vec,
+>                                           const std::vector<int>& mers_counts_vec);
+> 
+> #endif // GET_NAMED_INTEGER_VECTOR_H
+
+**Kristian Ullrich** (12:52:13):
+> Here the`get_named_integer_vector.cpp`
+
+**Kristian Ullrich** (12:52:16):
+> ```
+> #include <vector>
+> #include <algorithm>
+> #include <numeric>
+> #include <string>
+> #include <tuple>
+> 
+> std::tuple<std::vector<std::string>, std::vector<int>> get_named_integer_vector(const std::vector<std::string>& mers_vec,
+>     const std::vector<int>& mers_counts_vec) {
+>     std::vector<int> indices(mers_vec.size());
+>     std::iota(indices.begin(), indices.end(), 0);
+>     std::sort(indices.begin(), indices.end(), [&](int i, int j) {
+>       return mers_vec[i] < mers_vec[j];
+>     });
+>     std::vector<std::string> sorted_mers_vec(mers_vec.size());
+>     for (int i = 0; i < mers_vec.size(); ++i) {
+>       sorted_mers_vec[i] = mers_vec[indices[i]];
+>     }
+>     std::vector<int> sorted_mers_counts_vec(mers_counts_vec.size());
+>     for (int i = 0; i < mers_counts_vec.size(); ++i) {
+>       sorted_mers_counts_vec[i] = mers_counts_vec[indices[i]];
+>     }
+>     return std::make_tuple(sorted_mers_vec, sorted_mers_counts_vec);
+> }
+> ```
+
+**Kristian Ullrich** (12:53:01):
+> And here the actual code to parallel process a`CharacterVector`
+
+**Kristian Ullrich** (12:53:30):
+> ```
+> #include <Rcpp.h>
+> #include <string.h>
+> #include <RcppThread.h>
+> #include "get_named_integer_vector.h"
+> 
+> // [[Rcpp::plugins(cpp11)]]
+> // [[Rcpp::depends(RcppThread)]]
+> using namespace Rcpp;
+> 
+> //' @useDynLib kortho, .registration = TRUE
+> //' @import Rcpp
+> //' @title rcpp_count_kmers
+> //' @name rcpp_count_kmers
+> //' @description returns count kmers
+> //' @return list
+> //' @param aavector StringVector [mandatory]
+> //' @param k kmer length [default: 2]
+> //' @param ncores number of cores [default: 1]
+> //' @examples
+> //' ## load example sequence data
+> //' data("hiv", package="MSA2dist")
+> //' h <- hiv |> cds2aa() |> as.character()
+> //' rcpp_count_kmers(aavector=h, ncores=1)
+> //' @export rcpp_count_kmers
+> //' @author Kristian K Ullrich
+> 
+> // [[Rcpp::export]]
+> Rcpp::List rcpp_count_kmers( Rcpp::StringVector aavector, int k = 2, int ncores = 1 ) {
+>   int nseq = aavector.size();
+>   Rcpp::List out(nseq);
+>   CharacterVector aavectornames = aavector.attr("names");
+>   RcppThread::ProgressBar bar(nseq, 1);
+>   RcppThread::parallelFor(0, nseq, [&] (int seq_idx) {
+>     int nsites_seq = aavector[seq_idx].size();
+>     std::vector<std::string> l_seq;
+>     std::map<std::string, int> counts_seq;
+>     for( int i = 0; i < nsites_seq-k+1; i++) {
+>       std::string mer;
+>       mer = aavector[seq_idx];
+>       l_seq.push_back(mer.substr(i, k));
+>     }
+>     for (const auto &s : l_seq) {
+>       counts_seq[s]++;
+>     }
+>     std::vector<std::string> result_seq_kmers(counts_seq.size());
+>     std::vector<int> result_seq_kmers_counts(counts_seq.size());
+>     int result_i = 0;
+>     for (const auto &pair : counts_seq) {
+>       result_seq_kmers[result_i] = pair.first;
+>       result_seq_kmers_counts[result_i] = pair.second;
+>       result_i++;
+>     };
+>     std::tuple<std::vector<std::string>, std::vector<int>> result_seq;
+>     result_seq = get_named_integer_vector(result_seq_kmers, result_seq_kmers_counts);
+>     std::vector<std::string> result_seq_kmers_sorted = std::get<0>(result_seq);
+>     std::vector<int> result_seq_kmers_counts_sorted = std::get<1>(result_seq);
+>     out[seq_idx] = result_seq_kmers_sorted;
+>     bar++;
+>   }, ncores);
+>   out.attr("names") = aavectornames;
+>   return out;
+> }
+> ```
+
+**Kristian Ullrich** (12:58:33):
+> If I than run just with one thread, it seems to be fine:
+> ```
+> aa<-Biostrings::readAAStringSet("[https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/735/GCF_000001735.4_TAIR10.1/GCF_000001735.4_TAIR10.1_protein.faa.gz](https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/735/GCF_000001735.4_TAIR10.1/GCF_000001735.4_TAIR10.1_protein.faa.gz)")
+> l<-rcpp_count_kmers(as.character(aa[1:100]))
+> ```
+
+**Kristian Ullrich** (12:59:37):
+> But if I run with multiple threads, I sometimes get the mentioned error:
+> ```
+> > l<-rcpp_count_kmers(as.character(aa[1:100]), ncores=8)
+> Computing: [========================================] 100% (done)                         
+> Warning: stack imbalance in '<-', 2 then 0
+> ```
+
+**Kristian Ullrich** (13:00:16):
+> Maybe someone has a suggestion, why this fails. Thank you in anticipation. Best regards Kristian
+
+**Dirk Eddelbuettel** (13:07:51) (in thread):
+> I am between a few things right now and can't look into this now -- and have not worked much with RcppThread, I should take a look at that package -- but it you look at the (generally excellent) documentation for RcppParallel it has some start and clear language to never ever use R objects (even via Rcpp) in a multithreaded (there it is OpenMP) context because garbage collection may happen any moment.
+> 
+> And my hunch here is that that is what is happening to you.  My (somewhat labour-intensive brute-force) approach might be to shimmy another layer in and make sure your parallel code only uses non-R data.  There are possible refinements and exceptions -- base R also some OpenMP where possible, IIRC qtukey is an example -- but it has been a while.
+> 
+> I think we have some discussion over at the Rcpp Gallery site ([https://gallery.rcpp.org/](https://gallery.rcpp.org/)) too.
+  - Attachment (gallery.rcpp.org): [Rcpp Gallery](https://gallery.rcpp.org/)
+    > Articles and code that illustrate the use of the Rcpp package
+
+**Kristian Ullrich** (13:09:38):
+> Thank you for the quick answer, I will have a look
+
+**Dirk Eddelbuettel** (13:56:21) (in thread):
+> Another time-tested method is to look at other packages that use RcppThread, rip them to shreds for minimal operations and build it back up.
+
+**Kristian Ullrich** (13:57:36):
+> Thank you again, I have now altered the code to just contain C++ code and it seems to work fine. Now I only need to convert the sorted kmer counts (std::vector<int>) and name them by the sorted kmer (std::vector<std::string>), which at the moment are in two arrays (std::vector<std::vector<std::string>>)
+
+**Kristian Ullrich** (14:16:46):
+> I really need to thank you again, it is now so quick to calculate kmers for 40k proteins and 8 threads. Next step will be to implement jaccard distance between kmer profiles so that one could use the pairwise distances to create orthologous groups.
+> ```
+> > length(aa)
+> [1] 48265
+> > system.time(l<-count_kmers(aa,k=6,threads=8))
+> Computing: [========================================] 100% (done)                         
+>        User      System verstrichen 
+>      19.446       0.540       8.210
+> ```
+
+
+## 2024-02-26
+
+**Kristian Ullrich** (08:43:54):
+> I would have a short question regarding a sparse matrix. If I create an empty matrix, I can alter a double value. However, if I use a void function it is not working. What am I doing wrong here?
+> ```
+> # function.h
+> #include <RcppArmadillo.h>
+> void addDouble(arma::sp_mat mat, int row, int col, double value);
+> 
+> # function.cpp
+> #include <RcppArmadillo.h>
+> #include "function.h"
+> void addDouble(arma::sp_mat mat, int row, int col, double value); {
+>   mat.at(row, col) += value;
+> }
+> 
+> # code
+> // [[Rcpp::export]]
+> arma::sp_mat rcpp_addDouble() {
+>   arma::sp_mat mat(3, 3);
+>   mat.at(1,1) = 1.0;
+>   addDouble(mat, 2, 2, 1.0);
+>   return mat;
+> }
+> 
+> 3 x 3 sparse Matrix of class "dgCMatrix"
+>           
+> [1,] . . .
+> [2,] . 1 .
+> [3,] . . .
+> ```
+
+**Dirk Eddelbuettel** (08:57:21) (in thread):
+> This is not at all specific to BioConductor.  Is there a reason you cannot ask at the repository, or on rcpp-devel, to maximize the number of eyes familiar with (Rcpp)Armadillo?
+
+**Kristian Ullrich** (08:57:27):
+> OK, needed to set the pointer. Now it works.
+> ```
+> # function.h
+> #include <RcppArmadillo.h>
+> void addDouble(arma::sp_mat& mat, int row, int col, double value);
+> 
+> # function.cpp
+> #include <RcppArmadillo.h>
+> #include "function.h"
+> void addDouble(arma::sp_mat& mat, int row, int col, double value); {
+>   mat.at(row, col) += value;
+> }
+> ```
+
+**Kristian Ullrich** (08:58:38):
+> Sorry, will ask next time in another forum.
+
+**Dirk Eddelbuettel** (08:59:57) (in thread):
+> It's a very big tent and you can of course ask wherever you want and whatever you want.  But some places may be quicker to respond.  Also note that on Slack you can reply to a threaded comment in a thread.
+
+**Kristian Ullrich** (09:00:40) (in thread):
+> Thanks
+
+
+## 2024-04-09
+
+**Aidan Lakshman** (08:52:24):
+> quick question for people smarter than me--is there a better way to profile memory usage of an R expression that calls a lot of C code? I built R from source on a linux VM and then ran:
+> ```
+> valgrind --tool=massif trunk/bin/R -e "load library;single line function"
+> ```
+> but for some reason this seems to always return the exact same memory usage regardless of inputs. Notably,`sample(10,100000000,r=T)`and a no-op run had identical memory usage, which seeems incorrect. I did check Dirk’s older HPC presentations, but I wasn’t able to get`google-perftools`to work, mainly because I don’t seem to have a`/usr/bin/libprofiler.so`(or`/usr/local/bin/libprofiler.so`). valgrind seems to be the easiest to use, but I’m open to trying other options.
+> 
+> quick edit: I’m really just trying to measure the total memory footprint of the program, both C and R code. If there’s an option to do it on OSX that would be even better, but I haven’t been seeing many options outside of linux.
+> 
+> edit2: I seem to be having some degree of success using`/usr/bin/time -f "%E %U %S %K %M" /trunk/bin/R -e "script stuff"`for runtime (elapsed user system) and memory (average, max). If there are better solutions I’d love to hear them, since I know that`time`has some known issues
+
+*15:03:28 - @Alex Mahmoud has joined the channel*
+
+## 2024-04-10
+
+**Dirk Eddelbuettel** (07:34:49) (in thread):
+> You could use a sampling profiler.  I live on Linux but IIRC xrprof may work on macOS.[https://github.com/atheriel/xrprof](https://github.com/atheriel/xrprof)
+
+**Dirk Eddelbuettel** (07:54:22) (in thread):
+> Also Kirill got himself some R Consortium funding for an integrated profiler years ago and has something, but I keep forgetting where it is at.
+
+**Dirk Eddelbuettel** (07:56:16) (in thread):
+> Likely this which seems .... stale.[https://github.com/r-prof/jointprof](https://github.com/r-prof/jointprof)
+
+**Aidan Lakshman** (12:39:32) (in thread):
+> ah sweet, thank you Dirk! I’ll give these a try, I appreciate it
+
+**Aidan Lakshman** (12:40:48) (in thread):
+> One of these days I’ll switch my main computer to linux…every time I have to open a VM to run something like valgrind I get a little closer to making my main machine a linux box haha
+
+**Dirk Eddelbuettel** (12:42:14) (in thread):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F06TQ9TMU8J/image.png)
+
+
+## 2024-04-28
+
+*08:29:15 - @Danielle Callan has joined the channel*
+
+## 2024-09-16
+
+*06:22:54 - @Mike Morgan has joined the channel*
+
+## 2024-10-23
+
+*11:48:41 - @Sounkou Mahamane Toure has joined the channel*
+
+## 2025-01-17
+
+*09:04:24 - @Julian Stamp has joined the channel*
+
+## 2025-03-18
+
+*14:26:50 - @Andres Wokaty has joined the channel*

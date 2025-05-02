@@ -1,0 +1,116 @@
+---
+title: "#r7"
+format: gfm
+---
+
+
+## 2021-03-18
+
+*13:12:28 - @Michael Lawrence has joined the channel*
+**Michael Lawrence** (13:12:28):
+> set the channel description: Potential adoption of R7 within Bioconductor
+
+*13:13:56 - @Mike Smith has joined the channel*
+*13:16:14 - @Charlotte Soneson has joined the channel*
+*13:17:04 - @James MacDonald has joined the channel*
+*13:22:11 - @Martin Morgan has joined the channel*
+*13:22:37 - @Dirk Eddelbuettel has joined the channel*
+*13:39:40 - @Nathan Eastwood has joined the channel*
+*15:16:57 - @Henrik Bengtsson has joined the channel*
+*15:20:50 - @Sanchit Saini has joined the channel*
+*15:29:20 - @Peter Hickey has joined the channel*
+*17:33:43 - @Laurent Gatto has joined the channel*
+*17:57:29 - @Stuart Lee has joined the channel*
+
+## 2021-03-19
+
+*09:34:11 - @Vince Carey has joined the channel*
+
+## 2021-03-20
+
+*01:58:11 - @watanabe_st has joined the channel*
+
+## 2021-04-07
+
+**Mike Smith** (08:31:22):
+> Do any of the OOP paradigms in R have the concept of a destructor (maybe that's a finalizer with garbage collection)?  I was thinking about the S4 objects we use to represent HDF5 object handles, and how if you do`rm(h5_file_id)`without first doing`H5FClose(h5_file_id)`it leaves an open handle.   The same is true if you open something inside a function and forget to close.  Then it's lost to the user and we can be stuck with "this file is already open" style warnings.  I haven't really thought about the logistics, but it'd be cool if once there was no R object referencing an HDF5 handle it got closed automatically.
+
+**Michael Lawrence** (13:53:09):
+> Are you looking for`reg.finalizer()`?
+
+**Henrik Bengtsson** (18:07:41):
+> [R.oo](https://cran.r-project.org/web/packages/R.oo/index.html)calls S3 generic`finalize()`on any R.oo object`Object`when garbage collected, i.e. you can create custom finalizers by defining S3 methods.  It relies on`base::reg.finalizer()`internally.  It goes an extra mile to try to make it "reentrant", e.g. work also when***R.oo***has been unloaded when the finalizer is called, and other obscure things that can happen with finalizers.
+  - Attachment (cran.r-project.org): [R.oo: R Object-Oriented Programming with or without References](https://cran.r-project.org/web/packages/R.oo/index.html)
+    > Methods and classes for object-oriented programming in R with or without references. Large effort has been made on making definition of methods as simple as possible with a minimum of maintenance for package developers. The package has been developed since 2001 and is now considered very stable. This is a cross-platform package implemented in pure R that defines standard S3 classes without any tricks.
+
+**Michael Lawrence** (18:50:27):
+> The methods package’s reference classes have a similar feature. We are currently deferring reference classes though.
+
+**Dirk Eddelbuettel** (18:57:54):
+> And packages using compiled code often stick an external pointer object with an explicit finalizer call into their R6 or S4 structures.
+
+
+## 2021-04-08
+
+**Martin Morgan** (03:58:12):
+> I think`reg.finalizer`is not satisfactory for the purposes Mike mentions. The finalizer runs at a poorly specified time, so one can’t make any assumptions about available functions, other than base R (e.g., the package or even other state in a class definition may already have been garbage collected). The help page `?reg.finalizer` also says
+> ```
+> R's interpreter is not re-entrant and the finalizer could be run
+>      in the middle of a computation.  So there are many functions which
+>      it is potentially unsafe to call from 'f': one example which
+>      caused trouble is 'options'.  Finalizers are scheduled at garbage
+>      collection but only run at a relatively safe time thereafter.
+> ```
+> which makes it very difficult to know what exactly one is allowed to do. A robust finalizer mechanism would be a valuable feature in r7.
+
+**Michael Lawrence** (17:59:56):
+> Thanks for the suggestion. The ideal fix would be for`reg.finalizer()`to defer the finalizer call.
+
+
+## 2021-05-03
+
+*09:23:37 - @Malte Thodberg has joined the channel*
+
+## 2021-05-11
+
+*16:45:28 - @Megha Lal has joined the channel*
+
+## 2021-10-18
+
+*09:16:15 - @John Kerl has joined the channel*
+
+## 2022-01-28
+
+*11:14:14 - @Megha Lal has left the channel*
+
+## 2022-05-05
+
+*12:22:55 - @Aedin Culhane has joined the channel*
+
+## 2022-05-18
+
+*06:24:14 - @Vince Carey has left the channel*
+
+## 2023-03-17
+
+*00:48:42 - @Michael Milton has joined the channel*
+
+## 2023-08-04
+
+*14:22:38 - @Lucio Queiroz has joined the channel*
+
+## 2023-08-07
+
+*11:22:13 - @Jiaji George Chen has joined the channel*
+
+## 2023-08-25
+
+**Malte Thodberg** (10:00:15):
+> Is the plan for Bioconductor to adopt this in the long term?:[https://cran.r-project.org/web/packages/S7/index.html](https://cran.r-project.org/web/packages/S7/index.html)
+  - Attachment (cran.r-project.org): [S7: An Object Oriented System Meant to Become a Successor to S3 and S4](https://cran.r-project.org/web/packages/S7/index.html)
+    > A new object oriented programming system designed to be a successor to S3 and S4. It includes formal class, generic, and method specification, and a limited form of multiple dispatch. It has been designed and implemented collaboratively by the R Consortium Object-Oriented Programming Working Group, which includes representatives from R-Core, 'Bioconductor', 'Posit'/'tidyverse', and the wider R community.
+
+
+## 2024-08-14
+
+*22:34:54 - @Kylie Bemis has joined the channel*

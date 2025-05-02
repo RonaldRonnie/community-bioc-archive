@@ -1,0 +1,735 @@
+---
+title: "#proteomics"
+format: gfm
+---
+
+
+## 2020-03-23
+
+*10:23:09 - @Sean Davis has joined the channel*
+**Sean Davis** (10:23:09):
+> set the channel description: Discuss all things protein and bioc related
+
+**Sean Davis** (10:24:53):
+> [https://pdc.cancer.gov/](https://pdc.cancer.gov/)
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F0107T542SX/image.png)
+
+**Sean Davis** (10:26:19):
+> set the channel description: Discuss all things bioconductor proteomics related
+
+*10:26:24 - @Kevin Blighe has joined the channel*
+*10:42:55 - @kipper fletez-brant has joined the channel*
+*11:31:13 - @Laurent Gatto has joined the channel*
+*11:44:38 - @Lukas Weber has joined the channel*
+*12:41:45 - @Mikhail Dozmorov has joined the channel*
+*17:49:05 - @Sergi Sayols has joined the channel*
+
+## 2020-03-26
+
+*14:35:34 - @olga tsiouri has joined the channel*
+
+## 2020-04-06
+
+*11:28:54 - @Chong Tang has joined the channel*
+
+## 2020-04-19
+
+*11:19:24 - @Shubham Gupta has joined the channel*
+
+## 2020-06-06
+
+*19:58:30 - @Olagunju Abdulrahman has joined the channel*
+
+## 2020-06-12
+
+*09:50:47 - @Johannes Rainer has joined the channel*
+
+## 2020-07-07
+
+*02:57:15 - @Vivek Das has joined the channel*
+
+## 2020-07-15
+
+*09:21:33 - @wmuehlhaeuser has joined the channel*
+
+## 2020-07-16
+
+*04:10:54 - @Pedro Baldoni has joined the channel*
+
+## 2020-07-24
+
+*07:46:35 - @Isha Goel has joined the channel*
+
+## 2020-07-30
+
+*16:29:35 - @Antonio Colaprico has joined the channel*
+
+## 2020-07-31
+
+*03:16:13 - @Saulius Lukauskas has joined the channel*
+
+## 2020-08-05
+
+*13:45:51 - @shr19818 has joined the channel*
+
+## 2020-08-06
+
+*03:18:10 - @Nitesh Mani has joined the channel*
+
+## 2020-10-19
+
+*08:41:25 - @Lukas Weber has left the channel*
+
+## 2020-10-23
+
+*08:18:20 - @Rebecca Howard has joined the channel*
+
+## 2020-11-19
+
+*08:30:31 - @Kevin Blighe has joined the channel*
+
+## 2020-12-02
+
+*05:43:50 - @Konstantinos Geles (Constantinos Yeles) has joined the channel*
+
+## 2020-12-12
+
+*00:38:59 - @Huipeng Li has joined the channel*
+
+## 2020-12-14
+
+*08:56:13 - @Thomas Naake has joined the channel*
+
+## 2020-12-17
+
+*11:13:23 - @James MacDonald has joined the channel*
+
+## 2020-12-18
+
+*15:45:40 - @Olly Crook has joined the channel*
+
+## 2021-01-18
+
+*05:21:14 - @Robert Castelo has joined the channel*
+
+## 2021-01-22
+
+*15:45:11 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-01-29
+
+*04:48:28 - @mariadermit has joined the channel*
+
+## 2021-02-17
+
+*16:07:50 - @abdullah hanta has joined the channel*
+
+## 2021-02-19
+
+**Robert Castelo** (11:53:20):
+> hi, i guess i can use this channel for the following kind of question. i’m playing around with peptide identification from RAW data of an Obitrap instrument. After converting the a RAW file into an mzML file using the[ThermoRawFileParser](https://github.com/compomics/ThermoRawFileParser)i ran a peptide search using the[MSGFplus](https://bioconductor.org/packages/MSGFplus)package and its function`runMSGF()`, which returns an`mzID`object. Using the`flatten()`function from the[mzID](https://bioconductor.org/packages/mzID)package i converted the`mzID`object into a`data.frame`object. i noticed, however, that while there was an E-value column, the table had no q-value column to help selecting the detected proteins. i have two questions about this:
+> 1. By inspecting the code of`MSGFplus:::getMSGFplus()`i noticed that the version of MS-GF+ run by the[MSGFplus](https://bioconductor.org/packages/MSGFplus)package dates back to 2014. If i download the most[recent](https://github.com/MSGFPlus/msgfplus/releases)version of MS-GF+ (release Jan 8th, 2021) and i execute it on the command-line, then i do get an output`.mzid`file with q-values. Do you know if is there any particular reason, such as licensing, by which the version of MS-GF+ in the MSGFplus package has not been updated since 2014?
+> 2. After running MS-GF+ in the command line, i can either read the resulting`.mzid`file into a`data.frame`object in R using the`mzID()`and`flatten()`functions from the[mzID](https://bioconductor.org/packages/mzID)package, or convert the`.mzid`file into a tab-separated`.tsv`file on the command line using the[MzidToTsvConverter](https://msgfplus.github.io/msgfplus/MzidToTsv.html)tool. If i do the former, i get a`data.frame`object with 17,710 rows, while if i do the latter i get 17,634 rows. Selecting proteins with q-value 0.01 i get from both outputs 640 proteins, but using a cutoff of 0.05 i get 901 with the former way and 891 with the latter. Do you know why the`.mzid`to table conversion might be different between the mzID package and the command-line tool MzidToTsvConverter?
+> Thanks!
+
+**Laurent Gatto** (12:38:26):
+> The developer of MSGF+ has moved on, and thus the package isn't further developed. I personally run MSGF+ from the command line and import the mzID files in R using`mzID::mzID`and then flatten, or`MSnbase::readMzIdData`(or the more recent`PSM::readPSMs`- under development). Another useful package for the FDR analysis of these PSMS is`MSnID`.
+
+**Robert Castelo** (12:47:42):
+> I see, probably then MSGFplus should be deprecated, but thanks for the tips. Do you also have a tip to estimate protein abundances from the output of MSGF+?
+
+
+## 2021-02-24
+
+**Laurent Gatto** (17:04:25):
+> As far as I know, MSGF+ doesn't do any quantitation. So the only option you have is spectral counting.
+
+
+## 2021-02-25
+
+**Robert Castelo** (13:16:00):
+> Thanks Laurent, is it the right entry point to learn about how to do spectral counting this[vignette](http://bioconductor.org/packages/release/bioc/vignettes/MSnID/inst/doc/msnid_vignette.pdf)from the[MSnID](https://bioconductor.org/packages/MSnID)package and then using the`combineFeatures()`function from the[MSnbase](https://bioconductor.org/packages/MSnbase)package to estimate protein level abundance?
+
+**Laurent Gatto** (17:59:10):
+> Yes, MSnID is a nice package. As for`combineFeatures()`, I would recommend the new (and better)`QFeatures::aggregateFeatures()`
+
+
+## 2021-03-16
+
+*04:29:00 - @Tobias Kockmann has joined the channel*
+**Tobias Kockmann** (04:31:35):
+> :wave:
+
+**Tobias Kockmann** (04:32:32):
+> So this is the place where the hot topics are being discussed?
+
+**Tobias Kockmann** (04:51:15):
+> Is somebody from the bioc core team around that could answer questions regarding the submission/test system?
+
+**Laurent Gatto** (05:48:39) (in thread):
+> I suggest you tag directly people that you would like to add to the conversion, for instance the reviewer of your package.
+
+**Tobias Kockmann** (06:01:29) (in thread):
+> Maybe a stupid question: Does it work even if people are not part of the channel?
+
+**Johannes Rainer** (06:10:27) (in thread):
+> that should work, I believe
+
+**Tobias Kockmann** (06:48:02):
+> Hi@Hervé Pagès! Maybe we can discuss some aspects of your suggestion regarding[https://github.com/Bioconductor/Contributions/issues/1886#](https://github.com/Bioconductor/Contributions/issues/1886#)here if you don't mind.
+
+**Tobias Kockmann** (06:56:03):
+> I was wondering: Given that i) we (FGCZ) or Thermo would be able/willing to host the RawFileReader DLLs and ii) the package would be able to download them on demand, how would the bioc build/test system deal with the fact that manual user intervention would be required (asking the user to agree to the sub licence)? Is there a mechanism one could use? Could you point us to a running example (bioc package)?
+
+**Tobias Kockmann** (06:57:22) (in thread):
+> ok. let's see what happens...
+
+**Tobias Kockmann** (07:19:10) (in thread):
+> You are of course also welcome to join the discussion!
+
+*12:03:55 - @Hervé Pagès has joined the channel*
+**Hervé Pagès** (12:45:10):
+> Good question. One way to deal with this would be to ask for user agreement only when in interactive mode (`if interactive()`). Then everything would happen automatically on the build machines. However this is not really satisfying because it means that the DLLs could also get silently installed on the user machine e.g. in the (unlikely) situation where the user runs`R CMD check`on the package source tarball or on any package source tarball that depends on***rawrr***.
+> So rather than performing an automatic install, I think that a better approach maybe is that you provide a utility function that the user needs to**explicitly**call to install the DLLs, say`install_RawFileReader_DLLs()`. This is what***reticulate***does with`virtualenv_install()`. No automatic install means the user can't miss the question about licence agreement. Also it's nice to be able to install the DLLs ahead of time rather than having to agree on a licence in the middle of an analysis. The package should display a message at load time encouraging the user to do that (by just calling`install_RawFileReader_DLLs()`). Every function that requires the DLLs will still need to display a message asking the user to call`install_RawFileReader_DLLs()`if the DLLs are not found. As mentioned in the submission,`install_RawFileReader_DLLs()`should install the DLLs in a place owned by the user. Something like`tools::R_user_dir("rawrr", which="cache")`would probably be a good place for this.
+> Finally it should also be possible to manually download and install the DLLs in an arbitrary location, and to set some environment variable to the path where they are to be found. Then we would use this to install the DLLs once for all on the build machines.
+
+
+## 2021-03-17
+
+**Tobias Kockmann** (03:04:33):
+> ok. Looks like everyone agrees that this is technically feasible.
+
+**Tobias Kockmann** (03:07:41):
+> I contacted two people at Thermo (incl. Jim) and got no replies...not even an out of office reply. I honestly don't expect that anyone there will be willing to help or change the RawFileReader distribution system. This means: We (the FGCZ) would need to host the DLLs.
+
+*05:55:59 - @Vince Carey has joined the channel*
+
+## 2021-03-18
+
+**Olly Crook** (05:44:57) (in thread):
+> Tobias who are your contacts at Thermo, we might be able to help?
+
+**Tobias Kockmann** (05:46:26) (in thread):
+> I contacted Jim Shofstahl the maintainer of the RawFileReader.[https://planetorbitrap.com/rawfilereader](https://planetorbitrap.com/rawfilereader)
+
+**Tobias Kockmann** (05:47:06) (in thread):
+> and Bernard Delanghe from the pd team.
+
+**Olly Crook** (05:50:29) (in thread):
+> seems the most sensible, might be worth contacting the proteomics team lead if you still hear nothing
+
+**Tobias Kockmann** (05:50:57) (in thread):
+> Who would that be?
+
+**Olly Crook** (05:51:14) (in thread):
+> Rosa Viner
+
+**Tobias Kockmann** (05:51:31) (in thread):
+> Thermo has turned into a jungle and everyone is a general manager/director of something
+
+**Tobias Kockmann** (05:52:48) (in thread):
+> Is that her?[https://www.thermofisher.com/ch/en/home/global/forms/industrial/ms-toolbox-for-structural-biology.html](https://www.thermofisher.com/ch/en/home/global/forms/industrial/ms-toolbox-for-structural-biology.html)
+  - Attachment (thermofisher.com): [MS Toolbox for Structural Biology | Thermo Fisher Scientific - US](https://www.thermofisher.com/ch/en/home/global/forms/industrial/ms-toolbox-for-structural-biology.html)
+    > Q Exactive UHMR MS enables the characterization of megadalton complexes and dynamic structure-function relationships.
+
+**Olly Crook** (05:52:49) (in thread):
+> haha, that make sense, we've had communication issues previously and she is usually responsive
+
+**Tobias Kockmann** (05:53:26) (in thread):
+> Senior vertical manager for ...
+
+**Tobias Kockmann** (05:53:40) (in thread):
+> :stuck_out_tongue_winking_eye:
+
+**Tobias Kockmann** (06:00:52) (in thread):
+> [rosa.viner@thermofisher.com](mailto:rosa.viner@thermofisher.com)
+
+**Tobias Kockmann** (06:01:47) (in thread):
+> ok. Thanks@Olly Crookfor your suggestion. If we get no reply soonish I will give it a try.
+
+**Olly Crook** (06:04:24) (in thread):
+> no problem, yeah that's her, she's been helping us with problems we've had with tune software for the MS. So you might get a reply from her
+
+
+## 2021-03-19
+
+*04:30:14 - @Christian Panse has joined the channel*
+
+## 2021-03-20
+
+*01:58:09 - @watanabe_st has joined the channel*
+
+## 2021-04-01
+
+*16:26:45 - @Simina Boca has joined the channel*
+
+## 2021-04-07
+
+*10:36:39 - @KP has joined the channel*
+
+## 2021-04-08
+
+**Tobias Kockmann** (10:11:44) (in thread):
+> Update: Still no answer from Jim.
+
+**Tobias Kockmann** (10:13:18) (in thread):
+> Bernard replied: "The chances to have any of the points mentioned, changed or removed is close to zero."
+
+**Tobias Kockmann** (10:28:34) (in thread):
+> I'm - as always - amazed by the level of service that Thermo provides to customers that have literally spend millions of EUR for their hardware during the last decade!
+
+**Olly Crook** (10:40:02) (in thread):
+> That seems astonishingly unhelpful...
+
+
+## 2021-04-28
+
+*17:51:40 - @Mateusz Staniak has joined the channel*
+
+## 2021-05-11
+
+*16:45:27 - @Megha Lal has joined the channel*
+
+## 2021-05-22
+
+*16:00:51 - @Moritz E. Beber has joined the channel*
+
+## 2021-05-24
+
+*15:57:13 - @António Domingues has joined the channel*
+**António Domingues** (16:09:35):
+> Proteomics beginner here. I have playing around with some pre-processed TMT data, processed externally using the Gygi lab pipeline, but I am struggling on the "best" way to normalize the data in order to remove batch effects. Is there a consensus in the field or suggestions? The goal is to compare prot abundance between conditions from different TMT runs (one treatment is common between those runs). I have been playing with IRS but since the data I got is`summed intensities - noise`and most methods use "raw intensities", I am considering processing the RAW files using`MaxQuant`with matched runs. Differential abundance analysis will probably be done with`EdgeR`but I am agnostic on this point - I have seen people using`DESeq.`Cheers
+
+
+## 2021-05-25
+
+**Pedro Baldoni** (05:08:57) (in thread):
+> Also a proteomics beginner here. I don't quite follow the rationale behind using edgeR or DESeq to model intensities. Why not use limma and its framework for normalization and batch effect adjustment?
+
+**António Domingues** (05:10:10) (in thread):
+> Oh yes, I mentioned those two, but limma is very much on my radar. In fact I m now trying`limma::removebatcheffects`
+
+**António Domingues** (05:11:05) (in thread):
+> It's just that each paper / groups seems to use a different approach and it's hard to know which one is "standard" - maybe there isn't one
+
+**Olly Crook** (05:54:02) (in thread):
+> Happy to discuss if you need help, can recommend our package:[https://bioconductor.org/packages/release/bioc/html/msqrob2.html](https://bioconductor.org/packages/release/bioc/html/msqrob2.html). I'd also recommend reading[https://academic.oup.com/biostatistics/article/17/1/29/1744261?login=true](https://academic.oup.com/biostatistics/article/17/1/29/1744261?login=true)as even if you "remove" batch effects you can be tricking yourself. Can also recommend MSstatsTMT which can handle multiple TMT runs from summarised or raw data.
+
+**António Domingues** (07:28:28) (in thread):
+> Thanks a lot@Olly Crook! It seems interesting but is it only for label-free data? The paper's titles and the vignette indicate so and I happen to have TMT data
+
+**Olly Crook** (07:30:10) (in thread):
+> We've checked it works on TMT data too, just haven't uploaded the vignettes yet
+
+
+## 2021-05-29
+
+**Tobias Kockmann** (03:34:58) (in thread):
+> Have a look at[https://msstats.org/msstatstmt/](https://msstats.org/msstatstmt/)
+
+**Tobias Kockmann** (03:44:28) (in thread):
+> I am not sure how well tools like edgeR or DESeq can be used for TMT data. To my knowledge both assume count data (since they were developed for short read sequencing). I would be surprised if reporter ion intensities would behave like that.
+
+**Tobias Kockmann** (03:48:23) (in thread):
+> msstatstmt also support MQ output directly.
+
+**Tobias Kockmann** (03:50:45) (in thread):
+> Be careful with comparisons between conditions measured in different TMT runs. Normalisation across runs (TMT nplex sets) is not a trivial thing.
+
+**António Domingues** (03:52:47) (in thread):
+> That last point is my main concern. A test I ran a couple if days ago indicated that limma removebatcheffects followed by SVN normalisation does a decent job at removing batch effects, but this was one test
+
+**António Domingues** (03:53:56) (in thread):
+> MQ recently published a new normalisation method, and TMT match between runs that seems to work. I haven't tested that yet
+
+**Tobias Kockmann** (03:58:19) (in thread):
+> Olgas paper might answer some questions regarding edgeR vs. MSstats
+
+**Tobias Kockmann** (03:58:21) (in thread):
+> [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8015007/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8015007/)
+  - Attachment (PubMed Central (PMC)): [MSstatsTMT: Statistical Detection of Differentially Abundant Proteins in Experiments with Isobaric Labeling and Multiple Mixtures](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8015007/)
+    > HighlightsTandem mass tag (TMT) is a multiplexing technology widely-used in proteomic research. It enables relative quantification of proteins from multiple biological samples in a single MS run with high efficiency and high throughput. However, experiments ...
+
+
+## 2021-06-04
+
+*04:21:24 - @Izaskun Mallona has joined the channel*
+*05:52:17 - @Flavio Lombardo has joined the channel*
+
+## 2021-06-20
+
+*12:15:51 - @Charlotte Soneson has joined the channel*
+
+## 2021-07-16
+
+**Flavio Lombardo** (08:31:30) (in thread):
+> @António DominguesHi there!
+> Do you have any rationale or reference for the use of DESeq2 for proteomics data?
+> Thanks
+
+
+## 2021-07-18
+
+**António Domingues** (16:31:52) (in thread):
+> Hi@Flavio Lombardo, saddly I can't find the reference for that. So all signs point for`DEseq2`not being commonly used in proteomics.`limma`on the other hand is pretty often used
+
+
+## 2021-07-23
+
+*15:53:53 - @Batool Almarzouq has joined the channel*
+
+## 2021-08-04
+
+*11:46:45 - @Chris Vanderaa has joined the channel*
+
+## 2021-08-26
+
+*06:13:35 - @Hervé Pagès has left the channel*
+
+## 2021-09-09
+
+*01:58:58 - @Julien Roux has joined the channel*
+
+## 2021-10-04
+
+**António Domingues** (04:42:35) (in thread):
+> I found a reference@Flavio Lombardo:[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6834362/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6834362/)
+  - Attachment (PubMed Central (PMC)): [Proximity RNA labeling by APEX-Seq Reveals the Organization of Translation Initiation Complexes and Repressive RNA Granules](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6834362/)
+    > Diverse ribonucleoprotein complexes control messenger RNA processing, translation, and decay. Transcripts in these complexes localize to specific regions of the cell and can condense into non-membrane-bound structures such as stress granules. It has proven ...
+
+
+## 2022-01-03
+
+*17:05:05 - @Kurt Showmaker has joined the channel*
+
+## 2022-01-28
+
+*11:14:12 - @Megha Lal has left the channel*
+
+## 2022-02-10
+
+*03:45:18 - @Susanna has joined the channel*
+
+## 2022-03-30
+
+*23:20:43 - @Sergio Oller has joined the channel*
+
+## 2022-05-05
+
+*12:22:34 - @Aedin Culhane has joined the channel*
+
+## 2022-05-16
+
+*07:04:20 - @Pedro Sanchez has joined the channel*
+
+## 2022-06-12
+
+*12:37:45 - @Karat Sidhu has joined the channel*
+
+## 2022-07-22
+
+*14:47:21 - @Gary Sieling has joined the channel*
+
+## 2022-07-28
+
+*09:46:58 - @Will t has joined the channel*
+
+## 2022-08-01
+
+*20:47:20 - @Sriya Malladi has joined the channel*
+
+## 2022-08-30
+
+*07:17:02 - @Lisa Breckels has joined the channel*
+
+## 2022-09-27
+
+*16:15:41 - @Jennifer Holmes has joined the channel*
+*22:15:00 - @vin has joined the channel*
+
+## 2022-12-13
+
+*18:32:40 - @Xiangnan Xu has joined the channel*
+
+## 2022-12-15
+
+*09:39:05 - @Mercilena Benjamin has joined the channel*
+
+## 2023-01-10
+
+*10:48:05 - @Vince Carey has left the channel*
+
+## 2023-02-28
+
+*15:31:35 - @Ramin has joined the channel*
+
+## 2023-03-01
+
+*12:13:36 - @jeremymchacón has joined the channel*
+
+## 2023-06-23
+
+*15:25:15 - @Carlos José Ferreira da Silva has joined the channel*
+
+## 2023-06-29
+
+*12:22:19 - @Leo Lahti has joined the channel*
+**Leo Lahti** (12:22:46):
+> Recommendations on R tools to run enrichment analyses on Uniprot IDs?
+
+
+## 2023-06-30
+
+**Laurent Gatto** (05:25:57):
+> I don't know of anything that uses uniprot IDs immediately, and if a tool does, I would bet it converts the ids to entrez or ensembl ids behind the scenes. So I think you a better off converting yourself, to check one-to-many or non-matching ids, and use your preferred option.
+
+**Leo Lahti** (06:53:21):
+> Thanks Laurent, this is what I was thinking we could do anyway but as not too familiar with proteomics, preferred to check if there would have been something more established.
+
+
+## 2023-07-17
+
+*09:09:06 - @Jacob Krol has joined the channel*
+
+## 2023-07-27
+
+*07:37:17 - @Louise Morlot has joined the channel*
+
+## 2023-07-28
+
+*13:47:53 - @Konstantinos Daniilidis has joined the channel*
+*15:58:25 - @Benjamin Yang has joined the channel*
+
+## 2023-08-03
+
+*10:51:40 - @Jill Lundell has joined the channel*
+
+## 2023-09-03
+
+*09:52:23 - @Lea Seep has joined the channel*
+
+## 2023-09-13
+
+*17:04:29 - @Christopher Chin has joined the channel*
+
+## 2023-09-15
+
+*04:56:06 - @Leo Lahti has joined the channel*
+
+## 2023-11-21
+
+*05:39:04 - @Konstantinos Geles (Constantinos Yeles) has left the channel*
+
+## 2023-12-27
+
+*10:23:16 - @Cherishma Subhasa has joined the channel*
+
+## 2024-02-12
+
+*12:34:05 - @Ludwig Geistlinger has joined the channel*
+**Ludwig Geistlinger** (12:34:57):
+> Likely also of interest for this channel
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C05T623KSJE/p1707750565558749)
+    > We are excited to announce our upcoming town hall on **AI applications for protein structure prediction**. Join us March 05, 10 AM - 1 PM ET, for talks and discussions with leading experts from academia and industry!
+
+
+## 2024-03-11
+
+*10:12:45 - @Melysssa Minto has joined the channel*
+
+## 2024-03-26
+
+*16:12:04 - @Sara m.morsy has joined the channel*
+
+## 2024-04-28
+
+*08:36:41 - @Danielle Callan has joined the channel*
+
+## 2024-07-02
+
+*11:00:04 - @Diána Pejtsik has joined the channel*
+
+## 2024-07-11
+
+*07:55:03 - @Adam has joined the channel*
+
+## 2024-07-18
+
+*06:14:37 - @Sudipta Hazra has joined the channel*
+**Sudipta Hazra** (06:26:29) (in thread):
+> **Sorry, didn't notice it is a pretty old post**
+> 
+> Hi Leo,
+> You can follow this for ORA also they have made documentation of GSEA,[https://learn.gencore.bio.nyu.edu/rna-seq-analysis/over-representation-analysis/](https://learn.gencore.bio.nyu.edu/rna-seq-analysis/over-representation-analysis/)To use the same codes for UniProt Accession number in enrichGO and enrichKEGG in keyType use "UNIPROT" and "uniprot", respectively. It should work. Only for pathview, you might have to convert UNIPROT Accession to EntrezID using bitr. I couldn't do that directly with UniProt ID.
+> 
+> Additional information: there is a function called GOSemSim and simplify from Cluster profiler to remove redundant terms from your GO Analysis, which is not mentioned in this article.
+  - Attachment (NGS Analysis): [Over-Representation Analysis with ClusterProfiler](https://learn.gencore.bio.nyu.edu/rna-seq-analysis/over-representation-analysis/)
+    > Visit the post for more.
+
+**Laurent Gatto** (08:00:27) (in thread):
+> I think I noticed a couple of days ago running`enrichGO()`and`enrichKEGG()`using ncbi-geneid and uniprot did not produce the same results.
+
+
+## 2024-07-20
+
+**Leo Lahti** (12:05:54) (in thread):
+> :nerd_face:
+
+
+## 2024-07-23
+
+*15:21:45 - @Tuulu has joined the channel*
+*17:40:02 - @Shaurita has joined the channel*
+
+## 2024-08-01
+
+**Sudipta Hazra** (06:04:49):
+> Hi I am facing a issue regarding assumption checking for the Statistical Test for Differential Expression Analysis.
+> 
+> I have to perform a factorial Anova for my Proteomics Data, I have three factors (each with 2 level/ treatment), 
+> Problem is in assumption checking, the data is violating assumption of normality for ANOVA (I am getting many of the Proteins to be skewed and also failing at Shapiro wilk test).
+> 
+> In the data pre-processing, I have performed, 
+> 1. Log10 transformation and Pareto Scaling, 
+> 2. Later I was trying to perform sample specific normalization 
+> 3. Quantile Normalization addition to log 10 and  Pareto Scaling.
+> 
+> But still the assumptions are violated. I am not thinking of non-parametric tests as I am also interested in interaction terms.
+> 
+> If anyone has any suggestions on this that will be of great help.
+
+
+## 2024-08-15
+
+*07:31:40 - @Dominik Burri has joined the channel*
+
+## 2024-08-16
+
+**Sudipta Hazra** (07:04:21):
+> Hi,
+> While using **readSummarizedExperiment()** , I don't see any **colData** input to add the sample information data.frame, though it can be added all columns of sample data, one at a time. 
+> 
+> Is there any other way to add a data frame of sample information at once, it saves time when I have multiple columns in my sample information.
+
+**Laurent Gatto** (12:36:46):
+> No, you can add a`DataFrame`object with`colData(se) <- ...`. See also`?readQFeatures`in the latest[devel version of QFeatures](https://rformassspectrometry.github.io/QFeatures/reference/readQFeatures.html)for more details, which now allows to import more complex data with multiple assays.
+  - Attachment (rformassspectrometry.github.io): [QFeatures from tabular data — readQFeatures](https://rformassspectrometry.github.io/QFeatures/reference/readQFeatures.html)
+    > These functions convert tabular data into dedicated data
+    > objets. The readSummarizedExperiment() function takes a file
+    > name or data.frame and converts it into a
+    > SummarizedExperiment() object. The readQFeatures() function
+    > takes a data.frame and converts it into a QFeatures object
+    > (see QFeatures() for details). For the latter, two use-cases
+    > exist:
+    > The single-set case will generate a QFeatures object with a
+    > single SummarizedExperiment containing all features of the
+    > input table.
+    > The multi-set case will generate a QFeatures object containing
+    > multiple SummarizedExperiments, resulting from splitting the
+    > input table. This multi-set case is generally used when the
+    > input table contains data from multiple runs/batches.
+
+
+## 2024-08-19
+
+*09:38:18 - @Rema Gesaka has joined the channel*
+
+## 2024-08-20
+
+**Sudipta Hazra** (11:18:59) (in thread):
+> That's helpful thank you so much:grin:
+
+
+## 2024-10-10
+
+*20:47:00 - @Larissa T Grizzo Thomassian has joined the channel*
+
+## 2024-10-18
+
+**Sudipta Hazra** (05:48:48):
+> I have a question that might not be directly related to Bioconductor:
+> 
+> How can I calculate fold change in a multifactorial design? For example, in an LFQ proteomics context, if I have a two-factor design like this:
+> 
+> Factor1 <- c(A,A,A,A, B,B,B,B)  # 2 levels
+> Factor2 <- c(a,b,c,d, a,b,c,d)  # 4 levels
+> 
+> I want to calculate the fold change between A and B, but simply doing mean(Response) for level A/mean(Response) for level B, would not account for the variation introduced by Factor2.
+> 
+> How should I account for the effect of Factor2 in this calculation?
+> 
+> If you have any suggestions for relevant reading material, that would be a great help.
+
+
+## 2024-10-21
+
+*10:26:37 - @Ramon Massoni-Badosa has joined the channel*
+
+## 2024-10-22
+
+**Ramon Massoni-Badosa** (03:49:03):
+> Hi all! Following up on[this](https://community-bioc.slack.com/archives/C010JTDT6TW/p1613753600017300)old post from@Robert Casteloand@Laurent Gatto: I just downloaded RAW files from[this paper](https://www.nature.com/articles/s41467-022-33385-8), and I would like to test whether the peptide[CLLU1](https://db.systemsbiology.net/sbeams/cgi/PeptideAtlas/GetProtein?atlas_build_id=572&protein_name=Q5K131&action=QUERY)is detected there. What would be the best way of doing it? I've seen that the MSGFplus package has been deprecated. Thank you![https://community-bioc.slack.com/archives/C010JTDT6TW/p1613753600017300](https://community-bioc.slack.com/archives/C010JTDT6TW/p1613753600017300)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C010JTDT6TW/p1613753600017300)
+    > hi, i guess i can use this channel for the following kind of question. i’m playing around with peptide identification from RAW data of an Obitrap instrument. After converting the a RAW file into an mzML file using the [ThermoRawFileParser](https://github.com/compomics/ThermoRawFileParser) i ran a peptide search using the [MSGFplus](https://bioconductor.org/packages/MSGFplus) package and its function `runMSGF()`, which returns an `mzID` object. Using the `flatten()` function from the [mzID](https://bioconductor.org/packages/mzID) package i converted the `mzID` object into a `data.frame` object. i noticed, however, that while there was an E-value column, the table had no q-value column to help selecting the detected proteins. i have two questions about this:
+    > 1. By inspecting the code of `MSGFplus:::getMSGFplus()` i noticed that the version of MS-GF+ run by the [MSGFplus](https://bioconductor.org/packages/MSGFplus) package dates back to 2014. If i download the most [recent](https://github.com/MSGFPlus/msgfplus/releases) version of MS-GF+ (release Jan 8th, 2021) and i execute it on the command-line, then i do get an output `.mzid` file with q-values. Do you know if is there any particular reason, such as licensing, by which the version of MS-GF+ in the MSGFplus package has not been updated since 2014?
+    > 2. After running MS-GF+ in the command line, i can either read the resulting `.mzid` file into a `data.frame` object in R using the `mzID()` and `flatten()` functions from the [mzID](https://bioconductor.org/packages/mzID) package, or convert the `.mzid` file into a tab-separated `.tsv` file on the command line using the [MzidToTsvConverter](https://msgfplus.github.io/msgfplus/MzidToTsv.html) tool. If i do the former, i get a `data.frame` object with 17,710 rows, while if i do the latter i get 17,634 rows. Selecting proteins with q-value 0.01 i get from both outputs 640 proteins, but using a cutoff of 0.05 i get 901 with the former way and 891 with the latter. Do you know why the `.mzid` to table conversion might be different between the mzID package and the command-line tool MzidToTsvConverter?
+    > Thanks!
+  - Attachment (Nature): [Proteogenomics refines the molecular classification of chronic lymphocytic leukemia](https://www.nature.com/articles/s41467-022-33385-8)
+    > Nature Communications - Proteomics can be used to refine cancer classification. Here, the authors characterise chronic lymphocytic leukaemia patients by proteogenomics, and identified a subtype of...
+
+**Robert Castelo** (04:46:54):
+> Hi@Ramon Massoni-Badosayou may take a look to the first 15 slides from[this presentation](https://functionalgenomics.upf.edu/courses/IEO/proteomics)that jointly with Eduard Sabidó, head of our proteomics core facility, we currently do to our MSc students (probably we were not doing this proteomics session when you were doing this master:wink:), where we use MSGFplus for peptide search and the Bioconductor package[rawrr](https://bioconductor.org/packages/rawrr)and the CRAN package[protViz](https://cran.r-project.org/package=protViz)to peek at the raw data and peaks of the hits found by MSGFplus. Probably others in this channel may have different suggestions of software to use for that purpose. I'm not doing proteomics research and I just found these three pieces of software good enough to meet our needs for teaching. These slides do not cover protein quantification, and in the work that we did with Eduard and led to the data we use in the slides, we used[MaxQuant](https://www.maxquant.org)for that step. You may find full details on that specific proteomic analysis in the methods section of our[paper](https://doi.org/10.1111/febs.15578).
+  - Attachment (Bioconductor): [rawrr](https://bioconductor.org/packages/rawrr)
+    > This package wraps the functionality of the RawFileReader .NET assembly. Within the R environment, spectra and chromatograms are represented by S3 objects. The package provides basic functions to download and install the required third-party libraries. The package is developed, tested, and used at the Functional Genomics Center Zurich, Switzerland.
+  - Attachment (cran.r-project.org): [protViz: Visualizing and Analyzing Mass Spectrometry Related Data in Proteomics](https://cran.r-project.org/package=protViz)
+    > Helps with quality checks, visualizations and analysis of mass spectrometry data, coming from proteomics experiments. The package is developed, tested and used at the Functional Genomics Center Zurich [https://fgcz.ch]([https://fgcz.ch)](https://fgcz.ch)). We use this package mainly for prototyping, teaching, and having fun with proteomics data. But it can also be used to do data analysis for small scale data sets.
+
+**Ramon Massoni-Badosa** (04:56:05):
+> that's incredible! gràcies mestre@Robert Castelo!!
+
+
+## 2024-11-21
+
+*05:05:35 - @Tehniyat zahra has joined the channel*
+
+## 2024-12-11
+
+*22:00:13 - @Paul Myers has joined the channel*
+
+## 2024-12-27
+
+*17:28:27 - @Zahraa W Alsafwani has joined the channel*
+
+## 2024-12-28
+
+*07:56:11 - @Pascal-Onaho has joined the channel*
+
+## 2025-01-09
+
+*11:40:24 - @Ammar Sabir Cheema has joined the channel*
+
+## 2025-02-11
+
+*08:18:43 - @Carlo Pecoraro has joined the channel*
+
+## 2025-03-11
+
+**Carlo Pecoraro** (12:05:15):
+> Hi all,
+> There are the last few seats for the upcoming Physalia online course,***R/Bioconductor for Mass Spectrometry and Proteomics***, taking place online from***March 17-19***.
+> 
+> Course website:[https://www.physalia-courses.org/courses-workshops/course58/](https://www.physalia-courses.org/courses-workshops/course58/)This hands-on course will guide you through the analysis of mass spectrometry (MS) data using R and Bioconductor. Learn how to handle raw MS data, identify and quantify proteins, and perform statistical analysis for proteomics research.
+> 
+> 
+> A basic working knowledge of R (data frames, vectors, syntax) is required. Familiarity with MS or Bioconductor is helpful but not essential, as we provide a comprehensive introduction.
+  - Attachment (physalia-courses): [R/Bioconductor for Mass Spectrometry and Proteomics](https://www.physalia-courses.org/courses-workshops/course58/)
+    > Dates 17-19 March 2025 To foster international participation, this course will be held online
+
+
+## 2025-03-18
+
+*15:01:06 - @Nicolo has joined the channel*
+
+## 2025-04-18
+
+*04:42:49 - @Juan Henao has joined the channel*

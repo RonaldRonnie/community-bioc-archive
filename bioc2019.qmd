@@ -1,0 +1,1921 @@
+---
+title: "#bioc2019"
+format: gfm
+---
+
+
+## 2018-11-10
+
+*08:25:12 - @Levi Waldron has joined the channel*
+**Levi Waldron** (08:25:12):
+> set the channel description: Discussion related to bioc2019
+
+*08:25:12 - @Peter Hickey has joined the channel*
+*08:25:12 - @Michael Lawrence has joined the channel*
+*08:25:12 - @Martin Morgan has joined the channel*
+*08:25:12 - @Laurent Gatto has joined the channel*
+*08:25:12 - @hcorrada has joined the channel*
+*08:25:12 - @Lori Shepherd has joined the channel*
+*08:25:12 - @Sean Davis has joined the channel*
+*08:25:12 - @Wolfgang Huber has joined the channel*
+*08:25:12 - @Lorena Pantano has joined the channel*
+*08:25:13 - @Matthew McCall has joined the channel*
+*08:25:13 - @Aedin Culhane has joined the channel*
+*08:25:13 - @Vince Carey has joined the channel*
+
+## 2018-11-12
+
+*18:57:37 - @Pariksheet Nanda has joined the channel*
+
+## 2018-11-13
+
+*16:40:27 - @Kevin Rue-Albrecht has joined the channel*
+
+## 2018-11-14
+
+*03:04:01 - @Charlotte Soneson has joined the channel*
+
+## 2018-11-24
+
+**Kevin Rue-Albrecht** (10:19:01):
+> Will there be a new repository for workshops? or is the plan to develop[https://github.com/Bioconductor/BiocWorkshops](https://github.com/Bioconductor/BiocWorkshops)as a central collection of workshops, that would then be selectively associated with the appropriate Bioc20xx repository?
+  - Attachment (GitHub): [Bioconductor/BiocWorkshops](https://github.com/Bioconductor/BiocWorkshops)
+    > Workshops for learning Bioconductor. Contribute to Bioconductor/BiocWorkshops development by creating an account on GitHub.
+
+**Kevin Rue-Albrecht** (10:20:19):
+> I'm asking mostly because the`BiocWorkshops`repo doesn't have a date in its name
+
+**Martin Morgan** (12:27:14):
+> Good question! Seems like the last workshop could be tagged with a 'release' (e.g., for the Bioconductor version in use at the time) and then continue development of BiocWorkshops? With a way (maybe it exists?) to selectively include content... (I'm not the boss on this one, just idle speculation)
+
+**Kevin Rue-Albrecht** (12:33:56):
+> Ok. I'll just sit tight, and keep drafting my workshop proposal while waiting for further instructions then. I've seen the opening of registration pushed back (currently "Registration will open by Nov 19, 2018."), and there's obviously loads of time before any kind of deadline.
+
+
+## 2018-11-26
+
+*12:47:28 - @Marcel Ramos Pérez has joined the channel*
+
+## 2018-12-06
+
+*10:27:11 - @Stevie Pederson has joined the channel*
+
+## 2018-12-07
+
+**Kevin Rue-Albrecht** (06:08:39):
+> What is the recommended order for the steps listed below? (I’m offering the order that I’m thinking about, as a travel scholarship would change the registration fee, right?)
+> - submit a poster/short contributed talks
+> - submit a travel scholarship application
+> - submit a workshop
+> - register
+
+**Levi Waldron** (15:56:56):
+> You might submit both 1 and 3 before the workshop so you can mention them both in the travel scholarship application. Then yes, wait for the scholarship decision before registering.
+
+
+## 2018-12-12
+
+*15:56:11 - @Keegan Korthauer has joined the channel*
+
+## 2018-12-13
+
+*14:14:16 - @Nitesh Turaga has joined the channel*
+*15:56:00 - @BJ Stubbs has joined the channel*
+
+## 2018-12-14
+
+*04:22:17 - @Davide Risso has joined the channel*
+
+## 2018-12-28
+
+*12:44:29 - @Rene Welch has joined the channel*
+
+## 2019-01-09
+
+*00:38:04 - @Stuart Lee has joined the channel*
+*21:28:50 - @Stephanie Hicks has joined the channel*
+
+## 2019-01-11
+
+**Stephanie Hicks** (21:12:34):
+> @Levi WaldronI have a question about how you used bookdown for the bioc workshops ([https://github.com/Bioconductor/BiocWorkshops](https://github.com/Bioconductor/BiocWorkshops)).@Rob Amezquitaand I are interested in using bookdown for a similar type of project (to build a set of case studies), but for a manuscript that we’re writing. Did you build each chapter one at a time locally or on a cluster? If certain`.Rmd`files needed e.g. lots of memory to run something on a cluster, did you save intermediate data objects? Thanks in advance!
+
+
+## 2019-01-12
+
+**Levi Waldron** (05:23:26):
+> Hi@Stephanie Hicks- we did build chapters one at a time (locally) for testing purposes (individual authors according to the instructions at[https://github.com/Bioconductor/biocworkshops](https://github.com/Bioconductor/biocworkshops), plus I wrote a script that is currently lost in my school’s melted server for looping this over all workshops). But for the book as a whole it was a single build, also locally (see the file _build.sh at the above URL), because we didn’t figure out a way to use intermediate files from individual builds to create the full book (@Sean Davishave you figured out anything since then?). With chunk caching, it ended up regardless being fairly practical to build the whole book on a single core.  BTW there’s more discussion of our experiences at[https://f1000research.com/articles/7-1656/v1](https://f1000research.com/articles/7-1656/v1).
+  - Attachment (f1000research.com): [F1000Research Article: Orchestrating a community-developed computational workshop and accompanying training materials.](https://f1000research.com/articles/7-1656/v1)
+    > Read the latest article version by Sean Davis, Marcel Ramos, Lori Shepherd, Nitesh Turaga, Ludwig Geistlinger, Martin T. Morgan, Benjamin Haibe-Kains, Levi Waldron, at F1000Research.
+
+**Levi Waldron** (05:30:56):
+> This reminds me that it would not be too early for us to start preparing for the BioC2019 workshop book, especially if we are going to do it differently such as using git submodules and individual repositories. Also that the .epub and .pdf Bookdown output was still too buggy to feel good about submitting to[leanpub.org](http://leanpub.org)or[bookdown.org](http://bookdown.org).
+
+**Sean Davis** (16:09:17):
+> The default is to do what we did last year which worked reasonably well. I have not worked on a better solution yet. It would be good to hear thoughts and feedback from folks on last year’s process and possible improvements.
+
+
+## 2019-01-13
+
+**Levi Waldron** (03:28:04):
+> Agreed, I thought it worked even more than reasonably well. The most noticeable improvement would be some form of continuous integration, but most workshops were submitted with few or no errors anyways. I'll contact Travis to ask about Enterprise pricing for us, if it's not too much that could be an easy fix.
+
+**Stephanie Hicks** (14:28:08):
+> @Levi Waldronthanks! I’m still learning about bookdown, so I don’t quite undersand all the nuances yet. When you say the`.pdf`bookdown output was still too buggy, what was the problem?
+
+**Stephanie Hicks** (14:28:27):
+> Trying to decide if this is a good idea to go forward with. Thanks again for your help!
+
+**Levi Waldron** (14:45:31) (in thread):
+> This issue references the two problems: images stayed their original size, and some text (maybe code? Don't remember just now) didn't wrap. Should be solvable but I didn't yet really try.[https://github.com/Bioconductor/BiocWorkshops/issues/52](https://github.com/Bioconductor/BiocWorkshops/issues/52)
+
+
+## 2019-01-14
+
+**Kevin Rue-Albrecht** (18:26:13):
+> If you need a guinea pig for the submission of workshop proposals, I'm happy to hear feedback -->[https://github.com/kevinrue/BioC2019/tree/isee/docs](https://github.com/kevinrue/BioC2019/tree/isee/docs)
+
+
+## 2019-01-15
+
+**Kevin Rue-Albrecht** (02:07:24):
+> One detail I’d ask about is about hypertext links, is there a preferred way between:
+> - explicitly writing URLs (seems most common in past workshops)?
+> - using [text](url) syntax where the URL is usually not visible, aside from mouse hover in HTML format?
+> and package names:
+> - linking packages to their bioc or CRAN landing page?
+> - writing package names in plain text (seems most common)?
+
+**Levi Waldron** (10:07:36):
+> Thanks@Kevin Rue-Albrecht! The workshops page from last year was[https://github.com/Bioconductor/BiocWorkshops](https://github.com/Bioconductor/BiocWorkshops)(not related to the BioC2018 or BioC2019 repos). You pose excellent questions that we didn’t think of last year but can be more explicit about this year. If you want to be really helpful, you could fork from[https://github.com/Bioconductor/BiocWorkshops](https://github.com/Bioconductor/BiocWorkshops), build your workshop individually according to the README.md instructions, and tell us which works best across all output types (html, pdf, epub). Although we didn’t succeed in making presentable enough pdf and epub versions last year, I think we will this year, so we can also distribute on Leanpub and Bookdown.
+
+**Levi Waldron** (10:09:06):
+> BTW your syllabus looks great - the only suggestion I thought of is that the 2-hour workshops actually only last 1h50m, so you could update your time outline.
+
+**Levi Waldron** (10:12:54):
+> <!channel>I’ve posted a number of options for accommodations at[http://bioc2019.bioconductor.org/travel-accommodations](http://bioc2019.bioconductor.org/travel-accommodations), ranging from as low as $97-157+tax in Long Island City (~25 minutes away with subway, ~50 minutes walking) to $211-272 in Manhattan within short walking distance of the venues.
+  - Attachment (BioC 2019): [BioC 2019: Where Software and Biology Connect](http://bioc2019.bioconductor.org/travel-accommodations)
+    > Where Software and Biology Connect. June 24 - 27, New York City, USA.
+
+**Levi Waldron** (10:18:35):
+> Many of the hotels offer free cancellation up until a few days beforehand. Prices are likely to go up as the conference nears, so it’s probably a good idea to reserve early even if you’re not sure yet about your travel dates.
+
+**Kevin Rue-Albrecht** (10:28:06) (in thread):
+> Thanks!
+> Good point. It did cross my mind while I was picturing a realistic timeline, but then I saw that last year’s final schedules filled the whole 2h (e.g.[https://bioconductor.github.io/BiocWorkshops/analysis-of-single-cell-rna-seq-data-dimensionality-reduction-clustering-and-lineage-inference.html](https://bioconductor.github.io/BiocWorkshops/analysis-of-single-cell-rna-seq-data-dimensionality-reduction-clustering-and-lineage-inference.html)).
+  - Attachment (bioconductor.github.io): [The Bioconductor 2018 Workshop Compilation](https://bioconductor.github.io/BiocWorkshops/analysis-of-single-cell-rna-seq-data-dimensionality-reduction-clustering-and-lineage-inference.html)
+    > This book contains all the workshops presented at the Bioconductor 2018 Conference
+
+**Kevin Rue-Albrecht** (10:28:23) (in thread):
+> Probably a good thing to point out in the syllabus template
+
+**Levi Waldron** (10:28:35) (in thread):
+> Yes
+
+**Levi Waldron** (10:29:09) (in thread):
+> I think we posted the template last year before making the schedule, and hadn’t thought of the time between sessions…
+
+**Kevin Rue-Albrecht** (10:45:27) (in thread):
+> I just realized that I had already forked BiocWorkshops. However, I kept myself from working on it when I read more carefully the “Workshop Submission Form” that says:
+> > Please use the syllabus template at[https://github.com/Bioconductor/BioC2018/blob/master/resources/workshop-syllabus.md](https://github.com/Bioconductor/BioC2018/blob/master/resources/workshop-syllabus.md).
+
+**Kevin Rue-Albrecht** (10:46:32) (in thread):
+> Another thing to edit in the bio2019 website, I’d suggest, if you prefer applicants to work on[https://github.com/Bioconductor/BiocWorkshops](https://github.com/Bioconductor/BiocWorkshops)
+
+**Davide Risso** (10:49:31):
+> For those on a tight budget I really recommend LIC! It's really close to Rockefeller (1-2 subway stops on the N line + 15 minutes walk or 4 subway stops + 5 minutes walk on the N -> Q). Plus LIC / Astoria have a pretty nice night life with bars and restaurant so you don't have to go back to Manhattan if you want to stay close to the hotel at night.
+
+**Davide Risso** (10:50:11) (in thread):
+> can you tell I miss living in Astoria?:stuck_out_tongue:
+
+**Levi Waldron** (10:51:17) (in thread):
+> Good point, yes we’ll make it clear that editing will be done on Bioconductor/BiocWorkshops (or a new year-specific workshops repo), and move the template there.
+
+**Levi Waldron** (10:51:59) (in thread):
+> I would’ve have guessed! I was impressed by how affordable hotels there are.
+
+**Stephanie Hicks** (13:10:14):
+> Thanks@Levi Waldron@Davide Risso!
+
+
+## 2019-01-16
+
+**Kevin Rue-Albrecht** (17:58:02):
+> Me again. Some of you should have been pinged by a PR on`Bioconductor/BiocWorkshops `[https://github.com/Bioconductor/BiocWorkshops/pull/64](https://github.com/Bioconductor/BiocWorkshops/pull/64)
+
+**Kevin Rue-Albrecht** (17:59:56):
+> Although to be fair, I’m just begun following the`README.md`instructions, starting with
+> ```
+> Rscript -e "bookdown::render_book(                             \
+>     'index.Rmd', 'bookdown::gitbook')"
+> ```
+
+**Kevin Rue-Albrecht** (18:01:33):
+> which itself includes installing a whole lot of packages:sweat_smile:going to be a loooong night
+
+
+## 2019-01-17
+
+*07:22:11 - @Lluís Revilla has joined the channel*
+*08:27:26 - @Kayla Interdonato has joined the channel*
+**Sean Davis** (10:44:48):
+> I’d like to open a likely somewhat technical discussion on how to best structure workshop materials and builds for 2019. Should we do that here or open another channel?
+
+
+## 2019-01-18
+
+**Levi Waldron** (00:53:29) (in thread):
+> Here seems like as good a place as any?
+
+**Kevin Rue-Albrecht** (02:41:38):
+> Btw, as feedback on the book-building aspect, I had to “manually” install the following:
+> ```
+> BiocManager::install(c("AnnotationDbi","AnnotationHub","biomaRt","BSgenome","BSgenome.Hsapiens.UCSC.hg19","EnsDb.Hsapiens.v79","EnsDb.Mmusculus.v79","Homo.sapiens","hugene20sttranscriptcluster.db","org.Hs.eg.db","Organism.dplyr","TxDb.Hsapiens.UCSC.hg19.knownGene"))
+> ```
+> before I could`devtools::github_install("jmacdon/Bioc2018Anno")`
+
+**Sean Davis** (11:39:09):
+> I have been putting a little thought into the next iteration of the BiocWorkshops. For the purposes of modularity, testing, and reuse, I think there is a benefit to going back to single-workshop repos with each workshop having its own repo rather than the current single-package with many Rmd files in it.
+
+**Sean Davis** (11:41:35):
+> Each workshop repo:
+> 1. Is a formal R packages
+> 2. Can contain code and data
+> 3. Contains a workshop materials Rmd file (just a vignette in the package) that will end up as a chapter in a master workshop book
+
+**Sean Davis** (11:43:39):
+> The master workshop repo would also be an R package and would contain _bookdown.yml as well as build scripts. The DESCRIPTION file would contain Imports to each of the workshop repos, along with corresponding remotes (which allow versioning).
+
+**Sean Davis** (11:45:29):
+> For the above approach to work, we would need a mechanism to provide the workshop Rmd file path for each repo. We would need scripts to checkout (perhaps as git submodules) each repo and link to the Rmd file to allow building the book. Installing the book would result in installation of all dependent workshop packages.
+
+**Sean Davis** (11:47:50):
+> Advantages of this approach include:
+> 1. Improved modularity of workshops
+> 2. Flexibility with respect to changing workshop content (including or excluding materials)
+> 3. Allows each workshop to include code and data as well as RMD.
+> 4. Still benefits from complete version control of materials.
+> 5. Contributions can, in theory, be checked at pull request time without rebuilding the entire book, allowing for partial integration testing.
+
+**Sean Davis** (11:52:15):
+> I’d be very interested to hear any thoughts.
+
+**Sean Davis** (11:54:45) (in thread):
+> :+1:Started….
+
+**Martin Morgan** (12:46:05):
+> Sounds like a good approach to explore; packages are 'easy' to do these days. Also the versioning and metadata (e.g., package dependencies) are managed by the package, which seems good.
+> 
+> I guess there are 'global' requirements, e.g., everyone is using bioc-3.9; how would these be enforced?
+> 
+> Would the individual workshop repos be hosted by the individual and cloned into a standard location?
+
+**Sean Davis** (12:51:57):
+> Good points, Martin. As for global requirements, I cannot think of an easy way of “enforcing” a particular R or Bioc version. However, integration testing can catch problems, at least in theory. In the past, having each workshop build on the AMI (or other infrastructure) with installed R was enough to eliminate problems. If each package is self-contained, folks can do their own testing and development; this has been problematic in the past with the “big book” approach.
+
+**Sean Davis** (12:55:17):
+> As for hosting, I think having individuals host their own repos makes the most sense. I think we have found that an immortalized source repo for posterity sake is not that valuable; the machine image is really the artifact of interest (unfortunately).
+
+
+## 2019-01-19
+
+**Martin Morgan** (11:21:13):
+> One thing about forking a repository is that when the upstream contributor loses interest the repository is still there for use and further update.
+
+**Levi Waldron** (17:10:56):
+> @Sean Davis, what was the software you showed me for wrapping a Docker container within bash scripts and pipelines? I’ve been fiddling with Docker and was thinking it would be useful and maybe not that difficult to make an alternative to`R CMD BiocCheck`and`R CMD check`that actually runs these inside the bioc-devel Docker container rather than in the host system.
+
+**Sean Davis** (17:13:17):
+> Assuming that you have a docker container with relevant software installed:
+> ```
+> docker run -v /path/to/hostvolume:/path/in/container -ti leviwaldron/leviscontainer R CMD BiocCheck /path/in/container/pkgname.tar.gz
+> ```
+
+**Levi Waldron** (17:14:05):
+> So not even necessary to use any fancy pipeline-building software:slightly_smiling_face:
+
+**Sean Davis** (17:14:35):
+> Nope.
+
+**Sean Davis** (17:15:36):
+> However, putting Bioc inside a docker container is not a great “general” solution given the size of some packages.
+
+**Sean Davis** (17:16:40):
+> Docker has a default image size max of 10GB.
+
+**Sean Davis** (17:16:59):
+> That can be changed, but it requires a docker restart, I think.
+
+**Levi Waldron** (17:18:01):
+> You can use a volume also for site libraries, but I think it requires a modification to the current base2 & core2 images to add a third, empty site library, that you can mount locally.
+
+**Levi Waldron** (17:19:11):
+> So you would just need a script with step 1) install all dependencies, 2) check
+
+**Sean Davis** (17:19:35):
+> Sounds right.
+
+**Sean Davis** (17:20:54):
+> What did you have in mind with respect to the docker approach? Use for workshop developers? Use for delivering workshop material? Or just in general?
+
+**Levi Waldron** (17:22:36):
+> Either 1) for facilitating authors checking against the correct environment locally, or 2) setting up our own continuous integration system
+
+**Levi Waldron** (17:25:14):
+> Also, I watched a kubernetes video that got me thinking about having a system that would pull tagged commits and automatically build chapters or the entire book ([https://www.youtube.com/watch?v=kOa_llowQ1c](https://www.youtube.com/watch?v=kOa_llowQ1c))
+  - Attachment (YouTube): [Kubernetes The Easy Way! (For Developers In 2018)](https://www.youtube.com/watch?v=kOa_llowQ1c)
+
+**Sean Davis** (17:30:51):
+> Yes, kubernetes could be useful; there are all sorts of ways to go about automation in the cloud.
+
+**Levi Waldron** (17:34:24):
+> BTW I made a minimal layer on top of devel_core2 to allow me to use a local volume for installed packages, with an invocation script that includes mounting a host home and packages directory. More to make it easier for beginners like myself a couple weeks ago to use the Bioconductor docker containers locally.[https://github.com/waldronlab/bioconductor_devel](https://github.com/waldronlab/bioconductor_devel)
+
+**Levi Waldron** (17:36:54):
+> Between myself and Sehyun in my lab (who’s also been studying up on Docker and cloud platforms) I have some bandwidth to implement something like this if you could help outline a sensible plan…
+
+
+## 2019-01-20
+
+**Levi Waldron** (14:24:25) (in thread):
+> You did show me another piece of software though, that provided an example of an RNA-seq pipeline using a couple Docker containers, invoked from a single command-line script…
+
+
+## 2019-01-21
+
+**Levi Waldron** (05:26:07) (in thread):
+> To initiate this approach, we should provide a workshop package template that includes travis-CI integration. We can then put all the badges in a table on the master workshop repo, to get an overview of the build status of workshops.
+
+**Levi Waldron** (05:29:39) (in thread):
+> `git submodule`seems to have built-in freezing and updating of the submodules, I think providing the functionality we need there to test the master workshop repo during development and freeze at the final update deadline.
+
+
+## 2019-01-23
+
+*10:45:22 - @Eliza Duvall has joined the channel*
+
+## 2019-01-24
+
+*19:39:02 - @Ming Tang has joined the channel*
+
+## 2019-01-29
+
+**Lluís Revilla** (06:19:14):
+> I'm having a doubt regarding the forms:
+
+**Lluís Revilla** (06:19:22):
+> The travel scholarship application form asks if I plan to present a talk or a poster (or both).
+
+**Lluís Revilla** (06:19:30):
+> However, the Poster/Talk Submission Form only has a poster title section.
+
+**Lluís Revilla** (06:19:44):
+> Maybe is missing a multiple choice between Talk or Poster or is it decided upon acceptance ?
+
+**Lluís Revilla** (06:19:51):
+> Many thanks for organizing it!
+
+**Levi Waldron** (11:35:04):
+> Thanks for pointing out the error@Lluís Revilla! The call for abstracts page is updated, and the updated link to the poster/talk submission form is[https://goo.gl/forms/tx6oHbNt28JX7WWz1](https://goo.gl/forms/tx6oHbNt28JX7WWz1).
+  - Attachment (Google Docs): [BioC 2019: Poster / Talk Submission Form](https://goo.gl/forms/tx6oHbNt28JX7WWz1)
+    > Please use this form to submit an abstract for a poster and/or 10-minute talk at BioC 2019, June 25-26, 2019. Notifications will be sent by March 30.
+
+
+## 2019-02-27
+
+**Lluís Revilla** (11:29:48):
+> I finally submitted both the Poster/Talk and the scholarship application
+
+**Lluís Revilla** (11:29:54):
+> I got a link to edit the Poster/Talk and I expected to be able to edit also the scholarship application but I couldn't.
+
+**Lluís Revilla** (11:30:37):
+> Is this the desired behavior or not?
+
+**Levi Waldron** (12:10:33):
+> What do you mean? All submissions are through Google forms.
+
+**Levi Waldron** (12:54:34):
+> Oh I understand - no that wasn't intended, I'll see if I can turn on post-submission editing. If needed you'll be able to resubmit before the deadline.
+
+**Lluís Revilla** (17:01:07):
+> No I won't need to resubmit the scholarship application, I hope I'll get the scholarship  as is:smiley:
+
+
+## 2019-02-28
+
+*16:36:23 - @Avi Srivastava has joined the channel*
+
+## 2019-03-01
+
+**Levi Waldron** (09:24:15):
+> I’ve updated the scholarship application form to provide submission receipts and allow post-submission editing, like the talk/poster and workshop forms. This will likely only affect future submissions though.
+
+
+## 2019-03-05
+
+**Martin Morgan** (09:13:09):
+> @Levi Waldronfor the organizing meeting today, can we add (a) travel (new spreadsheet in the shared folder) and (b) swag bag to the discussion?
+
+**Levi Waldron** (09:13:29):
+> Yes
+
+*20:47:23 - @Leonardo Collado Torres has joined the channel*
+**Leonardo Collado Torres** (21:01:59):
+> Hi@Levi Waldron. For the travel scholarship, is there a word or character limit for the main 2 questions?[https://goo.gl/forms/TXWLPInRWWymQ1Hx2](https://goo.gl/forms/TXWLPInRWWymQ1Hx2)(Bioconductor project participation and what you hope to get out of the conf). I haven't done my own yet so I don't know:stuck_out_tongue:This is for those we are helping out[https://twitter.com/CDSBMexico/status/1103103790473977856](https://twitter.com/CDSBMexico/status/1103103790473977856)
+  - Attachment (Google Docs): [Bioc2019 travel award application](https://goo.gl/forms/TXWLPInRWWymQ1Hx2)
+    > Please use this form to submit an application for a travel award to attend the Bioc2019 meeting. Notifications will be sent by March 30.
+  - Attachment (twitter): [Attachment](https://twitter.com/CDSBMexico/status/1103103790473977856)
+    > Only 10 days until #BioC2019 travel scholarships are due!
+    > 
+    > We are actively helping 3 people with their applications but would :heart: to see more! #CDSBMexico
+    > 
+    > ¿Cómo vas con tu solicitud? Acá estamos listos para ayudarte :muscle::skin-tone-4::raised_hands::skin-tone-4:
+    > 
+    > #rstats #rstatsES [@Bioconductor](https://twitter.com/Bioconductor)
+    > 
+    > [https://twitter.com/cdsbmexico/status/1101339389395943424?s=21](https://twitter.com/cdsbmexico/status/1101339389395943424?s=21)
+  - Attachment (twitter): [Attachment](https://twitter.com/CDSBMexico/status/1101339389395943424)
+    > #CDSBMexico: remember to apply for BioC2019 travel scholarships!!
+    > 
+    > Due date is March 15th
+    > 
+    > [http://www.comunidadbioinfo.org/cdsbmexico-remember-to-apply-for-bioc2019-travel-scholarships/](http://www.comunidadbioinfo.org/cdsbmexico-remember-to-apply-for-bioc2019-travel-scholarships/)
+    > 
+    > Let us help you! Here we give you some ideas :bulb:We can also give you feedback via Slack :white_check_mark:
+    > 
+    > #rstats #bioconductor [@Bioconductor](https://twitter.com/Bioconductor) #bioc2019 #diversity #LatAm #rstatsES [https://pbs.twimg.com/media/D0i-VkqW0AAjITJ.jpg](https://pbs.twimg.com/media/D0i-VkqW0AAjITJ.jpg)
+
+**Levi Waldron** (21:10:12):
+> No, just don't go too overboard! By overboard, I guess I mean more than about a paragraph.
+
+**Leonardo Collado Torres** (22:25:45):
+> ok! thx! ^^
+
+**Leonardo Collado Torres** (22:26:09):
+> I was thinking about a max of about 150 words each anyway (since it's 300 max words for the poster/talk abstract)
+
+
+## 2019-03-10
+
+**Levi Waldron** (13:23:36):
+> (updated image) Comments on the conference flyer? I’ll get it made in 16:9, 4:3, and letter formats.
+  - File (JPEG): [bioC2019_Flyer_Landscape_Draft_02.jpg](https://community-bioc.slack.com/files/U34P8RS3B/FGU4EPBRS/bioc2019_flyer_landscape_draft_02.jpg)
+
+
+## 2019-03-13
+
+*11:15:29 - @James MacDonald has joined the channel*
+
+## 2019-03-31
+
+**Ming Tang** (07:25:58):
+> has the travel award notification been sent out?
+
+**Martin Morgan** (13:45:13):
+> I think these are delayed slightly@Matthew McCall
+
+**Matthew McCall** (13:47:02):
+> Yes, apologies for the delay. We should be able to send out notifications by Wednesday.
+
+**Matthew McCall** (13:49:11):
+> Everyone will receive an email regardless of the outcome. So no news != bad news.
+
+**Ming Tang** (17:38:39):
+> thank you for the update!
+
+
+## 2019-04-02
+
+**Matthew McCall** (13:51:12):
+> Emails for Bioc2019 talk, workshop, scholarship, and poster applications have gone out. If you submitted any of these and did not receive an email, please let me know.
+
+*15:18:53 - @Ana Beatriz Villaseñor Altamirano has joined the channel*
+*15:19:58 - @Alejandro Reyes has joined the channel*
+**Leonardo Collado Torres** (15:21:53):
+> Thanks@Matthew McCall! 2 quick questions:
+> 
+> • I’m not seeing on the registration form how to register without paying (via the scholarship). Or should I click “submit” in the form and see what happens?
+> • I’ll be participating with a workshop, but that’s not an option for the “planned or submitted activities”. Should I leave it blank?
+> 
+> Thanks again!
+
+**Leonardo Collado Torres** (15:22:46):
+> Ahh, maybe we need a sponsor code!
+
+**Matthew McCall** (15:25:20):
+> I'm checking on this now, but I believe in the past there was a sponsor code that scholarship recipients could use.
+
+**Leonardo Collado Torres** (15:25:41):
+> awesome, thanks!
+
+*16:08:07 - @Joselyn Chávez has joined the channel*
+
+## 2019-04-03
+
+**Kevin Rue-Albrecht** (12:58:12):
+> > I’ll be participating with a workshop, but that’s not an option for the “planned or submitted activities”. Should I leave it blank?
+> Same thing here. Is leaving blank the right option?
+
+**Matthew McCall** (14:55:06):
+> @Martin MorganAdvice for the "planned or submitted activities" field for those giving a workshop?
+
+**Martin Morgan** (17:19:31):
+> Yes, for workshops leave 'Planned or submitted activities' blank
+
+
+## 2019-04-04
+
+*11:04:22 - @Patrick Kimes has joined the channel*
+*11:13:54 - @Helena L. Crowell has joined the channel*
+
+## 2019-04-09
+
+*09:37:16 - @Jianhong has joined the channel*
+
+## 2019-04-10
+
+*12:08:00 - @Sridhar N has joined the channel*
+**Sridhar N** (12:10:32):
+> Hey all, is it to late to submit for travel award applications?
+
+
+## 2019-04-11
+
+*13:53:25 - @James Taylor has joined the channel*
+**Levi Waldron** (15:08:49) (in thread):
+> Afraid so, review done and decisions already sent out. Sorry about that!
+
+**Sridhar N** (16:23:33) (in thread):
+> oops!
+
+**Sridhar N** (16:23:52) (in thread):
+> next time may be. thanks for responding.
+
+**Ming Tang** (22:23:36) (in thread):
+> I do not see a place to fill in the sponsor code in the registration form.
+
+
+## 2019-04-12
+
+**Ming Tang** (15:55:58):
+> I do not see a place to fill in the sponsor code in the registration form.
+
+**Kevin Rue-Albrecht** (16:15:42):
+> In section "Affiliation type", you need to click on "Sponsor code"
+
+
+## 2019-04-17
+
+**Avi Srivastava** (00:54:29):
+> Quick question from first time attendee, how do one register for lightening talks ?
+
+**Levi Waldron** (13:15:25):
+> That has previously been done on a Google doc during developer day. Probably will be the same again this year.
+
+**Avi Srivastava** (13:17:15) (in thread):
+> gotcha thanks
+
+*18:10:50 - @Domenick Braccia has joined the channel*
+*22:49:46 - @Craig has joined the channel*
+
+## 2019-04-18
+
+*02:28:07 - @Yoon, Tae-Hyun has joined the channel*
+*06:22:30 - @Michael Love has joined the channel*
+**Michael Love** (06:24:02):
+> Just noticed that “Fluent Genomics” is in workshop session 2A and 2B. I think we were going to aim for the 1 hour slot
+
+**Michael Love** (06:25:03):
+  - File (JPEG): [Image from iOS](https://community-bioc.slack.com/files/U34P8RS3B/FJ06V557F/image_from_ios.jpg)
+
+**Helena L. Crowell** (06:27:47):
+> Same for Analysis of multi-sample multi-group…– which one is correct?
+  - File (PNG): [Pasted image at 2019-04-18, 12:27 PM](https://community-bioc.slack.com/files/U34P8RS3B/FJ06X0WVB/image.png)
+
+**Michael Love** (06:27:54):
+> Or is that a separate workshop from@Stuart Lee?
+
+*07:34:03 - @Lukas Weber has joined the channel*
+*10:34:18 - @Marko Zecevic has joined the channel*
+**Matthew McCall** (17:50:18):
+> @Michael LoveThose are two different (but related) workshops each scheduled for ~1 hour slots. Looks like we need to update the webpage to have Session 2a be 3:15 - 4:00 or maybe 3:00 - 4:00 and shorten the break by 15 mins.
+
+**Matthew McCall** (17:52:06):
+> @Helena L. Crowellsame issue with the time slots. We have "Analysis of multi-sample multi-group scRNA-seq data" as a 2 hour workshop.
+
+**Michael Love** (19:57:52):
+> Oh, Stuart, Michael and I thought he (they) may be able to participate in the “Fluent ... with tximeta” one. Is it possible to rearrange?
+
+**Michael Love** (19:58:29):
+> I can present it alone but would be cooler with them (Stuart helped me craft it)
+
+**Michael Love** (20:06:01):
+> @Stuart Leeshould I change the title so it’s more distinct from the other one you’re doing? (I think it would still be good to not be going at the same time) As it is I can see participants getting confused. Maybe “A plyranges and tximeta case study: differential expression and accessibility”
+
+**Stuart Lee** (21:36:46):
+> I agree it would be better to schedule them so they weren’t in the same workshop slot. That being said I thought I was only giving an hour long workshop for intro plyranges - if that is the case I could do the intro first, then help you out with tximeta workshop. I would prefer to be able to help out with the tximeta workshop. I think renaming it as a case study sounds good! Would that work@Matthew McCalland@Michael Love?
+
+**Matthew McCall** (21:40:40):
+> They are currently scheduled one after the other. Each 1 hour in length. Does that work?
+
+**Stuart Lee** (21:50:11):
+> That would be great! Thanks
+
+
+## 2019-04-19
+
+**Michael Love** (06:07:59):
+> Oh sure, that works, sorry I didn’t realize that. And can I rename the tximeta one to help participants better see what we’ll be doing? Thanks everyone
+
+**Michael Love** (06:09:03) (in thread):
+> Yes, sorry if I wasn’t clear, I will lead tximeta case study one, but I’d love it if you were in the room for questions
+
+**Michael Love** (06:09:48):
+> “A plyranges and tximeta case study: differential expression and accessibility”
+
+
+## 2019-04-20
+
+**Stuart Lee** (01:40:57) (in thread):
+> Sounds great! Thanks!
+
+*15:06:22 - @Daniela Cassol has joined the channel*
+
+## 2019-04-21
+
+**Matthew McCall** (23:48:11) (in thread):
+> Yes, this seems like a good change to make. I think@Lorena Pantanoor@Pariksheet Nandais in charge of making changes to the website.
+
+
+## 2019-04-22
+
+**Lorena Pantano** (09:44:07) (in thread):
+> I can do it later today if@Pariksheet Nandawasn’t faster than that:slightly_smiling_face:
+
+**Michael Love** (11:07:03) (in thread):
+> i just submitted a PR
+
+
+## 2019-04-23
+
+*17:48:44 - @Nima Hejazi has joined the channel*
+**Levi Waldron** (21:40:45) (in thread):
+> There were conflicts with your PR and Lorena’s and my commits, which I haven’t gotten around to fixing yet :O
+
+
+## 2019-04-24
+
+**Michael Love** (07:10:49) (in thread):
+> No problem
+
+*14:18:22 - @Dror Berel has joined the channel*
+
+## 2019-04-28
+
+**Dror Berel** (23:37:26):
+> Is it too late to sign up for developer day's lightning talks?
+
+
+## 2019-04-29
+
+**Kevin Rue-Albrecht** (06:13:17):
+> I don’t see any place to sign up for attending, I assume you’re talking about offering one?
+
+**Kevin Rue-Albrecht** (06:23:28):
+> On a separate note,@Levi Waldron: I haven’t heard back yet about the hotel nights covered by the travel scholarship. I hope I didn’t miss an email update.
+> The last email I can find about it was 8 April from Pamela, saying that
+> > I will forward hotel information later this week to you.  We are just confirming and blocking hotel space now.
+> I would appreciate to know which nights are covered, so that I can book my additional nights in NYC:grimacing:
+
+**Sean Davis** (11:13:14):
+> [https://github.com/manubot/rootstock/issues/212](https://github.com/manubot/rootstock/issues/212)
+
+**Sean Davis** (11:14:03):
+> This issue is to think about overlaps and opportunities between the manubot approach to collaborative writing and R-based tools like bookdown.
+
+**Dror Berel** (13:11:56) (in thread):
+> Will be glad to offer one
+
+**Vince Carey** (15:02:17):
+> Do we need to update material at[https://github.com/Bioconductor/BiocWorkshops](https://github.com/Bioconductor/BiocWorkshops)?  Will a branch be cut?
+
+**Nitesh Turaga** (15:06:19) (in thread):
+> No, i'm guessing, but someone else can better answer this.@Martin Morganor@Levi Waldron.
+
+**Nitesh Turaga** (15:06:51) (in thread):
+> [https://community-bioc.slack.com/archives/CDZR0L5CY/p1555521325004800](https://community-bioc.slack.com/archives/CDZR0L5CY/p1555521325004800)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CDZR0L5CY/p1555521325004800)
+    > That has previously been done on a Google doc during developer day. Probably will be the same again this year.
+
+**Nitesh Turaga** (15:06:57) (in thread):
+> That answers it.
+
+**Levi Waldron** (17:49:23) (in thread):
+> Hi Kevin, the scholarship will cover Sunday, Monday, and Tuesday nights.
+
+
+## 2019-04-30
+
+**Kevin Rue-Albrecht** (04:01:12) (in thread):
+> Perfect. All I needed to know. Thanks!:+1:
+
+**Lluís Revilla** (05:08:19):
+> I didn't receive any email after 5 April. Could someone resend me the emails again? Thanks
+
+
+## 2019-05-02
+
+*10:20:32 - @dave_sevenbridges has joined the channel*
+**dave_sevenbridges** (10:22:51):
+> hello.  Who is leading the***Combined CWL workshop***on Developer Day?  Thank you
+
+*10:30:58 - @Ruizhu HUANG has joined the channel*
+*13:02:33 - @Rob Amezquita has joined the channel*
+**dave_sevenbridges** (15:54:36):
+> turns out@Marko Zecevicfrom SevenBridges is leading the CWL workshop.  I should have known that
+
+**Marko Zecevic** (17:00:43):
+> @dave_sevenbridgesit's a joint effort between@Daniela Cassol,@Qiang Huand me.
+
+*21:14:05 - @Shian Su has joined the channel*
+
+## 2019-05-03
+
+*00:19:44 - @Dave Tang has joined the channel*
+*07:52:47 - @Leandro Roser has joined the channel*
+*16:42:54 - @Brendan Innes has joined the channel*
+
+## 2019-05-05
+
+**Kevin Rue-Albrecht** (04:27:23):
+> I’m sure I’ve read it somewhere but can’t find the info anymore:
+> what version of R / Bioconductor will the machines be running at bioc2019?
+
+**Charlotte Soneson** (04:30:45):
+> April 2 email re: workshops says
+> > As we have done in past years, all attendees will have access to Amazon Machine Images that are preloaded with R and RStudio server. Important: The AMIs will be loaded with the devel version of Bioconductor (3.10) and designed to work with R 3.6.
+
+*11:00:21 - @Firas has joined the channel*
+**Levi Waldron** (15:37:13):
+> @Kevin Rue-Albrechtdidn't you get yesterday's email to workshop contributors?
+
+**Kevin Rue-Albrecht** (20:12:48):
+> I did. I just didn’t find the explicit statement I remembered from the April 2nd email. “Contributors should test their own workshops against bioc-devel;” is the closest, but@Charlotte Sonesongot it right exactly as close as I remembered it from the original source
+
+
+## 2019-05-06
+
+*10:16:55 - @Simina Boca has joined the channel*
+*15:20:51 - @Haibo Liu has joined the channel*
+**Haibo Liu** (15:31:02):
+> set the channel topic: I am male, and will attend BioC2019.  I have booked a 2-bed room  in Mayflower Boutique Hotel for the night of June 26. I am wondering if someone would like to share with me. The cost will be $131/2. reply to...
+
+**Marcel Ramos Pérez** (15:43:52):
+> cleared channel topic
+
+**Marcel Ramos Pérez** (15:44:06):
+> Please post messages here. Thanks.
+
+
+## 2019-05-07
+
+*13:51:17 - @JiefeiWang has joined the channel*
+
+## 2019-05-10
+
+*10:35:47 - @Jenny Drnevich has joined the channel*
+
+## 2019-05-13
+
+*21:29:40 - @Hervé Pagès has joined the channel*
+
+## 2019-05-14
+
+*09:16:26 - @Corina Lesseur has joined the channel*
+
+## 2019-05-15
+
+**Kevin Rue-Albrecht** (14:43:46):
+> Does the symposium need any kind of logo… ?:grimacing:
+  - File (PNG): [Screenshot 2019-05-15 19.38.49.png](https://community-bioc.slack.com/files/U34P8RS3B/FJQ5368UU/screenshot_2019-05-15_19.38.49.png)
+
+
+## 2019-05-17
+
+*15:58:32 - @Astrid Deschenes has joined the channel*
+
+## 2019-05-21
+
+*21:31:36 - @Jeff Gentry has joined the channel*
+
+## 2019-05-23
+
+**Kevin Rue-Albrecht** (03:04:07):
+> @Nitesh Turaga@Martin MorganI’m just curious who is looking after`BiocStyle`these days. It’s so stable that it hasn’t been updated much in the last year or so. I’ve tagged you both in this message from a brief look at the latest commits.
+> I would appreciate a lot if someone could check and merge my PR ([https://github.com/Bioconductor/BiocStyle/pull/60/files](https://github.com/Bioconductor/BiocStyle/pull/60/files)) which would help a lot for the iSEE workshop I’ve prepared with@Charlotte SonesonAll the best.
+
+**Martin Morgan** (05:12:45) (in thread):
+> @Mike Smithmight be a good bet; Andrzej has been active in the recent past (I'll ping him). If neither of those work someone on the core team will look at this (and the other) pull requests.
+
+**Kevin Rue-Albrecht** (05:17:30) (in thread):
+> Thanks for the reply.
+> I’ve managed to apply a temporary fix to the workshop ([https://github.com/kevinrue/Bioc2019-iSEE-workshop/commit/4b494ab545f51effbf30d08ece86d38f1bd98243](https://github.com/kevinrue/Bioc2019-iSEE-workshop/commit/4b494ab545f51effbf30d08ece86d38f1bd98243)) so it’s not as urgent as I may have made it sound:slightly_smiling_face:
+
+
+## 2019-05-24
+
+**Martin Morgan** (10:02:25) (in thread):
+> Andrzej indicates that he'll look at the pull request...
+
+**Kevin Rue-Albrecht** (10:15:23) (in thread):
+> Thank you! (and Andrzej of course)
+
+**Ming Tang** (15:12:50):
+> which email should I look for the confirmation of registration?
+
+**Ming Tang** (15:13:23):
+> I have registered, but can not find the confirmation email in my inbox..
+
+**Simina Boca** (15:13:56):
+> look for an email from JotForm
+
+**Simina Boca** (15:14:18):
+> maybe it went to Spam/another folder?
+
+**Simina Boca** (15:14:28):
+> subject line "We have received your response for BioC2019 Registration"
+
+**Ming Tang** (15:15:37):
+> many thanks! found that.
+
+
+## 2019-05-27
+
+**Helena L. Crowell** (10:04:11):
+> Kindly - can anyone please clarify the email that was just sent out?
+> “use only***one***top-level section (#), for the title of your workshop. All other sections must be second-level (##) or lower.” vs.`dummychapter1`reads:
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/FK38WMKN2/image.png)
+
+**Helena L. Crowell** (10:04:42):
+> Secondly, is`BiocStyle`permitted?
+
+**Lorena Pantano** (12:38:17):
+> thanks for spot that. I think that is an old example. I am updating the dummychapter1 to follow that.
+
+**Lorena Pantano** (12:39:45):
+> I am not sure the BiocStyle, maybe@Marcel Ramos Pérezor@Sean Davisknows about that if he is trying to compile the dummychapter with the bookdown already.
+
+**Sean Davis** (14:33:11):
+> Biocstyle won't really apply. The R helpers should still work. But the style will be based on bookdown/gitbook.
+
+
+## 2019-05-28
+
+**Lori Shepherd** (13:10:13):
+> Has it been announced anywhere for workshops what version of Bioc will be used?  I know in the past its been devel so that presenters could use development work but it might make a difference to some packages -
+
+**Sean Davis** (14:33:56):
+> Several workshop authors are depending on devel versions specifically, so I think “devel” makes the most sense.
+
+**Lori Shepherd** (14:36:03) (in thread):
+> agreed -  maybe worth adding into the README on the github repo
+
+**Levi Waldron** (17:58:27) (in thread):
+> Done:[https://github.com/Bioconductor/BiocWorkshops2019/commit/01d36333bf6d2055f72fcd6d9300c450845971fc](https://github.com/Bioconductor/BiocWorkshops2019/commit/01d36333bf6d2055f72fcd6d9300c450845971fc)
+
+**Rob Amezquita** (18:39:46) (in thread):
+> just a quick question - I tried using Bioc-devel on Travis and encountered an error (I used the travis.yml settings from the "dummychapter1"), switching to bioc-release showed it was fine. this was all built on a skeleton of the workshop with no other content except for text. any tips?
+
+**Rob Amezquita** (18:41:17) (in thread):
+> and actually it appears "dummychapter1" has the same error I encountered re: BiocManager -[https://travis-ci.org/lpantano/dummychapter1](https://travis-ci.org/lpantano/dummychapter1)
+
+**Peter Hickey** (19:53:15) (in thread):
+> Possibly due to this[https://stat.ethz.ch/pipermail/bioc-devel/2019-May/015172.html](https://stat.ethz.ch/pipermail/bioc-devel/2019-May/015172.html)?
+
+**Rob Amezquita** (20:02:57):
+> is anybody using the block engine from knitr/bookdown for inserting comments/exercises into their workshops? might be handy to separate from mainline text:[https://bookdown.org/yihui/bookdown/custom-blocks.html](https://bookdown.org/yihui/bookdown/custom-blocks.html)
+
+**Rob Amezquita** (20:08:14) (in thread):
+> [https://stackoverflow.com/questions/36293511/creating-custom-blocks-in-rstudios-bookdown](https://stackoverflow.com/questions/36293511/creating-custom-blocks-in-rstudios-bookdown)-> found this for a bit more guidance on creating a custom block
+
+**Rob Amezquita** (20:09:22) (in thread):
+> might be more useful for other contexts, but just putting the idea out there
+
+**Sean Davis** (20:09:56) (in thread):
+> Just keep in mind that the intention is to create PDF and EPUB versions if possible. I’m not sure how well CSS and HTML will convert to PDF via LaTeX and pandoc.
+
+**Sean Davis** (20:10:38) (in thread):
+> That said, we can certainly have folks opt out of the book as needed/desired.
+
+**Rob Amezquita** (20:11:23) (in thread):
+> thanks for the tip, definitely messier than i had thought in terms of implementation (i was hoping bookdown had some basic blocks already implemented that would be cross compatible over outputs but alas)
+
+**Sean Davis** (20:12:51) (in thread):
+> Authors may also want to consider publishing to F1000Research, which again might reduce the utility.
+
+**Rob Amezquita** (20:13:41) (in thread):
+> couldnt the whole book be an F1000Research pub in that case? an annual (published) book would be a pretty neat electronic souvenir
+
+**Sean Davis** (20:14:33) (in thread):
+> On a technical note, I could imagine a git branch of your workshop package that is meant to be given interactively that includes some more interactive/custom material. That might give some additional flexibility and allow two “versions” to evolve in parallel.
+
+**Sean Davis** (20:15:51) (in thread):
+> @Rob Amezquitasee[https://bioconductor.github.io/BiocWorkshops/BioC2018.pdf](https://bioconductor.github.io/BiocWorkshops/BioC2018.pdf)
+
+**Stuart Lee** (21:44:23) (in thread):
+> i’m also getting the same travis ci errors on bioc-devel - glad it’s a known issue
+
+
+## 2019-05-29
+
+**Helena L. Crowell** (02:19:43):
+> On a similar note- I was wondering if it’s possible to share a separate scripts/skeleton with workshop attendees, or somehow include this in the workshop repo? E.g., I had in mind a`learnr`version of the workshop to i) include coding-tasks and ii) have a more concise version of the workshop bookdown version given the limited amount of time.
+
+
+## 2019-05-30
+
+**Jianhong** (09:03:17) (in thread):
+> I still get Error: Bioconductor version not changed today.
+
+**Lori Shepherd** (09:29:01) (in thread):
+> Sorry about that ... different ERROR than I thought... Please change the call to`BiocManager::install(version="devel", ask=FALSE)`The version will not change in a non-interactive setting unless the`ask`option is utilized
+
+**Jianhong** (11:43:00) (in thread):
+> finally get it passed. I removed r: bioc-devel line and use install: R -e ‘install.packages(“BiocManager”); BiocManager::install(version = “3.10", ask=FALSE); BiocManager::install(c(“packages you want”), version = “devel”, ask = FALSE)’
+
+*18:50:17 - @FeiZhao has joined the channel*
+
+## 2019-06-03
+
+**Jianhong** (08:04:51):
+> Does anyone know the poster size?
+
+**Levi Waldron** (09:58:19):
+> No, we’re still checking with RRU, but if you stick to a standard ~3’x4’ I’m sure you will be safe.
+
+
+## 2019-06-07
+
+*14:08:39 - @Erica Feick has joined the channel*
+**Erica Feick** (14:10:02):
+> If you are attending BioC2019, please fill out this form to let us know your workshop preferences. We appreciate your input![https://forms.gle/x8uRxfHhcCWjCyC39](https://forms.gle/x8uRxfHhcCWjCyC39)
+  - Attachment (Google Docs): [Bioconductor 2019 Workshop Selection](https://forms.gle/x8uRxfHhcCWjCyC39)
+    > Please fill out this form to let us know your preferred workshops for the conference.
+
+
+## 2019-06-09
+
+**Kevin Rue-Albrecht** (15:31:17):
+> In terms of
+> > use citations and footnotes instead of or in addition to hyperlink
+> Do not use BiocStyle functionality.
+> (from[https://github.com/Bioconductor/BiocWorkshops2019](https://github.com/Bioconductor/BiocWorkshops2019))
+> I’m just wondering what would be recommended practice if we wanted to avoid the long link to the vignette seen in the screenshot.
+> Not sure what would be a good compromise between the various output formats expected for the workshop collection.
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/FKD8K3MEG/image.png)
+
+
+## 2019-06-10
+
+**Helena L. Crowell** (07:46:41):
+> Related-ish issue:
+> Switching from`BiocStyle`to, for example,`output: rmarkdown::html_document`caused my`\@ref`s and`fig.cap`tions to break.
+> Is there a recommended`output:`or suggestion how to fix this?
+
+**Kevin Rue-Albrecht** (07:52:41):
+> I think the answer to that last one is to follow@Lorena Pantano’s template:[https://github.com/lpantano/dummychapter1/blob/master/vignettes/dummychapter1.Rmd](https://github.com/lpantano/dummychapter1/blob/master/vignettes/dummychapter1.Rmd)aka
+> ```{---}
+> output:
+>   rmarkdown::html_document:
+>     highlight: pygments
+>     toc: true
+>     toc_depth: 3
+>     fig_width: 5
+> bibliography: "`r system.file(package='dummychapter1', 'vignettes', 'bibliography.bib')`"
+> vignette: >
+>   %\VignetteIndexEntry{dummychapter1}
+>   %\VignetteEngine{knitr::rmarkdown}
+>   %\VignetteEncoding[utf8]{inputenc}
+> ---
+> ```
+
+**Helena L. Crowell** (08:01:53):
+> That is my current setup. However,`\@ref(fig:label)`does not work.'
+
+**Kevin Rue-Albrecht** (08:04:34):
+> I can't remember using that syntax recently. Does this help?[https://stackoverflow.com/questions/9434536/how-do-i-make-a-reference-to-a-figure-in-markdown-using-pandoc](https://stackoverflow.com/questions/9434536/how-do-i-make-a-reference-to-a-figure-in-markdown-using-pandoc)
+> ```
+> ![This is the caption\label{mylabel}](/url/of/image.png)
+> See figure \ref{mylabel}.
+> ```
+  - Attachment (Stack Overflow): [How do I make a reference to a figure in markdown using pandoc?](https://stackoverflow.com/questions/9434536/how-do-i-make-a-reference-to-a-figure-in-markdown-using-pandoc)
+    > I'm currently writing a document in markdown and I'd like to make a reference to an image from my text. this is my text, I want a reference to my image1 [here]. blablabla ![image1](img/image1.png...
+
+**Leonardo Collado Torres** (10:34:34):
+> I’m also using the`\@ref(fig:label)`syntax that is supposed to work with`rmarkdown`and`bookdown`[https://bookdown.org/yihui/rmarkdown/bookdown-markdown.html#cross-referencing](https://bookdown.org/yihui/rmarkdown/bookdown-markdown.html#cross-referencing)which is why I assume that it will work later on when they build the book
+  - Attachment (bookdown.org): [12.3 Markdown extensions | R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/bookdown-markdown.html#cross-referencing)
+    > The first official book authored by the core R Markdown developers that provides a comprehensive and accurate reference to the R Markdown ecosystem. With R Markdown, you can easily create reproducible data analysis reports, presentations, dashboards, interactive applications, books, dissertations, websites, and journal articles, while enjoying the simplicity of Markdown and the great power of R and other languages.
+
+**Leonardo Collado Torres** (10:35:36):
+> though right now on my local build of my workflow, the cross-references don’t work (with`rmarkdown::html_document`using the options from the template you linked to above)
+
+**Leonardo Collado Torres** (10:39:15):
+> Since[https://bioconductor.github.io/BiocWorkshops/](https://bioconductor.github.io/BiocWorkshops/)is the 2018 website does that mean that[https://bioconductor.github.io/BiocWorkshops2019/](https://bioconductor.github.io/BiocWorkshops2019/)will be the 2019 one? (the README.md at[https://github.com/Bioconductor/BiocWorkshops2019](https://github.com/Bioconductor/BiocWorkshops2019)says`Bioconductor/BiocWorkshops2019`) I was just trying to see if a preview of the book was available (basically to check the`\@ref(fig:label)`issue and to see if I needed to change some figure widths and stuff like that)
+  - Attachment (bioconductor.github.io): [The Bioconductor 2018 Workshop Compilation](https://bioconductor.github.io/BiocWorkshops/)
+    > This book contains all the workshops presented at the Bioconductor 2018 Conference
+
+**Jianhong** (11:05:13):
+> should we use pdf_document2() or pdf_document()?
+
+**Marcel Ramos Pérez** (11:21:08):
+> We're using`html_document`(`bookdown`) for the book. I haven't looked into the`\@ref(fig:label`or`fig.cap`issues. Please create separate issues on in the[https://github.com/Bioconductor/BiocWorkshops2019](https://github.com/Bioconductor/BiocWorkshops2019)repo. Right now we are focusing on the AMIs and getting the repo with the dep fields ready.
+
+**Jianhong** (11:25:54) (in thread):
+> you may want to change from html_document to bookdown::html_document2
+
+**Leonardo Collado Torres** (16:27:48) (in thread):
+> thanks!
+
+**Leonardo Collado Torres** (16:48:17):
+> using`bookdown::html_document2`as suggested by@Jianhongsolved the`\@ref(fig:label)`issue for me ^^
+
+
+## 2019-06-11
+
+**Sean Davis** (07:55:40):
+> Could workshop authors please check that ALL packages needed in their vignettes are included as dependencies? These will show up as`NOTE`s in the check report, but the package will still fail to install when rebuilding the vignette. See[https://github.com/Bioconductor/BiocWorkshops2019/issues/32](https://github.com/Bioconductor/BiocWorkshops2019/issues/32)for what this looks like in practice.
+
+**Leonardo Collado Torres** (11:18:27):
+> Hm… are there 14 talks on June 26 from 10:30 to noon?[https://bioc2019.bioconductor.org/schedule](https://bioc2019.bioconductor.org/schedule)
+  - Attachment (BioC 2019): [BioC 2019: Where Software and Biology Connect](https://bioc2019.bioconductor.org/schedule)
+    > Where Software and Biology Connect. June 24 - 27, New York City, USA.
+
+**Leonardo Collado Torres** (11:18:56):
+  - File (PNG): [Screen Shot 2019-06-11 at 11.18.38 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/FKFMZ1D5W/screen_shot_2019-06-11_at_11.18.38_am.png)
+
+**Leonardo Collado Torres** (11:19:28):
+> ahh, or is it different rooms?
+
+*16:28:34 - @lara mcgrath has joined the channel*
+
+## 2019-06-12
+
+**Martin Morgan** (16:46:33) (in thread):
+> yes@Leonardo Collado Torresparallel sessions
+
+**Leonardo Collado Torres** (16:47:00) (in thread):
+> ahh ok, thx ^^
+
+**Stevie Pederson** (22:16:31):
+> Hi all. Just a quick question re posters. Last year at useR some posters had screens as a way to demonstrate their apps/code. Are posters at this year's Bioc going to be static like a conventional poster, or is there capacity for an interactive display? Of course, we can always just stand their with our laptops if we want.:slightly_smiling_face:
+
+
+## 2019-06-13
+
+**Vince Carey** (00:01:28):
+> I have priced rentals of large LED screens for interactive digital poster presentations.  At BWH we have had layered posters composed with flexdashboard rendered on such devices.  At this time it is logistically and financially too difficult to take that approach for Bioc, so we will just have paper posters.  If you can find a vendor and help with transition to the digital format in future meetings please get back in touch.
+
+**Stevie Pederson** (02:54:36):
+> Hi Vince. Thanks for going to that effort! I'm just going to be pleased to be there really & will print everything in the standard manner.
+
+**Martin Morgan** (16:07:09):
+> how to make a better poster:[https://www.youtube.com/watch?v=1RwJbhkCA58](https://www.youtube.com/watch?v=1RwJbhkCA58)
+  - Attachment (YouTube): [How to create a better research poster in less time (including templates)](https://www.youtube.com/watch?v=1RwJbhkCA58)
+
+**Shian Su** (23:42:54):
+> [https://github.com/Bioconductor/BioC2019/issues/35](https://github.com/Bioconductor/BioC2019/issues/35)
+
+**Shian Su** (23:44:22):
+> Looking to have a birds of a feather session around a standardised representation for genomic base modification data. Haven’t put too much thought into it yet so would appreciate suggestions.
+
+
+## 2019-06-16
+
+**Vince Carey** (20:43:15) (in thread):
+> Hi@Shian SuI googled on GA4GH epigenetics and this came back[http://epishare-project.org/](http://epishare-project.org/)... there does not seem to be much happening in terms of data structure schemas.  Perhaps ping@Tim Triche@Kasper D. Hansen@hcorradadirectly?
+  - Attachment (epishare-project.org): [EpiShare](http://epishare-project.org/)
+    > EpiShare
+
+**Shian Su** (20:59:34) (in thread):
+> Thanks Vince, I might start a channel on this if we pick up enough steam.
+
+
+## 2019-06-17
+
+**Nitesh Turaga** (10:44:13):
+> Hi@Sean Davis, Sorry for trouble, but how can I replicate the issue you are having building my workshop locally??
+
+**Nitesh Turaga** (10:44:38):
+> I merged your PR, but even before that...I wasn't having an issue building locally.
+
+**Nitesh Turaga** (10:45:15):
+> or@Marcel Ramos Pérez
+
+*11:43:39 - @Tim Triche has joined the channel*
+*11:43:39 - @Kasper D. Hansen has joined the channel*
+*13:08:37 - @Quy Cao has joined the channel*
+**Sean Davis** (13:25:22):
+> Hi,@Nitesh Turaga. Inside bioconductor/bioconductor_full:devel docker, I did:`BiocManager::install('nturaga/...', build=TRUE, build_opts="", force=TRUE, dependencies=TRUE)`. The issue was two tabs (not spaces) in the yaml frontmatter. It is fixed now, though.
+
+**Nitesh Turaga** (13:25:46):
+> I see! Thanks a lot@Sean Davis
+
+**Shian Su** (20:24:04):
+> Hi@Tim Tricheand@Kasper D. Hansen, I’m hoping to set up a BoF session around structures for base modifications:[https://github.com/Bioconductor/BioC2019/issues/35](https://github.com/Bioconductor/BioC2019/issues/35). Would appreciate any suggestions or feedback.
+
+**Sridhar N** (21:35:59):
+> can some one please point me to refund polices for BioC2019
+
+**Sridhar N** (21:36:17):
+> if there is one
+
+
+## 2019-06-18
+
+**Martin Morgan** (06:24:54) (in thread):
+> Please contact[workshop@bioconductor.org](mailto:workshop@bioconductor.org)
+
+**lara mcgrath** (09:06:55) (in thread):
+> still looking to attend! are spots on the waitlist moving?
+
+**Sridhar N** (09:29:28) (in thread):
+> thanks@Martin Morganwill do that
+
+**Martin Morgan** (09:42:58) (in thread):
+> @lara mcgrathfinal processing of the waitlist will occur on Thursday
+
+**Nitesh Turaga** (13:53:34):
+> How long are the contributed talks in the Bioc2019 main conference?
+
+**Quy Cao** (14:44:54):
+> Hi everyone, if anyone can help me wih this question, I will really appreciate: for the poster presentation, do we have to present both Tuesday and Wednesday, or do we only get assigned 1 day to present? Thanks!
+
+
+## 2019-06-19
+
+**Martin Morgan** (00:10:51) (in thread):
+> time / # presentations, so for you 1:30 / 7 = about 12 minutes...
+
+**Martin Morgan** (00:11:08) (in thread):
+> presentation both days
+
+*21:56:17 - @C. Mirzayi (please do not tag this account) has joined the channel*
+
+## 2019-06-20
+
+*10:12:10 - @Robert Castelo has joined the channel*
+*10:18:20 - @Benjamin Haibe-Kains has joined the channel*
+**Benjamin Haibe-Kains** (10:54:03):
+> Hi, where can I find the time and location for the “PublicDataResources” workshop?
+
+**Nitesh Turaga** (10:54:32):
+> Hi@Benjamin Haibe-Kains[https://github.com/waldronlab/PublicDataResources](https://github.com/waldronlab/PublicDataResources)
+
+**Nitesh Turaga** (10:55:52):
+> oops..that's not what you asked.
+
+**Benjamin Haibe-Kains** (10:55:52):
+> Thanks@Nitesh Turaga, however I am looking for***the time and location***
+
+**Benjamin Haibe-Kains** (10:56:27):
+> I am supposed to present it with@Levi Waldronand@Sean Davisso better if I know where to go:slightly_smiling_face:
+
+**Nitesh Turaga** (10:56:44):
+> Haha. Yes, i'll let someone else answer this.
+
+**Nitesh Turaga** (10:56:58):
+> The moment I saw location, I thought (URL)
+
+**Lori Shepherd** (10:57:17):
+> [https://bioc2019.bioconductor.org/schedule](https://bioc2019.bioconductor.org/schedule)-  I think the room assignments will be figured out upon arrival
+  - Attachment (BioC 2019): [BioC 2019: Where Software and Biology Connect](https://bioc2019.bioconductor.org/schedule)
+    > Where Software and Biology Connect. June 24 - 27, New York City, USA.
+
+**Nitesh Turaga** (10:57:18):
+> 3:10 - 4:00 – Workshops Session 6a
+> The Basics: Public data resources and Bioconductor
+> Day 2: Wednesday June 26
+> 4:10 - 5:00 – Workshops Session 6b
+> The Basics: Public data resources and Bioconducto
+
+**Benjamin Haibe-Kains** (10:57:35):
+> got it, thanks!
+
+*13:59:53 - @Tanya Grancharova has joined the channel*
+*17:35:40 - @Sanjeev Sariya has joined the channel*
+**Sanjeev Sariya** (17:36:19):
+> Hello all!!
+
+
+## 2019-06-21
+
+*10:15:17 - @Luca Parmigiani has joined the channel*
+*11:58:28 - @Ni Zhao has joined the channel*
+*13:08:55 - @Rob Patro has joined the channel*
+**Stuart Lee** (13:12:56) (in thread):
+> does this include questions, Martin?
+
+**Martin Morgan** (14:13:02) (in thread):
+> yes total time
+
+**Ming Tang** (16:15:06):
+> First time attending bioc conference.  Different workshops will occur at the same time? and I can choose which one I want to go? I see the same name of the workshops in 2a,2b,3a,3b.
+
+**Matthew McCall** (16:16:11):
+> Some workshops span 2 sessions. There are no repeats.
+
+**Ming Tang** (16:31:58):
+> got it. thanks.
+
+
+## 2019-06-23
+
+*10:16:05 - @Krithika Venkataraman has joined the channel*
+*12:46:36 - @César Miguel Valdez Córdova has joined the channel*
+*15:40:00 - @Oriol Pavón has joined the channel*
+*18:08:53 - @Matt Brauer has joined the channel*
+**Nitesh Turaga** (19:18:31):
+> NYC locals...any restaurants you'd recommend for dinner around the conference center?
+
+**Marcel Ramos Pérez** (20:16:36):
+> I don't really hangout in that area but I've heard Angkor is pretty good
+
+**Martin Morgan** (21:35:59):
+> <!channel>Sign up now for developer day lightning talks -- just provide name & title and whether you're good to go first thing or later in the day...[https://forms.gle/1k9eD1ahQnjvew8B7](https://forms.gle/1k9eD1ahQnjvew8B7)
+  - Attachment (Google Docs): [BioC 2019 Developer Day Lightening Talk Signup](https://forms.gle/1k9eD1ahQnjvew8B7)
+    > Sign up here for a Developer Day lightning talk. Plan on speaking for about 5 minutes to a topic you're enthusiastic about and that is relevant to the developer day audience.
+
+*22:06:12 - @Ameya Kulkarni has joined the channel*
+**Levi Waldron** (22:33:43) (in thread):
+> Near Rockefeller (main conference) I'm a fan of Ginger Root, a vegan place that's good but not too busy. Lots of good bagel shops around RU too.
+
+
+## 2019-06-24
+
+*08:01:00 - @Anqi Zhu has joined the channel*
+*09:21:48 - @Komal Rathi has joined the channel*
+*09:27:51 - @Doug Barrows has joined the channel*
+*09:41:04 - @Sonali has joined the channel*
+*10:22:30 - @Svetlana has joined the channel*
+*11:14:47 - @Sehyun Oh has joined the channel*
+**Leonardo Collado Torres** (11:14:49):
+> For those of you at the`Lazy Representations of Very Large Genomic Data Resources in R/Bioconductor`workshop here’s the link[https://github.com/Liubuntu/BiocWorkshops2019/blob/master/vignettes/Bioc_201_herveQian_LazyRep.Rmd](https://github.com/Liubuntu/BiocWorkshops2019/blob/master/vignettes/Bioc_201_herveQian_LazyRep.Rmd)
+
+**Leonardo Collado Torres** (11:22:40):
+> I also needed:
+> ```
+> BiocManager::install(c('DelayedDataFrame', 'SQLDataFrame', 'VCFArray', 'Bioconductor/VariantExperiment'))
+> ```
+
+**Stephanie Hicks** (11:25:08):
+> thanks@Leonardo Collado Torres!
+
+**Leonardo Collado Torres** (11:29:13):
+> No problem ^^
+> 
+> Use this to download the Rmd in your Rstudio session
+> ```
+> download.file('[https://raw.githubusercontent.com/Liubuntu/BiocWorkshops2019/master/vignettes/Bioc_201_herveQian_LazyRep.Rmd](https://raw.githubusercontent.com/Liubuntu/BiocWorkshops2019/master/vignettes/Bioc_201_herveQian_LazyRep.Rmd)', 'LazyRep.Rmd')
+> ```
+> 
+> ```
+> rmarkdown::render('LazyRep.Rmd')
+> ```
+> (Thx Liubuntu!)
+
+**Martin Morgan** (11:33:28):
+> <!channel>only a couple more lightning talk slots left! Thanks for your participation!
+
+**Robert Castelo** (11:52:39):
+> My AMI says 'GDSArray' is not available (for R version 3.6.0), luckily I'm able to work it out with my local installation of BioC development, but Hervé just showed it working on the AMI, any hints?
+
+**Kevin Rue-Albrecht** (11:53:26):
+> ```
+> BiocManager::install(c("VCFArray"))
+> BiocManager::install(c("DelayedDataFrame"))
+> BiocManager::install(c("SQLDataFrame"))
+> ```
+
+**Kevin Rue-Albrecht** (11:53:55):
+> In short:
+> ```
+> BiocManager::install(c("VCFArray", "DelayedDataFrame", "SQLDataFrame"))
+> ```
+
+**Leonardo Collado Torres** (11:54:30):
+> I didn’t need to install manually the`GDSArray`package for running`rmarkdown::render('LazyRep.Rmd')`(I guess that it was already installed)
+
+**Martin Morgan** (11:55:00):
+> It just installs for me?
+> ```
+> > BiocManager::install("GDSArray")
+> Bioconductor version 3.10 (BiocManager 1.30.4), R 3.6.0 (2019-04-26)
+> Installing package(s) 'GDSArray'
+> trying URL '[https://bioconductor.org/packages/3.10/bioc/src/contrib/GDSArray_1.5.2.tar.gz](https://bioconductor.org/packages/3.10/bioc/src/contrib/GDSArray_1.5.2.tar.gz)'
+> Content type 'application/x-gzip' length 298245 bytes (291 KB)
+> ==================================================
+> downloaded 291 KB
+> 
+> * installing **source** package 'GDSArray' ...
+> **** using staged installation
+> **** R
+> **** inst
+> **** byte-compile and prepare package for lazy loading
+> **** help
+> ***** installing help indices
+> **** building package indices
+> **** installing vignettes
+> **** testing if installed package can be loaded from temporary location
+> **** testing if installed package can be loaded from final location
+> **** testing if installed package keeps a record of temporary installation path
+> * DONE (GDSArray)
+> 
+> The downloaded source packages are in
+>     '/tmp/RtmpuqM26j/downloaded_packages'
+> installation path not writeable, unable to update packages: cluster, nlme
+> Update old packages: 'derfinder', 'DESeq2', 'edgeR', 'ellipsis', 'EnrichmentBrowser',
+>   'GenomicAlignments', 'GenomicFeatures', 'GenomicScores', 'ggpubr', 'iSEE', 'littler',
+>   'mvtnorm', 'plotrix', 'plyranges', 'PureCN', 'Rcwl', 'recount', 'regionReport',
+>   'S4Vectors', 'scater', 'SummarizedExperiment', 'systemPipeR', 'trackViewer'
+> Update all/some/none? [a/s/n]:
+> ```
+
+**Leonardo Collado Torres** (11:55:55):
+> also worked for me
+
+**Robert Castelo** (11:56:00):
+> ```
+
+*11:56:27 - @Kelly Street has joined the channel*
+**Robert Castelo** (11:56:33):
+> Weird
+  - File (Plain Text): [Untitled](https://community-bioc.slack.com/files/U34P8RS3B/FKUG241MK/-.txt)
+
+*11:56:40 - @Zachary Brehm has joined the channel*
+**JiefeiWang** (11:57:44):
+> It is GDSArray
+
+**Robert Castelo** (11:57:47):
+> ach, an extra 'a'!!!!:face_palm:
+
+**JiefeiWang** (11:57:50):
+> You have a typo
+
+**Robert Castelo** (11:58:40):
+> sorry for the noise
+
+**Ming Tang** (12:00:54):
+> [http://biocworkshops2019.bioconductor.org.s3-website-us-east-1.amazonaws.com/](http://biocworkshops2019.bioconductor.org.s3-website-us-east-1.amazonaws.com/)
+
+**Sean Davis** (12:01:44):
+> You might want to share:[https://rebrand.ly/biocworkshops2019](https://rebrand.ly/biocworkshops2019)
+
+**Sean Davis** (12:02:04):
+> The underlying URL may change at some point after the conference.
+
+**Leonardo Collado Torres** (13:01:20):
+> if your battery is low on power:battery:the`Smilow Seminar Room`, where the`Bioconductor on Containers`workshop by Nitesh Turaga is being taught, has a plug under every seat ^^:electric_plug:
+
+**Leonardo Collado Torres** (13:04:45):
+> For those of us catching up:
+> 
+> *[bit.ly/bioc-containers](http://bit.ly/bioc-containers)*[github.com/nturaga/BioconductorOnContainers](http://github.com/nturaga/BioconductorOnContainers)
+> ```
+> docker run -p 8787:8787 -e PASSWORD=bioc \
+> > bioconductor/release_base2:latest
+> ```
+
+**Ming Tang** (13:46:54):
+> if you want to run rstudio using singularity, I have post on it[https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/](https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/)
+  - Attachment (DNA confesses Data speak): [Run Rstudio server with singularity on HPC | DNA confesses Data speak](https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/)
+    > Background Please read the following before go ahead: what is docker? what is Rocker? what is singularity? from Harvard Research computing website: Odyssey has singularity installed. Why Singularity? There are some important differences between Docker and Singularity: Docker and Singularity have their own container formats. Docker containers may be imported to run via Singularity. Docker containers need root privileges for full functionality which is not suitable for a shared HPC environment.
+
+**Nitesh Turaga** (14:26:09) (in thread):
+> Now I know why there were so many people at my workshop ;)
+
+**Leonardo Collado Torres** (14:30:34) (in thread):
+> hehe ^^
+
+**Leonardo Collado Torres** (15:21:45):
+> hm…:confused:
+  - File (PNG): [Screen Shot 2019-06-24 at 3.21.16 PM.png](https://community-bioc.slack.com/files/U34P8RS3B/FKUPDERDW/screen_shot_2019-06-24_at_3.21.16_pm.png)
+
+**Leonardo Collado Torres** (16:12:29):
+> Thanks for the interest in[https://comunidadbioinfo.github.io/](https://comunidadbioinfo.github.io/)! If you are interested in joining our Slack space, we just created[http://bit.ly/CDSBMexicoSlack](http://bit.ly/CDSBMexicoSlack)(FYI most channels currently are in Spanish, though we can surely speak English too and make some English channels)
+  - Attachment (comunidadbioinfo.github.io): [CDSB](https://comunidadbioinfo.github.io/)
+    > Community of Bioinformatics Software Developers
+
+**Aedin Culhane** (17:01:30):
+> Hi Boston R/Bioconductor for Genomics folks, who said they'd like to meet tonight..  lets make a plan
+
+**Aedin Culhane** (17:03:00):
+> The Boston R/Bioconductor meetup meetings on making a R package ([https://www.meetup.com/Boston-R-Bioconductor-for-genomics/events/254563803/](https://www.meetup.com/Boston-R-Bioconductor-for-genomics/events/254563803/)) and Bioc package ([https://www.meetup.com/Boston-R-Bioconductor-for-genomics/events/254563885/](https://www.meetup.com/Boston-R-Bioconductor-for-genomics/events/254563885/))
+
+*17:30:58 - @RGentleman has joined the channel*
+**Aedin Culhane** (18:10:41):
+> Outing to Central Park
+  - File (JPEG): [File from iOS](https://community-bioc.slack.com/files/U34P8RS3B/FKUUQG5UM/img_4577.jpg)
+
+*18:22:08 - @Burton Karger has joined the channel*
+**Aedin Culhane** (19:12:36):
+> Manhattan plot!!
+  - File (JPEG): [File from iOS](https://community-bioc.slack.com/files/U34P8RS3B/FKNKBTQE5/img_4587.jpg)
+
+**Kevin Rue-Albrecht** (22:05:31):
+> Check that out: there’s even a biocsticker in the picture!
+  - File (JPEG): [IMG_4587.JPG](https://community-bioc.slack.com/files/U34P8RS3B/FKV376WGY/img_4587.jpg)
+
+*23:42:32 - @Joanna Dragich has joined the channel*
+
+## 2019-06-25
+
+**Peter Hickey** (08:32:18):
+> [https://twitter.com/PeteHaitch/status/1143495621636251648](https://twitter.com/PeteHaitch/status/1143495621636251648)
+  - Attachment (twitter): [Attachment](https://twitter.com/PeteHaitch/status/1143495621636251648)
+    > In case it's useful, here are my notes from Developer Day at #BioC2019 [https://docs.google.com/document/d/1ylziUypDwwuKKC3J5_6KaW-OJVxs_gu1x6LjJOQ6olk/edit?usp=sharing](https://docs.google.com/document/d/1ylziUypDwwuKKC3J5_6KaW-OJVxs_gu1x6LjJOQ6olk/edit?usp=sharing) (inspired by [@jxtx](https://twitter.com/jxtx) last year)
+    > I'll try to continue over the next few days and write something up following the meeting
+
+*09:43:59 - @Ghada Soliman has joined the channel*
+*10:15:50 - @Aaron Wolen has joined the channel*
+*10:19:50 - @Matt Paul has joined the channel*
+**Jenny Drnevich** (10:34:31):
+> We are looking for people to serve as external reviewers for H3ABioNet ([https://h3abionet.org/](https://h3abionet.org/)) Node assessment exercises in RNASeq, human variant calling, GWAS and 16S microbiome data. The H3ABioNet is charged with "Advancing Bioinformatics Research and Capacity Building in Africa" and as part of this, we have developed SOPs ([https://h3abionet.github.io/H3ABionet-SOPs/index.html](https://h3abionet.github.io/H3ABionet-SOPs/index.html)) for the above bioinformatic tasks that African nodes can use to guide them through their assessment task to certify that they have the necessary skills and understanding to analyze data of that type. If anyone at BioC2019 is interested in learning more about this, please come find me! The SOPs are also good resources for anyone.@Michael Love@James MacDonald@Sean Davis@Matt Ritchie(and I forget who else I've already talked to about this...)
+  - Attachment (H3ABioNet): [Home](https://h3abionet.org/)
+    > H3aBioNet website
+
+**Jenny Drnevich** (10:37:16) (in thread):
+> @Leonardo Collado Torreswhat you are doing is similar to H3ABioNet ([https://h3abionet.org/](https://h3abionet.org/)). Some of their resources could be useful for you!
+
+**Leonardo Collado Torres** (11:02:05) (in thread):
+> @Alejandro Reyes@Ana Beatriz Villaseñor Altamirano@Joselyn Chávez@César Miguel Valdez Córdova@Luis P Iniguez
+
+*11:02:10 - @Luis P Iniguez has joined the channel*
+**Leonardo Collado Torres** (11:02:25) (in thread):
+> Thanks for the info Jenny!
+
+*11:22:01 - @Keith Connolly has joined the channel*
+*12:04:39 - @Christian P. Larsen has joined the channel*
+**JiefeiWang** (12:19:56):
+> Here is a campus map. In case if anyone gets lost.
+  - File (PNG): [ru_map_2011.png](https://community-bioc.slack.com/files/U34P8RS3B/FKPFEM397/ru_map_2011.png)
+
+**Leonardo Collado Torres** (13:37:12):
+> If you are in@Peter Hickey’s workshop on`DelayedArray`and`DelayedArrayMatrix`and get the following error:
+> ```
+> > library(DelayedMatrixStats)
+> > median_expression <- rowMedians(cpm)
+> Error in (function (classes, fdef, mtable)  : 
+>   unable to find an inherited method for function 'rowMedians' for signature '"DelayedMatrix"'
+> ```
+> you might need to go to “Session” -> “Restart R” and start from scratch.
+> 
+> (That is, you might have a NAMESPACE conflict somewhere)
+
+**Lori Shepherd** (13:51:30):
+> Or just for an alternative...you could define the function explicitly from where it comes. (i assume the delayedmatrixstats package) DelayedMatrixStats::rowMedians(cpm) ....maybe?
+
+*13:52:51 - @Andrew McDavid has joined the channel*
+**Lori Shepherd** (14:03:08):
+> If anyone is having issues using the conference AMI that wanted to use them, please reach out so we can get you set up. We can meet up over the 250 break
+
+**Sean Davis** (14:05:29) (in thread):
+> Thanks, Leo.
+
+**Lori Shepherd** (14:09:08) (in thread):
+> Ping me here so I know to look for you. I'll try to be at a center round table to be easily found
+
+*14:18:24 - @Abbas Rizvi has joined the channel*
+**Jianhong** (14:24:24):
+> To get Rmd files in AMI, you may try
+> f <- system.file("doc", package="DelayedArrayWorkshop")
+> setwd(f)
+> and then in file panel, > more > Go to working directory, and you will see the Rmd file.
+
+**Lori Shepherd** (14:27:03):
+> You can also navigate to packages in the one rstudio pane, find the workshop/package title, and choose to see documentation
+
+**Lori Shepherd** (14:27:55):
+> That way you don't have to change your working directory
+
+**Leonardo Collado Torres** (14:53:44) (in thread):
+> similarly, use:
+> ```
+> sapply(dir(system.file("doc", package="DelayedArrayWorkshop"), 'Rmd|rmd', full.names = TRUE), file.edit)
+> ```
+
+**Marcel Ramos Pérez** (16:45:40) (in thread):
+> `help(package = "DelayedArrayWorkshop")`for the built version
+
+**Jenny Drnevich** (16:55:04) (in thread):
+> I would suggest for next year to keep workshop names consistent somehow. The names on the schedule ([https://bioc2019.bioconductor.org/schedule](https://bioc2019.bioconductor.org/schedule)) don't match those on the workshop page ([http://biocworkshops2019.bioconductor.org.s3-website-us-east-1.amazonaws.com/](http://biocworkshops2019.bioconductor.org.s3-website-us-east-1.amazonaws.com/)) (these aren't in any sort of order either!!!) and there isn't an easy indication of the package name for each workshop anywhere that I can see.
+  - Attachment (BioC 2019): [BioC 2019: Where Software and Biology Connect](https://bioc2019.bioconductor.org/schedule)
+    > Where Software and Biology Connect. June 24 - 27, New York City, USA.
+
+*17:18:34 - @Nick Gomez has joined the channel*
+**Sean Davis** (17:23:17):
+> Thanks for the feedback,@Jenny Drnevich. Yes, we'll coordinate better next year.
+
+**Lori Shepherd** (17:54:22):
+> Yes next year a mapping for sure
+
+**Lori Shepherd** (17:54:42):
+> Or better consistency
+
+**Nitesh Turaga** (19:00:06):
+> All of Bioc 2019 is at Treadwell
+
+**Matthew McCall** (19:03:50):
+> I can attest to the veracity of that statement
+
+**Robert Castelo** (19:32:13):
+> Here is the proof ..
+  - File (JPEG): [20190625_191218.jpg](https://community-bioc.slack.com/files/U34P8RS3B/FKWAF7VH6/20190625_191218.jpg)
+
+**Jianhong** (21:20:35) (in thread):
+> I mean you can open the Rmd or R file in the Rstudio code panel, and then you can use Ctl+enter to run the code without copy and paste.
+
+
+## 2019-06-26
+
+*01:33:44 - @Aaron Lun has joined the channel*
+*01:33:55 - @Luyi Tian has joined the channel*
+**Aaron Lun** (01:34:21):
+> If that's@Peter Hickeynext to@Kevin Rue-Albrechtin the above photo... well, pete, you look about 20 years older. Hope that's just the camera.
+
+**Peter Hickey** (06:53:57) (in thread):
+> It's not. had a prior engagement
+
+*09:12:19 - @Gabriel J. Odom has joined the channel*
+**Gabriel J. Odom** (09:16:09):
+> Excellent suggestion on Twitter this morning: add twitter usernames to badges next year.[https://twitter.com/areyesq/status/1143869629066022912](https://twitter.com/areyesq/status/1143869629066022912)
+  - Attachment (twitter): [Attachment](https://twitter.com/areyesq/status/1143869629066022912)
+    > A proposal for conference name batches: include twitter handles and twitter pictures, or a screenshot of twitter profile page. #BioC2019
+
+**Leonardo Collado Torres** (09:17:02) (in thread):
+> Cmd + enter (MacOS) also works for sending code to the console from the rendered html vignette ^^
+
+**Kevin Rue-Albrecht** (09:49:50) (in thread):
+> It was@Andrew McDavid. I’ll leave him answer to your comment Aaron:stuck_out_tongue_winking_eye:
+
+**Krithika Venkataraman** (10:24:42):
+> Are the slides or videos from morning talks shared anywhere?
+
+**Lori Shepherd** (10:47:07):
+> If the presenters are willing eventually they will be posted to the bioconductor website courses section where there is posted learning materials[http://bioconductor.org/help/course-materials/](http://bioconductor.org/help/course-materials/)
+
+**Lori Shepherd** (10:47:59):
+> But it may take a few weeks to get materials and post.
+
+**Nitesh Turaga** (10:50:31):
+> My slides:[http://bit.ly/bioc-containers-3-reasons](http://bit.ly/bioc-containers-3-reasons)
+  - Attachment (Google Docs): [3 Reasons to 'Bioconductor' on Containers](http://bit.ly/bioc-containers-3-reasons)
+    > 3 reasons to ‘Bioconductor’ on Containers Bioc2019 [http://bit.ly/bioc-containers-3-reasons](http://bit.ly/bioc-containers-3-reasons) Nitesh Turaga Why you should try out Bioconductor on Containers…..
+
+**Nitesh Turaga** (10:50:59):
+> Youtube video of demo:[http://bit.ly/bioc-k8sredis-demo](http://bit.ly/bioc-k8sredis-demo)
+  - Attachment (YouTube): [k8s redis demo video](http://bit.ly/bioc-k8sredis-demo)
+    > This is just a demo for a conference talk. Best played on 2x speed or more.
+
+**Andrew McDavid** (10:52:43) (in thread):
+> Geeze, I get a few grey hairs in my beard and all the sudden I appear a septuagenarian:sunglasses:.
+
+**Kevin Rue-Albrecht** (10:54:11) (in thread):
+> You should Dockerize yourself while you can@Andrew McDavid,@Nitesh Turagasaid that everyone will find you identical in any number of years …:nerd_face:
+
+**Nitesh Turaga** (10:54:39) (in thread):
+> Lol
+
+**Shian Su** (11:47:28):
+> Hey@Nitesh Turagawhat’s you PS1 setting for bash?:nerd_face:
+
+**Kevin Rue-Albrecht** (11:47:54):
+> He said he’s a`ksh`user. Then I don’t know if that’s the typical prompt there (I do like it too!)
+
+**Aaron Lun** (12:35:16) (in thread):
+> @Andrew McDavidOh that’s your hair! I thought it was Pete wearing sunglasses. Indoors.
+
+**Nitesh Turaga** (12:43:10):
+> zsh
+
+**Nitesh Turaga** (12:43:48):
+> [https://github.com/sorin-ionescu/prezto](https://github.com/sorin-ionescu/prezto)
+
+**Nitesh Turaga** (12:44:32):
+> @Shian Su@Kevin Rue-Albrecht
+
+**Hervé Pagès** (14:06:06) (in thread):
+> It's called cryonics and it's more expensive than Docker
+
+**Shian Su** (15:47:25):
+> I like it but I don’t like it enough to switch to zsh.
+
+**Shian Su** (15:47:39):
+> So I managed to recreate it for bash
+
+**Shian Su** (15:50:34):
+  - File (Shell): [For those on macOS](https://community-bioc.slack.com/files/U34P8RS3B/FKL2427TL/for_those_on_macos.sh)
+
+**Shian Su** (15:51:11):
+> To reset this just delete the last line from`~/.bash_profile`and run`. ~/.bash_profile`again.
+
+**Shian Su** (15:55:27):
+> Replace`.bash_profile`with`.bashrc`if you are on linux.
+
+**Andrew McDavid** (16:47:00):
+> How to copy files down from the EC2 instances?   Tried ssh/scp but doesn't seem like port 22 is open.
+
+**Sehyun Oh** (17:01:48):
+> Select the file, export, and download the file using RStudio interface.
+
+
+## 2019-06-27
+
+**Aedin Culhane** (08:30:01):
+> Thanks everyone
+
+**Rob Patro** (09:00:03):
+> Thank you all for an amazing first BioC! It was fantastic to meet so many of you in person and to see so much cool work that's truly at the interface of software and biology. I hope to attend many more BioCs :).
+
+**Simina Boca** (11:06:31):
+> Likewise!!
+
+**Simina Boca** (11:06:43):
+> It was such a fun conference!
+
+**Simina Boca** (11:07:30):
+> Also one of the most useful conferences I've ever been to in terms of actually learning things!
+
+**Gabriel J. Odom** (15:21:28):
+> Did anyone get a link to Thomas Wu's slides? Or his email?
+
+**Aedin Culhane** (15:43:19):
+> I think slides will be shared if speakers give permission ?
+
+**Aedin Culhane** (15:44:03):
+> @Wolfgang Huberdid most of the organizing for today and should have contact info or Thomas Wu
+
+**Gabriel J. Odom** (15:48:32):
+> I was sent his email. Thank you all!
+
+**Charlotte Soneson** (17:05:45):
+> Thanks everyone for another awesome Bioc conference! Keep up the great work and hopefully see you next year again:smiley::clap:
+
+**Levi Waldron** (21:52:16) (in thread):
+> Pinning this message, thank you Jenny.
+
+**Matt Brauer** (23:30:05):
+> Thanks to the organizers for a great conference, and thanks to all for the great community.
+
+**Matt Brauer** (23:30:33):
+> Does anyone know if there is a place where presentations will be deposited?
+
+
+## 2019-06-28
+
+**Lori Shepherd** (09:02:38):
+> <!channel>We will be reaching out to all presenters for permission to share their slides -  once we have them they will be posted to the Bioconductor course materials page on the website -[http://bioconductor.org/help/course-materials/](http://bioconductor.org/help/course-materials/)
+
+**Kevin Rue-Albrecht** (09:28:18):
+> If I can’t figure it out myself, someone may have to teach me how to extract my own slides from my`blogdown`website. Except if you’re happy with the Markdown file:sweat_smile:[https://kevinrue.github.io/teaching/](https://kevinrue.github.io/teaching/)
+  - Attachment (Kevin Rue-Albrecht): [Teaching | Kevin Rue-Albrecht](https://kevinrue.github.io/teaching/)
+    > Kevin Rue-Albrecht's GitHub blogdown using hugo-academic
+
+**Matt Brauer** (09:36:35):
+> Markdown is good!
+
+**Lori Shepherd** (12:25:10):
+> As mentioned above the talks and workshops will eventually be posted to the Bioconductor course materials page[http://bioconductor.org/help/course-materials/](http://bioconductor.org/help/course-materials/).  In the meantime if you would like to download an individual workshop,  I believe I mapped out the Titles of the workshops to their respective github repository.  You can download using`BiocManager::install()`(example. The annotation workshop`BiocManager::install("jmacdon/Bioc2019Anno")`-@Sean DavisI believe can provide more information on the docker image for those that prefer docker and then would have all the workshops automatically loaded.   Cheers
+
+**Lori Shepherd** (12:25:22):
+  - File (CSV): [GitHubTitleMapping.csv](https://community-bioc.slack.com/files/U34P8RS3B/FKN922VNX/githubtitlemapping.csv)
+
+**Sean Davis** (13:29:28):
+> The details about running the dockerized version of the workshops are available on the README file at[https://github.com/Bioconductor/BiocWorkshops2019](https://github.com/Bioconductor/BiocWorkshops2019)
+
+
+## 2019-06-29
+
+**Levi Waldron** (23:14:47):
+> <!channel>please check out the#diversebiocchannel for discussion of diversity and inclusiveness of the Bioconductor community.
+
+
+## 2019-06-30
+
+**Sridhar N** (10:56:37):
+> i recall@Helena L. Crowellshowing how to create clickable tabs for multiple samples in markdown and@Peter Hickeyhad asked how did she do it was this ever shared any where?
+
+**Sridhar N** (10:56:38):
+> thanks
+
+**Kevin Rue-Albrecht** (11:33:50):
+> # section title {.tabset}
+> 
+> ## tab name 1
+> 
+> Content 
+> 
+> ## tab name 2
+> 
+> Content
+
+**Helena L. Crowell** (13:01:44):
+> Addition to Kevin’s example: If you want to split multiple plots across tabs you can use
+> 
+> # header
+> ```
+> ```{r results='asis'}
+> for (i in 1:2) {
+> cat("##", i, "\n")
+> plot(1,1)
+> cat("\n\n")
+> }
+> ```
+> ```
+> The tab-names in the example above would then be the value of i. Not that inside the for loop cat() should output one more # than the header of that section.
+
+**Peter Hickey** (20:22:29):
+> thanks to you both! sadly doesn't look like it works in my preferred Rmarkdown format ([https://github.com/rstudio/distill/issues/11](https://github.com/rstudio/distill/issues/11))
+
+
+## 2019-07-01
+
+**Avi Srivastava** (15:42:46):
+> Hey guys, I’ve got a quick question. In@Peter Hickey’s awesome workshop on`delayedMatrix`at bioC, I observed that the tenx 1M cell mouse data was present somewhere in the cloud (ExperimentHub ?) which makes it easy to pull for quick analyses. If I wan’t to upload the gene-count matrices, say for various 10x data on their website, using alevin as the quantifier what would be the easiest way to do that ? Just as a side note, alevin has its own sparse format, which is designed for storing inferential replicates of each cell while also keeping the gene-multi-mapped reads. The plan is to run alevin on some subset of widely used 10x datasets, process it through tximeta pipeline, produce SCE object and finally store it in the cloud. It’d be great if the objects are updatable based on the new versions of alevin, as we release. The object generation pipeline is already pushed in tximeta and we are working on testing some of the stuff.
+
+**Aaron Lun** (15:44:50):
+> sounds like a good candidate for another`TENxAlevin`EHub package.
+
+**Aaron Lun** (15:45:04):
+> Though perhaps we should consolidate the various`TENx*Data`packages.
+
+**Avi Srivastava** (15:51:33):
+> Yea I like the idea of consolidated data. I am new to the ExperimentHub, bioconductor in general, and was wondering how customizable/updatable the Ehub data is ? Also how much data can be stored if we wan’t to, say store any 10x based cell atlas ?
+
+**Nitesh Turaga** (15:54:30):
+> [https://bioconductor.org/packages/devel/bioc/vignettes/ExperimentHub/inst/doc/CreateAnExperimentHubPackage.html](https://bioconductor.org/packages/devel/bioc/vignettes/ExperimentHub/inst/doc/CreateAnExperimentHubPackage.html)The experiment hub data resources are very updatable.
+
+**Nitesh Turaga** (15:59:15):
+> As per my knowledge, they don't have a size limit. But@Lori Shepherdmight know better.
+
+**Michael Love** (16:14:21):
+> Just started importing this Alevin format into R today. I forgot to check the in memory size but will report back soon
+
+**Michael Love** (16:14:59):
+> On disk 900 mouse neurons is 4 Mb for just counts, 8 Mb for variance, 70 Mb for the bootstraps
+
+**Michael Love** (16:15:05):
+> This is sparse storage
+
+**Michael Love** (16:18:56):
+> It’s in tximportData and the new importer is in tximport
+
+**Michael Love** (16:30:48):
+> For`.rda`/ in-memory, using`Matrix::sparseMatrix`, it's 7 Mb / 40 Mb for the counts, same for the variance, 128 Mb / 650 Mb for the inferential replicates (20 bootstraps)
+
+**Levi Waldron** (18:32:47) (in thread):
+> But only updatable by creating a new resource or over-writing the old one; there is no concept of versioning. That's an issue I'd really like to resolve in ExperimentHub 2.0.
+
+**Aaron Lun** (18:40:27):
+> I usually put my content in an explicit folder referencing the version from whence it came.
+
+**Aaron Lun** (18:40:38):
+> so e.g.,`scRNAseq/zeisel-brain/2.0.0/counts.rds`.
+
+**Aaron Lun** (18:40:57):
+> And then if I have new stuff I just make`2.0.1`or whatever.
+
+**Aaron Lun** (18:41:14):
+> And provide the R function with a`version=`argument to allow users to switch between new and old versions.
+
+**Avi Srivastava** (20:27:07) (in thread):
+> Thanks for the heads up@Levi Waldron, that’s what I was trying to get at.
+
+**Avi Srivastava** (20:29:13):
+> Thanks@Aaron Lun, I’ll shadow the`TenXData`package .
+
+
+## 2019-07-02
+
+**Lori Shepherd** (07:24:21) (in thread):
+> I'm looking at versioning over this next release cycle.  hopefully will have some implementation ideas for it.
+
+**Michael Love** (11:36:08):
+> we're curious what others here think: Avi, Rob and I sat down today and are thinking about hosting two versions of these datasets: one is with counts + variance, the other with counts + variance + bootstraps
+
+**Michael Love** (11:37:04):
+> the idea of hosting the two versions is that the first is more lightweight but not the complete information, while the second version has a bigger in-memory footprint but allows you to see e.g. the covariance btwn genes
+
+**Kasper D. Hansen** (12:01:29):
+> Explore the following: right now the SE is assembled on the client side as far as I understand. Then it should be easy for the user to request more assays so to say
+
+**Kasper D. Hansen** (12:01:50):
+> something like`get(.., includeBootstraps = TRUE)`
+
+**Michael Love** (16:48:57):
+> aha, thanks@Kasper D. Hansen
+
+**Aaron Lun** (16:51:17):
+> This is the case for the latest`scRNAseq::ReprocessedAllenData`, which only downloads a subset of assays if requested.
+
+**Aaron Lun** (16:55:27):
+> Check out[https://github.com/LTLA/scRNAseq](https://github.com/LTLA/scRNAseq)for the latest.
+
+**Michael Love** (17:10:21):
+> Great thanks
+
+
+## 2019-07-03
+
+**Ming Tang** (10:15:59):
+> How should we do the reimbursement?
+
+**Avi Srivastava** (11:12:26):
+> I emailed Pamela, the receipt of my travelling expenses.
+
+**Ming Tang** (14:19:11):
+> Thanks Avi
+
+
+## 2019-07-11
+
+*20:46:35 - @Gerald McCollam has joined the channel*
+
+## 2019-07-23
+
+*19:11:39 - @Sehyun Oh has left the channel*
+
+## 2019-08-05
+
+*17:21:17 - @Alejandro Ponce has joined the channel*
+
+## 2019-08-13
+
+**Sridhar N** (11:09:35):
+> will this link be gone at some point[http://biocworkshops2019.bioconductor.org.s3-website-us-east-1.amazonaws.com/page/](http://biocworkshops2019.bioconductor.org.s3-website-us-east-1.amazonaws.com/page/)
+
+**Sridhar N** (11:09:58):
+> asking for backing up stuff
+
+**Levi Waldron** (14:50:59) (in thread):
+> That is likely not the permanent home, but it will be publicly archived somewhere (@Sean Davis)
+
+
+## 2019-08-14
+
+**Sean Davis** (11:38:26) (in thread):
+> I have no definitive plans to take down the site, but we will come up with a longer-term strategy for workshop materials for the next conference.
+
+
+## 2019-09-03
+
+*10:55:13 - @Federico Marini has joined the channel*
+**Federico Marini** (10:55:42):
+> Joining late the channel, but I thought it would be an excellent way to reach out to the organizers
+
+**Federico Marini** (10:56:00):
+> I was not there unfortunately so I could not get an estimate of how it was organized
+
+**Federico Marini** (10:56:49):
+> But I will be helping out the organization of eRum2020 (European R users meeting) in Milan
+
+**Federico Marini** (10:57:39):
+> One point we have currently open regards diversity scholarships & travel fellowships.
+
+**Federico Marini** (10:59:51):
+> My questions to you@Levi Waldronbeing the local organizers (can well be I missed some more NewYorkers…):
+> 1- how did you organize the selection for the diversity scholarships, how much/what did it cover?
+> 2- travel fellowships, what were your budgets for these - and how many did you distribute?
+
+**Federico Marini** (11:00:28):
+> If the discussion should be carried along as PM instead of here, please do so - and thank you in advance for any info that I’ll be happy to pass further!
+
+**Levi Waldron** (16:56:43):
+> Dear@Federico Marini, happy to discuss with you, perhaps easier just to give me a Slack call tomorrow or Friday? I'm in Trento for sabbatical this year so no time zone difficulty...
+
+**Federico Marini** (17:00:52) (in thread):
+> Happy to do so!
+
+
+## 2019-09-06
+
+**Aedin Culhane** (18:00:36):
+> @Federico Mariniwe will also be soon making a call for volunteers to join the Bioc2020 organizing committee if you would like to be involved
+
+
+## 2019-10-07
+
+*10:26:06 - @Kelly Street has left the channel*
+
+## 2019-10-18
+
+*11:34:20 - @Pratima Chennuri has joined the channel*
+
+## 2019-10-23
+
+*15:17:02 - @Tokuwa Kanno has joined the channel*
+
+## 2019-11-20
+
+**Levi Waldron** (07:07:42):
+> archived the channel

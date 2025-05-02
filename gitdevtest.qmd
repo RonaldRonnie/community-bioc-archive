@@ -1,0 +1,85 @@
+---
+title: "#gitdevtest"
+format: gfm
+---
+
+
+## 2024-10-29
+
+*13:11:02 - @Marcel Ramos Pérez has joined the channel*
+*13:11:13 - @Alex Mahmoud has joined the channel*
+*13:11:54 - @Vince Carey has joined the channel*
+*13:11:54 - @Charlotte Soneson has joined the channel*
+**Alex Mahmoud** (13:27:56):
+> Hey@Vince Careyand@Charlotte Soneson. I processed the list of packages you submitted on the form, sorry for the delay! You should have an invitation in your github associated email to be added as a writer, after which you should be able to push. Please lmk if you need any help and/or hit any issues! Also please lmk if you got one email per repo, or just one for the org, curious how github does it. I think it's one per repo
+
+**Charlotte Soneson** (13:32:39):
+> Thanks Alex! I got one email invite for each repository:slightly_smiling_face:I’mon holiday this week but will look into this whenI’mback.
+
+**Charlotte Soneson** (13:36:12):
+> If I remember correctly, I believe@Michael Stadleradded a couple of additional packages from our side
+
+**Vince Carey** (13:41:56):
+> thanks, apart from pushing to there, are there actions executed in the gitdev test system?
+
+**Alex Mahmoud** (14:07:58):
+> No there aren't yet. The next step is to add the hooks on par with gitolite. Can later look into some possible scanning actions for security vulnerabilities, auto dependency bumps, repository badging, test coverage analysis, etc but I think the plan for this hosting portion is to meet with Lori to pull the trigger on GH Enterprise and add the hooks soon after release, probably next week. Any after-the-fact actions I think fit better in the build/propagation centralized repo model, rather than in each package, so that we don't have to have anything in user code. This also theoretically allows for users to add their own custom actions to each repository, which might be a good feature to have as well in the future with some guardrails
+
+
+## 2024-11-06
+
+*04:36:43 - @Michael Stadler has joined the channel*
+
+## 2024-12-12
+
+*09:44:32 - @Hiru has joined the channel*
+*09:44:33 - @Hiru has left the channel*
+
+## 2025-01-30
+
+**Charlotte Soneson** (12:55:14):
+> Hi@Alex Mahmoud, quick question - since a few weeks I'm getting errors from the actions run in the gitdev repos of the form
+> > The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings.
+> See e.g.[https://github.com/bioconductor-source/alevinQC/actions/runs/12946581330](https://github.com/bioconductor-source/alevinQC/actions/runs/12946581330). Vince mentioned that perhaps we should change the remote? Currently I have
+> > gitdevtest	git@github.com:bioconductor-source/alevinQC.git (fetch)
+> gitdevtest	git@github.com:bioconductor-source/alevinQC.git (push)
+> Is there something I should change? Thanks!
+
+**Alex Mahmoud** (13:02:51):
+> It should be`git remote add gitdevtest `[https://gitdevtest.bioconductor.org/packages/alevinQC](https://gitdevtest.bioconductor.org/packages/alevinQC)as a potential replacement of[git.bioconductor.org](http://git.bioconductor.org), so pushing to that remote at the same time as you push to[git.bioconductor.org](http://git.bioconductor.org).
+
+**Alex Mahmoud** (13:04:41):
+> Pushing to github directly should have worked too though, what issue are you seeing?
+
+**Charlotte Soneson** (13:05:22):
+> Pushing works fine, it’s just that the actionsdon’trun, with the error above.
+
+**Alex Mahmoud** (13:06:33):
+> Oh sorry, that's completely separate, the actions aren't meant to run there. It's supposed to just replace[git.bioconductor.org](http://git.bioconductor.org)to host the code directly on github instead of a custom git server + browser to it
+
+**Charlotte Soneson** (13:06:57):
+> Ah ok.
+
+**Alex Mahmoud** (13:07:20):
+> So the idea would be that eventually,[git.bioconductor.org](http://git.bioconductor.org)would become a redirect to github, not that we would run actions for people in the repository. The actions should still be run in your fork
+
+**Alex Mahmoud** (13:09:49):
+> I guess maybe what Vince was referring to is that we would also run separately a centralized building BBS-replacement in github actions based on r-universe, and can provide some workflows that mimic that build process to make it easier to test in your own fork whether it would pass the build on the bioconductor side, but I think the arbitrary actions added in the repository should always remain only on the user side otherwise there is potential of leaking secrets
+
+**Charlotte Soneson** (13:11:34):
+> Ok, makes sense. So does that mean that ideally then actions should be disabled in the gitdevtest repo (as the yaml files are in the package and will be automaticallyrecognized andrun)?
+
+
+## 2025-02-07
+
+**Alex Mahmoud** (14:47:54):
+> Sorry, getting back to this very late, but yes, I agree we should disable actions and I believe we can automate that change in`/settings/actions`as part of the ingestion process when we move over all the branches, tysm for pointing that out!
+
+
+## 2025-02-08
+
+*04:52:22 - @Nishi Hembrom has joined the channel*
+
+## 2025-02-13
+
+*13:54:07 - @JP Flores has joined the channel*

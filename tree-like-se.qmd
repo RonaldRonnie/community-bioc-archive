@@ -1,0 +1,1539 @@
+---
+title: "#tree-like-se"
+format: gfm
+---
+
+
+## 2017-10-19
+
+*12:12:41 - @Martin Morgan has joined the channel*
+*12:12:41 - @Vince Carey has joined the channel*
+**Martin Morgan** (12:12:41):
+> set the channel description: Discuss tree-like and hierarchical 'rows' for SummarizedExperiment
+
+*12:12:41 - @Michael Lawrence has joined the channel*
+*12:12:41 - @Levi Waldron has joined the channel*
+*14:16:06 - @Nitesh Turaga has joined the channel*
+*14:24:48 - @Marcel Ramos Pérez has joined the channel*
+
+## 2017-10-20
+
+*08:29:04 - @Lori Shepherd has joined the channel*
+**Levi Waldron** (16:36:27):
+> Is it fair to say that an extension of SummarizedExperiment that is somehow conceptually similar to RangedSummarizedExperiment should have row-associated data  that extend from Vector?
+
+
+## 2017-10-23
+
+**Martin Morgan** (06:43:08):
+> Actually, SummarizedExperiment inherits from Vector.`rowData`are given for 'free' as`elementMetada()`on the Vector. For RangedSummarizedExperiment, rowRanges are a new slot with subsetting via a hard-coded branch in`selectMethod("[", "RangedSummarizedExperiment")`. This does not seem particularly extensible -- additional derived classes would either have to petition for code modifications to SummarizedExperiment, or re-implement significant amounts of code. Maybe@Hervé Pagèswill chime in...
+
+*06:43:15 - @Hervé Pagès has joined the channel*
+
+## 2017-10-26
+
+*13:23:59 - @hcorrada has joined the channel*
+**hcorrada** (13:26:11):
+> Hi@Levi Waldron. turns out Nate has much more useful stuff than I thougt :-)…. On metagenomeFeatures he defines a class mgFeatures that extends ‘AnnotatedDataFrame’ adding a slot for a phylo object:[https://github.com/Bioconductor-mirror/metagenomeFeatures/blob/master/R/mgFeatures-class.R](https://github.com/Bioconductor-mirror/metagenomeFeatures/blob/master/R/mgFeatures-class.R)
+  - Attachment (GitHub): [Bioconductor-mirror/metagenomeFeatures](https://github.com/Bioconductor-mirror/metagenomeFeatures/blob/master/R/mgFeatures-class.R)
+    > This is a read-only mirror of the Bioconductor SVN repository. Package Homepage: [http://bioconductor.org/packages/devel/bioc/html/metagenomeFeatures.html](http://bioconductor.org/packages/devel/bioc/html/metagenomeFeatures.html) Contributions: [https://github.com/HCBravoLa](https://github.com/HCBravoLa)...
+
+**hcorrada** (13:27:11):
+> Therefore, a TreeSummarizedExperiment wouldn’t in principle need a new slot, just restrict rowData to be of class mgFeatures.
+
+**hcorrada** (13:27:51):
+> We’ll look at a small test case where we create a SummarizedExperiment object with mgFeatures object as rowData and report back
+
+**Levi Waldron** (13:42:48):
+> Oh nice! Does it subset the phylo object?
+
+**hcorrada** (13:44:49):
+> Apparently. Nate’s working on a subsetting example/test and will report back
+
+**hcorrada** (13:46:22):
+> Long answer: metagenomeFeatures defines to classes ‘MgDB’ and ‘MgFeatures’. The former is a wrapper around reference metagenomic feature annotation databases (e.g., greengenes), the latter is what goes into a SummarizedExperiment. This is designed following the TxDB and GenomicFeatures idea
+
+**hcorrada** (13:47:58):
+> Both MgDB and MgFeatures have phylo slots. Nate implemented subset completely for at least MgDB we’re checking if he also did so for MgFeatures. If he did not, he would need to reuse the stuff he wrote for MgDB to implement subsetting the phylo object in mgFeatures as well
+
+**hcorrada** (13:48:49):
+> Nate will join this channel soon…
+
+**Levi Waldron** (18:28:18):
+> this sounds great
+
+**Levi Waldron** (18:58:50):
+> Some notes from our meeting today:[https://docs.google.com/document/d/1rdDvrLYzXxAa1gMkbHZSOodY3mUZjKJHIEX0bz4lV-4/edit?usp=sharing](https://docs.google.com/document/d/1rdDvrLYzXxAa1gMkbHZSOodY3mUZjKJHIEX0bz4lV-4/edit?usp=sharing)
+
+**Levi Waldron** (18:59:24):
+> @Levi Waldronshared a file:[Bioconductor microbiome interest group meeting notes](https://community-bioc.slack.com/files/U34R95GSC/F7RJDQC86/bioconductor_microbiome_interest_group_meeting_notes)
+  - File (Google Docs): [Bioconductor microbiome interest group meeting notes](https://community-bioc.slack.com/files/U34P8RS3B/F7RJDQC86/bioconductor_microbiome_interest_group_meeting_notes)
+
+**Levi Waldron** (19:00:19):
+> (please feel free to edit or add!)
+
+
+## 2017-10-27
+
+*04:08:26 - @Guangchuang Yu has joined the channel*
+**Guangchuang Yu** (05:09:08):
+> phylo object can be converted to row based data.  This is the way ggtree did as ggplot2 requires tidy data frame
+
+**Levi Waldron** (06:39:17):
+> Greetings@Guangchuang Yu!
+
+**Guangchuang Yu** (06:40:28):
+> Thank you@Levi Waldronfor inviting me
+
+**Levi Waldron** (06:41:05):
+> With pleasure!
+
+**Levi Waldron** (06:55:38):
+> I guess the tidy representation of a phylo object has more rows than there are taxa?
+
+**Guangchuang Yu** (07:09:40):
+> For phyloseq data,  yes
+
+**Guangchuang Yu** (07:09:55):
+> For others, no
+
+**hcorrada** (09:12:29):
+> Is the number of rows in tidy representation #of nodes in tree or #of leaves?
+
+**Guangchuang Yu** (10:54:15):
+> A column of node number is more robust
+
+**hcorrada** (10:56:57):
+> Sorry, trying to get a sense of what the tidy representation looks like for a tree. Will the number of rows in the table be the same as the number of nodes in the tree? Or will the number of rows in the table be the same as the number of leaves?
+
+*11:08:11 - @natedolson has joined the channel*
+**Guangchuang Yu** (11:26:44):
+> @hcorradaNow I  get your idea. Same as the number of nodes in the tree
+
+**hcorrada** (11:26:55):
+> got it thanks!
+
+**Levi Waldron** (12:41:29):
+> I guess a tidy representation of the tree could be conveniently used as rowData if 1) it were given a grouping attribute for the nodes like happens in GRangesList, so that it could act like a Vector with length equal to the number of taxa (the number of rows of the SummarizedExperiment), and 2) there were efficient lossless coercion to and from phylo-class
+
+**Guangchuang Yu** (12:47:48):
+> Back to phylo is possible
+
+**Guangchuang Yu** (12:48:31):
+> p = ggtree(rtree(30))
+
+**Guangchuang Yu** (12:49:14):
+> You can as.phylo(p) to convert it back to phylo
+
+**Guangchuang Yu** (13:05:54):
+> Although p$data is just a simple dataframe. Any prototype for employing Bioc class to store tree + data
+
+**Levi Waldron** (13:09:59):
+> No prototype yet - I didn't take the last bit of notes from that meeting, that the next step was to discuss here and study existing classes for a few weeks before making a prototype extension of SummarizedExperiment
+
+**Levi Waldron** (13:11:03):
+> To learn things like all this stuff ggtree does already!:slightly_smiling_face:
+
+**Levi Waldron** (13:14:19):
+> but one possibility does seem to involve a class for trees based on your p$data with a grouping vector, like the way GRangesList groups a long GRanges vector to make it appear like a shorter vector (in that case grouped by sample, in this case it would be grouped by taxon)
+
+**Levi Waldron** (13:16:49):
+> because a Vector-derived tree with elements corresponding to taxa could simply be included as a column in the rowData of a SummarizedExperiment
+
+**hcorrada** (16:20:00):
+> Quick question… The mgFeatures class we’ve been working extends ‘AnnotatedDataFrame’, SummarizedExperiment takes ‘DataFrame’ as rowData. I just noticed that ‘AnnotatedDataFrame’ does not extend ‘DataFrame’ (like I thought)…
+
+**hcorrada** (16:20:52):
+> So, is the official bioc best practice to move our mgFeatures class from ‘AnnotatedDataFrame’ to ‘DataFrame’? Or is there another solution to use AnnotatedDataFrame in SummarizedExperiment land
+
+**Levi Waldron** (16:27:18) (in thread):
+> Better for@Martin Morganto say for sure but I think AnnotatedDataFrame belongs to the eSet world, whereas DataFrame belongs to the SummarizedExperiment and rest of the S4Vectors world.
+
+
+## 2017-10-30
+
+**Martin Morgan** (19:16:37):
+> Generally I think the approach should be to migrate to SummarizedExperiment.`SummarizedExperiment::makeSummarizedExperimentFromExpressionSet()`coerces from an ExpressionSet to Summarized experiment, and includes the non-exported`SummarizedExperiment:::.from_AnnotatedDataFrame_to_DataFrame()`. It might be reasonable to ask for  that to be made public (as an issue on[https://github.com/Bioconductor/SummarizedExperiment](https://github.com/Bioconductor/SummarizedExperiment))
+  - Attachment (GitHub): [Bioconductor/SummarizedExperiment](https://github.com/Bioconductor/SummarizedExperiment)
+    > SummarizedExperiment container
+
+**hcorrada** (21:10:40):
+> Thanks@Martin Morgan! In our case we can migrate directly to DataFrame so we wouldn’t need`fromAnnotatedDataFrame_to_DataFrame`to be exported.
+
+
+## 2017-10-31
+
+**Guangchuang Yu** (02:14:18):
+> I have no experience in doing metagenomic. Is there any tutorial to get me on board (the data, your pkgs, etc.)?
+
+**Levi Waldron** (11:48:58):
+> Take a look at`curatedMetagenomicData`in Bioconductor - it provides data and some analysis examples using`phyloseq`
+
+
+## 2017-11-07
+
+*14:43:58 - @Lucas Schiffer has joined the channel*
+
+## 2017-11-20
+
+**natedolson** (14:20:37):
+> @natedolsonuploaded a file:[Annotating_summarizedExperiment.pdf](https://community-bioc.slack.com/files/U7QD0PAHW/F844692A2/annotating_summarizedexperiment.pdf)and commented: We have a created a class, mgFeatures, for an object defining the feature data including taxonomy, sequences, and phylogenetic tree. See the attached pdf and Rmarkdown file with a toy example where we defined the elementMetadata of a summarizedExperiment class object with a mgFeatures class object.
+  - File (PDF): [Annotating_summarizedExperiment.pdf](https://community-bioc.slack.com/files/U34P8RS3B/F844692A2/annotating_summarizedexperiment.pdf)
+
+**natedolson** (14:20:39):
+> @natedolsonuploaded a file:[Annotating_summarizedExperiment.Rmd](https://community-bioc.slack.com/files/U7QD0PAHW/F83C1PFCM/annotating_summarizedexperiment.rmd)
+  - File (Plain Text): [Annotating_summarizedExperiment.Rmd](https://community-bioc.slack.com/files/U34P8RS3B/F83C1PFCM/annotating_summarizedexperiment.rmd)
+
+
+## 2017-11-22
+
+**hcorrada** (08:53:04):
+> Something that came up on this test. We are creating a SummarizedExperiment object with the ‘elementMetadata’ slot occupied by an object of class ‘mgFeatures’ which extends ‘DataFrame’ by adding slots for a phylogenetic tree and other feature information. When using accessor`rowData`on the object these additional slots are lost. When using`se@elementMetadata`we get the right thing. This is something to address in the`rowData`accessor.@Martin Morgan@Hervé Pagès, thoughts?
+
+**hcorrada** (08:54:35):
+> See pdf above for example
+
+
+## 2017-11-28
+
+**Levi Waldron** (15:29:14):
+> Sorry I'm just reading this now - it looks like the mgFeatures object extends DataFrame and contains a taxonomic tree, a`DNAStringSet`, and an`ape`phylogenetic tree as a`phylo`object? How does it handle subsetting of the`phylo`tree?
+
+**hcorrada** (16:56:31):
+> Uses similar procedure as phyloseq:[https://github.com/HCBravoLab/metagenomeFeatures/blob/mgFeatures_DataFrame/R/mgDb_method_select.R#L56](https://github.com/HCBravoLab/metagenomeFeatures/blob/mgFeatures_DataFrame/R/mgDb_method_select.R#L56)
+  - Attachment (GitHub): [HCBravoLab/metagenomeFeatures](https://github.com/HCBravoLab/metagenomeFeatures/blob/mgFeatures_DataFrame/R/mgDb_method_select.R#L56)
+    > metagenomeFeatures - R package for annotating metagenomic datasets with taxonomic information
+
+**Levi Waldron** (17:40:00):
+> So it looks like you've (nearly) solved the problem?! Is the error shown at the bottom a problem with the`rowData()`getter function?
+
+**hcorrada** (18:36:11):
+> That’s what we think, this has what we need.
+
+**hcorrada** (18:36:47):
+> I haven’t looked deeper into the issue with`rowData`, hoped to get insight from@Martin Morganor@Hervé Pagès
+
+**hcorrada** (18:39:42):
+> We (here on this thread) have yet to decide how this will work package-wise. One thought is to create another package MetagenomeSE where the Summarized Experiment class using an mgFeatures object as rowData would be defined. This is where things like “aggregate at a taxonomic level” functions would live.
+
+**hcorrada** (18:40:32):
+> phyloseq and metagenomeSeq would then depend on metagenomeSE. metagenomeSE would depend on metagenomeFeatures. What do you think?
+
+
+## 2017-11-29
+
+*09:43:32 - @Matthew McCall has joined the channel*
+*10:06:46 - @Sean Davis has joined the channel*
+*10:16:33 - @Peter Hickey has joined the channel*
+*10:27:28 - @Ludwig Geistlinger has joined the channel*
+
+## 2017-11-30
+
+**Matthew McCall** (20:22:55):
+> So it looks like the phylo object is just a list. Does the tree structure require a specific kind of nesting?Obviously for an actual phylogenetic tree it does but I mean for the object. I couldn’t find a validObject() function but I might not be looking in the right place.
+
+**Matthew McCall** (20:25:05):
+> Regardless, I think the general approach of what@hcorrada@natedolsonare doing would work for what I need with some (hopefully minor) modifications.
+
+
+## 2017-12-01
+
+**natedolson** (13:19:46):
+> @Matthew McCall, correct phylo object is a list. Our only validity check for the tree slot is that it is a phylo object.  There is a checkValidPhylo object in the ape package,[https://github.com/cran/ape/blob/master/R/checkValidPhylo.R](https://github.com/cran/ape/blob/master/R/checkValidPhylo.R), that we might want to use to make sure the tree slot object is a valid tree.
+  - Attachment (GitHub): [cran/ape](https://github.com/cran/ape/blob/master/R/checkValidPhylo.R)
+    > :exclamation: This is a read-only mirror of the CRAN R package repository. ape — Analyses of Phylogenetics and Evolution. Homepage: [http://ape-package.ird.fr/](http://ape-package.ird.fr/)
+
+
+## 2017-12-07
+
+**Guangchuang Yu** (09:31:27):
+> any suggestion of new verbs to manipulate tree?[https://guangchuangyu.github.io/tidytree/](https://guangchuangyu.github.io/tidytree/)
+
+**natedolson** (09:57:34):
+> @Guangchuang YuDo you think lowest common ancestor would be useful?
+
+**Guangchuang Yu** (10:01:06):
+> mrca will be added:blush:
+
+
+## 2017-12-08
+
+**Guangchuang Yu** (00:31:27) (in thread):
+> mrca method was added.
+
+**hcorrada** (08:17:01) (in thread):
+> :+1:
+
+
+## 2017-12-19
+
+**Levi Waldron** (17:25:21):
+> @Guangchuang YuI am impressed! Question: is there some way your tidytree could be used as the`rowData`of a`SummarizedExperiment`?
+
+**Guangchuang Yu** (22:16:42) (in thread):
+> have no idea, but we can explore the possibility.
+
+
+## 2018-02-06
+
+**Vince Carey** (20:46:01):
+> the "row graph" in the figure on this page seems similar to what we are aiming at?[https://github.com/linnarsson-lab/loompy](https://github.com/linnarsson-lab/loompy)-- why no column graph?
+  - Attachment (GitHub): [linnarsson-lab/loompy](https://github.com/linnarsson-lab/loompy)
+    > Python implementation of the Loom file format - [http://loompy.org](http://loompy.org)
+
+
+## 2018-02-07
+
+**Martin Morgan** (08:49:16):
+> The loom format says that row and column graphs are required[http://linnarssonlab.org/loompy/format/index.html](http://linnarssonlab.org/loompy/format/index.html)The spec seems to evolve in an unversioned way.
+
+**hcorrada** (11:51:01):
+> For our[http://metaviz.org](http://metaviz.org)backend we use a graph database (neo4j) which essentially defines this structure. We found that operating on graph representation of taxonomy works very well. OTOH, on the R side there’s already codebases operating on more semantically-rich tree data structures that would be easier to reuse using the MetagenomicFeatures and MetagenomicSE design we outlined above
+
+
+## 2018-02-28
+
+*15:18:50 - @Daniel Van Twisk has joined the channel*
+
+## 2018-03-03
+
+*09:36:30 - @Aedin Culhane has joined the channel*
+
+## 2018-03-16
+
+**natedolson** (09:31:39):
+> Hector (@hcorrada) and I are having a package kick-off hackathon Sunday April 1st to lay the foundation for metagenomeSE. The package will define the metagenomeSE class and methods. metagenomeSE class will be a summarizedExperiment class object for working with metagenomic data, using the mgFeatures class from the metagenomeFeatures package to define the rowData slot. The metagenomeSE class could then be used by other packages such as phyloseq package, metagenomeSeq, or other packages working with metagenomic data. Thus reducing the burden of individual package developers for building and maintaining the infrastructure for performing basic operations on a metagenomic data class. Let us know if you would like to participate virtually, or if you are in the DC/ College Park Maryland and would like to join us in-person.
+
+**Marcel Ramos Pérez** (09:48:06):
+> Hi Nate and Hector (@natedolson,@hcorrada), I've been looking into this a bit and I'd be happy to contribute.
+
+**natedolson** (09:55:42):
+> Great to hear! I will be sending out additional information in the next week or so.
+
+**natedolson** (09:57:10):
+> Also for those of you in the San Francisco area Joe Paulson is hosting the West Cost metagenomeSE hackathon at his apartment:slightly_smiling_face:
+
+**Peter Hickey** (09:57:33):
+> i’m in baltimore and interested in contributing
+
+**hcorrada** (10:19:56) (in thread):
+> Would you consider coming to College Park?
+
+**Peter Hickey** (11:01:03) (in thread):
+> yeah, that’s no trouble
+
+**hcorrada** (11:44:06) (in thread):
+> :+1:
+
+
+## 2018-03-17
+
+**Vince Carey** (06:09:34):
+> If there is assay data that you will be representing in HDF5 and would like to try out the remote HDF Object Store/restfulSE concepts for working with cloud-resident data, send me some pointers to the data.
+
+
+## 2018-03-18
+
+**Levi Waldron** (17:07:17):
+> That sounds like fun! I should be able to come in person.
+
+**Levi Waldron** (17:11:49) (in thread):
+> @Vince CareyI’d like to try curatedMetagenomicData as HDF5, and will get the tables to you this week so we could perhaps work on them on Sunday. The taxonomic data are only a few thousand rows, but the full gene families data are millions of rows and very sparse.
+
+
+## 2018-03-21
+
+**Levi Waldron** (13:52:55):
+> I've posted gists to create crude SummarizedExperiments from curatedMetagenomicData: [smallSE.R]([https://gist.github.com/lwaldron/df1053ea409ef03da18f48afeca4048c](https://gist.github.com/lwaldron/df1053ea409ef03da18f48afeca4048c)) (from one dataset) and [bigSE.R]([https://gist.github.com/lwaldron/dc9988692b5f9bd6bdb5fc22ff26e8f9](https://gist.github.com/lwaldron/dc9988692b5f9bd6bdb5fc22ff26e8f9)) (from all of cMD).
+
+**Levi Waldron** (13:54:01):
+> Both include colData(), a counts matrix in assay(), taxonomic table in the rowData(), and a ape::phylo class phylogenetic tree in metadata()$phylo
+
+**Levi Waldron** (13:54:13):
+> To provide some data to work with...
+
+**hcorrada** (14:05:57):
+> Awesome. Thanks!
+
+
+## 2018-03-22
+
+**Vince Carey** (10:52:16) (in thread):
+> OK.  I looked at bigSE gist and it isn't really big enough to warrant remote storage.  But it could be used for demonstration if desired.
+
+
+## 2018-03-27
+
+**Levi Waldron** (21:59:16):
+> What time do you want to start & end on Apr 1?
+
+
+## 2018-03-28
+
+**Levi Waldron** (11:01:22):
+> @hcorrada@natedolsondo you have an approx. timetable for Sunday?
+
+**hcorrada** (11:02:13):
+> Hi Levi. We’re meeting this afternoon to finalize. Will send more details in a few hours. THanks!
+
+**Levi Waldron** (11:02:30):
+> OK thanks!
+
+**natedolson** (15:56:08):
+> @natedolsonshared a file:[metagenomeSE Hackathon 4/1/2018](https://community-bioc.slack.com/files/U7QD0PAHW/F9X7L8UG1/2018)
+  - File (Google Docs): [metagenomeSE Hackathon 4/1/2018](https://community-bioc.slack.com/files/U34P8RS3B/F9X7L8UG1/2018)
+
+**natedolson** (15:58:12):
+> Here is a google doc with information for the hackathon. We may change rooms depending on availability. Let me know if you have any questions.
+
+**Peter Hickey** (18:07:17):
+> umd college park is a little further from baltimore than i remember, so unsure if i’ll be able to make it in person. but i’ll join in regardless
+
+
+## 2018-03-29
+
+**natedolson** (08:56:36):
+> No problem. We are happy to have you join us either way. See the google doc for participating remotely.
+
+
+## 2018-03-30
+
+**Levi Waldron** (10:53:38):
+> Would add to the agenda - create a branch/fork of`phyloseq`and implement methods for the new class
+
+**hcorrada** (12:44:48):
+> The agenda we set is a starting point, the first point of business when we start is finalizing it:slightly_smiling_face:
+
+**Levi Waldron** (14:12:08):
+> One thought.`metagenomeSE`as a class name isn't in line with the naming conventions of core Bioconductor classes ([https://www.bioconductor.org/developers/how-to/commonMethodsAndClasses/](https://www.bioconductor.org/developers/how-to/commonMethodsAndClasses/))
+
+**Levi Waldron** (14:12:36):
+> A more standard naming convention would be things like`MetagenomeExperiment`or`MicrobiomeExperiment`
+
+**Levi Waldron** (14:12:52):
+> Thoughts?
+
+**hcorrada** (14:13:05):
+> `MicrobiomeExperiment`makes sense
+
+**hcorrada** (14:13:15):
+> What have other SE-like classes used?
+
+**Levi Waldron** (14:15:27):
+> I don't have an exhaustive list, but I know of`SingleCellExperiment`and`RaggedExperiment`.`MultiAssayExperiment`tried to copy the`SummarizedExperiment`API as much as possible.
+
+**Levi Waldron** (14:16:37):
+> I guess`VariantAnnotation`and`GenomicFiles`are also SE-based
+
+**Levi Waldron** (14:17:29):
+> I kind of like`MicrobiomeExperiment`, since metagenomics is sometimes understood to exclude amplicon-based microbiome experiments
+
+**hcorrada** (14:18:00):
+> Yep. I also like`MicrobiomeExperiment`
+
+
+## 2018-04-01
+
+**natedolson** (07:17:41):
+> Location change University of Maryland, College Park MD, AV Williams Building Rm 4172[https://goo.gl/maps/oYtNEaPUfk72](https://goo.gl/maps/oYtNEaPUfk72)
+
+**Peter Hickey** (10:49:53):
+> sorry i’ve had some stuff come up, will try to join in later
+
+**natedolson** (10:50:11):
+> No problem
+
+**natedolson** (11:06:26):
+> metagenomeFeatures github[https://github.com/HCBravoLab/metagenomeFeatures/tree/master/R](https://github.com/HCBravoLab/metagenomeFeatures/tree/master/R)
+  - Attachment (GitHub): [HCBravoLab/metagenomeFeatures](https://github.com/HCBravoLab/metagenomeFeatures/tree/master/R)
+    > metagenomeFeatures - R package for annotating metagenomic datasets with taxonomic information
+
+**Levi Waldron** (11:18:59) (in thread):
+> We'll be here!
+
+**natedolson** (11:26:20):
+> new("mgFeatures",
+>         DataFrame(annotated_db),
+>         metadata = anno_metadata,
+>         refDbSeq = filtered_db$seq,
+>         refDbTree = filtered_db$tree
+>     )
+
+*13:43:17 - @Joey McMurdie has joined the channel*
+**Joey McMurdie** (13:45:59):
+> I'm a little late and on the West Coast, so very late. What's going on folks? I see some commits in the last few hours
+
+**natedolson** (13:48:19):
+> Taking a lunch break. You can check out our progress at[https://github.com/HCBravoLab/MicrobiomeExperiment](https://github.com/HCBravoLab/MicrobiomeExperiment)
+  - Attachment (GitHub): [HCBravoLab/MicrobiomeExperiment](https://github.com/HCBravoLab/MicrobiomeExperiment)
+    > MicrobiomeExperiment - Bioconductor defining a summarizedExperiment class (metagenomeSE) for metagenomic data.
+
+**Joey McMurdie** (13:57:23):
+> cool
+
+**natedolson** (14:16:55):
+> We’re back
+
+**natedolson** (14:19:37):
+> you can connect using[https://umd.webex.com/mw3000/mywebex/default.do?siteurl=umd](https://umd.webex.com/mw3000/mywebex/default.do?siteurl=umd)
+  - Attachment (umd.webex.com): [UNIV OF MARYLAND WebEx Enterprise Site](https://umd.webex.com/mw3000/mywebex/default.do?siteurl=umd)
+    > 18
+
+**natedolson** (14:20:05):
+> the host's room ID is  hcorrada
+
+**Joey McMurdie** (14:22:34):
+> Thanks! I'll wait to join video for jumping in on something synchronous... anything you guys need from me specifically?
+
+**natedolson** (14:35:54):
+> can you join the room we have some questions about phyloseq
+
+**Joey McMurdie** (15:05:40):
+> sure
+
+**Joey McMurdie** (17:07:04):
+> [https://github.com/joey711/phyloseq/tree/MicrobiomeExperiment](https://github.com/joey711/phyloseq/tree/MicrobiomeExperiment)
+  - Attachment (GitHub): [joey711/phyloseq](https://github.com/joey711/phyloseq/tree/MicrobiomeExperiment)
+    > phyloseq is a set of classes, wrappers, and tools (in R) to make it easier to import, store, and analyze phylogenetic sequencing data; and to reproducibly share that data and analysis with others. ...
+
+**Levi Waldron** (17:30:00):
+> Productive hackathon: 49 commits at[https://github.com/HCBravoLab/MicrobiomeExperiment/commits/master](https://github.com/HCBravoLab/MicrobiomeExperiment/commits/master)
+  - Attachment (GitHub): [HCBravoLab/MicrobiomeExperiment](https://github.com/HCBravoLab/MicrobiomeExperiment/commits/master)
+    > MicrobiomeExperiment - Bioconductor defining a summarizedExperiment class (metagenomeSE) for metagenomic data.
+
+
+## 2018-04-02
+
+**Levi Waldron** (09:11:32):
+> Marcel and I made some notes from yesterday's hackathon.
+> 
+> ACCOMPLISHED:
+> 
+> * Defined the MicrobiomeExperiment class. Contains SummarizedExperiment but requires a MicrobiomeFeatures class rowData. MicrobiomeFeatures contains metagenomeFeatures defined in the mgFeatures package with added constructor. It contains DataFrame and adds slots for a phylo-class tree and sequences.
+> * Constructor
+> * Coercion for phyloseq objects 
+> * Some unit tests
+> 
+> TODO
+> 
+> * Move MicrobiomeFeatures to MicrobiomeExperiment package (Nate)
+> * Data import
+> * Tree based aggregation, pruning
+> * phylo and MicrobiomeFeatures extractors
+> * See phyloseq-basics vignette, implement functions not synonymous with SummarizedExperiment alternatives
+> * Make a phyloseq cheat sheet that Joey can use for migration 
+> * See issues on HCBravoLab/MicrobiomeExperiment
+
+**hcorrada** (09:13:54):
+> Some additions to ACCOMPLISHED:
+
+**hcorrada** (09:14:14):
+> * Coercion for MRExperiment objects (from metagenomeSeq)
+
+**hcorrada** (09:14:36):
+> * Import from biom files (using`biomformat`package) into`MicrobiomeExperiment`objects
+
+
+## 2018-04-05
+
+**Levi Waldron** (10:04:18):
+> Put these at[https://github.com/HCBravoLab/MicrobiomeExperiment/wiki](https://github.com/HCBravoLab/MicrobiomeExperiment/wiki)
+  - Attachment (GitHub): [HCBravoLab/MicrobiomeExperiment](https://github.com/HCBravoLab/MicrobiomeExperiment/wiki)
+    > MicrobiomeExperiment - Bioconductor defining a summarizedExperiment class (metagenomeSE) for metagenomic data.
+
+**hcorrada** (10:32:23):
+> :+1:
+
+**Levi Waldron** (14:57:07):
+> @Aedin Culhanejust made me aware of the`phylobase::phylo4d`class which is on CRAN and is supported by methods from the`adephylo`package. It provides required`[`subsetting. Shortcomings I can see are that it is missing`dim()`and`dimnames()`methods, and stores the matrix data as a`data.frame`instead of a`matrix`.
+
+**Levi Waldron** (14:57:27):
+> Thoughts about`phylobase::phylo4d`?
+
+
+## 2018-04-06
+
+**Levi Waldron** (09:25:37):
+> @natedolsonand@hcorradawondering how this phylo4d class relates to mgFeatures?
+
+**natedolson** (09:48:12):
+> @Levi WaldronMy opinion is that the`phylobase::phylo4d`structure and the data structure used in`ggtree`/`tidytree`are more tree-centric than we want to use for defining`MicrobiomeExperiment@rowData`.`mgFeatures`and`MicrobiomeFeatures`should contain seq and tree data but this information should also be optional.`phylo4d`and other tree centric data structures would not make sense to without a tree. That being said, both`phylobase`and`ggtree`have a number of analysis capabilities and visualization tools that we should leverage. Having`MicrobiomeFeatures2phylo4d`or the equivalent for`ggtree`/`tidytree`would allow users to easily leverage these packages.
+
+**Levi Waldron** (09:52:01):
+> The possibility I imagined was a`phylo4d`as the assay in a SE, with taxonomy and sequences in the`rowData`. In experiments without a tree, filling in a trivial tree with only one level and equal distances?
+
+**natedolson** (10:03:49):
+> I see what you are saying. I think is it best to leave the count/relative abundance data as the assay matrix. My primary concern is that in most cases the tree is secondary. Methods such as differential abundance analysis that work with SE data objects will not work automatically with assay as phylo4d.
+
+**Levi Waldron** (12:21:24):
+> Right - it has the basic problem that its parent class`phylo4`is a tree class, not a matrix class.
+
+**Levi Waldron** (13:28:28):
+> (so even though they've implemented square bracket subsetting, most matrix functions don't work.)
+
+*16:08:38 - @Davide Risso has joined the channel*
+
+## 2018-04-12
+
+**Levi Waldron** (09:24:41):
+> Anyone in this<!channel>available to follow up during today’s multi-assay interest group meeting, 12-1pm Eastern time?[http://huntercollege.adobeconnect.com/biocmultiassay](http://huntercollege.adobeconnect.com/biocmultiassay)
+
+**hcorrada** (10:12:23):
+> We have our group meeting at that time…
+
+
+## 2018-07-28
+
+*14:06:44 - @Charlotte Soneson has joined the channel*
+
+## 2018-10-31
+
+*06:48:08 - @Ruizhu HUANG has joined the channel*
+
+## 2018-11-06
+
+*12:29:37 - @Jayaram Kancherla has joined the channel*
+**Marcel Ramos Pérez** (12:29:38):
+> set the channel topic: Data Structure
+
+*12:30:03 - @Kevin Rue-Albrecht has joined the channel*
+
+## 2018-12-10
+
+*11:25:06 - @Mark Robinson has joined the channel*
+**Ruizhu HUANG** (12:20:09):
+> Hi@hcorrada,  We are curious whether there are some updates on the`TreeSummarizedExperiment`class after the meeting. Mark and I have a discussion today, and think it would be good if we could also contribute to this package and do some collaboration. Is there a github repository available now? Or, should I extract my work in treeAGG package and create a new repository?@Charlotte Soneson@Mark Robinson@Marcel Ramos Pérez
+
+**hcorrada** (15:14:43):
+> Hello all! We have a repo to share that we would be very happy to collaborate on.@Jayaram Kancherlacan you share?
+
+**Jayaram Kancherla** (17:21:42):
+> Hello all, The package is available at[https://github.com/HCBravoLab/TreeSE](https://github.com/HCBravoLab/TreeSE)I wrote a couple of vignettes that explain the basics of using the`TreeIndex`and`TreeSE`classes. (using single cell and metagenomic datasets).
+> 
+> If you find any bugs or issues using the package, please let me know. thank you!
+  - Attachment (GitHub): [HCBravoLab/TreeSE](https://github.com/HCBravoLab/TreeSE)
+    > R package to manage hierarchies in genomic datasets. eg., single cell and microbiome datasets - HCBravoLab/TreeSE
+
+**Martin Morgan** (17:44:43) (in thread):
+> I don't think there's value in using abbreviations like 'TreeSE', because maybe 'SE' stands for 'standard error' or something... and the user will have tab completion so doesn't have to be an expert typist...
+> 
+> It's better to minimize object modification, for instance[https://github.com/HCBravoLab/TreeSE/blob/e2d14ad82f9c7751668237ece2172125b7f88cae/R/TreeSE-class.R#L34](https://github.com/HCBravoLab/TreeSE/blob/e2d14ad82f9c7751668237ece2172125b7f88cae/R/TreeSE-class.R#L34)copies the entire object. The general pattern is to set up first and then call`new()`as the final line.
+> The enigmatic`rowsum()`can be used to efficiently aggregate via sums at[https://github.com/HCBravoLab/TreeSE/blob/e2d14ad82f9c7751668237ece2172125b7f88cae/R/TreeSE-methods.R#L100](https://github.com/HCBravoLab/TreeSE/blob/e2d14ad82f9c7751668237ece2172125b7f88cae/R/TreeSE-methods.R#L100), perhaps on the transposed matrix. Later in the function one again wants to minimize the number of calls that update slots; maybe re-use the constructor?
+> Presumably there is a github way of providing these comments; pull requests (the only trick I know) don't seem appropriate...
+  - Attachment (GitHub): [HCBravoLab/TreeSE](https://github.com/HCBravoLab/TreeSE/blob/e2d14ad82f9c7751668237ece2172125b7f88cae/R/TreeSE-class.R#L34)
+    > R package to manage hierarchies in genomic datasets. eg., single cell and microbiome datasets - HCBravoLab/TreeSE
+  - Attachment (GitHub): [HCBravoLab/TreeSE](https://github.com/HCBravoLab/TreeSE/blob/e2d14ad82f9c7751668237ece2172125b7f88cae/R/TreeSE-methods.R#L100)
+    > R package to manage hierarchies in genomic datasets. eg., single cell and microbiome datasets - HCBravoLab/TreeSE
+
+
+## 2018-12-11
+
+**Ruizhu HUANG** (05:25:35):
+> Hi all,
+> 
+> Thanks for sharing the repository@hcorrada@Jayaram Kancherla.
+> 
+> I am wondering whether the structure of`TreeSummarizedExperiment`is finally decided as that in the github.  In our project, we need to do some node search in the tree structure, and have difficulty to work with this`treeIndex`structure. It seems that the`treeIndex`use the taxonomic table as the tree structure and do aggregation based on this data frame. For some case, the`phylo`tree might have different numbers of nodes in a path connecting the root and a leaf, and it might be difficult to define the value of`level`used in the function
+> ```
+> agg_sel <- aggregateTree(mbiome, selectedLevel=3, selectedNodes=nodes, by="row")
+> ```
+> Is it possible to consider our structure of`TreeSummarizedExperiment`as one of the options ([https://docs.google.com/presentation/d/16lLpiQL4ulMRjSr0nVRVcVpGBUTog41O0yLQq_uY2Gg/edit?usp=sharing](https://docs.google.com/presentation/d/16lLpiQL4ulMRjSr0nVRVcVpGBUTog41O0yLQq_uY2Gg/edit?usp=sharing)) ? Or should we schedule another skype call to decide the structure of the`TreeSummarizedExperiment`if the final structure is not decided yet.@Martin Morgan.
+> 
+> To recall, we have this structure in our`TreeSummarizedExperiment`.@Mark Robinson@Charlotte Soneson
+
+**Ruizhu HUANG** (05:26:01):
+  - File (PNG): [Screenshot 2018-12-11 at 11.24.19.png](https://community-bioc.slack.com/files/U34P8RS3B/FEQN5NKK4/screenshot_2018-12-11_at_11.24.19.png)
+
+**Mark Robinson** (05:45:39):
+> Just to reiterate from my side, I guess it would be cleanest if the infrastructure part of this is***unified***across the multiple groups that use such “tree-like-se” objects .. thus, probably both our use cases (are there others?) should be accommodated under one roof (one package). Let’s discuss! Here or we can of course organize another skype chat.
+
+**hcorrada** (06:22:48) (in thread):
+> Thanks for the feedback@Martin Morgan, will update accordingly!
+
+**hcorrada** (06:27:44):
+> Hi@Ruizhu HUANGand@Mark Robinson, absolutely!@Jayaram Kancherla, my sense is that the underlying tree representation should handle@Ruizhu HUANG’s point. Also, the`selectedLevel`argument should be optional, but it makes aggregations more efficient when appropriate.
+
+**hcorrada** (06:31:03):
+> A substantial difference that remains unresolved is the use of`linkData`which allows more than one row per tree leaf. Could you guys remind us what the use case for this was?
+
+**hcorrada** (06:32:51):
+> This is the biggest sticking point between the two representations since allowing multiple entries per leaf would then not make it possible for`rowData`and`colData`to include the tree structure.
+
+**hcorrada** (06:35:12):
+> I propose that we continue our discussion here for now and then skype in a couple of days (probably early next week), to gives us a chance to address@Ruizhu HUANG‘s point (that way we get that issue out of the way) and address@Martin Morgan’ comments. How does that sound?
+
+**Mark Robinson** (06:37:09):
+> works for me!@Ruizhu HUANGcan you respond w.r.t. to the`linkData`comment above?
+
+**Ruizhu HUANG** (08:00:39):
+> @hcorradaSorry for the delay. Currently, we allow multiple rows to be mapped to a tree leaf because we might have, for example (CyTOF data), each row represents a cell and the leaf level of the tree is the cell subtype. There are multiple cells belong to the same cell subtype.
+
+**hcorrada** (08:08:39):
+> So in that use case, the assay rows are for cells (not cell subtype) right? In that case, we could have one more level in the tree for cells and the immediate ancestor in the tree is the cell type?
+
+**Ruizhu HUANG** (08:10:31):
+> Yes, the rows are for cells. One thing I don’t get from the data frame used in the`treeIndex`is how could people deal or define the level when deal with a complicated tree. The complicated tree, I mean there are different number of nodes in paths connecting the root and the leaves?
+
+**Ruizhu HUANG** (08:13:26):
+  - File (PNG): [Screenshot 2018-12-11 at 14.13.07.png](https://community-bioc.slack.com/files/U34P8RS3B/FER25PE5B/screenshot_2018-12-11_at_14.13.07.png)
+
+**Ruizhu HUANG** (08:14:02):
+> For example, a tree with this kind of structure. How to specify which node is on which level?
+
+**Jayaram Kancherla** (08:25:52) (in thread):
+> Thank you for the comments@Martin Morgan, I did make a few updates last night addressing these issues. Will be updating the code to use`rowsum`today
+
+**Jayaram Kancherla** (08:39:21):
+> Hi@Ruizhu HUANG, the`selectedLevel`is an optional parameter. In this scenario, one would use the`selectedNodes`parameter (a list of node names or a subset of the nodes table as shown in the vignette -[https://github.com/HCBravoLab/TreeSE/blob/master/vignettes/TreeSE-basics.Rmd#L53](https://github.com/HCBravoLab/TreeSE/blob/master/vignettes/TreeSE-basics.Rmd#L53)) to perform tree aggregations by nodes
+  - Attachment (GitHub): [HCBravoLab/TreeSE](https://github.com/HCBravoLab/TreeSE/blob/master/vignettes/TreeSE-basics.Rmd#L53)
+    > R package to manage hierarchies in genomic datasets. eg., single cell and microbiome datasets - HCBravoLab/TreeSE
+
+**Ruizhu HUANG** (08:47:50):
+> Hi Jayaram, Thanks for pointing to the selectedNodes. I am not sure whether it’s the same case in your data. The labels of internal nodes of the tree in some case are the same for different nodes. For some tree, they might even have no labels for the internal nodes.
+
+**Ruizhu HUANG** (08:48:45):
+> That’s why in our design we have both node labels are node number in the`linkData`.
+
+**Levi Waldron** (08:54:58):
+> A couple thoughts/I i
+
+**Jayaram Kancherla** (08:56:53):
+> One of the things we do when we parse the hierarchy/tree is when there are nodes labeled NA's in the dataset (this was common for microbiome datasets), we make sure those NA's are renamed to be unique for every lineage.  I think we can extend this to nodes that have no labels. We also create unique node id's for all nodes in the tree.
+
+**Levi Waldron** (09:00:29):
+> Sorry in transit! The main thing I wanted to suggest that as much development as possible should go into a Vector derived object that could be placed in the rowData.
+
+**Levi Waldron** (09:08:42):
+> This does seem to exist in the`nodes`object in the treeSE vignette?
+
+**Martin Morgan** (09:11:11):
+> Following@Levi Waldron`Hits`is an S4Vectors object that can be used to represent from/to edges, for instance
+
+**Levi Waldron** (09:11:58):
+> That's a neat idea
+
+**hcorrada** (09:29:03) (in thread):
+> That’s correct, the tree structure can be placed in the rowData (or colData) slot
+
+**hcorrada** (09:29:20) (in thread):
+> That’s a main design principle
+
+**hcorrada** (09:30:18) (in thread):
+> Do we have unique id’s for nodes?
+
+**Jayaram Kancherla** (09:30:48) (in thread):
+> yup we also create unique id's for all nodes
+
+
+## 2018-12-12
+
+**Ruizhu HUANG** (11:57:43):
+> Hi all,
+> 
+> Appologized firstly for this long comment.
+> 
+> If anyone is interested to try,  we have also created a repository  ([https://github.com/fionarhuang/TreeSummarizedExperiment](https://github.com/fionarhuang/TreeSummarizedExperiment)) to share our idea of`TreeSummarizedExperiment`.   (Just to clarify, I am not challenging the work of treeIndex. It is to show the work that is currently available, and hope it’s somehow useful for later collaboration. I am also happy to switch to treeIndex structure if it could be flexibly adapted for our project). The similar function to`aggregateTree`is`nodeValue`in our case.@Charlotte Soneson@Mark Robinson
+> ```
+> # The TreeSummarizedExperiment object
+> taxLse <- treeSummarizedExperiment(assays = list(toyTable),
+>                                 rowData = rowInf,
+>                                 colData = colInf,
+>                                 tree = taxTree)
+> # the node labels
+> test4 <- nodeValue(data = taxLse, fun = sum, level = "R3 - C3")
+> `
+> ```
+> A couple of thoughts after trying your package@Jayaram Kancherla@hcorrada. (Probably some are thought and solved somewhere I didn’t find it. )
+> 
+> 
+> 
+> 1. The creation of the`treeIndex`class starts with a`data.frame`input. Would it be more general to start with some tree structure, e.g.`phylo`or`hclust`? In some case, probably, the output of some pipeline is a tree structure, and don’t have this nice taxonomic table available.
+> 
+> 2. How well does this new class integrate with the tools that already exist, e.g.`phyloseq`,`ape`.
+> 
+> 3. If users need to plot the tree, does it mean that the`treeIndex`class need to be converted to other class? Would it be better to use the class that already exist, e.g.`phylo`class? Some nice R packages could support the plot of a`phylo`object, e.g.`ggtree`.
+> 
+> 4. Is this new class flexible to be adapted for other applications? In our case, we want to search an optimal level on the tree to interpret some results, and hence need to do some node search. Is the new class flexible to be adapt for this kind of work? (More details of our goal are given at the end of vignette). Probably, others have other requirements that we have not considered?
+> 
+> 5. Is it easy to be integrated with some interactive visualization tools? e.g.`iSEE`.
+> 
+> I would be happy to get some comments for our structure of`TreeSummarizedExperiment`! Thanks!
+  - Attachment (GitHub): [fionarhuang/TreeSummarizedExperiment](https://github.com/fionarhuang/TreeSummarizedExperiment)
+    > Contribute to fionarhuang/TreeSummarizedExperiment development by creating an account on GitHub.
+
+**Jayaram Kancherla** (16:10:16):
+> Hi@Ruizhu HUANG,
+> 
+> The idea behind developing the`TreeIndex`package is to provide a base class for managing and handling hierarchies. Another main design principle was to be able to use the TreeIndex as either colData (single cell) or rowData (metagenomic) or both in the`TreeSummarizedExperiment`class. Once we have these base classes, we can either add more functionality or create more datatype specific packages and implement these features.
+> 
+> To address some of the issues -
+> 
+> 1. We will be updating the package with more import functions to load hierarchies from phylo/hclust
+> 
+> 2.@Levi Waldron, Joe and our lab had a weekend-hackathon to refactor`phyloseq`to more like`SummarizedExperiment`. We started working on this as a separate package`MicrobiomeExperiment`([https://github.com/HCBravoLab/MicrobiomeExperiment](https://github.com/HCBravoLab/MicrobiomeExperiment)) and is currently being updated to use TreeIndex to represent the taxonomy. This class would also have additonal slots for phylo objects. This package provides functions to import phyloseq/MRExperiment (from`metagenomeSeq`) objects into MicrobiomeExperiment. We are also looking at functionality provided in phyloseq and if we have to reimplement them when we refactor. A github issue is currently open for this -[https://github.com/HCBravoLab/MicrobiomeExperiment/issues/14](https://github.com/HCBravoLab/MicrobiomeExperiment/issues/14)3. For interactive visualization, we want to quickly perform aggregations (based on node selections or level) on these datasets and visualize the results. I'm not sure if the`ape`package provides such methods. This is another reason to use a dataframe approach rather than`Hits`to represent edges is to support interactive aggregations.@Martin Morgan4. see 2, but are welcome to add more usecases to these classes.
+> 5. iSEE is based on`SummarizedExperiment`class and should be compatible.
+  - Attachment (GitHub): [HCBravoLab/MicrobiomeExperiment](https://github.com/HCBravoLab/MicrobiomeExperiment)
+    > Bioconductor defining a summarizedExperiment class (metagenomeSE) for metagenomic data. - HCBravoLab/MicrobiomeExperiment
+  - Attachment (GitHub): [phyloseq -> MicrobiomeExperiment low-level data translation document · Issue #14 · HCBravoLab/MicrobiomeExperiment](https://github.com/HCBravoLab/MicrobiomeExperiment/issues/14)
+
+
+## 2018-12-13
+
+*14:13:15 - @Domenick Braccia has joined the channel*
+
+## 2018-12-17
+
+**Ruizhu HUANG** (10:35:03):
+> Hi all<!channel>,
+> 
+> We have created slides to update people in this channel. Please correct me or directly edit the slides if I say something wrong.
+> 
+> 1. It gives a brief summary of packages`MicrobiomeExperiment`,`TreeSE`,  and`TreeSummarizedExperiment`.  ([https://docs.google.com/presentation/d/10aGjqM0Wr6uREkQ3puzlMwRU1PmI0FW8-6EGea2MUrU/edit#slide=id.g4ab5fbca61_0_0](https://docs.google.com/presentation/d/10aGjqM0Wr6uREkQ3puzlMwRU1PmI0FW8-6EGea2MUrU/edit#slide=id.g4ab5fbca61_0_0))
+> 
+> 2. A shared document to record the use cases for`TreeSummarizedExperiment`. Please feel free to add more cases.([https://docs.google.com/document/d/1FaUotyFukunGYj1tPD0rBmOQqzfb1OLkwYSG_c5MsJs/edit](https://docs.google.com/document/d/1FaUotyFukunGYj1tPD0rBmOQqzfb1OLkwYSG_c5MsJs/edit))
+
+**Ruizhu HUANG** (10:37:51):
+> @Jayaram Kancherla@hcorradaThe code to reproduce the issue of`aggregateTree`mentioned in the slide could be found here ([https://gist.github.com/fionarhuang/c146cc4c6fe7ecfd7597ba5f7b86ac18](https://gist.github.com/fionarhuang/c146cc4c6fe7ecfd7597ba5f7b86ac18))
+
+**Levi Waldron** (14:00:19):
+> Thanks@Ruizhu HUANG! Looking forward to reviewing.
+
+**hcorrada** (15:22:49):
+> Thanks@Ruizhu HUANG. This is super helpful!
+
+**hcorrada** (15:23:58):
+> My current feeling is the following: 1) our underlying implementation of tree structure in`TreeIndex`is (too?) optimized for interactive applications where a lot aggregate computations are made.
+
+**hcorrada** (15:24:37):
+> but this presents issues in ease of use for other use cases where existing phylo/ape structures are more appropriate
+
+**hcorrada** (15:25:47):
+> (as an aside, the benchmark on aggregation in slide 10 isn’t quite comprehensive, the bulk of time in`treeSE`is construction of`TreeIndex`, but once constructed aggregation calls to`treeSE`are faster than`TreeSummarizedExperiment`)
+
+**hcorrada** (15:27:12):
+> 2) the separation of`linkData`from`rowData`in`TreeSummarizedExperiment`violates the “inherits from Vector” property@Levi Waldronand@Martin Morganhave advocated for
+
+**hcorrada** (15:28:01):
+> I think (2) is a critical design consideration. I.e., whatever representation we use we could stick into`rowData`or`colData`
+
+**hcorrada** (15:28:56):
+> (1) is not so important. It’s probably a better long-term solution to use a simpler design (phylo/ape based) than an overly-optimized design (the existing implementation of`TreeIndex`)
+
+**hcorrada** (15:29:10):
+> As such, I propose the following resolution as a possible plan
+
+**hcorrada** (15:31:03):
+> to rewrite`TreeSummarizedExperiment`so it satisfies point (2) that is, a tree structure can be specified in either rowData or colData.
+
+**hcorrada** (15:34:00):
+> This would remove and drop our implementation of`TreeIndex`
+
+**hcorrada** (15:35:49):
+> What do you all think? Would a rewrite of`TreeSummarizedExperiment`to satisfy point (2) work for everyone? If so, we’d be happy to help@Ruizhu HUANGin any way we can to make that happen
+
+
+## 2018-12-18
+
+**Ruizhu HUANG** (08:37:05):
+> Thanks for the feedback!@hcorrada,
+> 1.  Please see the example code here to benchmark separately the tree construction and aggregation using`TreeSE`and`TreeSummarizedExperiment`. ([https://gist.github.com/fionarhuang/19e36b0c7cd97a40792cf5648efedfc2](https://gist.github.com/fionarhuang/19e36b0c7cd97a40792cf5648efedfc2)). If we allow`cache`in the creation of`phylo`object.`TreeSummarizedExperiment`is faster in both steps.
+
+**Ruizhu HUANG** (08:37:39):
+  - File (PNG): [Screenshot 2018-12-18 at 14.37.19.png](https://community-bioc.slack.com/files/U34P8RS3B/FEXQN6VV5/screenshot_2018-12-18_at_14.37.19.png)
+
+**Ruizhu HUANG** (08:43:50):
+> 2. For (2), this is the logic behind`nodeValue`to use vector index.@Levi Waldron@Martin Morgan([https://docs.google.com/presentation/d/1N13MjR96U6YBt_tVL9Hw40DfDE5CgmXkIuZItthF4vI/edit#slide=id.g4ab9578300_0_88](https://docs.google.com/presentation/d/1N13MjR96U6YBt_tVL9Hw40DfDE5CgmXkIuZItthF4vI/edit#slide=id.g4ab9578300_0_88)).`nodeValue`accepts both`TreeSummarizedExperiment`and`matrix`as input`data`. If users prefer to use index directly, the example code (`aggregation`step in file`Benchmark_toyData.R`see link in (1)) could be used.
+> I am not sure whether I have correctly understand the issue or answer it properly. I am happy to adapt the code or structure if there is a better design.
+
+**Jayaram Kancherla** (11:29:15):
+> on a similar note, I wanted to see how scalable both the packages are when the dataset size increases,
+> 
+> I used the`mouseData`from the`metagenomeSeq`package. This data comes from[https://gordonlab.wustl.edu/TurnbaughSE_10_09/STM_2009.html](https://gordonlab.wustl.edu/TurnbaughSE_10_09/STM_2009.html)I ran your same benchmark code by changing the dataset -[https://gist.github.com/jkanche/1621be07fe039c248b36dbac05bb3f5f](https://gist.github.com/jkanche/1621be07fe039c248b36dbac05bb3f5f)Couple of things - 1) I only ran the "build the tree" benchmark once because the`toTree`function from`TreeSummarizedExperiment`package takes forever to finish a run. 2) We do not precompute counts for every node because in our use case, one can also choose a subset of samples to aggregate the counts. 3) I added a section to compare benchmarks without cache. 4) I find it harder to choose nodes from multiple levels for TreeSummarizedExperiment, If you can update your code that would be another section. I think it would also be interesting to take a single cell dataset and do a similar benchmark
+> 
+> I think if you can optimize the`toTree`function to create the phylo object, the rest are more or less comparable. Here's the results from this exercise
+
+**Jayaram Kancherla** (11:29:31):
+  - File (PNG): [benchmarks.png](https://community-bioc.slack.com/files/U34P8RS3B/FEWUNUJFL/benchmarks.png)
+
+**Ruizhu HUANG** (14:40:09):
+> Hi@Jayaram KancherlaThanks for the review! The time using`cache`is much longer because I made some mistakes in function`toTree`, and counted leaf nodes multiple times when creating the`phylo`object. Apologize for making this mistake. It would not affect the results, but make the time much longer than it really should take. The issue is fixed now. I have rerun the benchmark code. Here is the final result.
+
+**Ruizhu HUANG** (14:40:25):
+  - File (PNG): [Screenshot 2018-12-18 at 20.39.54.png](https://community-bioc.slack.com/files/U34P8RS3B/FEX2C14MR/screenshot_2018-12-18_at_20.39.54.png)
+
+**Ruizhu HUANG** (14:42:25):
+> The code I run is exactly the same as you shared except I change the class from`factor`to`character`for each column of`taxTab`.
+
+**Ruizhu HUANG** (14:42:42):
+> Please find the code here.[https://gist.github.com/fionarhuang/6c5f0d213c945b4acf63f940ab891ff5](https://gist.github.com/fionarhuang/6c5f0d213c945b4acf63f940ab891ff5)
+
+**Ruizhu HUANG** (14:55:14):
+> @Jayaram KancherlaTo answer your comments,
+> 1) See above.
+> 2)`TreeSummarziedExperiment`doesn’t precompute counts either. Users could decide how to aggregate by providing a function in`fun`of`nodeValue`.  The`cache`is to store information something similar to`nodes`in your package. Users could decide whether to save`cache`for themselves.
+> 3) Without using`cache`, the time is quite close for both packages.`TreeSE`takes more time to build the tree.
+> 4) To select nodes from multiple levels, you could specify`level = c( "genus - Fusibacter", "phylum - Firmicutes")`in the argument of`nodeValue`if using your example data. Probably, it would be more clear if you look at my vignette, the toy data there is small and could be easier to play with. In your case, you separate the`level`and`node`. That’s different to what I did, probably that causes the confusion.
+
+
+## 2018-12-19
+
+*04:38:09 - @Leo Lahti has joined the channel*
+**Jayaram Kancherla** (09:11:29) (in thread):
+> awesome! thanks for the update
+
+
+## 2019-01-08
+
+**Ruizhu HUANG** (02:37:26):
+> Hi all,@hcorradahas suggested to remove the`linkData`in the previous discussion.
+> > 2) the separation of`linkData`from`rowData`in`TreeSummarizedExperiment`violates the “inherits from Vector” property@Levi Waldronand@Martin Morganhave advocated for
+> Our idea is to construct a new class (extended from`DataFrame`) that would be print out as below (similar to`GRanges`).
+> ```
+> rowData(x)
+>         nodeNum   nodeLab |     score       group
+>     <numeric> <character> | <numeric> <character>
+> [1]           1         a |         A           1
+> [2]           2         b |         B           2
+> [3]           3         a |         C           3
+> [4]           4         b |         D           4
+> `
+> ```
+> The link information between`assays`table and the  tree, (`linkData`) is in the left side of the vertical line and the original`rowData`(or`colData`) is in the right side.`nodeLab`and`nodeNum`are the node label and the node number in the tree, respectively. Users are allowed to change the part in the right side.
+> 
+> Do you like it? Do you have better idea? We are open to any comments or suggestions, and would be happy to have collaborators if someone is interested to contribute. Thank you!
+
+
+## 2019-01-09
+
+**Levi Waldron** (15:42:25):
+> Hi@Ruizhu HUANG, the show method looks great and I love a good show method! How are the actual tree or graph data represented?
+
+**Levi Waldron** (15:45:23):
+> Seems like we could benefit from some regular “working group” meetings on this for a while, like I used to hold monthly for MultiAssayExperiment. It would help me to have a full update and discussion for an hour on a regular basis.
+
+
+## 2019-01-10
+
+**Ruizhu HUANG** (07:32:24):
+> Hi@Levi WaldronYes, it would be great if we could schedule time for the video meeting!
+> > How are the actual tree or graph data represented?
+> For example, if we have a taxonomic table, we could convert it into a`phylo`as below, and store the`phylo`object in the`treeData`slot of`TreeSummarizedExperiment`.
+> ```
+> > taxTab
+>   superkingdom phylum class  OTU
+> 1            A     B1    C1   D1
+> 2            A     B2    C2   D2
+> 3            A     B2    C3   D3
+> 4            A     B2    C3   D4
+> 5            A     B2  <NA> <NA>
+> # convert to a phylo object
+> >tree1 <- toTree(taxTab)
+> ```
+> The`phylo`could be visualized using`ggtree`package as below. More details about`phylo`object could be found in the slides.([https://docs.google.com/presentation/d/1N13MjR96U6YBt_tVL9Hw40DfDE5CgmXkIuZItthF4vI/edit#slide=id.g4ac0ec1dd9_0_0](https://docs.google.com/presentation/d/1N13MjR96U6YBt_tVL9Hw40DfDE5CgmXkIuZItthF4vI/edit#slide=id.g4ac0ec1dd9_0_0))
+
+**Ruizhu HUANG** (07:32:41):
+  - File (PNG): [Screenshot 2019-01-10 at 13.31.49.png](https://community-bioc.slack.com/files/U34P8RS3B/FFAHUDNBV/screenshot_2019-01-10_at_13.31.49.png)
+
+**Ruizhu HUANG** (07:41:02):
+> The number in blue texts would be the node number (nodeNum) in the`rowData`.
+
+
+## 2019-01-24
+
+**Ruizhu HUANG** (08:12:10):
+> Hi all<!channel>,
+> Would people be interested to have a meeting about TreeSummarizedExperiment next week? Here is the doodle link to schedule the meeting.[https://doodle.com/poll/akmi7knh5bdzq7fq](https://doodle.com/poll/akmi7knh5bdzq7fq)
+  - Attachment (doodle.com): [Doodle: TreeSummarizedExperiment](https://doodle.com/poll/akmi7knh5bdzq7fq)
+    > Doodle radically simplifies the process of scheduling events, meetings, appointments, etc. Herding cats gets 2x faster with Doodle. For free!
+
+**Martin Morgan** (08:38:36):
+> Sounds great; I responded to the poll but don't schedule around me...
+
+
+## 2019-01-25
+
+**Ruizhu HUANG** (01:00:02):
+> Thanks, Martin!
+
+**Ruizhu HUANG** (09:02:15):
+> Hi all,
+> Thanks for sharing the availability in doodle. As most are available on next Friday, we would suggest to meet on  Feb 1 at 16.30-17.30 ( Central European Time (GMT +1)). Please find your local time here:[http://everytimezone.com/#2019-2-1,210,5yid](http://everytimezone.com/#2019-2-1,210,5yid)***The meeting link***:[https://treese.daily.co/meet](https://treese.daily.co/meet)
+  - Attachment (Daily): [Join my Daily video call!](https://treese.daily.co/meet)
+    > Click to join this meeting in Chrome. Daily is free and super easy video calling: 50 person meetings, dial-in, dual screen shares.
+
+**Ruizhu HUANG** (09:05:32):
+> You might want to test whether your web browser supports the[daily.co](http://daily.co)by simply clicking the meeting link above.:blush:This page shows the web browsers supported by the[daily.co](http://daily.co)([https://www.daily.co/browsers](https://www.daily.co/browsers))
+
+**Marcel Ramos Pérez** (13:52:55) (in thread):
+> Is it this time?[http://everytimezone.com/#2019-2-1,210,5yid](http://everytimezone.com/#2019-2-1,210,5yid)
+
+
+## 2019-01-26
+
+**Ruizhu HUANG** (09:37:22) (in thread):
+> Yes, Thanks! I will share this link!
+
+
+## 2019-02-01
+
+**Ruizhu HUANG** (10:35:52):
+> [https://docs.google.com/presentation/d/1Ncwt7j1pZjjDyqACLfgoDim4M38qzUX3JYC51BBdK10/edit#slide=id.g4e8d19e4e4_0_554](https://docs.google.com/presentation/d/1Ncwt7j1pZjjDyqACLfgoDim4M38qzUX3JYC51BBdK10/edit#slide=id.g4e8d19e4e4_0_554)
+
+**Jayaram Kancherla** (11:17:25):
+> [https://github.com/HCBravoLab/TreeSE/blob/master/R/TreeIndex-class.R](https://github.com/HCBravoLab/TreeSE/blob/master/R/TreeIndex-class.R)
+
+**Jayaram Kancherla** (11:39:25):
+> MicrobiomeExperiment-[https://github.com/HCBravoLab/MicrobiomeExperiment/tree/MigrateTreeSE](https://github.com/HCBravoLab/MicrobiomeExperiment/tree/MigrateTreeSE)
+
+**Ruizhu HUANG** (11:42:31):
+> Thanks, Jayaram!
+
+**Domenick Braccia** (12:07:24):
+> All comments & suggestions for MicrobiomeExperiment are welcome, as it is still in the early stages of development.@Ruizhu HUANGthanks for organizing today’s call, it was very helpful.
+
+
+## 2019-02-04
+
+**Ruizhu HUANG** (04:09:47):
+> Thanks for joining the call and all helpful comments and suggestions. I will keep you updated when I have new progress!
+
+*18:06:40 - @Dror Berel has joined the channel*
+
+## 2019-02-07
+
+*12:08:41 - @Kasper D. Hansen has joined the channel*
+**Kasper D. Hansen** (12:21:46):
+> I heard about this today. I have 1 clarifying question and 1 more deep request / question.
+
+**Kasper D. Hansen** (12:23:02):
+> 1. This is about having a tree linking rows in a SE, right?
+
+**Kasper D. Hansen** (12:23:42):
+> 2. Does the structure as currently proposed include the ability to link data to internal nodes of the tree as opposed to only leaf nodes.  I think that is very important, but it complicates things.
+
+**hcorrada** (12:36:58):
+> 1. Correct, we also want to support a tree linking columns
+
+**hcorrada** (12:37:40):
+> 2. As currently proposed and being implemented by@Ruizhu HUANG, yes, this would allow linking assay rows to internal nodes in the tree (and yes, it complicates things…)
+
+
+## 2019-02-08
+
+**Ruizhu HUANG** (03:22:49):
+> Yes, we support the link to the internal nodes. The current structure allows the link both to the rows and columns of the assays tables. Hope I will finish the vignette and make it available to test today.
+
+**Ruizhu HUANG** (11:25:06):
+> Hi all,
+> 
+> The`TreeSummarizedExperiment`is ready to be tested. The current  structure is as below.
+  - File (PNG): [Screenshot 2019-02-08 at 17.18.06.png](https://community-bioc.slack.com/files/U34P8RS3B/FG3FG5T6J/screenshot_2019-02-08_at_17.18.06.png)
+
+**Ruizhu HUANG** (11:32:15):
+> The vignette is available as a html file here.
+
+**Ruizhu HUANG** (11:32:26):
+  - File (HTML): [Introduction_to_treeSummarizedExperiment.html](https://community-bioc.slack.com/files/U34P8RS3B/FG23BHGDQ/introduction_to_treesummarizedexperiment.html)
+
+**Ruizhu HUANG** (11:32:48):
+> The github repository is[https://github.com/fionarhuang/TreeSummarizedExperiment](https://github.com/fionarhuang/TreeSummarizedExperiment)
+
+**Ruizhu HUANG** (11:39:22):
+> A short summary:
+> 1. the package now allows to store the tree structure on either row dimension or column dimension or both.
+> 2. it allows aggregation on either dimension or both.
+> 3. it allows the hierarchical information to be provided as a data.frame
+> 4. I will add more details about the small functions on the`phylo`later.@Jayaram Kancherla@hcorrada@Levi WaldronThe aggregation on the taxonomic table is in the Section 4 of the vignette.@Domenick BracciaThe link data part is explained in the section of the accessor function.@Kasper D. Hansenwhether a link is to an internal node could be found in the`isLeaf`column of the`LinkData`. Thank you for all the help and have a nice weekend!:blush:
+
+
+## 2019-02-09
+
+**Ruizhu HUANG** (04:28:57):
+> The introduction slides are updated here.@Charlotte Soneson@Mark Robinson[https://docs.google.com/presentation/d/11b9tbqbR3C_8lntON7aPETBSz_WCJrOW7lxxSR9CD-8/edit#slide=id.p](https://docs.google.com/presentation/d/11b9tbqbR3C_8lntON7aPETBSz_WCJrOW7lxxSR9CD-8/edit#slide=id.p)
+
+
+## 2019-02-21
+
+**Aedin Culhane** (17:44:17):
+> Cool.  Does it accept phylo tree formats  (eg Newick? etc)
+
+
+## 2019-02-22
+
+**Ruizhu HUANG** (02:33:22):
+> Hi@Aedin Culhane,
+> 
+> Currently, users would need to use functions from other packages, e.g.`phytools::read.newick`for Newick, to read the tree files.
+> 
+> For example,
+> ```
+> tree <- "((Human,Chimp),Gorilla),Monkey);"
+> phy <- phytools::read.newick(text=tree)
+> `
+> ```
+> The output`phy`is a`phylo`object and could be used to construct the`TreeSummarizedExperiment`object.
+
+
+## 2019-03-03
+
+**Ruizhu HUANG** (13:00:37):
+> Hi all,
+> Are there other functionalities you would expect`TreeSummarizedExperiment`to provide? I am thinking probably we should submit it to Bioconductor after some improvements in documentation.
+
+**Levi Waldron** (16:33:53):
+> Ultimately it should re-implement all the methods of the`phyloseq`package, but even a subset of that would give a good idea of any limitations or awkwardness that exists in the data structure...
+
+**Charlotte Soneson** (16:38:18):
+> @Levi Waldronany suggestions for particular ones to start with?
+
+**Levi Waldron** (16:48:30):
+> OK - actually I scale back my opinion that it should re-implement***all***of phyloseq, which I think contains scope creep. I think just the data management aspects, particularly the trimming, subsetting, and filtering (section 6,[https://bioconductor.org/packages/release/bioc/vignettes/phyloseq/inst/doc/phyloseq-basics.html#trimming-subsetting-filtering-phyloseq-data](https://bioconductor.org/packages/release/bioc/vignettes/phyloseq/inst/doc/phyloseq-basics.html#trimming-subsetting-filtering-phyloseq-data)). You could skip the things that already have a direct equivalent in`SummarizedExperiment`, and just include those in a table of equivalents between`phyloseq`and`TreeSummarizedExperiment`.
+
+**Levi Waldron** (17:00:55):
+> Section 8 there (`tax_glom`and`tip_glom`) seems within the scope of data management, and involves taxonomy or phylogeny plus assay data, although I’ve never actually used these functions since both QIIME(2) and MetaPhlAn2 already provide these agglomerate clades by default.
+
+**Levi Waldron** (17:00:59):
+> Selfishly, I make heavy use of phyloseq’s distance and ordination functions, but those really belong in a separate package for ecological analysis (maybe eventually in the phyloseq package, but its retooling will be a major undertaking). A companion package providing distances and ordination would make`TreeSummarizedExperiment`immediately useful for a lot of what I do.
+
+**Martin Morgan** (19:21:49):
+> I'm 'shooting from the hip' here without even looking at any code, but I'd be wary of 're-implementing' existing functionality. Is there a better pattern, like 'get the tree from treeSE' --> manipulate as necessary in phyloseq --> 'update(treeSE, manipulated tree)', where the update function says either 'yes, I can do that for you, here's what the implications of your new tree are for the original treeSE' or 'sorry, X, I can't do that for you, you've made transformations of the tree that violate the original structure'
+
+**Levi Waldron** (20:38:07):
+> My rationale for re-implementing is that these actions in phyloseq act on a list-like object and itself re-implements basic things provided by SummarizedExperiment. Basic phylogenetic operations come from`ape`, and those for sure should not be re-implemented.@Joey McMurdiemaybe you can weigh in? In our last discussion, our eventual hope was to maintain the`phyloseq`API but eventually replacing the`previous phyloseq`class with a class based on`SummarizedExperiment`.
+
+
+## 2019-03-04
+
+**Ruizhu HUANG** (02:49:12):
+> If I understand it correctly, it’s to trim taxa that exists only in the`assays`table or in the`phylo`tree object to keep equivalent between the tree object and the`assays`table. I like this idea to keep the table and the tree matched when construct the`TreeSE`. Following this idea, should we update the tree every time we subset the table? This is somehow going back to the question that the tree should be updated or should be kept the same during the whole process.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C7LUMKTT6/p1551649710010800)
+    > OK - actually I scale back my opinion that it should re-implement **all** of phyloseq, which I think contains scope creep. I think just the data management aspects, particularly the trimming, subsetting, and filtering (section 6, [https://bioconductor.org/packages/release/bioc/vignettes/phyloseq/inst/doc/phyloseq-basics.html#trimming-subsetting-filtering-phyloseq-data](https://bioconductor.org/packages/release/bioc/vignettes/phyloseq/inst/doc/phyloseq-basics.html#trimming-subsetting-filtering-phyloseq-data)). You could skip the things that already have a direct equivalent in `SummarizedExperiment`, and just include those in a table of equivalents between `phyloseq` and `TreeSummarizedExperiment`.
+
+**Ruizhu HUANG** (02:56:30):
+> Yes, it would be a good idea to follow the suggested pattern by@Martin Morganif the tree needs to be updated. One thing I want to remind is that every time a tree is changed (merge branches or prune branches), the node number of the new tree would be different to the old tree. This somehow leads to lose tracking of the data. It depends on users’ goal. In some situations, the old or original tree is not important;  in other cases, the original tree needs to be used.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C7LUMKTT6/p1551658909022400)
+    > I'm 'shooting from the hip' here without even looking at any code, but I'd be wary of 're-implementing' existing functionality. Is there a better pattern, like 'get the tree from treeSE' --> manipulate as necessary in phyloseq --> 'update(treeSE, manipulated tree)', where the update function says either 'yes, I can do that for you, here's what the implications of your new tree are for the original treeSE' or 'sorry, X, I can't do that for you, you've made transformations of the tree that violate the original structure'
+
+**Ruizhu HUANG** (03:06:14):
+> I see there are different applications in these two different settings. I am thinking which one of the two options below would be better:
+> 1. Should I allow the package to go in two different directions? One is to allow the tree to be updated; and the other is to keep  using a same tree.
+> 2. Should I just keep using the same tree and make the`TreeSE`to be flexible so that it could be extended in other packages to do the former in 1?
+
+**Domenick Braccia** (12:09:21):
+> I was under the impression that`TreeSE`would be made more flexible so that it could be applied to MicrobiomeExperiment ([https://github.com/HCBravoLab/MicrobiomeExperiment](https://github.com/HCBravoLab/MicrobiomeExperiment)) where the tree is used in the`rowData`, and single cell experiment data, where the tree is used in`colData`?
+
+**Ruizhu HUANG** (12:58:05):
+> Hi@Domenick BracciaWould you mind showing me some example codes using a toy data about your goal in the MicrobiomeExperiment? It would be easier for me to show how to apply`TreeSE`to MicrobiomeExperiment. It’s likely that the current structure could be adapted to apply to`MicrobiomeExperiment`but I did not show it clearly in your expected way.
+
+
+## 2019-03-05
+
+**Domenick Braccia** (08:16:34):
+> @Ruizhu HUANGLet me rephrase - our plan for`MicrobiomeExperiment`was to extend`TreeSE`in its current state and then do most of the`phyloseq`reimplementation with this new data structure.
+
+**Ruizhu HUANG** (08:20:11):
+> ah… sorry, I misunderstood the sentence. I thought you encountered problems to apply the`TreeSE`structure to`MicrobiomeExperiment`and expect the structure could be more flexible.
+
+**Ruizhu HUANG** (12:21:40):
+> Hi@Levi Waldron@Charlotte SonesonHere is an example code to show how to build the`TreeSummarizedExperiment`object using the data`GlobalPatterns`from`phyloseq`. ([https://gist.github.com/fionarhuang/398f7dac37e9ebe9d6e3da7ef2615b83](https://gist.github.com/fionarhuang/398f7dac37e9ebe9d6e3da7ef2615b83))
+
+
+## 2019-03-26
+
+**Ruizhu HUANG** (16:38:04):
+> Hi all,
+> I have updated the vignette by adding more functions on the`phylo`object, and give examples on how to customize functions to work on`TreeSummarizedExperiment`.  Now, the package is submitted to bioconductor with an open issue here. ([https://github.com/Bioconductor/Contributions/issues/1058](https://github.com/Bioconductor/Contributions/issues/1058))@Charlotte Soneson@Mark Robinson
+
+
+## 2019-04-10
+
+**Mark Robinson** (04:45:28):
+> <!channel>just to connect this channel with@Hervé Pagès’s review of the`TreeSummarizedExperiment`package ..[https://github.com/Bioconductor/Contributions/issues/1058#issuecomment-481352905](https://github.com/Bioconductor/Contributions/issues/1058#issuecomment-481352905).. are there any further comments from other members of the channel?
+
+**hcorrada** (04:55:40):
+> Thanks@Mark RobinsonHerve brings up a valid point. We’ll take a look later today and see if we can help with his comment.
+
+**Hervé Pagès** (15:43:00):
+> I think it's also important that we discuss the place of TreeSE in the SE / RangedSE / SingleCellExperiment hierarchy. I started a discussion about this at[https://github.com/Bioconductor/Contributions/issues/1058](https://github.com/Bioconductor/Contributions/issues/1058)
+
+*15:43:16 - @Kevin Rue-Albrecht has left the channel*
+**Hervé Pagès** (15:44:13):
+> @Kevin Rue-AlbrechtI didn't mean to scare you
+
+
+## 2019-04-11
+
+**Ruizhu HUANG** (12:20:54):
+> Hi@Hervé Pagès,
+> Thanks for the help to review the`TreeSummarizedExperiment`package. I run through your comments and find the current`LinkDataFrame`is might be quite similar to one of your two suggestions.
+> 
+> The way I printed out the`LinkDataFrame`pulls the thought about the`GRanges`object and probably that leads to the confusion to use`mcols()`.  I am sorry about that, and now the`show(LinkDataFrame)`is updated. The right part actually is the main part of`DataFrame`instead of`metadata`or`elementMetadata`. More details are explained in the issue page. Hopefully, I have solved the issue that`LinkDataFrame`doesn’t follow the semantics of`DataFrame`.[https://github.com/Bioconductor/Contributions/issues/1058#issuecomment-482159950](https://github.com/Bioconductor/Contributions/issues/1058#issuecomment-482159950)
+
+
+## 2019-04-22
+
+**Domenick Braccia** (08:55:53):
+> Hi@Ruizhu HUANG/ others this pertains to,@Jayaram Kancherlaand I are starting to work on`MicrobiomeExperiment`class that would extend`TreeSummarizeExperiment`to handle microbiome data and also implement methods for various  analysis that`phyloseq`has. We were wondering if you are still making any more changes to the class structure based on herve’s comments ? We want to make sure`TreeSummarizedExperiment`is stable before we start working on this package tailored for microbiome analysis.
+
+**Ruizhu HUANG** (10:15:21):
+> Hi@Domenick Braccia@Jayaram Kancherla,
+> Yes, currently I am changing the structure based on Hervé’s comments to separate the row/column data and the link data. You might see that the issue page is currently labelled as error:sweat_smile:. The change could be hopefully finished on this Thursday, and we will see whether Hervé has further comments then…
+
+**Jayaram Kancherla** (10:29:27):
+> Hey@Ruizhu HUANG, fyi, the error is due to a typo in the DESCRIPTION file (i opened an issue for this)
+
+**Ruizhu HUANG** (10:35:51):
+> Thanks, Jayaram! Yes, I label it as`TreeSE0`to keep it different to my previous`TreeSE`for time being. It will be updated when all updates are finished. There will be more errors coming out because the new structure has some new slots and the vignette isn’t updated yet.
+
+**Ruizhu HUANG** (10:36:35):
+> Also, the accessor functions for the new structure have not been completely done yet…
+
+**Kasper D. Hansen** (10:49:14):
+> @Domenick BracciaYou should really just start your work, which should not depend on the internals of`TreeSummarizedExperiment`, but which should access that class only through extractor and replacement functions. Your work might identify certain extractor functions which are necessary and also certain pieces of information which should be stored in the class.
+
+**Kasper D. Hansen** (10:49:34):
+> The hard part will be the design phase
+
+**Ruizhu HUANG** (10:58:39):
+> @Domenick Braccia@Jayaram KancherlaProbably this figure might help… The new structure and the corresponding accessor functions would be as below.
+
+**Hervé Pagès** (11:15:51):
+> @Ruizhu HUANGThanks for those changes. Should be "Column Link" instead of "Link Data". What about using the plural form for these accessors i.e.`rowLinks`/`colLinks`. This is what has been done for other accessors e.g.`assays`,`mcols`,`rowRanges`. And also`names`,`rownames`,`colnames`in base R.
+
+**Ruizhu HUANG** (11:52:08):
+> @Hervé PagèsThanks, Hervé! The figure is updated. The updated`TreeSummarizedExperiment`should be ready to check on this Thursday. I will let you know when it’s ready.
+
+**Ruizhu HUANG** (11:53:12):
+  - File (PNG): [Screenshot 2019-04-22 at 17.49.01.png](https://community-bioc.slack.com/files/U34P8RS3B/FJ2D52QMA/screenshot_2019-04-22_at_17.49.01.png)
+
+**hcorrada** (13:21:33):
+> @Kasper D. Hansenthe rough design is in place ([https://github.com/HCBravoLab/MicrobiomeExperiment/tree/MigrateTreeSE](https://github.com/HCBravoLab/MicrobiomeExperiment/tree/MigrateTreeSE)) we are transitioning between a TreeSummarizedExperiment-like class we were using to the one@Ruizhu HUANGis submitting to bioc. We’d welcome comments and thoughts on that github page as well!
+
+
+## 2019-04-23
+
+*11:25:29 - @Lukas Weber has joined the channel*
+
+## 2019-04-25
+
+**Ruizhu HUANG** (12:25:54):
+> Hi Hervé@Hervé Pagèsand all,
+> The update has been finished and the package is ready to be checked again.
+> A short summary as below:
+> 1.`TreeSummarizedExperiment`is now extended from`SingleCellExperiment`and has more slots than before.
+> 2. The structure is exactly as the figure I sent on Monday.
+> 3.  Accessors  are updated
+> 4.  The aggregation is updated accordingly.
+> 5.  more functions are added to work on`phylo`.
+> 6. An easier example is given in the vignette to show how to use functions in other packages (e.g.`ape`) to update the tree and further update the`TreeSummarizedExperiment`.
+
+**hcorrada** (12:42:47):
+> Thanks@Ruizhu HUANG! Not sure I follow why`TreeSummarizedExperiment`needs to extend`SingleCellExperiment`.
+
+**Ruizhu HUANG** (12:59:52):
+> Hi@hcorrada,
+> At the beginning, the`TreeSE`extends the`SE`. The reasons I rebase it to`SCE`are as below.
+> 1.  Hervé has brought up the discussion about the place of`TreeSummarizedExperiment`in the whole family of`SEs`. I try to keep the family having a simple linear structure and also to save the work from`SCE`authors.
+> 2.  Both microbial data and single cell data might need to deal with this hierarchical thing. Users, who work in microbial data, might not need some slots created in`SCE`. Users, who work in the single cell data might not need the tree slots for time being. It would not hurt to have some empty slots when using`TreeSE`for both.
+> 3. If users don’t use`TreeSE`at the beginning, but find they need those slots later. They could use`as(object, "TreeSummarizedExperiment") `to switch to`TreeSE`.
+
+**hcorrada** (13:04:07):
+> I see.@Hervé Pagèsis having TreeSE extending SCE what you had in mind?
+
+**Hervé Pagès** (14:42:37):
+> @Ruizhu HUANGThanks for the update. I'll take a look today. Not sure about what's the best place for TreeSE in the SE / RangedSE / SingleCellExperiment hierarchy either. There are several options and having TreeSE extend SingleCellExperiment is one of them. Having TreeSE between RangedSE and SingleCellExperiment is another one and seems more natural to me. (I've tried to discuss these options here[https://github.com/Bioconductor/Contributions/issues/1058#issuecomment-481833280](https://github.com/Bioconductor/Contributions/issues/1058#issuecomment-481833280)) However the drawback of going that route is that it would require some adjustments to SingleCellExperiment. So in any case it would need to happen later (granted the SingleCellExperiment folks are on board with this). So for now TreeSE could just extend RangedSE and the discussion about whether SingleCellExperiment should be modified to extend it or not can wait. Just wanted to put this option on the table.
+
+
+## 2019-04-26
+
+**Charlotte Soneson** (05:13:46):
+> From my side, I fully agree that it's not trivial to say what would be the "most natural" hierarchy of these objects. However, from a practical perspective, would it hurt to have`TreeSE`extend`SCE`? It would be practical in many applications to have a class allowing both trees and reduced dimension representations, for example. Regardless of whether one does`RangedSE`->`TreeSE`->`SCE`or`RangedSE`->`SCE`->`TreeSE`, the final class would have both these properties. However, with the first option, as@Hervé Pagèspoints out, all saved`SCE`objects would become invalid and need to be updated (as Hervé also notes, this assumes that the`SCE`developers are on board, and in any case it will likely be some time before the implementation can take place). I can see that maybe it's conceptually easier to imagine that there is always a tree slot in a single-cell experiment object, even if it's not used, than that tree-based analyses inherit from single-cell ones, but I can also see the opposite side - if you have data with a tree structure and you just want to add a PCA, you'd anyway have to go to an`SCE`. So, to me it seems that it's not clear that all aspects will ever be fully "self-explanatory" or "natural", at least not without adding even more specialized classes.
+
+
+## 2019-05-17
+
+**Martin Morgan** (06:34:29):
+> An opportunity for expert insight in the review of[https://github.com/Bioconductor/Contributions/issues/1122](https://github.com/Bioconductor/Contributions/issues/1122)-- feel free to provide constructive comments
+
+
+## 2019-05-21
+
+**Hervé Pagès** (16:17:44):
+> @Martin Morgan"the R package for analyzing expression evolution based on RNA-seq data". Hopefully they can get rid of "the".
+
+
+## 2020-06-06
+
+*19:57:58 - @Olagunju Abdulrahman has joined the channel*
+
+## 2020-08-05
+
+**Matthew McCall** (11:23:04):
+> @David Burtonthis conversation may be of interest to you
+
+*11:23:07 - @David Burton has joined the channel*
+*13:34:51 - @Hervé Pagès has left the channel*
+
+## 2020-08-21
+
+*17:29:37 - @Chris Fields has joined the channel*
+**Chris Fields** (18:37:34):
+> @hcorradaI’m just curious but has any progress been made on`MicrobiomeExperiment`?  I see that`TreeSummarizedExperiment`is now in BioC but wasn’t sure if this has moved further along.
+
+
+## 2020-08-23
+
+*11:17:21 - @FelixErnst has joined the channel*
+
+## 2020-09-08
+
+**FelixErnst** (02:34:03):
+> Hi. I started to work on microbiome data and I "just" discovered this channel. I see that a lot of discussion on`TreeSummarizedExperiment`took place here and I am really glad that@Ruizhu HUANGimplemented this class. I also saw that a lot of things were discussed on reimplementing`phyloseq`and its function potentially via a seperate class`MicrobiomeExperiment`. Is this a project some of you are still pursuing?@Joey McMurdie@Domenick Braccia@hcorrada@Kasper D. Hansen
+
+**Domenick Braccia** (07:44:42) (in thread):
+> Hey@FelixErnst. Thanks for your interest in our work! Right now,`MicrobiomeExperiment`is not in active development.@hcorradaand I have moved on to different projects that have required a lot of attention. However, there is certainly still room in BioC for a package that supports the sort of tree structure that@Ruizhu HUANGhas provided here.
+
+**Domenick Braccia** (07:45:58) (in thread):
+> Hey@Chris Fields, I just responded to someone below you asking a similar question, if you were still interested in knowing about`MicrobiomeExperiment`development
+
+**FelixErnst** (09:14:01) (in thread):
+> Thanks for the reply. I am bit late to party...
+
+**Chris Fields** (10:26:02) (in thread):
+> Thanks@Domenick Braccia!
+
+
+## 2020-09-09
+
+**FelixErnst** (04:39:43) (in thread):
+> just an fyi: I have produced first draft of the`merge`and`tax_glom`functions, the latter renamed to`agglomerateByRank`, for`SummarizedExperiment`class with appropriate taxonomic row data. So maybe that could be a foundation to start with, if some of you might be interested. Just needs a place to be put... Suggestions are of course welcome
+
+
+## 2020-09-10
+
+*09:40:07 - @Jenny Drnevich has joined the channel*
+
+## 2020-09-12
+
+**Jayaram Kancherla** (10:12:46) (in thread):
+> Can these methods apply to`TreeSummarizedExperiment`from@Ruizhu HUANG?
+
+
+## 2020-09-23
+
+**Ruizhu HUANG** (10:00:57) (in thread):
+> I guess the missing part is to update the tree. I will have a look at it.:blush:
+
+
+## 2020-09-24
+
+**FelixErnst** (02:33:12) (in thread):
+> For now it works on any SummarizedExperiment. I forked`MicrobiomeExperiment`and just updated the package to build and pass R CMD check, etc.  Have a look at here:[https://github.com/FelixErnst/MicrobiomeExperiment](https://github.com/FelixErnst/MicrobiomeExperiment)changes are in the dev branch
+
+**FelixErnst** (02:35:59) (in thread):
+> @Ruizhu HUANGFor the agglomerate function, there is an optional`agglomerateTree`argument, which triggers the following code snippet:
+> ```
+> row_leaf <- transNode(tree = row_tree, node = rowLinks(ans)$nodeNum)
+>       row_tree <- ape::keep.tip(phy = row_tree, tip = row_leaf)
+>       ans <- changeTree(ans, rowTree = row_tree)
+> ```
+
+**FelixErnst** (02:36:47) (in thread):
+> I think that is how you did tree pruning in`TreeSummarizedExperiment`, is that correct?
+
+
+## 2020-10-09
+
+**Chris Fields** (18:37:24) (in thread):
+> @FelixErnsthappy to join in and help on this, let me know.  May also have some help from others in the group here at UIUC
+
+
+## 2020-10-17
+
+**Leo Lahti** (14:01:20) (in thread):
+> I am also interested to test / contribute to MicrobiomeExperiment if that goes fwd. Is there an overall roadmap,  or experimental at this point?
+
+**FelixErnst** (14:04:16) (in thread):
+> Currently this definitelx work in progress. We don't have a roadmap or similar.  It might be a good idea to set something up. I will a get a bit of information gathering started and then we can move on from there
+
+**Leo Lahti** (14:12:57) (in thread):
+> Good to see how much added value vs effort. But this is promising.
+
+**FelixErnst** (14:16:48) (in thread):
+> I agree. There is a fine line between simplifying vs. getting rigid and dogmatic about thinks. Give me a few minutes and I think the first step I have in mind will become clear
+
+
+## 2020-12-12
+
+*00:37:55 - @Huipeng Li has joined the channel*
+
+## 2021-01-22
+
+*15:46:38 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-02-12
+
+*15:53:25 - @Janani Ravi has joined the channel*
+
+## 2021-04-28
+
+*08:06:56 - @Mahmoud Ahmed has joined the channel*
+
+## 2021-05-11
+
+*16:46:07 - @Megha Lal has joined the channel*
+
+## 2021-07-16
+
+*12:42:49 - @Lori Shepherd has left the channel*
+
+## 2021-08-03
+
+**Levi Waldron** (07:28:58):
+> FYI everyone (cross-posted in the more active channel#miaverse)
+> 1. curatedMetagenomicData 3 ([https://bioconductor.org/packages/curatedMetagenomicData/](https://bioconductor.org/packages/curatedMetagenomicData/),[https://waldronlab.io/curatedMetagenomicData/](https://waldronlab.io/curatedMetagenomicData/)) now uses`TreeSummarizedExperiment`for all its taxonomic relative abundance data (now >20,000 samples from 86 studies). It includes phylogenetic trees as`rowTree`and taxonomic information in`rowData`, and the vignette recommends use of`mia::splitByRanks`to populate`altExps`with taxonomic relative abundances at levels higher than species. Feedback welcome!
+> 2. @Ludwig Geistlingerand I are hosting a table at BioC2021, August 5 11:30am PT to discuss some challenges relating to taxonomy/phylogeny and other issues coming up from our upcoming[bugsigdb.org](http://bugsigdb.org)that we’d love to involve other in.
+  - Attachment (Bioconductor): [curatedMetagenomicData](https://bioconductor.org/packages/curatedMetagenomicData/)
+    > The curatedMetagenomicData package provides standardized, curated human microbiome data for novel analyses. It includes gene families, marker abundance, marker presence, pathway abundance, pathway coverage, and relative abundance for samples collected from different body sites. The bacterial, fungal, and archaeal taxonomic abundances for each sample were calculated with MetaPhlAn3 and metabolic functional potential was calculated with HUMAnN3. The manually curated sample metadata and standardized metagenomic data are available as (Tree)SummarizedExperiment objects.
+  - Attachment (waldronlab.io): [Curated Metagenomic Data of the Human Microbiome](https://waldronlab.io/curatedMetagenomicData/)
+    > The curatedMetagenomicData package provides standardized, curated human microbiome data for novel analyses. It includes gene families, marker abundance, marker presence, pathway abundance, pathway coverage, and relative abundance for samples collected from different body sites. The bacterial, fungal, and archaeal taxonomic abundances for each sample were calculated with MetaPhlAn3 and metabolic functional potential was calculated with HUMAnN3. The manually curated sample metadata and standardized metagenomic data are available as (Tree)SummarizedExperiment objects.
+
+
+## 2021-11-21
+
+*08:23:31 - @Yagmur Simsek has joined the channel*
+*08:23:38 - @Tuomas Borman has joined the channel*
+*08:23:56 - @Chouaib Benchraka has joined the channel*
+**Leo Lahti** (08:48:10):
+> Dear channel - we are planning to create functionality for`(Tree)SE`objects that would allow 1) splitting the object into groups based on a given discrete field that indicates those groups, 2) performing operations per group; 3) merging all back into a single object.
+> 
+> At least something like this would work, but I would be curious to hear suggestions for better ways to implement:
+> ```
+> # Load example data
+> library(mia)
+> data(GlobalPatterns)
+> se <- GlobalPatterns
+>  
+> # Add a new field ("index") to colData(se)
+> colData(se)$index <- 1:nrow(colData(se))
+> 
+> # Reverse the indices per sample type
+> colData(se) <- colData(se) %>% as.data.frame() %>%                                                  group_by(SampleType) %>%                                                      mutate(index2=rev(index)) %>% 
+>   DataFrame()
+> 
+> # It works:
+> colData(se)
+> ```
+
+
+## 2021-12-14
+
+*08:23:31 - @Megha Lal has left the channel*
+
+## 2022-03-05
+
+*15:17:11 - @Giulio Benedetti has joined the channel*
+
+## 2022-03-21
+
+*05:03:08 - @Pedro Sanchez has joined the channel*
+
+## 2022-05-02
+
+*03:49:58 - @James Ward has joined the channel*
+**James Ward** (13:23:40):
+> Thank you Dr Lahti! I asked a question on Twitter and posted in the#randomchannel, basically asking if we could add assayData() to the SummarizedExperiment class.I think it would behave like rowData() and colData() in that absence of either would just generate an empty DataFrame with no columns, and rownames that match assayNames(se).Main goal is to have somewhere to describe what is in an assay matrix. I currently encode a lot into the assayNames.
+> Thanks for any thoughts or feedback!
+
+**Leo Lahti** (14:28:31):
+> Sounds useful. I do not know if this idea has been brought up earlier. There are several SummarizedExperiment authors on this channel, looking forward to see the comments.
+
+
+## 2022-08-11
+
+*17:16:36 - @Rene Welch has joined the channel*
+
+## 2022-12-13
+
+**Levi Waldron** (07:40:30):
+> FYI tomorrow, free: Amy Willis presenting “Model misspecification in microbiome studies”[https://hopin.com/events/microbiome-vif-n-14-f8fcff08-a6fe-4eec-a724-8341204ea285](https://hopin.com/events/microbiome-vif-n-14-f8fcff08-a6fe-4eec-a724-8341204ea285)
+  - Attachment (hopin.com): [Microbiome-VIF n.14 - Dec 14 | Hopin](https://hopin.com/events/microbiome-vif-n-14-f8fcff08-a6fe-4eec-a724-8341204ea285)
+    > Get tickets to Microbiome-VIF n.14, taking place 12/14/2022 to 12/15/2022. Hopin is your source for engaging events and experiences.
+
+
+## 2023-05-18
+
+*05:54:12 - @Oluwafemi Oyedele has joined the channel*
+
+## 2023-05-25
+
+*17:14:36 - @Jacob Krol has joined the channel*
+
+## 2023-06-19
+
+*05:12:45 - @Pierre-Paul Axisa has joined the channel*
+
+## 2023-09-13
+
+**Leo Lahti** (07:42:16):
+> Are there online examples on how to root a TreeSE tree?
+
+
+## 2023-09-15
+
+*04:52:53 - @Leo Lahti has joined the channel*
+
+## 2023-09-21
+
+**Leo Lahti** (09:27:24):
+> I could not find suitable example data set but shouldn't these two approaches for a TreeSE object give the same output taxon? It seems as if`subsetByLeaf`was somehow mixing the label order?@Ruizhu HUANG?
+> 
+> seq <- "TACAGAGGTCTCAAGCGTTGTTCGGAATCACTGGGCGTAAAGCGTGCGTAGGCGGTTTCGTAAGTCGTGTGTGAAAGGCGGGGGCTCAACCCCCGGACTGCACATGATACTGCGAGACTAGAGTAATGGAGGGGGAACCGGAATTCTCGG"
+> 
+> rownames(tse)[grep(seq, rowLinks(tse)$nodeLab)]
+> # [1] "Akkermansia muciniphila_D_776786"
+> 
+> tse2 <- subsetByLeaf(tse, rowLeaf = rowLinks(tse)$nodeLab)
+> rownames(tse2)[grep(seq, rowLinks(tse2)$nodeLab)]
+> # [1] "Alistipes_A_871400 onderdonkii"
+
+
+## 2023-09-22
+
+**Leo Lahti** (17:06:23):
+> Ok Matti Ruuskanen tracked it down and opened an issue to TreeSummarizedExperiment:[https://github.com/fionarhuang/TreeSummarizedExperiment/issues/83](https://github.com/fionarhuang/TreeSummarizedExperiment/issues/83)
+  - Attachment: [#83 subsetByLeaf(tse) mixes up the rowTree tips and rownames of the new object](https://github.com/fionarhuang/TreeSummarizedExperiment/issues/83)
+    > f you want to subset the tree in a `tse` object, because e.g., PhILR requires the `rowTree(tse)` to match the taxa present in the `tse`, as in `rownames(tse)`, the recommendation was to use: `subsetByLeaf(tse, rowLeaf = rowLinks(tse)$nodeLab)`  
+    > However, this messes up the connection between the new tree tips (or `rowLinks(tse)$nodeLab`) and `rownames(tse)`.
+    > 
+    > Instead, the subsetting done directly with `rowtree(tse) <- ape::keep.tip(phy = rowTree(greengenes2_16S), tip = rowLinks(greengenes2_16S)$nodeLab)` appears to work without issues  
+    > further evidence:
+    > 
+    > ```
+    > > identical(rownames(tse), rowLinks(tse)$nodeLab)
+    > [1] TRUE
+    > > new_tse <- subsetByLeaf(tse, rowLeaf = rowLinks(tse)$nodeLab)
+    > > identical(rownames(new_tse), rowLinks(new_tse)$nodeLab)
+    > [1] FALSE
+    > > ape_tse <- tse
+    > > rowTree(ape_tse) <- ape::keep.tip(phy = rowTree(ape_tse), tip = rowLinks(ape_tse)$nodeLab)
+    > > identical(rownames(ape_tse), rowLinks(ape_tse)$nodeLab)
+    > [1] TRUE
+    > ```
+
+
+## 2023-10-26
+
+*10:35:30 - @Janetta Top has joined the channel*
+
+## 2024-04-28
+
+*08:43:51 - @Danielle Callan has joined the channel*
+
+## 2024-07-26
+
+*17:36:14 - @Jayaram Kancherla has left the channel*
+
+## 2024-08-21
+
+*08:58:21 - @Laura Symul has joined the channel*

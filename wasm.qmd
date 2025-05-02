@@ -1,0 +1,757 @@
+---
+title: "#wasm"
+format: gfm
+---
+
+
+## 2024-02-01
+
+*13:40:46 - @Marcel Ramos Pérez has joined the channel*
+**Marcel Ramos Pérez** (13:52:30):
+> FWIW,`SummarizedExperiment`, though available, needs`matrixStats`binary to load :
+> ```
+> webr::install(
+>   "SummarizedExperiment",
+>   repos = "[https://bioconductor.r-universe.dev](https://bioconductor.r-universe.dev)"
+> )
+> ```
+
+*13:53:21 - @Charlotte Soneson has joined the channel*
+*13:53:21 - @Andres Wokaty has joined the channel*
+*13:53:21 - @Alex Mahmoud has joined the channel*
+*13:53:21 - @Henrik Bengtsson has joined the channel*
+*14:06:39 - @Ludwig Geistlinger has joined the channel*
+*14:31:12 - @Frederick Tan has joined the channel*
+*15:59:25 - @Spencer Nystrom has joined the channel*
+*17:29:27 - @Axel Klenk has joined the channel*
+*17:36:27 - @Sean Davis has joined the channel*
+
+## 2024-02-02
+
+*08:31:02 - @Laurent Gatto has joined the channel*
+*14:18:49 - @Nitesh Turaga has joined the channel*
+*19:59:12 - @Stephanie Hicks has joined the channel*
+
+## 2024-02-05
+
+*06:41:19 - @Davide Risso has joined the channel*
+
+## 2024-02-09
+
+*09:25:17 - @Levi Waldron has joined the channel*
+
+## 2024-02-14
+
+*09:24:34 - @Kozo Nishida has joined the channel*
+
+## 2024-02-20
+
+*13:00:36 - @Vince Carey has joined the channel*
+**Vince Carey** (14:01:52):
+> did anyone try to build matrixStats etc. so that SummarizedExperiment can be used in webr?  i have had some success building packages in the container dev environment described at[https://r-wasm.github.io/rwasm/articles/mount-fs-image.html#building-an-r-package-library](https://r-wasm.github.io/rwasm/articles/mount-fs-image.html#building-an-r-package-library), less success with mounting vfs etc.
+  - Attachment (r-wasm.github.io): [Mounting filesystem images](https://r-wasm.github.io/rwasm/articles/mount-fs-image.html#building-an-r-package-library)
+    > rwasm
+
+**Marcel Ramos Pérez** (15:22:27):
+> ~~~I'm also having mount issues:~~~
+> ```
+> Error fetching[http://127.0.0.1:9090/vfs/library.data](http://127.0.0.1:9090/vfs/library.data)- 404 Not Found
+> ```
+> ~~~I'm using the ~~~~~~~`httpuv::runStaticServer`~~~~~~~~ command in the folder that I want to serve~~***Update:***I was able to mount and load the`matrixStats`package binary but now there are more dependencies that are required:face_with_head_bandage:
+> ```
+> Error: package or namespace load failed for 'GenomeInfoDb' in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+>  there is no package called 'RCurl'
+> Error: package 'GenomeInfoDb' could not be loaded
+> ```
+
+**Marcel Ramos Pérez** (15:24:26) (in thread):
+> oops I just realized it is looking for the`vfs`folder
+
+
+## 2024-02-21
+
+**Alex Mahmoud** (12:02:26):
+> Just saw these messages, wanted to let people know here too: after conversation with Vince yesterday I looked back at WASM too to do the dispatching across all of our packages, but then noticed they already have a function for this type of thing, so instead of adding to the container binary dispatch, I instead just started running
+> ```
+> rwasm::add_repo('[https://bioconductor.org/packages/3.18/bioc/](https://bioconductor.org/packages/3.18/bioc/)', repo_dir = '/_site')
+> Processing 2193 package(s).
+> ```
+> to see how many are built out of the box from our 3.18 repo
+
+
+## 2024-02-23
+
+**Marcel Ramos Pérez** (17:35:43) (in thread):
+> How long does this take? and how big are the`*.library`files?
+
+**Alex Mahmoud** (17:38:55) (in thread):
+> 15Gb for 2074, but did not make .library files, just
+> ```
+> -rw-r--r-- 1 root root  1.4M Feb 23 06:56 zinbwave_1.24.0.data
+> -rw-r--r-- 1 root root  1.8K Feb 23 06:56 zinbwave_1.24.0.js.metadata
+> -rw-r--r-- 1 root root  836K Feb 23 06:56 zinbwave_1.24.0.tgz
+> -rw-r--r-- 1 root root   16K Feb 23 06:56 zlibbioc_1.48.0.data
+> -rw-r--r-- 1 root root  1.2K Feb 23 06:56 zlibbioc_1.48.0.js.metadata
+> -rw-r--r-- 1 root root   12K Feb 23 06:56 zlibbioc_1.48.0.tgz
+> ```
+
+**Alex Mahmoud** (17:51:35) (in thread):
+> Oh and on time, didn't time it this time, but will do that next time. <2 days tho
+
+**Alex Mahmoud** (17:55:57):
+> PSA, this is very experimental, but the 2074 packages that built out of 3.18 soft can now be used from[webr.bioconductor.org](http://webr.bioconductor.org). A lot of packages still have missing cran dependencies it seems, so some will install, but still trying to find a good relatively complicated package that works fully, but if anyone wants to experiment, example:
+> ```
+> webr::install("S4Vectors", repos=c("[https://repo.r-wasm.org/](https://repo.r-wasm.org/)","[https://webr.bioconductor.org/](https://webr.bioconductor.org/)"))
+> ```
+> in[https://webr.r-wasm.org/latest/](https://webr.r-wasm.org/latest/)
+
+
+## 2024-02-26
+
+*03:45:52 - @Mike Smith has joined the channel*
+**Frederick Tan** (09:06:38) (in thread):
+> Is`library( "tidyverse" )`something that is supported?  Receive the following
+> ```
+> Failed to load package "tidyverse". Do you want to try downloading it from the webR binary repo? 
+> 
+> 1: Yes
+> 2: No
+> 
+> Selection: 1
+>     [...]
+> Warning messages:
+> 1: In install(dep, repos, info, lib, quiet, mount) :
+>   Requested package curl not found in webR binary repo.
+> 2: In install(dep, repos, info, lib, quiet, mount) :
+>   Requested package curl not found in webR binary repo.
+> ```
+> … warns about`curl`even though subsequent`library()`and`ggplot()`calls work
+
+**Charlotte Soneson** (11:35:52) (in thread):
+> @Alex Mahmoudthis is cool! I had to give it a try with`iSEE`in`shinylive`- unfortunately it fails:sweat_smile:and if I read the Javascript logs correctly the reason is that`GenomeInfoDb`could not be loaded due to`RCurl`not being available (so somewhat related to@Frederick Tan's point above). It seems that this could potentially be a problem for lots of Bioc packages requiring`GenomeInfoDb`(?):thinking_face:
+
+**Alex Mahmoud** (11:38:48) (in thread):
+> Yup,I’vehit the RCurl issue on almost every package I tried to test.I’mtrying to get it to compile and was able to bypass a few errors but still fighting with it
+
+**Frederick Tan** (11:39:45) (in thread):
+> :muscle:may be appropriate here … thank you:slightly_smiling_face:
+
+**Charlotte Soneson** (12:11:26) (in thread):
+> On a positive note I tried`ExploreModelMatrix`, and it works like a charm!:star-struck:
+
+**Marcel Ramos Pérez** (15:38:05) (in thread):
+> I moved`RCurl`to Suggests in`GenomeInfoDb`and I can now load`SummarizedExperiment`and create a`RangedSummarizedExperiment`:
+> ```
+> webr::install(
+>   "GenomeInfoDb", repos = "[https://tempbioc.github.io/GenomeInfoDb](https://tempbioc.github.io/GenomeInfoDb)"
+> )
+> webr::install(
+>   "SummarizedExperiment",
+>   repos=c("[https://repo.r-wasm.org/](https://repo.r-wasm.org/)","[https://webr.bioconductor.org/](https://webr.bioconductor.org/)")
+> )
+> library(SummarizedExperiment)
+> nrows <- 200; ncols <- 6
+> counts <- matrix(runif(nrows * ncols, 1, 1e4), nrows)
+> rowRanges <- GRanges(rep(c("chr1", "chr2"), c(50, 150)),
+>     IRanges(floor(runif(200, 1e5, 1e6)), width=100),
+>     strand=sample(c("+", "-"), 200, TRUE),
+>     feature_id=sprintf("ID%03d", 1:200))
+>     colData <- DataFrame(Treatment=rep(c("ChIP", "Input"), 3),
+>         row.names=LETTERS[1:6])
+> rse <- SummarizedExperiment(assays=SimpleList(counts=counts),
+>     rowRanges=rowRanges, colData=colData)
+> rse
+> > class: RangedSummarizedExperiment 
+> dim: 200 6 
+> metadata(0):
+> assays(1): counts
+> rownames: NULL
+> rowData names(1): feature_id
+> colnames(6): A B ... E F
+> colData names(1): Treatment
+> ```
+
+
+## 2024-03-05
+
+*02:08:29 - @Vamika Mendiratta has joined the channel*
+*17:49:06 - @Benedicta Imelda has joined the channel*
+
+## 2024-03-10
+
+*16:03:54 - @Ikeh Darlington Ikeh has joined the channel*
+
+## 2024-03-17
+
+*20:42:40 - @Raihanat Adewuyi has joined the channel*
+
+## 2024-03-21
+
+*16:47:53 - @Tim Triche has joined the channel*
+*16:48:48 - @Ember Tokarski has joined the channel*
+*16:49:03 - @Jayaram Kancherla has joined the channel*
+**Tim Triche** (16:52:12):
+> for amusement purposes I am attempting to load`iSEE`in a webR session using@Alex Mahmoud’s instructions
+
+**Tim Triche** (16:54:02):
+> alas,`RCurl`is the sticking point
+
+**Tim Triche** (16:54:23):
+> `GenomeInfoDb`depends on`RCurl`and that brings most everything crashing down
+
+**Alex Mahmoud** (16:55:24) (in thread):
+> ```
+> webr::install(
+>   "GenomeInfoDb", repos = "[https://tempbioc.github.io/GenomeInfoDb](https://tempbioc.github.io/GenomeInfoDb)"
+> )
+> ```
+
+**Alex Mahmoud** (16:55:30) (in thread):
+> Then install things from the other two repos
+
+**Alex Mahmoud** (16:55:56) (in thread):
+> Marcel updated GenomeInfoDb to not need RCurl, haven't pushed newest version to the webr repo yet
+
+**Tim Triche** (16:56:13) (in thread):
+> that's awesome
+
+**Marcel Ramos Pérez** (16:59:31) (in thread):
+> Hervé has commited changes to`GenomeInfoDb`in`devel`so it should be RCurl free now (pending a rebulid of wasm binaries)[https://code.bioconductor.org/browse/GenomeInfoDb/commits/devel](https://code.bioconductor.org/browse/GenomeInfoDb/commits/devel)
+
+**Tim Triche** (17:00:43) (in thread):
+> oh hell:
+> ```
+> Loading required package: SingleCellExperiment
+> Error: package or namespace load failed for 'iSEE' in dyn.load(file, DLLpath = DLLpath, ...):
+>  unable to load shared object '/usr/lib/R/library/png/libs/png.so':
+>   Could not load dynamic lib: /usr/lib/R/library/png/libs/png.so
+> LinkError: WebAssembly.Instance(): Import #0 module="env" function="R_registerRoutines": imported function does not match the expected type
+> ```
+> on[https://webr.r-wasm.org/latest/](https://webr.r-wasm.org/latest/)
+
+**Tim Triche** (17:00:52):
+> everything was going smoothly up until then
+
+**Tim Triche** (17:02:18):
+> I tried constructing a SingleCellExperiment on the webR REPL and I think I may have broken it
+
+**Tim Triche** (17:02:59):
+> however,`GenomeInfoDb`does indeed install now
+
+**Marcel Ramos Pérez** (17:03:29):
+> set the channel description: [https://webr.r-wasm.org/latest/](https://webr.r-wasm.org/latest/)
+
+**Tim Triche** (17:04:36):
+> some lightweight BioC-derived data that I flattened into simpler objects (`data.frame`s mostly) for interactive fiddling:[https://trichelab.github.io/webR/mixtures/](https://trichelab.github.io/webR/mixtures/)
+
+**Tim Triche** (17:04:56):
+> I would be delighted to adapt singlet, limma, etc. to similar applications
+
+**Tim Triche** (17:05:03):
+> useful for teaching etc.
+
+**Tim Triche** (17:07:16):
+> `limma`and`RcppML`work nicely on the current webR REPL using the second repo trick
+
+**Tim Triche** (17:08:17):
+> ```
+> webr::install(c("limma","RcppML"), repos=c("[https://repo.r-wasm.org/](https://repo.r-wasm.org/)","[https://webr.bioconductor.org/](https://webr.bioconductor.org/)"))
+> ```
+
+**Marcel Ramos Pérez** (17:11:28) (in thread):
+> It looks like the constructor function is hanging for me too. I took the example from`?SingleCellExperiment::SingleCellExperiment`and also keyboard interrupt doesn't work
+
+**Tim Triche** (17:11:55) (in thread):
+> likewise -- I think I borked the instance that I was provisioned:slightly_smiling_face:
+
+**Alex Mahmoud** (17:30:22) (in thread):
+> It's theoretically client-based if my understanding of wasm is correct, so would have to do with your machine/browser limits i think
+
+**Alex Mahmoud** (17:30:48) (in thread):
+> (Unless there's something else going wrong, and not just overloading)
+
+**Marcel Ramos Pérez** (17:32:20) (in thread):
+> I don't think it would overload with a simple`SingleCellExperiment`..
+
+**Tim Triche** (17:33:23) (in thread):
+> my machine has a fairly absurd amount of RAM
+
+**Tim Triche** (17:33:33) (in thread):
+> 96GB ought to be enough for even a Bioconductor object:wink:
+
+**Alex Mahmoud** (17:36:19) (in thread):
+> [https://stackoverflow.com/a/32671934](https://stackoverflow.com/a/32671934)
+  - Attachment (Stack Overflow): [Max memory usage of a chrome process (tab) & how do I increase it?](https://stackoverflow.com/a/32671934)
+    > I am running several thousand https clients through chrome on one tab, I seem to be hitting a limit in the browser, when I check task manager the chrome process for that tab is using a whopping 897...
+
+**Tim Triche** (17:37:43) (in thread):
+> [https://stackoverflow.com/a/74067130](https://stackoverflow.com/a/74067130)
+  - Attachment (Stack Overflow): [Max memory usage of a chrome process (tab) & how do I increase it?](https://stackoverflow.com/a/74067130)
+    > I am running several thousand https clients through chrome on one tab, I seem to be hitting a limit in the browser, when I check task manager the chrome process for that tab is using a whopping 897...
+
+**Tim Triche** (17:37:57) (in thread):
+> looks like it is statically set at 4GB nowadays in Chrome on Ubuntu at least
+
+**Marcel Ramos Pérez** (17:38:59) (in thread):
+> I use about 875 MiB (in an RStudio session) running the same code locally and 432 MiB used by objects
+
+**Alex Mahmoud** (17:39:00) (in thread):
+> Might not be the issue anyway, i'm not sure how much the webr interface uses as a base or how much singlecellexperiment needs to be loaded, so this might not be it, but would be interesting to see what the browser process usage is before it crashes
+
+**Tim Triche** (17:51:09) (in thread):
+> yeah I'm toying with attaching a`debug()`around the constructore
+
+**Tim Triche** (17:51:31) (in thread):
+> this is my issue with S4 constructors, they use implicit locals so much of the time that they become excruciating to debug
+
+**Marcel Ramos Pérez** (18:13:01) (in thread):
+> It looks like the issue is happening somewhere in`methods::initialize`for the`SummarizedExperiment`call:
+> ```
+> webr::install(
+>   "GenomeInfoDb", repos = "[https://tempbioc.github.io/GenomeInfoDb](https://tempbioc.github.io/GenomeInfoDb)"
+> )
+> webr::install(
+>   "SingleCellExperiment",
+>   repos=c("[https://repo.r-wasm.org/](https://repo.r-wasm.org/)","[https://webr.bioconductor.org/3.18](https://webr.bioconductor.org/3.18)")
+> )
+> 
+> library(SingleCellExperiment)
+> # ?SingleCellExperiment
+> 
+> ncells <- 100
+> u <- matrix(rpois(20000, 5), ncol=ncells)
+> v <- log2(u + 1)
+> pca <- matrix(runif(ncells*5), ncells)
+> tsne <- matrix(rnorm(ncells*2), ncells)
+> 
+> # debugonce(SingleCellExperiment::SingleCellExperiment)
+> # debugonce(SummarizedExperiment::SummarizedExperiment)
+> # debugonce(methods::new)
+> debugonce(methods::initialize)
+> SingleCellExperiment(assays=list(counts=u, logcounts=v),
+>          reducedDims=SimpleList(PCA=pca, tSNE=tsne))
+> ```
+
+
+## 2024-03-22
+
+*09:40:14 - @Ava Jensen has joined the channel*
+**Tim Triche** (15:12:55):
+> it looks to me like I/we/someone borked the webR repo.  When I run the webR latest REPL, I get the same issues with installation.  It occurs to me that freezing a workshop/vignette/whatever may benefit from a static repo...[https://trichelab.github.io/webR/germline/](https://trichelab.github.io/webR/germline/)
+
+**Tim Triche** (15:13:59):
+> At the moment, installation of packages upon loading the document does not happen, which is... suboptimal.  No big deal, as long as one can use a static repo and/or CDN to host the JavaScript for bootstrapping the webR chunks, and the WASM repo for loading/installing packages.
+
+
+## 2024-03-23
+
+**Vince Carey** (07:05:05):
+> What's the outlook for Rgraphviz?  I can imagine it being pretty difficult to compile for webr.  Its absence blocks use of ontoProc, but I can imagine declaring it as a "Suggests".
+
+**Vince Carey** (12:21:42):
+> I am having trouble using DT in webr/quarto ...`Error: 'browser' must be a non-empty character string`-- any hints?
+
+**Tim Triche** (20:48:33):
+> Hmmm. Will try this. kable() and table1() work great fwiw:[https://trichelab.github.io/webR/mixtures/#table-1](https://trichelab.github.io/webR/mixtures/#table-1)
+
+
+## 2024-03-24
+
+**Henrik Bengtsson** (12:22:18):
+> FYI, webR 0.3.0 was released on 2024-03-22. It has quite a few updates ([https://github.com/r-wasm/webr/releases/tag/v0.3.0](https://github.com/r-wasm/webr/releases/tag/v0.3.0))
+
+
+## 2024-03-26
+
+**Alex Mahmoud** (15:26:18):
+> PSA: The 3.18 repository has been rebuilt (with 0.3.0 version, although not sure if that matters for the build) and pushed to[https://webr.bioconductor.org/3.18](https://webr.bioconductor.org/3.18)I have also added a quick`index.html`listing the contents of the repository, in hopes of easing things like`ctrl+f`-ing a package/version etc... I've also specifically only added the version of GenomeInfoDb without an RCurl dependency, so the below now seems to load successfully! Feedback welcome for how useful this is and/or how to make it more useful!
+> ```
+> webr::install("SingleCellExperiment",
+>   repos=c("[https://repo.r-wasm.org/](https://repo.r-wasm.org/)","[https://webr.bioconductor.org/3.18](https://webr.bioconductor.org/3.18)"))
+> ```
+
+**Tim Triche** (15:34:34):
+> will test it out!!!
+
+*15:47:10 - @Martin Morgan has joined the channel*
+**Martin Morgan** (15:48:01):
+> SingleCellExperiment installs and loads, but`sce = SingleCellExperiment()`never returns?
+
+**Alex Mahmoud** (15:56:09) (in thread):
+> Marcel and Tim were hitting similar issues, and I was wondering if it could be related to the browser's memory limit, but not sure if that is the case. Some lighter packages seem to work though, so I am speculating it's either related to this package's binary in particular needing some special casing during the build or some browser limitation being hit after loading due to the number of dependencies etc. Will attempt to further debug later
+
+**Martin Morgan** (15:59:36) (in thread):
+> would be great to learn the basics of debugging wasm...
+
+**Alex Mahmoud** (16:02:39) (in thread):
+> I have very little experience, just getting started with this, but hopefully helpful: A good start could be to check your browser's "Console" tab in Inspect mode. I've seen caught errors printed there before
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F06RCS4637F/image.png)
+
+**Henrik Bengtsson** (16:06:12) (in thread):
+> I never tried, but I'd expect debug(), trace(), etc. to work as usual.
+
+*18:04:17 - @Steve Lianoglou has joined the channel*
+
+## 2024-03-27
+
+*02:18:36 - @Michael Milton has joined the channel*
+*02:49:30 - @Francesc Català-Moll has joined the channel*
+*05:45:16 - @Gavin Rhys Lloyd has joined the channel*
+**Tim Triche** (08:39:34) (in thread):
+> Some of these are incredibly handy, thanks!!!
+  - File (JPEG): [IMG_1180](https://community-bioc.slack.com/files/U34P8RS3B/F06RKMUFVEF/img_1180.jpg)
+
+**Jayaram Kancherla** (09:53:22):
+> First of all, this is a awesome effort to make these packages wasm-compatible. I am running into the same issue as Martin on firefox (install and loads but never returns), but on chrome have a different issue.
+> ```
+> > webr::install("SingleCellExperiment",
+>   repos=c("[https://repo.r-wasm.org/](https://repo.r-wasm.org/)","[https://webr.bioconductor.org/3.18](https://webr.bioconductor.org/3.18)"))
+> Downloading webR package: matrixStats
+> Downloading webR package: MatrixGenerics
+> Downloading webR package: BiocGenerics
+> Downloading webR package: S4Vectors
+> Downloading webR package: IRanges
+> Downloading webR package: GenomeInfoDbData
+> Downloading webR package: GenomeInfoDb
+> Downloading webR package: zlibbioc
+> Downloading webR package: XVector
+> Downloading webR package: GenomicRanges
+> Downloading webR package: Biobase
+> Downloading webR package: lattice
+> Downloading webR package: Matrix
+> Downloading webR package: Matrix
+> Error in mount(mountpoint, data_url) : 
+>   Unable to mount image, `/usr/lib/R/library/Matrix` is already mounted.
+> ```
+
+*09:54:32 - @Sehyun Oh has joined the channel*
+*12:31:36 - @David Rach has joined the channel*
+**Alex Mahmoud** (13:50:51) (in thread):
+> Looking at the console when running the constructor, I see the error in console:
+> ```
+> R.bin.wasm:0x147cd5 Uncaught (in promise) RuntimeError: null function or function signature mismatch
+>     at R.bin.wasm:0x147cd5
+>     at R.bin.wasm:0x14ac22
+>     at R.bin.wasm:0x1660d1
+>     at R.bin.wasm:0x16a890
+>     at R.bin.wasm:0x165ff2
+>     at R.bin.wasm:0x166ec9
+>     at R.bin.wasm:0x166a3a
+>     at R.bin.wasm:0x16615d
+>     at R.bin.wasm:0x166ec9
+>     at R.bin.wasm:0x166a3a
+> ```
+> I am not sure how to debug further but trying to learn. Happy to take any hints/help from others that might know!
+
+**Martin Morgan** (14:02:16) (in thread):
+> This might move us down the road a little, at least in chrome[https://developer.chrome.com/docs/devtools/wasm](https://developer.chrome.com/docs/devtools/wasm); I think a key step is to compile with`-g`to get debugging symbols (presumably also for R code???), but I have no idea what steps are required to build a package this way; probably`-g`makes the packages larger so not suitable for re-distribution...
+  - Attachment (Chrome for Developers): [Debug C/C++ WebAssembly  |  DevTools  |  Chrome for Developers](https://developer.chrome.com/docs/devtools/wasm)
+    > Learn how to use Chrome DevTools to find and fix bugs in C/C&#43;&#43; WebAssembly.
+
+**Marcel Ramos Pérez** (15:22:13) (in thread):
+> @Martin MorganHere is a minimally reproducible reprex:
+> ```
+> webr::install(
+>   "SummarizedExperiment",
+>   repos=c("[https://repo.r-wasm.org/](https://repo.r-wasm.org/)","[https://webr.bioconductor.org/3.18](https://webr.bioconductor.org/3.18)")
+> )
+> 
+> # library(S4Vectors)
+> library(SummarizedExperiment)
+> as(list(), "SimpleList")
+> 
+> ## hangs
+> methods::new("SimpleList", list())
+> ```
+> It looks like if the package is not loaded directly when the super class is instantiated via`methods::new`, the code hangs. However, coercion works just fine. Note. Uncommenting the`library(S4Vectors)`call avoids the error.
+
+**Henrik Bengtsson** (16:28:47) (in thread):
+> I can**not**reproduce this if I paste:
+> ```
+> webr::install(
+>   "SummarizedExperiment",
+>   repos=c("[https://repo.r-wasm.org/](https://repo.r-wasm.org/)","[https://webr.bioconductor.org/3.18](https://webr.bioconductor.org/3.18)")
+> )
+> 
+> library(S4Vectors)
+> library(SummarizedExperiment)
+> as(list(), "SimpleList")
+> 
+> ## hangs
+> methods::new("SimpleList", list())
+> ```
+> into <[https://webr.r-wasm.org/latest/](https://webr.r-wasm.org/latest/)> and run it.
+
+**Marcel Ramos Pérez** (16:31:04) (in thread):
+> You're loading`S4Vectors`. It should hang if you comment that line out.
+
+
+## 2024-03-28
+
+**Vince Carey** (09:11:19):
+> I am finding that webr packages do not load on harvard wifi.  When I disconnect and use phone as hotspot they load.  Any thoughts on what kind of wifi security policy would block use of wasm?  I haven't checked to see if loads can succeed on hard links.
+
+*09:24:38 - @Maria Doyle has joined the channel*
+**Tim Triche** (09:40:33):
+> hmm, it would be a very IT thing to do to cripple obviously-useful things that are not under the direct control of the university/organization
+
+**Tim Triche** (09:41:33):
+> I have noticed that some networks are much much faster at loading webr packages than others, but also that if I use Alex's alternative repo, it seems to be more reliable (less variability in load times) than if I use the default webR wasm repo.  Some kind of a test battery for this is going to be necessary if it's going to stabilize into a usable teaching tool imho
+
+**Tim Triche** (09:42:25):
+> I am considering hosting a WASM repo on our lab website for the express purpose of making it more predictable what will happen (i.e. if a person can connect to the lab website, then I expect that they will also be able to bootstrap packages from the lab website)
+
+**Vince Carey** (09:45:48):
+> Some security[considerations](https://thenewstack.io/6-security-risks-to-consider-with-webassembly/), a bit old.
+  - Attachment (The New Stack): [6 Security Risks to Consider with WebAssembly](https://thenewstack.io/6-security-risks-to-consider-with-webassembly/)
+    > Despite its growing popularity, no technology comes without security risks. So, if you're excited to get started with Wasm, you need some guardrails.
+
+**Vince Carey** (09:47:23):
+> It would be nice to know the current state of risk.  Are there vulnerability checking utilities that can be run at the repositories?
+
+**Tim Triche** (11:49:45):
+> most of the above is where my thought process regarding hosting comes from
+
+**Tim Triche** (11:51:04):
+> if I host a repo on our version-controlled lab website, and the pages which load the JS+WASM are on our lab website, then it's up to us to limit the attack surface and/or choose when to do updates.  This is appealing for the same reason as any other package freezing/versioning approach (e.g. containers).
+
+**Tim Triche** (11:53:16):
+> As far as crashing the browser, well, yeah.  As far as CDNs etc., I'm increasingly inclined to have one neck to choke.  This strikes me as a good BoF/short talk submission for the conference.  Is anyone opposed to my submitting it?  It would be a less technical and more logistics/considerations centered discussion -- "here's a cool thing you can do!  here's all the ways that it can go horribly wrong!  here are some mitigating steps and some guidelines as to when you might be better off just putting everything into a Docker container to run on Galaxy/Cromwell/whatever!"
+
+**Tim Triche** (11:53:57):
+> I do think that if webR/wasm is used well, it can increase the fluidity and reach of the community that makes BioC so special.  But, that could just be me
+
+**Tim Triche** (11:55:54):
+> Getting one's own repo and webR install set up locally is... exciting, at least on Ubuntu.  It was not trivial for me.  But maybe that's another thing that needs attention and will solve itself as more people find it useful.  Jeff Perkel's Nature news piece on it covers some of these tradeoffs:[https://www.nature.com/articles/d41586-024-00725-1](https://www.nature.com/articles/d41586-024-00725-1)
+  - Attachment (Nature): [No installation required: how WebAssembly is changing scientific computing](https://www.nature.com/articles/d41586-024-00725-1)
+    > Enabling code execution in the web browser, the multilanguage tool is powerful but complicated.
+
+**Tim Triche** (11:57:09):
+> Another upcoming piece along these lines discusses CZI CELLxGENE, foundation models, blah blah, and starts to get at the question of how to make these huge investments in data generation useful to a broad audience for biological and medical insights.  I think WASM will play a role, but it's hard to be certain where when and what.@Jayaram Kancherlaprobably has some thoughts on that too:slightly_smiling_face:
+
+**Henrik Bengtsson** (12:27:42) (in thread):
+> I think such a presentation would be useful; I'm sure there are lots of folks out there right now poking around webR for teaching etc.
+
+**Tim Triche** (12:29:59) (in thread):
+> ok I'll do it then ... will be a grunt but I hope people will find it worth discussing
+
+**Tim Triche** (12:30:12) (in thread):
+> or at least the basis for a bunch of R25s:wink:
+
+*17:31:38 - @Tyrone Lee has joined the channel*
+*22:34:29 - @Peter Hickey has joined the channel*
+
+## 2024-03-29
+
+*05:13:14 - @Pierre Gestraud has joined the channel*
+
+## 2024-04-03
+
+*13:16:14 - @Federico Marini has joined the channel*
+
+## 2024-04-04
+
+*16:39:49 - @jim rothstein has joined the channel*
+
+## 2024-05-16
+
+*11:38:26 - @Francesc Català-Moll has left the channel*
+
+## 2024-05-27
+
+*21:17:46 - @Aedin Culhane has joined the channel*
+
+## 2024-06-18
+
+*13:50:40 - @Kevin Stachelek has joined the channel*
+*15:11:30 - @Julien Roux has joined the channel*
+
+## 2024-07-26
+
+*12:41:43 - @Michael Lynch has joined the channel*
+**Marcel Ramos Pérez** (14:18:17):
+> FWIW:`zlibbioc`is not available in the wasm repository (probably due to compilation errors?) :[https://webr.bioconductor.org/src/contrib/zlibbioc_1.50.0.tar.gz](https://webr.bioconductor.org/src/contrib/zlibbioc_1.50.0.tar.gz)
+
+**Alex Mahmoud** (14:20:54):
+> Yup noticed that, although I think it was passing before 4.4, haven't looked into it yet but will try soon
+
+
+## 2024-07-28
+
+**Tim Triche** (13:43:46):
+> AlsoI’llupdate my slides hopefully today and post links here
+
+
+## 2024-07-29
+
+**Marcel Ramos Pérez** (16:08:16):
+> For presenters: a`webr`drop plugin for`Quarto`:[https://mstdn.social/@gws/112836676874384108](https://mstdn.social/@gws/112836676874384108)
+
+**Sean Davis** (16:13:35) (in thread):
+> VERY cool!
+
+**Tim Triche** (17:38:07):
+> Updated slides :[bit.ly/webr_bof](http://bit.ly/webr_bof)
+
+**Tim Triche** (17:38:52):
+> Now with scrollable slides, webR-drop, fixed observable.js, and shinylive
+
+**Tim Triche** (17:39:53):
+> I broke GitHub actions a bunch of times deploying the updates though:grin:
+
+**Jayaram Kancherla** (19:30:19):
+> Hi Tim, Thank you for sharing the slides (apologies had to leave early on friday and missed this BoF session). But having watched the replay, Kana does not currently run ML models.
+> 
+> My intern this year is prototyping something similar using[ONNX runtime](https://microsoft.github.io/onnxruntime-web-demo/#/)(uses WASM/experimental WebGPU) to run inference tasks from pre-trained models, in our case, we started with sequence based models like borzoi. It’s not straightforward to run any pre-trained model in the browser (the Jay from last year was too naive) & not every model is compatible with ONNX (also depends on the operation set they use from pytorch). We had to reimplement borzoi with the specific intent of making inferences in the browser and are now developing exploratory interfaces for these models. hopefully this will help us make slightly better decisions on the next version of kana: KanAI:wink:, need to convince Aaron that its a cool name:smile:there’s a few very specific libraries in JS depending on the model architecture,[transformer.js](https://github.com/xenova/transformers.js),[autoencoders](https://observablehq.com/@jerdak/tensorflow-js-dimensionality-reduction-autoencoder)using tensorflow.js. and more complicated example running diffusion models ([https://github.com/mlc-ai/web-stable-diffusion](https://github.com/mlc-ai/web-stable-diffusion)) in the browser (may be some day we can run the diffusion models from Pinello’s talk)
+
+
+## 2024-07-30
+
+**Tim Triche** (13:06:58) (in thread):
+> Oh for sure—the references to compressed space are mostly to do with NMF—baby steps:grin:
+
+**Tim Triche** (13:07:26) (in thread):
+> It will be cool as hell if ONNX can make more sophisticated models go, though!
+
+
+## 2024-08-16
+
+*01:59:35 - @Kevin Rue-Albrecht has joined the channel*
+
+## 2025-01-01
+
+**Vince Carey** (17:09:31) (in thread):
+> Any news on this?
+
+
+## 2025-01-08
+
+**Tim Triche** (12:03:38) (in thread):
+> worth discussing with@Alex Mahmoudesp. in light of WASM WG proposal.  I have to submit a fairly complex webR workflow by pickling it and depositing on Zenodo for our germline manuscript so now is the time for me to get serious about this.  Carpentries expressed some interest too.  Would be ideal to put in a grant together
+
+**Alex Mahmoud** (12:08:11) (in thread):
+> I agree this seems like a great opportunity for concentrated effort with a grant. So far I've just been doing a "lazy" building to have a webr repository of Bioc packages that build out of the box for RWASM, but haven't dedicated time to actually looking at individual package errors and setting any type of long term strategy/support/testing for this
+
+**Jayaram Kancherla** (12:30:55) (in thread):
+> This might be of interest:[https://lights0123.com/blog/2025/01/07/hip-script/](https://lights0123.com/blog/2025/01/07/hip-script/)
+  - Attachment (Ben Schattinger): [HipScript](https://lights0123.com/blog/2025/01/07/hip-script/)
+    > By chaining several compilers, you can run CUDA code in the browser!
+
+
+## 2025-01-16
+
+**Vince Carey** (07:50:18):
+> Just checking things out ...
+> ```
+> Warning messages:
+> 1: In install(dep, repos, info, lib, quiet, mount) :
+>   Requested package curl not found in webR binary repo.
+> 2: In install(dep, repos, info, lib, quiet, mount) :
+>   Requested package GenomeInfoDbData not found in webR binary repo.
+> >
+> ```
+> with
+> ```
+> repos = c('[https://bioc.r-universe.dev](https://bioc.r-universe.dev)', '[https://repo.r-wasm.org](https://repo.r-wasm.org)'))
+> ```
+
+**Vince Carey** (07:51:14):
+> I think this is a known issue but what can we do to start ameliorating it?  This was an attempt to install Biostrings from the r-universe collection of emscripten binaries.
+
+**Vince Carey** (07:58:43):
+> [https://github.com/posit-dev/r-shinylive/issues/31#issuecomment-1786739311](https://github.com/posit-dev/r-shinylive/issues/31#issuecomment-1786739311)
+  - Attachment: [Comment on #31 Fetching external data via httr, Curl not available](https://github.com/posit-dev/r-shinylive/issues/31#issuecomment-1786739311)
+    > The `httr` and `curl` R packages are not currently supported in webR.
+    > 
+    > The issue is that opening raw network sockets is not permitted from the WebAssembly sandbox. As such, it's not reasonably possible to compile `libcurl` for Wasm, at least for the moment.
+    > 
+    > Nevertheless, the base R distribution in webR *has* been modified to handle calls to `download.file()` and `url()` under Wasm, using web browser APIs. For example, the following methods using base R code work:
+    > 
+    > data_url <- "[https://media.githubusercontent.com/media/datablist/sample-csv-files/main/files/customers/customers-100.csv](https://media.githubusercontent.com/media/datablist/sample-csv-files/main/files/customers/customers-100.csv)"
+    > download.file(data_url, "data.csv")
+    > readLines(url(data_url))
+    > read.csv(data_url)
+    > 
+    > It might be possible to fetch the external data you require these functions. This is most likely why `fromJSON()` works in your example. However, note that since this generates a cross-origin network request, you are restricted by the web browser through the [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) mechanism, so not all external data download or API fetching will work. It will depend on if the web server at the other end of the connection enables CORS support.
+    > 
+    > ---
+    > 
+    > Technically, some methods can enable network connections from Wasm, but AFAIK they rely on one of two schemes:
+    > 
+    > 1. Running a WebSocket-to-native-socket proxy server on the host machine outside Wasm.
+    > 2. Shimming libraries like libcurl to translate network connections from C/Unix APIs into web browser APIs, where restricted safe networking *can* be done.
+    > 
+    > The first method is not a reasonable solution for a project like webR or Shinylive, where we aim to provide a self-contained application without supporting servers outside the web browser.
+    > 
+    > The second method can partially work, but Curl is a project with a wide range of features and supports many network protocols. At best, we could perhaps support Curl's HTTP and WS features by converting `libcurl` API calls into web browser API calls, but this would involve a lot of engineering work. Even so, web browser fetch/XHR APIs are restricted for security reasons so not all types of HTTP connection would be permitted. So while this is on the webR development radar, `libcurl` support is not planned for in the short term.
+
+**Henrik Bengtsson** (23:55:32) (in thread):
+> We might going to see some packages peeling of dependencies that rely on networking/internet, in order to run in wasm, e.g. a package might make such dependencies optional by putting them under Suggests.
+> 
+> For instance, I don't know what's in Biostrings that requires internet access and whether it should be a hard or a soft dependency, but is the hard dependency on UCSC.utils really necessary, or can it be optional.
+> 
+> This type of discussion will be more important for core packages that otherwise will prevent many downstream packages from being installed.
+
+
+## 2025-01-17
+
+**Vince Carey** (05:28:39) (in thread):
+> Agreed.   Achieving this level of portability is probably salutary in various respects.  Need to understand cost/benefit of the required effort though.  wasm itself may not be a sufficient justification if it doesn't achieve wide practical use.   ONNX (project for machine learning support in wasm) was archived.  That seems to me to be a data point to consider in planning investment in this space.
+
+
+## 2025-04-25
+
+**Vince Carey** (09:23:04):
+> I've gone through[https://github.com/r-wasm/actions](https://github.com/r-wasm/actions)and produced an artifact.tar for a few packages.  Structure is
+> ```{src}
+> └── contrib
+>     ├── PACKAGES
+>     ├── PACKAGES.gz
+>     ├── PACKAGES.rds
+>     ├── SummarizedExperiment_1.39.1_1118f50.tar.gz
+>     ├── iSEE_2.19.4_ef6f3a9.tar.gz
+>     └── parody_1.65.2_5737f4c.tar.gz
+> 
+> 2 directories, 6 files
+> PC002284:OSN vincentcarey$ tree bin
+> bin
+> └── emscripten
+>     └── contrib
+>         └── 4.4
+>             ├── PACKAGES
+>             ├── PACKAGES.gz
+>             ├── PACKAGES.rds
+>             ├── SummarizedExperiment_1.39.1.data
+>             ├── SummarizedExperiment_1.39.1.js.metadata
+>             ├── SummarizedExperiment_1.39.1.tgz
+>             ├── iSEE_2.19.4.data
+>             ├── iSEE_2.19.4.js.metadata
+>             ├── iSEE_2.19.4.tgz
+>             ├── parody_1.65.2.data
+>             ├── parody_1.65.2.js.metadata
+>             └── parody_1.65.2.tgz
+> ```
+> ... is it clear how to make these packages accessible to a webr session?
+
+**Vince Carey** (09:23:38):
+> The purpose is to munge SummarizedExperiment a little bit to see if iSEE can run in webr...
+
+**Vince Carey** (22:09:04):
+> Update: I can get a munged SummarizedExperiment to work in webR ... this[repo](https://github.com/vjcitn/webrvjc)has a package list and action that produces an artifact.tar ... which produces bin/enscriptem that can be served for installation.  This does not get us all the way to iSEE but is a step in that direction
+
+
+## 2025-04-26
+
+**Vince Carey** (06:14:40):
+> but there are various security downgrades required to get this to work in chrome on mac .... mostly a proof of concept.
+
+
+## 2025-04-28
+
+**Tim Triche** (10:21:07):
+> this is amazing
+
+
+## 2025-04-29
+
+*17:25:42 - @W Sun has joined the channel*

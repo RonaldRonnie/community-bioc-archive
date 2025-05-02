@@ -1,0 +1,553 @@
+---
+title: "#image-analysis"
+format: gfm
+---
+
+
+## 2022-12-12
+
+*16:18:55 - @Ludwig Geistlinger has joined the channel*
+**Ludwig Geistlinger** (16:18:55):
+> set the channel description: Working with biomedical image data in R/Bioc
+
+*16:24:57 - @Nils Eling has joined the channel*
+*16:24:57 - @Shila Ghazanfar has joined the channel*
+*16:24:57 - @Stephanie Hicks has joined the channel*
+*16:24:57 - @Vince Carey has joined the channel*
+*16:24:57 - @Marcel Ramos Pérez has joined the channel*
+*16:24:57 - @Tyrone Lee has joined the channel*
+*16:24:57 - @Josh Moore has joined the channel*
+*16:24:57 - @Kasper D. Hansen has joined the channel*
+*16:24:58 - @Martin Morgan has joined the channel*
+*16:24:58 - @Lukas Weber has joined the channel*
+*16:24:58 - @Dario Righelli has joined the channel*
+*16:25:15 - @Helena L. Crowell has joined the channel*
+*16:26:07 - @Levi Waldron has joined the channel*
+*16:26:07 - @Wolfgang Huber has joined the channel*
+**Stephanie Hicks** (20:45:40):
+> so, this topic I feel like I've been asking folks in Bioconductor for the last few years and the creation of this channel by@Ludwig Geistlingeris the perfect opportunity to discuss.:relaxed:
+
+**Stephanie Hicks** (20:45:47):
+> First, two of my own personal opinions (and happy to hear other's opinions):
+> 1. Historically, Bioconductor has not had what I would consider a strong role in "image analysis" (as noted in the title of the channel). For sure, some yes, but I don't think outsiders think of Bioc as the place to turn for image analysis (maybe this more subfield specific). I think there are many reasons for this, which I won't go into here, but happy to discuss if interested.
+> 2. It's very clear (at least to me) image analysis is going to have a dominate role biomedical research for the next few years (at least). It's also very exciting with potentially***huge***opportunities to make big contributions.
+
+**Stephanie Hicks** (20:45:56):
+> I'd love to open up a discussion on folk's opinions of:
+> 1. Whether Bioconductor**should**play a role in image analysis? Is it the right venue for that? Are there developers here willing to support it?
+> 2. If so, what are the minimum number of products (e.g. S4 classes, data analytic tasks, packages) that should be built out in Bioconductor (vs what's already built vs leveraging outside products)?
+
+*20:49:35 - @Ellis Patrick has joined the channel*
+*20:55:02 - @Mike Smith has joined the channel*
+**Ludwig Geistlinger** (21:16:05):
+> I am rather new to image analysis but 2022 has been rich with exposure to it and
+> there is huge demand and great opportunities, I agree. R is classically perceived
+> to be strong on the downstream machine learning and statistical analysis of biomedical image data, but there are a number of noteworthy resources (and developers behind them) in R and Bioconductor.
+> * Bioconductor:
+> EBImage (@Mike Smith@Wolfgang Huber)
+>   cytomapper (@Nils Eling)
+>   RBioFormats (Andrzey Oles)
+>   SimpleSeg (@Ellis Patrick)
+> * CRAN task view:[Medical Image Analysis](https://cran.r-project.org/web/views/MedicalImaging.html)
+> 
+> * R:
+> magick
+>   terra (replacing the good old raster package)
+> 
+> An initiative that seems to be rooted in the Bioconductor paradigm with
+> a particular focus in image analysis is the[Neuroconductor](https://neuroconductor.org/)repository.
+> 
+> I think a lot of people are coming to image analysis from new imaging-based
+> spatial omics technologies, and I think Bioconductor could play a role in
+> particular for the integration of image data and omics data, and here we would
+> likely benefit the most from building out functionality.
+> 
+> A quick check on biocViews indicates that it is currently difficult to find
+> packages that implement functionality for image analysis as there is no such
+> Bioc view - worthwile to add@Vince Carey?
+> 
+> (From a slide deck from John Muschelli that I found online:)
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F04EX3X1WQ2/image.png)
+
+**Ellis Patrick** (21:20:01):
+> 1. Bioconductor definitely should play a role. Lots of cool stats methods will be needed to address complex questions and many questions already leverage the functionality of bioconductor packages.
+> 2. I'm not convinced R/Bioconductor will ever be able to have stand-alone segmentation tools that perform as well as what is/will be available in python. But everything downstream of that reeks of Bioconductor.
+
+**Stephanie Hicks** (21:25:47):
+> fwiw, i feel like segmentation is honestly one of the hardest challenges with SRT data (at least based on my experience).
+
+**Stephanie Hicks** (21:28:00) (in thread):
+> thanks@Ludwig Geistlingeryes, I realize my statements were provocative. There are some really great bioc packages (and developers) as you noted. I just feel like when I compare these tools to things I need to be done today for SRT data, i'm turning elsewhere. My own personal opinion is that i would**love**for Bioc to have a dominate role here, but I don't think we have that yet.
+
+**Shila Ghazanfar** (21:30:36):
+> hi everyone and thank you for creating this channel and kicking off the convo! on the topic of segmentation, i think the strength of bioconductor is on robust and reproducible analyses, several segmenters are designed for interactivity (think Ilastik for example), but not all! i think there’s scope for segmentation models that are pretrained (e.g. those like stardist or cellpose etc) and/or able to incorporate a small amount of retraining labelled images to work with reproducible bioc workflows
+
+**Shila Ghazanfar** (21:34:04):
+> i would love to see a minimal or somewhat standard data structure for image-based spatial omics. im now at a stage where im working with data from technologies that at their core are very similar FISH-based but the data are organised differently, meaning duplication of work and need to wrangle to a common format/organisation… very related to some of the discussion most recently with@Ludwig Geistlinger
+
+**Stephanie Hicks** (21:35:36):
+> @Shila Ghazanfari love the idea of working towards a minimal standard data structure (and standard workflow) for image-based spatial omics in Bioc
+
+**Shila Ghazanfar** (21:43:07):
+> for visualisation of imaging omics data i do use napari[https://napari.org/stable/](https://napari.org/stable/)a lot, it’s come out from CZ Biohub and big investment from CZI, is it worth thinking about a napaRi (or naRpari), through reticulate:thinking_face:
+
+**Shila Ghazanfar** (21:45:18) (in thread):
+> absolutely — there is the issue of several segmentations on a dataset - do we represent that as AltExps? Not the nicest
+> 
+> do we throw out transcripts/signal outside of segmented cells? what if we dont have segmentation at all
+
+*23:24:22 - @Lambda Moses has joined the channel*
+**Lukas Weber** (23:25:28):
+> Thanks@Ludwig Geistlingerfor creating this channel. Adding@Lambda Mosestoo
+
+
+## 2022-12-13
+
+**Nils Eling** (03:31:48) (in thread):
+> I had a look at this and while it’s possible to access napari via retirculate I failed at opening the viewer from R. Next I will look into how to do browser based visualisation via viv similar to what vitessceR is doing.
+
+**Nils Eling** (03:46:34):
+> Thanks fo creating the channel. In terms of data structures I find working with`EBImage::Image`,`RBioFormats::AnnotatedImage`,`HDF5Array`and`DelayedArray`quite nice. To support OME-NGFF I believe we would need a new data structure that supports on-disk/cloud access of hierarchical images stored in ZARR format. In terms of visualisation (specifically non-raster, multi-channel images) R has its limitations but I guess with a decent ZARR support one could use browser based visualisation approaches such the ones used by`vitessceR`.
+
+**Ludwig Geistlinger** (08:44:55) (in thread):
+> You are right, Stephanie. We have fallen a little bit behind here. If you ask real image analysis experts about image analysis with R they are typically slightly amused and would point you to stand-alone programs such as ImageJ, CellProfiler, and QuPath. Also there is really cool stuff in python (napari, scikit-image, ...) that could likely be leveraged via existing R-Python interfaces.
+> 
+> I think it's a little bit like with bulk RNA-seq analysis where we would do the computationally intensive low-level processing (ie read alignment, lifting fastq and bam files) outside of R, but would turn to R's numerical and statistical strength once we have summarized data - and we would rarely go back to the fastq files then. The difference with image analysis, and imaging-based spatial omics, is that we want to go back to the image basically whenever we find something, so we need some good and performant containers for large images and some infrastructure around that.
+> 
+> What I mainly wanted to point out with mentioning these resources and the associated developers, that those folks likely have insights into what can be leveraged and what's missing, and these existing tools maybe provide a baseline we can build upon.
+
+*08:53:25 - @Assa has joined the channel*
+*08:54:22 - @Alan O'C has joined the channel*
+**Mike Smith** (08:56:19) (in thread):
+> Biocondcuctor does have the ZarrExperiment class.  Maybe that's already of use?[https://github.com/Bioconductor/ZarrExperiment](https://github.com/Bioconductor/ZarrExperiment)I'll also plug the native R (i.e. no Python) implementation I'm working on after some similar discussion with imaging colleagues at EMBL.  It's pretty rough right now, but hopefully I'll have an S3 reading demo working before the Christmas holidays[https://github.com/grimbough/Rarr](https://github.com/grimbough/Rarr)Once we have the basic I/O maybe a ZarrArray type interface analogous to HDF5Array can be built on top.
+
+*08:56:30 - @GuandongShang has joined the channel*
+*08:57:51 - @Ana Cristina Guerra de Souza has joined the channel*
+*09:00:08 - @Mikhail Dozmorov has joined the channel*
+**Stephanie Hicks** (09:03:24) (in thread):
+> thanks@Ludwig Geistlinger-- totally agree. Super excited to discuss more here!
+
+*09:04:23 - @Marc Elosua has joined the channel*
+*09:16:33 - @Sarah Djeddi has joined the channel*
+**Tyrone Lee** (09:21:55) (in thread):
+> Probably has to do with backend. Napari relies on vispy which uses an OpenGL context on a gpu (even intergrated ones) to render images. This hardware-level dependency might be beyond the means of reticulate and most of base R.
+> VitessceR and shiny manage to leverage WebGL for their graphics through javascript.
+
+*09:24:02 - @Jenny Drnevich has joined the channel*
+*09:57:26 - @Jared Slosberg has joined the channel*
+*10:12:28 - @Spencer Nystrom has joined the channel*
+*10:36:29 - @Eugenia Radulescu has joined the channel*
+*10:47:48 - @Shizhong has joined the channel*
+*10:56:11 - @Malte Thodberg has joined the channel*
+**Nils Eling** (10:56:40) (in thread):
+> Yes, I have tested`ZarrExperiment`and it works quite nicely but so far (I think) does not yet support delayed operations and subsetting on disk. I’ll check out`Rarr`, would be nice to have to have a native R reader/writer available.
+
+*11:28:36 - @Filip Stachura has joined the channel*
+*12:24:22 - @Apua Paquola has joined the channel*
+*12:39:56 - @Olga Malkova has joined the channel*
+*14:50:55 - @Anqi Zhu has joined the channel*
+*16:02:52 - @Peter Hickey has joined the channel*
+**Ellis Patrick** (17:09:52):
+> Hi All... just dumping this here to initiate some conversation. I chucked it together pretty quick so sorry if it is ugly and/or "wrong" in places.... Wouldn't mind organising a quick chat if anyone wants to....
+> 
+> For context, most of the data I analyse is IMC, MIBI and CODEX so I don't have to deal with molecule x-y of the FISH technologies. For most of my analysis, I just want my eventual primary data as a SingleCellExperiment/SpatialExperiment with cell level quantifications of marker expressions + x-y coordinates.
+> 
+> Summary: I'd like to just have to use CytoImageList and SpatialExperiment to store my images/masks and my cell level quantifications respectively. There are a few things that make my analysis "awkward".
+> 1. My raw data isn't structured in a way that natively works well with loadImages() from cytomapper at the moment.
+> 2. I end up storing my masks and images in two separate CytoImageLists, maybe these could be stored together?
+> 3. If I had multiple segmentations, I'm not sure if measureObjects() could easily deal with this (I've never looked). Where by "easy" I mean in one line of code. I think I'd need two:astonished:.
+  - File (HTML): [dataStructureExample.html](https://community-bioc.slack.com/files/U34P8RS3B/F04F2V0AGNP/datastructureexample.html)
+
+*17:55:49 - @Noorul has joined the channel*
+*19:04:19 - @Yue Cao has joined the channel*
+*21:44:51 - @Amarinder Singh Thind has joined the channel*
+
+## 2022-12-14
+
+**Nils Eling** (03:47:28) (in thread):
+> All good points! For 1. I still need to adapt the function ([https://github.com/BodenmillerGroup/cytomapper/issues/60](https://github.com/BodenmillerGroup/cytomapper/issues/60)). For 2. I think this can be resolved by creating a new image class that is based on OME-NGFF which stores images and (multiple) masks together. For 3. the question comes back how to store cell-level data for multiple segmentations (altExp vs something else vs 2 SCE/SPE objects).
+  - Attachment: [#60 Reader function for single-channel tiffs](https://github.com/BodenmillerGroup/cytomapper/issues/60)
+    > As discussed with [@ellispatrick](https://github.com/ellispatrick) it might be good to add a function that reads in single-channel tiffs into multi-channel CytoImageList objects. In general this is the format often used to store low-plex IF data or data prepared for histoCAT.
+
+**Wolfgang Huber** (04:11:44) (in thread):
+> "Experts about image analysis" are often mostly concerned with segmentation and classification, and I agree that although we have tools in R and BioC, outside offerings tend to be more established and of course there's the whole deep learning topic. (OTOH, those people are also only cooking with water, e.g. I recently reviewed[https://www.biorxiv.org/content/10.1101/2022.08.12.503783v2](https://www.biorxiv.org/content/10.1101/2022.08.12.503783v2)and it's pretty modest.)
+> 
+> For spatially resolved omics, however, I think you generally want to move further, into spatial statistics, and relating observed patterns to covariates (e.g. patient outcomes), and R is pretty rich for spatial statistics.
+
+*04:52:53 - @Mike Morgan has joined the channel*
+*14:11:02 - @Bárbara Zita Peters Couto has joined the channel*
+*18:30:34 - @Giulio Pergola has joined the channel*
+*19:37:51 - @Lijia Yu has joined the channel*
+
+## 2022-12-15
+
+*12:14:29 - @Isaac Virshup has joined the channel*
+*12:42:08 - @Kayla Interdonato has joined the channel*
+
+## 2022-12-19
+
+*09:40:19 - @Frederick Tan has joined the channel*
+
+## 2022-12-20
+
+*09:50:30 - @Charlotte Soneson has joined the channel*
+
+## 2023-01-03
+
+**Nils Eling** (04:39:23):
+> Hi all, we have quite spontaneously organised a “Multiplexed Imaging Developers Meeting” on 09.01.23 10:00 - 17:00 CET to discuss file formats, interoperability, image and spatial analysis. I’d also like to circulate the agenda ([https://bodenmillergroup.github.io/ImagingDevelopersMeeting2023/](https://bodenmillergroup.github.io/ImagingDevelopersMeeting2023/)) and the zoom link ([https://uzh.zoom.us/j/63303451095?pwd=Ky9heElaKzQvY2cvTk53NUFNaUdmQT09](https://uzh.zoom.us/j/63303451095?pwd=Ky9heElaKzQvY2cvTk53NUFNaUdmQT09)) here just in case some of you want to listen in and join the discussion. As we only had a month or so to organise this (being part of a larger Multiplexed Tissue Imaging Workshop) I think it would be great to set up a larger meeting some time later in the year.
+
+*04:46:38 - @Hans-Rudolf Hotz has joined the channel*
+
+## 2023-01-08
+
+**Shila Ghazanfar** (17:13:43) (in thread):
+> thanks for sharing Nils! I’d like to listen in but won’t be able to given timezone - any chance of the meeting being recorded? thanks and HNY!
+
+
+## 2023-01-09
+
+**Nils Eling** (03:04:11) (in thread):
+> Yes, we’ll record and share the meeting:slightly_smiling_face:- assuming all participants are fine with it
+
+*06:07:35 - @Michael Stadler has joined the channel*
+*06:21:47 - @Giovanni Palla has joined the channel*
+
+## 2023-01-13
+
+**Nils Eling** (10:43:34) (in thread):
+> Hi all, please reach out to me if you want to have the recordings of the sessions. We haven’t asked  for permission to host the recordings publicly - but sharing the links with individuals should be fine.
+
+
+## 2023-01-21
+
+*16:02:46 - @Hien has joined the channel*
+
+## 2023-01-26
+
+*16:49:12 - @Chenyue Lu has joined the channel*
+
+## 2023-01-27
+
+**Ludwig Geistlinger** (11:38:33):
+> Interesting seminar in that space on Monday:**Interactive, web-based visualization of high-resolution multiplexed bioimaging data**. Trevor Manz (Gehlenborg lab, Harvard Medical School)
+> 
+> When: Mon, Jan 30, 10-11 AM EST
+> Where:[https://harvard.zoom.us/j/97173440183?pwd=eHI1ODRub0p5NGNEZncwU0lURlJjdz09](https://harvard.zoom.us/j/97173440183?pwd=eHI1ODRub0p5NGNEZncwU0lURlJjdz09)
+
+
+## 2023-01-30
+
+**Stephanie Hicks** (05:43:34):
+> We also have recent work in this space called the Loopy Browser ([https://loopybrowser.com](https://loopybrowser.com)) and preprint here ([https://www.biorxiv.org/content/10.1101/2023.01.28.525943v1](https://www.biorxiv.org/content/10.1101/2023.01.28.525943v1)).
+> 
+> It's built off of OpenLayers ([https://openlayers.org](https://openlayers.org)) designed for geospatial maps. The large images (e.g. spatial transcriptomics images, but really any high-res multiplexed image) are converted to GeoTIFF files and can be stored locally (to deploy a local version of the browser) or can be uploaded to any cloud storage link (e.g. AWS S3 bucket) to deploy the browser on the web with a sharable URL.
+  - Attachment (bioRxiv): [Performant web-based interactive visualization tool for spatially-resolved transcriptomics experiments](https://www.biorxiv.org/content/10.1101/2023.01.28.525943v1)
+    > High-resolution and multiplexed imaging techniques are giving us an increasingly detailed observation of a biological system. However, sharing, exploring, and customizing the visualization of large multidimensional images can be a challenge. Here, we introduce Loopy Browser, a performant and interactive image visualization tool that runs completely in the web browser. Loopy Browser is specifically designed for fast image visualization and annotation and enables users to browse through large images and their selected features within seconds of receiving a link. We demonstrate the broad utility of Loopy Browser with images generated with two platforms: Vizgen MERFISH and 10x Genomics Visium Spatial Gene Expression. Loopy Browser along with example datasets is available at [https://loopybrowser.com](https://loopybrowser.com).
+    > 
+    > ### Competing Interest Statement
+    > 
+    > The authors have declared no competing interest.
+
+
+## 2023-02-02
+
+*05:38:00 - @Davide Risso has joined the channel*
+
+## 2023-02-09
+
+**Mike Smith** (14:29:58) (in thread):
+> Just as an update I've now submitted Rarr to Bioconductor ([https://github.com/Bioconductor/Contributions/issues/2925](https://github.com/Bioconductor/Contributions/issues/2925))
+> 
+> If anyone has Zarr files and wants to test out the package it'd be great to get feedback as part of the review.
+
+
+## 2023-02-23
+
+*05:28:46 - @Jędrzej Świeżewski has joined the channel*
+
+## 2023-02-26
+
+*18:22:50 - @Paul Myers has joined the channel*
+
+## 2023-02-28
+
+*16:53:43 - @Krithika Bhuvanesh has joined the channel*
+
+## 2023-03-01
+
+*12:12:51 - @jeremymchacón has joined the channel*
+
+## 2023-03-14
+
+**Stephanie Hicks** (10:05:45):
+> @Lukas Weber
+
+
+## 2023-03-22
+
+*08:09:01 - @Keerthana has joined the channel*
+
+## 2023-03-26
+
+**Shila Ghazanfar** (23:22:37):
+> hi image-analysis folks, apologies for the cross-post as I share Ellis’ question about how to read qptiff images in this channel too. Any advice would be appreciated, thanks!@Ellis Patrick@Nick R.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CR1BLV821/p1679882032288179)
+    > Has anyone had any issues reading qptiff images with Rbioformats? Our images which are ~8GB on disk blow up to 180GB in memory, with ~800GB being used as the image is read. Any tips or feedback or general philosophies would be very much appreciated from @Nick R. and I before we sink more time into this.
+
+
+## 2023-03-27
+
+**Nils Eling** (04:34:52) (in thread):
+> I never truely managed to read a whole slide TIFF image into memory at once. Is there any way to convert the images into a format that supports on-disk access (e.g. HDF5 or ZARR)? Alternatively you can read in chunks of the images, and store them as HDF5 ([https://github.com/aoles/RBioFormats/issues/5#issuecomment-222677949](https://github.com/aoles/RBioFormats/issues/5#issuecomment-222677949))
+  - Attachment: [Comment on #5 Subset image in XY dimensions](https://github.com/aoles/RBioFormats/issues/5#issuecomment-222677949)
+    > Hi Michel,  
+    > I'm happy to inform you that I've added support for XY subsetting to `read.image()`. You can specify the cropping in the following way:
+    > 
+    > ```
+    > f <- system.file("images", "nuclei.tif", package = "EBImage")
+    > img <- read.image(f, subset = list(X = 1:50, Y = 1:100))
+    > print(img, short=TRUE)
+    > 
+    > ## AnnotatedImage 
+    > ##   colorMode    : Grayscale 
+    > ##   storage.mode : double 
+    > ##   dim          : 50 100 4 
+    > ##   dimorder     : X Y T 
+    > ##   frames.total : 4 
+    > ##   frames.render: 4 
+    > ## 
+    > ## metadata
+    > ##  $ coreMetadata  :List of 18
+    > ##  $ globalMetadata:List of 19
+    > ```
+    > 
+    > Cheers,  
+    > Andrzej
+
+**Vince Carey** (06:44:25):
+> Have you considered pulling R out of the picture first?  I see[https://bio-formats.readthedocs.io/en/stable/formats/vectra-qptiff.html](https://bio-formats.readthedocs.io/en/stable/formats/vectra-qptiff.html)suggesting that there may not be a lot of work on benchmarking and diagnosis for this format?[https://downloads.openmicroscopy.org/images/Vectra-QPTIFF/perkinelmer/PKI_scans/](https://downloads.openmicroscopy.org/images/Vectra-QPTIFF/perkinelmer/PKI_scans/)has data going back to 2017 ... maybe I am looking in the wrong corner?  But my suggestion would be to see how the pure java operations proceed ... if possible?
+
+**Vince Carey** (06:48:07):
+> @Andrzej Oleś^^
+
+*06:48:12 - @Andrzej Oleś has joined the channel*
+**Ellis Patrick** (19:47:58) (in thread):
+> Thanks Vince, we'll look into doing this in pure Java as its confusing us a little. Big picture though it would be good to have the functionality in R to reduce the image analysis learning curve for people in our institute (the local PhD students all have a basic understanding of R which is great, but not other languages).
+
+**Vince Carey** (21:49:10) (in thread):
+> is there a good test dataset in the open?
+
+**Vince Carey** (21:53:47) (in thread):
+> if the ballooning memory footprint is due to R we can try to mitigate.
+
+*23:20:09 - @Nick R. has joined the channel*
+**Nick R.** (23:26:19) (in thread):
+> The larger example image on Bioformats is already on the edge unsustainable memory usage, especially when normalising while reading with`RBioformats::read.image `
+
+
+## 2023-03-28
+
+**Vince Carey** (07:22:37) (in thread):
+> To get a sense of the raw java ram consumption I 1) installed ImageJ with the BioFormats plugin, 2) selected***one***element of the HandEcompressed_Scan1.qptiff that comes with BioFormats -- the ImageJ footprint went to 2.37 GB RAM.  I would need a little more guidance on the workflow with ImageJ to diagnose the RAM consumption -- when I picked the image I lost any view of it despite the large memory footprint.  If this seems the wrong direction let me know.  I am going to start over with an empty workspace.
+
+*15:08:54 - @Phil Cheng has joined the channel*
+
+## 2023-03-29
+
+*16:57:05 - @Himel Mallick has joined the channel*
+
+## 2023-04-06
+
+*03:20:21 - @Ilaria Billato has joined the channel*
+
+## 2023-04-25
+
+**Alan O'C** (06:29:52):
+> Does anybody here use QuPath? I've just started as an RSE working with the team and am trying to gauge the appetite for better R integration
+
+**Vince Carey** (09:43:45):
+> Did you try the support site to find users?  I found this[https://qupath.readthedocs.io/en/stable/docs/intro/citing.html](https://qupath.readthedocs.io/en/stable/docs/intro/citing.html)interesting.  It would be good to understand the value added by R -- data integration, analysis capability gaps, ...
+
+**Alan O'C** (10:46:44):
+> There isn't currently anything on the bioc support site, but then as far as I know Bioc and indeed R support is currently completely non-existent
+
+**Vince Carey** (12:11:15):
+> I meant to ask on the support site to see if there are users in the community who reads it.  It seems like a fair question -- Request for Comments ...
+
+**Alan O'C** (12:37:46):
+> Ah! I hadn't really considered that an option. Thanks!
+
+
+## 2023-04-28
+
+**Josh Moore** (10:52:50) (in thread):
+> [https://www.glencoesoftware.com/products/ngff-converter/](https://www.glencoesoftware.com/products/ngff-converter/)should definitely be able to give you an (OME-)Zarr that you could, e.g., access with[https://bioconductor.org/packages/release/bioc/html/Rarr.html](https://bioconductor.org/packages/release/bioc/html/Rarr.html)
+  - Attachment (glencoesoftware.com): [NGFF-Converter | Glencoe Software, Inc.](https://www.glencoesoftware.com/products/ngff-converter/)
+    > NGFF-Converter converts Bio-Formats supported formats to OME-NGFF and OME-TIFF
+  - Attachment (Bioconductor): [Rarr](https://bioconductor.org/packages/release/bioc/html/Rarr.html)
+    > The Zarr specification defines a format for chunked, compressed, N-dimensional arrays. It's design allows efficient access to subsets of the stored array, and supports both local and cloud storage systems. Rarr aims to implement this specifcation in R with minimal reliance on an external tools or libraries.
+
+**Ludwig Geistlinger** (10:56:54) (in thread):
+> I haven't used it frequently, but here and there for inspecting tissue images and segmentations. It's a very useful piece of software and very powerful. Along which lines were you thinking of integrating with R? Setting inputs up to feed into and spin up QuPath from within R? Consuming manipulated images back from QuPath for visualizing with one of R's graphics systems eg. ggplot2? I certainly know a couple of folks including myself that would be interested ...
+
+**Ludwig Geistlinger** (11:00:08):
+> An interesting seminar coming up on Monday for folks interested in working with Napari and maybe thinking about better integration of Napari with R/Bioc. The flyer below has the details and the zoom link.
+  - File (PDF): [CCBSeminarflyer_050123-1.pdf](https://community-bioc.slack.com/files/U34P8RS3B/F055FQ4BH7U/ccbseminarflyer_050123-1.pdf)
+
+
+## 2023-05-16
+
+**Alan O'C** (12:18:41) (in thread):
+> Sorry bit late replying. First step would be to identify anywhere that exporting annotations, data etc in an R-friendly format would be improved, or as you say anywhere that QuPath could easily take inputs from R. There's also some talk of removing the survival analysis elements in favour of making this easier to do in R instead (since QuPath's survival analysis is already somewhat limited).
+> 
+> Long-term I'm hoping we can get real interoperability with R using something like Graal, to allow people to plug in classifiers other models from R directly into QuPath, but that's a ways away.
+
+**Ludwig Geistlinger** (13:40:15) (in thread):
+> It sounds great! Let me know if you start a repo.
+
+
+## 2023-05-17
+
+*11:53:07 - @Hassan Kehinde Ajulo has joined the channel*
+
+## 2023-06-09
+
+*17:25:23 - @Aedin Culhane has joined the channel*
+
+## 2023-06-23
+
+**Ludwig Geistlinger** (11:30:43):
+> Our next image analysis seminar will introduce the[glue visualization](https://glueviz.org/)[library](https://glueviz.org/)for exploratory analysis of biomedical image data and linkages
+> with single-cell and spatial omics data. The flyer below has the details
+> and the zoom link for everyone interested in joining remotely.
+  - File (PDF): [CCB_SeminarFlyer_Foster.pdf](https://community-bioc.slack.com/files/U34P8RS3B/F05DZDHNLMQ/ccb_seminarflyer_foster.pdf)
+
+
+## 2023-06-27
+
+**Krithika Bhuvanesh** (22:46:41) (in thread):
+> darn..i missed it ! Any chance this was recorded ?
+
+
+## 2023-06-28
+
+**Ludwig Geistlinger** (05:00:47) (in thread):
+> yes:slightly_smiling_face:it's available here:[https://computationalbiomed.hms.harvard.edu/education/ccb-seminar-series/past-ccb-seminars/](https://computationalbiomed.hms.harvard.edu/education/ccb-seminar-series/past-ccb-seminars/)
+
+
+## 2023-07-28
+
+*13:47:57 - @Konstantinos Daniilidis has joined the channel*
+*15:57:43 - @Benjamin Yang has joined the channel*
+
+## 2023-08-02
+
+*08:20:42 - @Beth Cimini has joined the channel*
+
+## 2023-08-11
+
+**Shila Ghazanfar** (03:49:08):
+> hi all — i’m trying to find some examples of publicly available imaging-based spatial transcriptomics data that also have made available the codebooks for imaging cycle/genes… ive spent about 30 mins trying to find it for xenium and merscope data… maybe its the universe telling me its friday afternoon and i should just log off, but i can’t find any.. any tips? thanks so much:pray:
+
+**Krithika Bhuvanesh** (11:24:19) (in thread):
+> Following….
+
+
+## 2023-08-20
+
+*10:39:20 - @Jacques SERIZAY has joined the channel*
+
+## 2023-08-28
+
+*07:40:09 - @Mikaila Chetty has joined the channel*
+
+## 2024-01-11
+
+*04:38:23 - @Artür Manukyan has joined the channel*
+
+## 2024-03-05
+
+*01:29:44 - @Pratibha Panwar has joined the channel*
+
+## 2024-04-29
+
+*09:35:15 - @Samuel Gunz has joined the channel*
+
+## 2024-05-15
+
+*08:31:15 - @Sunil Nahata has joined the channel*
+
+## 2024-06-11
+
+*05:27:01 - @Alik Huseynov has joined the channel*
+
+## 2024-07-11
+
+*06:19:01 - @Sathish Kumar has joined the channel*
+
+## 2024-07-23
+
+*15:21:20 - @Tuulu has joined the channel*
+
+## 2024-07-26
+
+*19:52:20 - @Qiwen Octavia Huang has joined the channel*
+
+## 2024-08-14
+
+*22:31:09 - @Kylie Bemis has joined the channel*
+
+## 2024-08-19
+
+*09:41:47 - @Rema Gesaka has joined the channel*
+
+## 2024-09-10
+
+*03:46:58 - @Alex Qin has joined the channel*
+
+## 2024-10-08
+
+**Alik Huseynov** (10:16:57):
+> I’m curious of someone had tried SLIC-likesuperpixelstools in R on nuclear (or cell boundary) segmentation
+> This tool is promising though applied to geospatial data.[https://github.com/Nowosad/supercells](https://github.com/Nowosad/supercells)[https://jakubnowosad.com/ogh2021/#43](https://jakubnowosad.com/ogh2021/#43)
+  - Attachment (jakubnowosad.com): [Spatial segmentation in R using the supercells package](https://jakubnowosad.com/ogh2021/#43)
+    > This presentation introduces the supercells package -- a tool aimed to utilize the concept of superpixels to a variety of spatial data.
+
+*10:24:16 - @Sehyun Oh has joined the channel*
+
+## 2024-11-07
+
+*22:10:40 - @Malvika Kharbanda has joined the channel*
+
+## 2024-11-21
+
+*04:12:44 - @Nesrine Gharbi has joined the channel*
+
+## 2025-02-03
+
+**Sehyun Oh** (23:05:18):
+> Hi all, I’m starting a Bioconductor working group focused on histopathology image analysis in R, as part of Bioconductor’s U24 cancer genomics grant. Our project aims to standardize the feature extraction process (using Python) and make these extracted image features readily available in R/Bioconductor for downstream, multi-modal analyses with omics data. We hold bi-weekly meetings and welcome anyone interested in contributing. Feel free to join our meetings and/or Slack channel at#histopathology-image-analysis. Looking forward to connecting with you!
+
+
+## 2025-03-18
+
+*14:27:41 - @Andres Wokaty has joined the channel*
+
+## 2025-03-20
+
+*12:45:14 - @Louise Morlot has joined the channel*
+
+## 2025-04-09
+
+**Artür Manukyan** (04:34:52) (in thread):
+> This discussion is old but I recently felt the need for such utilities too.
+> 
+> Here is a concept package that reads/writes large and/or pyramidal images using HDF5 and Zarr in DelayedArray format. It also wraps reading ome.tiff in such format using RBioformats. You can always call lower resolution image from the pyramid and apply functions to all resolutions simultanously, subset images in lazy-fashion.
+> 
+> I appreciate feedback on this too. Now that`Rarr`can read write/zarr stores, perhaps its a good time to extend it to OME.ZARR although I dont know if RBioFormats can read it as it is.[https://github.com/BIMSBbioinfo/ImageArray](https://github.com/BIMSBbioinfo/ImageArray)
+
+
+## 2025-04-15
+
+*01:05:44 - @Jennifer Slotnick has joined the channel*

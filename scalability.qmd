@@ -1,0 +1,367 @@
+---
+title: "#scalability"
+format: gfm
+---
+
+
+## 2019-08-11
+
+*08:12:31 - @Vince Carey has joined the channel*
+**Vince Carey** (08:12:31):
+> set the channel description: Focus discussion on scalable computing in Bioc
+
+*08:12:31 - @Aaron Lun has joined the channel*
+*08:12:31 - @Martin Morgan has joined the channel*
+*08:12:31 - @Kasper D. Hansen has joined the channel*
+*08:12:32 - @Michael Lawrence has joined the channel*
+*08:12:32 - @Peter Hickey has joined the channel*
+*08:12:32 - @Hervé Pagès has joined the channel*
+*08:12:32 - @Aedin Culhane has joined the channel*
+*08:12:32 - @Kylie Bemis has joined the channel*
+*08:12:32 - @Nitesh Turaga has joined the channel*
+*08:12:32 - @Lori Shepherd has joined the channel*
+*08:12:32 - @BJ Stubbs has joined the channel*
+*08:12:32 - @Mike Jiang has joined the channel*
+*08:12:32 - @Shweta Gopal has joined the channel*
+**Vince Carey** (08:14:24):
+> A fair amount of discussion of parallelization and OMP has occurred in the#generalchannel.  We have a scalability subcommittee of the TAB and I propose that we develop this channel to focus this discussion.  I would also like to propose that we work on a paper "Scalable array processing for genomics in Bioconductor" that surveys the diverse work in this space.
+
+*08:14:39 - @Stephanie Hicks has joined the channel*
+**Vince Carey** (08:18:24):
+> A good place to start getting a grip on available work is Aaron's[https://bioconductor.org/packages/release/workflows/vignettes/simpleSingleCell/inst/doc/bigdata.html](https://bioconductor.org/packages/release/workflows/vignettes/simpleSingleCell/inst/doc/bigdata.html);@Peter Hickeyand@Hervé Pagèslikely have overview documents to be studied.  I am going to see about making a[github.io](http://github.io)that can serve as an on-ramp to the topic.
+
+**Vince Carey** (08:19:25):
+> Sincere apologies if I have failed to acknowledge important resources in this space ... I am working in a very limited timeslice...
+
+**Stephanie Hicks** (16:36:01):
+> Thanks@Vince Carey
+
+**Stephanie Hicks** (16:36:08):
+> There is also[https://github.com/Bioconductor/OSCABase/blob/master/analysis/big-data.Rmd](https://github.com/Bioconductor/OSCABase/blob/master/analysis/big-data.Rmd)
+
+**Stephanie Hicks** (16:36:41):
+> inside the larger osca project[https://github.com/Bioconductor/OSCABase](https://github.com/Bioconductor/OSCABase)
+
+**Stephanie Hicks** (16:37:42):
+> but I would be happy to contribute to the proposed paper@Vince Carey
+
+**Stephanie Hicks** (16:39:42):
+> I also greatly enjoyed@Peter Hickey’s Bioc 2019 workshop on `DelayedArray ([https://github.com/PeteHaitch/BioC2019_DelayedArray_workshop/blob/master/vignettes/Effectively_using_the_DelayedArray_framework_for_users.Rmd](https://github.com/PeteHaitch/BioC2019_DelayedArray_workshop/blob/master/vignettes/Effectively_using_the_DelayedArray_framework_for_users.Rmd)) -- but I think he is already planning on turning this into an F1000 paper (correct me if I’m wrong@Peter Hickey) ?
+
+**Vince Carey** (16:57:50):
+> Thanks@Stephanie Hicks!  I will get more familiar with these references and then get back to the channel.
+
+*16:58:28 - @Michael Love has joined the channel*
+*16:58:28 - @Mike Smith has joined the channel*
+*16:58:28 - @Levi Waldron has joined the channel*
+*16:58:28 - @Sehyun Oh has joined the channel*
+**Michael Love** (17:08:07):
+> good timing:slightly_smiling_face:Avi Srivastava and I have been working on scalability of the Alevin -> Bioc importer a lot in the past few weeks, 30k vs 300k cells, peak mem usage etc
+
+**Peter Hickey** (19:27:06) (in thread):
+> Would be happy to incorporate into broader paper
+
+
+## 2019-08-13
+
+**Vince Carey** (12:42:57):
+> Here is the first draft of the gh-pages overview[https://vjcitn.github.io/BiocArrayProc/](https://vjcitn.github.io/BiocArrayProc/)... I will maintain it but would be happy to see it taken over, perhaps under Bioconductor.  There are many gaps of course.
+  - Attachment (BiocArrayProc): [Welcome to BiocArrayProc](https://vjcitn.github.io/BiocArrayProc/)
+    > vehicle for summarizing developments on scalable array processing
+
+
+## 2019-08-14
+
+**Stephanie Hicks** (09:57:38):
+> This is great@Vince Carey— thanks! In your original message you mentioned that you want to work towards a paper on scalable processing in Bioc ([https://community-bioc.slack.com/archives/CM8TCBMH6/p1565525664004600](https://community-bioc.slack.com/archives/CM8TCBMH6/p1565525664004600)). Thinking about the software design concepts that you listed in the gh-pages overview, would it be helpful to define some questions that each of us could work towards?
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CM8TCBMH6/p1565525664004600)
+    > A fair amount of discussion of parallelization and OMP has occurred in the #general channel.  We have a scalability subcommittee of the TAB and I propose that we develop this channel to focus this discussion.  I would also like to propose that we work on a paper "Scalable array processing for genomics in Bioconductor" that surveys the diverse work in this space.
+
+**Stephanie Hicks** (09:58:26):
+> for example@Davide Rissoand I have been thinking about the runtime control of RAM usage in the context of`rhdf5`files in application for our`mbkmeans`bioc package (can work with data in memory or on-disk).
+
+*09:58:35 - @Davide Risso has joined the channel*
+**Stephanie Hicks** (10:04:23):
+> we’ve been benchmarking`mbkmeans`this summer and one question we had was “how big” do the data need to be to warrant using`HDF5Array`vs just storing data in memory. Last week we came to the conclusion that for a small enough batch size, it’s more beneficial (memory wise) to store data in an`HDF5Array`if you have more than ~50e3 observations (with 1000 features).
+  - File (PDF): [bioc.pdf](https://community-bioc.slack.com/files/U34P8RS3B/FM0R24J4T/bioc.pdf)
+
+**Stephanie Hicks** (10:05:46):
+> Anyways, my point being it might make sense to figure out some basic questions and then assign tasks for us to test out these ideas in the context of the proposed paper?
+
+**Vince Carey** (13:27:46):
+> Thanks@Stephanie Hicks!  I would agree that we should come up with an outline of concerns.  File issues at the github repo, and/or make a pull request for changes to the gh-pages ... or just discuss here!  Maybe we could look for a model paper to emulate ... I think this is not at the level of nature methods, but possibly a Bioinformatics or PLoS Comp Bio paper?  Could be more generally about statistical computing too...
+
+
+## 2019-08-17
+
+*00:22:28 - @Kevin Wang has joined the channel*
+
+## 2019-08-20
+
+**Vince Carey** (17:14:46) (in thread):
+> Can you explain the % element of these figures and also -- is there a repo?
+
+**Stephanie Hicks** (18:53:08) (in thread):
+> The % is the batch size (ie the percentage of data read into memory at any given point)
+
+**Stephanie Hicks** (18:55:03) (in thread):
+> GitHub repo:[https://github.com/stephaniehicks/benchmark-hdf5-clustering](https://github.com/stephaniehicks/benchmark-hdf5-clustering)
+
+
+## 2019-08-26
+
+**Kasper D. Hansen** (11:30:25):
+> [https://www.beautiful.ai/player/-LjSuALfOEI8eYcGj_SD/diskframe-useR-2019](https://www.beautiful.ai/player/-LjSuALfOEI8eYcGj_SD/diskframe-useR-2019)
+  - Attachment (Beautiful.ai): [disk.frame - useR! 2019](https://www.beautiful.ai/player/-LjSuALfOEI8eYcGj_SD/diskframe-useR-2019)
+
+**Kasper D. Hansen** (11:30:32):
+> [https://github.com/xiaodaigh/disk.frame](https://github.com/xiaodaigh/disk.frame)
+
+**Kasper D. Hansen** (11:30:42):
+> Looks potentially interesting
+
+
+## 2019-09-03
+
+**Vince Carey** (12:44:53):
+  - File (PNG): [speedups.png](https://community-bioc.slack.com/files/U34P8RS3B/FMLEJK04S/speedups.png)
+
+**Aaron Lun** (12:46:25):
+> SIMD instructions are fine up to the point that you get “invalid instruction” segfaults on a cluster because the nodes have different CPUs.
+
+**Aaron Lun** (12:46:39):
+> We should probably openMP more code, though.
+
+**Kasper D. Hansen** (12:48:39):
+> Not to belittle it, but isn't this the "old" comment that you can get massive speedups by having a fast BLAS
+
+
+## 2019-09-05
+
+*12:19:14 - @Laurent Gatto has joined the channel*
+
+## 2019-11-04
+
+*07:58:29 - @Izaskun Mallona has joined the channel*
+
+## 2019-11-08
+
+*08:23:27 - @Alan O'C has joined the channel*
+
+## 2019-12-11
+
+*12:18:59 - @Christine Choirat has joined the channel*
+
+## 2020-01-02
+
+*11:17:23 - @Aaron Lun has left the channel*
+
+## 2020-02-17
+
+*11:28:04 - @Jayaram Kancherla has joined the channel*
+
+## 2020-03-04
+
+*16:00:57 - @Jialin Ma has joined the channel*
+
+## 2020-04-16
+
+*10:09:09 - @Stephanie Hicks has left the channel*
+
+## 2020-04-25
+
+*17:28:55 - @Daniela Cassol has joined the channel*
+
+## 2020-06-06
+
+*19:57:50 - @Olagunju Abdulrahman has joined the channel*
+
+## 2020-07-18
+
+*10:43:24 - @Roy Gulla has joined the channel*
+**Roy Gulla** (10:56:02):
+> I'm sorry I'm just butting in, albeit almost a year later.  Sounds like none of the libraries have  been optimized for NaCL, or some other webinated assembler, correct?
+
+
+## 2020-08-05
+
+*13:47:52 - @shr19818 has joined the channel*
+
+## 2020-12-12
+
+*00:38:22 - @Huipeng Li has joined the channel*
+
+## 2021-01-19
+
+*04:57:40 - @Pablo Rodriguez has joined the channel*
+
+## 2021-01-22
+
+*15:45:42 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-02-01
+
+*03:57:50 - @Pablo Rodriguez has left the channel*
+
+## 2021-03-23
+
+*23:06:03 - @Lambda Moses has joined the channel*
+
+## 2021-04-12
+
+*11:15:24 - @jmsimon has joined the channel*
+
+## 2021-04-28
+
+*17:50:33 - @Mateusz Staniak has joined the channel*
+
+## 2021-05-08
+
+*14:23:14 - @Roye Rozov has joined the channel*
+
+## 2021-05-11
+
+*16:45:51 - @Megha Lal has joined the channel*
+
+## 2021-09-06
+
+*08:23:33 - @Eddie has joined the channel*
+
+## 2021-11-24
+
+*13:16:45 - @Helge Hecht has joined the channel*
+
+## 2022-01-28
+
+*11:14:43 - @Megha Lal has left the channel*
+
+## 2022-05-18
+
+*06:23:30 - @Vince Carey has left the channel*
+
+## 2022-07-04
+
+*19:46:04 - @Andrew J. Rech has joined the channel*
+
+## 2022-07-22
+
+*14:47:33 - @Gary Sieling has joined the channel*
+
+## 2022-07-28
+
+*17:21:09 - @Mervin Fansler has joined the channel*
+
+## 2022-08-11
+
+*17:16:17 - @Rene Welch has joined the channel*
+
+## 2022-09-04
+
+*15:01:54 - @Gurpreet Kaur has joined the channel*
+
+## 2022-09-16
+
+*19:21:43 - @Ivo Kwee has joined the channel*
+
+## 2022-11-06
+
+*11:21:28 - @Sherine Khalafalla Saber has joined the channel*
+
+## 2022-12-16
+
+**Laurent Gatto** (01:17:46):
+> Interesting read on parallel processing by@Henrik Bengtsson:[https://www.jottr.org/2022/12/05/avoid-detectcores/](https://www.jottr.org/2022/12/05/avoid-detectcores/)
+  - Attachment (JottR): [Please Avoid detectCores() in your R Packages](https://www.jottr.org/2022/12/05/avoid-detectcores/)
+    > The detectCores() function of the parallel package is probably one of the most used functions when it comes to setting the number of parallel workers to use in R. In this blog post, I’ll try to explain why using it is not always a good idea. Already now, I am going to make a bold request and ask you to:
+    >  Please avoid using parallel::detectCores() in your package!
+    >  By reading this blog post, I hope you become more aware of the different problems that arise from using detectCores() and how they might affect you and the users of your code.
+
+**Nitesh Turaga** (11:08:26):
+> I'd love to hear what other people in the community think about this ^
+
+**Alan O'C** (11:09:46):
+> I thought best practice was to use`options("mc.cores")`honestly. I've come across a lot of the problems with`detectCores`listed there already
+
+
+## 2022-12-17
+
+**Martin Morgan** (10:27:44):
+> I guess most packages shouldn't be re-inventing parallel processing, and should instead be re-using existing frameworks like BiocParallel (where the recommendation is to expose`BPPARAM = bpparam()`to get the possibly user-set or informed by OS / options / environment variables default) or future. Outside of these frameworks, the arguments Henrik makes about`detectCores()`are valid, and`availableCores()`seems like a good alternative (and does a better job than BiocParallel in the HPC and other shared computing environments).
+> 
+> I'd disagree about the default being serial evaluation, provided the developer has actually determined that parallel evaluation is beneficial. In an idealized scenario`T`tasks taking a unit amount of time receive benefit`(1 + c) / N`where`c`is the cost of communicating tasks and results from`N`workers; if`1 + c < N`then parallel evaluation makes sense. Evaluation time decreases with`N`up to the number of available cores, so why give the user sub-optimal performance, especially if`N`respects constraints on the system?
+> 
+> On the other hand it would make sense to estimate that some object`X`processed by the algorithm takes an amount of memory`M`per available core. If`M * N`is greater than a hypothetical`availableMemory()`, then one needs to decrease`N`or fail (e.g., because the object requires 64 GB to process even when`N = 1`and there is only 32 GB of memory available) before any real computation occurs. This estimate of memory use cannot be accomplished by the parallel framework, because the details of the algorithm are not known in general. So I think it would be very useful for package developers to understand memory use of their algorithm, and to provide assertions (using`stopifnot()`or fancier approaches) that perform sanity checks at the beginning of their algorithm. The[Rcollectl](https://vjcitn.github.io/Rcollectl/index.html)package provides one way of measuring memory (and CPU) use over the course of an algorithm's evaluation; I'd be interested in learning of other approaches.
+> 
+> I mentioned a hypothetical`availableMemory()`; I wonder if such functionality exists in parallelly or other packages? I think it would be valuable to further refactor parallelly to a package, with zero dependencies, that provides only`availableCores()`and`availableMemory()`and related functions, without any parallel implementation. I would adopt this for use in BiocParallel.
+
+
+## 2023-03-31
+
+*08:58:24 - @Ilaria Billato has joined the channel*
+
+## 2023-04-11
+
+**Laurent Gatto** (07:57:57):
+> Not sure if this is the best channel for this question (if there's better, please let me know), but I was wondering if anybody knew of a sparse matrix representation that didn't consider the empty cells to be 0 by default? Would existing or laternative implementations allow to defined these as something else, such as`NA`for example?
+
+**Kasper D. Hansen** (08:49:25):
+> I think that would be unusual
+
+**Kasper D. Hansen** (08:50:27):
+> However, you could essentially modify existing approaches to do this. Say, make a class which extends a sparseMatrix class and then has custom rowSums would be relatively easy (for some definition of easy).
+
+**Kasper D. Hansen** (08:51:55):
+> And for your NA example, NA would allow for a very different computational interface compared to a situation like
+>   sparseMatrix + constant
+> or
+>   sparseMatrix with non-zero entries defined to be a constant
+> Just think of how you would need to handle rowSums
+
+**Laurent Gatto** (11:08:30):
+> Thank you. Yes, it would be unusual, but the sparse means 0 doesn't necessarily fit mass spec-based quantitative proteomics (this is what initiated my question). So you aren't aware of any existing infrastructure that defines an alternative to 0 for sparse matrices?
+
+**Laurent Gatto** (11:09:17):
+> I am not claiming I want to start something, just checking if something along these lines already exists.
+
+
+## 2023-05-17
+
+*12:18:49 - @Hassan Kehinde Ajulo has joined the channel*
+
+## 2023-06-13
+
+**Ivo Kwee** (14:02:52) (in thread):
+> Perhaps you could use two sparse matrices, one for keeping nonzero values, one for keeping record of real NA's. Or use -999999 as NA?
+
+
+## 2023-06-19
+
+*05:12:25 - @Pierre-Paul Axisa has joined the channel*
+
+## 2023-07-28
+
+*15:58:57 - @Benjamin Yang has joined the channel*
+
+## 2023-08-07
+
+*11:22:34 - @Jiaji George Chen has joined the channel*
+
+## 2023-09-13
+
+*17:05:05 - @Christopher Chin has joined the channel*
+
+## 2024-03-27
+
+*00:26:15 - @Hervé Pagès has left the channel*
+
+## 2024-10-02
+
+*19:07:45 - @Eva Hamrud has joined the channel*
+
+## 2024-10-31
+
+*17:47:43 - @Jayaram Kancherla has left the channel*
+
+## 2025-03-18
+
+*17:31:16 - @Nicolo has joined the channel*

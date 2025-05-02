@@ -1,0 +1,101 @@
+---
+title: "#raggedexperiment"
+format: gfm
+---
+
+
+## 2017-05-14
+
+*22:02:29 - @Levi Waldron has joined the channel*
+**Levi Waldron** (22:02:29):
+> set the channel description: Discussion of the RaggedExperiment package
+
+*22:02:29 - @Marcel Ramos Pérez has joined the channel*
+*22:02:29 - @Martin Morgan has joined the channel*
+**Levi Waldron** (22:04:10):
+> Since there’s no issues tracker yet, I’m contributing here a small but full-featured dataset to help with demonstrating the package. It’s from on the TCGA ACC mutations dataset, subset to rownames found in the RPPA dataset.
+
+**Levi Waldron** (22:05:04):
+> @Levi Waldronuploaded a file:[ACCcolData.rda](https://community-bioc.slack.com/files/lwaldron/F5DCSFXGC/acccoldata.rda)and commented: Includes patient data and additional columns from the paper supplement, including subtypes. Could be trimmed.
+  - File (Binary): [ACCcolData.rda](https://community-bioc.slack.com/files/U34P8RS3B/F5DCSFXGC/acccoldata.rda)
+
+**Levi Waldron** (22:05:19):
+> @Levi Waldronuploaded a file:[ACCrowData.rda](https://community-bioc.slack.com/files/lwaldron/F5CM38F4Y/accrowdata.rda)and commented: From[http://genomeportal.stanford.edu/pan-tcga/show_target_selection_file?filename=Allprotein.txt](http://genomeportal.stanford.edu/pan-tcga/show_target_selection_file?filename=Allprotein.txt)
+  - File (Binary): [ACCrowData.rda](https://community-bioc.slack.com/files/U34P8RS3B/F5CM38F4Y/accrowdata.rda)
+
+**Levi Waldron** (22:05:43):
+> @Levi Waldronuploaded a file:[ACCmutations.rda](https://community-bioc.slack.com/files/lwaldron/F5DBBKGSE/accmutations.rda)and commented: The “Mutations” element from[http://s3.amazonaws.com/multiassayexperiments/accMAEO.rds](http://s3.amazonaws.com/multiassayexperiments/accMAEO.rds)
+  - File (Binary): [ACCmutations.rda](https://community-bioc.slack.com/files/U34P8RS3B/F5DBBKGSE/accmutations.rda)
+
+**Levi Waldron** (22:07:27):
+> The last object here is the RaggedExperiment object. I would have incorporated the rowData and colData into this, but noticed that the`<-`set method is not defined for rowData or colData of a RaggedExperiment (#issue, feature request).
+
+**Levi Waldron** (22:19:58):
+> #issue Also the`[[`method doesn’t work, so I’m not sure how to extract a GRanges from the RaggedExperiment.
+
+**Levi Waldron** (22:24:19):
+> #issue in the help page`?RaggedExperiment`, the “…” argument says “OR assay: Additional arguments for assay. See details for more information.” But there is no Details section.
+
+**Levi Waldron** (22:25:46):
+> Hope you don’t mind me putting issues here for now since there isn’t an issue tracker yet for RaggedExperiment.
+
+**Unknown User** (22:38:46):
+> @Levi Waldron commented on @Levi Waldron’s file [https://community-bioc.slack.com/files/U34P8RS3B/F5CM38F4Y/accrowdata.rda](https://community-bioc.slack.com/files/U34P8RS3B/F5CM38F4Y/accrowdata.rda): Actually, rowData doesn’t even make sense. Range metadata could be stored in the GRanges.
+  - File (Binary): [ACCrowData.rda](https://community-bioc.slack.com/files/U34P8RS3B/F5CM38F4Y/accrowdata.rda)
+
+
+## 2017-05-15
+
+**Marcel Ramos Pérez** (10:55:24):
+> @Levi WaldronThe package should be on GitHub at[https://github.com/Bioconductor/RaggedExperiment](https://github.com/Bioconductor/RaggedExperiment)
+  - Attachment (GitHub): [Bioconductor/RaggedExperiment](https://github.com/Bioconductor/RaggedExperiment)
+    > Contribute to RaggedExperiment development by creating an account on GitHub.
+
+**Levi Waldron** (10:57:48):
+> Oh, and with an issue tracker, thanks@Marcel Ramos Pérez!
+
+**Marcel Ramos Pérez** (10:58:08):
+> Thank you!
+
+*17:23:26 - @Kasper D. Hansen has joined the channel*
+
+## 2017-05-17
+
+**Marcel Ramos Pérez** (14:08:57):
+> @Levi WaldronWe should go with providing`RaggedExperiment`s as part of the`curatedTCGAData`datasets since they work well with the`MultiAssayExperiment`API.
+
+**Marcel Ramos Pérez** (14:12:54):
+> Our argument for creating`RaggedExperiment`stems from needing a matrix-like representation of ranges by samples. Supplying`GRangesList`s would invalidate our`RaggedExperiment`argument and forces us to adjust for this outside-of-the-API case.
+
+**Levi Waldron** (14:47:17):
+> Agreed. In the S3 bucket perhaps they should just be tables, that are converted to RE by curatedTCGAData ()?
+
+**Marcel Ramos Pérez** (15:29:44):
+> We'd have to port the functionality of`TCGAutils`for that to be possible or publish that package and`Import`it
+
+
+## 2017-05-19
+
+*14:06:08 - @Aedin Culhane has joined the channel*
+
+## 2017-09-07
+
+*07:20:30 - @Michael Steinbaugh has joined the channel*
+
+## 2017-10-27
+
+*06:44:27 - @Guangchuang Yu has joined the channel*
+
+## 2017-11-29
+
+*09:42:42 - @Matthew McCall has joined the channel*
+
+## 2018-04-20
+
+**Marcel Ramos Pérez** (14:11:05):
+> Hi<!channel>, I'm archiving this channel. If there are any issues, feature requests, or questions, please post them on the support site or the github issues page[https://github.com/Bioconductor/RaggedExperiment/issues](https://github.com/Bioconductor/RaggedExperiment/issues).
+  - Attachment (GitHub): [Bioconductor/RaggedExperiment](https://github.com/Bioconductor/RaggedExperiment/issues)
+    > Contribute to RaggedExperiment development by creating an account on GitHub.
+
+**Marcel Ramos Pérez** (14:11:26):
+> archived the channel

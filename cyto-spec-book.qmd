@@ -1,0 +1,412 @@
+---
+title: "#cyto-spec-book"
+format: gfm
+---
+
+
+## 2020-01-29
+
+*15:25:31 - @Helena L. Crowell has joined the channel*
+*15:35:42 - @Tim Triche has joined the channel*
+**Helena L. Crowell** (15:35:44):
+> So thinking out loud. I think@Aaron Lunis right in that the osca-book is already very long, fairly centred around genomics data, with some ATAC- and CITE-seq.
+> 
+> Now, we could considered coming up with a neat chapter on CyTOF. An elegant example being what you proposed, i.e., integration with other types of data. But I think that would mean missing out, in my opinion. The more I day-dream & this is digesting in my head, it’s maybe not so crazy to think about a whole other resource. In fact, I can already thing of ~5 full chapters that I could come up with. Let alone all the types of analyses someone that is not me has done.
+> 
+> I think there’s a lot out there, but the community is less communicative/ playing the same game as may be the case for e.g. scRNA-seq. For example, lots of current infrastructure follows an I’m-going-to-do-it-all mentality with defining new classes for all things; when all that would work with an SCE and some metadata. If`CATALYST`has tought me one thing, it’s that people are happy & grateful for all things available through Bioc once they use it, and when they see that there’re better things out here than cytobank &`flowFrame`s for more advanced analysis.
+> 
+> So maybe I will follow Aaron’s advice in just getting the ball rolling with the hopefully not too naive hope that others will roll along... Thoughts?
+
+**Tim Triche** (15:51:28):
+> accurate
+
+**Tim Triche** (15:52:23):
+> talking with Brandon right now and sent an invite
+
+**Tim Triche** (15:52:32):
+> here's the Hourigan paper that we used as sort of a test case
+
+**Tim Triche** (15:52:58):
+> JCI paper with 8 healthy marrow references -- bulk, 10X, CyTOF
+  - File (PDF): [Hourigan_sc_bulk_cytof_flow.pdf](https://community-bioc.slack.com/files/U34P8RS3B/FSX6VDC82/hourigan_sc_bulk_cytof_flow.pdf)
+
+**Tim Triche** (15:53:46):
+> and the code
+
+**Tim Triche** (15:54:21):
+> load & merge datasets with CATALYST and dropletUtils
+  - File (R): [loadAndMerge.R](https://community-bioc.slack.com/files/U34P8RS3B/FTBS1Q2ET/loadandmerge.r)
+
+**Tim Triche** (15:54:51):
+> hopefully this could make for a handy framework, e.g. to compare some of the "single cell metabolomics" stuff coming out of Bendall's lab, etc.
+
+**Tim Triche** (17:35:56):
+> Brandon was reading Aaron's workflow paper (with Greg Finak, Raphael Gottardo, and John Marioni) and I do think that the "benchmarking"/"framework" angle (as opposed to differential analysis, etc) makes sense in terms of filling a gap in the literature.
+
+**Tim Triche** (17:37:40):
+> One of the questions this dataset helped me answer was, if you're looking to get "consensus" trajectories, should you fit each dataset first and then merge, or merge and then fit? It's not easy to answer because (for velocity at least) I don't see much in the way of correction methods that handle both spliced and unspliced at this point in time.  But the quick and dirty answer is merge first, for the time being, or risk losing branches that are clearly there in the CyTOF data.
+
+**Tim Triche** (17:38:42):
+> Given that these are 8 people's marrow aspirates (granted some are older or younger, but this isn't a fetal-vs-centenarian comparison), if one approach yields consistent results and the other is all over the map, it stands to reason that the former results in a more useful answer.
+
+**Tim Triche** (17:39:12):
+> That in turn informed merging datasets that were far less uniform.
+
+
+## 2020-02-03
+
+*13:39:09 - @Brandon Oswald has joined the channel*
+*13:43:45 - @Laurent Gatto has joined the channel*
+*13:59:17 - @Vince Carey has joined the channel*
+**Helena L. Crowell** (14:27:07):
+> has renamed the channel from "cyto-book" to "cyto-spec-book"
+
+
+## 2020-02-04
+
+*05:10:35 - @Chris Vanderaa has joined the channel*
+*05:39:49 - @Sean Davis has joined the channel*
+**Sean Davis** (05:42:06):
+> Just a “cross-post” about a technical detail.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CM2CUGBGB/p1580812753100100)
+    > Just to add here, consider doing something other than a **book**. I think all of us who have successfully produced one were surprised about the amount of work and the fragility of the bookdown system as a collaborative editing system.
+    > Chapters are the meat of the book, are easy to produce and manage, and are publishable in an academic sense. Consider alternatives to a book such as partnering with a journal, producing bioconductor workflows, or a collection of independent websites, organized into a collection.
+
+**Vince Carey** (06:36:45):
+> It would be nice to come up with an approach that minimizes conflicts among objectives of monograph production.  We want the linearity and stability of a book, the checkability and repairability of a code base (the use of which the book always accurately describes), ease of contribution with a collaborative editing system, and achievement of accessibility and high esthetic values.  Did I miss anything?
+
+**Helena L. Crowell** (06:58:20):
+> Full on, Vince. I suppose I don’t know enough about books to see the issue. For example, workflowr is simply a collection of rmd but changes in a chapter will only trigger that chapter to be rebuilt. I was assuming books were the same, in which case they’d fullfill all of the above. (Provided data independence of course)
+
+*08:37:19 - @Nils Eling has joined the channel*
+**Sean Davis** (11:44:34):
+> You are right on,@Helena L. Crowell, that having chapters build independently is quite useful. I used this approach for last year’s Bioc workshops. Workflowr is a nice option. Blogdown is another. Note that I parallelized blogdown for last year’s Bioc Workshops.[https://github.com/seandavi/parblogdown](https://github.com/seandavi/parblogdown)Blogdown offers the capabilities of Hugo and associated themes for free.
+
+*13:20:41 - @Mark Robinson has joined the channel*
+
+## 2020-02-05
+
+*02:17:01 - @Robert Ivánek has joined the channel*
+*05:29:16 - @Charlotte Soneson has joined the channel*
+**Tim Triche** (12:07:26):
+> that's really slick@Sean DavisI may inflict this upon my lab for workflows
+
+**Tim Triche** (12:07:50):
+> "you'll thank me later" --tim "no we won't" --lab members
+
+**Tim Triche** (12:08:40):
+> watching Aaron and Robert wrestle with OSCA compiles scared the living hell out of me.  Having independent chapters loosely coupled seems:thumbsup:
+
+**Sean Davis** (13:09:12):
+> I’m actually thinking the each chapter should be independently built in a dockerized environment, yielding the workflow itself as well as the corresponding self-contained environment. That paves the way for something like Binder for R. In practical terms, each chapter would be executable as a docker image.
+
+**Sean Davis** (13:09:37):
+> If anyone wants to pitch in, we could have a quick call to discuss.
+
+**Tim Triche** (13:16:42):
+> This sounds really cool -- my rotation student (Brandon) is out today but I think he's getting comfortable with end-to-end Dockerization thanks to streampipe (the encapsulated kallisto/bustools workflow) and might be open to pursuing exactly that.  My lab is getting all the good habits I never did:confused:
+
+**Sean Davis** (13:21:00) (in thread):
+> cc@Vince Carey
+
+
+## 2020-02-06
+
+**Chris Vanderaa** (03:56:07):
+> Hi all! I started my PhD a few months ago and would love to contribute to a chapter soon or later. I work on mass spectrometry-based single cell proteomics and hope this could lead to interesting material for a chapter (see@Laurent Gatto's comment in#osca-book). I would really like to get the good habits from the start and to stay tuned to advise/recommendations/guidelines you come up with !
+
+*15:20:05 - @Mikhael Manurung has joined the channel*
+
+## 2020-02-22
+
+*07:42:01 - @Aedin Culhane has joined the channel*
+
+## 2020-02-24
+
+*17:26:05 - @Greg Finak has joined the channel*
+
+## 2020-03-25
+
+*13:16:50 - @brian capaldo has joined the channel*
+**brian capaldo** (15:28:29):
+> I'm a few years removed from CyTOF, but it was my primary mission from 2015 to 2018 at UVA. I wrote a pretty extensive command line tool for automated cytometry analysis, and would be happy to contribute in any way I can.
+
+
+## 2020-04-14
+
+**Mikhael Manurung** (13:52:42):
+> Hello everyone! Is there any plan to proceed with the book/tutorials?
+
+**Helena L. Crowell** (14:07:36):
+> Hey Mikhael! Glad you ask… Yes, well, somehow… I was quite busy getting things ready for R 4.0 / Bioc 3.11 and this is on my list next. We have already started on developing a workflow for preprocessing (gating, normalization, debarcoding, compensation, batch correction)…
+> 
+> But to be honest, there’s no real “plan” just yet. I think Aaron (and others) killed the idea of a “book” per se, at least in my head. But there’s definitely other options to consider!
+> 
+> Maybe (just maybe) we can even have a doc to collect ideas and/or repo and/or come up with a good format and/or zoom chats etc. etc., or anything else to get things going. Happy to pick up the discussion again!
+
+
+## 2020-04-15
+
+**Mikhael Manurung** (05:46:32):
+> That would be great!! I have used CATALYST for three projects and am quite happy with it. It was quite hard to properly create the`SCE`object but I noticed that you have prepared major changes on the error-checking of file names, channel names, and metadata for the upcoming Bioc release.
+> 
+> I am really looking forward for zoom chats:smile:
+
+**Nils Eling** (05:51:54):
+> Hey, I’d still be interested in contributing a multiplexed imaging cytometry section. My plan is to write an IMC workflow until September or so and expand common analysis approaches to other spatial cytometry technologies. So I’m happy to discuss how to proceed with this.
+
+**Tim Triche** (13:53:30):
+> how about a manutot?
+
+**Tim Triche** (13:53:35):
+> err, manubot
+
+**Tim Triche** (13:54:03):
+> [https://manubot.org/](https://manubot.org/)
+  - Attachment (manubot.org): [Manubot - Manuscripts, open and automated](https://manubot.org/)
+    > A tool set and workflow for scholarly publishing that is open, collaborative, continuous, automated, reproducible, and free.
+
+**Tim Triche** (13:54:17):
+> I figure most of us write vignettes, etc. in markdown/bookdown anyways
+
+**Tim Triche** (13:55:05):
+> My objective was to take what we did with Chris Hourigan's data (matched bulk/single/CyTOF marrows) and do the whole thing properly, compare across data types to see which preprocessing choices mattered or didn't, etc.
+
+**Tim Triche** (13:55:38):
+> I managed to wring out a full reads-to-velocity notebook from my rotation student and he mostly survived (seems to have recovered with minor scarring)
+
+**Tim Triche** (13:56:07):
+> something comparing CITE to CyTOF would be super slick if such a dataset exists
+
+**Tim Triche** (13:56:22):
+> or mission bio to CyTOF, you get the idea
+
+
+## 2020-04-16
+
+**Mikhael Manurung** (10:49:17):
+> This is interesting! I heard that it is difficult to do collaborative writing with blogdown.
+
+**Mikhael Manurung** (10:50:44):
+> But I guess, at this point, the platform does not really matter yet, right? We still need to discuss about the aim and form of the educational material as well.
+
+*11:25:00 - @Stephany Orjuela has joined the channel*
+
+## 2020-04-28
+
+**brian capaldo** (11:48:23):
+> for whatever it's worth, I did build a pretty complete CyTOF pipeline a few years ago. It's pretty modular, and is all CLI based. I know it's not up to date, but it's pretty simple to pull things out and put things out to bring it up to speed.[https://github.com/bc2zb/cyttools](https://github.com/bc2zb/cyttools)
+
+**brian capaldo** (11:48:35):
+> if you couldn't tell, I was trying to emulate bedtools, but for CyTOF
+
+**Helena L. Crowell** (11:51:06):
+> Sorry if I’m missing something- but is there a browesable version of this somewhere? I see lots of scripts, but no document-style workflow.
+
+**brian capaldo** (12:20:48):
+> ah
+
+**brian capaldo** (12:21:06):
+> excellent point
+
+**brian capaldo** (12:22:08):
+> nothing too robust right now
+
+**brian capaldo** (12:22:13):
+> if you look at[https://github.com/bc2zb/cyttools/tree/master/Pipeline_Scripts](https://github.com/bc2zb/cyttools/tree/master/Pipeline_Scripts)
+
+**brian capaldo** (12:22:30):
+> you can see the bash scripts to run the pipeline end to end
+
+**brian capaldo** (12:25:01):
+> but it's basic idea is run FlowSOM and FlowType, then identify unique clusters using the immunophenotypes identified by flowType, and run edgeR on the clusters
+
+**brian capaldo** (12:25:47):
+> FlowSOM reduces the number of immunophenotypes you need to test that flowType identifies
+
+**Tim Triche** (12:26:49):
+> that's smart!
+
+**Helena L. Crowell** (12:27:12):
+> I guess the point is that there are lot’s of tools (cydar, F1000 differential workflow, FlowSOM, CATALYST, ggcyto for viz, openCyto for gating etc) and infrastructure (flowCore, flowWorkspace, CytoML etc) out there; that is not where things are missing in my opinion. We know the tools to use.
+> 
+> What’s missing, in my opinion, is a smooth, comprehensive workflow to put it all together that 1) does not rely on heavy data transfer between programming environments (namely, R), graphical user interfaces (MATLAB, Shiny), and cloud services (Cytobank); and 2) that also leverages existing Bioc infrastructure.
+
+**Tim Triche** (12:27:13):
+> does anyone know whether there exists CITE-seq data that has CyTOF runs from equivalent specimens?
+
+**brian capaldo** (12:27:31):
+> yes
+
+**Tim Triche** (12:27:52):
+> it would be ideal to use that for demonstration of orthogonal validation of a "good enough" reproducible pipeline
+
+**brian capaldo** (12:27:55):
+> i have to dig through my notes, but there was an immunotherapy paper from about a year ago or so that did cytof and cite seq
+
+**Tim Triche** (12:28:07):
+> that would be a superb demonstration dataset
+
+**brian capaldo** (12:28:25):
+> @Helena L. Crowellyes, I agree compeltely, which was the initial idea behind my pipeline
+
+**brian capaldo** (12:28:38):
+> but I never got the chance to really finish it
+
+**brian capaldo** (12:29:06):
+> the nice thing is every stage outputs FCS files with the results as new parameters, so you can browse the results in FCS express/FlowJo/Diva
+
+**brian capaldo** (12:31:11):
+> I would love to wrap up whatever CyTOF pipeline into a nextflow or whatever workflow that makes it a simple command line tool that executes a standard pipeline with some design files
+
+**brian capaldo** (12:48:27) (in thread):
+> yeah, I can't find one, so I may have misremembered as it may have been scRNA with CyTOF, and not CITE Seq
+
+**Tim Triche** (14:28:44):
+> do people have a preference between snakemake and nextflow or more of a laissez-faire attitude at this point in time
+
+**Tim Triche** (14:29:01) (in thread):
+> ah, that's Hourigan's data
+
+**Tim Triche** (14:29:13) (in thread):
+> CITE would be awesome since it would directly link the two
+
+**brian capaldo** (14:30:55) (in thread):
+> I'll keep pushing on my wetlab, but don't hold your breath
+
+**brian capaldo** (14:31:16):
+> I prefer nextflow, but I got roped into nf-core very early on
+
+**Tim Triche** (14:43:49) (in thread):
+> thanks!
+
+**brian capaldo** (14:45:04) (in thread):
+> i can't even get them to do cytof... we might do cite seq soon though
+
+
+## 2020-04-29
+
+**Mikhael Manurung** (03:37:12):
+> Not to mention that there's CytoExploreR now. Manual gating in R is much easier now. The need to use FlowJo again for manual gating after working in R is quite a bottleneck in my lab.
+
+
+## 2020-06-09
+
+**brian capaldo** (16:32:40):
+> [https://www.biorxiv.org/content/10.1101/2020.06.08.140608v1](https://www.biorxiv.org/content/10.1101/2020.06.08.140608v1)Might be a good inclusion in whatever workflow comes out
+
+**Tim Triche** (16:50:39):
+> wow, great catch, thanks for pointing that out!
+
+
+## 2020-06-10
+
+**Helena L. Crowell** (02:37:10):
+> Beautiful visualizations, too!! (not biased at all:wink:)
+
+
+## 2020-07-17
+
+**Mikhael Manurung** (14:10:53):
+> Looks like there are a lot of new graph-based clustering methods (FastPG, Rphenoannoy, PARC, etc) that are fast enough to cluster millions of cells. Have any of you used these and how is your experience?
+
+
+## 2020-07-31
+
+*16:23:45 - @Dr Awala Fortune O. has joined the channel*
+
+## 2020-10-21
+
+**Mikhael Manurung** (06:17:06):
+> Hi, I have a quick question: is it okay to do differential state analysis (change in median marker expression) on markers that you also use for clustering?
+
+
+## 2020-10-28
+
+**Mark Robinson** (12:05:40):
+> @Mikhael Manurungquick answer from my side. i think it’s “somewhat ok” to do DS analysis on the markers that were clustered on, because the differences here are between experimental conditions, not between subpopulations (which is more directly related to the clustering). We often don’t test these, because they “should” be unchanged (though sometimes they do) .. so, it can even be a sanity check of the cluster markers .. e.g., look at them to make sure that they do a good job of defining the subpopulations across all samples.
+
+**Mikhael Manurung** (13:03:30) (in thread):
+> Thank you for the answer. What bugs me the most is that it feels like I am trying to split my clusters into subclusters. In addition, if I found significant differences in marker expression between groups within the cluster, doesn't that mean the clusters are not homogenous enough?
+
+**Mark Robinson** (15:08:36) (in thread):
+> yes, if your marker genes are changing across groups, it does not give a great deal of confidence about the clustering .. or that those are good marker genes. that said, i have seen a few cases where classical markers (CD4, CD8) have changed across condition, but the nature of the change was quite subtle.
+
+
+## 2020-11-13
+
+**Mikhael Manurung** (02:56:19):
+> Is it actually possible (and maybe also desirable) to use`data.table`as the backend of`SingleCellExperiment`object?
+
+**Nils Eling** (03:14:41) (in thread):
+> There is a#singlecellexperimentchannel where the maintainers can give you details on their design choice. The`SingleCellExperiment`as an S4 class object contains clearly defined slots with exported accessor functions such as`colData`,`reducedDims`, etc. that can hold very different data types.`data.table`is just an extension to the base R data containers and it’s tough to write generic functions for it without knowing what is stored in the columns. But of course one needs to write specific functions like the`aggregateAcrossCells`function to perform more complex operations on the`SingleCellExperiment`object.
+
+**Helena L. Crowell** (03:17:16) (in thread):
+> To my knowledge, the`colData`slot is fixed to be a`DFrame`(by class definition); the`rowData`can be whatever, including a`data.table`. Finally, for the`assay`s, this also doesn’t work, since`data.table`s cannot have row names (i.e. feature names would be dropped completely). Also, for sparse data (e.g. scRNA-seq) it would be rather undesirable to use anything but a sparse format… Not sure what you meant by “as the backend” - it depends on which slot you’re referring to.
+
+**Nils Eling** (03:19:52) (in thread):
+> I guess this question refers to the`Spectre`publication?[https://www.biorxiv.org/content/10.1101/2020.10.22.349563v1](https://www.biorxiv.org/content/10.1101/2020.10.22.349563v1)
+
+**Mikhael Manurung** (08:25:42) (in thread):
+> @Nils Elingyes, that's correct! I have also used`data.table`for quite some time but things becomes messy very quickly when you are adding more and more variables (e.g. dimensionality reduction coordinates, clusters). Having slots allocated for those outputs would be very helpful instead of one wide table.@Helena L. CrowellMainly for`colData`and`assays`. I find it very nice to have simple calculations such as calculating number of cells per sample or median marker expression of cell clusters done very quickly esp. if you have tens of millions of cells. Loading and saving speed with`fread`and`fwrite`are also desirable...
+
+**Nils Eling** (09:30:48) (in thread):
+> OK, I see what you mean. Have a look at the`scuttle`and`dittoSeq`package - they export some nice functions for the`SingleCellExperiment`object to perform basics calculations (scuttle) and almost all visualizations (dittoSeq). Of course you can always use the`tidyverse`operations on e.g. the`colData`slot:
+> ```
+> colData(sce) %>%
+>     as.data.frame() %>%
+>     ...
+> ```
+> And also use`data.table`to read in data:
+> ```
+> colData(sce) <-DataFrame(as.data.frame(fread(...)))
+> ```
+
+**Nils Eling** (09:34:24) (in thread):
+> So far I never got stuck on aggregation functions regarding speed issues when using the`SingleCellExperiment`object.
+
+
+## 2020-12-12
+
+*00:40:30 - @Huipeng Li has joined the channel*
+
+## 2021-01-22
+
+*15:43:32 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-03-11
+
+*09:32:28 - @Chris Vanderaa has left the channel*
+
+## 2021-03-20
+
+*01:57:17 - @watanabe_st has joined the channel*
+
+## 2021-05-11
+
+*16:44:45 - @Megha Lal has joined the channel*
+
+## 2022-01-19
+
+*10:10:43 - @Stephany Orjuela has left the channel*
+
+## 2022-01-28
+
+*11:12:24 - @Megha Lal has left the channel*
+
+## 2023-06-19
+
+*05:10:19 - @Pierre-Paul Axisa has joined the channel*
+
+## 2023-08-03
+
+*15:57:28 - @Ritika Giri has joined the channel*
+
+## 2023-08-04
+
+*09:35:11 - @Trisha Timpug has joined the channel*
+
+## 2024-05-14
+
+**Lori Shepherd** (10:27:33):
+> archived the channel

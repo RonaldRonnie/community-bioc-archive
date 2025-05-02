@@ -1,0 +1,1922 @@
+---
+title: "#cool-vis"
+format: gfm
+---
+
+
+## 2019-10-29
+
+*14:38:43 - @Aaron Lun has joined the channel*
+**Aaron Lun** (14:38:44):
+> set the channel description: Artsy visualizations that may or may not be useful.
+
+**Aaron Lun** (14:38:50):
+> First
+
+**Aaron Lun** (14:39:25):
+> code to produce this is at[https://github.com/LTLA/artsc](https://github.com/LTLA/artsc)
+
+**Aaron Lun** (14:44:08):
+> PRs welcome for this and new plots. The sexier the better.
+
+*14:48:52 - @Charlotte Soneson has joined the channel*
+*15:36:36 - @Jared Andrews has joined the channel*
+*15:47:50 - @Sridhar N has joined the channel*
+*16:16:47 - @Federico Marini has joined the channel*
+**Aaron Lun** (16:50:34):
+> set the channel description: Truth and beauty. But mostly the latter.
+
+*16:52:42 - @Constantin Ahlmann-Eltze has joined the channel*
+*17:32:46 - @Kevin Rue-Albrecht has joined the channel*
+*18:10:09 - @Vince Carey has joined the channel*
+*18:23:21 - @Dan Bunis has joined the channel*
+*21:19:20 - @hcorrada has joined the channel*
+*22:16:08 - @Peter Hickey has joined the channel*
+
+## 2019-10-30
+
+*02:13:42 - @Almut has joined the channel*
+*06:38:08 - @Shila Ghazanfar has joined the channel*
+*06:48:22 - @Fabiola Curion has joined the channel*
+*10:25:14 - @Keegan Korthauer has joined the channel*
+*14:38:31 - @Jayaram Kancherla has joined the channel*
+*18:53:11 - @Elana Fertig has joined the channel*
+
+## 2019-10-31
+
+**Aaron Lun** (01:24:54):
+> Well, it wasn't easy, but now you can do this:
+> ```
+> stuff <- data.frame(X=rep(LETTERS, 5), Y=as.character(rep(1:5, each=26)), LogFC=rnorm(26*5), NDetected=runif(26*5))
+>  ggplot(stuff) + geom_himawari(aes(x=X, y=Y, color=LogFC, percent=NDetected))
+> ```
+  - File (PNG): [test.png](https://community-bioc.slack.com/files/U34P8RS3B/FPS49682V/test.png)
+
+**Aaron Lun** (01:38:33):
+> Hacked my way around`grid`, but I got it working in the end.
+
+*10:36:04 - @Rob Amezquita has joined the channel*
+**Dan Bunis** (12:54:56):
+> This is great@Aaron Lun!
+
+**Dan Bunis** (12:56:35):
+> One suggestion though is to swap color -> fill.  Color is normally for the lines, no?
+
+**Aaron Lun** (14:22:53):
+> That’s correct, and it was done.
+
+
+## 2019-11-01
+
+**Aaron Lun** (01:14:06):
+> ```
+> ggplot(diamonds) + geom_snowy_ridges(aes(x=carat, y=cut, fill=cut)) + scale_fill_discrete()
+> ```
+  - File (PNG): [snow.png](https://community-bioc.slack.com/files/U34P8RS3B/FQ1LMJ85T/snow.png)
+
+**Aaron Lun** (01:15:19):
+> Ridge plots, but without having to worry about masking small peaks in the previous distribution.
+
+**Aaron Lun** (01:17:47):
+> This is slightly "better" than having constant transparency; a small peak in the previous distribution is more visible here due to the intensity of its color at lower values.
+
+**Aaron Lun** (01:20:38):
+> I didn't quite have the skill to make the transparency scale comparable across distributions, though it seems difficult to compare anyway.
+
+**Aaron Lun** (01:33:54):
+> Admittedly the reasoning above works better in theory than in practice, things just get cluttered if you have a front large peak overlapping a small back peak.
+
+**Aaron Lun** (01:52:12):
+> But it is nice how the emphasis isn't dominated by the distribution that happens to be in front.
+
+
+## 2019-11-04
+
+*08:03:23 - @Izaskun Mallona has joined the channel*
+*13:57:57 - @Joan has joined the channel*
+
+## 2019-11-07
+
+*11:27:12 - @Kevin Blighe has joined the channel*
+
+## 2019-11-08
+
+*08:21:41 - @Alan O'C has joined the channel*
+*11:59:17 - @Brendan Innes has joined the channel*
+
+## 2019-11-12
+
+**Dan Bunis** (18:58:58):
+> Is the plan to eventually add artsc to bioconductor?  I definitely want to implement both of these in dittoSeq.
+
+**Aaron Lun** (19:07:22):
+> I’d like to see a clear demarcation of responsibilities between artsc and dittoseq and other sc visualziation packages.
+
+**Aaron Lun** (19:07:38):
+> For example, one approach would be to mvoe ALL of scater’s vis functions into artsc. Or dittoseq. I dunno.
+
+**Aaron Lun** (19:07:54):
+> Another option would be to have artsc provide the base geoms and dittoseq provide convenient wrappers.
+
+**Aaron Lun** (19:08:17):
+> Perhaps we could get someone to collate all single-cell viz packages to bring some order to the chaos.
+
+**Dan Bunis** (19:20:04):
+> > Another option would be to have artsc provide the base geoms and dittoseq provide convenient wrappers.
+> This is what I was thinking.
+
+**Dan Bunis** (19:23:41):
+> not sure exactly what you mean by “collate all single-cell viz” packages, just make a list?
+
+**Dan Bunis** (19:23:59):
+> I did plan to go through scater and see if dittoSeq adaptations of the viz’s would be possible.
+
+**Dan Bunis** (19:24:13):
+> Could also aim to do that for others as well
+
+**Aaron Lun** (19:26:03):
+> The dream would be to have a one-stop shop for common viz modes.
+
+**Aaron Lun** (19:26:44):
+> I, for one, hate writing viz functions.
+
+**Aaron Lun** (19:26:53):
+> Or at least, I hate writing it alongside analysis functions.
+
+**Aaron Lun** (19:27:08):
+> So I just want to move it to another package where the aesthetic choices are someone else’s problem.
+
+**Dan Bunis** (19:28:39):
+> Ha, well good news: I prefer to write the visualization functions than to make the analysis decisions lol
+
+**Aaron Lun** (19:29:43):
+> Looks like we have a deal, then.
+
+**Aaron Lun** (19:30:52):
+> I can write a few functions in**scater**to convert a SCE to a data.frame for easy ggplotting on your end.
+
+**Aaron Lun** (19:31:18):
+> I did mention this some time ago, but check out`retrieveCellInfo`for an example of what this might look like.
+
+**Dan Bunis** (19:32:21):
+> That shouldn’t be necessary.  dittoSeq works directly with SCEs already
+
+**Dan Bunis** (19:33:48):
+> Though perhaps for the alt experiment stuff it would be needed?
+
+**Aaron Lun** (19:34:08):
+> That’s right; the question is whether you want to offload that munging to me so you don’t have to worry about it.
+
+**Aaron Lun** (19:34:42):
+> The contract is that you will get a long-form/per-cell/per-feature DF with columns filled out, then you can just proceed off that.
+
+**Dan Bunis** (19:36:03):
+> Ahhh I think that would indeed be helpful.
+
+**Dan Bunis** (19:36:22):
+> But would it be a slow calculation for large objects?
+
+**Aaron Lun** (19:36:46):
+> Well, if you want a long-form df with all features, then yes, it would be pretty slow. But you’d probably be subsetting to some features anyway.
+
+**Dan Bunis** (19:38:30):
+> I would definitely be subsetting pretty quick, but still we’d be hindered by initial calc, no?
+
+**Dan Bunis** (19:41:36):
+> You may already have jumped to this, but all I’m getting at is that the ->DF fucntion should be made able to only grab the right subset
+
+**Aaron Lun** (19:42:06):
+> Uh. Yes?
+
+**Aaron Lun** (19:42:26):
+> I mean, I’m not making a DF of everything, if that’s what you’re worried about
+
+**Aaron Lun** (19:43:21):
+> Anyway, I personally feel that the heatmap is the most problematic, so if you have a smooth ggplot wrapper around that, I would be happy.
+
+**Aaron Lun** (19:44:52):
+> pheatmap SEGFAULTS sometimes, which is unacceptable.
+
+**Aaron Lun** (19:44:59):
+> I mean, how is that even possible?
+
+**Aaron Lun** (19:45:02):
+> ¯\*(ツ)*/¯
+
+**Dan Bunis** (19:45:30):
+> :man-shrugging:
+
+**Dan Bunis** (19:46:49):
+> So…. except of the dittoHeatmap doc:
+> > Details
+> This function serves as a wrapper for creating***pheatmap***heatmaps from bulk or single-cell RNAseq data
+
+**Dan Bunis** (19:47:46):
+> I’ve never gotten a segfault myself.  do you know if that happened in clustering???
+
+**Dan Bunis** (19:49:40):
+> I have an[order.by](http://order.by)input in dittoHeatmap now to functionally get around a need for clustering.  It works similar to the`cells.order`input in SingleR’s + also can take in a metadata slot name or a gene name.
+
+**Jared Andrews** (20:12:59):
+> pheatmap clustering doesn't work with >65k elements, but I can't remember if it actually segfaults.
+
+**Jared Andrews** (20:13:44):
+> Think it just uses`hclust`, so I don't know if it's really a pheatmap problem or not.
+
+**Dan Bunis** (20:22:52):
+> I’ve tried ComplexHeatmap before.  My issue was that its output wasn’t the actual plot but was instead just the parameters for making the plot.  So then outputting the actual plots each time was pretty slow.  But maybe there’s a better way?
+
+**Jared Andrews** (20:25:51):
+> Yeah, ComplexHeatmap is really nice, but is a bit slow. Crazy flexible though, the guy thought of damn near everything.
+
+**Aaron Lun** (20:26:33):
+> I don’t really care as long as I can get a one-liner in my analysis script.
+
+**Aaron Lun** (20:27:12):
+> Here’s an acceptance criterion: go through the OSCA book and see all the plots, and see if you can reproduce them in fewer lines of code.
+
+**Aaron Lun** (20:27:40):
+> And it can’t just be one super long line either.
+
+**Aaron Lun** (20:31:11):
+> Well, some of the more custom plots can probably be ignored. But it should be easy to do the standard things and possible to do the custom things.
+
+**Dan Bunis** (21:03:56):
+> ? Your request is quite broad!  But for a heatmap:
+> ```
+> pbmc <- Seurat::pbmc_small
+> dittoHeatmap(c("MS4A1","GNLY","CD3E","CD14","FCER1A",
+>     "FCGR3A","LYZ","PPBP","CD8A"),
+>     object = pbmc,
+>     annotation.metas = "ident")
+> ```
+
+**Dan Bunis** (21:04:11):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/FQFM1A536/image.png)
+
+**Dan Bunis** (21:04:20):
+> And with just a bit more…
+
+**Dan Bunis** (21:04:49):
+> ```
+> dittoHeatmap(c("MS4A1","GNLY","CD3E","CD14","FCER1A",
+>     "FCGR3A","LYZ","PPBP","CD8A"),
+>     object = pbmc,
+>     annotation.metas = "ident",[order.by](http://order.by)= "ident",
+>     show.colnames = FALSE,
+>     scaled.to.max = TRUE)
+> ```
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/FQJ11AYET/image.png)
+
+**Aaron Lun** (22:57:24):
+> `scater::plotHeatmap`takes the position that (translated in your argument names)[order.by](http://order.by)`=`implies`annotation.metas=`, such that`annotation.metas=`[order.by](http://order.by)by default.
+
+
+## 2019-11-13
+
+**Dan Bunis** (00:57:46):
+> I find it useful to show the splits.  And to sometimes annotate with more than one.
+> = above but with`annotation.metas = c("ident", "groups", "letter.idents")`
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/FQFRH43T6/image.png)
+
+**Aaron Lun** (01:01:14):
+> Well, sure, but if you were to set`annotation.metas=`[order.by](http://order.by)in the args, most users would only need to specify one arg.
+
+**Aaron Lun** (01:01:36):
+> Then if people want to do something more complex, then they can specify both, but that's on them.
+
+**Dan Bunis** (01:13:45):
+> Could do.
+
+**Dan Bunis** (01:27:51):
+> I just added[order.by](http://order.by)yesterday, so clustering currently runs by default.  I hate messing with the defaults.
+
+**Aaron Lun** (01:29:17):
+> I don't think people will be all that bothered.
+
+**Aaron Lun** (01:29:31):
+> For example, roxygen's defaults just changed in the latest devtools.
+
+**Dan Bunis** (01:32:09):
+> I also made dittoSeq for bulk RNAseq, where clustering is generally useful.
+
+**Dan Bunis** (01:32:51):
+> Something I'd really love to do is build a way for people to easily adjust their own defaults.
+
+**Aaron Lun** (01:34:26):
+> Usually requires some global args, e.g.,`register`from BiocParallel.
+
+
+## 2019-11-14
+
+*17:06:49 - @Aedin Culhane has joined the channel*
+
+## 2019-11-25
+
+*13:09:52 - @Stephanie Hicks has joined the channel*
+
+## 2019-12-03
+
+*23:32:02 - @Princy Parsana has joined the channel*
+
+## 2019-12-04
+
+*17:38:42 - @Jonathan Carroll has joined the channel*
+
+## 2019-12-09
+
+*04:19:16 - @Luke Zappia has joined the channel*
+
+## 2019-12-14
+
+*13:04:36 - @Teun van den Brand has joined the channel*
+
+## 2019-12-20
+
+*08:37:33 - @Domenick Braccia has joined the channel*
+
+## 2019-12-23
+
+*11:40:33 - @Ruth Isserlin has joined the channel*
+
+## 2020-01-27
+
+*11:32:37 - @darlanminussi has joined the channel*
+
+## 2020-02-08
+
+*16:39:15 - @Thanh Le Viet has joined the channel*
+
+## 2020-02-14
+
+*04:46:26 - @Ines de Santiago has joined the channel*
+*05:04:29 - @Andrew Skelton has joined the channel*
+
+## 2020-02-17
+
+**Teun van den Brand** (03:08:58):
+> I've made some progress sheparding Vector-based classes through ggplot. Any thoughts on what classes would be cool to have in ggplot?
+> ```
+> df <- DataFrame(
+>   x = GRanges(c("chr1:1000-2000", "chr1:1500-2500", 
+>                 "chr2:3000-4000", "chr3:4000-4500")),
+>   y = c(1, 2, 3, 2)
+> )
+> 
+> ggplot(df, aes(xmin = x, xmax = x, ymin = y - 0.2, ymax = y + 0.2)) +
+>   geom_rect()
+> ```
+
+**Teun van den Brand** (03:09:24):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/FTQCFMM4J/image.png)
+
+**Peter Hickey** (05:51:57):
+> `S4Vectors::DataFrame()`
+
+**Peter Hickey** (06:03:50):
+> fyi they're rather different.**DataFrame**is an S4 class with similar API to**data.frame**but it's not a**data.frame**
+
+**Peter Hickey** (06:04:35):
+> e.g., you typically can't use a**DataFrame**in a tidyverse-style workflow without converting to a**data.frame**/**tibble**
+
+**Peter Hickey** (06:04:55):
+> conversely, there are good reasons for using**DataFrame**in a BioC-heavy workflow
+
+**Alan O'C** (06:15:30):
+> There's a package being written with dplyr verbs for DataFrame[https://github.com/jonocarroll/DFplyr/](https://github.com/jonocarroll/DFplyr/)but I assume there's many other tidyverse packages that have no equivalent
+
+**Teun van den Brand** (07:45:05):
+> My goal was not necessarily to make a pretty plot, but to make Vector-based classes (a large number of the BioC classes) compatible with ggplot2 such that stats, position adjustments and geoms can work without too much of a fuss. People only recently realised that S4 objects can be base::data.frame columns, so in theory they could be chaperoned through the internals of ggplot. If typical genome viz plots are your jam, you could have a gander at ggbio.
+
+**Alan O'C** (07:50:41):
+> Where are you doing this? Are you making a ggplot2 extension of sorts?
+
+**Teun van den Brand** (07:51:58):
+> I'm trying to. At the moments it's still crappy in all sorts of way but I'll post it on github once it is semi-usable
+
+**Alan O'C** (07:56:12):
+> Side note: I love that ggplot2 says that objects should be coercible by fortify, but the fortify documentation suggests to use broom and that fortify is likely to be deprecated
+
+**Teun van den Brand** (07:57:02):
+> Exactly, fortify is the main hook to modify data to be compatible. They might reconsider though:[https://github.com/tidyverse/ggplot2/issues/3816](https://github.com/tidyverse/ggplot2/issues/3816)
+
+**Peter Hickey** (15:57:15) (in thread):
+> Re use of S4 objects as**data.frame**columns, I think I'm not understanding / missing something. It seems the`data.frame()`constructor does some coercion of its arguments, so how do you preserve the class of the S4 objects when making it a**data.frame**column? Thanks!
+> ```
+> suppressPackageStartupMessages(library(S4Vectors))
+> x <- Factor(letters[1:10])
+> is(x, "Vector")
+> #> [1] TRUE
+> data.frame(x = x) # Errors
+> #> Error in as.vector(x): no method for coercing this S4 class to a vector
+> 
+> suppressPackageStartupMessages(library(Biostrings))
+> y <- DNAString(c("ATGC"))
+> is(y, "Vector")
+> #> [1] TRUE
+> data.frame(y = y) # Works but loses S4 class
+> #>   y
+> #> 1 A
+> #> 2 T
+> #> 3 G
+> #> 4 C
+> str(data.frame(y = y))
+> #> 'data.frame':    4 obs. of  1 variable:
+> #>  $ y: Factor w/ 18 levels "A","C","G","T",..: 1 4 3 2
+> 
+> suppressPackageStartupMessages(library(GenomicRanges))
+> gr <- GRanges("chr1", IRanges(1:3, width = 4))
+> is(gr, "Vector")
+> #> [1] TRUE
+> data.frame(gr = gr) # Works but loses S4 class
+> #>   gr.seqnames gr.start gr.end gr.width gr.strand
+> #> 1        chr1        1      4        4         *
+> #> 2        chr1        2      5        4         *
+> #> 3        chr1        3      6        4         *
+> ```
+
+
+## 2020-02-18
+
+**Teun van den Brand** (05:28:43) (in thread):
+> Yeah, the`data.frame`constructor does some unpleasant coercion internally by calling`as.data.frame()`so you can't really use that. But if we think about what a`data.frame`is, it is just a list wherein list-elements are the same length and it has rownames, so we can use that to convert a`DataFrame`to`data.frame.`My converter looks like the following:
+> ```
+> DataFrame2data.frame <- function(df) {
+>   df <- as.list(df)
+>   class(df) <- "data.frame"
+>   attr(df, "row.names") <- .set_row_names(max(lengths(df)))
+>   df
+> }
+> ```
+> And the result acts like you'd expect a`data.frame`to behave most of the time.
+> ```
+> 
+> ```
+
+**Teun van den Brand** (05:31:17) (in thread):
+> ```
+> # We'd need to show the S4 objects nicely
+> format.Vector <- function(x, ...) {showAsCell(x)}
+> 
+> DF <- DataFrame(x = Rle(1:5), 
+>                 y = GRanges("chr1", IRanges(1:5, width = 4)))
+> 
+> df <- DataFrame2data.frame(DF)
+> 
+> cbind(df, df)
+> 
+> df[2:3,]
+> 
+> df[, 2]
+> 
+> df[, 2, drop = FALSE]
+> ```
+
+**Teun van den Brand** (05:31:55) (in thread):
+> The only expection (I've spotted so far) is that I haven't seen`rbind(df, df)`work properly
+
+
+## 2020-02-19
+
+*11:26:55 - @Daniel Newhouse has joined the channel*
+
+## 2020-02-20
+
+**Aaron Lun** (12:41:25):
+> I’m just going to say that the thing I did in#singlecellexperimentwas pretty awesome for seamless SCE<->ggplot compatibility.
+
+**Teun van den Brand** (18:35:45):
+> @Aaron Lun
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/FUCEDEP8E/image.png)
+
+**Aaron Lun** (18:36:08):
+> :konata:
+
+
+## 2020-02-25
+
+*04:18:23 - @Hervé Pagès has joined the channel*
+
+## 2020-03-02
+
+**Jonathan Carroll** (05:34:59) (in thread):
+> (only just now catching up with this)`DFplyr`adds a`fortify.DataFrame`method and that makes a `DataFrame` with just S3 or atomic vector columns work in`ggplot2`. I'm interested in what other changes are required.
+
+**Teun van den Brand** (14:56:37) (in thread):
+> Hi Jonathan, yes I've done the same in the planned ggplot extension. I'll try out your version of the function and run some of my unit tests to see what would be different
+
+**Teun van den Brand** (15:18:04) (in thread):
+> So, I had a look and what would make your`fortify.DataFrame`incompatible with how I planned to structure my package is that it doesn't preserve S4 classes such as GRanges. Now don't get me wrong, that is the way to go with vanilla ggplot since it doesn't accept S4 classes, but I'm making an effort to make ggplot a bit more lenient in that sense (See[https://github.com/tidyverse/ggplot2/pull/3837](https://github.com/tidyverse/ggplot2/pull/3837)). The next problem is that scales don't know how to deal with S4Vector classes, which is what I'm adressing in my extention.
+> 
+> This is how your fortify method works on some test data:
+> ```
+> df <- DataFrame(x = GRanges("chr1", IRanges(1:3, width = 5)), y =1:3)
+> fdf <- fortify(df)
+> print(fdf)
+> #> # A tibble: 3 x 6
+> #>   x.seqnames x.start x.end x.width x.strand     y
+> #>   <fct>        <int> <int>   <int> <fct>    <int>
+> #> 1 chr1             1     5       5 *            1
+> #> 2 chr1             2     6       5 *            2
+> #> 3 chr1             3     7       5 *            3
+> str(fdf)
+> #> Classes 'tbl_df', 'tbl' and 'data.frame':    3 obs. of  6 variables:
+> #>  $ x.seqnames: Factor w/ 1 level "chr1": 1 1 1
+> #>  $ x.start   : int  1 2 3
+> #>  $ x.end     : int  5 6 7
+> #>  $ x.width   : int  5 5 5
+> #>  $ x.strand  : Factor w/ 3 levels "+","-","*": 3 3 3
+> #>  $ y         : int  1 2 3
+> ```
+> And this is what my fortify does on the same test data:
+> ```
+> df <- DataFrame(x = GRanges("chr1", IRanges(1:3, width = 5)), y =1:3)
+> fdf <- fortify(df)
+> print(fdf)
+> #>          x y
+> #> 1 chr1:1-5 1
+> #> 2 chr1:2-6 2
+> #> 3 chr1:3-7 3
+> str(fdf)
+> #> 'data.frame':    3 obs. of  2 variables:
+> #>  $ x:Formal class 'GRanges' [package "GenomicRanges"] with 7 slots
+> #>   .. ..@ seqnames       :Formal class 'Rle' [package "S4Vectors"] with 4 slots
+> #>   .. .. .. ..@ values         : Factor w/ 1 level "chr1": 1
+> #>   .. .. .. ..@ lengths        : int 3
+> #>   .. .. .. ..@ elementMetadata: NULL
+> #>   .. .. .. ..@ metadata       : list()
+> #>   .. ..@ ranges         :Formal class 'IRanges' [package "IRanges"] with 6 slots
+> #>   .. .. .. ..@ start          : int  1 2 3
+> #>   .. .. .. ..@ width          : int  5 5 5
+> #>   .. .. .. ..@ NAMES          : NULL
+> #>   .. .. .. ..@ elementType    : chr "ANY"
+> #>   .. .. .. ..@ elementMetadata: NULL
+> #>   .. .. .. ..@ metadata       : list()
+> #>   .. ..@ strand         :Formal class 'Rle' [package "S4Vectors"] with 4 slots
+> #>   .. .. .. ..@ values         : Factor w/ 3 levels "+","-","*": 3
+> #>   .. .. .. ..@ lengths        : int 3
+> #>   .. .. .. ..@ elementMetadata: NULL
+> #>   .. .. .. ..@ metadata       : list()
+> #>   .. ..@ seqinfo        :Formal class 'Seqinfo' [package "GenomeInfoDb"] with 4 slots
+> #>   .. .. .. ..@ seqnames   : chr "chr1"
+> #>   .. .. .. ..@ seqlengths : int NA
+> #>   .. .. .. ..@ is_circular: logi NA
+> #>   .. .. .. ..@ genome     : chr NA
+> #>   .. ..@ elementMetadata:Formal class 'DFrame' [package "S4Vectors"] with 6 slots
+> #>   .. .. .. ..@ rownames       : NULL
+> #>   .. .. .. ..@ nrows          : int 3
+> #>   .. .. .. ..@ listData       : Named list()
+> #>   .. .. .. ..@ elementType    : chr "ANY"
+> #>   .. .. .. ..@ elementMetadata: NULL
+> #>   .. .. .. ..@ metadata       : list()
+> #>   .. ..@ elementType    : chr "ANY"
+> #>   .. ..@ metadata       : list()
+> #>  $ y: int  1 2 3
+> ```
+
+
+## 2020-03-03
+
+**Jonathan Carroll** (07:10:32) (in thread):
+> Nice! I only got as far as S3 columns but it looks like you have a solid approach. I'll add a link to yours on the`DFplyr`repo. Cheers!
+
+
+## 2020-03-04
+
+*15:02:24 - @Jialin Ma has joined the channel*
+
+## 2020-03-05
+
+**Teun van den Brand** (02:49:44):
+> Hey@Alan O'C, it seems now that most of the basic stuff in my planned ggplot2 extension is semi-useable, so have a look if you want:[https://github.com/teunbrand/ggnomics/tree/BioC/](https://github.com/teunbrand/ggnomics/tree/BioC/). Fair warning though, it is the first time I had to deal with S4 heavily myself, so don't expect any miracles!
+
+
+## 2020-03-16
+
+**Dan Bunis** (17:00:40):
+> Hey all!  My “universal” single-cell and bulk visualization package has been accepted into BioC now:smiley:.  It’s pretty comprehensive in terms of easy figure modifications (@Jared Andrewscan confirm? =p), color blindness friendly, and is directly compatible with SingleCellExperiments, SummarizedExperiments, and Seurats.  Hopefully having the same code for Seurat vs SE/SCE means it can be easier to communicate with, and pull over to Bioc, Seurat users.  I do have some tweaks and doc updates that I plan to make in the next week or so, but the functionality is all there now.  Check it out maybe?  Hopefully you’ll find it useful![https://github.com/dtm2451/dittoSeq](https://github.com/dtm2451/dittoSeq)
+
+**Aaron Lun** (17:01:16):
+> :+1:
+
+**Jared Andrews** (17:03:03):
+> Can confirm, it's pretty got-dang nice.
+
+
+## 2020-03-17
+
+*07:26:37 - @Giuseppe D'Agostino has joined the channel*
+*20:04:12 - @Jianhong has joined the channel*
+
+## 2020-03-31
+
+**Aaron Lun** (00:40:39):
+> @Dan Bunis@Kevin Blighegive me a chapter dudes
+
+**Aaron Lun** (00:40:57):
+> Probably two sections each on your views on how things should be visualized.
+
+**Aaron Lun** (00:41:06):
+> Each section should probably start with a taster for the more vanilla plots
+
+**Aaron Lun** (00:41:17):
+> and then ramp up to the most beautiful things you can produce for the main course.
+
+**Aaron Lun** (00:41:47):
+> And then, as a dessert, possibly some bits and pieces that are more fun than useful.
+
+**Dan Bunis** (13:27:17):
+> @Aaron Lunyou’re asking for the Orchestrating Single Cell Analysis book, right?  I’m down.@Kevin Blighefrom what I’ve seen, the book is mostly single-cell RNAseq focused right now, but we could either put together a single chapter including an explanation of how Flow/CyTOF data are similar to scRNAseq in many but not all ways, OR we can have two separate chapters.[https://github.com/Bioconductor/OSCABase](https://github.com/Bioconductor/OSCABase)
+
+**Dan Bunis** (13:31:16):
+> I have other thoughts that are perhaps meant for the#osca-bookchannel.
+
+**Dan Bunis** (13:39:20):
+> nvm as I see my question of whether there should be entire section on flow/CyTOF has already been discussed in#osca-book. (Summary: although the OSCA title is non-restrictive to scRNAseq, the book is already quite long and consequently hard to manage.  Thus, entire sections on pipelines for flow/CyTOF are thought to be best for a separate book.)
+
+**Dan Bunis** (13:43:01):
+> I certainly won’t be able to put much together until later this week, but I could take a crack at getting us going with an intro bit for a joint chapter (scRNAseq & flow/CyTOF together) if you would still be interested, Kevin.
+
+**Aaron Lun** (15:15:39):
+> Yes, you know what I like.
+
+**Aaron Lun** (17:06:15):
+> damn straight
+
+**Aaron Lun** (17:06:52):
+> I was thinking of just a chapter on visualization for scRNA-seq. There will be a separate book for flow/mass.
+
+**Aaron Lun** (17:07:40):
+> Anyone who thinks it should all be in one book does not understand the pain.
+
+**Aaron Lun** (17:07:55):
+> The sheer, unmitigated pain of trying to build the damn thing with its >200 dependencies.
+
+**Aaron Lun** (17:08:16):
+> If we included flow/mass, it would probably hit >300 dependencies.
+
+**Aaron Lun** (17:24:20):
+> yeah give me some artwork
+
+**USLACKBOT** (21:36:18):
+> This message was deleted.
+
+**Aaron Lun** (21:36:41):
+> god how many points is that
+
+**Sridhar N** (21:36:57):
+> that is a cute salamander
+
+**Sridhar N** (21:37:18):
+> :lizard:
+
+**Aaron Lun** (21:39:56):
+> I’m surprised ggplot didn’t just throw up
+
+**Aaron Lun** (21:40:37):
+> well, it is pretty. dunno about its scientific utility, but I guess I didn’t ask for that.
+
+**Sridhar N** (21:45:47):
+> its XY plot, if you control the point size i guess it should be fine no?
+
+**Giuseppe D'Agostino** (22:53:32):
+> regarding single cell viz, one thing I have done recently is kind of a hack to remake`schex`but adding transparency to show abundance of points in each hexagonal cell (I just applied the`ggplot.multistats`package as suggested by the author in the github issues so it's***really***just a hack). I personally like the result
+
+**Giuseppe D'Agostino** (22:53:50):
+  - File (PNG): [pca1.png](https://community-bioc.slack.com/files/U34P8RS3B/F01186NRM6K/pca1.png)
+
+**Giuseppe D'Agostino** (22:55:32):
+> not sure what's the best way to share this since the idea is not original, I just implemented it
+
+**Aaron Lun** (22:55:49):
+> I’m sure a home for ti could be found.
+
+**Giuseppe D'Agostino** (23:31:34):
+> That's very good looking. I think that they are complementary approaches, as in the hex summarization you have both a value (like total UMI or class proportion) and the local density by transparency. It is a rough summarization/binning though, so you could not apply contours
+
+
+## 2020-04-01
+
+**Dan Bunis** (13:43:47):
+> dittoSeq’s similar method for these is simply allowing adjustment of opacity.  Building in a density gradient method has been a back-burner idea for me, but I like the`schex`plots method. I’d happily take in your implementation@Giuseppe D'Agostinoif you’d be interested.
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F010VB5J682/image.png)
+
+**Dan Bunis** (13:50:10) (in thread):
+> The likely home would be dittoScatterPlot (which dittoDimPlot utilizes).  By-cell data gather is handled before the plot is made, so I’d propose a`do.hex`input +
+> ```
+> # Before plotting
+> [Transformation of per-cell Target_data dataframe to per-hex dataframe]
+> 
+> # within plotting
+> if (do.hex) {
+>     p <- p + [schex code]
+> } else {
+>     p <- p + [current geom_point code]
+> }
+> ```
+
+
+## 2020-04-02
+
+**Domenick Braccia** (12:57:03) (in thread):
+> looks like the firefox logo !
+
+**Giuseppe D'Agostino** (23:01:41) (in thread):
+> that's interesting. my code so far has some hardcoded parts and only works`SingleCellExperiment`classes but that can be changed.
+
+**Dan Bunis** (23:05:32) (in thread):
+> Oh hardcoded for what parts? The dataframe I’m mentioning has all the target expression & dimensionality reduction /axes already grabbed. if you share the code, I would help in the conversion.
+
+
+## 2020-04-03
+
+**Federico Marini** (11:02:17) (in thread):
+> I do see a sea snake or so, with open mouth
+
+**Federico Marini** (11:02:29) (in thread):
+> but it is probably just quarantine week #3
+
+
+## 2020-04-24
+
+*20:08:50 - @Anthony has joined the channel*
+
+## 2020-04-29
+
+*14:07:43 - @Nitesh Turaga has joined the channel*
+
+## 2020-04-30
+
+**Sridhar N** (01:34:53):
+> what do y'all use to create gene tracks
+
+**Sridhar N** (01:35:19):
+> looking for reco's except gviz
+
+**hcorrada** (09:11:59) (in thread):
+> Maybe this can help:[https://bioconductor.org/packages/release/bioc/html/epivizrChart.html](https://bioconductor.org/packages/release/bioc/html/epivizrChart.html)
+  - Attachment (Bioconductor): [epivizrChart](https://bioconductor.org/packages/release/bioc/html/epivizrChart.html)
+    > This package provides an API for interactive visualization of genomic data using epiviz web components. Objects in R/BioConductor can be used to generate interactive R markdown/notebook documents or can be visualized in the R Studio's default viewer.
+
+**Jialin Ma** (11:56:08) (in thread):
+> I wrote[TnT](https://www.bioconductor.org/packages/release/bioc/html/TnT.html)a few years ago but haven’t touched it for a while. See if that works for you.
+  - Attachment (Bioconductor): [TnT](https://www.bioconductor.org/packages/release/bioc/html/TnT.html)
+    > A R interface to the TnT javascript library ([https://github.com/](https://github.com/) tntvis) to provide interactive and flexible visualization of track-based genomic data.
+
+
+## 2020-05-07
+
+*11:16:38 - @Ben Story has joined the channel*
+
+## 2020-05-10
+
+**Dan Bunis** (13:12:12):
+> FYI for anyone interested, I’ve added density plotting to dittoSeq's devel via 2 new functions, dittoDimHex() and dittoScatterHex(), as well as by adding 'do.contour' inputs for these and their dittoDimPlot()/dittoScatterPlot() counterparts. A significant amount of the hex functionality is adapted from@Giuseppe D'Agostino’s code:slightly_smiling_face:
+  - File (PNG): [ditto-density.png](https://community-bioc.slack.com/files/U34P8RS3B/F012XMHM4MD/ditto-density.png)
+
+**Kevin Rue-Albrecht** (13:13:43):
+> Neat:slightly_smiling_face:If you ever get bored, iSEEu is waiting for interactive panels with open arms:innocent:
+
+**Kevin Rue-Albrecht** (13:15:28):
+> **Small**learning curve, you know the drill:stuck_out_tongue:
+
+**Dan Bunis** (13:29:07):
+> "If I ever get bored" LOL. But that does sound interesting.
+
+**Kevin Rue-Albrecht** (13:30:45):
+> > If you ever get bored
+> I adopted that catchphrase in my academic one-man-show ;)
+
+**Dan Bunis** (13:33:47) (in thread):
+> Perhaps I could watch a recording of this show when I'm picking up iSEE/iSEEu? If I ever get bored.
+
+**Kevin Rue-Albrecht** (13:35:53) (in thread):
+> Turn of phrase. It's just fun to throw those words around when you know the odds aren't in your favour :P
+
+**Dan Bunis** (13:39:07) (in thread):
+> Yup! Was also fishing... I have a labmate who occasionally performs standup =p
+
+**Kevin Rue-Albrecht** (13:41:53) (in thread):
+> That sounds awesome! I've never tried standup, actually, I'm more of a musician, small town orchestra type.
+
+**Dan Bunis** (13:45:33) (in thread):
+> Also super cool... I just:fire:my free time playing video games
+
+**Kevin Rue-Albrecht** (13:50:13) (in thread):
+> I was a heavy player including during my PhD. I  occasionally miss those times BBQ/LoL days with housemates:slightly_smiling_face:
+
+**Giuseppe D'Agostino** (21:34:08):
+> yay!
+
+
+## 2020-05-20
+
+*15:13:31 - @Nitesh Turaga has left the channel*
+
+## 2020-06-10
+
+*05:49:08 - @Jonathan Griffiths has joined the channel*
+
+## 2020-07-08
+
+*08:20:24 - @Atul Deshpande has joined the channel*
+
+## 2020-07-15
+
+*08:50:57 - @Spencer Nystrom has joined the channel*
+*09:20:31 - @wmuehlhaeuser has joined the channel*
+
+## 2020-07-29
+
+*13:03:18 - @Nick Owen has joined the channel*
+*15:42:59 - @Arshi Arora has joined the channel*
+
+## 2020-07-30
+
+*10:44:45 - @Lukas Weber has joined the channel*
+*10:44:54 - @Daniela Cassol has joined the channel*
+*10:46:16 - @Iara Souza has joined the channel*
+*10:46:51 - @Joselyn Chávez has joined the channel*
+*10:46:54 - @Nur-Taz Rahman has joined the channel*
+*10:51:29 - @Markus Schroeder has joined the channel*
+*10:53:08 - @Adrija Kalvisa has joined the channel*
+*10:58:50 - @sani has joined the channel*
+*11:05:57 - @Liz Ing-Simmons has joined the channel*
+*11:36:01 - @Bharati Mehani has joined the channel*
+*12:57:08 - @Ayush Aggarwal has joined the channel*
+*16:13:58 - @Sunil Nahata has joined the channel*
+
+## 2020-07-31
+
+*03:14:50 - @Saulius Lukauskas has joined the channel*
+*13:58:41 - @bogdan tanasa has joined the channel*
+*16:25:00 - @Dr Awala Fortune O. has joined the channel*
+
+## 2020-08-03
+
+*19:26:01 - @Rene Welch has joined the channel*
+
+## 2020-08-07
+
+**Federico Marini** (06:19:31):
+> Not really genomics, but belongs fully to the cool vis topic
+
+**Federico Marini** (06:19:32):
+> [https://www.malofiejgraphics.com/2020/08/general/the-new-york-times-and-national-geographic-win-the-endesa-best-of-show-award/](https://www.malofiejgraphics.com/2020/08/general/the-new-york-times-and-national-geographic-win-the-endesa-best-of-show-award/)
+  - Attachment (Malofiej): [The New York Times and National Geographic win the Endesa Best of Show Award](https://www.malofiejgraphics.com/2020/08/general/the-new-york-times-and-national-geographic-win-the-endesa-best-of-show-award/)
+    > The graphic ‘What Path Takes You to Congress’ published in The New York Times wins the Endesa Best of Show Award in the print category. The Endesa Best of
+
+**Federico Marini** (06:20:37):
+> I always check out this non-sci visualizations award, it is interesting to see how the storytelling can evolve, especially in journalism
+
+
+## 2020-08-18
+
+*09:09:03 - @Will Macnair has joined the channel*
+
+## 2020-08-20
+
+**Bharati Mehani** (03:08:35):
+> I have a simple question related to tSNE, how to identify subgroups and the membership from the tSNE coordinates? Anybody here can help me please?
+
+**Aaron Lun** (03:11:03):
+> It is not particularly hard but I would question whether that’s something you really want to do: see comments[https://osca-dev.bioconductor.org/dimensionality-reduction.html#visualization-interpretation](https://osca-dev.bioconductor.org/dimensionality-reduction.html#visualization-interpretation).
+  - Attachment (osca-dev.bioconductor.org): [Chapter 9 Dimensionality reduction | Orchestrating Single-Cell Analysis with Bioconductor](https://osca-dev.bioconductor.org/dimensionality-reduction.html#visualization-interpretation)
+    > Or: how I learned to stop worrying and love the t-SNEs.
+
+**Bharati Mehani** (03:13:44):
+> Hi thanks for your reply. Actually i am looking for sample wise cluster membership info
+
+**Bharati Mehani** (03:14:57):
+> I used Rtsne and have coordinates also but don’t know how to get the sample-wise positioning on the tsne
+
+**Dan Bunis** (14:00:34):
+> I’m not sure of an algorithm for exactly what you are trying to do, but that’s because it is better to use clustering algorithms that rely on the underlying data which your tsne was built on rather than the further-removed-from-the-data tsne coordinates.
+
+**Dan Bunis** (14:04:41):
+> Once you have your cluster groups though,`dittoSeq::dittoBarPlot(object, var = clustering, group.by = sampleIdentities)`can help with the visualization.  And you can throw in`data.out = TRUE`as well to have it spit out the plot + the dataframe of per-sample percentages.
+
+
+## 2020-08-24
+
+*11:49:46 - @Jose Alquicira has joined the channel*
+
+## 2020-08-27
+
+**Aaron Lun** (01:44:52):
+> IT HAS BEGUN:[https://ltla.github.io/SCEGallery/](https://ltla.github.io/SCEGallery/)
+  - Attachment (ltla.github.io): [SCE Gallery](https://ltla.github.io/SCEGallery/)
+    > SCE Gallery
+
+**Aaron Lun** (19:26:13):
+> The goal is for me to put out a chapter + its scater “reference” visualization at some periodic interval, and@Dan Bunisand@Kevin Blighe(and any others) can make PRs to see if they can “beat” scater’s reference plots.
+
+**Aaron Lun** (19:26:43):
+> Points will be awarded based on conciseness of the code versus how pretty the plots are.
+
+**Aaron Lun** (19:26:56):
+> Tagging@Alan O'C.
+
+**Aaron Lun** (19:28:35):
+> Happy to tune the dataset settings if you think that there’s something better
+
+**Aaron Lun** (19:30:09):
+> Upcoming chapters will be:
+> * Feature expression plots
+> * Heatmaps
+> * Dotplots
+> I don’t think I use any more plots, but I’m open to more suggestions. Also happy to take miscellaneous chapters if you want to showcase something package-specific but, e.g., don’t have a big enough dataset in your package vignette to do it justice.
+
+**Aaron Lun** (20:31:23) (in thread):
+> well, I was thinking of something from scDataviz.
+
+**Aaron Lun** (20:31:35) (in thread):
+> it’s an SCE gallery, after all.
+
+**Alan O'C** (21:37:48):
+> Great idea! I somehow have never seen the Bioc gif before, it's very pleasant
+
+**Aaron Lun** (21:38:10):
+> mdae by  the other Kevin
+
+
+## 2020-08-28
+
+**Federico Marini** (02:48:49):
+> You can even use it here:bioc-load:@Alan O'C
+
+**Dan Bunis** (17:28:47):
+> Very down for this!
+
+**Dan Bunis** (17:31:10):
+> Excited to contribute.  Speaking of… where would I PR to?
+
+**Aaron Lun** (18:43:55):
+> living at[https://github.com/LTLA/SCEGallery](https://github.com/LTLA/SCEGallery)
+
+**Aaron Lun** (19:54:33):
+> give me your saltiest text, i don’t care
+
+**Aaron Lun** (21:53:02):
+> if that floats your boat
+
+**Aaron Lun** (21:53:15):
+> or should I say, floateth yonder boateth.
+
+
+## 2020-08-30
+
+**Federico Marini** (17:19:09):
+> [https://github.com/darlanminussi/scrappy](https://github.com/darlanminussi/scrappy)
+
+**Federico Marini** (17:19:29):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F01AFUT7U7J/image.png)
+
+*21:12:54 - @Stephanie Hicks has left the channel*
+
+## 2020-09-01
+
+**Kevin Rue-Albrecht** (11:12:08) (in thread):
+> I guess the brown ones are empty droplets (nothing but c...), and the green ones doublets (too full)
+
+**Federico Marini** (11:44:46) (in thread):
+> ehehe
+
+**Federico Marini** (11:44:53) (in thread):
+> could be a meaningful match
+
+**Federico Marini** (11:45:13) (in thread):
+> probably indeed the browns are hi MT content
+
+**Kevin Rue-Albrecht** (11:45:34) (in thread):
+> I seem to recall ASCII to emoji translation of PHRED scores recently
+
+**Federico Marini** (11:45:52) (in thread):
+> oh yes that was also funny
+
+**Kevin Rue-Albrecht** (11:46:17) (in thread):
+> [https://fastqe.com/](https://fastqe.com/)?
+
+
+## 2020-09-04
+
+**Bharati Mehani** (04:08:33):
+> Hi everyone, I don’t know why does both the plot_ly and plot3d not working on my terminal in order to generate 3D tsne. It is neither giving any error nor generating any figure. Here are my commands
+  - File (JPEG): [Image from iOS](https://community-bioc.slack.com/files/U34P8RS3B/F019WKZECEA/image_from_ios.jpg)
+
+**Bharati Mehani** (04:09:04):
+> Can any of you please help what I am missing here?
+
+**Bharati Mehani** (04:23:47):
+> Just to clarify, I have the same information in both the cases: tsne1 and d_tsne
+
+**Giuseppe D'Agostino** (05:46:13) (in thread):
+> in order to get help it's always useful to provide some information, e.g. are you using`rgl`? what OS are you on?
+
+**Giuseppe D'Agostino** (05:51:07) (in thread):
+> in my experience using`rgl`in MacOS, it fails to produce an output when  X11/XQuartz are not running
+
+**Alan O'C** (06:10:10) (in thread):
+> `dev.off`isn't needed, plotly will open a web browser not a graphics device
+
+**Alan O'C** (06:22:29) (in thread):
+> Plotly 3D scatter traces require webGL if I remember well
+
+**Alan O'C** (06:22:59) (in thread):
+> I generally don't see a reason to use a 3D t-SNE projection rather than a 2D one though
+
+**Bharati Mehani** (10:51:31):
+> And now the channel deleted to follow it up:grimacing:
+
+**Bharati Mehani** (10:54:52) (in thread):
+> Yes i am using rgl and running this directly on the linux terminal which i am using remotely
+
+**Alan O'C** (10:55:56) (in thread):
+> I assume you have X forwarding set up
+
+**Bharati Mehani** (10:56:11) (in thread):
+> I already tested 2d tsne and was able to plot that using ggplot but it was not helpful
+
+**Bharati Mehani** (10:57:16) (in thread):
+> Hi@Alan O'Cif that is the case, how can I resolve this ?
+
+**Alan O'C** (10:58:47) (in thread):
+> If you were able to get a 2D plot window to pop up with ggplot, X forwarding probably isn't the issue. Why would a 3rd dimension for t-SNE make the visualisation more useful?
+
+**Bharati Mehani** (11:00:12) (in thread):
+> No for 2d plot also i used dev.off() to save the image
+
+**Bharati Mehani** (11:00:43) (in thread):
+> That’s how I could save and see the image
+
+**Alan O'C** (11:01:12) (in thread):
+> `dev.off()`doesn't save an image it closes an open graphics device
+
+**Bharati Mehani** (11:02:38) (in thread):
+> i also used pdf(“image..pdf”) before running my ggplot()
+
+**Bharati Mehani** (11:03:18) (in thread):
+> But here with plot_ly and plot3d, its not working
+
+**Alan O'C** (11:03:37) (in thread):
+> `pdf("foo.pdf")`opens a PDF graphics device. You presumably can't save an OpenGL plot object to pdf so that won't work
+
+**Alan O'C** (11:04:19) (in thread):
+> Look at htmlwidgets, I think you can export rgl stuff to html, and plotly is a javascript library so only works in a htmlwidget context[https://www.rdocumentation.org/packages/htmlwidgets/versions/1.5.1/topics/saveWidget](https://www.rdocumentation.org/packages/htmlwidgets/versions/1.5.1/topics/saveWidget)
+
+**Alan O'C** (11:05:33) (in thread):
+> Also I would again suggest you consider not making 3D t-SNE plots, since the whole point of t-SNE embedding is to make high dimensional data easy to visualise, and 3D plots are notoriously poor for this purpose
+
+**Bharati Mehani** (11:06:20) (in thread):
+> Oh ok, I’ll try that. Thanks for your help.
+
+**Bharati Mehani** (11:07:51) (in thread):
+> Actually I could not see much of the separation between the groups using 2d thus was trying to see   If 3d can help and resolve them
+
+**Alan O'C** (11:14:37) (in thread):
+> You could try to change some of the other parameters like perplexity and epsilon; these may have more impact on the separation between observations in the final embedding. I like this interactive guide[https://distill.pub/2016/misread-tsne/](https://distill.pub/2016/misread-tsne/)
+  - Attachment (Distill): [How to Use t-SNE Effectively](https://distill.pub/2016/misread-tsne/)
+    > Although extremely useful for visualizing high-dimensional data, t-SNE plots can sometimes be mysterious or misleading.
+
+**Bharati Mehani** (11:16:44) (in thread):
+> Oh it looks very helpful. Thanks for sharing this.
+
+**Bharati Mehani** (11:43:42) (in thread):
+> Thanks@Alan O'Ci could save the plot in html. Thanks.
+
+**Bharati Mehani** (11:44:22) (in thread):
+> Will also try different parameters to resolve my clusters. This was really helpful. Thanks again
+
+
+## 2020-09-10
+
+**Aaron Lun** (01:47:13):
+> No one is helping me fill the gallery!
+
+**Jared Andrews** (10:17:09):
+> Same, though I've now at least added it to Todoist, so consider it shoved into the dustiest crevice of my mind somewhere.
+
+**Dan Bunis** (16:33:44):
+> I have some “extra” time this week while I’m newer at this new job… I’ll see if I can throw in a dittoSeq chunk for the red-dim section.
+
+
+## 2020-09-11
+
+**Aaron Lun** (00:31:29):
+> it's going to be so awesome.
+
+**Aaron Lun** (00:31:47):
+> I'm learning JS now, so I'm going to fill every bit of space with D3.
+
+**Aaron Lun** (00:32:24):
+> Or stuff like[https://meowni.ca/emoji-rain/components/emoji-rain/demo/](https://meowni.ca/emoji-rain/components/emoji-rain/demo/)
+
+**Sridhar N** (00:32:31):
+> good on ya mate!
+
+**Sridhar N** (00:32:37):
+> JS is awesome
+
+**Aaron Lun** (00:32:48):
+> There's not going to be anything that is NOT interactive.
+
+**Aaron Lun** (00:33:01):
+> The letters will change color on mouse over.
+
+**Aaron Lun** (00:33:50):
+> and of course we need voice recognition.
+
+**Sridhar N** (00:34:05):
+> sounds like ISEE
+
+**Sridhar N** (00:34:22):
+> oh wait that is already done
+
+**Aaron Lun** (00:35:06):
+> to my chagrin, yes, it was done.
+
+**Jared Andrews** (01:13:06):
+> dittoSeq with`hover = TRUE`already yields interactivity on a lot of plots.
+
+**Jared Andrews** (01:14:09):
+> Oh nice, Dash for R is actually in CRAN now.[https://github.com/plotly/dashR](https://github.com/plotly/dashR)
+
+**Giuseppe D'Agostino** (01:14:31):
+> can you make each cell appear separately, powerpoint typewriter style?
+
+**Aaron Lun** (01:19:47):
+> flying in from the top of the page, of course
+
+**Giuseppe D'Agostino** (01:20:02):
+> with a woosh
+
+**Aaron Lun** (01:21:39):
+> Indeed
+
+**Aaron Lun** (01:24:10):
+> Anyway, I've personally struggled with using plotly. It is always just**not quite enough**for me, and I fall back to using Shiny instead.
+
+**Aaron Lun** (01:24:43):
+> I also think it looks ugly, but that's neither here or there.
+
+**Dan Bunis** (02:24:41):
+> When the purpose is quickly making a pre-made ggplot be interactive with custom data display, but without a need to start over from scratch...`plotly::ggplotly(gg_obj, tooltip="text")`does well.
+
+**Dan Bunis** (02:26:25):
+> I wouldn't say it's the prettiest every time, cuz things do change, but I never tried to learn their "raw" code.
+
+**Kevin Rue-Albrecht** (05:46:29):
+> @Aaron Lungood that notifications bring me back to this channel. I'm preparing "challenges" for EuroBioc2020, and one that crossed my mind is a gallery of plots. Not necessarily only single cell, just a free-for-all gallery of plots that people could browser and search for inspiration and template code.
+> 
+> Do you have written guidelines anywhere, to contribute to your gallery? (those challenges should be approachable by participants from all levels).
+> 
+> I'll make a GitHub repo for Bioc challenges, and you can dump instructions for this gallery in an issue. I'll take some time to figure what the main content of the repo should be. I'm thinking a simple markdown website in a first instance.
+
+**Kevin Rue-Albrecht** (05:50:40) (in thread):
+> there ya go:[https://github.com/kevinrue/BiocChallenges](https://github.com/kevinrue/BiocChallenges)
+
+**Kevin Rue-Albrecht** (05:57:01) (in thread):
+> Feel free to mess with[https://github.com/kevinrue/BiocChallenges/issues/1](https://github.com/kevinrue/BiocChallenges/issues/1)
+
+**Alan O'C** (06:01:51):
+> Karl Broman's QTLcharts package has some nice D3 HTMLwidget examples, written with coffeescript
+
+
+## 2020-09-14
+
+**Vince Carey** (07:18:18):
+> I see very scant mention of TnT[https://www.bioconductor.org/packages/release/bioc/html/TnT.html](https://www.bioconductor.org/packages/release/bioc/html/TnT.html)that I have found a little difficult to control but very nice for zoomable gene models in vignettes.
+  - Attachment (Bioconductor): [TnT](https://www.bioconductor.org/packages/release/bioc/html/TnT.html)
+    > A R interface to the TnT javascript library ([https://github.com/](https://github.com/) tntvis) to provide interactive and flexible visualization of track-based genomic data.
+
+
+## 2020-09-17
+
+*13:29:54 - @rizoic has joined the channel*
+
+## 2020-09-23
+
+**Bharati Mehani** (10:05:55):
+> Hi All, I am using plotly with type scatter3d and symbol in R to make 3d tsne and its working fine. But if I want to highlight a particular datapoint, is there a way to do that?
+> Thanks in advance!
+
+
+## 2020-09-24
+
+**Bharati Mehani** (10:58:06):
+> Any clue or help for this:point_up_2:will be highly appreciated.
+
+**Jared Andrews** (10:59:38):
+> Plotly has no connection with bioconductor. You're likely to get better answers via Biostars/stack overflow/the plotly forums.
+
+**Bharati Mehani** (11:01:13):
+> Oh ok, thought if anybody has some experience with this. Sure will post there. Thanks
+
+
+## 2020-10-01
+
+**Dan Bunis** (15:52:49) (in thread):
+> clearly, my contributing to[https://github.com/LTLA/SCEGallery](https://github.com/LTLA/SCEGallery)got side-tracked lol. I’d had trouble building myself a sufficient Dev environment before, but I’ve figured out how I can fix that issue with docker:smiley:.
+> 
+> Now I just need to find the time again…:face_palm:
+
+**Aaron Lun** (23:31:10):
+> yeah!
+
+
+## 2020-10-05
+
+*19:50:06 - @Ines de Santiago has left the channel*
+
+## 2020-10-10
+
+*04:08:55 - @Hervé Pagès has left the channel*
+
+## 2020-10-11
+
+*21:43:51 - @Kozo Nishida has joined the channel*
+
+## 2020-10-17
+
+*10:17:53 - @Kevin Blighe has joined the channel*
+
+## 2020-10-19
+
+*08:40:52 - @Lukas Weber has left the channel*
+
+## 2020-10-23
+
+*08:17:33 - @Rebecca Howard has joined the channel*
+
+## 2020-10-26
+
+**Aaron Lun** (23:39:00):
+> I need some SCE-compatible visium plotting functions.
+
+
+## 2020-10-27
+
+**Aaron Lun** (03:26:40):
+> did dittoseq already do this?
+
+**Charlotte Soneson** (03:34:31) (in thread):
+> check out the#spatialexperimentchannel
+
+**Jared Andrews** (09:13:56):
+> If your data's in an SCE, dittoSeq should work.
+
+**Dan Bunis** (12:40:04):
+> I haven’t worked with visium data yet, but I’d guess that`dittoScatterPlot()`or`dittoScatterHex()`would be what you need, and that you would give`x.var`/`y.var`the x/y metadata.
+
+**Aaron Lun** (12:40:34):
+> I thought you already had somethingt oshow the H&E?
+
+**Jared Andrews** (12:47:04):
+> Nope, but I can't imagine it'd be that hard to add. How is that stored? Is it just a straightup image?
+
+**Aaron Lun** (13:01:09):
+> Think it’s a TIF. Haven’t tried myself, I’m just scoping things out.
+
+**Dan Bunis** (13:03:48):
+> The`theme`input could probably be used to shove an image into the bottom layer of the plot. I’ve never tried that though.
+
+**Dan Bunis** (13:08:31):
+> There’s nothing specific now, but depending on how hard it is to get to work, we could potentially add this to dittoSeq’s 3.13 plans.
+
+**Spencer Nystrom** (15:06:44):
+> There might be a way to use`cowplot`to draw the plot on top of it. I seem to recall the docs showing an example of this.
+
+**Spencer Nystrom** (15:09:28):
+> Yeah:`ggdraw() +
+> ``   draw_image(<tif>) +
+> ``   draw_plot(<your plot>)
+> `
+
+**Dan Bunis** (16:04:56):
+> Can be done for sure!  I found this earlier, which uses a ggplot2 fxn:[https://www.engineeringbigdata.com/how-to-add-a-background-image-in-ggplot2-with-r/](https://www.engineeringbigdata.com/how-to-add-a-background-image-in-ggplot2-with-r/)
+> ```
+> ggplot() +
+>   annotation_custom(rasterGrob(png::readPNG("shark_background.png"), 
+>                                width = unit(1,"npc"), 
+>                                height = unit(1,"npc")), 
+>                     xmin = -Inf, xmax = Inf,
+>                     ymin = -Inf, ymax = Inf) +
+>   geom_...
+> ```
+> And so one could plug`theme = theme_bw() + annotation_custom(…)`or something similar right into dittoSeq functions.
+  - Attachment (R-ALGO Engineering Big Data): [How to Add a Background Image in ggplot2 with R | R-ALGO Engineering Big Data](https://www.engineeringbigdata.com/how-to-add-a-background-image-in-ggplot2-with-r/)
+    > Learn how to add background image in ggplot2 with R. This is a simple code change and will add creativity to your plots in R.
+
+
+## 2020-11-04
+
+*11:57:00 - @Krutika has joined the channel*
+
+## 2020-11-12
+
+*15:08:25 - @Philippe Boileau has joined the channel*
+
+## 2020-11-16
+
+*06:34:59 - @Carmen Abaurre has joined the channel*
+
+## 2020-11-19
+
+*08:29:35 - @Kevin Blighe has joined the channel*
+
+## 2020-11-20
+
+*00:24:57 - @ImranF has joined the channel*
+
+## 2020-12-12
+
+*00:40:36 - @Huipeng Li has joined the channel*
+
+## 2020-12-13
+
+*19:22:33 - @Paul Harrison has joined the channel*
+
+## 2020-12-14
+
+*08:55:47 - @Thomas Naake has joined the channel*
+
+## 2020-12-17
+
+*11:06:37 - @Kelly Street has joined the channel*
+
+## 2020-12-18
+
+*12:11:22 - @Marion Shadbolt has joined the channel*
+
+## 2021-01-01
+
+*14:04:34 - @Bernd has joined the channel*
+
+## 2021-01-12
+
+*04:44:47 - @Regina Reynolds has joined the channel*
+
+## 2021-01-19
+
+*04:56:27 - @Pablo Rodriguez has joined the channel*
+
+## 2021-01-22
+
+*15:43:27 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-01-29
+
+*04:17:30 - @Magali Michaut has joined the channel*
+
+## 2021-03-23
+
+*23:04:41 - @Lambda Moses has joined the channel*
+
+## 2021-04-23
+
+**hcorrada** (15:49:52):
+> Hello<!here>wanted to bring this position at Genentech to your attention:[https://www.gene.com/careers/detail/202103-108065/Research-Engineer-Visualization-and-Interactive-Data-Analysis](https://www.gene.com/careers/detail/202103-108065/Research-Engineer-Visualization-and-Interactive-Data-Analysis)please do not hesitate to reach out for more information.
+  - Attachment (gene.com): [Genentech: Research Engineer - Visualization and Interactive Data Analysis](https://www.gene.com/careers/detail/202103-108065/Research-Engineer-Visualization-and-Interactive-Data-Analysis)
+    > The little things we do every day add up to big breakthroughs. Making a difference in the lives of millions starts when you make a change in yours.
+
+
+## 2021-05-05
+
+*09:54:39 - @Abel Torres Espin has joined the channel*
+
+## 2021-05-21
+
+*04:15:32 - @Guido Barzaghi has joined the channel*
+
+## 2021-06-02
+
+**Alan O'C** (10:56:07):
+> Suggested by Aaron, a standalone package to bundle various color palettes. Any suggestions for other palettes to include?[https://github.com/Alanocallaghan/BiocColors](https://github.com/Alanocallaghan/BiocColors)
+
+**Jayaram Kancherla** (13:51:23) (in thread):
+> `ggsci`has some pretty cool palettes
+
+
+## 2021-07-19
+
+*17:01:11 - @Leo Lahti has joined the channel*
+
+## 2021-07-23
+
+*15:52:33 - @Batool Almarzouq has joined the channel*
+
+## 2021-07-29
+
+*01:03:03 - @Gurpreet Kaur has joined the channel*
+
+## 2021-08-04
+
+*19:19:38 - @Ayush Aggarwal has joined the channel*
+
+## 2021-08-06
+
+*20:00:25 - @ChiaSin has joined the channel*
+
+## 2021-08-19
+
+*11:33:16 - @Ava Hoffman (she/her) has joined the channel*
+
+## 2021-09-06
+
+*08:22:30 - @Eddie has joined the channel*
+
+## 2021-09-16
+
+*18:35:52 - @Henry Miller has joined the channel*
+
+## 2021-09-25
+
+*07:21:08 - @Haichao Wang has joined the channel*
+
+## 2021-10-26
+
+*11:48:15 - @Catherine Ross has joined the channel*
+
+## 2021-10-27
+
+*10:44:23 - @Mikie Phan has joined the channel*
+
+## 2021-10-28
+
+*11:15:48 - @Sudarshan has joined the channel*
+
+## 2021-11-08
+
+*03:26:28 - @Paula Nieto García has joined the channel*
+
+## 2022-02-10
+
+*19:39:50 - @Wes W has joined the channel*
+
+## 2022-02-15
+
+*12:00:21 - @Gene Cutler has joined the channel*
+
+## 2022-02-25
+
+*16:20:08 - @Joshua Sodicoff has joined the channel*
+
+## 2022-03-05
+
+*20:27:39 - @Anshul Kundaje has joined the channel*
+
+## 2022-03-10
+
+*18:47:57 - @Shian Su has joined the channel*
+
+## 2022-04-25
+
+*19:58:01 - @Antoine de Weck has joined the channel*
+
+## 2022-05-10
+
+*23:00:23 - @michaelkleymn has joined the channel*
+
+## 2022-05-19
+
+*18:27:25 - @Thai Nguyen has joined the channel*
+
+## 2022-06-09
+
+*09:07:52 - @John Hutchinson has joined the channel*
+
+## 2022-06-12
+
+*12:37:15 - @Karat Sidhu has joined the channel*
+
+## 2022-06-27
+
+*08:53:06 - @SFS Worms has joined the channel*
+
+## 2022-07-02
+
+*13:52:13 - @Sarah Pierce has joined the channel*
+
+## 2022-07-29
+
+*15:41:52 - @Ryan C. Thompson has joined the channel*
+**Ryan C. Thompson** (15:44:37):
+> I may as well share my lightning talk slides from BioC 2022 here, since my talk was all about visualization.
+  - File (PDF): [Ryan_Thompson_BioC2022_Lightning_Talk_Mislabels.pdf](https://community-bioc.slack.com/files/U34P8RS3B/F03S0AM6JQZ/ryan_thompson_bioc2022_lightning_talk_mislabels.pdf)
+
+**Ryan C. Thompson** (17:34:28):
+> Please also enjoy this circular dendrogram that has a tragically low ratio of utility to beauty
+
+**Ryan C. Thompson** (17:38:02):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F03SBS6RB88/image.png)
+
+**Alan O'C** (17:53:48) (in thread):
+> That is very beautiful, but utterly useless. Thank you
+
+
+## 2022-08-04
+
+**Kevin Rue-Albrecht** (06:53:07):
+> autocompletion of feature names available in iSEE heatmaps:smile:long overdue, so shoutout to the person who requested the feature in a github issue![https://youtu.be/cv8UwzFKw5E](https://youtu.be/cv8UwzFKw5E)
+  - Attachment (YouTube): [[Feature request] Issue 586 - Fix and demo](https://youtu.be/cv8UwzFKw5E)
+
+
+## 2022-08-24
+
+**Vince Carey** (19:25:23):
+> gosling written up in nature,[https://www.nature.com/articles/d41586-022-02191-z](https://www.nature.com/articles/d41586-022-02191-z), also[https://osf.io/6evmb/](https://osf.io/6evmb/)
+  - Attachment (Nature): [A graphics toolkit for visualizing genome data](https://www.nature.com/articles/d41586-022-02191-z)
+    > Powerful ‘grammar’ allows geneticists to display their data in interactive and scalable illustrations.
+  - Attachment (OSF Preprints): [Gosling: A Grammar-based Toolkit for Scalable and Interactive Genomics Data Visualization](https://osf.io/6evmb/)
+    > The combination of diverse data types and analysis tasks in genomics has resulted in the development of a wide range of visualization techniques and tools. However, most existing tools are tailored to a specific problem or data type and offer limited customization, making it challenging to optimize visualizations for new analysis tasks or datasets. To address this challenge, we designed Gosling—a grammar for interactive and scalable genomics data visualization. Gosling balances expressiveness for comprehensive multi-scale genomics data visualizations with accessibility for domain scientists. Our accompanying JavaScript toolkit called Gosling.js provides scalable and interactive rendering. Gosling.js is built on top of an existing platform for web-based genomics data visualization to further simplify the visualization of common genomics data formats. We demonstrate the expressiveness of the grammar through a variety of real-world examples. Furthermore, we show how Gosling supports the design of novel genomics visualizations. An online editor and examples of Gosling.js and its source code are available at [https://gosling.js.org](https://gosling.js.org).
+
+
+## 2022-08-30
+
+*07:11:39 - @Lisa Breckels has joined the channel*
+
+## 2022-09-07
+
+**Federico Marini** (12:08:02) (in thread):
+> Maybe also equally interesting for us R fans,[https://github.com/gosling-lang/grosling](https://github.com/gosling-lang/grosling)
+
+
+## 2022-09-12
+
+**Vince Carey** (13:31:27):
+> Some points to ponder
+> ```
+> In this moment of collective migration into digital and virtual realms, data has become, in a very tangible sense, our new reality. Art cannot escape, ignore, or bypass data if it wishes to remain relevant to the post-visual processes that shape our society.
+> 
+> Artists with a Big Data practice can bring to light the unseeable beneath, capturing the fabric of associations and chains of actions between people, environments, events, and things that govern our world.
+> 
+> Dataism goes beyond mimesis by accurately rendering dimensions of reality that lie underneath its visible surface. Realism or naturalism is art's attempt to represent subject matter truthfully. Yet realism, being retinally governed, is exclusively focused on depicting the visible. In contrast, dataism captures a reality that transcends (or underlies) physicality. It documents, like an X-ray of sorts, invisible but objective societal processes, connections, associations, affiliations, correlations, causes, and consequences, aspects of reality that are simply not accessible to retinal art.
+> 
+> If Leonardo were with us today, the same instincts and curiosity that drove him to anatomy would inevitably turn him into a dataist. Indeed, the hidden architectures that shape the visible today no longer consist of muscles and nerves, but of data and networks.
+> 
+> [excerpts from "Dataism and Our Postvisual Reality" by Albert-Laszlo Barabasi, 2021]
+> ```
+
+
+## 2022-09-19
+
+*16:52:08 - @Ryan Williams has joined the channel*
+
+## 2022-09-27
+
+*16:15:01 - @Jennifer Holmes has joined the channel*
+
+## 2022-12-12
+
+*17:57:47 - @Umran has joined the channel*
+*17:57:56 - @Lexi Bounds has joined the channel*
+
+## 2022-12-13
+
+*08:56:51 - @Lea Seep has joined the channel*
+
+## 2022-12-23
+
+*08:39:42 - @Pierre Gestraud has joined the channel*
+
+## 2023-01-12
+
+**Leo Lahti** (14:44:30) (in thread):
+> Approaching dadaism.
+
+
+## 2023-01-31
+
+*08:27:42 - @Ahmad Al Ajami has joined the channel*
+
+## 2023-03-07
+
+*05:51:26 - @Thomas Klammsteiner has joined the channel*
+
+## 2023-03-10
+
+*15:28:07 - @Edel Aron has joined the channel*
+
+## 2023-04-12
+
+*10:09:38 - @Jianhong has left the channel*
+
+## 2023-04-28
+
+*16:06:13 - @Vince Carey has left the channel*
+
+## 2023-05-18
+
+*05:54:37 - @Oluwafemi Oyedele has joined the channel*
+
+## 2023-05-31
+
+*14:14:30 - @Alyssa Obermayer has joined the channel*
+
+## 2023-06-07
+
+*18:28:54 - @Alyssa Obermayer has joined the channel*
+
+## 2023-06-12
+
+*10:51:20 - @Natasha has joined the channel*
+
+## 2023-06-27
+
+*05:11:55 - @Giulio Benedetti has joined the channel*
+**Giulio Benedetti** (06:33:51):
+> Hi! Is there a high-level way to modify existing layers of a ggplot? Now I’m using for example`p$layers[[1]]$aes_params$shape <- "triangle"`. Referring in particular to the plotting functions from the scater package (like`plotReducedDim`), where point size/shape and other aes cannot be controlled through the function itself.
+
+**Giulio Benedetti** (06:39:12):
+> Here’s a working example:
+> ```
+> library(mia)
+> library(scater)
+> 
+> data("GlobalPatterns", package = "mia")
+> tse <- GlobalPatterns
+> 
+> tse <- transformCounts(tse,
+>                        method = "relabundance")
+> 
+> tse <- scater::runMDS(tse,
+>                       FUN = vegan::vegdist,
+>                       method = "bray",
+>                       name = "bray",
+>                       assay.type = "relabundance")
+> 
+> # generate plot
+> p <- scater::plotReducedDim(tse, "bray",
+>                             ncomponents = 2,
+>                             colour_by = "SampleType")
+> 
+> # change aes after plot is generated
+> p$layers[[1]]$aes_params$size <- 3
+> p$layers[[1]]$aes_params$shape <- "triangle"
+> ```
+> It would be nice if something like`p + geom_point(size = 3)`would update the existing layer, so aes don’t have to be accessed directly. Thanks for any help or suggestions:slightly_smiling_face:
+
+**Shila Ghazanfar** (07:10:26):
+> hi giulio! i believe there are additional params you can pass to plotReducedDim to change these, i.e.
+> ```
+> p <- scater::plotReducedDim(tse, "bray",
+>                             ncomponents = 2,
+>                             colour_by = "SampleType",
+>                             point_size = 3,
+>                             point_shape = "triangle")
+> p
+> ```
+> hope this helps!
+
+**Shila Ghazanfar** (07:11:27):
+> (but no i dont think there is a way to change the geom afterwards, happy to be corrected if there is!)
+
+**Giulio Benedetti** (07:37:03) (in thread):
+> Great to know, thanks!
+
+**Jared Andrews** (08:03:04):
+> You might also take a look at dittoSeq, which is pretty expansive.
+
+
+## 2023-06-28
+
+*10:59:58 - @Andrew Ghazi has joined the channel*
+
+## 2023-07-07
+
+**Kevin Rue-Albrecht** (09:09:05):
+> :raised_back_of_hand::microphone::boom:[https://rehwinkellab.shinyapps.io/ifnresource/](https://rehwinkellab.shinyapps.io/ifnresource/)First application of iSEEindex, just accepted a few days ago in Bioconductor. In the meantime, see here[https://isee.github.io/iSEEindex/](https://isee.github.io/iSEEindex/):blush:
+  - Attachment (isee.github.io): [iSEE extension for a landing page to a custom collection of data sets](https://isee.github.io/iSEEindex/)
+    > This package provides an interface to any collection of data sets
+    >  within a single iSEE web-application. The main functionality of this package is
+    >  to define a custom landing page allowing app maintainers to list a custom
+    >  collection of data sets that users can selected from and directly load
+    >  objects into an iSEE web-application.
+
+
+## 2023-07-10
+
+*04:48:57 - @Hans-Rudolf Hotz has joined the channel*
+
+## 2023-07-25
+
+**Ahmad Al Ajami** (08:07:58):
+> Hi everyone, is there anyone familiar with the`Gviz`package by Hahne F & Ivanek R?
+> I've aligned my reads using`STAR`version`2.7.10b_alpha_23-06-09`. I have checked them through[https://igv.org/app/](https://igv.org/app/)to make sure things have worked and they indeed have. When trying to use`AlignmentsTrack`(or any other track really) on my BAM file, I keep getting an empty output plot or`DNAStringSet object of length 0`. I am not sure why this is the case?
+> My chromosome headers do***not***include the`chr`prefix, but even if I change the BAM file to include it, things still don't work.
+> Any help is appreciated!:pray:
+
+**Charlotte Soneson** (08:18:10) (in thread):
+> Tagging@Robert Ivánek. You can also set`options(ucscChromosomeNames=FALSE)`if you don't have UCSC style chromosome names.
+> Do you have an index file for the bam file in the same directory?
+
+*08:18:20 - @Robert Ivánek has joined the channel*
+**Ahmad Al Ajami** (08:30:22) (in thread):
+> I do have the index file in the same directory.
+> Adding`options(ucscChromosomeNames=FALSE)`solved the issue and now I can see the reads with`plotTracks`! Although the`AlignmentsTrack`still shows a`DNAStringSet object of length 0`, even after specifying the chromosome number.
+> 
+> I also wonder now why it didn't work when I changed the BAM file to have UCSC style chromosome names:thinking_face:Anyway, thank you so much for your quick help!!:pray:
+
+
+## 2023-07-28
+
+*13:47:20 - @Konstantinos Daniilidis has joined the channel*
+*15:57:04 - @Benjamin Yang has joined the channel*
+
+## 2023-08-03
+
+*15:57:23 - @Ritika Giri has joined the channel*
+
+## 2023-08-20
+
+*10:38:41 - @Jacques SERIZAY has joined the channel*
+
+## 2023-08-24
+
+*01:20:48 - @Lachlan Baer has joined the channel*
+
+## 2023-09-04
+
+*08:00:37 - @Richard White has joined the channel*
+
+## 2023-09-15
+
+*04:54:11 - @Leo Lahti has joined the channel*
+
+## 2023-09-21
+
+*16:40:13 - @Philippine Louail has joined the channel*
+*16:40:14 - @Philippine Louail has left the channel*
+*16:40:15 - @Philippine Louail has joined the channel*
+
+## 2023-12-01
+
+*09:07:37 - @Tyrone Lee has joined the channel*
+**Tyrone Lee** (09:08:17):
+> [https://blog.datawrapper.de/beautifulcolors/](https://blog.datawrapper.de/beautifulcolors/)
+  - Attachment (Datawrapper Blog): [How to pick more beautiful colors for your data visualizations - Datawrapper Blog](https://blog.datawrapper.de/beautifulcolors/)
+    > Choosing good colors for your charts is hard. This article tries to make it easier.
+
+
+## 2023-12-13
+
+*09:44:07 - @Paul Myers has joined the channel*
+
+## 2023-12-18
+
+**Gene Cutler** (13:50:49) (in thread):
+> Thanks for sharing.  These are really good colors
+
+
+## 2023-12-27
+
+*14:38:34 - @Cindy Reichel has joined the channel*
+
+## 2024-01-08
+
+*17:26:00 - @Connie Li Wai Suen has joined the channel*
+
+## 2024-01-10
+
+*15:04:04 - @Bernie Mulvey has joined the channel*
+
+## 2024-03-05
+
+*01:24:55 - @Pratibha Panwar has joined the channel*
+
+## 2024-04-28
+
+*08:28:59 - @Danielle Callan has joined the channel*
+
+## 2024-05-01
+
+**Kevin Rue-Albrecht** (09:42:01):
+> The operator makes it challenging to google: who knows which package provides the`|`operator that is used to combine ggplot objects in this example?
+> Having opened a fresh session, it seems to be readily available as soon as`ggplot2`is loaded, so I guess that's where it's coming from but I can't find any documentation in ggplot2 or patchwork (which provides`+`for that purpose).
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F071L0V7360/image.png)
+
+**Charlotte Soneson** (09:45:25) (in thread):
+> What about[https://github.com/thomasp85/patchwork/blob/d9437579a1fbbbfe20da0e4d44814008c1b98bb2/R/arithmetic.R#L96-L110](https://github.com/thomasp85/patchwork/blob/d9437579a1fbbbfe20da0e4d44814008c1b98bb2/R/arithmetic.R#L96-L110)
+
+**Charlotte Soneson** (09:46:24) (in thread):
+> There is some documentation in`?plot_arithmetic`
+
+**Kevin Rue-Albrecht** (09:46:53) (in thread):
+> ohh, so the`+`is actually from ggplot2 and the`|`is in patchwork
+
+**Kevin Rue-Albrecht** (09:47:41) (in thread):
+> I just managed to get to it via
+> > ?`|.ggplot`
+> but
+> > ?plot_arithmetic
+> looks a lot better thanks!:smile:
+
+**Edel Aron** (10:08:36) (in thread):
+> [https://patchwork.data-imaginist.com/articles/guides/assembly.html#stacking-and-packing](https://patchwork.data-imaginist.com/articles/guides/assembly.html#stacking-and-packing)
+
+**Kevin Rue-Albrecht** (10:15:51) (in thread):
+> Awesome, thanks! Great link for the lesson I'm using this in
+
+**Edel Aron** (10:16:59) (in thread):
+> Since you are grouping by the same metadata column each time, you could also do just one legend:[https://patchwork.data-imaginist.com/articles/guides/layout.html#controlling-guides](https://patchwork.data-imaginist.com/articles/guides/layout.html#controlling-guides)
+
+**Kevin Rue-Albrecht** (10:19:19) (in thread):
+> well, full disclosure: the screenshot i sent wasn't written by me, but comes from here[https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis](https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis)so I can't change it there, but I definitely appreciate the trick to throw into my own lesson:wink:
+  - Attachment (satijalab.org): [Integrative analysis in Seurat v5](https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis)
+    > Seurat
+
+**Edel Aron** (10:20:56) (in thread):
+> Hahaha gotcha! I make UMAPs and use patchwork all of the time, so I figured I'd point it out. If you change your`Idents`to`cca_clusters`, you wouldn't even have to specify`group.by`each time (although it can be good for reproducibility).
+
+**Kevin Rue-Albrecht** (10:23:22) (in thread):
+> oh yeah, I'm not even sure why they picked CCA to be honest. They're the developers so I'd think they know what they're doing and why, but they're not giving much explanation for their choices in that part of the vignette
+
+**Kevin Rue-Albrecht** (10:24:05) (in thread):
+> Seems more a technical demonstration of plots than a guided analysis
+
+**Edel Aron** (10:27:12) (in thread):
+> Yeah it's just to show what you can do, the CCA could be replaced with anything else in that object
+
+**Kevin Rue-Albrecht** (10:32:36) (in thread):
+> Having followed your suggestion, I think I know why they repeatedly used`group.by = c("cca_clusters")`That's what's automatically giving each of their plot its ggtitle.
+> Not saying that their way is better, but if I set Idents() and then implicitly let that group the colouring, the plots have no title (I'd have to manually add it myself to each of them, no biggie, but still)
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F071HMPUTGB/image.png)
+
+**Edel Aron** (10:33:47) (in thread):
+> Yes that's true! I tend to give my plots more descriptive titles anyways, or if you're grouping like this, I might do one big title on top of everything
+
+**Kevin Rue-Albrecht** (10:38:12) (in thread):
+> Anyway, thanks for the pointers. I do have to temper the exciting cool visuals, sticking with code that I can reasonably ask students to write themselves, when they're fairly new to both ggplot2 and Seurat. No point making them struggle for 'perfect' figures before I get them to get draft plots the 'easy' way first.:slightly_smiling_face:
+
+**Edel Aron** (10:38:40) (in thread):
+> Absolutely!! Good luck with your lesson.
+
+**Tyrone Lee** (16:13:31) (in thread):
+> Just seeing this thread now. Not much to add other than that the[image panel](https://github.com/lee-t/iSEE_molecule_example/blob/main/custom_img_panel.R)I shared a while back leverages[wrap_plots](https://patchwork.data-imaginist.com/reference/wrap_plots.html)to scale an**n**amount of ggplots in a single iSEE panel. Basically it uses a loop for each slice selected in the app to dynmically plot each slice as a separate gg plot and then wrap them together into one ggplot output for the panel.
+
+**Kevin Rue-Albrecht** (16:21:31) (in thread):
+> Oh yeahI’veused wrap_plots before. Thanks for the reminder. This whole story here was me trying to cover my bases knowing where an operator was coming from before teaching it:sweat_smile:
+
+**Kevin Rue-Albrecht** (16:22:38) (in thread):
+> Ps:can’twait to get some funding (=time) to clean up iSEE and make it easier to extend iSEE.
+
+
+## 2024-05-06
+
+*11:56:35 - @Michal Kolář has joined the channel*
+
+## 2024-05-18
+
+*04:36:18 - @Maria Doyle has joined the channel*
+
+## 2024-07-02
+
+*11:00:12 - @Diána Pejtsik has joined the channel*
+
+## 2024-07-26
+
+*19:52:23 - @Qiwen Octavia Huang has joined the channel*
+
+## 2024-07-29
+
+*17:08:40 - @JP Flores has joined the channel*
+
+## 2024-08-04
+
+*14:59:23 - @sunnyday has joined the channel*
+
+## 2024-08-19
+
+*09:38:43 - @Rema Gesaka has joined the channel*
+
+## 2024-09-05
+
+*03:10:02 - @Mauro Masiero has joined the channel*
+
+## 2024-09-20
+
+*09:30:51 - @Camille Guillermin has joined the channel*
+
+## 2024-10-01
+
+*04:10:08 - @Caroline Schreiber has joined the channel*
+
+## 2024-11-02
+
+*14:01:23 - @skuba has joined the channel*
+
+## 2024-11-13
+
+*10:22:59 - @Mihail Anton has joined the channel*
+
+## 2024-11-25
+
+*16:16:34 - @rohitsatyam102 has joined the channel*
+
+## 2025-03-18
+
+*14:26:48 - @Andres Wokaty has joined the channel*
+
+## 2025-04-23
+
+*08:38:08 - @Silvia González has joined the channel*

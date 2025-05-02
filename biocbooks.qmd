@@ -1,0 +1,191 @@
+---
+title: "#biocbooks"
+format: gfm
+---
+
+
+## 2023-07-06
+
+*13:47:31 - @Vince Carey has joined the channel*
+*13:51:20 - @Jacques SERIZAY has joined the channel*
+*13:51:20 - @Hervé Pagès has joined the channel*
+*13:51:20 - @Leo Lahti has joined the channel*
+*13:51:20 - @Lori Shepherd has joined the channel*
+*13:51:20 - @Kasper D. Hansen has joined the channel*
+*13:51:21 - @Stephanie Hicks has joined the channel*
+*13:51:21 - @Davide Risso has joined the channel*
+*13:53:21 - @Laurent Gatto has joined the channel*
+**Vince Carey** (14:03:43):
+> @Leo Lahti@Jacques SERIZAY@Laurent GattoThe TAB discussed the approach to supporting book projects related to Bioconductor.  We do not have final recommendations but would like to provide links to your book sites from[bioconductor.org](http://bioconductor.org)as we formulate more details on maintenance and CI/CD processes that are appropriate.  Let me know if you have questions.
+
+**Jacques SERIZAY** (14:22:54):
+> Hi@Vince Carey, this is great to hear:tada:! Do you need any specific detail for the books to be listed in Bioconductor website? Also, I'm happy to chat more if you or anyone else wants more information about how CI/CD is implemented in my case.
+
+**Jacques SERIZAY** (14:26:28):
+> Also, I have not replied yet to@Hervé Pagèsregarding devel/release versions of my book. The main reason is that I have not yet figured out how to serve multiple versions of the same book on github pages, I'm not sure what the best strategy is for this. I'll think about it asap and get back to you regarding this matter.
+
+
+## 2023-07-07
+
+**Vince Carey** (07:12:45):
+> At the moment we are taking a lightweight approach to connecting newly authored books to[bioconductor.org](http://bioconductor.org).  A working group will likely be formed to address issues of content review, maintenance and maintainability, and guideline formulation.
+
+*12:54:19 - @Maria Doyle has joined the channel*
+
+## 2023-07-09
+
+*17:06:00 - @Tuomas Borman has joined the channel*
+**Leo Lahti** (17:09:15):
+> Thank you! We could indeed take advantage of this. It is not urgent but would like to move the book (OMA) under Bioconductor sooner or later. It is soon ready to move but it might be good to discuss the general quality standards before that.
+
+
+## 2023-07-10
+
+**Laurent Gatto** (02:22:34):
+> I would be happy to associate the R for MS book more formally with Bioconductor, either through a link/mention, of by hosting the book under the bioconductor domain, depending on the coming discussions.
+
+
+## 2023-07-11
+
+*13:43:25 - @Akewak Jeba has joined the channel*
+**Vince Carey** (14:17:32):
+> Glad to see the interest in collaborating on book exposure ... I am out of town but I hope we can make concrete progress next week.
+
+
+## 2023-07-17
+
+*09:08:42 - @Jacob Krol has joined the channel*
+
+## 2023-07-22
+
+**Vince Carey** (09:34:01):
+> Relevant:[https://community-bioc.slack.com/archives/CM2CUGBGB/p1689964337695179](https://community-bioc.slack.com/archives/CM2CUGBGB/p1689964337695179)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CM2CUGBGB/p1689964337695179)
+    > <!here> Sometime in the next release cycle, I would like to switch **scran** and **scuttle** to use [**libscran**](https://github.com/LTLA/libscran) with the new [**tatami**](https://github.com/tatami-inc/tatami) representations. This should give several-fold speed-ups for large datasets...
+    > 
+    > But it is likely that all the results will change. And if I do this, the book will break (see [https://www.youtube.com/watch?v=NCBUBP4Ll9I](https://www.youtube.com/watch?v=NCBUBP4Ll9I) for details). The question is what everyone here wants to do about it.
+    > 
+    > One option is to go ahead with the breaking changes. This could be a good opportunity to streamline and update the book. For example, I've come around to the idea that further QC on top of Cellranger's `emptyDrops`-based cell filtering is unnecessary.
+    > 
+    > The other option is to do all my changes in a new package, e.g., **scran2**. This will preserve the book builds but the book's contents will be obsolete.
+    > 
+    > I would obviously prefer option 1, but I can only do so much, and I'll have my hands full with the packages. Is there anyone who is interested in working on the OSCA book 2nd edition? There's probably a paper in there somewhere about how to write this kind of book (e.g., **dir.expiry**, **rebook**).
+
+
+## 2023-07-26
+
+*11:15:50 - @Robert Shear has joined the channel*
+
+## 2023-08-03
+
+*13:39:24 - @Charlotte Soneson has joined the channel*
+
+## 2023-08-15
+
+*09:42:39 - @Lukas Weber has joined the channel*
+
+## 2023-08-16
+
+**Jacques SERIZAY** (10:26:08) (in thread):
+> Hi all! Following my message from last month regarding versioning of online books, I have been working on a new package tentatively named`BiocBook`.
+> The`BiocBook`package is an attempt to streamline versioning and improve reproducibility of online books and relies on Bioconductor.
+> 
+> It helps the end user (teachers, scientists, devs, communicators of any kind) creating a standard***R******package (following BioC release cycle)***, which relies on automated Github Actions to publish a versioned***online book***(a multi-page Quarto website supporting chapters, preambles, appendices, cross-refs, etc.) with a***supporting Docker image***for each book version.
+> 
+> In summary, the package lets an author:
+> 1. **Write**: compile a***body of biological and/or bioinformatics knowledge***;
+> 2. **Containerize**: provide***Docker images***to reproduce the examples illustrated in the compendium;
+> 3. **Publish**: deploy an***online book***to disseminate the compendium;
+> 4. **Versionize**:***automatically***generate specific online book versions and Docker images for specific[Bioconductor releases](https://contributions.bioconductor.org/use-devel.html).
+> More info here:
+> * The BiocBook book itself (compiled from different BioC versions as an example):[https://js2264.github.io/BiocBook/devel/](https://js2264.github.io/BiocBook/devel/),[https://js2264.github.io/BiocBook/3.17/](https://js2264.github.io/BiocBook/3.17/),[https://js2264.github.io/BiocBook/3.16/](https://js2264.github.io/BiocBook/3.16/),[https://js2264.github.io/BiocBook/3.15/](https://js2264.github.io/BiocBook/3.15/)
+> * The BiocBook versioning system:[https://js2264.github.io/BiocBook/devel/pages/Chapter-1.html#continuous-integration-and-continuous-delivery](https://js2264.github.io/BiocBook/devel/pages/Chapter-1.html#continuous-integration-and-continuous-delivery)
+> * The BiocBook package repo (GitHub):[https://github.com/js2264/BiocBook](https://github.com/js2264/BiocBook)
+> To showcase a little bit how BiocBooks can be used, here are few examples:
+> * The BiocBook book itself:[https://js2264.github.io/BiocBook/devel/](https://js2264.github.io/BiocBook/devel/)(repo:[https://github.com/js2264/BiocBook](https://github.com/js2264/BiocBook))
+> * A "training" BiocBook, with material borrowed from Michael Love bookdown on tidy GRanges and genomics:[https://js2264.github.io/BiocBook.GRanges/devel/](https://js2264.github.io/BiocBook.GRanges/devel/)(repo:[https://github.com/js2264/BiocBook.GRanges](https://github.com/js2264/BiocBook.GRanges))
+> * A "demonstration" BiocBook, used for package demo during Bioc2023 for the`HiCExperiment`package:[https://js2264.github.io/BiocBook.OHCA.Bioc2023/3.17/](https://js2264.github.io/BiocBook.OHCA.Bioc2023/3.17/)(repo:[https://github.com/js2264/BiocBook.OHCA.Bioc2023](https://github.com/js2264/BiocBook.OHCA.Bioc2023))
+> * A "workshop" BiocBook used for a 5-day workshop organised by Physalia:[https://js2264.github.io/BiocBook.Epigenomics/devel/](https://js2264.github.io/BiocBook.Epigenomics/devel/)(repo:[https://github.com/js2264/BiocBook.Epigenomics](https://github.com/js2264/BiocBook.Epigenomics))
+
+**Jacques SERIZAY** (10:30:01):
+> I would love to get any feedback from this group. Does the strategy used by`BiocBook`s clearly explained? And does it fit well with the way a real package gets submitted to Bioconductor? I'm contemplating submitting`BiocBook`package itself to Bioconductor, to see how this would work in real life. Any though from the Bioc team?
+
+**Vince Carey** (11:59:03):
+> thanks jacques!  we will be looking this over this week!
+
+**Jacques SERIZAY** (12:47:14):
+> I might register to EuroBioc2023, if you guys think it would be worth it I'd happy to prepare a poster or flash talk on this.
+
+
+## 2023-08-17
+
+**Laurent Gatto** (21:19:09) (in thread):
+> Not sure if poster submissions are still open, but there's certainly a possibility to offer a flashlight light during developer day on Friday. There might even be scope to organise a birds-of-a-feather session on book on Friday.
+
+
+## 2023-08-18
+
+*12:07:03 - @Nikhil Mane has joined the channel*
+*12:08:47 - @Andres Wokaty has joined the channel*
+
+## 2023-08-20
+
+**Jacques SERIZAY** (15:23:23):
+> I've submitted an issue for a birds-of-a-feather session, any other bird welcome:hatched_chick:[https://github.com/Bioconductor/EuroBioC2023/issues/17](https://github.com/Bioconductor/EuroBioC2023/issues/17)
+  - Attachment: [#17 BoF: versioned online books with Bioconductor](https://github.com/Bioconductor/EuroBioC2023/issues/17)
+    > There seems to be a need for a more rigorous approach to authoring/publishing books related to bioinformatics. Currently, some of the major pitfalls of authoring/publishing are:
+    > 
+    > 1. Automation of the publishing process (i.e. not building locally)
+    > 2. Ensuring reproducibility when assembling books (i.e. documenting dependencies used in rendering)
+    > 3. Enable book versioning in sync with Bioconductor releases
+    > 4. Allow the end user to reuse resources assembled during book compilation
+    > 
+    > **Few points which could be covered during the session:**
+    > 
+    > • Existing books, why they work/limitations (testimonials welcome!)
+    > • Key features of a robust publishing approach (input welcome!)
+    > • [BiocBook](https://github.com/js2264/BiocBook) versioning mechanism
+    > • Should Bioconductor support (and build?) online books, and if so, how? pros/cons
+    > 
+    > Any other bullet points can be added to this list.
+    > 
+    > **Outcomes of the session:**
+    > 
+    > • Have a better idea of the BioC community's desire to adapt existing / write new books (start a list?);
+    > • Formalize a common workflow for writing a book;
+    > • If needed, define a strategy for Bioconductor to support building books.
+    > 
+    > I would be happy to work on this session with anyone who has an interest in the topic, please join in!
+
+
+## 2023-08-24
+
+**Leo Lahti** (16:53:05) (in thread):
+> ping@Tuomas Borman@Akewak Jeba
+
+
+## 2024-03-09
+
+*20:38:29 - @Cherishma Subhasa has joined the channel*
+
+## 2024-04-04
+
+*16:40:34 - @jim rothstein has joined the channel*
+
+## 2024-07-11
+
+*06:01:08 - @Sathish Kumar has joined the channel*
+
+## 2024-07-29
+
+*17:08:11 - @JP Flores has joined the channel*
+
+## 2024-08-02
+
+**Vince Carey** (07:08:20):
+> Has anyone considered how to establish DOIs for the online books?
+
+
+## 2024-09-01
+
+*06:47:01 - @Ifra has joined the channel*

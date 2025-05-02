@@ -1,0 +1,574 @@
+---
+title: "#rhdf5client"
+format: gfm
+---
+
+
+## 2018-02-08
+
+*12:41:50 - @Vince Carey has joined the channel*
+**Vince Carey** (12:41:50):
+> set the channel description: discuss R interface to HDF Server and HSDS
+
+*12:41:50 - @Mike Jiang has joined the channel*
+*12:41:51 - @Samuela Pollack has joined the channel*
+*12:41:51 - @Shweta Gopal has joined the channel*
+*12:41:51 - @Raphael Gottardo has joined the channel*
+*12:41:51 - @Mike Smith has joined the channel*
+*12:41:51 - @John Readey has joined the channel*
+*12:41:51 - @Aedin Culhane has joined the channel*
+**Vince Carey** (12:48:59):
+> Some quick comments:  1) we have a longrunning server[h5s.channingremotedata.org:5000](http://h5s.channingremotedata.org:5000)where an HDF Server instance has a number of data resources available
+> 
+> 2) rhdf5client is part of Bioconductor and so must obey development protocols such as featurefreeze prior to release, deprecation stages for removal of features
+> 
+> 3) we have not tried to establish any relationship between rhdf5 and rhdf5client ... it is an open question whether we should try to do this, so that familiar rhdf5 operations succeed whether the resource in use is a local file or a remote resource
+
+**John Readey** (12:55:09):
+> @Vince Carey- the server at[h5s.channingremotedata.org](http://h5s.channingremotedata.org)is a h5serv instance, correct?
+
+**Vince Carey** (12:55:26):
+> yes
+
+**John Readey** (12:55:38):
+> Just for the record, there's a HSDS instance running at:[http://52.4.181.237:5101](http://52.4.181.237:5101)
+
+**Vince Carey** (12:55:57):
+> yes and it answers queries on 5101-5104 right?
+
+**John Readey** (12:56:19):
+> That's correct.   I know@Mike Jianghas imported some tenx files there.
+
+**John Readey** (12:56:33):
+> I can setup an account for anyone else who needs access.
+
+**Vince Carey** (12:57:53):
+> ok.  it will be interesting to know what kinds of queries he is using.
+
+**John Readey** (13:00:38):
+> @Vince Carey- could you summarize the current state of rhdf5client & future work planned?
+
+**Vince Carey** (13:17:25):
+> The release version of rhdf5client is 1.0.6, vignette at[http://bioconductor.org/packages/release/bioc/vignettes/rhdf5client/inst/doc/rhdf5client.pdf](http://bioconductor.org/packages/release/bioc/vignettes/rhdf5client/inst/doc/rhdf5client.pdf)-- this version of the package only addresses use of h5serv.  Much effort was devoted to capturing the structure of server content, exposing concepts of groups, links and datasets, sufficient to get relatively simple access to slices of a dense matrix.  The devel version, 1.1.6, includes code that works with HSDS, detecting the type of back end early on and using appropriate queries, again focusing on interacting with dense matrices.  We have added code to a companion package, restfulSE, that implements the DelayedArray ([http://bioconductor.org/packages/devel/bioc/html/DelayedArray.html](http://bioconductor.org/packages/devel/bioc/html/DelayedArray.html)) protocol for remote HDF5 matrices.  I think this works for both h5serv and HSDS but we have not explored this fully.  We are meeting today to flesh out next steps.
+  - Attachment (Bioconductor): [DelayedArray (development version)](http://bioconductor.org/packages/devel/bioc/html/DelayedArray.html)
+    > Wrapping an array-like object (typically an on-disk object) in a DelayedArray object allows one to perform common array operations on it without loading the object in memory. In order to reduce memory usage and optimize performance, operations on the object are either delayed or executed using a block processing mechanism. Note that this also works on in-memory array-like objects like DataFrame objects (typically with Rle columns), Matrix objects, and ordinary arrays and data frames.
+
+*13:18:26 - @Martin Morgan has joined the channel*
+**Mike Jiang** (13:44:36):
+> @Vince CareyMostly we are interested in`random_slicing`and`point_selection`[https://github.com/RGLab/cytopy/blob/master/benchmark/h5IO.py#L24-L37](https://github.com/RGLab/cytopy/blob/master/benchmark/h5IO.py#L24-L37)
+  - Attachment (GitHub): [RGLab/cytopy](https://github.com/RGLab/cytopy/blob/master/benchmark/h5IO.py#L24-L37)
+    > Contribute to cytopy development by creating an account on GitHub.
+
+**Mike Jiang** (13:51:48):
+> `random_slicing`is similar to fancy indexing in numpy.  h5py currently has some restrictions on this type of operation ([http://docs.h5py.org/en/latest/high/dataset.html#reading-writing-data](http://docs.h5py.org/en/latest/high/dataset.html#reading-writing-data)), which may be due to the nature of local H5 file. But we hope the new rhdf5client will not have these restrictions
+
+
+## 2018-02-09
+
+*10:55:39 - @Sean Davis has joined the channel*
+
+## 2018-02-15
+
+**Vince Carey** (10:50:03):
+> we are working on rhdf5client again
+
+**Vince Carey** (11:21:46):
+> @Mike Jiangcan you say a little more about this random_slicing ... can you do it with rhdf5?  we are trying to find out which elements of rhdf5 we need to reflect in the remote context
+
+**Mike Jiang** (12:41:41):
+> Yes, e.g.`h5read("myhdf5file.h5", "foo/S", index=list(c(6,10,19),c(1,2,4,5)))`
+
+**John Readey** (13:33:40):
+> @Vince Carey- glad to hear you will be enhancing rhdf5client.
+
+**John Readey** (13:34:29):
+> I was looking at Seurat:[http://satijalab.org/seurat/pbmc3k_tutorial.html](http://satijalab.org/seurat/pbmc3k_tutorial.html)
+  - Attachment (satijalab.org): [Satija Lab](http://satijalab.org/seurat/pbmc3k_tutorial.html)
+    > Lab Webpage ---
+
+**John Readey** (13:35:00):
+> Would it be possible to hook Seurat up with HSDS via rhdf5client?
+
+
+## 2018-02-16
+
+**Raphael Gottardo** (16:42:11):
+> @John ReadeyI think it would be possible but a bit premature before we fully test the infrastructure.
+
+**John Readey** (16:45:19):
+> @Raphael Gottardo- by infrastructure do you mean things outside the rhdf5client software itself?  (e.g. HSDS)
+
+**Raphael Gottardo** (16:46:19):
+> No, I mean to first test the client independently.
+
+**John Readey** (16:49:14):
+> Ok - yes certainly.
+
+**John Readey** (16:49:40):
+> btw - where is the source repo for rhdf5?  I don't see it in github.
+
+**Raphael Gottardo** (16:56:03):
+> @Mike JiangCan you let John know where the repo is?
+
+**John Readey** (17:05:59):
+> BTW as a test methodology for h5pyd, I run the same test code with h5py and h5pyd (by switching the import statement).  This is helpful to catch regressions where we are not maintaining compatibility.  Here's an example test:[https://github.com/HDFGroup/h5pyd/blob/master/test/test_dataset_scalar.py](https://github.com/HDFGroup/h5pyd/blob/master/test/test_dataset_scalar.py)
+  - Attachment (GitHub): [HDFGroup/h5pyd](https://github.com/HDFGroup/h5pyd/blob/master/test/test_dataset_scalar.py)
+    > h5pyd - h5py distributed - Python client library for HDF Rest API
+
+**John Readey** (17:07:49):
+> If there's an intended difference (e.g. as with line 54 in the above test), it verifies which package the test is running against.
+
+**Mike Jiang** (17:22:36):
+> [https://github.com/grimbough/rhdf5](https://github.com/grimbough/rhdf5)
+  - Attachment (GitHub): [grimbough/rhdf5](https://github.com/grimbough/rhdf5)
+    > rhdf5 - Package providing an interface between HDF5 and R
+
+**John Readey** (17:26:22):
+> Thanks for the link.
+
+**John Readey** (17:26:45):
+> I can see there are a bunch more tests in rhdf5 than rhdf5client!
+
+**John Readey** (17:27:43):
+> Also it will be helpful to setup travis tests like rhdf5 has.
+
+**John Readey** (17:28:19):
+> For h5pyd I have travis test against h5py/h5serv/and hsds:[https://travis-ci.org/HDFGroup/h5pyd](https://travis-ci.org/HDFGroup/h5pyd).
+
+**John Readey** (17:28:47):
+> I just broke the h5serv tests, hince the red builds for those!
+
+
+## 2018-02-22
+
+**Mike Smith** (05:46:50):
+> A while back I undertook changing the version of libhdf5 that***rhdf5***is linked against - but the initial version of this threw some horrible errors related to different behaviour of`H5close`.  Since I didn't want to actually change the behaviour of the package, just modernise it, I implemented the test suite to try and make sure things remained stable.
+
+
+## 2018-02-26
+
+*18:11:02 - @Peter Hickey has joined the channel*
+
+## 2018-02-28
+
+*15:18:25 - @Daniel Van Twisk has joined the channel*
+
+## 2018-03-03
+
+**Vince Carey** (12:05:50):
+> @Samuela Pollackcan you have a look at the comments of feb 16 and so forth ... i have not visited this thread for a while
+
+
+## 2018-03-04
+
+**Vince Carey** (08:35:33):
+> how often are the following parameters of rhdf5::h5read used in practice?
+> ```
+> start: The start coordinate of a hyperslab (similar to subsetting in
+>           R). Counting is R-style 1-based. This argument is ignored, if
+>           index is not NULL.
+> 
+>   stride: The stride of the hypercube. Read the introduction <URL:
+>           http://ftp.hdfgroup.org/HDF5/Tutor/phypecont.html> before
+>           using this argument. R behaves like Fortran in this example.
+>           This argument is ignored, if index is not NULL.
+> 
+>    block: The block size of the hyperslab. Read the introduction <URL:
+>           http://ftp.hdfgroup.org/HDF5/Tutor/phypecont.html> before
+>           using this argument. R behaves like Fortran in this example.
+>           This argument is ignored, if index is not NULL.
+> ```
+
+**Vince Carey** (08:41:59):
+> i am sorry to have dropped off this discussion -- slack had been too intrusive so i disabled notifications.  we have been debating two approaches to interfacing to remote HDF5: 1) an object-oriented interface designed from scratch, like the current one, or 2) exposure of all of h5pyd through reticulate, with R-based facilitation of certain key tasks.  They are not mutually exclusive but it is hard to know which will be most useful in the short term.  Approach 1 has provided some proof of concept, but not as much benchmarking data as I would have liked.
+
+**Mike Smith** (12:23:24):
+> I don't have any actual numbers, but my intuition is that the`index`argument is much more likely to be used that the`start/stride/block/count`combo.  Providing the indices you want to select via`index`feels way more 'R-like' to me (even if it is via a slightly odd list format) compared to the alternative, although I guess it's pretty much like creating the list of indices via calls to`seq()`.
+
+**Martin Morgan** (15:17:56):
+> start / stride / block would be a natural way of iterating through a large file, which seems like a common use case
+
+
+## 2018-03-05
+
+**Raphael Gottardo** (11:05:01):
+> @Mike JiangSee above, if you have anything to add?
+
+
+## 2018-03-06
+
+**John Readey** (13:40:13):
+> Hey@Vince Carey- I hadn't heard about Reticulate before, but if it is not problematic for end users, layering rhdf5client on h5pyd seems like a good strategy.  I've put in a fair amount of work into h5pyd and you probably don't want to redo all that for R.
+
+**Sean Davis** (13:43:20):
+> I had hoped you might weigh in on that point.
+
+
+## 2018-03-07
+
+**Mike Jiang** (13:39:38):
+> agree  with both@Mike Smithand@Martin Morgan,`index`is more natural way for R user, but under the hood, it is essentially the same operation as`start/stride/block`, both translated into`H5Sselect_hyperslab`at`C`
+
+**Mike Jiang** (13:49:16):
+> And`index`is more generic, can be used for both`point`and`block`selection
+
+**Mike Jiang** (13:50:41):
+> There may be some overhead involved in converting consecutive`points`to`block`selection in`index`usage, Thus for local H5 storage, the latter would be more efficient for data traversal purpose as@Martin Morgansuggested
+
+**Mike Jiang** (13:52:34):
+> But it won't be a huge issue for HSDS due to its distributed storage as s3 buckets ( i.e. leave`point`selection as it is without converting to`block`operation)
+
+**Vince Carey** (14:20:41):
+> OK, good to hear from all of you.@John Readeyhas commented that h5pyd should be exposed and I think we can do that, but I wanted to try to isolate the key "R idioms" that would need to be facilitated through interfaces to h5pyd.  Off the top of my head it is not all that clear how to map the basic rhdf5::h5read function to work through h5pyd for the sake of smooth operation with both local and remote HDF5.  Our effort thus far has been to define enough infrastructure so that there's a way to have X[i,j] get "what an R user will want" for the diverse possible forms of i,j in R, with X an interface to the remote HDF5.  And what we have been doing to accomplish this is building GET operations in R and decoding the returns into forms that are expected.  Our sense is that this is what h5pyd does as well.  The main problem has been to build the correct restful query.  It would be fine to "hand this problem off" to h5pyd+reticulate.  For me, index translation has been a huge problem and one that I think carries high risk of error as they get more exotic.  Anticipating the diversity of forms that the HDF5 data may take is another problem -- we have focused on the 2d numerical array because that's what we need, but clearly the 3d array should be tackled.  I am less clear on how to approach a general HDF group data structure.  For those more general problems the reuse of h5pyd would seem to be inevitable.
+
+**Vince Carey** (14:23:36):
+> Bottom line: we are happy to consider retooling what is in rhdf5client to make more use of h5pyd and reticulate.  But we would like to know how to prioritize the interfacing process.
+
+**Vince Carey** (14:26:23):
+> I should add that it is not just index translation, but index processing to minimize the number of queries needed, given the start-end-stride idiom that is available.
+
+**John Readey** (14:37:41):
+> Hey@Vince Carey- does the REST interface provide what you need and the issue is just that the needed functionality is not exposed via h5pyd?  Or is it something else?
+
+**Vince Carey** (14:41:44):
+> It meets the needs we've defined so far.  But I am not a representative user.  I think the fact that we have to define slightly different client behaviors for the server and the object store is a bit of a problem and we haven't streamlined that as far as we can.
+
+**Vince Carey** (14:45:37):
+> Maybe we should just put all the test data from rhdf5 package into the object store and write code that solves all the package tests using the HSDS back end.  I didn't "think" of that because I don't use rhdf5 in any interesting way -- it's just a device for getting large data to be accessible to R without being in RAM
+
+**John Readey** (14:46:42):
+> If someone can write up the REST API's you'd like see, I can look into implementing that.
+
+**John Readey** (14:49:41):
+> There are certain extensions I've already made beyond what HDF5 strictly needs.  E.g. the dataset query extension.  See "query" here:[http://h5serv.readthedocs.io/en/latest/DatasetOps/GET_Value.html](http://h5serv.readthedocs.io/en/latest/DatasetOps/GET_Value.html)
+
+**Vince Carey** (14:58:52):
+> That's interesting.  It is in h5serv but does it apply to hsds too?
+
+**John Readey** (17:18:20):
+> Yes, that works for both h5serv and hsds.  (I need to update the docs to clarify what is supported where!)
+
+**Vince Carey** (18:17:52):
+> I confess that the idea of dataset and "fields" is new to me with respect to HDF5 so if you can point me to how these fields/field names get specified that could change some important aspects of what we are doing.
+
+**John Readey** (18:51:59):
+> That applies to compound datatypes.  E.g you might have a dataset to hold 2D vectors with fields delatax and deltay.
+
+**John Readey** (18:52:25):
+> I don't know how common multi-field types are in the bio community though.
+
+**John Readey** (18:54:02):
+> Anyway, I was just meant to convey that if there is some new type of data access that is of interest to the bioconductor community, we could consider extending the existing REST API.
+
+
+## 2018-03-08
+
+**Vince Carey** (08:19:03):
+> As far as I can tell, rhdf5 is used mainly to manage "naked" numerical data.  All relevant metadata is managed in R and is assumed to be consistent with the HDF5 image.  Undoubtedly it has always been possible to have a dataset with an n x p matrix of numbers, and n-vector "r" of strings, and a p-vector "c" of strings, that constitute row and column 'names' inside HDF5.  But I don't think this has been done.
+> ```
+> > myd = matrix(as.double(1:9),3)
+> > dimnames(myd) = list(letters[1:3], LETTERS[1:3])
+> > myd
+>   A B C
+> a 1 4 7
+> b 2 5 8
+> c 3 6 9
+> > h5write(myd, "mym.h5", "wlet")
+> > h5read("mym.h5", "wlet")
+>      [,1] [,2] [,3]
+> [1,]    1    4    7
+> [2,]    2    5    8
+> [3,]    3    6    9
+> ```
+
+**Vince Carey** (08:24:31):
+> The names are lost in the retrieval and I don't think they were ever stored.  Now if we had a convention of propagating these row/column names into HDF5 and could use them to extract associated slices, that would be useful.  More to the point for bioconductor would be the inclusion of feature addresses that correspond to the rows of a matrix.  Selecting matrix rows based on conditions stated in terms of the addresses (these are addresses in genomic coordinates, consisting of chromosome id and base pair counts from end of chromosome) would be useful.  We take care of this in R, computing the indices for the naked numerical data in terms of these higher-level quantities.  But if that could be efficiently pushed into HDF5 that would surely be used.
+
+**Vince Carey** (08:29:49):
+> @John ReadeyI just used hsload to place a 396065 x 429 matrix of methylation data in the hsds at[http://52.4.181.237:5101](http://52.4.181.237:5101)... we will be discussing this at noon today.  Is there anything I need to do to make this 'world readable' for those with the client?
+
+**Vince Carey** (08:34:23):
+> ```
+> > con = H5S_source("[http://52.4.181.237:5101](http://52.4.181.237:5101)")
+> > setPath(con, "/home/stvjc/lihc450k.h5") -> lic
+> > H5S_dataset2(lic)
+> H5S_dataset instance:
+>                    dsname intl.dim1 intl.dim2    created      type.base
+> 1 /home/stvjc/lihc450k.h5       429    396065 1520514342 H5T_IEEE_F64LE
+> > H5S_dataset2(lic)[1:5,1:10]
+>            [,1]       [,2]      [,3]      [,4]      [,5]      [,6]      [,7]
+> [1,] 0.46810215 0.31319723 0.8809183 0.5141503 0.8566222 0.4477196 0.5916506
+> [2,] 0.16610714 0.07836619 0.9102999 0.7992156 0.5481364 0.1955591 0.7555092
+> [3,] 0.76954221 0.10588711 0.9202684 0.8273706 0.6214328 0.5069095 0.7322502
+> [4,] 0.07163538 0.67440685 0.9159455 0.7116600 0.4212406 0.4475842 0.1456741
+> [5,] 0.38847318 0.09028350 0.9261916 0.7718045 0.3602592 0.1852100 0.6364396
+>            [,8]      [,9]      [,10]
+> [1,] 0.01533029 0.7966745 0.12754758
+> [2,] 0.01588758 0.7742475 0.15414344
+> [3,] 0.01516886 0.8211300 0.30927884
+> [4,] 0.01638589 0.8244667 0.09449471
+> [5,] 0.01683538 0.8071453 0.17156763
+> ```
+
+**Vince Carey** (08:35:26):
+> The associated data when serialized in .rda format takes a very long time to load.  Using the hsds back end we can interrogate immediately.
+
+**Vince Carey** (12:34:19):
+> @John Readeythe question has arisen how to get hashes of the data in the object store -- so that we can check that the download is consistent with the upload ...
+
+**John Readey** (12:47:53):
+> @Vince Careyby default files uploaded will be public readable, so you shouldn't need to do anything to have other access (beyond making sure they have the client packages).
+
+**John Readey** (12:48:24):
+> There's a hsacl comandline app included with h5pyd that can be used to control the permissions.
+
+**Vince Carey** (12:48:42):
+> yes, public reading went well.  we are discussing now
+
+**John Readey** (12:50:04):
+> BTW - it wouldn't be too hard to write a web page that enabled users to interactively browse this data.
+
+**Vince Carey** (12:52:28):
+> yes, we have a system called shiny that would really simplify that.  more of the concern here is -- if we want to use HSDS to serve a large amount of data, like "the cancer genome atlas", how should we do that?  do we have to stand up a large server that you would deploy on (since it is still closed source)?  and: are there prospects for "stateless server" for this data store?
+
+**John Readey** (12:55:52):
+> What we (the HDF Group) did with NREL (National Renewable Energy Lab) is help them setup a server under their own account.  Besides the initial setup, we answer questions they have, and work on feature extensions they would like to see.  They are paying us for the work, but it's basically just to cover our costs.
+
+**John Readey** (12:56:23):
+> What do you mean by "stateless server"?
+
+**Sean Davis** (12:56:46):
+> Lambda functions….
+
+**John Readey** (12:57:24):
+> That's on the roadmap!
+
+**John Readey** (12:58:48):
+> Re: "Large Server" - the server size is basically scaled to the number of users and type of data access, not the size of the data collection.
+
+**John Readey** (12:59:34):
+> The data lives in a S3 bucket, so you are paying the $0.027/GB/month cost for that.
+
+**John Readey** (13:04:05):
+> @Vince Carey- going back to your question of data access patterns, given a 2D dataset, h5pyd should support retrieving specific rows or columns. E.g. dset[[1,3,6]] should return rows 1, 3, & 6.
+
+**John Readey** (13:04:22):
+> But that's not working yet.
+
+**John Readey** (13:05:23):
+> Once it is, a further optimization would be to have a single REST operation that retrieved the data (rather than a request per row).
+
+**John Readey** (13:07:18):
+> The idea of retrieving rows or columns by name, e.g.: dset[["abc", "x123", "r456"]] sounds like a feature of the xarray package (this is built on top of h5py).
+
+**John Readey** (13:07:58):
+> Similarly, could you put that into rhdf5client, so at the h5pyd layer we just see numeric indexes?
+
+**John Readey** (13:20:16):
+> Also, since h5pyd aims to be compatible with h5py, it shouldn't be too hard to create a rhdf5client that works with regular HDF5 files as well as remote HSDS data.
+
+**Vince Carey** (16:30:32):
+> Hi, I am not familiar with xarray, but it does look like it addresses this concern.  We'll see about using that with the client.
+
+**John Readey** (20:38:47):
+> @Vince Carey- I wasn't so much thinking that rhdf5client should use xarray as that rhdf5client could implement some xarray-like features.
+
+**John Readey** (20:39:27):
+> h5pyd does support dimensionscales now.  See:[http://docs.h5py.org/en/latest/high/dims.html](http://docs.h5py.org/en/latest/high/dims.html)for a description of how they work.
+
+**John Readey** (20:41:37):
+> It sounds like you want to be able to index a dataset using the dimension scale value.  That's not supported in h5py(d).  I'm not sure if you can do that in xarray either.  You'll need a quick reverse lookup, so that you an get an index given the text string.
+
+
+## 2018-03-09
+
+*10:12:34 - @Elizabeth Purdom has joined the channel*
+**Martin Morgan** (18:30:40):
+> one reason to use hdf5 as a back-end is to facilitate interoperability with other programming paradigms, so it doesn't necessarily do much good to invent our own idiosyncratic schemes or implement features that are only narrowly applicable; this is why loom seemed like something to get behind a bit, maybe in the rhdf5client world, too
+
+
+## 2018-03-10
+
+**Vince Carey** (07:29:12):
+> Agreed that idiosyncrasies should be avoided.  What about dimnames in HDF5?  Should we try to do that, at least with saveHDF5SummarizedExperiment?  I think it could be done by just including character vector data, and using the group concept to associate these vectors with the numerical array.  Add to this some scheme for checking that what you get is what you put in there (some persistent hashes and timestamps)?  Would such steps enhance reliability in a cost-effective way?
+
+**Vince Carey** (07:50:22):
+> [https://github.com/vjcitn/lihc450k](https://github.com/vjcitn/lihc450k)illustrates the use of HDF Object Store, BiocFileCache, and local HDF5 to deal with some 450k data that are somewhat challenging to work with in standard serialization ... the vignette is very terse
+  - Attachment (GitHub): [vjcitn/lihc450k](https://github.com/vjcitn/lihc450k)
+    > lihc450k - demonstrate HDF5 object store backed SE for LIHC 450k data
+
+
+## 2018-03-14
+
+*10:49:13 - @Davide Risso has joined the channel*
+
+## 2018-03-15
+
+**Vince Carey** (10:49:45):
+> The lihc450k package noted above now includes a vignette, "hybrid.Rmd", that illustrates construction of a MultiAssayExperiment combining conventional representation of RNA-seq with out-of-memory representation of 450k data, culminating in a limited MethylMix run.  MethylMix requires matrix inputs and needs some retooling to work directly with HDF5.
+
+**Martin Morgan** (11:25:44):
+> @Vince Careylooks great; FWIW`path(assay(lihcTM, "lihc450k"))`can be used at[https://github.com/vjcitn/lihc450k/blame/master/vignettes/hybrid.Rmd#L117](https://github.com/vjcitn/lihc450k/blame/master/vignettes/hybrid.Rmd#L117)
+  - Attachment (GitHub): [vjcitn/lihc450k](https://github.com/vjcitn/lihc450k/blame/master/vignettes/hybrid.Rmd#L117)
+    > lihc450k - demonstrate HDF5 object store backed SE for LIHC 450k data
+
+**Vince Carey** (12:45:57):
+> thanks, that was indeed some seedy code.
+
+
+## 2018-03-22
+
+**Vince Carey** (12:18:55):
+> Version 1.1.10 of rhdf5client (Bioconductor devel branch, requires R 3.5) now has a second vignette called h5client that reviews comprehensive exposure of the h5pyd API through reticulate (vignette section 3).  It includes code that creates a dataset in the remote object store; credentials are needed for that.  We are happy to hear of additional use cases; we are working on streamlining aspects of the interface.
+
+
+## 2018-03-29
+
+**Vince Carey** (07:05:24):
+> @John Readeycan you comment on durability of the HSDS you have provided in AWS?  Could we rely on availability for another year?
+
+
+## 2018-04-10
+
+**Vince Carey** (20:04:49):
+> @John Readeywe have a bit of a problem with portability to windows and wonder if you have run into this   it looks like R is producing a tempfile path that is too complex for File ... but it could be an issue for reticulate                           IOError: Unable to create file (unable to open file: name = 'C:\Usersiocbuildbs-3.7-bioc    mpdir\Rtmpk5pNvRile204ccc22124', errno = 22, error message = 'Invalid argument', flags = 15, o_flags = 502)
+> 
+> Detailed traceback: 
+>   File "<string>", line 1, in <module>
+>   File "C:\Python27\lib\site-packages\h5py\*hl\files.py", line 269, in __init_*
+>     fid = make_fid(name, mode, userblock_size, fapl, swmr=swmr)
+>   File "C:\Python27\lib\site-packages\h5py\_hl\files.py", line 124, in make_fid
+>     fid = h5f.create(name, h5f.ACC_EXCL, fapl=fapl, fcpl=fcpl)
+>   File "h5py\_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+>   File "h5py\_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+>   File "h5py\h5f.pyx", line 98, in h5py.h5f.create
+
+**Vince Carey** (20:06:50):
+> the code in question runs on linux and mac platforms
+
+**Martin Morgan** (21:11:37):
+> guessing but is this because`\`is escaping characters in the string; try (from R)`\\`or`/`
+
+**Vince Carey** (21:15:36):
+> i think you are right ... the string in the error message in the build report page has various very special characters that don't come across here.  i have no windows access right now and it is not clear how to intervene so that $File is not flummoxed.  tomorrow...
+
+
+## 2018-04-11
+
+**John Readey** (10:51:50):
+> I don't do much development on Windows, but isn't possible to always use unix-style separators?
+
+**Vince Carey** (12:02:24):
+> yes, there is a simple substitution that seems to solve the problem.
+
+
+## 2018-04-27
+
+**Vince Carey** (12:17:37) (in thread):
+> I would like to comment a little on this statement of March 22.  We did provide illustration of how we can use h5py/h5pyd through rhdf5client+reticulate.   This allows us to avoid reproducing the h5py(d) API in R.  However, there are certain usage patterns that we have addressed previously, in which we translate requests in R (e.g., se[i,j]) into restful queries to either HDF Server or HSDS, and then decode the replies for immediate use in R.  Those methods are retained.  It is not obligatory to use python with rhdf5client, but it is necessary to use reticulate+python to use parts of the h5py API that we have not explicity remapped in R.  I hope this is not too confusing.  We do need to clarify the situation in our vignette.
+
+
+## 2018-05-03
+
+*13:52:00 - @Loyal has joined the channel*
+
+## 2018-07-30
+
+*13:48:29 - @Samuela Pollack has joined the channel*
+
+## 2018-08-16
+
+*17:00:24 - @Marcus Kinsella has joined the channel*
+
+## 2018-10-09
+
+*13:56:21 - @BJ Stubbs has joined the channel*
+
+## 2018-12-17
+
+*06:57:17 - @Vladimir Kiselev has joined the channel*
+
+## 2018-12-21
+
+*12:04:02 - @Laurent Gatto has joined the channel*
+
+## 2019-05-01
+
+*09:20:08 - @Samuela Pollack has left the channel*
+
+## 2019-05-24
+
+*13:10:59 - @Nicholas Knoblauch has joined the channel*
+
+## 2019-06-25
+
+*15:40:00 - @Daniela Cassol has joined the channel*
+
+## 2019-06-26
+
+*13:28:49 - @Junhao Li has joined the channel*
+
+## 2019-07-30
+
+*09:33:41 - @Friederike Dündar has joined the channel*
+
+## 2020-02-08
+
+*05:55:41 - @Sara Ballouz has joined the channel*
+
+## 2020-06-11
+
+*03:12:59 - @Kozo Nishida has joined the channel*
+
+## 2020-11-03
+
+*11:40:13 - @Pablo Rodriguez has joined the channel*
+
+## 2020-12-12
+
+*00:38:47 - @Huipeng Li has joined the channel*
+
+## 2020-12-16
+
+*15:09:12 - @Thomas Naake has joined the channel*
+
+## 2021-01-22
+
+*15:46:18 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-05-11
+
+*16:45:33 - @Megha Lal has joined the channel*
+
+## 2021-05-28
+
+*10:16:06 - @Izaskun Mallona has joined the channel*
+
+## 2022-01-28
+
+*11:14:23 - @Megha Lal has left the channel*
+
+## 2022-05-18
+
+*06:24:44 - @Vince Carey has left the channel*
+
+## 2022-08-11
+
+*17:16:07 - @Rene Welch has joined the channel*
+
+## 2023-03-17
+
+*00:48:47 - @Michael Milton has joined the channel*
+
+## 2023-05-03
+
+*16:18:14 - @Rebecca Butler has joined the channel*
+
+## 2023-05-08
+
+*09:00:43 - @Axel Klenk has joined the channel*
+
+## 2024-05-14
+
+**Lori Shepherd** (10:40:54):
+> archived the channel

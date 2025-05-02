@@ -1,0 +1,88 @@
+---
+title: "#hash-multi-species"
+format: gfm
+---
+
+
+## 2020-01-14
+
+*13:10:04 - @Michael Love has joined the channel*
+*13:10:19 - @Avi Srivastava has joined the channel*
+*13:10:19 - @Tim Triche has joined the channel*
+*13:10:19 - @Charlotte Soneson has joined the channel*
+**Tim Triche** (13:21:24):
+> oh wow that was fast
+
+**Tim Triche** (13:21:58):
+> for GA4GH is the idea to hash the actual transcript (and/or overhang) sequence?  Because that will solve your issue of spliced/unspliced/controls (e.g. ERCC/sequins) in a hurry too
+
+**Tim Triche** (13:22:13):
+> I dimly remember this from 1 million years ago (I was on GA4GH calls, once)
+
+**Tim Triche** (13:22:58):
+> there's another nice feature to having them paired in the multi-species case but I want to hand that to a different student
+
+**Michael Love** (13:59:34):
+> so GA4GH will be hashing: chromosome sequence, transcript sequence, also collection of chromosomes and collections of transcripts, variants plus flanking region, ...
+
+**Michael Love** (14:00:00):
+> we are still hammering down collections, one option is to hash the lexicographically sorted hashes of each sequence
+
+**Michael Love** (14:00:47):
+> maybe they will also consider hashing the TSS to termination site genomic sequence, but that hasn't come up
+
+**Michael Love** (14:01:49):
+> and there will be an API where you give the hash value and they give you back the ID, organism, release, etc.
+
+**Tim Triche** (14:56:48):
+> for RNAseq,
+> > TSS to termination site genomic sequence
+> makes the most sense
+
+**Tim Triche** (14:57:00):
+> especially for lightweight quantification (Alevin, kbus)
+
+**Tim Triche** (14:57:21):
+> and double especially if, for some strange reason, one were to run ERCC or Sequins spikes
+
+**Tim Triche** (14:57:54):
+> on the off chance that, say, certain cells had more or less RNA than others, or what have you:wink:
+
+**Tim Triche** (14:58:36):
+> GA4GH likes to cast a wide net ... this identifier business has been going on for years now (at least five)
+
+**Tim Triche** (14:59:59):
+> given a transcript sequence ABC..XYZ, if it's uniquely mappable to a particular genome assembly and a particular identifier(s), that seems to be above as unambiguous as it gets for lightweight quants
+
+**Michael Love** (15:11:16):
+> yeah so if the collection hash is not unique, then you know it doesn't matter also
+
+**Michael Love** (15:11:52):
+> e.g. if they decide to bump the release and it doesn't change the hash value, not a problem bc you know quant will be equal as well
+
+**Michael Love** (15:13:50):
+> e.g. Ensembl 95 = 94 and 93 = 92 for human protein and nc txps alike
+
+
+## 2020-01-15
+
+**Tim Triche** (09:40:26):
+> exactly
+
+
+## 2020-01-16
+
+*06:12:32 - @Vince Carey has joined the channel*
+
+## 2020-02-22
+
+*07:42:54 - @Aedin Culhane has joined the channel*
+
+## 2020-05-05
+
+*09:55:18 - @Devika Agarwal has joined the channel*
+
+## 2020-05-13
+
+**Michael Love** (09:32:55):
+> archived the channel

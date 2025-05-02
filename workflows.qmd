@@ -1,0 +1,2803 @@
+---
+title: "#workflows"
+format: gfm
+---
+
+
+## 2018-04-03
+
+*11:03:34 - @Aaron Lun has joined the channel*
+**Aaron Lun** (11:03:35):
+> set the channel description: To talk about the BioC workflows
+
+**Aaron Lun** (11:06:40):
+> @Lori ShepherdOnce downloaded, do the local**ExperimentHub**resources have the same base file name when they were created? This is because BAM files conventionally have index files with the same name, e.g.,`xxx.bam`and`xxx.bam.bai`. A lot of code (including mine, in**csaw**and**chipseqDB**) assumes that this is the case when searching for index files; would this still work in an ExperimentHub setting, if BAM files and their indices were available as resources?
+
+*11:06:43 - @Lori Shepherd has joined the channel*
+*12:10:34 - @Leonardo Collado Torres has joined the channel*
+
+## 2018-04-06
+
+**Aaron Lun** (15:06:23):
+> Just noticed that**chipseqDB**is failing on[https://bioconductor.org/checkResults/devel/workflows-LATEST/chipseqDB/malbec2-buildsrc.html](https://bioconductor.org/checkResults/devel/workflows-LATEST/chipseqDB/malbec2-buildsrc.html)because of errors in`chipseq_db.Rmd`. However, this file no longer exists in the git repo (see[https://github.com/LTLA/chipseqDB/tree/master/vignettes](https://github.com/LTLA/chipseqDB/tree/master/vignettes), also checked with a  fresh clone from[https://git.bioconductor.org/packages/chipseqDB)](https://git.bioconductor.org/packages/chipseqDB)).@Nitesh TuragaAny ideas why?
+  - Attachment (GitHub): [LTLA/chipseqDB](https://github.com/LTLA/chipseqDB/tree/master/vignettes)
+    > Clone of the Bioconductor repository for the chipseqDB workflow, see [https://bioconductor.org/help/workflows/chipseqDB/work-1-intro](https://bioconductor.org/help/workflows/chipseqDB/work-1-intro) for the compiled version.
+
+*15:06:27 - @Nitesh Turaga has joined the channel*
+
+## 2018-04-10
+
+**Lori Shepherd** (20:12:19) (in thread):
+> @Aaron Lunsorry just saw this -  I'm not sure off hand but I'll investigate -  I believe there have been resources in the past that have this criteria but I'll have to do some digging
+
+
+## 2018-04-11
+
+**Aaron Lun** (08:46:09) (in thread):
+> Thanks
+
+**Nitesh Turaga** (12:18:48):
+> @Aaron LunI'll check up on this and get back to you.
+
+
+## 2018-04-13
+
+**Aaron Lun** (13:25:05):
+> Are the workflow packages going to have RSS feeds?
+
+**Nitesh Turaga** (14:32:30):
+> Hi@Aaron Lun, regarding the ChipseqDB,`vignettes/{chipseq_db.Rmd => work-3-h3k9ac.Rmd}`. That file was renamed.
+
+**Nitesh Turaga** (14:32:50):
+> The new file,`work-3-h3k9ac.Rmd`exists.
+
+**Nitesh Turaga** (14:33:56):
+> And regarding the workflow packages having RSS feeds, there have been no plans yet since it was recently moved over. But I think this is a good idea, and we might add it. Just a matter of prioritizing it.
+
+**Nitesh Turaga** (14:36:41) (in thread):
+> "Someone" renamed it
+> ```
+> /t/c/vignettes ❯❯❯ git show --name-only cebfae00680f8dc9dafae9fe184c7f83cb7101d5                                                                                           master
+> commit cebfae00680f8dc9dafae9fe184c7f83cb7101d5
+> Author: Aaron Lun <aaron.lun@cruk.cam.ac.uk>
+> Date:   Mon Apr 2 17:47:17 2018 +0100
+> 
+>     Split the workflow into three separate files.
+> 
+> vignettes/work-1-intro.Rmd
+> vignettes/work-3-h3k9ac.Rmd
+> vignettes/work-4-cbp.Rmd
+> ```
+> :wink:
+
+**Aaron Lun** (15:34:08) (in thread):
+> @Nitesh TuragaPerhaps I should have been clearer in my original question. Yes, I know that I renamed it; the real question is, why the workflow builder is still trying to build chipseq_db.Rmd, when it should be trying to build the new work-*.Rmd files?
+
+
+## 2018-04-14
+
+*03:33:55 - @Hervé Pagès has joined the channel*
+**Hervé Pagès** (03:42:11) (in thread):
+> For some reason the build system was failing to`git pull`on malbec2. I did a manual`git pull`which`git`wanted to turn into a merge even though I don't think there was anything to merge.  I finally deleted the local clone and re-cloned. No more`chipseq_db.Rmd`. History looks clean. Next workflows builds will run on Monday. I'll be out of office and off email for the next 9 days.
+
+**Aaron Lun** (08:00:44) (in thread):
+> Thanks Herve.
+
+
+## 2018-04-16
+
+*04:34:12 - @Mike Smith has joined the channel*
+**Mike Smith** (04:38:23):
+> Thanks for all the work in getting the workflow packages to this point. Can I suggest not requiring HTML tags in the section describing the R & Bioconductor versions.  Hopefully it is sufficient to go with this in markdown:
+> ```
+> ***R version***: `r R.version.string`
+>   
+>   ***Bioconductor version***: `r BiocInstaller::biocVersion()`
+>   
+>   ***Package***: `r packageVersion("annotation")`
+> ```
+> Then anyone wanting to send the workflow to F1000Research as well (which requires LaTeX for submission) won't have to edit out the HTML tags.  This does put each line in a new paragraph, rather than separating them with line breaks, but the 'two or more spaces at the end of a line' syntax in Markdown isn't conducive to perfect copy/paste .
+
+**Leonardo Collado Torres** (14:39:23):
+> @Mike Smithsorry, what HTML tags are you talking about? I don’t remember doing this for recountWorkflow
+
+**Mike Smith** (14:44:29):
+> In the 'Consistent Formatting' section on[https://www.bioconductor.org/developers/how-to/workflows/](https://www.bioconductor.org/developers/how-to/workflows/)there's some updated requirements for workflows, one of which is to include the R, BioC and Workflow versions.  It's formatted like in the example above, but with`<p>`and`<br>`tags which I'm not sure will play nicely if you output to PDF.  I think this is very new, and wasn't required for any of the existing workflows.
+
+**Mike Smith** (14:47:32):
+> We've been working on ways to write a single Rmd file ([https://f1000research.com/articles/7-431/v1](https://f1000research.com/articles/7-431/v1)) that you can submit to both BioC and F1000 with only a change to output field in the YAML, so I'm conscious of not including things specific to one document type.
+  - Attachment (f1000research.com): [F1000Research Article: Authoring Bioconductor workflows with BiocWorkflowTools.](https://f1000research.com/articles/7-431/v1)
+    > Read the latest article version by Mike L. Smith, Andrzej K. Oleś, Wolfgang Huber, at F1000Research.
+
+**Leonardo Collado Torres** (14:47:32):
+> ohh ok! I didn’t know about this change
+
+**Leonardo Collado Torres** (14:48:54):
+> maybe the html code could be put in a code chunk with`results = 'asis'`and`eval = on.bioc`where`on.bioc <- knitr::opts_knit$get("`[rmarkdown.pandoc.to](http://rmarkdown.pandoc.to)`") != 'latex'`
+
+**Mike Smith** (14:58:14):
+> I guess my feeling is that you can get the desired output by formatting the Rmd in a specific way without any HTML, and then letting pandoc do it's thing, so we should just do that.  I don't think it's a bad thing to have to versioning included in the static version  available at the journal, it provides some level of provenance in case outputs change over time.
+
+
+## 2018-04-17
+
+**Lori Shepherd** (13:59:07):
+> We just wanted to make sure the versions got in the document somewhere -  if this can be achieved a different way than that is fine - I'm trying to figure out how to make a new template that would do this automatically just haven't created it yet
+
+**Lori Shepherd** (13:59:37):
+> I could update the documentation to say that it must be included in the vignette somewhere and how ever the author wants to achieve this is fine
+
+
+## 2018-04-18
+
+**Mike Smith** (03:33:17):
+> Have you tried the template in***BiocWorkflowTools***?  If you have that package installed then you can do***New File***->***R Markdown***->***From Template***->***F1000 Reseach Article***and I've already updated the template available there to include the version information as you've suggested, and I'm happy to update it to meet any other requirements.   I don't want to tread on toes, but if there's already a workflow related package in BioC and adding to that saves you the hassle of creating new things then I think we should coordinate our efforts.
+
+
+## 2018-04-19
+
+**Lori Shepherd** (07:11:25):
+> yes absolutely!!! I'll look into it today.
+
+
+## 2018-05-03
+
+**Aaron Lun** (05:40:28):
+> Any thoughts on my request for a more consistent ordering for the vignettes on each landing page? Copy-pasting the comments from #bioc-git here:
+> > I wonder if it is possible to make the ordering on the website consistent with the ordering in which R builds the vignettes. It's quite awkward to have to keep track of the alphanumeric ordering of**both**the vignette file names as well as the vignette titles. I don't mind doing one or the other, but doing both seems unnecessary to me.
+> For example, the display order of the vignettes in[https://bioconductor.org/packages/devel/workflows/html/simpleSingleCell.html](https://bioconductor.org/packages/devel/workflows/html/simpleSingleCell.html)is pretty chaotic right now, despite being built in a very strictly controlled order. Yes, I could modify the titles, but it's hard to do anything when you need a word that sorts above "Analyzing". And prefixing the titles with numbers (e.g., "1. Introduction") seems redundant to me when the numbers are already present in the vignette file names; especially as it means I have to rename two things when adding new workflow files to the start/middle of the sequence.
+
+**Lori Shepherd** (09:06:03) (in thread):
+> I can look into this -  right now its automatically generated but I can look into it -  it might take a week or two to get to this as I'm still catching up on post-release tasks
+
+**Aaron Lun** (09:09:54) (in thread):
+> Thanks, much appreciated.
+
+
+## 2018-05-18
+
+**Aaron Lun** (03:40:24):
+> @Lori ShepherdSome advice on using**BiocFileCache**- what is the best way to use it in the workflow to avoid re-downloading resources if they are already locally available? I'm trying
+> ```
+> library(BiocFileCache)
+> local.path <- "raw_data"
+> bfc <- BiocFileCache(local.path, ask = FALSE)
+> lun.zip <- bfcadd(bfc, "E-MTAB-5522-data",
+>     "[https://www.ebi.ac.uk/arrayexpress/files/E-MTAB-5522/E-MTAB-5522.processed.1.zip](https://www.ebi.ac.uk/arrayexpress/files/E-MTAB-5522/E-MTAB-5522.processed.1.zip)")
+> lun.sdrf <- bfcadd(bfc, "E-MTAB-5522-sdrf",
+>     "[https://www.ebi.ac.uk/arrayexpress/files/E-MTAB-5522/E-MTAB-5522.sdrf.txt](https://www.ebi.ac.uk/arrayexpress/files/E-MTAB-5522/E-MTAB-5522.sdrf.txt)")
+> ```
+> ... but this just seems to add new`"E-MTAB-5522"`instances into my cache. I assume I'm missing something, because I would expect there to be an**ExperimentHub**-like mechanism that avoids re-downloading the file when it's already available...
+
+**Aaron Lun** (03:43:18):
+> ... and, having just said that, I've realized that it's`bfcrpath`.
+
+**Aaron Lun** (03:43:24):
+> Should have read all the way down to the use cases.
+
+**Aaron Lun** (04:06:39):
+> This is amazing.
+
+**Aaron Lun** (04:56:54):
+> Though the following command:
+> ```
+> islam.fname <- bfcrpath(bfc, file.path("[https://www.ncbi.nlm.nih.gov/geo/download](https://www.ncbi.nlm.nih.gov/geo/download)",
+>      "?acc=GSE29087&format=file&file=GSE29087%5FL139%5Fexpression%5Ftab%2Etxt%2Egz"))
+> ```
+> crashes with:
+> ```
+> Error in vapply(rnames, function(bfc, rname) { : values must be length 1,
+>  but FUN(X[[1]]) result is length 0
+> ```
+
+
+## 2018-05-20
+
+**Aaron Lun** (14:28:07) (in thread):
+> Hi@Lori Shepherd, any news on this front?
+
+
+## 2018-05-22
+
+**Lori Shepherd** (14:25:58) (in thread):
+> I have discussed with the team.  We have brought the workflow inline with how the software and data experiment packages are build and generate the landing pages.  The ordering of the vignettes on the landing page is consistent with`vignette()`and with`broswerVignette()`which orders by vignette title - so we will not be changing the ordering to be based on the file name.
+
+**Aaron Lun** (14:33:01) (in thread):
+> Oh.
+
+**Aaron Lun** (14:33:05) (in thread):
+> Bummer.
+
+
+## 2018-05-23
+
+**Aaron Lun** (07:29:03) (in thread):
+> Okay. The sorting seems to be done on the “VignetteIndexEntry”, rather than the title - I’ll add a sorting string to that.
+
+**Aaron Lun** (08:32:41) (in thread):
+> Hi@Lori Shepherd, any news on this front?
+
+**Lori Shepherd** (08:40:28) (in thread):
+> yes.  thank you for understanding
+
+**Aaron Lun** (11:38:47):
+> Also, does anyone know how I get to the workflow CHECK reports?@Hervé Pagès? I’m on a different computer and I can’t find the link that I was sent originally - and there’s nothing that links to the workflow CHECK reports from other pages.
+
+**Lori Shepherd** (13:04:08):
+> [http://bioconductor.org/checkResults/3.8/workflows-LATEST/](http://bioconductor.org/checkResults/3.8/workflows-LATEST/)
+
+**Aaron Lun** (13:04:58):
+> Thanks Lori. As I thought, I was getting a fail somewhere… back to debugging…
+
+**Aaron Lun** (13:05:05):
+> @Aaron Lun pinned a message to this channel.
+
+
+## 2018-06-21
+
+**Aaron Lun** (14:02:14):
+> Hi@Lori Shepherd- somewhat unusual fail related to**BiocFileCache**in my`simpleSingleCell`workflow:[http://bioconductor.org/checkResults/devel/workflows-LATEST/simpleSingleCell/malbec1-buildsrc.html](http://bioconductor.org/checkResults/devel/workflows-LATEST/simpleSingleCell/malbec1-buildsrc.html)
+
+**Aaron Lun** (14:02:41):
+> "Server denied you to change to the given directory".
+
+**Lori Shepherd** (14:42:34) (in thread):
+> I'll look into it. Thanks for the report
+
+**Aaron Lun** (14:48:26) (in thread):
+> Thanks!
+
+
+## 2018-06-25
+
+*16:06:22 - @Elana Fertig has joined the channel*
+
+## 2018-07-02
+
+**Aaron Lun** (14:14:48) (in thread):
+> @Lori ShepherdAny updates on this?
+
+**Lori Shepherd** (15:18:36) (in thread):
+> The error isn't from a server denied anymore?
+
+**Aaron Lun** (17:39:01) (in thread):
+> Ah sorry - I thought it hadn't rebuilt, but I forgot we're not on Jenkins anymore.
+
+**Aaron Lun** (18:25:55) (in thread):
+> Though while I have your attention - I'm not clear what the TIMEOUT on Windows is being caused by; the build report is quite terse here. I do remember having discussions with Dan T. a few years ago, regarding issues with`download.url`on the Windows servers. Any thoughts?
+
+
+## 2018-07-03
+
+**Lori Shepherd** (07:04:47) (in thread):
+> hmm... I can try running it manually to see if I can find where the hold up is but it may take me a bit - I'm a little back logged with some conferences coming up.  I'll add it as a task to investigate tho.
+
+**Aaron Lun** (07:58:07) (in thread):
+> Thanks! No rush.
+
+
+## 2018-07-19
+
+*14:16:47 - @Brendan Innes has joined the channel*
+*16:49:07 - @Aedin Culhane has joined the channel*
+
+## 2018-07-25
+
+*15:55:18 - @James Taylor has joined the channel*
+
+## 2018-07-26
+
+*08:52:36 - @Dario Righelli has joined the channel*
+
+## 2018-07-31
+
+*14:17:49 - @Frederick Tan has joined the channel*
+
+## 2018-08-03
+
+**Aaron Lun** (17:40:24):
+> Y'know, my life would be a lot easier if we had status flags for the workflows as well. Then I could add them to my dashboard at[https://ltla.github.io](https://ltla.github.io)
+
+
+## 2018-08-06
+
+**Lori Shepherd** (10:10:16):
+> Can you open an issue for it on[bioconductor.org](http://bioconductor.org)-  I can probably add in the badges for the workflow landing pages fairly soon -
+
+
+## 2018-08-07
+
+**Aaron Lun** (15:40:37):
+> done
+
+
+## 2018-08-27
+
+*06:49:26 - @Malte Thodberg has joined the channel*
+
+## 2018-09-04
+
+**Aaron Lun** (14:11:54):
+> @Lori Shepherdis it much work to include citation information on the workflow?
+
+**Aaron Lun** (14:12:14):
+> i.e., like how the normal packages make use of`CITATION`.
+
+**Lori Shepherd** (14:23:55):
+> I'll investigate
+
+**Aaron Lun** (14:24:42):
+> thanks
+
+
+## 2018-09-05
+
+**Lori Shepherd** (09:56:38):
+> Added
+
+**Aaron Lun** (09:58:05):
+> :+1:
+
+
+## 2018-09-10
+
+**Aaron Lun** (18:45:21):
+> @Lori ShepherdWas there any news on the**simpleSingleCell**`TIMEOUT`? Some idea of where it is stalling would be helpful. (It's currently crashing on Linux but the cause should be unrelated.)
+
+
+## 2018-10-08
+
+**Aaron Lun** (17:59:40):
+> Pinging@Lori Shepherd... any insights that can be offered?
+
+**Lori Shepherd** (19:24:39) (in thread):
+> I'll test again tomorrow - run the vignettes manually and see if I can track the slow down.
+
+
+## 2018-10-09
+
+**Aaron Lun** (04:08:22) (in thread):
+> :+1:
+
+**Lori Shepherd** (11:36:26) (in thread):
+> trying to refresh my memory again -  so is it intermittently timeout on the linux platform?   or is this in reference to the windows platform?   And this is devel?    Just trying to make sure I have my testing environment correct
+
+**Aaron Lun** (11:40:34) (in thread):
+> devel, windows only, and it always times out (as in, it’s never run successfully).
+
+**Aaron Lun** (11:41:09) (in thread):
+> Herve and I never solved this, so we just turned off the windows runs completely.
+
+**Aaron Lun** (11:42:05) (in thread):
+> My chipseqDB workflow had similar issues at the`download.url`step; Dan T and I couldn’t figure that out either. We also just gave up there.
+
+**Lori Shepherd** (11:43:00) (in thread):
+> ok thanks
+
+**Lori Shepherd** (14:11:02) (in thread):
+> so my first attempt was to just leave it building and see if it ever completes -  its going on 5 hours without finishing -  killing now and will attempt today and tomorrow to parse out the R code from the vignettes and run them manually to see if I can narrow down the code chunk or call that is the culprit -
+
+**Aaron Lun** (14:11:36) (in thread):
+> Thanks
+
+
+## 2018-10-11
+
+**Lori Shepherd** (08:38:13) (in thread):
+> still looking into this -  I had a couple urgent bugs I needed to fix yesterday regarding hubs but plan on running vignettes today -  can't promise it will turn anything up but I will try
+
+**Aaron Lun** (08:38:35) (in thread):
+> cool
+
+
+## 2018-10-15
+
+**Aaron Lun** (07:18:14):
+> Well,**simpleSingleCell**seems to be getting worse before it gets better. I notice that it now crashes on a`bfcadd`step that was previously working.
+
+
+## 2018-10-19
+
+**Aaron Lun** (14:52:18):
+> @Lori ShepherdI set the`BiocFileCache`in all**simpleSingleCell**workflows to use the default cache, but this is breaking on the build machines. It seems like the cache in`/home/biocbuild/.cache/BiocFileCache`is out of date.
+
+**Lori Shepherd** (15:16:06):
+> @Aaron Lun. I'll look into asap.
+
+
+## 2018-10-20
+
+**Lori Shepherd** (09:50:17):
+> So the default cache needs to be updated on our system for the new database schema - this error it's on our end and I can look into first thing Monday.  
+> Before using default cache you were using a package specific? What error were you getting?  It looks like Martin made changes to the package a few days ago and I can see if it was related but it will be hard if I don't know how it was failing?
+
+**Aaron Lun** (11:36:51):
+> Yes, I was using a local cache via`bfc <- BiocFileCache("raw_data", ask=FALSE)`. So this was just getting dumped to a local folder during the build.
+
+**Aaron Lun** (11:37:20):
+> I switched to the default cache because many of the files I was using in the workflows were also being used for other projects, and I didn't want to keep two copies floating around.
+
+**Aaron Lun** (11:38:21):
+> Having thought about it a bit more, I wonder perhaps whether it is better to switch back to a local cache to "quarantine" the effects of building any one package.
+
+**Lori Shepherd** (18:16:28):
+> That is your call as a developer -  The idea behind a cache is so you could use the local file and not need to have multiple versions but you may want to quarantine per package  -  I performed the migration so that ERROR should go away -  I'll monitory this on Monday's build too
+
+
+## 2018-10-21
+
+**Aaron Lun** (08:06:59):
+> Thanks Lori. I switched back to a local cache for quarantine purposes, and to guarantee that the files are re-downloaded at every build (to check that the URLs are still live).
+
+**Aaron Lun** (12:46:18):
+> On another note, how do I shut off the progress bar?
+
+
+## 2018-10-22
+
+**Lori Shepherd** (08:47:11):
+> I don't think I implemented a way too disable the progress bar -  but that is a good option to have -  I have it on task to go through open issues soon can you add this there?[https://github.com/Bioconductor/BiocFileCache/issues](https://github.com/Bioconductor/BiocFileCache/issues)
+
+**Aaron Lun** (09:33:31):
+> Done.
+
+**Lori Shepherd** (12:55:50):
+> So it seems like the BiocFileCache ERRORS have resolved and there is a different ERROR:[http://bioconductor.org/checkResults/3.8/workflows-LATEST/simpleSingleCell/malbec1-buildsrc.html](http://bioconductor.org/checkResults/3.8/workflows-LATEST/simpleSingleCell/malbec1-buildsrc.html)
+
+**Aaron Lun** (13:08:37):
+> Thanks - that's one of my sanity checks, so back to debugging...
+
+**Aaron Lun** (13:40:16):
+> Should be fixed now.
+
+**Aaron Lun** (15:46:25):
+> So,@Lori Shepherd: should I just skip the Windows builds altogether for the next release? These windows builds have been problematic for a while now.
+
+**Lori Shepherd** (16:15:20):
+> I haven't been able to make any head way on it either.  Sorry. Nothing seems immediately obvious
+
+
+## 2018-10-23
+
+**Aaron Lun** (15:22:00):
+> Well, I've switched it back to skipping the windows version.
+
+
+## 2018-10-28
+
+**Aaron Lun** (07:00:46):
+> @Kevin Rue-Albrechtdo you reckon it's easy to set up a pkgdown site for my[https://github.com/LTLA/SingleCellThoughts](https://github.com/LTLA/SingleCellThoughts)
+  - Attachment (GitHub): [LTLA/SingleCellThoughts](https://github.com/LTLA/SingleCellThoughts)
+    > Assorted thoughts, explanations and justifications for code in the scran package and the simpleSingleCell workflow. - LTLA/SingleCellThoughts
+
+*07:00:50 - @Kevin Rue-Albrecht has joined the channel*
+**Aaron Lun** (07:08:22):
+> Or maybe I should set one up in[https://github.com/LTLA/simpleSingleCell](https://github.com/LTLA/simpleSingleCell)itself... hm.
+
+**Aaron Lun** (07:13:26):
+> Ah,`rmarkdown::render_site`should be good enough.
+
+**Kevin Rue-Albrecht** (07:14:15):
+> Probably want to invite@Federico Marinito comment on this one. I’ve only been providing feedback on his effort to set it up for iSEE
+
+*07:14:22 - @Federico Marini has joined the channel*
+**Kevin Rue-Albrecht** (07:14:58):
+> but he said it’s easy, as per the`projsite`on our repo
+
+**Aaron Lun** (07:15:24):
+> It seems`pkgdown`would require a package. I just have some Rmds that I want to compile and show on a website, for the time being.
+
+**Kevin Rue-Albrecht** (07:15:46):
+> Ah hang on I see now. Exactly, this is not a package so I guess it wouldn’t be that happy
+
+**Aaron Lun** (07:16:01):
+> I mean, I could put it into the**simpleSingleCell**package, but that would be a bit forced.
+
+**Kevin Rue-Albrecht** (07:16:32):
+> You probably want to set up a Rmarkdown website then, all you need to tie multiple pages together is a`_site.yml`
+
+**Aaron Lun** (07:16:42):
+> Yes, that's what I was looking at as well.
+
+**Aaron Lun** (07:16:53):
+> Then I can just rant to my heart's content.
+
+**Kevin Rue-Albrecht** (07:17:39):
+> I’ve done that for a single cell project, it’s a bit heavy to maintain for a full research project, but for some rants and small examples, that’s just what it was designed for, I think
+
+**Federico Marini** (08:29:02):
+> an rmarkdown-based website should do it
+
+**Federico Marini** (08:30:08):
+> My first guess is that the site from the Mark Robinson lab does it exactly like this
+
+**Federico Marini** (08:33:26):
+> [https://github.com/robinsonlabuzh/robinsonlabuzh.github.io](https://github.com/robinsonlabuzh/robinsonlabuzh.github.io)
+  - Attachment (GitHub): [robinsonlabuzh/robinsonlabuzh.github.io](https://github.com/robinsonlabuzh/robinsonlabuzh.github.io)
+    > Robinson Lab website. Contribute to robinsonlabuzh/robinsonlabuzh.github.io development by creating an account on GitHub.
+
+
+## 2018-10-31
+
+**Aaron Lun** (09:51:44):
+> Yes, I finally set up[ltla.github.io/SingleCellThoughts](http://ltla.github.io/SingleCellThoughts)
+
+**Aaron Lun** (09:52:39):
+> Contains various bits and pieces that don’t really fit anywhere else.
+
+**Federico Marini** (09:56:07):
+> Can it be that some links are broken?
+
+**Federico Marini** (09:56:37):
+> e.g. from Workflow, can’t open the brief comments
+
+**Aaron Lun** (09:57:02):
+> Oh, some things don’t work
+
+**Aaron Lun** (09:57:12):
+> because I hadn’t compiled the vignettes.
+
+**Aaron Lun** (09:57:26):
+> But the non-workflow ones should be okay.
+
+**Federico Marini** (09:59:28):
+> Some do work, indeed
+
+**Aaron Lun** (10:03:26):
+> Now you can read about my deepest thoughts
+
+**Federico Marini** (10:03:57):
+> LUVVing the renaming of the repo antimagic:smile:
+
+**Aaron Lun** (10:05:50):
+> John told me to change it… so I did.
+
+
+## 2018-11-02
+
+**Aaron Lun** (15:44:23):
+> Looks like the`TIMEOUT`problems have spread to the linux workflow builders as well@Lori Shepherd. Should I be worried or is this just some teething problems with the build system for the new release?
+
+**Lori Shepherd** (15:52:13):
+> Give it a build or two...if it persists I'll dig deeper again
+
+
+## 2018-11-16
+
+**Leonardo Collado Torres** (13:23:56):
+> What is the`rss`feed url for workflow packages? For example, this is the rss feed for the software package`recount`[http://bioconductor.org/rss/build/packages/recount.rss](http://bioconductor.org/rss/build/packages/recount.rss)
+
+**Leonardo Collado Torres** (13:25:33):
+> I use feedburner to process the rss feed and then I subscribe to the feedburner feed via email so I can get emails about failed tests. Today I noticed that I don’t have one set up for`recountWorkflow`. Actually, I don’t have one for`derfinderData`(experiment data pkg) either, but that one is super stable
+
+**Nitesh Turaga** (13:57:45):
+> This gives you the total running log on[bioconductor.org](http://bioconductor.org),[http://bioconductor.org/developers/gitlog/](http://bioconductor.org/developers/gitlog/)
+
+**Nitesh Turaga** (14:00:58):
+> No idea about the build rss feeds though.
+
+
+## 2018-11-18
+
+*14:28:33 - @Thomas Girke has joined the channel*
+
+## 2018-12-06
+
+**Aaron Lun** (19:31:20):
+> @Lori ShepherdDragging up some old history - some time ago I mentioned I wanted to add the[https://github.com/LTLA/chipseqDBData](https://github.com/LTLA/chipseqDBData)ExperimentData package, to add data for the chipseqDB workflow (and avoid the current ad-hoc solution we have for storing BAM files for that workflow). How would you like to do this? I should be able to upload the BAM files remotely.
+  - Attachment (GitHub): [LTLA/chipseqDBData](https://github.com/LTLA/chipseqDBData)
+    > An Experiment data package for the chipseqDB workflow on Bioconductor. - LTLA/chipseqDBData
+
+**Aaron Lun** (19:41:51):
+> Ah, I remember the additional complication being that I need to download index files alongside the BAM files, and the index files need to have the same name as the BAM files (plus *.bai).
+
+**Lori Shepherd** (20:40:14):
+> I'll check how the hub handles this. I know we have some bam and bai files in the hub so I'll see if there is any special designation
+
+**Aaron Lun** (20:40:43):
+> :+1:Thanks.
+
+
+## 2018-12-11
+
+**Lori Shepherd** (11:59:19):
+> @Aaron LunHaven't forgotten about this -  still looking - surprisingly we don't have bam and bai files -  I know there are resources that have two files download so I'm looking into how those are specified,  and I found some references to fasta with fai files so seeing how those related files work in the code
+
+**Aaron Lun** (17:40:21):
+> Thanks@Lori Shepherd, I really appreciate it.
+
+
+## 2018-12-28
+
+*12:46:21 - @Rene Welch has joined the channel*
+
+## 2018-12-30
+
+*14:39:10 - @Evan Biederstedt has joined the channel*
+
+## 2019-01-07
+
+**Aaron Lun** (09:14:02):
+> Thanks for the quick review@Lori Shepherd.
+
+**Lori Shepherd** (09:29:24) (in thread):
+> @Aaron Lunyou make it easy!  thanks for writing nice clean packages:slightly_smiling_face:
+
+
+## 2019-01-08
+
+*02:03:27 - @Laurent Gatto has joined the channel*
+
+## 2019-01-09
+
+**Aaron Lun** (07:44:47):
+> @Lori ShepherdI**may**need to update some of the BAM files I uploaded for chipseqDBData, there were some changes in the Rsubread defaults that changed the alignment results (and some of the very downstream results in chipseqDB itself). Just a heads up for now, I’ll keep you posted…
+
+**Lori Shepherd** (09:21:54):
+> ok sounds good
+
+
+## 2019-01-10
+
+**Aaron Lun** (02:12:01):
+> @Lori Shepherd, I will have some updates for two of the data sets that are relevant to chipseqDB. Should I use the old AWS credentials?
+
+**Aaron Lun** (02:24:37):
+> I guess if I upload it to the same place, it won’t trigger a re-download of the new data on the workflow build machines. Or is the cache cleared?
+
+**Lori Shepherd** (08:24:14):
+> I don't think I've change the credentials yet so you should bee able to upload to the same place, if you get an access denied yet me know and I'll send new... Second question, that depends if only the file changed we could just replace the file and I can manually clear the cache on the build system with a manual delete ( if any user needs it there is a force=true option when retrieve the resource so it will force the download)  
+> or we can readd to the database, invalidating the old but that will assign a new ah_id. ( we are working to allow versioning of ids over the next few months but not active yet and no time frame but just as an fyi)
+
+**Aaron Lun** (08:28:20):
+> Okay - only the files have changed, so a manual cache clearing should be fine. I’ll let you know once I’ve confirmed the files are okay in their intended usage.
+
+**Lori Shepherd** (08:28:45):
+> :+1:
+
+**Lori Shepherd** (11:26:04):
+> Jut let me know when you upload the data so I can start updating
+
+**Aaron Lun** (20:05:06):
+> Okay. First batch in`chipseqDBData/h3k9ac/1.0.0`is done, new file sizes are:
+> ```
+> 574974576 h3k9ac-matureB-8059.bam
+> 5262032 h3k9ac-matureB-8059.bam.bai
+> 238302726 h3k9ac-matureB-8086.bam
+> 5261616 h3k9ac-matureB-8086.bam.bai
+> 335914430 h3k9ac-proB-8108.bam
+> 5320128 h3k9ac-proB-8108.bam.bai
+> 319992728 h3k9ac-proB-8113.bam
+> 5339000 h3k9ac-proB-8113.bam.bai
+> ```
+
+**Aaron Lun** (20:09:22):
+> Currently checking the second batch… will ping you once that’s done.
+
+**Aaron Lun** (20:40:37):
+> Second batch in`chipseqDBData/cbp/1.0.0`is done, new file sizes are:
+> ```
+> 1661081425 SRR1145787.bam
+> 6240192 SRR1145787.bam.bai
+> 1476509961 SRR1145788.bam
+> 6084208 SRR1145788.bam.bai
+> 2092389063 SRR1145789.bam
+> 6396696 SRR1145789.bam.bai
+> 1931995502 SRR1145790.bam
+> 6336552 SRR1145790.bam.bai
+> ```
+
+**Aaron Lun** (20:40:54):
+> The remaining batches are still being processed… this will take a few hours. I don’t have downstream checks for these ones yet (need to rewrite my user’s guide), but I hope that the latest updates should avoid any problems later.
+
+
+## 2019-01-11
+
+**Aaron Lun** (00:32:12):
+> Another batch down, in`chipseqDBData/h3k4me3/1.0.0`:
+> ```
+> 319917021 h3k4me3-matureB-8070.bam
+> 5313144 h3k4me3-matureB-8070.bam.bai
+> 401395613 h3k4me3-matureB-8088.bam
+> 5401312 h3k4me3-matureB-8088.bam.bai
+> 299222292 h3k4me3-proB-8110.bam
+> 5247432 h3k4me3-proB-8110.bam.bai
+> 394635937 h3k4me3-proB-8115.bam
+> 5318992 h3k4me3-proB-8115.bam.bai
+> ```
+
+**Aaron Lun** (07:28:46):
+> Another batch done, in`chipseqDBData/nfya/1.0.0`.
+> ```
+> 1118966708 ../SRR074398.bam
+> 5762416 ../SRR074398.bam.bai
+> 1294231632 ../SRR074399.bam
+> 5770088 ../SRR074399.bam.bai
+> 634534187 ../SRR074401.bam
+> 5504456 ../SRR074401.bam.bai
+> 1371375744 ../SRR074417.bam
+> 5830888 ../SRR074417.bam.bai
+> 1119568356 ../SRR074418.bam
+> 5883832 ../SRR074418.bam.bai
+> ```
+
+**Lori Shepherd** (07:29:28):
+> so we are waiting on 1 more set?
+
+**Aaron Lun** (07:30:45):
+> Yep, just one more to go. Still chugging along.
+
+**Lori Shepherd** (07:31:51):
+> no problem -  as soon as that is done i'll move all of them together -  that way I can make sure when I delete the items in the caches on the build system its complete for all
+
+**Aaron Lun** (09:37:26):
+> It is done:`chipseqDBData/h3k27me3/1.0.0`. Uploading now:
+> ```
+> 1876579318 SRR1274188.bam
+> 6195144 SRR1274188.bam.bai
+> 1704531956 SRR1274189.bam
+> 6154304 SRR1274189.bam.bai
+> 1971571265 SRR1274190.bam
+> 6084360 SRR1274190.bam.bai
+> 1514558533 SRR1274191.bam
+> 5843928 SRR1274191.bam.bai
+> ```
+
+**Aaron Lun** (09:39:31):
+> and the upload is done.
+
+**Lori Shepherd** (09:51:33):
+> files uploaded -  you can test yourself by deleting your local cache or using the force=TRUE option -  I'll go on the builders now to reset them on our end
+
+**Aaron Lun** (09:52:35):
+> Thanks Lori. Where do I put the`force=TRUE`-  in the`[[`, it seems?
+
+**Aaron Lun** (09:52:51):
+> yep, I see it in the docs.
+
+**Lori Shepherd** (09:52:58):
+> yep -  that ignores if there is  a cached ID and re-downloads anyways
+
+
+## 2019-01-17
+
+*08:29:02 - @Kayla Interdonato has joined the channel*
+**Aaron Lun** (14:22:25):
+> Hm. ExperimentHub for the BAM files seems to be taking an awfully long time.
+
+
+## 2019-01-18
+
+**Aaron Lun** (04:59:13):
+> Don't really understand what's happening here - I've left it overnigth and I've only downloaded 2 BAM files. Is anyone else getting these speeds?
+
+**Lori Shepherd** (08:01:46):
+> when I tested locally this morning, I downloaded a BAM file in under a minute
+
+**Aaron Lun** (08:02:31):
+> Hm...
+
+**Aaron Lun** (08:03:03):
+> EH2099 has been going for 3 hours now, only at 90% at this point.
+
+**Aaron Lun** (08:04:13):
+> Any debugging suggestions on my side?
+
+**Lori Shepherd** (08:07:22):
+> I'll try that specific one and see if its slow on my end ...
+
+**Lori Shepherd** (08:07:54):
+> done... hmmm ....
+
+**Lori Shepherd** (08:09:07):
+> wonder if the connection to the EC2 instance that hosts it is effected somehow on your end
+
+**Lori Shepherd** (08:10:16):
+> does the web browser view of the API show up right away? -  is it only downloading that is slow?
+
+**Aaron Lun** (08:10:29):
+> There's a web browser view?
+
+**Aaron Lun** (08:12:21):
+> `display`works fine, if that's what you're referring to.
+
+**Lori Shepherd** (08:13:15):
+> [experimenthub.bioconductor.org](http://experimenthub.bioconductor.org)
+
+**Aaron Lun** (08:13:52):
+> Yep, that pops up instantly.
+
+**Lori Shepherd** (08:14:24):
+> hmm ... so only downloading
+
+**Lori Shepherd** (08:15:15):
+> does a download from there take long too (WARNING:  doesn't probably download to cache location)
+
+**Aaron Lun** (08:16:02):
+> I've just tried`wget `[https://experimenthub.bioconductor.org/fetch/1689](https://experimenthub.bioconductor.org/fetch/1689)and it is crawling along at ~30-60 kb/s.
+
+**Aaron Lun** (08:16:20):
+> It's only a 59 MB file, so that's pretty bad...
+
+**Lori Shepherd** (08:17:07):
+> I'll investigate
+
+**Aaron Lun** (08:18:09):
+> Just tried again on one of my servers, and now it flies along - 6 MB/s. Not sure what's happening here.
+
+**Aaron Lun** (08:20:12):
+> so it's probably something on my local network, but I have no idea why this would be the case.
+
+**Aaron Lun** (08:20:25):
+> Probably have to complain to IT.
+
+
+## 2019-01-19
+
+**Aaron Lun** (08:16:40):
+> Okay, it's fast again. Dunno what happened on Friday.
+
+
+## 2019-01-23
+
+**Aaron Lun** (08:55:53):
+> What's the memory limit on the build machines? Just thinking of how much space I have to play with for another workflow.
+
+
+## 2019-01-24
+
+**Lori Shepherd** (06:49:43):
+> I'm not quite sure -  I would have to check with Herve
+
+**Aaron Lun** (06:52:44):
+> Thanks. I ended up downsampling because I would have gone past the time limits anyway. But for curiosity's sake - is it 1 hour on 8 GB RAM?
+
+*19:40:09 - @Ming Tang has joined the channel*
+
+## 2019-01-28
+
+**Malte Thodberg** (07:26:22):
+> I’m developing a workflow for the CAGEfightR package.
+> I’m unsure how to best store the experiment data needed for the workflow (~10 BigWig files in this case). I see several options:
+> - Store the data in the workflow package itself
+> - Store the data in a separate data package
+> - Store the data on ExperimentHub.
+> Which one is considered best practice?
+
+**Lori Shepherd** (07:36:55):
+> Either using existing data or storing the data on ExperimentHub is preferred. \
+
+**Malte Thodberg** (07:53:14):
+> It’s a new dataset not currently on Bioconductor.
+> How would storing BigWigFiles on ExperimentHub work?
+
+**Aaron Lun** (08:02:08):
+> You'll probably want to read these instructions:[https://bioconductor.org/packages/release/bioc/vignettes/ExperimentHub/inst/doc/CreateAnExperimentHubPackage.html](https://bioconductor.org/packages/release/bioc/vignettes/ExperimentHub/inst/doc/CreateAnExperimentHubPackage.html)
+
+**Aaron Lun** (08:02:30):
+> I just went through this with chipseqDBData ([https://bioconductor.org/packages/devel/data/experiment/html/chipseqDBData.html](https://bioconductor.org/packages/devel/data/experiment/html/chipseqDBData.html)), it's pretty straightforward.
+  - Attachment (Bioconductor): [chipseqDBData (development version)](https://bioconductor.org/packages/devel/data/experiment/html/chipseqDBData.html)
+    > Sorted and indexed BAM files for ChIP-seq libraries, for use in the chipseqDB workflow. BAM indices are also included.
+
+**Aaron Lun** (08:04:05):
+> The GH repo might also provide a good example:[https://github.com/LTLA/chipseqDBData](https://github.com/LTLA/chipseqDBData)
+
+**Aaron Lun** (08:04:52):
+> The "hardest" part (such as it is) lies in generating the scripts required to create the files in the first place, and making sure they're portable, etc.
+
+**Malte Thodberg** (08:20:57):
+> Thanks, I’ll have look!
+
+
+## 2019-02-17
+
+**Aaron Lun** (12:32:58):
+> @Lori ShepherdIs there something wrong with the workflow builders?[http://bioconductor.org/checkResults/devel/workflows-LATEST/chipseqDB/](http://bioconductor.org/checkResults/devel/workflows-LATEST/chipseqDB/)has been broken for weeks despite me having bumped it to 1.7.6.
+
+**Lori Shepherd** (14:59:22):
+> I'll look into it. Thanks for the heads up
+
+**Aaron Lun** (14:59:42):
+> :+1:
+
+
+## 2019-02-18
+
+**Leonardo Collado Torres** (11:03:16):
+> ohhh
+
+**Leonardo Collado Torres** (11:03:20):
+> ```
+> > library('BiocPkgTools')
+> Loading required package: htmlwidgets
+> Warning message:
+> package 'BiocPkgTools' was built under R version 3.5.2
+> > problemPage('Collado', ver = '3.8')
+> Error in problemPage("Collado", ver = "3.8") : all packages fine
+> > problemPage('Collado', ver = '3.9')
+> Error in problemPage("Collado", ver = "3.9") : all packages fine
+> ```
+
+**Leonardo Collado Torres** (11:03:51):
+> yet[http://bioconductor.org/checkResults/release/workflows-LATEST/recountWorkflow/malbec1-buildsrc.html](http://bioconductor.org/checkResults/release/workflows-LATEST/recountWorkflow/malbec1-buildsrc.html)has an error:stuck_out_tongue:
+
+**Leonardo Collado Torres** (11:04:18):
+> I don’t know since when`recountWorkflow`has been failing:confused:
+
+**Leonardo Collado Torres** (11:04:37):
+> maybe since`2019-01-30`(from that page)
+
+
+## 2019-02-19
+
+**Lori Shepherd** (07:16:59):
+> There is def. an issue since it has not been regenerated since 1-30  -  Herve is on vacation but I'll try to investigate this and hopefully will have a new build report soon -
+
+**Lori Shepherd** (08:58:32):
+> There is an issue with building on windows - I'm attempting to remove the windows report while we debug -  hopefully a new report should be generated with tomorrow's scheduled builds of workflows -
+
+**Leonardo Collado Torres** (15:41:32):
+> ok, thanks Lori!
+
+
+## 2019-02-20
+
+**Malte Thodberg** (10:23:15):
+> What person should I contact for questions on how to submit a workflow to both Bioconductor and F1000?
+
+**Lori Shepherd** (12:07:03):
+> for Bioconductor that would be me.  you can email off thread if you like[lori.shepherd@roswellpark.org](mailto:lori.shepherd@roswellpark.org)or direct message me
+
+**Lori Shepherd** (18:30:24):
+> @Leonardo Collado Torres@Aaron Lun. Report is up sans windows
+
+**Aaron Lun** (18:55:43):
+> :+1:
+
+
+## 2019-02-21
+
+**Leonardo Collado Torres** (09:58:01):
+> thanks Lori ^^
+
+
+## 2019-02-22
+
+**Aaron Lun** (04:32:18):
+> @Lori ShepherdThe**csawUsersGuide**build successfully, which is good. It also means that there doesn't need to be an explicit reference to the csawUsersGuide on the**csaw**landing page itself ([http://bioconductor.org/packages/3.9/bioc/html/csaw.html](http://bioconductor.org/packages/3.9/bioc/html/csaw.html)). I've just removed the static PDF in**csaw**, is there anything that needs to be done to the website to remove the reference?
+  - Attachment (Bioconductor): [csaw (development version)](http://bioconductor.org/packages/3.9/bioc/html/csaw.html)
+    > Detection of differentially bound regions in ChIP-seq data with sliding windows, with methods for normalization and proper FDR control.
+
+**Lori Shepherd** (07:07:43):
+> I think it should be removed automatically after the build -  If it doesn't get removed by tomorrow let me know and I'll look into removing it on monday.
+
+**Aaron Lun** (07:38:32):
+> The thing is, I had to ask Dan T to add the reference manually (as it's not a vignette that gets compiled during package build), so I'm not sure it will get removed automatically either. I guess we'll see.
+
+**Lori Shepherd** (13:01:27):
+> ah - ok -  keep me posted
+
+
+## 2019-02-25
+
+**Aaron Lun** (10:09:07):
+> Looks like it went through sensibly.
+
+**Aaron Lun** (13:01:46):
+> @Lori Shepherdwas there a change to annohub/exphub that allows them to work on filesystems without file locking?
+
+**Lori Shepherd** (13:04:12):
+> I thought so[https://github.com/Bioconductor/AnnotationHub/commit/41c420235a5011c16296f310f582233a450dc4bc](https://github.com/Bioconductor/AnnotationHub/commit/41c420235a5011c16296f310f582233a450dc4bc)
+
+**Aaron Lun** (13:05:09):
+> uh - will it just work off the bat, or do I need to set something? Not entirely sure from reading the code; i"ll test it out right now.
+
+**Aaron Lun** (13:06:34):
+> ```
+> > library(BiocFileCache)
+> > bfc <- BiocFileCache("raw_data", ask = FALSE)
+> Error in result_create(conn@ptr, statement) : disk I/O error
+> In addition: Warning message:
+> Couldn't set synchronous mode: disk I/O error
+> Use `synchronous` = NULL to turn off this warning.
+> ```
+
+**Aaron Lun** (13:06:48):
+> Now, the question is, from where do I set`synchronous=NULL`?
+
+**Aaron Lun** (13:10:37):
+> Looks like a**RSQLite**thing.
+
+**Lori Shepherd** (13:11:08):
+> I don't think BiocFileCache has been updated - I have it on the todo for next sprint -
+
+**Aaron Lun** (13:11:30):
+> okay; I'll test out`TENxBrainData`right now.
+
+**Aaron Lun** (13:11:52):
+> Nice, works like a charm.
+
+**Lori Shepherd** (13:12:36):
+> I'll make sure I get to updating BFC soon -
+
+
+## 2019-02-27
+
+**Leonardo Collado Torres** (16:21:55):
+> Lori,[https://github.com/LieberInstitute/recountWorkflow/commit/df98feb967dfdbe1f1de50b4ccc9cf22c1577cc9](https://github.com/LieberInstitute/recountWorkflow/commit/df98feb967dfdbe1f1de50b4ccc9cf22c1577cc9)should fix`recountWorkflow`. It’s a bit embarrassing, but I went down this rabbit hole of finding the bug[https://gist.github.com/lcolladotor/196dabeb1ac628c35656bfa94b5d9577](https://gist.github.com/lcolladotor/196dabeb1ac628c35656bfa94b5d9577)then making a small reprex, only to realize that I had added an argument to`bumphunter::annotateTranscripts()`to solve this some time ago:stuck_out_tongue:
+
+**Leonardo Collado Torres** (16:22:36):
+> I pushed the change to both devel (`master`) and`RELEASE_3_8`
+
+
+## 2019-03-04
+
+**Malte Thodberg** (12:11:42):
+> In need of a Bioconductor/F1000 workflow pro tip:
+> When knitting the rmarkdown to a PDF, F1000 requires figure captions for all plots. Setting`fig.caption`in the r chunks gives the desired figure captions, but also causes the figures to no longer be placed directly after the corresponding code chunks (Instead they mostly jump to the beginning of the next page). How are people working around this?
+
+
+## 2019-03-06
+
+**Mike Smith** (06:12:15):
+> I guess this is because putting a caption changes the latex environment compared to just a plot on its own, and it floats off to somewhere 'nice'.  I'll take a look at whether we can force the figure environment to appear in the place it's constructed.
+
+
+## 2019-04-15
+
+*12:27:25 - @Jon Bråte has joined the channel*
+
+## 2019-04-17
+
+*18:08:44 - @Zhi Yang has joined the channel*
+
+## 2019-05-20
+
+*05:28:36 - @Assa has joined the channel*
+
+## 2019-05-21
+
+*21:32:06 - @Jeff Gentry has joined the channel*
+
+## 2019-05-29
+
+**Malte Thodberg** (04:39:52):
+> Quick question: Does Bioconductor workflows not receive DOIs like Bioconductor software packages?
+
+**Lori Shepherd** (07:30:50):
+> Hmm. I thought they should but you are correct they are not there.  We will investigate this and get back to you.
+
+**Malte Thodberg** (07:38:10) (in thread):
+> Thanks for the reply! When submitting workflows for F1000 they need an initial DOI, it would be very convenient if one could use the ones straight from BioC rather than GitHub.
+
+
+## 2019-05-30
+
+*18:50:56 - @FeiZhao has joined the channel*
+
+## 2019-05-31
+
+**Lori Shepherd** (09:30:55) (in thread):
+> Newer workflows (1-2 years)  have been assigned a DOI when they have been accepted and it has been an oversite to not include them on the package landing page - I am working on the landing page update and they should be displayed soon...   I am also in the process of generating the missing DOI for the older workflows
+
+**Lori Shepherd** (11:42:12) (in thread):
+> The workflow pages should have a DOI on the landing page within the next hour
+
+
+## 2019-06-03
+
+**Malte Thodberg** (05:12:08) (in thread):
+> Thanks alot for the quick fix!
+
+
+## 2019-06-17
+
+**Aaron Lun** (01:30:59):
+> has anyone tried using bookdown for vignettes? I'm thinking of ways to streamline my simpleSingleCell workflows, and I'd like to start by avoiding the fragmentation into many different vignettes.
+
+**Federico Marini** (03:24:04):
+> I have seen some examples
+
+**Federico Marini** (03:24:24):
+> but AFAIK not so that they strictly get built via Bioc
+
+**Federico Marini** (03:24:25):
+> [https://bioconductor.org/packages/release/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html](https://bioconductor.org/packages/release/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html)
+
+**Federico Marini** (03:24:44):
+> … refers to[https://yulab-smu.github.io/clusterProfiler-book/](https://yulab-smu.github.io/clusterProfiler-book/)
+  - Attachment (yulab-smu.github.io): [clusterProfiler: universal enrichment tool for functional and comparative study](https://yulab-smu.github.io/clusterProfiler-book/)
+    > clusterProfiler: universal enrichment tool for functional and comparative study
+
+
+## 2019-06-20
+
+*17:38:23 - @Sanjeev Sariya has joined the channel*
+*19:39:42 - @Marko Zecevic has joined the channel*
+
+## 2019-06-24
+
+**Mike Smith** (08:50:18) (in thread):
+> Have you given this a try Aaron?  I played around with a few suggestions I found on various Github issues, but they all either failed do anything or got stuck in an infinite recursion of`bookdown::render()`Would be cool to work something out as I'd like to get MSMB bundled into a package to make continuous integration easier.
+
+*09:23:49 - @Komal Rathi has joined the channel*
+**Aaron Lun** (11:25:14) (in thread):
+> Nope, just ended up going with Rob’s book.
+
+*16:32:42 - @Kirk Reardon has joined the channel*
+
+## 2019-06-25
+
+*05:45:39 - @Charlotte Soneson has joined the channel*
+
+## 2019-06-26
+
+*13:25:08 - @Junhao Li has joined the channel*
+
+## 2019-06-28
+
+*03:20:35 - @Fotis E. Psomopoulos has joined the channel*
+
+## 2019-07-02
+
+*10:16:46 - @Grégoire de Streel has joined the channel*
+
+## 2019-07-05
+
+*05:31:45 - @Kevin Missault has joined the channel*
+
+## 2019-07-12
+
+*07:45:18 - @Jannik Buhr has joined the channel*
+
+## 2019-07-17
+
+*14:33:45 - @John Hutchinson has joined the channel*
+
+## 2019-08-02
+
+*14:31:37 - @Leo Lahti has joined the channel*
+
+## 2019-08-03
+
+*13:54:24 - @Mikhael Manurung has joined the channel*
+
+## 2019-11-15
+
+*08:47:49 - @Allison has joined the channel*
+
+## 2019-11-18
+
+*11:45:26 - @Siyuan Ma has joined the channel*
+
+## 2019-12-11
+
+*12:08:04 - @Christine Choirat has joined the channel*
+
+## 2019-12-22
+
+*16:08:14 - @Sara Fonseca Costa has joined the channel*
+
+## 2020-02-20
+
+*14:31:39 - @Joan has joined the channel*
+
+## 2020-02-24
+
+*11:47:01 - @Shraddha Pai has joined the channel*
+
+## 2020-03-16
+
+**Malte Thodberg** (12:16:55):
+> At what day and time are workflows tested/build on BioC?
+
+**Lori Shepherd** (12:18:16):
+> [http://bioconductor.org/checkResults/](http://bioconductor.org/checkResults/)-   As this page indicates,  workflows are build Mon/Wed/Fri for release   and  Tue, Fri for devel
+
+**Malte Thodberg** (12:21:14):
+> Great - bookmarked the page!
+
+
+## 2020-03-17
+
+*20:05:11 - @Jianhong has joined the channel*
+
+## 2020-04-17
+
+*14:33:44 - @Daniela Cassol has joined the channel*
+
+## 2020-05-04
+
+*06:28:13 - @Nitin Sharma has joined the channel*
+
+## 2020-05-10
+
+*09:29:59 - @Sangram Keshari Sahu has joined the channel*
+
+## 2020-06-06
+
+*19:57:56 - @Olagunju Abdulrahman has joined the channel*
+
+## 2020-06-11
+
+*13:30:00 - @Synnøve Yndestad has joined the channel*
+
+## 2020-06-30
+
+*06:22:07 - @Frank Rühle has joined the channel*
+
+## 2020-07-07
+
+*02:57:40 - @Vivek Das has joined the channel*
+
+## 2020-07-21
+
+*09:24:52 - @Will Arnold has joined the channel*
+
+## 2020-07-26
+
+*09:59:46 - @Reza Rezaei has joined the channel*
+
+## 2020-07-31
+
+*13:57:09 - @bogdan tanasa has joined the channel*
+
+## 2020-08-18
+
+*09:15:14 - @Stephany Orjuela has joined the channel*
+
+## 2020-09-17
+
+*13:31:45 - @rizoic has joined the channel*
+
+## 2020-09-21
+
+*20:20:01 - @Belinda Phipson has joined the channel*
+
+## 2020-10-10
+
+*04:10:18 - @Hervé Pagès has left the channel*
+
+## 2020-10-11
+
+*21:42:56 - @Kozo Nishida has joined the channel*
+
+## 2020-10-23
+
+*08:18:45 - @Rebecca Howard has joined the channel*
+
+## 2020-11-23
+
+*08:38:53 - @Dominique Paul has joined the channel*
+
+## 2020-11-30
+
+*04:55:30 - @Roy Storey has joined the channel*
+
+## 2020-12-12
+
+*00:37:53 - @Huipeng Li has joined the channel*
+
+## 2020-12-14
+
+*08:56:42 - @Thomas Naake has joined the channel*
+*13:22:08 - @Nick Owen has joined the channel*
+
+## 2021-01-01
+
+*14:07:17 - @Bernd has joined the channel*
+
+## 2021-01-22
+
+*15:46:41 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-01-29
+
+*04:19:17 - @Magali Michaut has joined the channel*
+
+## 2021-02-07
+
+*11:10:07 - @Mikhael Manurung has left the channel*
+
+## 2021-02-12
+
+*15:53:27 - @Janani Ravi has joined the channel*
+
+## 2021-02-17
+
+*16:08:33 - @abdullah hanta has joined the channel*
+
+## 2021-03-20
+
+*01:58:38 - @watanabe_st has joined the channel*
+
+## 2021-03-23
+
+*23:06:32 - @Lambda Moses has joined the channel*
+
+## 2021-03-31
+
+*12:52:04 - @Lisa Cao has joined the channel*
+
+## 2021-04-28
+
+*08:06:56 - @Mahmoud Ahmed has joined the channel*
+
+## 2021-05-11
+
+*16:46:08 - @Megha Lal has joined the channel*
+
+## 2021-05-25
+
+*03:49:09 - @Enrica Calura has joined the channel*
+
+## 2021-06-04
+
+*05:52:44 - @Flavio Lombardo has joined the channel*
+
+## 2021-06-23
+
+*16:32:06 - @Stephen Mosher has joined the channel*
+
+## 2021-07-23
+
+*15:54:17 - @Batool Almarzouq has joined the channel*
+
+## 2021-07-26
+
+*08:56:12 - @Wes W has joined the channel*
+
+## 2021-10-27
+
+*11:03:05 - @Nicholas Cooley has joined the channel*
+
+## 2021-11-08
+
+*03:30:20 - @Paula Nieto García has joined the channel*
+
+## 2021-11-24
+
+*13:16:31 - @Helge Hecht has joined the channel*
+
+## 2021-11-26
+
+*06:47:51 - @Francesc Català has joined the channel*
+
+## 2022-01-03
+
+*17:05:39 - @Kurt Showmaker has joined the channel*
+
+## 2022-01-19
+
+*10:11:36 - @Stephany Orjuela has left the channel*
+
+## 2022-02-15
+
+*12:01:53 - @Gene Cutler has joined the channel*
+
+## 2022-03-30
+
+*23:22:50 - @Sergio Oller has joined the channel*
+
+## 2022-04-26
+
+*04:17:22 - @Hans-Rudolf Hotz has joined the channel*
+
+## 2022-05-03
+
+*06:56:25 - @Ray Su has joined the channel*
+
+## 2022-06-07
+
+*13:02:59 - @Nitesh Mishra has joined the channel*
+
+## 2022-06-12
+
+*12:37:33 - @Karat Sidhu has joined the channel*
+
+## 2022-07-07
+
+*14:28:21 - @Clara Pereira has joined the channel*
+
+## 2022-07-28
+
+*13:53:21 - @Krithika Bhuvanesh has joined the channel*
+*14:09:49 - @Nicole Ortogero has joined the channel*
+*17:21:46 - @Mervin Fansler has joined the channel*
+
+## 2022-07-31
+
+*04:17:44 - @Arda Keles has joined the channel*
+
+## 2022-08-15
+
+*13:16:08 - @Michael Kaufman has joined the channel*
+
+## 2022-09-04
+
+*15:01:52 - @Gurpreet Kaur has joined the channel*
+
+## 2022-09-27
+
+*16:15:46 - @Jennifer Holmes has joined the channel*
+
+## 2022-11-06
+
+*11:21:48 - @Sherine Khalafalla Saber has joined the channel*
+
+## 2022-12-12
+
+*17:58:45 - @Umran has joined the channel*
+*18:00:04 - @Lexi Bounds has joined the channel*
+*18:58:31 - @Carlos José Ferreira da Silva has joined the channel*
+
+## 2022-12-13
+
+*08:58:56 - @Lea Seep has joined the channel*
+*09:01:58 - @Ana Cristina Guerra de Souza has joined the channel*
+
+## 2022-12-14
+
+*19:38:48 - @Lijia Yu has joined the channel*
+
+## 2023-01-21
+
+*16:04:50 - @Hien has joined the channel*
+
+## 2023-02-01
+
+**Leonardo Collado Torres** (11:10:42):
+> FYI@Michael Loveat[http://bioconductor.org/packages/release/workflows/html/rnaseqGene.html](http://bioconductor.org/packages/release/workflows/html/rnaseqGene.html)the link to the vignette is not showing right now
+  - Attachment (Bioconductor): [rnaseqGene](http://bioconductor.org/packages/release/workflows/html/rnaseqGene.html)
+    > Here we walk through an end-to-end gene-level RNA-seq differential expression workflow using Bioconductor packages. We will start from the FASTQ files, show how these were aligned to the reference genome, and prepare a count matrix which tallies the number of RNA-seq reads/fragments within each gene for each sample. We will perform exploratory data analysis (EDA) for quality assessment and to explore the relationship between samples, perform differential gene expression analysis, and visually explore the results.
+
+*11:10:52 - @Michael Love has joined the channel*
+**Leonardo Collado Torres** (11:10:54):
+  - File (PNG): [Screenshot 2023-02-01 at 10.10.47 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/F04MGJK8X4M/screenshot_2023-02-01_at_10.10.47_am.png)
+
+**Leonardo Collado Torres** (11:10:59):
+> you can see it on the devel version though
+
+**Leonardo Collado Torres** (11:11:10):
+> [https://bioconductor.org/packages/devel/workflows/html/rnaseqGene.html](https://bioconductor.org/packages/devel/workflows/html/rnaseqGene.html)
+  - Attachment (Bioconductor): [rnaseqGene (development version)](https://bioconductor.org/packages/devel/workflows/html/rnaseqGene.html)
+    > Here we walk through an end-to-end gene-level RNA-seq differential expression workflow using Bioconductor packages. We will start from the FASTQ files, show how these were aligned to the reference genome, and prepare a count matrix which tallies the number of RNA-seq reads/fragments within each gene for each sample. We will perform exploratory data analysis (EDA) for quality assessment and to explore the relationship between samples, perform differential gene expression analysis, and visually explore the results.
+
+**Leonardo Collado Torres** (11:11:23):
+  - File (PNG): [Screenshot 2023-02-01 at 10.11.17 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/F04M512CQG7/screenshot_2023-02-01_at_10.11.17_am.png)
+
+**Michael Love** (14:40:50):
+> bizarre bc there’s no diff in code btwn release and devel
+
+**Michael Love** (14:41:47):
+> ```
+> * 914390f (HEAD -> master, origin/master, origin/HEAD) bump x.y.z version to odd y following creation of RELEASE_3_16 branch
+> * f542313 (origin/RELEASE_3_16) bump x.y.z version to even y prior to creation of RELEASE_3_16 branch
+> ```
+
+
+## 2023-02-16
+
+**Elana Fertig** (10:09:30):
+> question all -- not sure if this is the right channel -- if we are working on a vignette can we pull the sample data from a website or some other source (e.g., GEO) to avoid the data upload to the package or does it need to be part of a data package?
+
+**Lori Shepherd** (10:14:41):
+> Be careful about downloading from the web --  depending on the type of data there are lots of data packages already that would access (eg GEO) so using one of those would be preferable rather than re-creating  -- we don't often allow pulling data from private/personal locations,   if its a known trusted server or site at the very least we would say make sure there is a caching mechanism in place
+
+**Michael Love** (10:29:44):
+> also, it will be annoying to you that, if the build machine can't access the URL, you'll get an ERROR. this happens occasionally. I've created workarounds for packages like tximeta which are metadata-based and on a user machine can access remote metadata
+
+**Frederick Tan** (10:39:36):
+> Is[bioconductor.org/packages/ExperimentHub](http://bioconductor.org/packages/ExperimentHub)meant to be a way for people to host vignette data?  Not quite clear what the policies are on what can be added (is HubPub the right place to be looking for that kind of information?)
+
+**Lori Shepherd** (10:45:20):
+> Yes it could.  We would hope it would be applicable outside a vignette as well or for other packages to use  -- and why we hope package developers will look in the hub to see if data is already present to work with their package.
+
+**Lori Shepherd** (10:46:43):
+> a reminder -- the data can be hosted anywhere, not just Bioconductor default server location,  we just have a policy that it isn't on a private or personal site and things like dropbox or github, but you could host the data on say things like zenodo and the like but have it discover-able through ExperimentHub interface
+
+**Lori Shepherd** (10:49:39) (in thread):
+> by caching mechanism, I would look into BiocFileCache -- or ExperimentHub that does the caching in the backend already
+
+**Elana Fertig** (10:51:25):
+> we were debating if we should create an ExperimentHub package for the data in our paper
+
+**Frederick Tan** (10:51:26):
+> Ahh … that’s helpful to know that ExperimentHub supports more than just Bioconductor’s default server!  Is there a page that describes the general criteria for datasets that would be hosted on the default server?  And is there a list of non-Zenodo Hubs like Dryad?  Can see interest picking up in light of the NIH DMS policy
+
+**Elana Fertig** (10:51:29):
+> and then use that for the vignette
+
+**Lori Shepherd** (10:52:47) (in thread):
+> you could if you like.  Many do that so its separate and distinct
+
+**Lori Shepherd** (10:56:27) (in thread):
+> Actually I don't think we have that yet.  I've been meaning to try and get together a list of suggested trusted sites to host data but have not yet.   I think we say loosely right now to just check on the mailing list or at[hubs@bioconductor.org](mailto:hubs@bioconductor.org)if you plan to  not use Bioconductor default to host data and we would evaluate on a case by case basis.  I think since we are moving towards this broader framework a growing list of acceptable/recommended places is needed for sure as I think we would rather have it hosted elsewhere and not on us.
+
+**Frederick Tan** (10:59:06) (in thread):
+> :thumbsup:
+
+
+## 2023-02-17
+
+**Sergio Oller** (14:13:50):
+> Hi all,
+> 
+> I am the maintainer of the Bioconductor AlpsNMR package, a Nuclear Magnetic Resonance data processing package. We have a vignette with a small "demo" dataset. We also have (on github only) a tutorial/workflow .Rmd using a larger dataset. The raw original data for the tutorial (in the instrument native format) is available at a public data repository (Metabolights)[https://www.ebi.ac.uk/metabolights/MTBLS242/descriptors](https://www.ebi.ac.uk/metabolights/MTBLS242/descriptors).
+> 
+> I would like to convert our tutorial/workflow to a proper Bioconductor workflow package. I have a function to download the raw original data from MetaboLights, do a bit of filtering and generate the R object mentioned above.
+> 
+> So I'm working on producing proper Workflow and Experiment packages. I have already read[https://contributions.bioconductor.org/non-software.html](https://contributions.bioconductor.org/non-software.html)and[https://bioconductor.org/packages/devel/bioc/vignettes/HubPub/inst/doc/CreateAHubPackage.html](https://bioconductor.org/packages/devel/bioc/vignettes/HubPub/inst/doc/CreateAHubPackage.html)From my understanding I will end up having:
+> * AlpsNMR: The package that implements all the functions, with a "fast to build" vignette
+> * MTBLS242: The Experiment Hub package that provides the larger dataset for the workflow
+> * AlpsNMRWorkflow: The workflow package that uses the MTBLS242 data package and the AlpsNMR software package to show how the AlpsNMR package works.
+> So far I have two questions:***Q1: ***Would Bioconductor core maintainers prefer my MTBLS242 data package to be merged into the AlpsNMRWorkflow package (so the data and the corresponding tutorial are stored together)?  Currently they are separated.***Q2:***Do you have a preference over what data type should I provide in the ExperimentHub package? I can provide the data in a single RDS file, or the raw data in instrument native format. I see pros/cons to both options:**Provide an RDS object**(my current approach)
+> * `make-data.R`downloads 194 samples from Metabolights-242 (a total of ~700MB) and it uses AlpsNMR to load them into a single R object, which is saved as a ~200MB rds file.**I would appreciate support to eventually upload this file somewhere (s3 bucket?) since I don't have a better place for it right now.**
+> * `make-metadata.csv`creates a CSV file that describes that single Rds file.
+> This RDS approach has as advantage that end users only need to download 200MB in one request. They get the R object already. The main drawback is that backwards incompatible changes to the AlpsNMR data structure may require to update the data package, but I don't expect too many changes. The MTBLS242 package would have a dependency on the AlpsNMR package.**Provide the raw data**(doable with some effort)
+> * `make-data.R`does nothing
+> * `make-metadata.csv`creates a CSV file that describes the 194 samples from metabolights in native instrument format (which is one Zip file per sample).
+> This structure has the advantage that the data package is simpler, no extra cloud storage is required. However users don't get the R object already. Instead they need to make 194 requests downloading the 700MB.  The workflow package would take care of creating the R object from all the files. The MetaboLights website gives me occasionally time-outs that require retrying downloads.**For instance, over the last month I may have downloaded the 194 samples 10 times, and I have seen 10 downloads that needed to be retried to succeed. It is a low failure rate, but a bit annoying when that happens.**All feedback is welcome, thank you for reading and have a happy weekend!
+
+
+## 2023-02-22
+
+**Lori Shepherd** (16:48:35):
+> Q1: I think it depends on how you want to manage the data and what makes sense to you. Doesn't matter to us per say
+> Q2:  If you truly think the raw data is better and perhaps usable outside the R space than providing in raw format may be better. From a Bioconductor storage point of view it would be better for us to store the RDS object since we are currently fronting the cost if you go this route.  Some other places to host data that is not the Bioconductor default location would be zenodo, dryad , those might also be alternatives to hosting data (perhaps the raw files)-- as mentioned above you can use ExperimentHub to find/download/cache but store either in Bioconductor default location (currently microsoft data lake) or trusted servers like zenodo, dryad -- we just dont allow data to be hosted on personal sites, dropbox, github, etc ...
+
+**Lori Shepherd** (16:49:22):
+> caching is also a great way to try to protect against website download failures so if its downloaded once its stored and available and only redownloaded if there is an update
+
+
+## 2023-02-23
+
+*15:49:35 - @Claire Seibold has joined the channel*
+
+## 2023-02-25
+
+*06:18:37 - @Ludwig Geistlinger has joined the channel*
+
+## 2023-03-01
+
+*12:14:51 - @jeremymchacón has joined the channel*
+**Sergio Oller** (12:51:59) (in thread):
+> Thanks a lot for the feedback! I will discuss with my colleagues and submit a workflow package with an ExperimentHub dataset. I believe we will aim to use some other infrastructure for hosting so Bioconductor doesn't need to front the costs.
+> Thanks for the explanations!
+
+
+## 2023-03-10
+
+*15:28:44 - @Edel Aron has joined the channel*
+
+## 2023-05-03
+
+*16:54:33 - @Rebecca Butler has joined the channel*
+
+## 2023-05-18
+
+*05:54:48 - @Oluwafemi Oyedele has joined the channel*
+
+## 2023-05-19
+
+*23:37:07 - @Umar Ahmad has joined the channel*
+
+## 2023-05-25
+
+*17:14:54 - @Jacob Krol has joined the channel*
+
+## 2023-06-07
+
+*18:30:46 - @Alyssa Obermayer has joined the channel*
+
+## 2023-07-13
+
+*07:03:11 - @Brian Schilder has joined the channel*
+
+## 2023-07-28
+
+*15:59:12 - @Benjamin Yang has joined the channel*
+
+## 2023-08-02
+
+*08:21:26 - @Beth Cimini has joined the channel*
+
+## 2023-08-03
+
+*15:59:52 - @Ritika Giri has joined the channel*
+
+## 2023-08-04
+
+*10:52:10 - @Scott Norton has joined the channel*
+
+## 2023-08-20
+
+*10:38:44 - @Jacques SERIZAY has joined the channel*
+
+## 2023-08-24
+
+*01:21:20 - @Lachlan Baer has joined the channel*
+
+## 2023-09-12
+
+**Aedin Culhane** (04:46:15):
+> Few Bioconductor workflows on[https://workflowhub.eu/](https://workflowhub.eu/)
+
+
+## 2023-09-15
+
+*04:56:59 - @Leo Lahti has joined the channel*
+
+## 2023-09-21
+
+*16:40:20 - @Philippine Louail has joined the channel*
+
+## 2023-10-04
+
+*09:44:46 - @Amanda Hiser has joined the channel*
+
+## 2023-12-01
+
+*10:16:49 - @Tram Nguyen has joined the channel*
+
+## 2023-12-25
+
+*21:21:54 - @Cherishma Subhasa has joined the channel*
+
+## 2024-01-11
+
+*12:01:35 - @Nilesh Kumar has joined the channel*
+
+## 2024-03-11
+
+*10:12:29 - @Melysssa Minto has joined the channel*
+
+## 2024-04-04
+
+*09:37:02 - @Alexandru Mizeranschi has joined the channel*
+*23:39:11 - @Tung Trinh has joined the channel*
+
+## 2024-04-12
+
+*12:14:36 - @Arnab Mukherjee has joined the channel*
+
+## 2024-04-17
+
+*10:59:06 - @Chenyue Lu has joined the channel*
+
+## 2024-04-18
+
+*03:02:31 - @Philipp Sergeev has joined the channel*
+
+## 2024-05-15
+
+*08:31:14 - @Sunil Nahata has joined the channel*
+
+## 2024-05-17
+
+*09:59:46 - @Michal Kolář has joined the channel*
+
+## 2024-06-11
+
+*04:37:03 - @Ziru Chen has joined the channel*
+
+## 2024-07-04
+
+*15:28:08 - @Sounkou Mahamane Toure has joined the channel*
+
+## 2024-07-05
+
+*12:29:30 - @Margherita has joined the channel*
+
+## 2024-07-10
+
+**Aedin Culhane** (12:10:42):
+> * @Michael Lovefor publishing of workflows, is workflow hub useful[https://workflowhub.eu](https://workflowhub.eu).@Maria Doyle@Stevie Pederson***Slack chat***:[#workflows on ](https://seek4science.slack.com/archives/CPLLVV94L)[seek4science.slack.com](http://seek4science.slack.com)([join](https://join.slack.com/t/seek4science/shared_invite/zt-csqh94qb-kf~kFbZxuHl1Hpxhbc8avw))
+
+*12:10:46 - @Maria Doyle has joined the channel*
+*12:10:46 - @Stevie Pederson has joined the channel*
+
+## 2024-07-11
+
+*06:01:41 - @Sathish Kumar has joined the channel*
+*07:20:29 - @Hothri Moka has joined the channel*
+**Michael Love** (09:15:57):
+> @Aedin Culhanethis is a good point to bring up.
+> 
+> We may want to also rebrand Bioc "workflows" to distinguish from what others mean by this word. Eg that project is for what I think most people mean by "workflow":*Current Workflow Types
+> Common Workflow Language
+> Galaxy
+> KNIME
+> Nextflow
+> Snakemake
+> 
+> *And so while we keep using that word, we will confuse others as to why we want to publish these and index them in eg PubMed. It might be time to rename these as tutorials or guides, to accentuate that they are scholarly documents / literate programming that incorporates prose and code, and that goes into depth on method choices, beyond what one gets from vignettes or application notes.
+> 
+> CC@Susan Holmes@Charlotte Soneson
+
+**Michael Love** (09:15:58):
+> @Aedin Culhanethis is a good point to bring up.
+> 
+> We may want to also rebrand Bioc "workflows" to distinguish from what others mean by this word. Eg that project is for what I think most people mean by "workflow":*Current Workflow Types
+> Common Workflow Language
+> Galaxy
+> KNIME
+> Nextflow
+> Snakemake
+> 
+> *If we keep using the word "workflow", we will tend to confuse others as to why we want to publish these and index them in eg PubMed. It might be time to rename these as tutorials or guides, to accentuate that they are scholarly documents / literate programming that incorporates prose and code, and that goes into depth on method choices, beyond what one gets from vignettes or application notes.
+> 
+> CC@Susan Holmes@Charlotte Soneson
+
+*09:16:00 - @Susan Holmes has joined the channel*
+**Laurent Gatto** (14:24:35) (in thread):
+> Re naming, tutorials is typically for newcomers, manual for competent practitioners. Guide might be a good, more neutral choice.
+
+**Aedin Culhane** (16:37:55) (in thread):
+> Wording is important to consider.It’salso important to differentiate a vignette, “workflow” and book.
+
+**Stevie Pederson** (23:14:57) (in thread):
+> That's a great point@Michael Love. Everything I have on WorkflowHub is snakemake, and that's really become a more common interpretation of the term workflow. It's really handy for version controlling that type of HPC-focussed workflow & getting a citeable DOI, but in a manner which is a bit more tailored than zenodo. Realistically we're pitching detailed use cases far beyond what's possible in a vignette, so coming up with a term like (but way better than) "R Workflows and Detailed User Guides" would be a step forward, but we'd still need to figure out Aedin's point about differentiating these from vignettes & books.
+> 
+> I guess to me, we're also looking to provide a streamlined gateway that serves the dual role of providing an important Bioc resource, and also helps Bioc developers to publish in a way that increases external visibility and enables longer-term citations indexed by all the citation trackers.
+> 
+> This idea got some air time at yesterday's CAB meeting too, so would it be worth trying to organise a group zoom for interested parties to try work together on this?
+
+
+## 2024-07-12
+
+**Michael Love** (01:02:15) (in thread):
+> Yes! What upcoming week would be best for folks here? (meeting to discuss further where to publish / how to brand Bioc "workflows")
+> 1. 3rd week July
+> 2. 4th week July
+> 3. Last week July / first week August
+> 4. First full week August (5th)
+
+
+## 2024-07-15
+
+**Stevie Pederson** (08:13:54) (in thread):
+> Hi all. Just following this up. I think I'm the only Aussie & I'm super happy to meet late at night my time (UTC+9:30), which might be able to cover early US & a thoroughly decent time in Europe. It also means I'll have near-zero conflicts making me free pretty much any day. Do any days work well/badly for 22-26th July or for 5-9 August? I also realised that BioC is that first week which I hope doesn't clash for too many. Bit too far for me this year
+
+**Michael Love** (08:43:45) (in thread):
+> I’m free M and T (week of 5-9 August) at 10 EDT, then Wed I’m headed to JSM
+  - File (PNG): [Screenshot 2024-07-15 at 8.43.10 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/F07CU7DNG73/screenshot_2024-07-15_at_8.43.10___am.png)
+
+**Michael Love** (08:44:06) (in thread):
+> if this window would work (maybe not great for West coast tho)
+
+**Michael Love** (08:44:12) (in thread):
+> or one hour later?
+
+**Charlotte Soneson** (08:45:41) (in thread):
+> Mon Aug 5 or Tue Aug 6 at 10 or 11 Eastern time would all work for me
+
+**Stevie Pederson** (09:34:14) (in thread):
+> All times look good for me too. Happy with Monday or Tuesday of that week
+
+**Laurent Gatto** (09:36:24) (in thread):
+> I don't know yet if I'll be back on that week, but please do go ahead.
+
+
+## 2024-07-18
+
+**Michael Love** (07:41:46) (in thread):
+> Please put your email here and I’ll send an invite for August 5 at 10:00 EDT (see screenshot above for CEST and AEST)
+
+
+## 2024-07-19
+
+*17:26:01 - @Sudipta Hazra has joined the channel*
+
+## 2024-07-29
+
+*17:08:55 - @JP Flores has joined the channel*
+
+## 2024-08-05
+
+**Charlotte Soneson** (07:44:14) (in thread):
+> :wave:@Michael LoveIs there already a link for the call later today? Sorry if I missed it:see_no_evil:(I don't see one in the invite)
+
+**Susan Holmes** (07:53:06) (in thread):
+> Hi Charlotte, I only received a calendar invite without a link.
+
+**Michael Love** (08:04:58) (in thread):
+> [https://zoom.us/j/4133532783?pwd=VHl6dlNXMk5NYStCODN6S1IwaVliQT09Link](https://zoom.us/j/4133532783?pwd=VHl6dlNXMk5NYStCODN6S1IwaVliQT09Link)
+
+**Michael Love** (08:06:00) (in thread):
+> Meeting ID:413 353 2783Passcode: mike
+> One tap mobile[+13126266799](tel:+13126266799),,4133532783# US (Chicago)[+16465588656](tel:+16465588656),,4133532783# US (New York)
+
+**Michael Love** (08:06:25) (in thread):
+> :point_up:meeting in <2 hrs
+
+**Michael Love** (08:09:27) (in thread):
+> Draft agenda:
+> * Bioc “workflows” rebranding to resolve confusion with the wider bioinformatics community
+> * What is a Bioc “workflow”? Can it be a vignette? How does it intersect with Bioc “books”? How does it intersect with workshops?
+> * Journals for publishing? ROpenSci / JOSS receptive in principle?
+> * …
+
+**Michael Love** (10:41:07) (in thread):
+> Notes from meeting:
+> * “Workflows” rebranding? Most think automated pipeline (you can do it without really understanding the choices or steps)
+> * Actually we are more about the human steps, choices, QC, understanding the difference between methods
+> * Tutorial, education material is more appropriate for what we are doing
+> * Not a black box, looking at tuning knobs, interactive analysis
+> * An entirely new word? Recipes? Tutorials or guides, How-to’s? Which is best for publishing. JOSE (OS education)
+> * Recipes are fun, there can be branch points
+> * Should be peer-reviewed, suitable for publication (incentive for the hard work), also useful for education of users
+> * JOSE contains both teaching tools and teaching content itself
+> * Different ways of doing things should be emphasized, not just a single package
+> * More of a guide, because you emphasize branch points. The narrative is important, whereas in a vignette is just an enumeration of all functionality
+> * Workflows vs books. Are these static? What’s the build report, build history?
+> * No information currently on the website about what is a workflow, how can I contribute? Neither from the Learn nor Developers tab
+> * Full control over workflow: submit paper which is a description (learning objectives, etc.) whereas the workflow itself is a link
+> * How to get this thing count as a publication? Gatekeepers are interested in competing and seeing thorough review. We can say we do our own thorough review that is at the level of JOSS
+> * Use the Carpentries workbench? Does everything fit as a Carpentries lesson? They are not all conceptual, sometimes more descriptive.
+> * Workflows also involve HPC so keep this in mind
+> * ACTION ITEMS:
+> * Survey about the naming (write up some motivation for each alternative)
+> * Make it a working group (4th Monday 10 EST?)
+
+**Michael Love** (10:44:29) (in thread):
+> We are considering recurring meetings 4th Mondays 10 US Eastern, although it’s not ideal for Australia etc.
+  - File (PNG): [Screenshot 2024-08-05 at 10.43.50 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/F07FJK65NG3/screenshot_2024-08-05_at_10.43.50___am.png)
+
+**Stevie Pederson** (10:58:12) (in thread):
+> That's good for me! We're 30mins behind Melbourne so it's only 11:30pm for me. Gotta be some advantages to being a night owl.:smile:
+
+
+## 2024-08-06
+
+**Charlotte Soneson** (01:36:58) (in thread):
+> Btw, this is the review checklist from JOSE:[https://openjournals.readthedocs.io/en/jose/review_checklist.html](https://openjournals.readthedocs.io/en/jose/review_checklist.html)
+
+**Michael Love** (07:11:25) (in thread):
+> We might want something about correctness. E.g. what if I make a workflow that says you can first cluster cells and then perform DE as if you never looked at the data before and it’s not a problem
+
+**Stevie Pederson** (07:27:30) (in thread):
+> Excellent point Michael. Interesting to note that correctness isn't explicitly stated in the Pedagogy section.
+
+**Charlotte Soneson** (07:28:18) (in thread):
+> Agree that that would be great - we may have to give some thoughts to how to best recruit reviewers (especially for more 'unusual' topics).
+
+
+## 2024-08-08
+
+**Laurent Gatto** (02:55:02):
+> Came across this, that seemed relevant[https://www.nature.com/articles/d41586-024-02577-1](https://www.nature.com/articles/d41586-024-02577-1)
+  - Attachment (Nature): [A publishing platform that places code front and centre](https://www.nature.com/articles/d41586-024-02577-1)
+    > Curvenote creates interactive publications based on digital-coding notebooks and aims to increase the transparency and reproducibility of data science.
+
+**Stevie Pederson** (04:15:46):
+> Very interesting. Thanks Laurent. I do wonder if we're near one of those inflection points, where publishers aren't quite there yet, but the need is growing amongst researchers. Maybe in 5-10 years, that'll be far more common. Also ties in nicely with JJ Allaire's talk at last year's BioC in Boston.
+
+**Michael Love** (11:54:13):
+> Bringing out of a thread:
+> 
+> We are considering recurring meetings around what we do with “workflows”
+> 
+> 4th Mondays 10 US Eastern, although it’s not ideal for Australia etc, but ok for Stevie
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07FXKJHKTQ/image.png)
+
+**Laurent Gatto** (13:32:54) (in thread):
+> I must be missing something, but is this referring to a past meeting (5 August) or an upcoming one?
+
+**Michael Love** (17:30:53) (in thread):
+> we are thinking about a recurring meeting on 4th Mondays
+
+
+## 2024-08-09
+
+**Susan Holmes** (10:54:47) (in thread):
+> Unfortunately correctness is rarely checked in Bioconductor packages either. I had bought this up in a discussion with Martin when some packages appeared in BioC with vignettes whose statistics approaches were completely wrong  and Martin had responded: "we only check the code and the format according to CS standards, no other checking is provided", so I definitely agree we need a check for correctness with backup references.
+
+
+## 2024-08-10
+
+*11:10:53 - @Vince Carey has joined the channel*
+**Vince Carey** (11:24:18) (in thread):
+> This reminds me of Deborah Mayo's "statistics as severe testing".  A[review](https://ndpr.nd.edu/reviews/statistical-inference-as-severe-testing-how-to-get-beyond-the-statistics-wars/)... When I reviewed packages I tried to get authors to be clear about the specific advance that the package provides.  With a new technology there may not be much to compare to.  Will the reviewer always be able to identify fallacies, biased figures of merit, etc.?  If the general replicability crisis is real, it would seem that we will reliably identify flawed methods***mostly***by extensive use and determination that the findings are false, not by a priori demonstration.  Transparency in Bioc's approach to software curation does not solve the problem of "incorrectness" but it is a useful first step?  Of course when incorrectness is patent an issue should be filed immediately.
+
+**Vince Carey** (11:25:07) (in thread):
+> Including "demonstration of correctness" in the guideliness nevertheless seems reasonable to me.
+
+
+## 2024-08-19
+
+*09:41:24 - @Rema Gesaka has joined the channel*
+
+## 2024-08-25
+
+**Stevie Pederson** (09:12:32):
+> Hi all. Are we meeting this week, as the 4th Monday of the month?
+
+**Michael Love** (20:25:06):
+> let’s do it, thanks Stevie for reminder me, i got bogged down with the start of the semester
+
+**Michael Love** (20:26:32):
+> Michael Love (he/him) is inviting you to a scheduled Zoom meeting.
+> 
+> Topic: Workflows rebranding
+> Time: Aug 26, 2024 10:00 AM Eastern Time (US and Canada)
+> 
+> Join Zoom Meeting[https://zoom.us/j/96618388987?pwd=D6cMlqM8uM8XCr6GDiLZErL3OaO6OL.1](https://zoom.us/j/96618388987?pwd=D6cMlqM8uM8XCr6GDiLZErL3OaO6OL.1)Meeting ID: 966 1838 8987
+> Passcode: biocon
+> 
+> ---
+> 
+> One tap mobile[+16469313860](tel:+16469313860),,96618388987#,,,,*604934# US[+13017158592](tel:+13017158592),,96618388987#,,,,*604934# US (Washington DC)
+> 
+> ---
+> 
+> Dial by your location
+> •[+1 646 931 3860](tel:+16469313860)US
+> •[+1 301 715 8592](tel:+13017158592)US (Washington DC)
+> •[+1 305 224 1968](tel:+13052241968)US
+> •[+1 309 205 3325](tel:+13092053325)US
+> •[+1 312 626 6799](tel:+13126266799)US (Chicago)
+> •[+1 646 558 8656](tel:+16465588656)US (New York)
+> •[+1 253 215 8782](tel:+12532158782)US (Tacoma)
+> •[+1 346 248 7799](tel:+13462487799)US (Houston)
+> •[+1 360 209 5623](tel:+13602095623)US
+> •[+1 386 347 5053](tel:+13863475053)US
+> •[+1 507 473 4847](tel:+15074734847)US
+> •[+1 564 217 2000](tel:+15642172000)US
+> •[+1 669 444 9171](tel:+16694449171)US
+> •[+1 669 900 9128](tel:+16699009128)US (San Jose)
+> •[+1 689 278 1000](tel:+16892781000)US
+> •[+1 719 359 4580](tel:+17193594580)US
+> •[+1 253 205 0468](tel:+12532050468)US
+> 
+> Meeting ID: 966 1838 8987
+> Passcode: 604934
+> 
+> Find your local number:[https://zoom.us/u/ad0llHaUfP](https://zoom.us/u/ad0llHaUfP)---
+> 
+> Join by SIP
+> •[96618388987@zoomcrc.com](mailto:96618388987@zoomcrc.com)---
+> 
+> Join by H.323
+> • 162.255.37.11 (US West)
+> • 162.255.36.11 (US East)
+> 
+> Meeting ID: 966 1838 8987
+> Passcode: 604934
+
+**Michael Love** (20:26:56):
+> I can set up a more regular thing next time
+
+
+## 2024-08-26
+
+**Stevie Pederson** (00:08:03):
+> Perfect. Thanks Michael
+
+**Michael Love** (06:40:07) (in thread):
+> @Lori Shepherd@Laurent Gatto@Susan Holmesin case you want to attend and didn’t see this:point_up:i’ll set up a regular recurring event for future meetings
+> 
+> thanks Stevie for reminding me!
+
+**Lori Shepherd** (07:10:27) (in thread):
+> thanks. Yes please include me on the future meeting link
+
+**Michael Love** (10:33:21):
+> I will make a recurring event, please add emails in thread:
+
+**Charlotte Soneson** (10:34:36) (in thread):
+> [charlottesoneson@gmail.com](mailto:charlottesoneson@gmail.com)
+
+**Stevie Pederson** (10:39:58) (in thread):
+> [stephen.pederson.au@gmail.com](mailto:stephen.pederson.au@gmail.com)
+
+**Lori Shepherd** (10:58:22) (in thread):
+> [lori.shepherd@roswellpark.org](mailto:lori.shepherd@roswellpark.org)
+
+
+## 2024-08-28
+
+**Jacques SERIZAY** (03:08:06) (in thread):
+> [jacques.serizay@pasteur.fr](mailto:jacques.serizay@pasteur.fr)
+
+
+## 2024-09-10
+
+*03:49:18 - @Alex Qin has joined the channel*
+
+## 2024-09-15
+
+**Michael Love** (18:51:31):
+> Sep 23 I'll be at a conference, so cannot join our regular meeting... I haven't had time to put together anything concrete like a list of proposed terms
+
+
+## 2024-09-17
+
+**Stevie Pederson** (10:09:36):
+> Thanks for the heads up Michael. Shall we postpone a week, a month or run as planned with a reduced group? I'm happy to roll with the consensus view
+
+**Charlotte Soneson** (10:12:50) (in thread):
+> I can do either the 23rd or the 30th - I will be unavailable on the planned October slot though
+
+**Michael Love** (10:29:27) (in thread):
+> i also can’t do 30th, so feel free to choose besides me
+
+**Michael Love** (10:29:34) (in thread):
+> i have a conference followed by a dept retreat
+
+
+## 2024-09-19
+
+**Stevie Pederson** (03:20:23) (in thread):
+> Running with the idea that it's probably best if we're all able to be there, that means 23rd & 30th September are both out, as is 28th October. 7th Oct is a Public Holiday in Australia, so how would 14th or 21st October work for others?
+
+**Michael Love** (06:08:46) (in thread):
+> Would those days work at 12 UTC?
+
+**Michael Love** (06:30:04) (in thread):
+> We were doing at 14 UTC but I now have a conflict, and maybe it's a bit better for Europe?
+
+**Stevie Pederson** (08:01:57) (in thread):
+> That's good for me. We'll be on Daylight Savings (UTC+10:30) from the start of October
+
+**Michael Love** (08:32:53) (in thread):
+> if so i might restart the event from 10/14 at 12 UTC and repeat every 2nd Mon
+
+**Stevie Pederson** (09:04:24) (in thread):
+> Sounds like a good plan to me. Hopefully it works for everyone else too
+
+**Michael Love** (09:11:14) (in thread):
+> moved just so we don’t lose the ball, we can fix if it doesnt work for anyone
+
+**Charlotte Soneson** (15:00:20) (in thread):
+> Sorry for the delay, I was in a conference all day. 12UTC will work sporadically for me (I'm often attending a group meeting from 11-13 on Mondays); it will work sometimes though, and I'm happy to follow up on slack otherwise.
+
+
+## 2024-09-20
+
+*09:30:04 - @Camille Guillermin has joined the channel*
+
+## 2024-09-23
+
+*07:12:30 - @Johannes Rainer has joined the channel*
+
+## 2024-09-24
+
+*22:49:48 - @Jasmine Baker has joined the channel*
+
+## 2024-10-02
+
+*19:08:11 - @Eva Hamrud has joined the channel*
+
+## 2024-10-14
+
+**Michael Love** (08:18:35):
+> Proposal doc:[https://docs.google.com/document/d/1hfZLfk_CAIT8eHlzxw6v0v6iYh17GND-K4DMcVI0mQA/edit?tab=t.0#heading=h.4ktwxiqk0vm7](https://docs.google.com/document/d/1hfZLfk_CAIT8eHlzxw6v0v6iYh17GND-K4DMcVI0mQA/edit?tab=t.0#heading=h.4ktwxiqk0vm7)
+
+**Michael Love** (08:31:10):
+> 2nd Mondays at 16:30 Europe?
+
+**Stevie Pederson** (08:46:29):
+> Just checked after the daylight savings shift for Mon 11th & that'll land at 2am for me. I can definitely do it, but wouldn't want to push any later
+
+**Lori Shepherd** (08:48:39):
+> SorryI missed today.  US holiday so I forgot to check meeting schedule
+
+**Michael Love** (09:12:01):
+> What times would@Charlotte Sonesonbe free during 11/11work day in Europe
+
+**Michael Love** (09:12:05):
+> [https://www.timebie.com/std/eastern.php?q=6](https://www.timebie.com/std/eastern.php?q=6)?
+  - Attachment (timebie.com): [6:00 AM EST to Your Local Time Conversion -- TimeBie](https://www.timebie.com/std/eastern.php?q=6)
+    > 6 AM ( 6:00 ) Eastern Standard Time to Your Local Time and Worldwide Time Conversions
+
+**Charlotte Soneson** (09:14:10) (in thread):
+> Right now, any time except 15-16 Central European time (we have the Bioc training meeting then)
+
+
+## 2024-10-15
+
+**Michael Love** (09:12:30) (in thread):
+> would 13:00 CET work (7am my time)?@Stevie Pedersonthat’s 9pm in Adelaide?
+
+**Stevie Pederson** (09:29:43) (in thread):
+> Yes, that'd perfect for me. Thanks Michael
+
+**Vince Carey** (09:34:00):
+> i read the proposal.  apropos EDAM, that project is real but at least a year out imho   if you see aspects of EDAM that would help clarify the rebranding process let me know
+
+**Charlotte Soneson** (09:35:28) (in thread):
+> Yep, that works for me too!
+
+**Michael Love** (10:33:27) (in thread):
+> :white_check_mark:
+
+**Michael Love** (10:35:43):
+> the idea was — if we are already changing classification terms in a larger effort to align with existing ontologies, maybe we can use that as an opportunity to be more flexible with “Workflow” — but we are very conscious of@Lori Shepherd’s point that Bioc internals use that word often and we should think if we can rebrand these in a way that they stay “workflow” according to Bioc codebase
+
+**Vince Carey** (12:14:42):
+> I made a little table in a[google doc](https://docs.google.com/document/d/1UuxpxmLgL8TVIfVqdj1Pxvm1OrRFyOCySlRmf06OO4U/edit?usp=sharing)comparing some 'workflow-scale' artifacts and their functionality
+  - File (Google Docs): [Workflow features](https://community-bioc.slack.com/files/U34P8RS3B/F07RZ1ZB0RY/workflow_features)
+
+
+## 2024-10-22
+
+**Michael Love** (09:12:36):
+> Hi all, take a look at the proposal document and add to it as you see fit. We talked about sending this to relevant boards as a way to start the conversation:[https://docs.google.com/document/d/1hfZLfk_CAIT8eHlzxw6v0v6iYh17GND-K4DMcVI0mQA/edit?tab=t.0#heading=h.kjoq072c718j](https://docs.google.com/document/d/1hfZLfk_CAIT8eHlzxw6v0v6iYh17GND-K4DMcVI0mQA/edit?tab=t.0#heading=h.kjoq072c718j)
+
+
+## 2024-11-05
+
+**Michael Love** (06:29:11):
+> Any extra comments on the proposal document:point_up:?
+> 
+> if not should we send to the CAB and TAB?
+
+**Stevie Pederson** (06:47:16):
+> Hey Michael. I'm just trying to get through ABACBS + BiocAsia this week. I'll try have a look next week. Does that work for deadlines or will that push things too much?
+
+**Michael Love** (07:30:35):
+> oh no problem at all
+
+**Vince Carey** (12:04:16):
+> I added a couple of comments.  I think it could be submitted.  For this channel, I thought it could be interesting to consider where nf-core is ... it does reflect the concept of branch points, e.g., under "Documentation" at[https://nf-co.re/scrnaseq/2.7.1/](https://nf-co.re/scrnaseq/2.7.1/)... would anyone want to interact with that ecosystem to add, e.g.,  Bioc classes as output?
+  - Attachment (nf-co.re): [scrnaseq: Introduction](https://nf-co.re/scrnaseq/2.7.1/)
+    > A single-cell RNAseq pipeline for 10X genomics data
+
+
+## 2024-11-08
+
+*01:01:34 - @Davide Risso has joined the channel*
+**Davide Risso** (01:01:59):
+> @Ellis Patrick
+
+*01:02:02 - @Ellis Patrick has joined the channel*
+**Michael Love** (08:21:21) (in thread):
+> FWIW tximeta can directly import Alevin into an SCE
+
+**Michael Love** (08:21:53) (in thread):
+> it even adds the appropriate GRanges for the genes
+
+**Michael Love** (12:32:22) (in thread):
+> And allows convenient storage of spliced, unspliced etc as assays thanks to work from Dongzhe
+
+
+## 2024-11-11
+
+**Stevie Pederson** (01:51:39):
+> Hi@Ellis Patrickand@Davide Risso. Great to chat last week and I hope you've both recovered slightly! I can in no way do any timezone conversions, but there is a meeting of this group at 10:30pm Adelaide Time tonight if either of you would like to join.[https://zoom.us/j/91567231438?pwd=EIKCGys9DDmiUaHxrNXaEGXvx5Lv3m.1](https://zoom.us/j/91567231438?pwd=EIKCGys9DDmiUaHxrNXaEGXvx5Lv3m.1)
+
+**Charlotte Soneson** (01:57:39) (in thread):
+> :point_up:13:00 Central European time:slightly_smiling_face:
+
+**Ellis Patrick** (02:05:02) (in thread):
+> Thanks Stevie! I'll see how I go, still recovering from last week:yawning_face:
+
+**Stevie Pederson** (02:06:46) (in thread):
+> Yeah sorry. I'm a night owl & given I was the only Aussie we originally had to worry about, we tried to straddle the US, Europe & AU as best we could.
+
+**Lori Shepherd** (07:06:26) (in thread):
+> so I had a calendar invite for now were we meeting  or did I miss a cancel?
+
+**Stevie Pederson** (07:07:20) (in thread):
+> Hey Lori. Charlotte & I are in the 'waiting room' but Michael (as the host) hasn't made it yet. Shall we shift to a new zoom meeting?
+
+**Lori Shepherd** (07:07:35) (in thread):
+> perhaps -- it is a us holiday so I'm not sure if that was considered
+
+**Charlotte Soneson** (07:07:44) (in thread):
+> Here's a new link:[https://fmi.zoom.us/j/95881155366?pwd=I0bnI2B8UbJR25kXvcvQhKlSEYOQrA.1](https://fmi.zoom.us/j/95881155366?pwd=I0bnI2B8UbJR25kXvcvQhKlSEYOQrA.1)
+
+**Stevie Pederson** (07:08:02) (in thread):
+> Aaaaah. That makes sense. Let's have a quick chat on Charlotte's link then
+
+**Michael Love** (07:10:23):
+> Apologies I missed todays meeting -- I didn't realize my kids are not in school for Veterans Day today and I'm on kid duty
+
+**Michael Love** (07:10:59) (in thread):
+> Apologies! I didn't see it on my calendar in time
+
+**Stevie Pederson** (07:30:45) (in thread):
+> No worries Michael. Enjoy the family time. I'll bring our current thoughts to the CAB at this week's meeting and see what feedback and discussion points pop up.
+
+**Michael Love** (07:35:29) (in thread):
+> thank you!
+
+**Davide Risso** (08:42:46):
+> Sorry, I had another commitment at 1pm and couldn't join the meeting. Happy to be involved next time!
+
+**Michael Love** (08:44:42):
+> We have been working on this proposal to revamp workflows, open to edits from anyone:[https://docs.google.com/document/d/1hfZLfk_CAIT8eHlzxw6v0v6iYh17GND-K4DMcVI0mQA/edit?tab=t.0#heading=h.kjoq072c718j](https://docs.google.com/document/d/1hfZLfk_CAIT8eHlzxw6v0v6iYh17GND-K4DMcVI0mQA/edit?tab=t.0#heading=h.kjoq072c718j)
+
+
+## 2024-11-12
+
+**Stevie Pederson** (07:47:53):
+> Just adding@Sean Davisto the channel as well.:slightly_smiling_face:
+
+*07:47:57 - @Sean Davis has joined the channel*
+**Michael Love** (08:18:48):
+> I added another term "Analysis Workflow" to the proposal list
+> 
+> This would bridge to the past a bit. I don't think it's my favorite but just throwing it out there
+
+
+## 2024-11-13
+
+**Aedin Culhane** (04:09:48) (in thread):
+> Just looking at this. If this is going to CAB/TAB, should workflows be defined clearly at the start of the doc. (so this doesn’t become a discussion at the meeting)
+
+**Aedin Culhane** (04:50:34):
+> I added a number of terms.. please delete what you don’t like
+
+**Ellis Patrick** (05:46:36):
+> I'm keen on playbook ... arguably a bit american though. I like the idea that you need different strategies for different scenarios.
+
+**Ellis Patrick** (05:49:22):
+> According to chatGPT, "playbook" is gaining international traction due to its appeal as a concise way to describe a structured yet flexible set of actions or plans.
+
+**Ellis Patrick** (05:51:32):
+> Links in with the drift towards bookdown type formatting too....
+
+**Michael Love** (06:49:47):
+> I also like playbook, also it has “play” in it which is why we’re all doing bioinformatics right?:wink:
+
+**Michael Love** (06:50:06) (in thread):
+> i can do that
+
+**Michael Love** (06:57:22) (in thread):
+  - File (PNG): [Screenshot 2024-11-13 at 6.57.15 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/F080P1J4S7L/screenshot_2024-11-13_at_6.57.15___am.png)
+
+
+## 2024-11-14
+
+**Michael Love** (14:47:48):
+> Some inspiration for this channel, Don Knuth, in his article on Literate Programming stated (emphasis mine):
+> > I can already envision the appearance of a new journal, to be entitled**Webs**, for the publication of literate programs; I imagine that it will have a large backlog and**a large group of dedicated editors and referees.**
+
+**Michael Love** (14:48:14):
+> also above this:
+> > I suddenly have a collection of programs that seem quite beautiful in my own eyes, and I have a compelling urge to publish all of them so that everybody can admire these works of art. There is no telling what will happen if lots of other people catch WEB fever and start foisting their creations on each other.
+
+**Janani Ravi** (16:34:58):
+> I'm entering this discussion a tad late, but a quick question for those of you who have been thinking about it. Have you already reached out to bioinfo/compbio journals like**Bioinformatics**,**Bioinformatics Advances**, or**PLoS Computational Biology**to see if an existing or a new format can be proposed to serve this role?
+
+**Michael Love** (17:27:52):
+> I don’t think we have reached out to those journals yet. We’ve spoken with ROpenSci, JOSS, and JOSE (and obviously F1000Research but they are sticking to their position of requiring Word doc submissions)
+
+**Janani Ravi** (18:37:35) (in thread):
+> Do you want me to start a conversation with one of the Editors at**Bioinformatics Advances**([existing formats](https://academic.oup.com/bioinformaticsadvances/pages/instructions-to-authors#how%20to%20submit))? If you've reached out to these other journals in the past, do you have a set of Qs/requests for them? I could use those notes to aid with the conversation, too.
+
+
+## 2024-11-15
+
+**Michael Love** (07:12:05) (in thread):
+> Maybe after the CAB meeting? I feel like we should solidify our own plans as there is still some internal discussion about where to go from here
+
+**Janani Ravi** (08:43:30) (in thread):
+> You mean TAB? Wejustfinished our cab meeting yesterday.:thinking_face:sure, let me know.
+
+**Michael Love** (08:59:08) (in thread):
+> Oh I'm not on either anymore :)
+> 
+> I think there is a plan to present this doc to CAB, did that just happen?
+
+**Michael Love** (08:59:44) (in thread):
+> I think we need to internally decide on terminology and direction and then we can shop around a proposal to journal(s)
+
+**Michael Love** (09:00:03) (in thread):
+> @Susan Holmesfrom your side any new journal ideas?
+
+**Janani Ravi** (09:58:42) (in thread):
+> Yes, that did happen. That's how I came to hear of it.
+
+**Michael Love** (10:09:06) (in thread):
+> Was there a consensus on new terms? Or we should continue discussion to another session (of TAB and CAB)?
+
+
+## 2024-11-21
+
+**Susan Holmes** (06:52:34) (in thread):
+> I know what happened with JOSS but what was the verdict at JOSE? I guess people are very turned off by the workflow name so maybe revising that before contacting other journals?
+
+**Michael Love** (07:29:27) (in thread):
+> Yes agree. We need some kind of a vote on name. I was hoping TAB and CAB can give some direction on the name. 
+> 
+> "Workflow" is not great for public facing -- lots of confusion on what we are doing if we say "publishing workflows"
+> 
+> We have options but need to winnow down the list and make a decision
+
+
+## 2024-11-25
+
+**Davide Risso** (11:31:16) (in thread):
+> I’m happy to bring this to the attention of the TAB, if you thinkthat’suseful. But perhaps we can do so after this group (or the CAB?) create a concrete proposal?
+
+**Michael Love** (11:33:15) (in thread):
+> Yeah I don't know how we will settle on a name. Maybe the two boards can rank their top 2-3 choices and explain why
+
+**Davide Risso** (11:38:26) (in thread):
+> Sounds good. I can ask Vince to discuss this at the next TAB.
+
+
+## 2024-11-28
+
+**Ellis Patrick** (17:29:52) (in thread):
+> I'm fully committed to playbook:slightly_smiling_face:
+
+
+## 2024-11-29
+
+**Davide Risso** (02:22:56):
+> Perhaps it's off-topic, but I came across this journal (Computo by the French Statistical Society) and it looks very similar to what I would imagine a Bioconductor journal would look like: they use OpenReview for reviews, require Github repos for every article (which is itself a Quarto document) and use Github actions to check that the code renders the article without issues at every push (which perhaps means that authors can update their article after publication?).[https://computo.sfds.asso.fr/](https://computo.sfds.asso.fr/)
+  - Attachment (computo.sfds.asso.fr): [COMPUTO](https://computo.sfds.asso.fr/)
+    > A Journal of the French Statistical Society to promote reproducible Science
+
+**Vince Carey** (08:34:07) (in thread):
+> This looks very nice.  Should we discuss at December TAB?  I can imagine a project converting a workflow to compliant quarto.   This[action](https://github.com/computorg/published-paper-tsne/blob/main/.github/workflows/build.yml)seems to accomplish a lot.  Would we want to consider teaming up with this journal to host workflows, possibly under distinct branding?
+
+**Davide Risso** (12:50:19) (in thread):
+> Yes, it would be great to discuss it at the TAB in December
+
+**Davide Risso** (12:50:51) (in thread):
+> I know Pierre Neuvial who is an associate editor at that journal. I can contact him if needed.
+
+
+## 2024-12-02
+
+**Stevie Pederson** (09:15:29) (in thread):
+> That's really interesting Davide. Thanks for posting that link. Just having a browse & spotting the downloads from zenodo as something someone did which may be relevant, and may also enable working with example datasets outside the ExperimentHub ecosystem, should we choose
+
+**Stevie Pederson** (09:23:15):
+> Sorry for the silence of late. Have had a particularly frantic couple of weeks.
+> 
+> Feedback from the CAB was very supportive of the directions we're taking. There was a suggestion about whether these may also be made available on the Galaxy workshop instances somehow, although I know Alex specifically sets those up around conferences & events, which may require some careful thought.
+> 
+> I have a meeting in my calendar for next Monday at 8am Eastern Time (US) that Michael has set up. Is that still viable for others, and does anyone not on the current invitation list wish to join?
+
+**Michael Love** (10:57:50) (in thread):
+> Thanks for keeping the thread going Stevie!
+> 
+> I can tell ahead that I’ll need to reschedule — i’ll be dropping kids off at school that day. Maybe we should ask who would like to attend a Dec meeting and then can pick a time on the clock that works for the majority of folks
+
+*10:59:44 - @Simple Poll has joined the channel*
+*10:59:44 - @Simple Poll has joined the channel*
+**Simple Poll** (10:59:47):
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: actions]
+> 
+> [Unsupported block type: context]
+
+**Lori Shepherd** (11:10:33):
+> I'd like to attend but will depend on day/time that is scheduled.  keep me posted
+
+**Stevie Pederson** (23:31:24) (in thread):
+> Thanks for the poll Michael. Unfortunately, I'm out of contention from 11th Dec until the new year. More than happy for people to meet without me & reflect on any TAB comments that may arise this week.
+
+
+## 2024-12-03
+
+**Michael Love** (07:13:22) (in thread):
+> what’s your current ranking (top 3 or 5?) for a new name
+
+**Michael Love** (07:14:01) (in thread):
+> * Recipe
+> * Tutorial
+> * Guide
+> * Interactive Analysis Guides
+> * End-to-End Guides
+> * Analysis Walkthrough
+> * Analysis Workflow
+> * Interactive Tutorial
+> * Workflow Protocol
+> * Protocol
+> * Self-paced interactive learning
+> * Guided learning modules
+> * Thinking process template
+> * Blueprints
+> * Playbooks
+> * Scaffolds
+> * On-demand training
+> * Data Sonata
+
+**Stevie Pederson** (08:04:14) (in thread):
+> Love it!:grinning:
+> 1. Playbooks
+> 2. Analysis Walkthrough
+> 3. Recipe
+> 4. Blueprints
+> 5. Interactive Analysis Guides
+
+
+## 2024-12-06
+
+**Davide Risso** (08:41:29):
+> Happy to join the meeting if it works with my schedule, but please go ahead and schedule it as works best for you all.
+
+**Davide Risso** (08:57:17):
+> Yesterday I shared some of the discussions going on in this group with the TAB. There was a lot of interest and many opinions. I will try to summarize them here, but I'm sure I'm forgetting something (Lori and Charlotte feel free to integrate):
+> * Vince asked for clarifications on what we don't like anymore about F1000R. Is it just a technical issue? Can it be solved?
+> * Michael Lawrence mentioned that the R Journal is going through a renovation and we might want to discuss with them
+> * Henrik proposed to contact the Computo editors to ask them if they would be interested in partnering with us (with no promise on our part) -- he knows all of the people involved
+> * Wolfgang and Kasper mentioned the importance of academic credit and "recognized" journals: at a minimum peer review to define an academic journal, importance of being indexed in PubMed, Scopus, WebOfScience, etc.
+> * There wasn't much discussion about the name "worflow", someone wrote something in the chat but I was on my phone and couldn't read
+
+**Michael Love** (09:07:21):
+> Thanks Davide. Sounds like some great leads
+> 
+> I think there is info about F1000R in the doc, they told us they cannot / will not fix. Breaks submission of revisions using Rmd source
+
+**Stevie Pederson** (09:45:49):
+> Thanks Davide. That's really helpful & informative.:grinning:For@Vince Carey, F1000R now insist on all submissions being MS Word documents. Mike Smith wrote a really useful LaTeX template for writing your paper using Rmd, then converting to TeX & pdf, which I recently used & hoped the process might be smooth. Unfortunately, the final strategy for us was to output the Rmd as an MS Word document, which is almost workable, but leads to formatting issues and all equations will need to be re-entered using the MS Equation Editor as they don't parse correctly. Essentially, the direct reproducibility from code to the submitted document is broken. From submission, the paper is then put through their formatting tool which removes all line breaks from code. So an opening multi-line chunk loading packages would become the single line`library(pkg1) library(pkg2) ... library(pkg_n)`which means every chunk with more than one line is then broken & needs reformatting and re-testing.  Comments also become part of this single line and this destroys tidy syntax and relevant indentation. When pointing out that they had broken all of our code their response was to ask me to send each code chunk (19 for us) as a stand-alone word document "correctly formatted", so from us they wanted 19 separate MS Word files sent through. I politely declined & pointed out they had each chunk correctly formatted in our initial submission, which after a little frustrated discussion, they conceded and used. It's still viable to publish there, but it's no longer safe to assume that the published code will work, which to me, defeats the purpose of a Bioc workflow.
+
+**Davide Risso** (09:50:28):
+> That is crazy!:scream:
+
+**Davide Risso** (09:52:31):
+> @Stevie Pedersoncan I share this message in the (public)#tech-advisory-boardchannel? To many TAB members it wasn't clear the extent of this issue
+
+**Stevie Pederson** (09:58:25):
+> Yeah sure thing Davide!
+
+**Sean Davis** (10:27:38) (in thread):
+> Agreed, it is time to move on from F1000R for technical reasons, but also because their engagement has decreased over time.
+
+**Sean Davis** (10:30:18) (in thread):
+> Preprints, while not ideal for the long term, are much more valuable for academic credit than just two years ago. Most of our go-to repositories are indexed these days.[https://pmc.ncbi.nlm.nih.gov/about/nihpreprints/#eligible](https://pmc.ncbi.nlm.nih.gov/about/nihpreprints/#eligible)
+  - Attachment (PubMed Central (PMC)): [PubMed Central: NIH Preprint Pilot](https://pmc.ncbi.nlm.nih.gov/about/nihpreprints/#eligible)
+
+**Sean Davis** (10:32:32) (in thread):
+> I also started a Zenodo Bioconductor collection for presentations, datasets, and other ad hoc electronic artifacts:[https://zenodo.org/communities/bioconductor/records?q=&l=list&p=1&s=10&sort=newest](https://zenodo.org/communities/bioconductor/records?q=&l=list&p=1&s=10&sort=newest)
+
+**Vince Carey** (10:41:26):
+> Thanks for the details@Stevie Pederson.  Very upsetting.
+
+
+## 2025-01-06
+
+**Michael Love** (10:46:29):
+> Happy new year to the channel!
+> 
+> Sounds like we should regroup and figure out what are next steps, now that both boards have at least heard what this group is up to.
+> 
+> Should I also list this formally as a working group here?[https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html)
+  - Attachment (workinggroups.bioconductor.org): [Chapter 2 Currently Active Working Groups / Committees | Bioconductor Working Groups: Guidelines and activities](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html)
+    > The following describe currently active working groups listed in alphabetical order. If you are interested in becoming involved with one of these groups please contact the group leader(s). 2.1...
+
+**Michael Love** (16:55:50):
+> Also I won't be able to do the 7am US East time reliably... we may have to resort to asynchronous work for a bit unless there's a better solution:man-shrugging:
+
+
+## 2025-01-07
+
+**Stevie Pederson** (06:37:04) (in thread):
+> Hi Michael & Happy New Year to you as well! I've been meaning to make a pull request about this group but just hadn't gotten to it yet. I checked in late last year with Susan & Sean & they're happy for this to become the Publication working group ([https://workinggroups.bioconductor.org/needed-working-groups-committees.html#publication](https://workinggroups.bioconductor.org/needed-working-groups-committees.html#publication)). I think they're still keen to have a role, if only a fairly passive one.
+  - Attachment (workinggroups.bioconductor.org): [Chapter 3 Needed Working Groups / Committees | Bioconductor Working Groups: Guidelines and activities](https://workinggroups.bioconductor.org/needed-working-groups-committees.html#publication)
+    > This is a list of suggested working groups / committees with intended focus. These groups still need a lead to organize and move the project goals forwards. If you are interested in starting one...
+
+**Stevie Pederson** (06:38:55) (in thread):
+> I think in reality, we have two main tasks so maybe we just bite off one at a time:
+> 1. The rebranding, which obviously includes some how-tos, guides and setting of specifications, and
+> 2. Establishing a relationship with a publisher to replace F1000
+> Maybe we get the internals sorted first & then focus on the outwards looking tasks?
+
+**Stevie Pederson** (06:42:08) (in thread):
+> For sure. I guess we'll just make the most/best of what we can. If there's a good time for the US people & Europe, maybe just go ahead & I'll try my best to set my alarm for middle-of-the-night o'clock once a month. I don't have any family to worry about so it's realistically a little easier for me to fit in with others who have important relationships to manage.
+
+**Michael Love** (07:02:01) (in thread):
+> Well we could do 5pm US East at least every now and then? That's presumably not bad for Australia time
+> 
+> And then 6am US East would even be better for methan 7am, I could join for half hour before I have to deal with kids
+
+**Michael Love** (07:31:44) (in thread):
+> Sounds good! Yeah I think once we have settled on how we want to name things and writing somemore prominentdocs it will beeasier to approach publishers
+
+**Michael Love** (07:32:29) (in thread):
+> Good that both boards are now aware of the issues we were meeting to address this past year
+
+**Michael Love** (07:36:04) (in thread):
+> Computo does allow for the following article type:
+> 
+> "Software/tutorial papers to present implementations of stats/ML algorithms or to feature the use of a package/toolbox. For such papers we expect not only the description of an existing implementation but also the study of a concrete use case. If applicable, a comparison to related works and appropriate benchmarking are also expected."
+
+**Michael Love** (07:36:14) (in thread):
+> [https://computorg.github.io/about](https://computorg.github.io/about)
+  - Attachment (computo.sfds.asso.fr): [About | COMPUTO](https://computorg.github.io/about)
+    > A Journal of the French Statistical Society to promote reproducible Science
+
+**Michael Love** (07:37:18) (in thread):
+> However some Bioc packages wouldn't fit as stats or ML
+> 
+> For example, would GenomicRanges be allowed?
+
+**Michael Love** (07:39:30) (in thread):
+> @Davide Rissomaybe you could ask Pierre to clarify scope, if we could also publish tutorials about software if it's not really stats / ML content
+
+**Michael Love** (07:40:39) (in thread):
+> Sophisticated analysis/computation but not necessarily stats or ML
+
+**Stevie Pederson** (07:43:28) (in thread):
+> Yeah, I think that'll make a good strategy. I hit the end of year with a bit of an exhausted stumble, but I think we laid really good groundwork for what we need to do now. Definitely keen for guidance from@Lori Shepherdas to how we work with the internal-facing stuff too. Do we want to aim for the next release to set this up or would that be too ambitious?
+
+**Michael Love** (07:45:19) (in thread):
+> Let's do it!
+
+**Michael Love** (07:45:38) (in thread):
+> Too many good alternative name options though :)
+
+**Stevie Pederson** (07:46:39) (in thread):
+> Spoiled for choice.:grinning:
+
+**Lori Shepherd** (07:53:12) (in thread):
+> so again I don't think we would change things on the builders but maybe just the outward/facing (ie. website)  but I guess the questionable will be things like downloading "workflow" packages and if we will need to change the end location repos / build report labelling /  download links in BiocManager ... and depending on where / how we make the change make sure things like combining old names/new names to have complete longevity stats can be reported etc ....  if we are talking about these elements too it will be more slightly more complicated ...
+
+**Michael Love** (08:32:58) (in thread):
+> I think we should aim to do very little to backend 
+> 
+> I had proposed some names to try to help with this like "Analysis Workflows"
+
+
+## 2025-01-08
+
+**Stevie Pederson** (06:54:31) (in thread):
+> I've just made a pull request to add this group as the clumsily titled "Workflows Working Group."[https://github.com/Bioconductor/BiocWorkingGroups/pull/47](https://github.com/Bioconductor/BiocWorkingGroups/pull/47)Do other people use Jira or Trello boards? I keep meaning to, but am wondering if we prepare one as a set of TODO action items?
+  - Attachment: [#47 Added workflows working group](https://github.com/Bioconductor/BiocWorkingGroups/pull/47)
+    > I've included anyone who has made comments in the channel or the working document
+
+**Michael Love** (07:05:22) (in thread):
+> I've used GitHub project tracking which is  similar but am open to using any tool
+
+**Stevie Pederson** (07:14:37) (in thread):
+> Ooh. Never tried those. Maybe we set one up given that we all have access to github. Should that be under the Bioconductor account or can any of just do it?
+
+**Michael Love** (07:56:46) (in thread):
+> Either is possible[https://docs.github.com/en/issues/planning-and-tracking-with-projects/creating-projects/creating-a-project](https://docs.github.com/en/issues/planning-and-tracking-with-projects/creating-projects/creating-a-project)
+
+
+## 2025-01-13
+
+**Lori Shepherd** (06:58:08):
+> I’ll be on in a few minutes. Computer decided to run updates and restart
+
+**Lori Shepherd** (07:08:16):
+> oh my calendar invite had the meeting still starting at 7 but when I log in it says not until 8 (ET) ?
+
+**Michael Love** (07:27:49):
+> Lori -- apologies I had attempted to cancel this but there must be a ghost event
+
+**Michael Love** (07:28:43):
+> I can't host/jointheUS 7am anymore,
+> hoping we can figure out a new time for a regular meeting[https://community-bioc.slack.com/archives/CA17HQDGE/p1736200550742909](https://community-bioc.slack.com/archives/CA17HQDGE/p1736200550742909)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CA17HQDGE/p1736200550742909)
+    > Also I won't be able to do the 7am US East time reliably... we may have to resort to asynchronous work for a bit unless there's a better solution :man-shrugging:
+
+**Michael Love** (07:29:47) (in thread):
+> I don't know how it can be deleted by host but still on others calendar?
+  - File (JPEG): [Image from iOS](https://community-bioc.slack.com/files/U34P8RS3B/F087YNK465D/image_from_ios.jpg)
+
+**Lori Shepherd** (07:31:42) (in thread):
+> k i just changed my response to all to decline -- just make sure if there is a new one I'm still on the invite as I'm still interested in joining
+
+**Michael Love** (07:32:22) (in thread):
+> Will do, sorry for the confusion!
+
+
+## 2025-01-20
+
+**Stevie Pederson** (08:47:25):
+> Hi everyone. I just had my first attempt at setting up a github project for this. I've added everyone I could think of to[https://github.com/users/smped/projects/2](https://github.com/users/smped/projects/2)so my apologies if I missed you. Please let me know if so. Sorry if it's a bit clunky & if you're a more expert user please feel free to make it more usable. If our current plan is to have the rebranding by the next release, hopefully this gives us the framework to get it done
+
+**Stevie Pederson** (08:48:19):
+> I've also transferred some of the contents of@Michael Love's google docs to the tasks
+
+**Charlotte Soneson** (08:50:39) (in thread):
+> Thanks Stevie, this looks great to me!
+
+**Stevie Pederson** (08:51:55) (in thread):
+> Oh, that's good to hear. Thanks Charlotte.:nerd_face:
+
+**Michael Love** (09:56:32):
+> This looks great, thanks Stevie!
+
+**Michael Love** (10:02:18):
+> I’m stuck on how to decide on new terminology. The list has gone through phases of growth and shrink, and it’s been seen by both boards, but I don’t think either board gave a ranking or opinion on the top terms. Maybe we need to bring the list down to 3-4 top candidates?
+  - File (PNG): [Screenshot 2025-01-20 at 10.02.13 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/F08A3SGLDA4/screenshot_2025-01-20_at_10.02.13___am.png)
+
+**Michael Love** (10:04:26):
+> I added “Analysis Workflow” as a compromise term, so we could bridge better with the Bioc infrastructure which will likely continue to use`workflow`it seems, or else we take a big cost of re-coding the build system and must change all the packages currently that have`Workflow`on the`biocViews`line in`DESCRIPTION`
+
+**Michael Love** (10:05:12):
+> another way forward is to have one term shown on the front-end but we keep the old term and just make a note that for historical reasons these are tracked on Bioc as “workflow”
+
+
+## 2025-01-21
+
+**Stevie Pederson** (07:44:29):
+> Yeah, this is a surprisingly difficult decision, but once we land on it, I think we'll be in good shape. As a standalone phrase, I really like things along the lines of "Workflows, Playbooks and Tutorials", however that implies there are three different types of document, whereas I think we're going for a unified kind of document which hits some key teaching points. (Unless we want to go down that path?:scream:) I'm also thinking about how it appears in the Bioconductor documentation, especially the[package submission guide](https://contributions.bioconductor.org/non-software.html#workflow-packages). I think the main public facing page is a bit more flexible, but reading that primary documentation & imagining how some of these names would be added, updated or described there has been a really good exercise for me. I'm wondering if a simple change to something like "Workflow and 'How To' Packages" might be a good way forward? Would something simple & clean like that work, where we're still relying heavily on the word workflow for backend ease?
+
+**Michael Love** (08:37:37) (in thread):
+> I fully agree with your logic here
+> 
+> I like that part of this is also reclaiming the word workflow as something more deliberative (involving critical assessment, and not point click)
+
+**Michael Love** (08:39:38) (in thread):
+> I'd be happy to work on update to the docs as a proposal/PR
+
+**Michael Love** (08:39:53) (in thread):
+> I've got a grant due Friday, but after that, I'll have some spare time
+
+**Stevie Pederson** (09:00:10) (in thread):
+> Good luck!
+
+
+## 2025-01-22
+
+**Vince Carey** (10:03:37) (in thread):
+> Here's my 2c.  Keep "Workflows".  The struggle to find the right name should end.  Our workflows section is not broken, is it?  BUT let's consider adding some technology to enable transformation of our workflow documents into "executable/parameterized" artifacts like nextflow or snakemake programs.  AI may be able to help - a lot.  Then each of our documents will have the compilable narrative form and a method for transformation into something that is more conventionally a "workflow-oriented program".  I am not saying this will be easy but it is something we can plan out, maybe seek support for, and maybe would be interesting for some community members to hack on.  Off-the-cuff: we Stangle or purl the document, substitute global data references with unbound parameter names, and figure out how to make the resulting more general program runnable by a workflow processor.
+
+**Michael Love** (10:17:49) (in thread):
+> I’m worried this would confused things more.
+> 
+> I wouldn’t want to go down the road of making these Bioc literate programming docs**more**executable. IMO that would be removing the places of highest value (where we say you have to look and think about scientific objectives, data quality and utility for answering scientific question, etc.)
+
+**Vince Carey** (10:22:59) (in thread):
+> OK, but it could be looked at in the other direction: Don't just write snakemake, write a workflow document, with all the intellectual content that is warranted, and you get something that (if the transformation framework were produced) can be used in automation to accomplish the stated intellectual ends, which are always available for reviewing the purpose of the task and its results.
+
+**Michael Love** (10:43:05) (in thread):
+> I’ll think some more. I guess our operating assumption since we started up this group again was to design documents that contain many thoughtful breakpoints. those become nuisances if you are designing documents for automation
+
+**Vince Carey** (10:48:59) (in thread):
+> Understood.  My hope -- and it is on me to provide some evidence -- is that the documents, authored in the way the group aims for, could be transformed in useful ways to align with the common usage of the workflow term, without imposing burden on the document author.  I will get back to the group if I develop some data along these lines.
+
+**Stevie Pederson** (20:09:12) (in thread):
+> Hi Vince. I guess I'm thinking along slightly different lines. I completely agree that the Bioc Workflows section isn't broken. However, the "workflows to publication" pipeline is and that's what's been driving my engagement in this discussion. As we look to engage with publishers looking for a new publication pathway, I think we need to have the pieces in place to make this viable and palatable for a publisher, acknowledging that there may not be a simple to find or convenient publication pipeline to replace F1000R. My take is that with a small amount of rebadging, and an updated set of clear guidelines regarding what analytic and educational goals a "Bioc workflow" should cover, we'll have put the pieces in place to establish a new publication pipeline. I keep coming back to Susan's point about these documents providing a resource for key analytic branch points and informed decision making, and this should be spelled out in our review criteria and as authors prepare their documents. All of this serves key educational needs for new members of the Bioc community & also supports ECRs who will often be writing the workflows & looking for publications. To me, that's really my focus.
+> 
+> Having said that, I think how we containerise these and provision for automation is a really good discussion to have. Perhaps we do establish two different styles of document? One focussed on automation (i.e. a workflow) with another focussed on decision making and interactive data exploration (i.e. a How To Guide). Or maybe I missed a key point in there...?
+
+
+## 2025-01-23
+
+**Vince Carey** (04:49:00) (in thread):
+> Thanks Stevie ... I don't think you've missed anything.  Let's bring the workflow-to-publication concept to maturity and I'll spend some time on the automation topic and get back to the group.  For automation/containerization potentials,[dockstore.org](http://dockstore.org)is a project we collaborate with through the NHGRI AnVIL.  There is a strong motivation from several parties to bring the bioc workflows into that system, and I try to stay abreast of the GA4GH workflow execution service API ([https://ga4gh.github.io/workflow-execution-service-schemas/docs/](https://ga4gh.github.io/workflow-execution-service-schemas/docs/)).  At the moment these are just distractions relative to the discussion here but I am mentioning them so they can re-emerge some time in the future, if there is interest.
+
+**Michael Love** (07:48:30) (in thread):
+> Sounds good, thanks Vince and Stevie
+
+**Michael Love** (07:49:08) (in thread):
+> i’ve got time and energy to work on the guidelines drafting with Stevie in Feb
+
+**Michael Love** (07:49:28) (in thread):
+> Stevie, should we work in a google doc? or directly on github as a PR? either works for me
+
+**Stevie Pederson** (08:30:45) (in thread):
+> I'm pretty happy on github, as I guess we can work with Rmd or whatever format we need for the final version, right from the start.
+
+**Michael Love** (09:39:12) (in thread):
+> we can start next week if you like
+
+**Stevie Pederson** (09:58:01) (in thread):
+> Sounds great. Public holiday Monday here, so I'm all good from Tuesday
+
+**Michael Love** (10:25:18) (in thread):
+> out of curiosity whats the holiday
+
+**Stevie Pederson** (10:42:14) (in thread):
+> Australia Day (on the Sunday, with the holiday on Monday). It unfortunately commemorates the 1788 landing of the First Fleet in Sydney. Considered by many to be the start of the invasion which began the genocide of Aboriginal Australians, and who were officially declared by the British to not be human. It's becoming more & more controversial for obvious reasons and there is a growing movement to shift the date so the whole nation can celebrate in a unified way. Our research institute allows people to work through it if it falls on a work day, as do many other organisations, as a small gesture of solidarity with our indigenous friends, family & colleagues. (Sorry for the complete info. It's our only public holiday that carries real baggage)
+
+
+## 2025-01-28
+
+**Davide Risso** (03:14:52):
+> Hello channel (deliberately not binging 156 people! :))! Pierre Neuvial from [Computo]([https://computo.sfds.asso.fr/](https://computo.sfds.asso.fr/)) finally got back to me and thanks to him I learned about a movement that I didn't know of and that could be a very good home for Bioc workflows, as it seems to share many of our values.
+> 
+> Apologies in advance for the length, happy to talk more about this in another venue with a restricted group, if you prefer.
+> 
+> I asked Pierre if Computo could be a good home for Bioc workflows and this was his reply:
+> ```
+> Thanks for your kind words about Computo! And thanks a lot for discussing it within Bioconductor.
+> 
+> I agree with you: most Bioconductor workflows would probably not fit into the scope of Computo because of the focus is far from statistics/ML. However, we would be happy to welcome workflows that are more on the methodological side.  To take an example, a workflows that would review several existing methods to perform differential expression analysis from bulk RNAseq data and gives some insight into the advantages and drawbacks of specific methods in specific applicative contexts based on case studies would be great for Computo.  Does this type of workflow exist, or do you think people could be interested in adding some?
+> 
+> (I'm bringing the idea of case study/method comparison because I find it's often lacking -- but not in the specific case of differential analysis of RNAseq data...)
+> ```
+> So as I was suspecting, Computo being a ML/Stats journal, they could be interested in some but not all workflows.
+> 
+> However, I've learned that Computo is part of a larger network, called ["Peer Community In" (PCI)]([https://peercommunityin.org/](https://peercommunityin.org/)) "a non-profit organization of researchers offering peer review, recommendation and publication of scientific articles in open access for free." PCI is organized in themes and there are currently several different thematic PCI, including genomics, mathematical and computational biology, etc.
+> 
+> From their website:
+> "In a few words,**** PCI is an open scientific initiative that provides a free alternative**to authors and readers compared***to the current publishing system***. Authors of preprints can turn to PCI to obtain validation through peer review of their articles. While PCI does not publish the preprints itself, it can be partnered with existing journals that automatically accept positively recommended papers, with the only condition that the paper falls into the journal scope."
+> 
+> So I've floated the idea with Pierre of creating a Bioconductor PCI and his reply was:
+> ```
+> To get a more systematic pipeline for all Bioconductor workflows, PCI could be  a good idea indeed. You would have to create a dedicated PCI (just as we are doing for PCI Stats&ML), which may not be too difficult for Bioconductor since you already have a great community of users and developers. However, on the technical side, PCI provides a basic framework for submitting/reviewing/recommending but nothing about reproducibility. You would then have to take care of this part yourselves. For this you are very welcome to use the git-based framework that we developed for Computo if it meets your needs.
+> ```
+> TL;DR: one possibility would be to create a Bioconductor PCI and reuse Computo git-based framework (possibly with some customization) to have our own publishing system; or simply use the PCI platform to review the workflows with our editorial overseeing and perhaps partner with other journals for publication.
+  - Attachment (computo.sfds.asso.fr): [COMPUTO](https://computo.sfds.asso.fr/)
+    > A Journal of the French Statistical Society to promote reproducible Science
+  - Attachment (Peer Community In): [Peer Community In - free peer review & validation of preprints of articles](https://peercommunityin.org/)
+    > PCI is a non-profit open science organization of scientists to evaluate, recommend and publish research preprints in free open access
+
+
+## 2025-01-29
+
+**Michael Love** (08:06:44):
+> @Davide Rissothis sounds like just what we need actually. From what I’ve read I would opt for a dedicated Bioconductor PCI, where we can introduce the idea of our workflows. Should we have a meeting with PCI folks to find out more? What do others think?
+> 
+> We do have a variety of types of documents, some have a bit of methods comparisons, while others are vertical workflows demonstrating EDA, QC, etc., maybe a third category is introducing a data resource. If we had our own PCI we could come up with a couple of categories with different guidelines or criteria for it to be accepted.
+
+**Stevie Pederson** (10:07:37):
+> This is a really good idea@Davide Risso. Thanks! Given the desire for indexed citations, does this help on that front at all? I'm a bit naive with this framework
+
+**Michael Love** (10:33:50):
+> From what I read above, I assumed we would have to find a second partner:
+> > can be partnered with existing journals that automatically accept positively recommended papers, with the only condition that the paper falls into the journal scope
+
+**Michael Love** (10:34:28):
+> so we would use PCI for the review framework, Bioc servers for the deposition/reproducibility, and a third for the journal name and indexing
+
+**Michael Love** (10:35:18):
+> given that our articles have a high citation rate and generally high rigor, i feel like journals should be receptive
+
+**Davide Risso** (12:51:50):
+> I agree with Mike's interpretation. With the possible addition that the way I understand the PCI approach, the authors themselves can decide what to do with their manuscript + "our" review. They could sumbit to a juornal for which we have an agreement, to a journal they choose "at their own risk", or to the Peer Community Journal (not indexed), or even just leave it as a reviewed preprint that lives in our Bioc platform.
+
+**Davide Risso** (12:53:57):
+> I'd be happy to organize a zoom meeting with PCI people, who wants to participate in such call?
+
+**Vince Carey** (12:54:33):
+> I'd try to attend but my absence should not be regarded as a blocker.
+
+**Stevie Pederson** (21:11:35) (in thread):
+> Oh that's really good. Sounds like it might offer a good way forward for this particular aspect of what we're trying to do
+
+
+## 2025-02-04
+
+**Michael Love** (09:02:39) (in thread):
+> FWIW I could do 6:00 or 8:00 US East -> noon - 2pm CET
+
+**Michael Love** (09:04:51) (in thread):
+> @Lori Shepherd@Charlotte Soneson? btw I’ve attempted to remove the recurring meeting for now, while we figure out a new time or if we take a break and just communicate asynchronously
+
+**Charlotte Soneson** (13:49:06) (in thread):
+> Yes, I'd be happy to join.
+
+**Lori Shepherd** (13:52:11) (in thread):
+> yes thank you.  just let me know when it gets rescheduled
+
+
+## 2025-02-10
+
+**Davide Risso** (09:08:20):
+> Thanks to all who could join the call, it was very interesting at least for me! Perhaps we should discuss this internally before committing any further. But eventually we could present a possible plan to the TAB and/or CAB.
+
+**Stevie Pederson** (09:14:17):
+> Yes, thanks for organising that conversation Davide. Definitely some food for thought. There's quite a few recommenders on the genomics PCI  that Mike shared ([https://genomics.peercommunityin.org/about/recommenders](https://genomics.peercommunityin.org/about/recommenders)) but I didn't spot any familiar Bioc names. Perhaps we'd need to find "our people" as part of the process, although that looks like it might be a good starting point as a home for us.
+
+**Charlotte Soneson** (09:55:50):
+> Agreed, thanks for organising Davide. Do you think it's worth reaching out also to JOSE and see if they would be interested in a similar meeting to share ideas?
+
+**Michael Love** (09:57:45):
+> @Charlotte Sonesonplease!
+
+
+## 2025-03-05
+
+*22:31:51 - @Benjamin Hernandez Rodriguez has joined the channel*
+
+## 2025-03-18
+
+*15:01:17 - @Nicolo has joined the channel*
+
+## 2025-04-14
+
+*07:09:37 - @Saad Farooq has joined the channel*

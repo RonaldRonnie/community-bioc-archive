@@ -1,0 +1,1867 @@
+---
+title: "#edam-collaboration"
+format: gfm
+---
+
+
+## 2024-03-14
+
+*07:07:14 - @Maria Doyle has joined the channel*
+*07:07:46 - @Vince Carey has joined the channel*
+*07:07:46 - @Claire Rioualen has joined the channel*
+*07:07:46 - @Lori Shepherd has joined the channel*
+*07:07:46 - @Johannes Rainer has joined the channel*
+*07:07:46 - @Kozo Nishida has joined the channel*
+**Maria Doyle** (07:08:52):
+> set the channel description: Main goal: align Bioconductor packages organisation to the EDAM ontology.
+
+**Kozo Nishida** (07:38:55):
+> Should we start a project with a title similar to edam-bioc, modeled after[https://github.com/edamontology/edam-bioimaging](https://github.com/edamontology/edam-bioimaging)?
+
+**Vince Carey** (07:45:07) (in thread):
+> sounds good to me
+
+**Kozo Nishida** (13:24:53):
+> By the way, I am considering the following tasks to be carried out in the edam-bioc project.
+> If this is not in line with what should be considered, please let me know.
+> 1. Find corresponding terms in the EDAM ontology for terms in biocViews and establish their mappings.
+> 2. Using Protege, save the hierarchical structure of biocViews containing the information from 1. as an owl file.
+
+**Maria Doyle** (14:09:17) (in thread):
+> As far as I understand:
+> 
+> 1. Establishing mappings between EDAM ontology and biocViews terms is definitely in line with what we should consider. This effort builds upon and potentially automates processes similar to the manual curation efforts we’ve seen, like the discussion in this GitHub issue:[https://github.com/bio-tools/biotoolsRegistry/issues/454#issuecomment-532749031](https://github.com/bio-tools/biotoolsRegistry/issues/454#issuecomment-532749031).
+> 
+> 2. As for using Protege to save the hierarchical structure in an OWL file, I’m not familiar with Protege myself. However, it sounds like a valuable tool for this task. I’d be interested in learning more or hearing from those who have experience with it.
+  - Attachment: [Comment on #454 R/CRAN/BioC content import documentation and policy ?](https://github.com/bio-tools/biotoolsRegistry/issues/454#issuecomment-532749031)
+    > Hi Steffen,  
+    > I can only answer with respect to Bioconductor.  
+    > We used a script ([https://github.com/bio-tools/biotoolsConnect/tree/master/BioConductor](https://github.com/bio-tools/biotoolsConnect/tree/master/BioConductor)) to load all information from BiocViews and added manual curation to EDAM (via csv) afterwards.  
+    > And the script also will need to be updated to deal with the new biotoolsschema and changed to output JSON.  
+    > Mapping the terms in Bioconductor to EDAM was out of scope but would be supergreat to achieve automatic information exchange between Bioconductor and bio.tools. One could actually take the current bio.tools annotations of packages and check how consistently they match the different BiocViews.
+
+**Vince Carey** (15:01:26):
+> Hi@Kozo NishidaI think this plan makes sense but we should go slowly and get a good sense of all the steps.  We'll have to have some consensus on what constitutes a correspondence between vocabularies, what are the roles of synonyms, and how exactly should OWL be used in the project.  I did start some software at[https://github.com/vjcitn/biocEDAM](https://github.com/vjcitn/biocEDAM)but it just allows viewing the view path for selected packages (in function bvbrowse())  Devel branch of ontoProc has some tooling for working with owl via owlready2 but needs more work.  Also want to think about how tagging metadata fits with other metadata about the packages ....  Maybe we can have a call in the near future?
+
+
+## 2024-03-16
+
+**Claire Rioualen** (04:42:18):
+> Hello everybody! I'm very excited about this collaboration:blush:
+
+
+## 2024-03-18
+
+*13:57:59 - @Hervé Pagès has joined the channel*
+
+## 2024-03-26
+
+**Claire Rioualen** (13:35:42):
+> Hi! Here's a very drafty project proposal for the Biohackathon in Novembre, on which I'd love some input:slightly_smiling_face:[https://docs.google.com/document/d/1uY6RgzyeQJSzVW_UZew6qv7o6cqallvHQd474_czgvo/edit?usp=sharing](https://docs.google.com/document/d/1uY6RgzyeQJSzVW_UZew6qv7o6cqallvHQd474_czgvo/edit?usp=sharing)
+
+**Claire Rioualen** (13:38:29):
+> Guidelines for the proposal are available[here](https://biohackathon-europe.org/projects/)
+  - Attachment (BioHackathon Europe 2024): [Projects](https://biohackathon-europe.org/projects/)
+    > The projects that will be worked on during BioHackathon Europe 2024.
+
+**Hervé Pagès** (17:07:28) (in thread):
+> About mapping biocViews terms with EDAM terms. IMO we should start fresh with an`EDAM`field (or`EDAMviews`or`EDAMterms`) in package DESCRIPTION files. A mapping tool would help automatically populate the new`EDAM`field from the current`biocViews`field, at least at the beginning. Then additional EDAM terms will be manually added based on suggestions from a tool like the one currently bundled in***BiocCheck***that scraps the content of a package to suggest terms. Then in the future we will probably slowly move away from the`biocViews`field in favor of the new`EDAM`field. But it seems that the 2 fields will need to coexist for some time, at least during the transition. Maybe that transition can be done in less than 6 months, I don't know (hard but maybe not impossible), in which case we would be able to do a full transition before a new release.
+> I'm new to this channel and to the EDAM working group so sorry if this has already been discussed somewhere. Would be nice to see a roadmap somewhere, would help figure out how/where the Biohackathon fits in the bigger picture.
+
+
+## 2024-03-28
+
+**Maria Doyle** (07:50:21) (in thread):
+> Hi@Claire Rioualen,@Vince Careyand everyone,
+> 
+> Following Hervé’s comments, I’ve started drafting a roadmap for integrating EDAM with biocViews. Check out the draft here:[https://docs.google.com/document/d/1F9gdKi_RYWncrHhZnBs9WphPv0LZcDGqrioqRfoluaY/edit](https://docs.google.com/document/d/1F9gdKi_RYWncrHhZnBs9WphPv0LZcDGqrioqRfoluaY/edit)Quick points:
+> * Starting point: software packages (not annotation or experiment).
+> * Biohackathon focus: kickstarting tool development and refining manual mapping.
+> * Approach: a blend of automated and manual mapping.
+> We could use this roadmap as input for the Biohackathon proposal, which is due in just over a week,***April 8***. Your feedback would be valued to ensure we have a solid proposal!
+
+
+## 2024-04-02
+
+**Claire Rioualen** (10:10:27):
+> Thanks Maria and Vincent that's very useful!@Maria DoyleI forgot whether I asked you already or not, but would you be interested in being the Biohackathon project's co-lead with me? I think it would greatly emphasize the collaborative aspects between ELIXIR nodes and platforms
+
+**Maria Doyle** (16:37:06):
+> Thanks for the invite! Happy to co-lead to help move the collaboration forward.
+
+
+## 2024-04-03
+
+*07:39:33 - @Matúš Kalaš has joined the channel*
+**Matúš Kalaš** (07:42:01):
+> Hi all:wave:This is a very cool and useful project!:raised_hands::rocket:I'll be happy to help as one of the folks working on EDAM and on the Research Software Ecosystem
+
+**Maria Doyle** (09:55:51):
+> Welcome@Matúš Kalaš!:wave:Great to have you on board. Your offer to help and enthusiasm is much appreciated!
+
+
+## 2024-04-04
+
+*04:14:14 - @Hervé Ménager has joined the channel*
+
+## 2024-04-05
+
+**Maria Doyle** (11:52:22):
+> Hi<!channel>we’re finishing off the BioHackathon proposal for submission on Monday. Any comments or feedback is welcome! Link:[https://docs.google.com/document/d/1thObnnoNtZR_e2f9kp8EuBP7bBs02yqi3a7iKEAnziU/edit](https://docs.google.com/document/d/1thObnnoNtZR_e2f9kp8EuBP7bBs02yqi3a7iKEAnziU/edit)
+
+
+## 2024-04-08
+
+**Vince Carey** (06:27:43):
+> hi i realize i am late on this
+
+**Vince Carey** (06:31:30):
+> it looked very good ... It seemed to me that in the political pitch there could he some symmetry -- "Enhance EDAM with application to a large genomic data science software/data ecosystem".  Also, EDAM can be applied to thousands of experiment and annotation resources, see[https://shiny.sph.cuny.edu/BiocHubsShiny/](https://shiny.sph.cuny.edu/BiocHubsShiny/)for counts and examples (it takes a little while to warm up).  Finally, would bio.tools expect there to be more command-line driven functionality in Bioconductor, hence more scripts?
+
+**Maria Doyle** (08:29:19):
+> Thanks Vince!
+> 
+> I’ve made a few suggested edits to the doc to incorporate your first two points.
+> - Adding to Scope & vision section: “It also aims to enhance EDAM as a standard, through application to a large genomic data science software/data ecosystem.”
+> 
+> - Herve P suggested focusing on software packages initially so I’ve added this point into the long-term goals.
+> “Extend EDAM to all Bioconductor software packages, and also the thousands of annotation and experiment resources ([https://shiny.sph.cuny.edu/BiocHubsShiny/](https://shiny.sph.cuny.edu/BiocHubsShiny/))”
+> 
+> For your bio.tools question, I’m not sure. Perhaps@Claire Rioualenor@Hervé Ménagercan answer that, also wondering if we should mention Bioschemas somewhere, related to a previous discussion on this[https://github.com/bio-tools/biotoolsRegistry/issues/454#issuecomment-532749031](https://github.com/bio-tools/biotoolsRegistry/issues/454#issuecomment-532749031)
+
+**Hervé Ménager** (14:04:21):
+> Answering your last question@Vince Carey, we do not expect software to be accessible specifically through a CLI. a library is fine, as much as a GUI, or a web API. The interface should be the one that works for your users, and bio.tools should not be partial on any of these:wink:- and thanks a lot for reviewing the application, we'll now be crossing fingers:wink:
+
+
+## 2024-04-09
+
+**Claire Rioualen** (08:39:43):
+> Proposal submitted, response expected in May!:raised_hands:
+  - File (PNG): [Screenshot 2024-04-09 at 14.38.42.png](https://community-bioc.slack.com/files/U34P8RS3B/F06TD2F5AFP/screenshot_2024-04-09_at_14.38.42.png)
+
+**Claire Rioualen** (10:06:28):
+> Well now that part's done, maybe we could schedule a meeting to discuss the Roadmap and else?
+
+**Maria Doyle** (13:15:38):
+> I had an out of office earlier from Herve M saying he’ll return April 22 so perhaps we could aim to meet in May, first week or so?
+
+**Claire Rioualen** (13:38:41):
+> fine by me !
+
+**Claire Rioualen** (13:39:12):
+> shall I create a doodle ?
+
+
+## 2024-04-11
+
+**Claire Rioualen** (04:58:15):
+> Hi<!channel>I'm creating a doodle so we can schedule a meeting in early May! However I'm not sure in which time zone is everybody, besides CET and CET-1?
+
+**Claire Rioualen** (04:58:57):
+> I was thinking of suggesting slots between 2pm and 6pm CET maybe
+
+**Vince Carey** (05:53:54):
+> those times are fine for me.  Hervé Pagès is Pacific Time so later in your range is likely preferred
+
+**Claire Rioualen** (07:41:14):
+> OK here it goes:[https://doodle.com/meeting/participate/id/bo6Ynjza](https://doodle.com/meeting/participate/id/bo6Ynjza)
+  - Attachment (doodle.com): [Doodle](https://doodle.com/meeting/participate/id/bo6Ynjza)
+    > Doodle is the simplest way to schedule meetings with clients, colleagues, or friends. Find the best time for one-to-ones and team meetings with our user-friendly calendar tool. Get started today!
+
+**Maria Doyle** (07:48:10) (in thread):
+> Thanks Claire! Are these in 24h clock? In my view I see the times as 02:00-03:00 etc
+  - File (PNG): [Screenshot 2024-04-11 at 12.44.27.png](https://community-bioc.slack.com/files/U34P8RS3B/F06TUSSSHT5/screenshot_2024-04-11_at_12.44.27.png)
+
+**Claire Rioualen** (07:50:27) (in thread):
+> oops, that's on me sorry
+
+**Maria Doyle** (07:51:40) (in thread):
+> no worries:slightly_smiling_face:
+
+**Claire Rioualen** (07:52:38) (in thread):
+> OK it should be fine now:sweat_smile:
+
+
+## 2024-04-21
+
+**Claire Rioualen** (03:03:18):
+> Hi<!channel>! I’ve settled a date and time for our meeting, hopefully most of us can attend:blush:See you on Monday, May 13th at 5pm CET:spiral_calendar_pad:
+
+**Matúš Kalaš** (15:30:45) (in thread):
+> Thank you@Claire Rioualen! Unfortunately I in general can't on Mondays:disappointed:But I'm looking forward to joining at the next occassion!
+
+
+## 2024-05-13
+
+**Claire Rioualen** (05:24:01):
+> Hi<!channel>! Just a little reminder for our meeting scheduled today at 5pm CET:smiley:
+
+**Maria Doyle** (07:43:53):
+> @Claire Rioualen@Hervé Ménager@Matúš Kalašas we explore integrating EDAM with Bioconductor packages, I’m also considering recommending EDAM for tagging interests in ORCID profiles. This approach could enable tools like rorcid to match community members based on shared interests by extracting EDAM-encoded terms from the keywords field of ORCID IDs. Given your expertise with EDAM, do you think this application is feasible?
+
+*11:23:58 - @Alex Mahmoud has joined the channel*
+**Claire Rioualen** (11:24:18):
+> [https://us06web.zoom.us/j/86029688213?pwd=wGwmAFVDwaw6yQ6bPLf9qrbVWqaV8a.1](https://us06web.zoom.us/j/86029688213?pwd=wGwmAFVDwaw6yQ6bPLf9qrbVWqaV8a.1)Meeting ID: 860 2968 8213
+> Passcode: 148827
+
+**Hervé Ménager** (16:02:40) (in thread):
+> Hi@Maria Doyle, it would be great to be able to describe expertise/research interests with EDAM. Even beyond EDAM, using controlled vocabularies for such descriptions in ORCID would be amazing. I think this is doable. The question is how this would be achieved: through an extension of the ORCID website itself? With a third party registry? That one would be easier to set up, at least for test, but getting people to adopt it would be super hard! Thoughts@Claire Rioualen@Matúš Kalaš?
+
+
+## 2024-05-15
+
+**Hervé Ménager** (07:18:16):
+> @Maria Doyledo you think it would be relevant to advertise the BOSC CoFest on this Slack? If so, where is it ok to post? Message would be something like "The
+>  2024 edition of @OBF_BOSC CoFest will happen on July 17-18, right after
+>  ISMB and BOSC 2024! This will be a hybrid event, more info is available
+>  at[https://www.open-bio.org/events/bosc-2024/obf-bosc-collaborationfest-2024/](https://www.open-bio.org/events/bosc-2024/obf-bosc-collaborationfest-2024/).
+>  Interested in joining us to contribute and discuss open source and open
+>  science projects? sign-up on the spreadsheet, registration is free but
+> mandatory:[https://docs.google.com/spreadsheets/d/1FWH-SUPNVUi70-oVuqoaYZq4Klt03WWAFCGe1eHZJZM/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1FWH-SUPNVUi70-oVuqoaYZq4Klt03WWAFCGe1eHZJZM/edit?usp=sharing)!"
+  - Attachment (open-bio.org): [OBF         » OBF/BOSC CollaborationFest 2024         » OBF/BOSC CollaborationFest 2024](https://www.open-bio.org/events/bosc-2024/obf-bosc-collaborationfest-2024/)
+    > Bioinformatics Open Source Conference
+
+**Hervé Ménager** (07:19:58):
+> Also, I'm considering working on something EDAM or RSEc-related, so if some of you can join, remotely or in person, we could use this time to make progress with our collaboration.
+
+**Maria Doyle** (09:17:11):
+> Hi@Hervé Ménager,
+> Thanks for suggesting the promotion of the BOSC CoFest on our Slack. We’re working on setting up a new #events channel for sharing info about conferences and events. I’ve proposed this to the CAB and#channel-requests, and hope to have it up in a few days.
+> In the meantime, how about posting your announcement in the#generalchannel? You can ask for Bioconductor project ideas and participants for the CoFest to get the community involved and collaborating.
+
+**Hervé Ménager** (15:51:50):
+> Many thanks, I'll send a message right away!
+
+
+## 2024-05-27
+
+*21:16:06 - @Aedin Culhane has joined the channel*
+
+## 2024-06-05
+
+**Claire Rioualen** (12:25:26):
+> Hi<!channel>, I'm happy to share that our project has been selected for the next ELIXIR Biohackathon!:grin:
+
+**Hervé Ménager** (15:06:13):
+> yes, congratulations@Claire Rioualenand@Maria Doyle! now we only have to deliver!
+
+
+## 2024-06-06
+
+**Claire Rioualen** (05:02:14):
+> Could we maybe try to schedule a meeting before summer vacations?
+
+
+## 2024-06-12
+
+**Vince Carey** (06:36:25):
+> Some slides for EOSS showcase[https://docs.google.com/presentation/d/1MVL3L_NBfXKKwZC8Z7mXqD854hurvFJmAeazIX5zye8/edit?usp=sharing](https://docs.google.com/presentation/d/1MVL3L_NBfXKKwZC8Z7mXqD854hurvFJmAeazIX5zye8/edit?usp=sharing)
+  - File (Google Slides): [EDAM/Bioconductor collaboration EOSS 6 showcase](https://community-bioc.slack.com/files/U34P8RS3B/F077RETRC10/bioconductor_collaboration_eoss_6_showcase)
+
+**Maria Doyle** (07:33:40):
+> Looks good to me! Are the last few slides from “Going deeper: packages are great, what about functions?” onwards, related to biocviews/edam or are they something different?
+
+**Maria Doyle** (07:37:12):
+> I met Sierra Moxon (LinkML) at this CZI meeting and she said Vince’s talk reminded her they have a mapperGPT tool for using LLMs to help evaluate mappings between two ontologies/controlled vocabularies/taxonomies:[https://arxiv.org/pdf/2310.03666](https://arxiv.org/pdf/2310.03666)or to chat with an ontology using LLMs:[https://github.com/monarch-initiative/curate-gpt](https://github.com/monarch-initiative/curate-gpt).
+
+**Vince Carey** (09:02:56):
+> thanks, maria I am trying to get into the topic of function identification, as opposed to package identification.  looking for a more refined view of what a package actually does is not easy and I'm not sure any of the vocabularies get to this level of detail.   so it is a provocative addon for those who visit and have the patience for it
+
+**Vince Carey** (09:03:40):
+> i guess in the showcase i just sit at table and hope for a visitor ... no public talk per se
+
+
+## 2024-06-15
+
+**Aedin Culhane** (15:11:43):
+> The Edam mapping might be a good developer day activity.If packages owners try to map their own packages (or those they use) and identify gaps
+
+**Aedin Culhane** (15:12:25):
+> Should we do blog with some of the slide decks.
+
+
+## 2024-06-17
+
+**Vince Carey** (07:50:44):
+> yes, blogging sounds appropriate.  i don't know if we will be far enough along in concepts to do this at a developer day.  we really need a systematic approach to comparing biocViews and EDAM.  Mark Musen mentioned "selfie" as a tool that can convert biocViews (in a CSV format) to OWL.  Not sure if that will help but it might be useful to do.  It would simplify production of new OWL stanzas to add to EDAM.
+
+**Claire Rioualen** (10:50:26):
+> Hi<!channel>! I just setup a doodle for our next meeting, I suggest for the beginning of July between 4pm and 6pm CET, I hope it works for most? Here is the link:[https://doodle.com/meeting/participate/id/dP5o0Bye](https://doodle.com/meeting/participate/id/dP5o0Bye)
+  - Attachment (doodle.com): [Doodle](https://doodle.com/meeting/participate/id/dP5o0Bye)
+    > Doodle is the simplest way to schedule meetings with clients, colleagues, or friends. Find the best time for one-to-ones and team meetings with our user-friendly calendar tool. Get started today!
+
+
+## 2024-06-19
+
+**Claire Rioualen** (04:41:17):
+> So far we've got a consensus for Monday 8th, Tuesday 9th and Thursday 11th at 5pm CET
+
+**Claire Rioualen** (04:41:33):
+> Would that work for you@Vince Carey?
+
+**Vince Carey** (14:05:56):
+> July 8th should work, thanks.
+
+
+## 2024-06-20
+
+**Claire Rioualen** (05:16:32):
+> Okay then, July 8th at 5 pm CET it is!:raised_hands:
+
+**Claire Rioualen** (05:17:26):
+> I'll try to share a preliminary agenda, if you want to add anything please reach out
+
+**Maria Doyle** (05:35:35):
+> Thanks@Claire Rioualen! Can you send calendar invite with zoom link?
+
+**Claire Rioualen** (06:15:33) (in thread):
+> I can do that, do you have a zoom session we can use ?
+
+**Claire Rioualen** (07:03:22) (in thread):
+> I don't have a fixed one
+
+
+## 2024-06-21
+
+**Claire Rioualen** (09:02:40) (in thread):
+> I sent a calendar invite, please reach out if you haven't received it!
+
+
+## 2024-07-08
+
+**Johannes Rainer** (02:45:47) (in thread):
+> I got the invite, but unfortunately I can't attend today (still traveling)
+
+
+## 2024-07-11
+
+**Vince Carey** (12:23:41):
+> [https://arxiv.org/pdf/2407.02626](https://arxiv.org/pdf/2407.02626)is a link to a paper on text2term
+
+
+## 2024-08-04
+
+**Vince Carey** (08:01:58):
+> I started some notes on using biocViews with cellfie and the MappingMasterDSL :[https://docs.google.com/document/d/1dcqRblC9qIo32eT5cziP8befcnXoEixNhPSe_XqTAg4/edit?usp=sharing](https://docs.google.com/document/d/1dcqRblC9qIo32eT5cziP8befcnXoEixNhPSe_XqTAg4/edit?usp=sharing)
+  - File (Google Docs): [EDAM work](https://community-bioc.slack.com/files/U34P8RS3B/F07FEESKVDG/edam_work)
+
+**Vince Carey** (11:18:14):
+> I am attaching an owl/xml (should I use RDF?) representation of the class hierarchy in biocViews Software.  I think the OWL representation (very bare-bones) could help us identify (and fill in a systematic way) basic gaps in annotation of the biocViews.
+  - File (Binary): [biocsoft.owx](https://community-bioc.slack.com/files/U34P8RS3B/F07FEJSGDGB/biocsoft.owx)
+
+
+## 2024-08-08
+
+*10:49:25 - @Sebastian Lobentanzer has joined the channel*
+*16:49:42 - @Ludwig Geistlinger has joined the channel*
+
+## 2024-08-10
+
+*12:07:52 - @Anh Nguyet Vu has joined the channel*
+
+## 2024-08-20
+
+**Claire Rioualen** (08:51:41):
+> Hi<!channel>!
+> 
+> I hope everybody had a great summer. I'd like to share a few thoughts:
+> * ***Next meeting:***should we schedule a meeting during the Bioconductor EU conference and/or a virtual one before?
+> * ***Biohackathon:***I am working on expanding our[project description](https://github.com/elixir-europe/biohackathon-projects-2024/blob/main/27.md)on the event website and I'd love some input on my edits[here](https://github.com/rioualen/biohackathon-projects-2024/blob/main/27.md)
+> * ***Collaborative notes: ***I've added a few links and info we shared in this channel, feel free to check it out and edit the document[here](https://docs.google.com/document/d/1Y5Q_3L1O3NUR86xASYwHraf-4LTq2czcoPJrTQz9J0o/edit)
+
+**Vince Carey** (09:58:06) (in thread):
+> text looks good to me   i may have some more content today connected with biocViews in owl
+
+**Claire Rioualen** (10:49:35) (in thread):
+> Thank you Vince! Most of the text comes from our project proposal
+
+**Vince Carey** (17:55:47):
+> Quick question.  I have built an OWL representation of the BiocSoft categories.  Will it be useful to enumerate packages that are mapped to these categories as "individuals"?  I am working on analyzing the DESCRIPTION files of the various packages to get additional information to annotate the associated views.
+
+
+## 2024-09-04
+
+**Claire Rioualen** (08:14:39):
+> Hi! To those of us that are currently in Oxford: should we try and schedule a meeting some time until Friday?
+
+**Maria Doyle** (08:22:56) (in thread):
+> I think it’s you, me,@Johannes Rainerhere and maybe@Marcel Ramos Pérezalso here might join
+
+*08:23:00 - @Marcel Ramos Pérez has joined the channel*
+**Vince Carey** (11:51:57) (in thread):
+> let me know if i should call in
+
+**Vince Carey** (16:27:09):
+> [https://github.com/mapping-commons/sssom](https://github.com/mapping-commons/sssom)
+
+**Vince Carey** (16:27:32):
+  - File (PDF): [SSSOM.pdf](https://community-bioc.slack.com/files/U34P8RS3B/F07KW23LGBX/sssom.pdf)
+
+
+## 2024-09-06
+
+**Johannes Rainer** (06:40:17):
+> Maybe we can also add Egon Willighagen to this group? He was/is involved in [bioschemas]([https://bioschemas.org/](https://bioschemas.org/)), so I guess would be good to get also his input/thoughts here? He is in Bioconductor (maintainer of [BridgeDbR]([https://bioconductor.org/packages/BridgeDbR](https://bioconductor.org/packages/BridgeDbR)) package).
+  - Attachment (bioschemas.org): [Bioschemas - Bioschemas](https://bioschemas.org/)
+    > Bioschemas relies and extends from [schema.org](http://schema.org) and aims to reuse existing standards and reach consensus among a wide number of life sciences organizations and communities.
+  - Attachment (Bioconductor): [BridgeDbR](https://bioconductor.org/packages/BridgeDbR)
+    > Use BridgeDb functions and load identifier mapping databases in R. It uses GitHub, Zenodo, and Figshare if you use this package to download identifier mappings files.
+
+**Maria Doyle** (06:49:32) (in thread):
+> Is he in this Slack do you know?
+
+**Johannes Rainer** (06:54:24) (in thread):
+> I did not find him, but I could write him an email to ask if he would be interested if you agree?
+
+**Claire Rioualen** (08:13:01) (in thread):
+> Definitely!
+
+**Vince Carey** (09:13:03) (in thread):
+> thanks
+
+
+## 2024-09-09
+
+*01:44:49 - @Egon Willighagen has joined the channel*
+**Egon Willighagen** (01:45:42):
+> hi
+
+**Johannes Rainer** (01:46:24):
+> Hey Egon! nice to have you here!
+
+**Egon Willighagen** (01:47:25) (in thread):
+> actually, I did not know about this Slack yet. I do too many things in parallel, and the two BioC packages I am involved in, they just built well, and it's managable. but participating in the wider community has been a bit hard. also, I don't use R everyday anymore (too much admin)
+
+**Egon Willighagen** (01:48:38):
+> @Johannes Rainer, can you give me an elevator pitch where things are? a long time ago "we" were talking at bioschemas annotation of vignettes. there was some hacking, and bigger ideas. I think bigger ideas did get implemented, right?
+
+**Johannes Rainer** (01:50:08):
+> Maybe@Claire Rioualencould quickly summarize where we are - I also got a bit distracted lately:confused:
+
+**Vince Carey** (13:28:19):
+> slide deck in june 12 entry above is a possible starting place
+
+**Egon Willighagen** (16:31:16):
+> there is no ELIXIR TeSS in that slidedeck, right? is that part of the roadmap?
+
+**Vince Carey** (16:59:09):
+> it isn't currently but could be, can you give me a pointer to TeSS?
+
+**Egon Willighagen** (17:20:54):
+> [https://www.dtls.nl/2018/07/19/toxicology-data-management-tutorials-automatically-collected-by-european-training-portal-tess/](https://www.dtls.nl/2018/07/19/toxicology-data-management-tutorials-automatically-collected-by-european-training-portal-tess/)
+  - Attachment (Dutch Techcentre for Life Sciences): [Toxicology data management tutorials automatically collected by European training portal TeSS - Dutch Techcentre for Life Sciences](https://www.dtls.nl/2018/07/19/toxicology-data-management-tutorials-automatically-collected-by-european-training-portal-tess/)
+    > A team including Egon Willighagen from Maastricht University, Niall Beard from ELIXIR’s TeSS team, and Oana Florean from Douglas Connect (coordinator of OpenRiskNet) has used BioSchemas to create a system that automatically pulls toxicology-related training materials from the eNanoMapper project…
+
+**Egon Willighagen** (17:21:13):
+> this was actually the basis to propose to use bioschemas for BioC vignettes
+
+
+## 2024-09-10
+
+**Claire Rioualen** (03:47:50):
+> Thank you for joining us@Egon Willighagen! Briefly,@Maria Doyleand I met last year at the Elixir Biohackathon and got to talking about the new Bioconductor website, and the idea of improving package navigation. We had a few meetings with@Vince Careyand@Hervé Ménager(some rolling notes[here](https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?usp=sharing)) and made a project proposition for this year's Biohackathon (proposal[here](https://docs.google.com/document/d/1mumLAmM3_c7lIboSukprmZym55VQ7NYkDplpmJCQhNg/edit?usp=sharing)), which was accepted!
+
+**Claire Rioualen** (03:48:26):
+> I'll send out a doodle soon to schedule our next meeting
+
+**Claire Rioualen** (03:56:06):
+> Our Biohackathon project page:[https://github.com/elixir-europe/biohackathon-projects-2024/blob/main/27.md](https://github.com/elixir-europe/biohackathon-projects-2024/blob/main/27.md)
+
+
+## 2024-09-11
+
+**Vince Carey** (11:06:05):
+> @Nathan Sheffield@Sehyun Ohsome of this would be of interest in your schematization work
+
+*11:06:08 - @Nathan Sheffield has joined the channel*
+*11:06:08 - @Sehyun Oh has joined the channel*
+
+## 2024-09-20
+
+**Claire Rioualen** (05:49:22):
+> Hello<!channel>!
+> Sorry for the delay, I'd like to suggest a meeting sometime between mid- and end of October, here's a doodle:[https://doodle.com/meeting/participate/id/avDx6MLd](https://doodle.com/meeting/participate/id/avDx6MLd)I put all slots at 5pm because that's what we have been doing so far in order to accommodate people from both sides of the Atlantic, but I can also add more slots as needed:slightly_smiling_face:
+  - Attachment (doodle.com): [Bioconductor x EDAM meeting - Claire](https://doodle.com/meeting/participate/id/avDx6MLd)
+    > Doodle is the simplest way to schedule meetings with clients, colleagues, or friends. Find the best time for one-to-ones and team meetings with our user-friendly calendar tool.
+
+**Maria Doyle** (08:37:46):
+> Thanks Claire! Will we use the upcoming meeting to finalise the plan for the Biohackathon (Nov 4-8)? By the way, virtual registration is available if anyone wants to participate remotely:[https://biohackathon-europe.org/registration/](https://biohackathon-europe.org/registration/)(I believe Kozo has already registered for virtual participation).
+  - Attachment (BioHackathon Europe 2024): [Registration](https://biohackathon-europe.org/registration/)
+    > When and how you can register for BioHackathon Europe 2024.
+
+
+## 2024-09-23
+
+**Claire Rioualen** (06:38:08) (in thread):
+> Unless more people want to vote on the Doodle, I suggest we close it and meet on October 15th at 5pm CET!
+
+**Maria Doyle** (08:02:59) (in thread):
+> @Vince Careyare you available Oct 15th 11am ET?
+
+**Vince Carey** (11:19:49) (in thread):
+> yes
+
+
+## 2024-09-27
+
+**Kozo Nishida** (12:58:24) (in thread):
+> Yes, I have already registered for virtual participation.
+
+
+## 2024-10-13
+
+**Vince Carey** (05:00:57):
+> I just ran into bioregistry:[https://pypi.org/project/bioregistry/](https://pypi.org/project/bioregistry/)... this seems to include a facility for getting the current version number of any registered ontology such as cl.owl.  It includes a reference to EDAM at[https://bioregistry.io/summary](https://bioregistry.io/summary), "Coverage".  Any familiarity?
+  - Attachment (PyPI): [bioregistry](https://pypi.org/project/bioregistry/)
+    > Integrated registry of biological databases and nomenclatures
+  - Attachment (bioregistry.io): [Bioregistry Summary](https://bioregistry.io/summary)
+    > An open source, community curated registry, meta-registry,
+    > and compact identifier (CURIE) resolver.
+
+**Vince Carey** (05:06:38):
+> the bioregistry python module seems to be able to generate download URLs for "latest" registered OWL files, which seems useful.
+
+**Egon Willighagen** (05:13:55):
+> I know it, use it, controbute to it, and co-author on the paper
+
+
+## 2024-10-14
+
+**Claire Rioualen** (11:18:50):
+> Hello<!channel>! Don't forget about our meeting tomorrow, 5 pm CET:slightly_smiling_face:Feel free to look at past meetings shared notes and/or add points to the preliminary agenda[here](https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?usp=sharing):spiral_note_pad:
+
+
+## 2024-10-15
+
+**Johannes Rainer** (01:51:19) (in thread):
+> I'm traveling today, so I can't attend  the meeting. sorry for that:pensive:
+
+**Claire Rioualen** (03:50:31) (in thread):
+> Oh ok,maybe next time then:relaxed:
+
+**Sehyun Oh** (10:03:36) (in thread):
+> What is the Zoom link for today’s meeting?
+
+**Vince Carey** (10:38:54) (in thread):
+> I don't have one.@Claire Rioualenshould I set one up?
+
+**Claire Rioualen** (10:50:40) (in thread):
+> Sure that would be great
+
+**Egon Willighagen** (10:53:06) (in thread):
+> hi. I got a cold and unable to join today:disappointed:
+
+**Vince Carey** (10:54:58) (in thread):
+> [https://partners.zoom.us/j/83560589176](https://partners.zoom.us/j/83560589176)is the link@Sehyun Oh@Claire Rioualen
+
+**Maria Doyle** (11:45:17):
+> @Sebastian LobentanzerI missed that openai embeddings link you shared in the chat, could you add it into the notes?
+
+**Claire Rioualen** (11:48:18):
+> Reminder: remote participation for the Elixir Biohackathon is still possible, registering through the website ([here](https://elixir-events.eventscase.com/attendance/event/index/44146/EN?step=attendee_details)) will give you access to zoom sessions and slack channels!:raised_hands:
+
+
+## 2024-10-16
+
+**Hervé Ménager** (09:50:35):
+> :wave:I asked this morning who can be contacted to provide computing resources to run resource-intensive models during the BioHackathon. I was told we can (1) contact the people from the company who will be running this project during the biohackathon, and who could provide this for free[https://github.com/elixir-europe/biohackathon-projects-2024/blob/main/1.md](https://github.com/elixir-europe/biohackathon-projects-2024/blob/main/1.md)or (2) ask for compute resources at BSC through Eva Alloza (who is also ELIXIR-ES training coordinator). This last option does not extend the resources beyond 2 weeks after the biohackathon. What do you think?
+
+**Claire Rioualen** (12:38:55):
+> Hi, here's a doodle to setup a meeting in 2 weeks, as discussed, before the BioHackathon starts:[https://doodle.com/meeting/participate/id/aMoPpvRd](https://doodle.com/meeting/participate/id/aMoPpvRd)
+  - Attachment (doodle.com): [Bioconductor X EDAM - Claire](https://doodle.com/meeting/participate/id/aMoPpvRd)
+    > Doodle is the simplest way to schedule meetings with clients, colleagues, or friends. Find the best time for one-to-ones and team meetings with our user-friendly calendar tool.
+
+**Maria Doyle** (12:50:37) (in thread):
+> I know Eva from the training coordinators group (I’m the ELIXIR-IE training coordinator). I could reach out to her to ask if there’s any possibility to extend the BSC computing resources beyond two weeks and explore potential collaboration, given her group’s involvement with OpenEBench (I noticed the DESeq2 tool on bio.tools has the OpenEBench logo:[https://bio.tools/deseq2](https://bio.tools/deseq2)). Would that be a good approach, or should we consider starting by contacting the company running the BioHackathon project? Open to other suggestions if there’s a different direction we should explore.
+  - Attachment (bio.tools): [{{ngMeta['og:title']}}](https://bio.tools/deseq2)
+    > {{ngMeta['og:description']}}
+
+**Hervé Ménager** (13:43:30) (in thread):
+> I don't have any preference personally. If you know Eva, yes, ask, would be great!
+
+**Hervé Ménager** (13:44:44) (in thread):
+> (the delay post hackathon is probably going to be an important factor, we can easily imagine further computations might be needed afterwards
+
+**Vince Carey** (14:13:29):
+> @Lori Shepherd@Hervé Pagèsshould be included in all invites
+
+**Vince Carey** (14:13:53):
+> let's make sure there  is a google invite for each call, a week in advance
+
+**Maria Doyle** (17:18:02) (in thread):
+> I reached out to Eva. She’s currently out of the office until October 21st, I’ll keep you updated.
+
+**Maria Doyle** (17:22:38):
+> So far, Tuesday, Oct 29th at 12pm ET is looking like the best time. We could lock that in if it suits@Vince Carey,@Lori Shepherd, and@Hervé Pagès. Let us know (:thumbsup:) if this works!
+
+**Lori Shepherd** (19:01:33):
+> Ifilled out the poll.... Will be a strong maybe on tue given that is release bump and branch day but likely able to make it
+
+
+## 2024-10-17
+
+**Vince Carey** (04:54:03):
+> I can do that.
+
+**Claire Rioualen** (09:21:13):
+> OK, let's lock the 29th
+
+**Claire Rioualen** (09:21:30):
+> I'll send a google invite
+
+**Claire Rioualen** (09:23:38):
+> Does this work for everybody ?[https://calendar.app.google/buisRy2MgbGZH3SU7](https://calendar.app.google/buisRy2MgbGZH3SU7)
+  - Attachment (calendar.google.com): [Bioconductor - EDAM meeting — Invitation via Google Calendar](https://calendar.app.google/buisRy2MgbGZH3SU7)
+
+
+## 2024-10-18
+
+**Vince Carey** (08:08:14):
+> One possible hackathon project: build a tool that, given a software artifact, recommends EDAM terms for its labeling, with scores.
+
+**Maria Doyle** (08:23:07):
+> Perhaps adapting / extending the EDAMmap tool ?[https://edammap.readthedocs.io/en/latest/](https://edammap.readthedocs.io/en/latest/)
+
+**Sebastian Lobentanzer** (10:16:33) (in thread):
+> There is also text2term, Vince also mentioned that previously. Don’t know edammap, so not sure which is more suitable.
+
+
+## 2024-10-26
+
+**Anh Nguyet Vu** (20:09:49):
+> Here's the example of curation into bio.tools schema using OpenAI:[https://github.com/anngvu/bioc-curation](https://github.com/anngvu/bioc-curation). The approach is currently being worked out in[notebook](https://github.com/anngvu/bioc-curation/blob/main/Bioconductor_package_curation_with_OpenAI.ipynb)form, not yet in a CLI tool. It is suggested to compare the output with EDAMmap or human curation to see where improvements could be made.
+
+
+## 2024-10-28
+
+**Claire Rioualen** (08:45:34):
+> Thank you for sharing your notes, this looks very thorough! Will you be available tomorrow to discuss it at our meeting?
+
+**Claire Rioualen** (08:47:24):
+> Just a reminder that it's scheduled for 5 pm CET / UTC+1 (we just changed time last week-end)
+
+**Anh Nguyet Vu** (14:01:33) (in thread):
+> I have added the invite for the meeting to my calendar and should be able to make it.
+
+**Vince Carey** (14:05:23):
+> @Anh Nguyet Vuvery interesting.   Would you be OK with my incorporating some of your python functions in an R package for use with reticulate?  It would just be in my github repo for experimentation.  Once you have your python code in pip or some other packaged format I would use your package.
+
+**Anh Nguyet Vu** (14:18:47) (in thread):
+> Yes, feel free to reuse.
+
+**Vince Carey** (18:07:27):
+> Results of primitive interfacing to R, with an additional application to tximport:[https://vjcitn.github.io/biocEDAM/articles/curate.html](https://vjcitn.github.io/biocEDAM/articles/curate.html)
+
+
+## 2024-10-29
+
+**Maria Doyle** (11:32:19):
+> Apologies I will be late for meeting, please start without me
+
+**Vince Carey** (12:00:59):
+> i do not see the link
+
+**Claire Rioualen** (12:01:16):
+> Zoom info:[https://partners.zoom.us/j/83560589176](https://partners.zoom.us/j/83560589176)
+
+**Claire Rioualen** (12:01:52):
+> Oh, sorry, that's the link from last time
+
+**Vince Carey** (12:02:13):
+> do you want me to make one?
+
+**Claire Rioualen** (12:03:01):
+> I've just made one if it's ok with you :[https://cnrs.zoom.us/j/97287710910?pwd=Cp3mN1t3K9oqlICD3lbRwtFFzbFO5d.1](https://cnrs.zoom.us/j/97287710910?pwd=Cp3mN1t3K9oqlICD3lbRwtFFzbFO5d.1)
+
+**Vince Carey** (12:03:09):
+> ok
+
+**Claire Rioualen** (12:03:14):
+> I'm sorry I don't have a permanent link
+
+**Claire Rioualen** (12:03:45):
+> Here's the link to the notes:[https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?tab=t.0](https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?tab=t.0)
+
+
+## 2024-10-30
+
+**Maria Doyle** (06:16:52):
+> Hi all, apologies for missing the meeting yesterday! I got pulled into a last-minute meeting with a potential collaborator, so I wasn’t able to join as planned. I’ll review the notes and sync up with Claire to finalise our Biohackathon plan. Thanks for bearing with me!
+
+**Claire Rioualen** (06:58:14):
+> No problem! See you soon:slightly_smiling_face:
+
+*07:37:49 - @Steffen Neumann has joined the channel*
+**Steffen Neumann** (07:43:05):
+> Hi, github sneumann here, just learned about stuff happening that pushes ahead[https://github.com/bio-tools/biotoolsRegistry/issues/454](https://github.com/bio-tools/biotoolsRegistry/issues/454)and happy to help by 1) reviewing the`Mapping of EDAM and biocViews terms`and 2) happy to contribute to`"Gold standard" manual annotation of a subset of Bioconductor packages`where[https://bio.tools/xcms](https://bio.tools/xcms)and[https://bio.tools/mzR](https://bio.tools/mzR)and[https://bio.tools/CAMERA](https://bio.tools/CAMERA)already have a Plastic-Standard level of annotation. Please ping during hackathon in case something is needed.
+  - Attachment (bio.tools): [{{ngMeta['og:title']}}](https://bio.tools/xcms)
+    > {{ngMeta['og:description']}}
+  - Attachment (bio.tools): [{{ngMeta['og:title']}}](https://bio.tools/mzR)
+    > {{ngMeta['og:description']}}
+  - Attachment (bio.tools): [{{ngMeta['og:title']}}](https://bio.tools/CAMERA)
+    > {{ngMeta['og:description']}}
+
+**Maria Doyle** (07:45:34):
+> Thanks@Steffen Neumann!
+
+**Claire Rioualen** (08:36:17):
+> Thank you for reaching out@Steffen Neumann! I'm taking note of those packages for reference:+1:
+
+**Steffen Neumann** (08:41:17):
+> I also have a slidedeck on R package findability at[https://ogy.de/rvjc](https://ogy.de/rvjc)and video[https://www.youtube.com/watch?v=LfmkZ1HmJnE](https://www.youtube.com/watch?v=LfmkZ1HmJnE). While from back in 2020, might still apply.
+> Biotools featured on slide 17 at 11:00[https://youtu.be/LfmkZ1HmJnE?t=660](https://youtu.be/LfmkZ1HmJnE?t=660)
+  - Attachment (Google Docs): [2020metaRbolomics@elm2020.de](https://ogy.de/rvjc)
+    > The metaRbolomics Toolbox in Bioconductor and beyond Slides: [ogy.de/rvjc](http://ogy.de/rvjc) Jan Stanstrup, Corey D Broeckling, Laurent Gatto, Sebastian Gibb, Rick Helmus, Nils Hoffmann, Ewy Mathé, Thomas Naake, Luca Nicolotti, Kristian Peters, Johannes Rainer, Reza M Salek, Tobias Schulze, Emma L Schymanski, Michae...
+  - Attachment (YouTube): [metaRbolomics@ELM2020](https://youtu.be/LfmkZ1HmJnE?t=660)
+
+**Steffen Neumann** (08:46:03):
+> Also in reference to that talk, a (future) extension would be to harvest R packages from GitHub, /if they adhere to BioC metadata/. And, since you can't download all of GitHub, one could make use of GitHub tagging and searches:[https://github.com/search?o=desc&q=topic%3Ametabolomics+topic%3Ar+topic%3Abio.tools&s=updated&type=Repositories](https://github.com/search?o=desc&q=topic%3Ametabolomics+topic%3Ar+topic%3Abio.tools&s=updated&type=Repositories)
+
+**Vince Carey** (10:13:52):
+> I think the concept of harvesting (all) R packages from github is a practice of r-universe.  a universe for bioc exists:[https://bioconductor.r-universe.dev/builds](https://bioconductor.r-universe.dev/builds)... haven't watched video yet, apologies if this is redundant.
+
+**Steffen Neumann** (10:47:40) (in thread):
+> Cool, I didn't know about the recent developments there.
+> I could find some packages[https://r-universe.dev/search?q=contributor%3Asneumann](https://r-universe.dev/search?q=contributor%3Asneumann)but not the[https://github.com/ipb-halle/MetFamily/](https://github.com/ipb-halle/MetFamily/)I was hoping for, which is GitHub but not BioC.
+> Anyway, off-topic for this Hackathon project.
+
+
+## 2024-11-02
+
+**Vince Carey** (09:48:49):
+> I started[https://vjcitn.github.io/BiocEDAMHacks/](https://vjcitn.github.io/BiocEDAMHacks/)as a place where issues can be filed to set up key tasks.  These can be transferred to google sheet as needed
+  - Attachment (vjcitn.github.io): [code snippets and proposals for ELIXIR Biohackathon 2024](https://vjcitn.github.io/BiocEDAMHacks/)
+    > code snippets and proposals for ELIXIR Biohackathon 2024
+
+**Vince Carey** (09:50:54):
+> I also started[https://github.com/users/vjcitn/projects/8/views/1](https://github.com/users/vjcitn/projects/8/views/1)if we want to use project plan in github.  will add maria as full admin
+
+**Vince Carey** (09:54:05):
+> and claire ... Maria what is your github handle
+
+**Vince Carey** (09:55:15):
+> Claire I don't know yours either
+
+**Maria Doyle** (10:05:06):
+> Great, thanks Vince! My GitHub handle is mblue9
+
+**Maria Doyle** (11:58:54):
+> Would it be okay to share the BiocEDAMHacks repo and GitHub project board links in the BioHackathon Slack? The project board link currently shows a 404 error, so it may need a permissions update. Or let me know if you have a specific time in mind for sharing—whichever works best!
+
+
+## 2024-11-03
+
+**Vince Carey** (03:22:43):
+> hi@Maria Doylethe project is now public and i added you as admin
+
+**Vince Carey** (03:23:00):
+> yes it is fine to add links to slack
+
+**Vince Carey** (05:29:07):
+> @Anh Nguyet VuI am finding that the OpenAI operations are not deterministic.  Sometimes the schema reconciliation tasks hand back None.  Is this your experience?
+
+**Vince Carey** (08:11:34):
+> This vignette[https://vjcitn.github.io/biocEDAM/articles/biotools.html](https://vjcitn.github.io/biocEDAM/articles/biotools.html)addresses a part of@Hervé Ménagerissue at[https://github.com/vjcitn/biocEDAM/issues/1](https://github.com/vjcitn/biocEDAM/issues/1)... it is a table of all bioconductor packages mapped to EDAM topics via the metadata in the research software ecosystem content/data folder ...[https://github.com/research-software-ecosystem/content](https://github.com/research-software-ecosystem/content)
+  - Attachment: [#1 Add existing mapped entries from bioconductor to bio.tools](https://github.com/vjcitn/biocEDAM/issues/1)
+
+**Vince Carey** (08:12:27):
+> We can examine the many:many join (by package) of topics in that table to the biocViews per package derivable using BiocPkgTools
+
+**Vince Carey** (08:18:53):
+> [https://vjcitn.github.io/biocEDAM/](https://vjcitn.github.io/biocEDAM/)now has two articles, one about curation using Anh's prompt engineering and one looking at mapping from package to EDAM
+  - Attachment (vjcitn.github.io): [Support the investigation of biocViews in relation to EDAM ontology](https://vjcitn.github.io/biocEDAM/)
+    > This package supports the investigation of biocViews in relation to EDAM ontology. We measure semantic distance between biocViews terms and EDAM terms using text2term, a python system of Rafael Goncalves of Harvard Center for Computational Biomedicine.
+
+**Vince Carey** (09:05:27) (in thread):
+> Doing a single retry in the R code seemed to confer robustness on this process.
+
+**Maria Doyle** (09:22:24):
+> Thanks Vince, would it make sense to link the biocEDAM repo from the BiocEDAMHacks repo, making BiocEDAMHacks the main spot for tasks and resources?
+
+**Vince Carey** (19:07:17):
+> probably    but participants can decide
+
+
+## 2024-11-04
+
+**Egon Willighagen** (01:40:04) (in thread):
+> oh, nice. I see what I can do:
+
+**Egon Willighagen** (01:40:08) (in thread):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07U9860A31/image.png)
+
+**Egon Willighagen** (01:40:38) (in thread):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07U98783PH/image.png)
+
+**Egon Willighagen** (01:40:45) (in thread):
+> both can be extended (and I will)
+
+**Claire Rioualen** (02:17:16) (in thread):
+> Mine is rioualen
+
+**Claire Rioualen** (08:47:21):
+> Hi<!channel>I'm getting a little lost between the different channels, could you join the Biohackathon slack channel if you're not yet in there? Thank you!
+
+**Vince Carey** (09:09:09):
+> Post a link here please?
+
+**Claire Rioualen** (09:12:08):
+> [https://biohackeu.slack.com/](https://biohackeu.slack.com/)
+
+**Claire Rioualen** (09:12:29):
+> I've put a few useful links in the google doc:[https://docs.google.com/document/d/1VkKoKt7TaGOsQzjNJcIv0rXpdKfB7D81MqWcKE2rEHs/edit?tab=t.0](https://docs.google.com/document/d/1VkKoKt7TaGOsQzjNJcIv0rXpdKfB7D81MqWcKE2rEHs/edit?tab=t.0)
+
+**Claire Rioualen** (09:12:45):
+> Do not hesitate to add more
+
+**Anh Nguyet Vu** (10:30:24) (in thread):
+> Yes, how deterministic OpenAI is can vary and depends on a parameter called`temperature`, which is probably another thing to experiment with.
+
+
+## 2024-11-05
+
+**Johannes Rainer** (01:19:32) (in thread):
+> hm - seems I can not login nor register to that slack - is it only invitation based?
+
+**Claire Rioualen** (03:10:22) (in thread):
+> Oh yeahthat’svery possible, did you register to the Biohackathon as a virtual participant? If so, you should have received instructions,if not,I’llask an organizer to help us with that
+
+**Maria Doyle** (05:20:58) (in thread):
+> @Johannes Rainerthey’ve opened registration for you so you can get access if you register here:[https://elixir-events.eventscase.com/attendance/event/index/44146/EN?step=login](https://elixir-events.eventscase.com/attendance/event/index/44146/EN?step=login)
+
+**Claire Rioualen** (05:46:56):
+> We'l have a zoom session this afternoon from 4 to 6 PM CET, the link is the same for all of the Biohackathon event, we have a breakroom for project 27:[https://elixir-europe-org.zoom.us/j/85612257794?pwd=hhCULAGGA4Z2EDmnb1znf1LuNRwwA5.1](https://elixir-europe-org.zoom.us/j/85612257794?pwd=hhCULAGGA4Z2EDmnb1znf1LuNRwwA5.1)
+  - File (PNG): [Screenshot 2024-11-05 at 11.44.30.png](https://community-bioc.slack.com/files/U34P8RS3B/F07UQ8K60R4/screenshot_2024-11-05_at_11.44.30.png)
+
+**Johannes Rainer** (09:54:25) (in thread):
+> :face_with_peeking_eye:I was too late - it's closed again:smile:
+
+**Vince Carey** (10:03:26):
+> I am on this call now.
+
+**Vince Carey** (10:04:09):
+> in the breakout room for 27, alone....
+
+**Maria Doyle** (10:04:37) (in thread):
+> I’ll ask again:slightly_smiling_face:will you be around for next hour or so?
+
+**Johannes Rainer** (10:19:23) (in thread):
+> sorry, no, I am traveling now - but I am also not sure if I need to join that Slack channel?
+
+**Maria Doyle** (10:27:46) (in thread):
+> yes I think you could join our zoom[https://elixir-europe-org.zoom.us/j/85612257794?pwd=hhCULAGGA4Z2EDmnb1znf1LuNRwwA5.1](https://elixir-europe-org.zoom.us/j/85612257794?pwd=hhCULAGGA4Z2EDmnb1znf1LuNRwwA5.1)if you want, we’re meeting there now in breakout room 27 or we can update you later
+
+**Vince Carey** (11:04:12):
+> Analysis of research software ecosystem:
+> ```
+> #[https://github.com/research-software-ecosystem/content.git](https://github.com/research-software-ecosystem/content.git)is cloned
+> #' data folder is analyzed, cd there
+> library(jsonlite)
+> alld = dir(full=TRUE, recursive=TRUE)
+> hasbtj = grep("biotools.json", alld, value=TRUE)
+> allcolid = lapply(hasbtj, function(x) { j = fromJSON(x); j$collectionID })
+> isbioc = sapply(allcolid, function(x) "BioConductor" %in% x)
+> kp = which(unlist(isbioc))
+> pks = hasbtj[kp]
+> pkj=basename(pks)
+> #bioc_with_biotools = gsub(".biotools.json", "", pkj)
+> reads = lapply(pks, fromJSON)
+> make_bt_df = function(x) { data.frame(package=x$name, btid=x$biotoolsID, edam_term=x$topic$term, edam_uri=x$topic$uri, last_update=x$lastUpdate) }
+> allr = lapply(reads[-1503], function(x) try(make_bt_df(x)))
+> allr_df = do.call(rbind, allr)
+> biotools_bioc = allr_df
+> #save(biotools_bioc, file="biotools_bioc.rda")
+> ```
+
+**Vince Carey** (11:04:18):
+> @Hervé Ménager^^
+
+
+## 2024-11-06
+
+**Vince Carey** (11:50:41):
+> the code snippet above was in inst/scrape in biocEDAM package
+
+
+## 2024-11-07
+
+**Maria Doyle** (04:14:21):
+> (cross-posting from our channel in BioHackathon Slack)
+> 
+> Hi everyone, here are a few updates from our ongoing hackathon work this week and areas where we’d like input:slightly_smiling_face::
+> * ***ELIXIR Research Software Ecosystem:***Bioconductor metadata is now included and automatically updated weekly[https://github.com/research-software-ecosystem/content/tree/master/imports/bioconductor](https://github.com/research-software-ecosystem/content/tree/master/imports/bioconductor)(by@Hervé Ménager(he/him)
+> * ***Reference packages***: Initial list created in[“Package list” sheet](https://docs.google.com/spreadsheets/d/155rJX5pUPFDIQNsX0AsohEjFjxfJ9za54b45V9gtQzg/edit?gid=1269194852#gid=1269194852), please feel free to add more (like less known, less documented, less used packages). Help needed to fill in the “should they be in biotools?” column, and the whole[“Package curation” table](https://docs.google.com/spreadsheets/d/155rJX5pUPFDIQNsX0AsohEjFjxfJ9za54b45V9gtQzg/edit?gid=1035911148#gid=1035911148)(annotate reference packages with EDAM terms).
+> * ***biocViews mapping***:[“biocViews mapping” sheet](https://docs.google.com/spreadsheets/d/155rJX5pUPFDIQNsX0AsohEjFjxfJ9za54b45V9gtQzg/edit?gid=1016157783#gid=1016157783)has terms mapped to EDAM stable version from text2term, with column “mapping” containing Aurelian Barre’s and Ben Dartigues’s ongoing manual review of the mapping eg “mapped and is relevant”
+> * ***Use cases for ***@Sebastian Lobentanzer**** ’s bio.tools API parameterization by LLM (BioChatter module)****: We’re looking for specific user questions, as well as the expected and desired results for each.
+> * ***Question from ***@Steffen Neumann**** for ****@Vince Carey:
+> 
+>   * Do we want to pursue a[description-custom-field](https://r-pkgs.org/description.html#sec-description-custom-fields)for Bioconductor (e.g., EDAM/topic, EDAM/operation, EDAM/data)?
+>   * Should we consider a new file that captures detailed operations, inputs, and outputs—similar to the graph in the center of[bio.tools xcms](https://bio.tools/xcms)?
+>   * If so,[creating-a-new-roclet](https://roxygen2.r-lib.org/articles/extending.html#creating-a-new-roclet)could be a good approach, rendering all operations, inputs, and outputs to a`mypackage/biotools.json`file.
+> 
+> * ***Unassigned Task***: Factor the Python code in[biocEDAM/inst/curbioc](https://github.com/vjcitn/biocEDAM/blob/main/inst/curbioc/curbioc.py)to create a function that tokenizes Bioconductor package descriptions and generates relevant EDAM annotations
+  - Attachment (r-pkgs.org): [9  DESCRIPTION – R Packages (2e)](https://r-pkgs.org/description.html#sec-description-custom-fields)
+    > Learn how to create a package, the fundamental unit of shareable, reusable, and reproducible R code.
+
+**Vince Carey** (04:30:35):
+> @Steffen Neumannthese ideas are very appealing to me.  Let me discuss with core, should be able to give some feedback by this afternoon ET.  Lots of nice progress!
+
+**Vince Carey** (04:52:31):
+> @Steffen Neumannis that xcms graph you show generated automatically in bio.tools or is it a one-off?
+
+**Steffen Neumann** (05:00:26) (in thread):
+> Frankly, I don't know where it came from, but certainly not generated
+
+**Vince Carey** (05:03:50) (in thread):
+> Thanks.  Are the nodes EDAM terms?  Is production of a graph of that type a proper aspiration of bio.tools/EDAM or far-fetched?
+
+**Steffen Neumann** (05:15:08) (in thread):
+> I don't see that bio.tools strives to give you a workflow-style representation of what a tool does. So it is (currently) more for human inspection. Issue is that bio.tools asks for three lists of edam terms for operation, input and output
+
+**Steffen Neumann** (05:15:34) (in thread):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07UUMPA3RD/image.png)
+
+**Steffen Neumann** (05:27:09) (in thread):
+> There is a (non-R) entry for the OpenMS proteomics tool  suite:[https://bio.tools/openms](https://bio.tools/openms)which has three input types, many operations, and two output types
+  - Attachment (bio.tools): [{{ngMeta['og:title']}}](https://bio.tools/openms)
+    > {{ngMeta['og:description']}}
+
+**Vince Carey** (05:32:41) (in thread):
+> Thanks.  I believe you could add EDAM/* tags to DESCRIPTION files of your packages if you would like to prototype this concept and have examples available for others to consider.  I have added your comments to the agenda for today's tech advisory board meeting and have also asked for comments from the core devs.
+
+**Vince Carey** (05:35:14):
+> In thread I will put some code from@Alex Mahmoudfor programmatically acquiring current Bioconductor and R version tags.
+
+**Vince Carey** (05:35:36) (in thread):
+> ```
+> #!/bin/sh
+> RELEASE_BIOC_VER=$(curl[https://bioconductor.org/config.yaml](https://bioconductor.org/config.yaml)| yq e '.release_version')
+> DEVEL_BIOC_VER=$(curl[https://bioconductor.org/config.yaml](https://bioconductor.org/config.yaml)| yq e '.devel_version')
+> RELEASE_R_VER=$(curl[https://bioconductor.org/config.yaml](https://bioconductor.org/config.yaml)| yq e ".r_ver_for_bioc_ver.\"$RELEASE_BIOC_VER\"")
+> DEVEL_R_VER=$(curl[https://bioconductor.org/config.yaml](https://bioconductor.org/config.yaml)| yq e ".r_ver_for_bioc_ver.\"$DEVEL_BIOC_VER\"")
+> ```
+
+**Vince Carey** (05:35:56) (in thread):
+> that one ^^ assumes availability of yq
+
+**Vince Carey** (07:12:02):
+> Apropos the unassigned task, I updated biocEDAM to include a function called edamize(), see[https://vjcitn.github.io/biocEDAM/articles/curate.html](https://vjcitn.github.io/biocEDAM/articles/curate.html)for an example of application to a vignette from MSnbase.  It lacks robustness.
+
+**Maria Doyle** (08:20:03) (in thread):
+> @Hervé Ménager^^
+
+**Vince Carey** (21:00:47) (in thread):
+> I am sorry, I was not able to get to this topic with the Tech Board.  We will have to be in touch on this at a later time, but I think it is a good proposal.
+
+
+## 2024-11-08
+
+**Vince Carey** (06:26:40):
+> I gather things are winding down today?  I did say I would produce some material on embedding documents from Bioc; I took the 40 packages that were in the sheet last night and embedded their vignettes using OpenAI text-embedding-3-large.  Here is a view of PCA of the embedding.  If anyone is interested in code at this time I can make it available, otherwise I will polish it up a bit.  There is some evident clustering, but whether ordinary NLP with better preprocessing would be more fruitful needs work.
+
+**Vince Carey** (06:26:56):
+  - File (PNG): [gptemb.png](https://community-bioc.slack.com/files/U34P8RS3B/F08048YGMCL/gptemb.png)
+
+**Claire Rioualen** (06:44:33):
+> Will take a look next week iguess:sweat_smile:
+
+**Claire Rioualen** (06:44:55):
+> On my way back to Marseille
+
+**Sebastian Lobentanzer** (07:23:40) (in thread):
+> This is cool! Whether to invest into a more deterministic approach is probably a question of the use case. This approach does not require any formal definitions or mappings, just a useful embedding space. I can imagine an improved version of this to be very useful in suggesting EDAM tags for packages (that still should be manually approved). So, improve the user workflow in annotating packages (whether it’s their own package or some curation effort) byusing the free-text descriptions available.
+
+**Sebastian Lobentanzer** (07:24:57) (in thread):
+> Intuitively, I would think that having separate embedding-clustering approaches for the different EDAM top level categories (purpose, inputs, outputs) has most promise to be successful.
+
+**Maria Doyle** (11:52:59):
+> Thanks,@Vince Carey! Yes, we had the wrap-up presentations this morning, and we’re all traveling home now. I’ll add this into our biohackathon report and we’ll be in touch!
+
+
+## 2024-11-11
+
+**Maria Doyle** (15:03:05):
+> Wondering if@Marcel Ramos Pérezor someone from the Bioconductor core team can help with this question. While analysing`biocViews`as part of the ELIXIR BioHackathon, I noticed I get slightly different terms depending on the source:`BiocPkgTools`, the package landing page, or the`DESCRIPTION`file. For example, for`roastgsa`, the counts differ as follows:
+> * `DESCRIPTION`file at[code.bioconductor.org](https://code.bioconductor.org/browse/roastgsa/blob/RELEASE_3_20/): 37 terms
+> * Landing page on[bioconductor.org](https://www.bioconductor.org/packages/release/bioc/html/roastgsa.html): 38 terms (includes “Software”)
+> * `BiocPkgTools`: 45 terms
+> `BiocPkgTools`lists “Software” plus 7 additional terms: “Technology”, “WorkflowStep”, “AssayDomain”, “StatisticalMethod”, “ResearchField”, “BiologicalQuestion”, and “Infrastructure”.
+> 
+> Do you know where these extra terms are coming from? Is it appropriate to treat`BiocPkgTools`as the primary source for`biocViews`?
+> 
+> I’m asking because I drafted this for the hackathon report and want to make sure the numbers are accurate:
+> > Across Bioconductor software packages, the number of associated biocViews terms also varies widely (see Supplementary Table 2), ranging from 1 to 45 terms per package, with a median of 8 terms. This variation underscores the diversity in package categorisation.
+
+**Maria Doyle** (15:03:54) (in thread):
+> Here’s the`BiocPkgTools`code I used:
+> ```
+> bp <- BiocPkgTools::biocPkgList(version = "3.20")
+> roastgsa_biocViews <- bp %>%
+>     filter(Package == "roastgsa") %>%
+>     select(biocViews) %>%
+>     unlist()
+> ```
+
+**Lori Shepherd** (15:20:38):
+> @Marcel Ramos Pérezwill have to answer how biocpkgtools works as I have not contributed that.Re: in the description files.  Packagescan technically list invalid bioviews (or at least they could in the past not sure if still true) we try to enforce valid bio views and they need to have I think at least 2 maybe 3 official biocviews.
+
+**Lori Shepherd** (15:21:30):
+> The official list of biocviews is adirected graphin the biocviews package
+
+**Lori Shepherd** (15:28:45) (in thread):
+> HOWTO-BCV.Rmd.   Explains process ofediting thedot file and running scripts to update other objects for the official biocviews vocab list
+
+**Marcel Ramos Pérez** (16:22:04) (in thread):
+> Hi Maria, it looks like`BiocPkgTools`adds the parent terms to views listed in the`DESCRIPTION`file, e.g.`impute`only has the`Microarray`biocView in its`DESCRIPTION`but if you see here:[https://bioconductor.org/packages/release/BiocViews.html#___Microarray](https://bioconductor.org/packages/release/BiocViews.html#___Microarray)`Microarray`is under`Technology`and`Software`. Are you counting leaf nodes or all the nodes in the tree? FWIW`BiocPkgTools`is reading the`VIEWS`file at
+> ```
+> > get_VIEWS_url("3.20", "BioCsoft")
+> [1] "[https://bioconductor.org/packages/3.20/bioc/VIEWS](https://bioconductor.org/packages/3.20/bioc/VIEWS)"
+> ```
+
+
+## 2024-11-12
+
+**Maria Doyle** (15:22:59) (in thread):
+> Thanks for clarifying, Marcel! I hadn’t realised`BiocPkgTools`was including the parent terms from the VIEWS file — I assumed it would only return the biocViews directly specified in the`DESCRIPTION`file. For this part of the work, we’re mainly interested in the terms developers explicitly add to their`DESCRIPTION`files, so just the “leaf” terms in that sense.
+> Would it be possible to add an option in`BiocPkgTools`to pull just the specified terms without parent terms? It could be useful for cases where we want to focus on developer-specified categorisation rather than the full hierarchy. But I’m happy to adjust either way, and thanks for explaining!
+
+**Maria Doyle** (15:28:06) (in thread):
+> Thanks, Lori! This clarifies things. I’ll check out that Rmd to understand the official vocabulary process better. Just to confirm—is biocViews validation handled by BiocCheck, or is it also checked manually by reviewers?
+
+
+## 2024-11-13
+
+**Marcel Ramos Pérez** (13:33:25) (in thread):
+> @Maria DoyleYes, the option is available :
+> ```
+> BiocPkgTools::biocPkgList(version = "3.20", addBiocViewParents = FALSE) |>
+>     subset(Package == "impute") |>
+>    _[["biocViews"]] |>
+>     unlist()
+> #> [1] "Microarray"
+> ```
+
+**Maria Doyle** (15:27:46) (in thread):
+> Perfect, thanks:pray:
+
+
+## 2024-11-14
+
+**Claire Rioualen** (07:51:46):
+> Hi<!channel>! How about a meeting next week, so we keep the ball rolling?[https://doodle.com/meeting/participate/id/eVl4X15b](https://doodle.com/meeting/participate/id/eVl4X15b)
+  - Attachment (doodle.com): [EDAM-Bioconductor - Claire](https://doodle.com/meeting/participate/id/eVl4X15b)
+    > Doodle is the simplest way to schedule meetings with clients, colleagues, or friends. Find the best time for one-to-ones and team meetings with our user-friendly calendar tool.
+
+
+## 2024-11-15
+
+**Claire Rioualen** (05:13:39):
+> Looks like it's gonna be between Tuesday and Thursday, though there are still missing votes!:smiley:
+
+**Sebastian Lobentanzer** (08:00:42) (in thread):
+> I’m offnext week, unfortunately
+
+
+## 2024-11-19
+
+**Claire Rioualen** (08:50:36):
+> Hi<!channel>sorry for the late update, let's meet on Friday, 5pm CET then!:smile:[https://calendar.app.google/oA1MyaqANJxqjx5g7](https://calendar.app.google/oA1MyaqANJxqjx5g7)
+  - Attachment (calendar.google.com): [EDAM x Bioconductor meeting — Invitation via Google Calendar](https://calendar.app.google/oA1MyaqANJxqjx5g7)
+
+**Claire Rioualen** (08:51:55):
+> Link to our usual meeting notes (not those from the Biohackathon):[https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?tab=t.0#heading=h.gjdgxs](https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?tab=t.0#heading=h.gjdgxs)
+
+**Maria Doyle** (10:21:06):
+> Thanks for organising, Claire!
+
+
+## 2024-11-20
+
+**Hervé Pagès** (20:36:08) (in thread):
+> I believe that***BiocCheck***does that for us. As a reviewer, I never checked the biocViews terms manually, so I really hope that's the case:sweat_smile:Something to keep in mind though is that after a package is accepted and added to the daily builds, the biocViews terms are no longer checked (the daily builds don't run***BiocCheck***). So anything can happen after package acceptance.
+
+
+## 2024-11-21
+
+**Maria Doyle** (06:22:28) (in thread):
+> Thanks, Hervé! That’s really helpful to know.
+
+**Lori Shepherd** (07:27:26) (in thread):
+> BiocCheck makes sure it is present and has valid views --  I think it gives a warning for non valid but it may be an ERROR I would have to check
+
+**Maria Doyle** (09:40:04) (in thread):
+> Thanks, Lori! From what I see in BiocCheck code ([https://github.com/Bioconductor/BiocCheck/blob/devel/R/checks.R#L160-L183](https://github.com/Bioconductor/BiocCheck/blob/devel/R/checks.R#L160-L183)), it seems like invalid biocViews trigger an ERROR, not just a warning. Also interesting to note, BiocCheck uses the`recommendBiocViews`function from biocViews ([https://github.com/Bioconductor/biocViews/blob/devel/R/recommendBiocViews.R#L164-L289](https://github.com/Bioconductor/biocViews/blob/devel/R/recommendBiocViews.R#L164-L289)) to help suggest valid terms.
+
+**Lori Shepherd** (09:41:27) (in thread):
+> good! yes ... and actually for incoming packages it is also checked by the SPB precheck code[https://github.com/Bioconductor/Contributions/issues/3659#issuecomment-2491399506](https://github.com/Bioconductor/Contributions/issues/3659#issuecomment-2491399506)
+
+
+## 2024-11-22
+
+**Egon Willighagen** (10:50:54):
+> I am on a train home, and will need to catch up later. I will check the notes
+
+**Claire Rioualen** (12:10:36):
+> So, we are aiming for a bimonthly meeting from now on, which could be at 5 pm CET during weeks 1 and 3 of each month, or weeks 2 and 4 of each month. I created a doodle for the first 2 weeks of December, with the idea that if you vote for the 1st Monday, it means you vote for a bi-monthly meeting on the 1st and 3rd Mondays of each month (a vote for the 2nd Tuesday means 2nd and 4th Tuesday of each month, etc)
+
+**Claire Rioualen** (12:11:16):
+> I hope that's not too confusing:sweat_smile:Here's the link:[https://doodle.com/meeting/participate/id/dLnMOKga](https://doodle.com/meeting/participate/id/dLnMOKga)
+  - Attachment (doodle.com): [Recurring meeting - Claire](https://doodle.com/meeting/participate/id/dLnMOKga)
+    > Doodle is the simplest way to schedule meetings with clients, colleagues, or friends. Find the best time for one-to-ones and team meetings with our user-friendly calendar tool.
+
+
+## 2024-11-26
+
+**Claire Rioualen** (09:07:36) (in thread):
+> Looks like it could be harder than I'd hoped... Anyone has a suggestion on how to proceed?
+
+**Claire Rioualen** (09:08:30) (in thread):
+> Maybe try some combinations like 1st Mondays / 3rd Thursdays or just a monthly thing?
+
+**Maria Doyle** (10:30:51):
+> Thanks, Claire, for pulling this together—it’s tricky to align everyone! Tuesdays at 5pm CET almost seems like it could work (and it’s a time we’ve used before).@Vince Carey, I noticed you can’t do it in December on the poll—just checking if it’s those specific dates or if Tuesdays at 11am ET generally don’t work for you? If January onwards works, this might be a good option:blush:
+
+**Vince Carey** (12:38:24):
+> i can make it work if that is best
+
+
+## 2024-11-27
+
+**Claire Rioualen** (06:23:29):
+> So 1st and 3rd Tuesdays could be a good option, though there are not many votes yet. Please add your vote if possible! (poke@Hervé Ménager)[https://doodle.com/meeting/participate/id/dLnMOKga](https://doodle.com/meeting/participate/id/dLnMOKga)
+  - Attachment (doodle.com): [Recurring meeting - Claire](https://doodle.com/meeting/participate/id/dLnMOKga)
+    > Doodle is the simplest way to schedule meetings with clients, colleagues, or friends. Find the best time for one-to-ones and team meetings with our user-friendly calendar tool.
+
+**Hervé Ménager** (06:35:29):
+> done, sorry for the delayed answer:wink:
+
+
+## 2024-11-28
+
+**Claire Rioualen** (05:34:00):
+> OK then! Let's try out this formula. Calendar invitations: monthly on the[1st Tuesday](https://calendar.app.google/Nqa5cAvuh1ZbPv31A)and[3rd Tuesday](https://calendar.app.google/vBDiGzc5HETBXZeCA)
+  - Attachment (calendar.google.com): [Bioconductor - EDAM meeting — Invitation via Google Calendar](https://calendar.app.google/Nqa5cAvuh1ZbPv31A)
+  - Attachment (calendar.google.com): [Bioconductor - EDAM meeting — Invitation via Google Calendar](https://calendar.app.google/vBDiGzc5HETBXZeCA)
+
+**Maria Doyle** (07:35:04):
+> Thanks, Claire! Tuesdays at 5pm CET are generally fine for me. I can’t make Dec 3rd (the 17th works)—feel free to go ahead without me.
+
+**Claire Rioualen** (08:59:59):
+> OK great! I'm not 100% sure about the 17th:sweat_smile:But in general it's also fine for me
+
+**Claire Rioualen** (09:00:46):
+> II haven't touched the report yet, but I am going to very soon, have lots of ideas actually:slightly_smiling_face:
+
+
+## 2024-12-02
+
+**Claire Rioualen** (11:41:01):
+> Hi there, a reminder for our meeting tomorrow at 5 pm (CET)!
+> The calendar invite (with google hangout link) is[here](https://calendar.app.google/7dCZD2iihkndYCUV6), and a preliminary agenda is available[here](https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?tab=t.0#heading=h.krsvvj4ek4gw)in the usual shared document.
+  - Attachment (calendar.google.com): [Bioconductor - EDAM meeting — Invitation via Google Calendar](https://calendar.app.google/7dCZD2iihkndYCUV6)
+
+
+## 2024-12-03
+
+**Hervé Pagès** (09:21:04) (in thread):
+> Thanks Claire. I'll have to skip this one sorry. Will check the notes later.
+
+**Vince Carey** (09:39:31) (in thread):
+> i am sorry i will join about 20 min late   biohackathon paper is moving along nicely
+
+
+## 2024-12-13
+
+**Hervé Ménager** (11:01:27):
+> Hi everyone, just letting know I have been working (very slowly, sorry about this) on Bioconductor-RSEc-biotools sync. One question I have is about the lifecycle of some bioconductor packages. e.g., dnabarcodecompatibility is a package which is registered is a somewhat outdated version (old defunct repo, etc.) but there is no mention of it being part of bioconductor in the bio.tools entry ([https://bio.tools/DNABarcodeCompatibility](https://bio.tools/DNABarcodeCompatibility)). Do packages join sometimes/often/always bioconductor***after***being published? It's important I understand because this software is clearly part of bioconductor, but there is no way to tell it from looking at the information on bio.tools, nor the publication referenced there. Thanks a lot for any help you can provide:wink:
+  - Attachment (bio.tools): [bio.tools · Bioinformatics Tools and Services Discovery Portal](https://bio.tools/DNABarcodeCompatibility)
+    > A registry of bioinformatics software resources including biological databases, analytical tools and data services.
+
+**Lori Shepherd** (11:06:04):
+> we don't have a policy for if they should publish first or submit to Bioconductor first nor any good way to enforce it.  If directly asked we recommend submitting to Bioconductor first so they have the link (and to avoid packages asking for exceptions and expedited reviewers when publications ask for the link) and so that if we ask a package to make changes based on our policies there isn't a conflict with what is in a publication.
+
+
+## 2024-12-16
+
+**Claire Rioualen** (12:12:56):
+> Hi! Just a reminder that we have a call scheduled tomorrow at 5 pm CET. I may join a bit late, will keep you posted, but please go ahead without me!
+
+
+## 2024-12-17
+
+**Maria Doyle** (07:17:55):
+> Hi@Claire Rioualenand all, I’m really tight on time this week as I’m finishing up on Friday for two weeks. There’s currently nothing on the agenda, and I don’t have any updates, so I was wondering if we should cancel this week’s call since it’s so close to Christmas - unless others have things they’d like to discuss?
+
+**Claire Rioualen** (07:21:18):
+> Hi,I’mgood either way:relaxed:
+
+**Lori Shepherd** (07:22:49):
+> Im fine either way as well
+
+**Vince Carey** (08:21:11):
+> i am fine with cancelling today
+
+**Hervé Ménager** (09:49:10):
+> Ok, let's cancel. I have a couple of questions, but I can write them down, it'll be quicker:slightly_smiling_face:. Thanks!
+
+**Claire Rioualen** (10:17:47):
+> Ok:+1:
+
+**Maria Doyle** (10:42:54):
+> Thanks all! Let’s cancel for today then. Looking forward to catching up in the new year:blush:
+
+
+## 2024-12-18
+
+**Claire Rioualen** (03:41:51):
+> Definitely, lots of cool things ahead!:smiley:
+
+**Claire Rioualen** (03:44:57):
+> Btw I ran into Aedin last week, unfortunately we had no time to chat:smiling_face_with_tear:
+
+
+## 2024-12-21
+
+**Aedin Culhane** (05:56:08):
+> Bad selfie taking.
+  - File (JPEG): [Image from iOS](https://community-bioc.slack.com/files/U34P8RS3B/F0866T7JX1S/image_from_ios.jpg)
+
+**Aedin Culhane** (05:56:35):
+> Sorry it was a rush Claire.
+
+
+## 2024-12-28
+
+*07:55:27 - @Pascal-Onaho has joined the channel*
+
+## 2025-01-06
+
+**Claire Rioualen** (10:59:29):
+> Happy new year!:tada:A reminder for tomorrow's meeting (5 PM CET), here's a calendar invite:[https://calendar.app.google/T8BAA7adzf4ahMr38](https://calendar.app.google/T8BAA7adzf4ahMr38)See you there hopefully!:blush:
+  - Attachment (calendar.google.com): [Bioconductor - EDAM meeting — Invitation via Google Calendar](https://calendar.app.google/T8BAA7adzf4ahMr38)
+
+
+## 2025-01-07
+
+**Claire Rioualen** (11:01:32):
+> Looks like I. have a connection issue sorry, joining asap
+
+**Maria Doyle** (11:04:35):
+> No worries, Hervé M and I are on the call
+
+**Hervé Ménager** (11:05:35):
+> [https://cnrs.zoom.us/j/95727727556?pwd=QNLpgWYxsrOlshARKcI0bejb6EhbXE.1](https://cnrs.zoom.us/j/95727727556?pwd=QNLpgWYxsrOlshARKcI0bejb6EhbXE.1)
+
+**Claire Rioualen** (11:05:53):
+> For some reason Google Hangout won't launch, do you mind joining this zoom call instead?
+
+**Claire Rioualen** (11:05:53):
+> [https://cnrs.zoom.us/j/95727727556?pwd=QNLpgWYxsrOlshARKcI0bejb6EhbXE.1](https://cnrs.zoom.us/j/95727727556?pwd=QNLpgWYxsrOlshARKcI0bejb6EhbXE.1)
+
+**Claire Rioualen** (11:05:59):
+> Sorry about that
+
+**Claire Rioualen** (11:07:31):
+> Link to the meeting notes
+
+**Claire Rioualen** (11:07:32):
+> [https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?usp=sharing](https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?usp=sharing)
+
+**Maria Doyle** (12:07:34) (in thread):
+> @Claire Rioualenabove is command I mentioned from Marcel, for getting packages biocviews without parent terms
+
+**Vince Carey** (14:31:58):
+> i am sorry this went off my calendar ....
+
+
+## 2025-01-09
+
+**Claire Rioualen** (04:10:39) (in thread):
+> No worries, you can have a look at the meeting notes until. next time!
+
+
+## 2025-01-11
+
+**Egon Willighagen** (03:43:11):
+> hi, I am seeking programmatic access to DESCRIPTION file content. anyone can recommend a tool (prob R pkg) for this?
+
+**Vince Carey** (11:02:03):
+> if you have the DESCRIPTION in hand, R function read.dcf will parse and return a data.frame.  It is in base R.  example(read.dcf) is instructive.
+
+
+## 2025-01-14
+
+**Claire Rioualen** (06:24:05):
+> Hi there! I was thinking it could be nice to come up with an EDAM-related workshop proposal for the ELIXIR all hands meeting this, however deadlines very close:sweat_smile:
+
+**Claire Rioualen** (06:25:12):
+> I was wondering if some of you were maybe interested in this idea, or know of other groups that could be interested?
+
+**Egon Willighagen** (06:29:17):
+> both the ELIXIR Metabolomics and Toxicology communities have tasks around teaching material / OER which needs annotation for TeSS, and tools likely too; maybe that fits
+
+**Vince Carey** (07:00:12):
+> Let me know how I can help.
+
+**Egon Willighagen** (07:39:20):
+> for metabolomics, plz ping Helge Hecht
+
+**Claire Rioualen** (07:56:36) (in thread):
+> Hi there, and thanks for the explanations!
+> 
+> Is it safe to assume that all of the terms present in the`DESCRIPTION`file were added by authors, whenever the package might have been submitted to Bioconductor?
+> 
+> Wondering because I know that there is now an automatic "validation" step for the terms, which wasn't always the case, so I'm thinking maybe there's another piece of information I'm missing.
+> 
+> Using the option`addBiocViewParents=FALSE`I  get less annotated terms but still quite a few. The`Software`term is still used more than 700 times (eg about 30% of all packages).
+> 
+> Also, the above-mentioned`roastgsa`package terms drop from 45 to 37 terms, which still seems like a lot:
+> ```
+> BiocPkgTools::biocPkgList(version = "3.20", addBiocViewParents = FALSE) |>
+>     subset(Package == "roastgsa") |>
+>    _[["biocViews"]] |>
+>     unlist()
+> ```
+
+**Claire Rioualen** (08:08:30):
+> Thanks, will do!
+
+
+## 2025-01-21
+
+**Claire Rioualen** (04:59:05):
+> Hi there! Gentle reminder for today's meeting at 5pm CET, as usual feel free to take a look at / edit the agenda[here](https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?usp=sharing):blush:
+
+**Lori Shepherd** (07:23:20):
+> is there any way to make a recurring calendar meeting to put in the calendar?  seeing it ad-hoc here or having to click on each individual calendar invite it can easily get lost in the shuffle of all the other channels and messages
+
+**Maria Doyle** (11:00:39):
+> There in couple mins
+
+**Claire Rioualen** (11:03:31):
+> Just got here, I'm alone for now:smiling_face_with_tear:
+
+**Vince Carey** (11:04:28):
+> really sorry, this conflicts with a presentation i need to see.  i will try to tie in at 1130
+
+**Vince Carey** (11:05:07):
+> are there blockers in the EDAM project at this time?  i am just wrapping up a 30 page renewal for bioc so i can be more engaged this coming month
+
+**Lori Shepherd** (11:06:06):
+> sorry I didn't have this in my calendar so I got double booked and on the same meeting as Vince -- let me know if you need any information from me on where to access or find information or@Claire Rioualenif you wanted to tag up later if you still wanted information on when packages have been included in Bioconductor I have that ad hoc script I could share with you
+
+**Vince Carey** (11:06:50):
+> if we could reschedule to hear about biocview mapping that would be great
+
+**Vince Carey** (11:34:03):
+> i can't make it today, really sorry
+
+**Maria Doyle** (11:38:19):
+> no worries, we’re just going through the biohackathon report today to try to get in wrapped up in next few weeks
+
+**Claire Rioualen** (11:54:31) (in thread):
+> true, just added your email as well as Vince's in the calendar invite
+
+
+## 2025-02-04
+
+**Claire Rioualen** (10:58:41):
+> Hi there! In case you didn't notice, I updated our meeting's link to this one:[https://cnrs.zoom.us/j/93037443275?pwd=43YHxEI3oawEwd2MxMdmMtDq3Clp1n.1](https://cnrs.zoom.us/j/93037443275?pwd=43YHxEI3oawEwd2MxMdmMtDq3Clp1n.1)
+
+**Claire Rioualen** (12:29:20):
+> Overview of biocViews vocabulary usage across software packages:slightly_smiling_face:eg:`BiocPkgTools::biocPkgList(version = "3.20", addBiocViewParents = FALSE, repo = c("BioCsoft"))`
+  - File (PNG): [Rplot03.png](https://community-bioc.slack.com/files/U34P8RS3B/F08BR1T7KH8/rplot03.png)
+
+
+## 2025-02-05
+
+**Claire Rioualen** (04:36:48):
+> Btw I forgot to mention yesterday that I made suggestions to substantially reorganise the results section of the BH report, when you get a chance could you take a look at it and tell me what you think?@Hervé Ménager@Maria Doyle[https://docs.google.com/document/d/1BZYPlJ1VmVz7i7agjr0PlYxx9ROVPob6/edit](https://docs.google.com/document/d/1BZYPlJ1VmVz7i7agjr0PlYxx9ROVPob6/edit)
+
+**Claire Rioualen** (04:58:55):
+> Btw2, just saw this recent nature biotech paper, congratulations@Sebastian Lobentanzer!:raised_hands:[https://www.nature.com/articles/s41587-024-02534-3](https://www.nature.com/articles/s41587-024-02534-3)
+  - Attachment (Nature): [A platform for the biomedical application of large language models](https://www.nature.com/articles/s41587-024-02534-3)
+    > Nature Biotechnology - A platform for the biomedical application of large language models
+
+**Sebastian Lobentanzer** (06:04:45):
+> thanks! (it was quite the journey for such a “small” paper):sweat_smile:
+
+
+## 2025-02-06
+
+**Claire Rioualen** (04:24:45):
+> I added the citation in our BH report:slightly_smiling_face:
+
+
+## 2025-02-11
+
+**Vince Carey** (16:31:36):
+> I've been asked to work on FAIRness of genome data science***methods***at NHGRI workshop.  One thing that just came on my radar screen is[https://workflowhub.eu/](https://workflowhub.eu/)... is this linked in any way to elixir/bio.tools?
+
+**Maria Doyle** (17:42:17):
+> Yes it’s one of the services provided by the ELIXIR Tools Platform[https://elixir-europe.org/platforms/tools](https://elixir-europe.org/platforms/tools)that@Hervé Ménageris a lead of
+  - Attachment (elixir-europe.org): [Tools Platform | ELIXIR](https://elixir-europe.org/platforms/tools)
+    > The Tools Platform helps communities find, register and benchmark software tools. These tools help researchers access, analyse and integrate biological data, and so drive scientific discovery across the life sciences. We maintain information standards for these tools, and produce, adopt and promote best practices for their development. We also:
+
+
+## 2025-02-12
+
+**Claire Rioualen** (05:58:19):
+> It also allows for EDAM annotations
+
+**Claire Rioualen** (06:00:46):
+> Other related and interoperable ELIXIR services worth checking out (non exhaustive):[Biocontainers](https://biocontainers.pro/),[OpenEBench](https://openebench.bsc.es/),[FAIRsharing](https://fairsharing.org/)
+  - Attachment (biocontainers.pro): [BioContainers Community including registry, documentation, specification](https://biocontainers.pro/)
+    > BioContainers Community including registry, documentation, specification
+
+
+## 2025-02-13
+
+**Marcel Ramos Pérez** (15:55:26):
+> Hi all, is there a`biocViews`term for histopathology / H&E images? Should we use controlled vocabulary to add a new term?
+
+*15:57:27 - @Ilaria Billato has joined the channel*
+
+## 2025-02-14
+
+**Claire Rioualen** (07:28:57) (in thread):
+> Hi Marcel, there are currently no terms for those, either in biocViews or EDAM. They currently exist however in a separate dev version of "EDAM BioImaging", but I doubt that version will be available publicly soon...
+
+**Claire Rioualen** (07:30:47) (in thread):
+> There's an old version of EDAM BioImaging in Bioportal, however it's not up-to-date at all. See[https://bioportal.bioontology.org/ontologies/EDAM-BIOIMAGING/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_____Histology](https://bioportal.bioontology.org/ontologies/EDAM-BIOIMAGING/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_____Histology)
+
+**Claire Rioualen** (07:38:02) (in thread):
+> Looks like this ontology could be relevant too[https://bioportal.bioontology.org/ontologies/OBI/](https://bioportal.bioontology.org/ontologies/OBI/)
+
+
+## 2025-02-18
+
+**Claire Rioualen** (03:35:15):
+> Hi there!
+> Reminder for today's meeting, 5 pm CET - Shared notes are[here](https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?usp=sharing)
+
+**Claire Rioualen** (03:37:20):
+> For today I suggest we revise the[BioHackathon report](https://docs.google.com/document/d/1BZYPlJ1VmVz7i7agjr0PlYxx9ROVPob6/edit?usp=sharing&ouid=118442261765724734713&rtpof=true&sd=true)together and list what's missing to finalise it
+
+**Claire Rioualen** (03:39:08):
+> Besides that, if some of you have time to check out the biocViews[mapping table](https://docs.google.com/spreadsheets/d/1i2ouLPRiV1Bpup9svOcEW9Re4LRavzug89GOSRPQWpU/edit?gid=1087023869#gid=1087023869)to provide some feedback it would help a lot:blush:
+
+**Vince Carey** (10:38:42):
+> There are 99 "terms" annotated to ChipName that are mapped badly and may not even belong in EDAM.  I don't know.  Here's how to find them -- I noted in the mapping table that moe430 has a low score and a bad mapping.
+> ```
+> > library(biocViews)
+> 0/0 packages newly attached/loaded, see sessionInfo() for details.
+> > data(biocViewsVocab)
+> > bv = biocViewsVocab
+> > library(RBGL)
+> 0/0 packages newly attached/loaded, see sessionInfo() for details.
+> > sp.between(biocViewsVocab, "BiocViews", "moe430a")
+> $`BiocViews:moe430a`
+> $`BiocViews:moe430a`$length
+> [1] 3
+> 
+> $`BiocViews:moe430a`$path_detail
+> [1] "BiocViews"      "AnnotationData" "ChipName"       "moe430a"       
+> 
+> $`BiocViews:moe430a`$length_detail
+> $`BiocViews:moe430a`$length_detail[[1]]
+> BiocViews->AnnotationData  AnnotationData->ChipName         ChipName->moe430a 
+>                         1                         1                         1 
+> 
+> 
+> 
+> > edgeL(bv)$ChipName -> cn
+> > ch = nodes(bv)[cn[[1]]]
+> > head(ch)
+> [1] "adme16cod"   "ag"          "ath1121501"  "celegans"    "drosgenome1"
+> [6] "drosophila2"
+> ```
+
+**Vince Carey** (10:44:04):
+> most of them look like they are already slated for removal.  i will only be on the call for the first 20 min or so
+
+**Vince Carey** (10:48:45):
+> if we get rid of "ChipManufacturer" we get rid of over 300 lines from the table.
+
+
+## 2025-02-19
+
+**Marcel Ramos Pérez** (11:13:54) (in thread):
+> Thank you Claire!:pray:
+
+
+## 2025-02-26
+
+**Hervé Ménager** (03:27:58):
+> Hi everyone, a quick question regarding bioconductor package metadata. Is there a way to retrieve the creation date for a given package? I am so far using the[https://bioconductor.org/packages/json/3.20/bioc/packages.json](https://bioconductor.org/packages/json/3.20/bioc/packages.json)JSON, which only contains last_commit_date and "Date/Publication" which both seem to be bioconductor release specific. What I would like is the date for the creation (or first inclusion in bioconductor) for each package. Thanks!
+
+**Vince Carey** (06:39:59):
+> @Marcel Ramos Pérezmaybe this is in BiocPkgTools or could be added?  There is a badge "years in bioc" on each package so it is computable somehow but I don't know the details.  Also@Hervé Pagès^^
+
+**Maria Doyle** (06:49:30):
+> Some previous discussion by Claire and Lori on that "years in Bioc" is here:[https://community-bioc.slack.com/archives/CLUJWDQF4/p1736948696694499?thread_ts=1736937469.458099&cid=CLUJWDQF4](https://community-bioc.slack.com/archives/CLUJWDQF4/p1736948696694499?thread_ts=1736937469.458099&cid=CLUJWDQF4)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CLUJWDQF4/p1736948696694499?thread_ts=1736937469.458099&amp;cid=CLUJWDQF4)
+    > The years in Bioc is a little trickier;  if there isn't something in BiocPkgTools, we probably should.  Currently we parse the BIoconductor manifest files for the badge on the landing page.  This however presents some challenges if you start to evaluate non software designated packages as we didn't keep a manifest file for say annotation packages.  The webstats for packages  tries to be better about a package list and evaluates the packages available via the PACKAGES file in our legacy releases but isn't calculating a since or keeping track of that information, its just wants the official package list for a given release.
+
+**Lori Shepherd** (07:40:37):
+> I have already worked on a script that does this and have it written up.  I haven't added to BiocPkgTools yet as the script was modified from the webstats  (that looks at previous years PACKAGES files)  info and had a fair amount of extra package dependencies (tidyverse, glue, rvest, kableExtra, lubridate, etc) that I was going to loo into rewritting to keep the dependency bloat on BiocPkgTools down... if we don't care about that or if someone else wants to adapt, I can put a PR of what I have currently so it could be reworked
+
+**Lori Shepherd** (07:44:44):
+> The script I have also would give information on first bioc version, date/year of equivalent release, appr. years in Bioconductor, and if applicable, the bioc version, year/date of removal (and how many years in before removal)
+
+**Lori Shepherd** (07:53:12):
+> I'll put together a PR and if BiocPkgTools wants to rewrite to limit dependencies someone can.... in the meantime@Hervé Ménagerwould you like me to share the R script that I have to keep your efforts moving along while we wait for it in BiocPkgTools?
+
+**Hervé Ménager** (16:59:21):
+> Thanks a lot for all your answers. I didn't get time to go through them today, but we've been making good progress on the report with Claire. Hopefully this can soon be submitted:slightly_smiling_face:
+
+
+## 2025-03-03
+
+**Vince Carey** (10:08:14):
+> i cannot attend tuesday   at NIH FAIR meeting
+
+
+## 2025-03-04
+
+**Claire Rioualen** (04:50:10):
+> Hi there, see you today at our usual time for those who can -- Hervé won't be available either
+
+
+## 2025-03-06
+
+**Vince Carey** (14:11:09):
+> just found[https://mariadermit.netlify.app/2021-01-30-network-visualization-of-bioconductor-packages/](https://mariadermit.netlify.app/2021-01-30-network-visualization-of-bioconductor-packages/)
+  - Attachment (English site): [Word network of Bioconductor packages | English site](https://mariadermit.netlify.app/2021-01-30-network-visualization-of-bioconductor-packages/)
+    > Understanding how Bioconductor packages are connected between each other using metadata.
+
+
+## 2025-03-09
+
+**Vince Carey** (12:19:42):
+> @Claire Rioualenbecause I saw .docx as the format for the google-doc for the hackathon report linked above I used word with track changes for my initial edits.  Should I make them right on the google doc?
+
+
+## 2025-03-11
+
+**Claire Rioualen** (06:17:59) (in thread):
+> It'd be convenient if it's not too much of a hassle; you could also send me your file and I'll factor it in
+
+**Vince Carey** (07:01:09) (in thread):
+> I'll transfer changes to google doc.
+
+
+## 2025-03-13
+
+**Claire Rioualen** (12:06:15):
+> Hi there, since I stumbled upon a number of inconsistencies when working on the mapping, I've put up together a table listing the issues I found in software package annotations:[https://docs.google.com/spreadsheets/d/1PqxmfEoopQbU0gYceEo9_fRmARE_bD29pMJ8-_mIW1Y/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1PqxmfEoopQbU0gYceEo9_fRmARE_bD29pMJ8-_mIW1Y/edit?usp=sharing)We can discuss it at our next meeting if needed:slightly_smiling_face:
+
+**Claire Rioualen** (12:09:28):
+> Might be worth checking why those terms were not picked up by Biocheck - were the packages submitted before it was implemented?
+
+
+## 2025-03-14
+
+**Claire Rioualen** (05:58:20) (in thread):
+> Hi, can you let me know when you transfer them? Then I'll share the manuscript with all authors to check it out
+
+**Vince Carey** (11:33:49) (in thread):
+> almost done   will try to finish today
+
+
+## 2025-03-16
+
+**Vince Carey** (10:22:22):
+> some progress on biocEDAM:  Edited -- I revised the API so there are two basic steps: transform vignette to a concise summary, then map brief textual content to EDAM with edamize.
+> ```
+> > mm = vig2data("[https://bioconductor.org/packages/release/bioc/vignettes/MSnbase/inst/doc/v05-MSnbase-development.html](https://bioconductor.org/packages/release/bioc/vignettes/MSnbase/inst/doc/v05-MSnbase-development.html)")
+> Using model = "gpt-4o".
+> > uu = edamize(mm$focus)
+> Success after 0 attempts
+> > mkdf(uu)
+>                                       uri                        tm
+> 1[http://edamontology.org/topic_0121](http://edamontology.org/topic_0121)Proteomics
+> 2[http://edamontology.org/topic_0091](http://edamontology.org/topic_0091)Bioinformatics
+> 3[http://edamontology.org/topic_0092](http://edamontology.org/topic_0092)Data visualisation
+> 4[http://edamontology.org/operation_3627](http://edamontology.org/operation_3627)Mass spectra calibration
+> 5[http://edamontology.org/operation_3628](http://edamontology.org/operation_3628)Chromatographic alignment
+> 6[http://edamontology.org/operation_3629](http://edamontology.org/operation_3629)Deisotoping
+> 7[http://edamontology.org/operation_3630](http://edamontology.org/operation_3630)Protein quantification
+> 8[http://edamontology.org/operation_3634](http://edamontology.org/operation_3634)Label-free quantification
+> 9[http://edamontology.org/operation_3635](http://edamontology.org/operation_3635)Labeled quantification
+> 10[http://edamontology.org/operation_3214](http://edamontology.org/operation_3214)Spectral analysis
+> 11[http://edamontology.org/operation_3215](http://edamontology.org/operation_3215)Peak detection
+> 12[http://edamontology.org/data_2536](http://edamontology.org/data_2536)Mass spectrometry data
+> 13[http://edamontology.org/format_3244](http://edamontology.org/format_3244)mzML
+> 14[http://edamontology.org/format_3654](http://edamontology.org/format_3654)mzXML
+> 15[http://edamontology.org/data_0945](http://edamontology.org/data_0945)Peptide identification
+> 16[http://edamontology.org/format_3247](http://edamontology.org/format_3247)mzIdentML
+> 17[http://edamontology.org/data_0943](http://edamontology.org/data_0943)Mass spectrum
+> 18[http://edamontology.org/format_3244](http://edamontology.org/format_3244)mzML
+> 
+> > content2 = vig2data("[https://bioconductor.org/packages/release/bioc/vignettes/IRanges/inst/doc/IRangesOverview.pdf](https://bioconductor.org/packages/release/bioc/vignettes/IRanges/inst/doc/IRangesOverview.pdf)")
+> Using model = "gpt-4o".
+> > ii = edamize(content2$focus)
+> Success after 0 attempts
+> > mkdf(ii)
+>                                       uri                         tm
+> 1[http://edamontology.org/topic_0622](http://edamontology.org/topic_0622)Genomics
+> 2[http://edamontology.org/topic_0091](http://edamontology.org/topic_0091)Bioinformatics
+> 3[http://edamontology.org/topic_0092](http://edamontology.org/topic_0092)Data visualisation
+> 4[http://edamontology.org/operation_2403](http://edamontology.org/operation_2403)Sequence analysis
+> 5[http://edamontology.org/operation_2451](http://edamontology.org/operation_2451)Sequence comparison
+> 6[http://edamontology.org/operation_0564](http://edamontology.org/operation_0564)Sequence visualisation
+> 7[http://edamontology.org/operation_0292](http://edamontology.org/operation_0292)Sequence alignment
+> 8[http://edamontology.org/operation_0253](http://edamontology.org/operation_0253)Sequence feature detection
+> 9[http://edamontology.org/data_0849](http://edamontology.org/data_0849)Sequence record
+> 10[http://edamontology.org/format_1929](http://edamontology.org/format_1929)FASTA
+> 11[http://edamontology.org/format_1975](http://edamontology.org/format_1975)GFF3
+> 12[http://edamontology.org/data_0863](http://edamontology.org/data_0863)Sequence alignment
+> 13[http://edamontology.org/format_1929](http://edamontology.org/format_1929)FASTA
+> 14[http://edamontology.org/format_1975](http://edamontology.org/format_1975)GFF3
+> ```
+
+**Vince Carey** (10:24:33):
+> i will commit soon.  basically there is a step to use gpt to condense any vignette in HTML or pdf and then submit that to Anh's schema analysis.@Anh Nguyet Vuwould you submit a PR to[https://github.com/vjcitn/biocEDAM](https://github.com/vjcitn/biocEDAM)with edits to DESCRIPTION that add your identity in Authors@R including ORCID.  i will start adding this process to the draft.  I think the embedding work is a bust at the moment.
+
+**Vince Carey** (10:26:18):
+> whether we are happy with all the implied mappings is another matter.  there is definitely some randomness, and temperature setting may play a role.
+
+**Anh Nguyet Vu** (12:14:58) (in thread):
+> [https://github.com/vjcitn/biocEDAM/pull/3](https://github.com/vjcitn/biocEDAM/pull/3)
+  - Attachment: [#3 Add author to DESCRIPTION](https://github.com/vjcitn/biocEDAM/pull/3)
+    > Add update per suggestion in #edam-collaboration
+
+**Anh Nguyet Vu** (12:30:19) (in thread):
+> In my main job's project, a couple of new developments we are working on is testing and perhaps switching to the new reasoning model that 1) has longer context so we don't have to worry about condensing content first, and 2) should be more accurate for curation, since I think mapping quality could still be improved. Lastly, the reasoning model may actually be competent for suggesting new concepts truly missing in EDAM.
+
+
+## 2025-03-17
+
+**Claire Rioualen** (06:52:22) (in thread):
+> Sounds interesting! Would be nice to discuss in a meeting
+
+**Claire Rioualen** (06:53:33) (in thread):
+> As for the manuscript, it is just a report on the BioHackathon, it doesn't matter too much whether the results are optimised or final
+
+**Claire Rioualen** (06:55:31):
+> We can discuss some of those things during tomorrow's meeting, however I would prioritise finishing the manuscript and discussing ideas for this year's call for projects (deadline is April 14th)
+
+**Claire Rioualen** (06:55:47):
+> Here's a preliminary agenda for the meeting[https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?tab=t.0#heading=h.2to9oxt9rgaw](https://docs.google.com/document/d/1JqaXiGVYAccxS914h4D2a27dbCFIX7hy4VgAjloheaQ/edit?tab=t.0#heading=h.2to9oxt9rgaw)
+
+**Anh Nguyet Vu** (15:50:16) (in thread):
+> Sure, perhaps the April 1st meeting since March 18th (tomorrow) looks full and a bit short notice for me.
+
+**Vince Carey** (17:56:21):
+> More progress with biocEDAM.  Here's a table for 8 packages.
+  - File (JPEG): [edamtable.jpg](https://community-bioc.slack.com/files/U34P8RS3B/F08J880GRKN/edamtable.jpg)
+
+**Vince Carey** (17:57:57):
+> Starting with these URLs (a convenience selection):
+> ```
+> [https://bioconductor.org/packages/release/bioc/vignettes/GenomeInfoDb/inst/doc/GenomeInfoDb.pdf](https://bioconductor.org/packages/release/bioc/vignettes/GenomeInfoDb/inst/doc/GenomeInfoDb.pdf)[https://bioconductor.org/packages/release/bioc/vignettes/Biostrings/inst/doc/Biostrings2Classes.pdf](https://bioconductor.org/packages/release/bioc/vignettes/Biostrings/inst/doc/Biostrings2Classes.pdf)[https://bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf](https://bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf)[https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)[https://bioconductor.org/packages/release/bioc/vignettes/GOSemSim/inst/doc/GOSemSim.html](https://bioconductor.org/packages/release/bioc/vignettes/GOSemSim/inst/doc/GOSemSim.html)[https://bioconductor.org/packages/release/bioc/html/VariantAnnotation.html](https://bioconductor.org/packages/release/bioc/html/VariantAnnotation.html)[https://bioconductor.org/packages/release/bioc/vignettes/phyloseq/inst/doc/phyloseq-basics.html](https://bioconductor.org/packages/release/bioc/vignettes/phyloseq/inst/doc/phyloseq-basics.html)[https://bioconductor.org/packages/release/bioc/vignettes/minfi/inst/doc/minfi.html](https://bioconductor.org/packages/release/bioc/vignettes/minfi/inst/doc/minfi.html)[https://bioconductor.org/packages/release/bioc/vignettes/GSVA/inst/doc/GSVA.html](https://bioconductor.org/packages/release/bioc/vignettes/GSVA/inst/doc/GSVA.html)[https://bioconductor.org/packages/release/bioc/vignettes/ChemmineOB/inst/doc/ChemmineOB.html](https://bioconductor.org/packages/release/bioc/vignettes/ChemmineOB/inst/doc/ChemmineOB.html)
+> ```
+
+**Vince Carey** (18:01:53):
+> the ideal workflow would be
+> ```
+> dat = lapply(urls, biocEDAM::vig2data)
+> allfoc = lapply(dat, "[[", "focus")
+> eds = lapply(allfoc, biocEDAM::edamize)
+> ```
+> and the table is produced by some massaging of texts produced in this flow.
+
+**Vince Carey** (18:03:58):
+> In reality, there are issues with JSON production in which it appears that too many nonalphabetic characters can cause the chat-to-json process to fail, so
+> ```
+> > cln
+> function(x) gsub("\\[|\\]|\\$|\\{|\\}|=|\\(|\\)", "", x)
+> <bytecode: 0x146baa200>
+> > cln2
+> function(x) gsub('-|\\(|`|#|:|\\*|’|"|\\[|\\]|\\$|\\{|\\}|=|\\(|\\||")', "", x)
+> <bytecode: 0x110d4a5a8>
+> ```
+> can be used to preprocess the text ... this doesn't always help but it seems to do so sometimes.
+
+**Vince Carey** (18:04:39):
+> I'll try to make all the massaging explicit in the vignette for biocEDAM.
+
+
+## 2025-03-18
+
+**Claire Rioualen** (05:37:58) (in thread):
+> Can be, otherwise we meet every 1st and 3rd Tuesday at the same time
+
+**Claire Rioualen** (06:05:18) (in thread):
+> Is there a specific reason for choosing those packages? I've added them to our "reference package" list from the BioHackathon ([spreadsheet tab "package list"](https://docs.google.com/spreadsheets/d/155rJX5pUPFDIQNsX0AsohEjFjxfJ9za54b45V9gtQzg/edit?usp=sharing))
+
+**Claire Rioualen** (06:12:51):
+> @Vince Careywill you be able to make it to today's meeting? It'd be great if we could discuss the idea of a BioHackathon project for this year's event (call open until April 14th, I'm still waiting on feedback from the Metabolomics community)
+
+**Vince Carey** (06:25:22):
+> If I understand correctly the meeting is at 1200 ET and I can make that.  Apropos the question above, no there was no reason to pick those package other than trying to cover a range of formats and topics.
+
+**Vince Carey** (06:25:58):
+> At this time, example(tag_bioc) will produce something like this:
+  - File (JPEG): [tagbioc.jpg](https://community-bioc.slack.com/files/U34P8RS3B/F08J014CH1C/tagbioc.jpg)
+
+**Vince Carey** (06:27:12):
+> it can fail and the content can vary somewhat.
+
+**Claire Rioualen** (06:50:22):
+> It looks like a good start!
+
+**Lori Shepherd** (11:03:07) (in thread):
+> def before more stringent checks on biocviews and maybe the biocviews check all together.   Some of these (most actually) are valid views but they mixed from different main categories which is no longer allowed (ie.  ExperimentData and StemCell are valid but considered part of the Experiment Data views category and not Software)  ...   there are some that indeed are not valid and perhaps the ones not used by any package could be cleaned up and removed@Vince Careylet me know about this and I can clean up unused terms ...
+
+**Lori Shepherd** (11:03:56):
+> I won't be able to make today's meeting. let me know if there are any action items for myself
+
+**Vince Carey** (11:06:11) (in thread):
+> removing unused terms makes sense to me
+
+*14:27:07 - @Andres Wokaty has joined the channel*
+
+## 2025-03-20
+
+**Claire Rioualen** (08:14:38):
+> Hi there, this is an abstract I plan to submit soon, in order to present a poster at the French JOBIM conference, to be held in Bordeaux in July. Feel free to check it out and provide feedback if necessary![https://docs.google.com/document/d/1oW9XMR6eH0dvYX_ItobI1Yd9boSpp9on3PDg0zvwtGE/edit?usp=sharing](https://docs.google.com/document/d/1oW9XMR6eH0dvYX_ItobI1Yd9boSpp9on3PDg0zvwtGE/edit?usp=sharing)
+
+**Claire Rioualen** (08:16:33):
+> Welcome@Andres Wokaty! Didn't we meet a couple years ago at the Bioc conference in Seattle?:thinking_face:
+
+**Vince Carey** (09:41:23):
+> abstract looks good!
+
+**Vince Carey** (11:43:01):
+> here are mappings for 7 of first 10 reference packages.[https://docs.google.com/spreadsheets/d/1KwSkuCvm1rnmgTyqkewM6KJasqtMSmrFKmquCwwN_80/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1KwSkuCvm1rnmgTyqkewM6KJasqtMSmrFKmquCwwN_80/edit?usp=sharing)i did not expect solutions for BiocGenerics, zlibbioc, S4Vectors and no mapping is provided for those.  I will continue with more reference packages soon.
+  - File (Google Sheets): [pk7](https://community-bioc.slack.com/files/U34P8RS3B/F08J5PAECGP/pk7)
+
+**Vince Carey** (11:47:26):
+> I have to confess I don't feel comfortable with the line for XVector.  I don't see how those formats come in with the available text.
+
+**Maria Doyle** (12:34:25) (in thread):
+> Yes looks good!
+
+
+## 2025-03-21
+
+**Andres Wokaty** (13:35:45) (in thread):
+> Thank you. Yes, I believe so! :)
+
+
+## 2025-03-24
+
+**Claire Rioualen** (06:41:49):
+> Thanks Vince, I'll incorporate that in the manuscript
+
+**Claire Rioualen** (06:43:41):
+> On another topic, while there seem to be some interest from the Metabolomics community to collaborate on a 2025 BioHackathon project, there are barely any contributions on the shared draft proposal... If you have some input on this do not hesitate to contribute, since this is time sensitive:slightly_smiling_face:Link:[https://docs.google.com/document/d/1nf2OWp7rISaofVQFpCFNq7dJbgNxCo7t--muqfSNqCk/edit?usp=sharing](https://docs.google.com/document/d/1nf2OWp7rISaofVQFpCFNq7dJbgNxCo7t--muqfSNqCk/edit?usp=sharing)
+
+**Vince Carey** (10:01:58) (in thread):
+> It looks good so far.  Can we broaden it by going beyond bioconductor to a python metabolomics ecosystem?  We could propose to build out our automated annotation methods to deal effectively with content like[https://pyopenms.readthedocs.io/en/latest/](https://pyopenms.readthedocs.io/en/latest/)
+
+**Sebastian Lobentanzer** (16:35:59) (in thread):
+> Hi Claire, Id be happy to contribute, maybe co-lead, but currently am busy figuring out where to go with my newly founded lab.Do you want to have a chat about potential topics and how they can align between the different parties?
+
+
+## 2025-03-25
+
+**Claire Rioualen** (05:40:16) (in thread):
+> Hi Sebastian, if you have time for a chat that'd be cool, otherwise you can also throw some ideas on the document:slightly_smiling_face:Btw, have you participated on the BioHackathon before (I mean F2F)? This year they strongly encourage including first-timers co-leads:slightly_smiling_face:
+
+**Sebastian Lobentanzer** (07:56:12) (in thread):
+> no, never been
+
+
+## 2025-03-28
+
+**Claire Rioualen** (07:26:53) (in thread):
+> @Maria Doylewould you be interested in participating as a co-lead again? No pressure of course:slightly_smiling_face:This year projects require 3 co-leads
+
+**Claire Rioualen** (07:28:15) (in thread):
+> If someone else here is interested, the invitation is open too:slightly_smiling_face:On-site participation is not mandatory
+
+**Claire Rioualen** (07:39:30):
+> And yet on another topic...:sweat_smile:Given the political context and recent, preoccupying news piling up, I have decided to not attend GBCC - at least not on-site. I am sorry about this, I know it would have been a great opportunity to share our project with a wider community. Since abstract submissions are conditioned to previous registration to the conference, someone else could submit it instead of me, I'll be doing the poster anyway, for a French Bioinformatics conference at the beginning of July:slightly_smiling_face:
+
+**Claire Rioualen** (07:40:10):
+> I'm also thinking of registering and submitting something for EuroBioc in September instead
+
+**Vince Carey** (09:51:30) (in thread):
+> That makes sense.   Let's see if anyone else who is attending would like to submit/present.  Otherwise I might do it.  Glad you can present at other conferences.
+
+
+## 2025-04-01
+
+**Claire Rioualen** (11:03:19):
+> Hi there! We're meeting right now
+
+**Claire Rioualen** (11:03:36):
+> [https://cnrs.zoom.us/j/93037443275?pwd=43YHxEI3oawEwd2MxMdmMtDq3Clp1n.1](https://cnrs.zoom.us/j/93037443275?pwd=43YHxEI3oawEwd2MxMdmMtDq3Clp1n.1)
+
+**Vince Carey** (11:30:02):
+> Software for Science (Cycle 6): Ontological resource tagging and discovery for Bioconductor ID: EOSS6-0000000067
+
+**Maria Doyle** (14:24:26) (in thread):
+> Yes, happy to co-lead if needed!
+
+**Vince Carey** (16:51:27):
+> I added the information in a not-compatible font
+
+
+## 2025-04-08
+
+**Claire Rioualen** (04:34:09):
+> Hi there, the BioHackathon preprint is now out:slightly_smiling_face:[https://doi.org/10.37044/osf.io/dsgnw_v1](https://doi.org/10.37044/osf.io/dsgnw_v1)
+  - Attachment (OSF): [BioHackEU24 report: Integrating Bioconductor packages with the ELIXIR Research Software Ecosystem using EDAM](https://doi.org/10.37044/osf.io/dsgnw_v1)
+    > This project seeks to enhance the ELIXIR Research Software Ecosystem (RSEc) by increasing the findability, accessibility, interoperability, and reusability (FAIR principles) of Bioconductor’s extensive collection of over 2,000 bioinformatics packages. By aligning Bioconductor metadata with the EDAM ontology and integrating detailed package descriptions into the *bio.tools* registry, we aim to improve the discoverability and usability of bioinformatics analysis tools. Short-term goals include mapping Bioconductor’s biocViews controlled vocabulary to EDAM concepts, developing a set of manually annotated “gold standard” packages, and evaluating tools for automated EDAM concept suggestions. Long-term, we intend to expand EDAM coverage across Bioconductor, phase out biocViews, and implement automated synchronisation with *bio.tools*. This initiative fosters collaboration between Bioconductor and ELIXIR, establishing a foundation for sustainable software management in European bioinformatics.
+    > 
+    > Key results from the ELIXIR BioHackathon 2024 week include substantial progress in mapping the biocViews vocabulary to EDAM concepts, initiating the curation of a reference set of packages with manual annotations, integrating Bioconductor metadata into the ELIXIR Research Software Ecosystem (RSEc) with automated updates, and prototyping a tool for automated EDAM concept suggestions. Together, these achievements establish a strong foundation for further integration and refinement.
+
+**Egon Willighagen** (12:57:12):
+> and here's the Wikidata/Scholia page:[https://scholia.toolforge.org/work/Q133835656](https://scholia.toolforge.org/work/Q133835656)
+
+
+## 2025-04-09
+
+**Claire Rioualen** (08:47:58) (in thread):
+> Thanks for sharing!
+
+
+## 2025-04-14
+
+**Claire Rioualen** (06:14:13):
+> :blush:
+  - File (PNG): [Screenshot 2025-04-14 at 12.13.39.png](https://community-bioc.slack.com/files/U34P8RS3B/F08MZBN97HB/screenshot_2025-04-14_at_12.13.39.png)
+
+
+## 2025-04-15
+
+**Claire Rioualen** (06:10:58):
+> Hi<!channel>! Who's up for the usual 5pm CEST meeting?
+
+**Lori Shepherd** (06:14:04):
+> I will likely not attend because of Bioconductor release related tasks today
+
+**Sebastian Lobentanzer** (06:26:16):
+> I am travelling
+
+**Vince Carey** (08:14:49):
+> i could do 30 min   will@Anh Nguyet Vube able to join?   we shld get LLM update if possible
+
+**Claire Rioualen** (09:08:53):
+> would be nice, otherwise we could postpone the meeting - Hervé is not available, and I'm not sure about@Maria Doyle
+
+**Maria Doyle** (09:35:58):
+> Sorrycan’tmeet today, am at conference
+
+**Vince Carey** (09:48:59):
+> actually i cannot meet   family medical emerg
+
+**Claire Rioualen** (10:02:04):
+> No problem, let's just cancel today:slightly_smiling_face:
+
+**Claire Rioualen** (10:02:15) (in thread):
+> Hope everything's okay

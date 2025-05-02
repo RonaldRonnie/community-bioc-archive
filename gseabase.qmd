@@ -1,0 +1,1921 @@
+---
+title: "#gseabase"
+format: gfm
+---
+
+
+## 2018-12-04
+
+*12:23:20 - @Kayla Interdonato has joined the channel*
+*12:23:20 - @Kevin Rue-Albrecht has joined the channel*
+**Kayla Interdonato** (12:27:35):
+> So to carry over your question from sc-signature, I’m one of the newest members of the Bioconductor core team and I’ve been working with Martin on this new`GeneSet`package. I’m not sure what his thoughts are as far as what will happen to`GSEABase`but I’m sure once my package is closer to completion we will have that discussion.
+
+**Kevin Rue-Albrecht** (12:34:54):
+> Ok cool. I look forward to the update then!
+> In the meantime, I’m happy to take on board any advice for the development of`Hancock`.
+> Obviously, for now I’ve started with the`GeneSet`as it’s available through`BiocManager`, but I can consider switching over to`GeneSet`.
+> That said, should I already switch the dependency over, and document`devtools::install_github("Kayla-Morrell/GeneSet")`, or is it too soon yet?
+
+**Kevin Rue-Albrecht** (12:36:49):
+> PS: I’m happy to keep the conversation going, but I can’t promise when I’ll actually code anything. It’s all a bit “whenever I can”
+
+*15:56:02 - @Rob Amezquita has joined the channel*
+
+## 2018-12-05
+
+**Kevin Rue-Albrecht** (18:39:20):
+> :tada:[https://github.com/kevinrue/Hancock/pull/16/files#diff-548504b6ae900ec74807d16917cdf106](https://github.com/kevinrue/Hancock/pull/16/files#diff-548504b6ae900ec74807d16917cdf106)
+  - Attachment (GitHub): [demonstrate GeneSet package in concept vignette by kevinrue · Pull Request #16 · kevinrue/Hancock](https://github.com/kevinrue/Hancock/pull/16/files#diff-548504b6ae900ec74807d16917cdf106)
+    > add return value to internal function;
+
+
+## 2018-12-06
+
+**Kevin Rue-Albrecht** (03:17:25):
+> Having played a bit more with the tibble format ([https://github.com/kevinrue/Hancock/pull/16](https://github.com/kevinrue/Hancock/pull/16))
+> I would imagine at least an extra column "state" in the current`gene, set`tibble, to hold a factor similar to`set`: the union of all the "states" that a gene can be in with respect to each`set`, (e.g. "+", "-", "high", "low", ..., think about cell types defined as "mature F4/80hi CX3CR1hi MHCII+ macrophages" for example) Those "states" being defined by the user as the union of those provided in the call to`tbl_geneset(...)`
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CE8AB163W/p1543939010031900?thread_ts=1543939010031900&cid=CE8AB163W)
+    > We are working on expanding the gene set representation idea at [https://github.com/Kayla-Morrell/GeneSet](https://github.com/Kayla-Morrell/GeneSet). The main motivation is more efficient representation of large data sets and a more familiar tibble like frame work. From the conversation above, it seems like 3 useful features we could add include Entrez (and similar) identifiers, color gene sets, and adding gene and gene set metadata. Any feedback welcome!
+  - Attachment (GitHub): [demonstrate GeneSet package in concept vignette by kevinrue · Pull Request #16 · kevinrue/Hancock](https://github.com/kevinrue/Hancock/pull/16)
+    > add return value to internal function;
+
+**Kevin Rue-Albrecht** (03:18:02):
+> set the channel description: Expanding the `GSEABase` package for gene sets and "signatures"
+
+**Kevin Rue-Albrecht** (03:23:02):
+> That said, the suggestion above addresses what I call "qualitative" signatures (where the relation between`gene`and and`set`is a factor).
+> Not sure whether the tibble could also have another new column called`quantity`for instance, that would store numerical values (either an`integer`rank or a`double`expression level) associated with (semi-)quantitative signatures (See[https://github.com/kevinrue/Hancock/blob/master/vignettes/concepts.Rmd](https://github.com/kevinrue/Hancock/blob/master/vignettes/concepts.Rmd)).
+
+**Kevin Rue-Albrecht** (03:36:18):
+> (Either of the two new columns`state`,`quantity`being left`NA`if not defined by the user)
+
+**Kayla Interdonato** (08:47:30):
+> Definitely something to think about and expand`GeneSet`on. Thanks for the suggestion!
+
+
+## 2018-12-08
+
+*04:36:26 - @Charlotte Soneson has joined the channel*
+
+## 2018-12-11
+
+*14:35:30 - @Martin Morgan has joined the channel*
+
+## 2018-12-13
+
+*12:44:25 - @Michael Lawrence has joined the channel*
+**Michael Lawrence** (13:04:32):
+> This might be relevant:[https://github.com/lianos/multiGSEA](https://github.com/lianos/multiGSEA)
+  - Attachment (GitHub): [lianos/multiGSEA](https://github.com/lianos/multiGSEA)
+    > A unified interface to a plethora of gene set enrichment analysis methods - lianos/multiGSEA
+
+
+## 2018-12-14
+
+*12:39:56 - @Rena Yang has joined the channel*
+
+## 2018-12-16
+
+*08:49:50 - @Lluís Revilla has joined the channel*
+**Lluís Revilla** (08:52:17):
+> I was recently working in expanding  methods for GeneSetCollections in[https://github.com/llrs/GSEAdv](https://github.com/llrs/GSEAdv)
+  - Attachment (GitHub): [llrs/GSEAdv](https://github.com/llrs/GSEAdv)
+    > Package to analyse gene sets. Contribute to llrs/GSEAdv development by creating an account on GitHub.
+
+**Lluís Revilla** (08:53:41):
+> But seeing that it might be relevant for other usages (and as some previous comments refer to a quantity or state of the relationship), I created another package:[https://github.com/llrs/BaseSet](https://github.com/llrs/BaseSet)
+
+**Lluís Revilla** (08:55:39):
+> This could be general package in CRAN without the overhead of mapping ids of genes and types of collections
+
+**Martin Morgan** (12:37:39):
+> maybe this is redundant with@Kayla Interdonato’s work, and these efforts should be combined? One major problem with GeneSetCollection in the current GSEABase is that each set is an object, and this has terrible performance when there are many sets; this seems to be duplicated in your implementation. I think a better approach is to (a) think of a 'GeneSet' in the same way as one things of character() -- zero, one, or many gene sets -- so there is no need for a GeneSetCollection and (b) to implement the underlyingGeneSet as a vector + partitioning, which is what@Kayla Interdonatodoes using a column in a data frame. A couple of additional points -- a 'tibble' can be extended as a formal class, e.g., with required 'gene' and 'set' columns (as@Kayla Interdonatodoes) in the same way that S4Vectors / DataFrame can be extended (which I think would be the way to go if this were meant to play well with Bioconductor). Also, the "API" is really independent of the implementation, so that the question 'what's the best API for the user' (Kayla's approach says -- make it look like a tibble, since these are popular these days; the GSEABase approach says 'make it look like an opaque object' with accessors  / methods etc) from 'what's the best implementation?'. These ideas are explored a bit in[https://github.com/Bioconductor/BiocAdvanced/blob/LatAm-2018/vignettes/S4.Rmd#L154](https://github.com/Bioconductor/BiocAdvanced/blob/LatAm-2018/vignettes/S4.Rmd#L154)
+  - Attachment (GitHub): [Bioconductor/BiocAdvanced](https://github.com/Bioconductor/BiocAdvanced/blob/LatAm-2018/vignettes/S4.Rmd#L154)
+    > Advanced R / Bioconductor training material. Contribute to Bioconductor/BiocAdvanced development by creating an account on GitHub.
+
+**Kevin Rue-Albrecht** (12:46:34):
+> Nice markdown!
+> Quick off-topic question to avoid a full discussion on this channel: is there a resource that describes "Multiple inheritance/dispatch" somewhere? It's mentioned in this markdown, but not further described. I'd be curious to see how that works in broad lines
+
+**Kevin Rue-Albrecht** (12:48:21):
+> Ahh, I just figured out what the "multiple dispatch" part meant at least. Dispatch based on multiple arguments. Still curious about the multiple inheritance, if there's even an example somewhere.
+
+**Martin Morgan** (13:03:09):
+> A classic example of multiple dispatch is two-dimensional subsetting`a[i, j]`, where dispatch might reasonably be implemented on classes`a`,`i`, and`j`, e.g., for i, j in logical, integer, numeric, character, ...; the problem is the combinatorial number of methods to be defined.
+> 
+> One example of multiple inheritance is CompressedIntegerRangesList, which contains both IntegerRangesList and CompressedRangesList
+> ```
+> > getClass("CompressedIntegerRangesList")
+> Virtual Class "CompressedIntegerRangesList" [package "IRanges"]
+> 
+> Slots:
+>                                                                               
+> Name:        elementType   elementMetadata          metadata        unlistData
+> Class:         character DataTable_OR_NULL              list               ANY
+>                         
+> Name:       partitioning
+> Class: PartitioningByEnd
+> 
+> Extends: 
+> Class "IntegerRangesList", directly
+> Class "CompressedRangesList", directly
+> Class "RangesList", by class "IntegerRangesList", distance 2
+> Class "CompressedList", by class "CompressedRangesList", distance 2
+> Class "List", by class "IntegerRangesList", distance 3
+> Class "Vector", by class "IntegerRangesList", distance 4
+> Class "list_OR_List", by class "IntegerRangesList", distance 4
+> Class "Annotated", by class "IntegerRangesList", distance 5
+> 
+> Known Subclasses: 
+> Class "CompressedIRangesList", directly
+> Class "CompressedIPosList", directly
+> Class "CompressedNormalIRangesList", by class "CompressedIRangesList", distance 2
+> ```
+> The idea is that some properties are derived from the IntergerRangesList class, and some are derived from the CompressedRangesList class. Multiple inheritance can be useful for describing compositions of pure data representations. One bioc-centric reference might be[https://master.bioconductor.org/help/course-materials/2017/Zurich/S4-classes-and-methods.html](https://master.bioconductor.org/help/course-materials/2017/Zurich/S4-classes-and-methods.html)
+
+**Kevin Rue-Albrecht** (13:07:02):
+> Interesting use cases, thanks! I definitely agree with "[Multiple inheritance:] Powerful but can lead to a class hierarchy that is very hard to maintain if not used carefully." in that document.
+
+**Lluís Revilla** (14:19:35):
+> @Martin MorganYes, I realized this was a bit redundant, I wasn't aware of this effort before I started working.
+
+**Lluís Revilla** (14:22:02):
+> @Kayla InterdonatoIf you need help/want some of the methods I already implemented in GSEAdv into the package let me know.  I was already playing with "tidy" gene sets with the tidy method of the BaseSets package (which I think could be adapted to convert the existing class into the new class).
+
+
+## 2019-01-03
+
+**Kevin Rue-Albrecht** (08:51:34):
+> While toying with some proof of concepts in`Hancock`(#sc-signature), I realized that it would be nice to have the equivalent of`S4Vectors::mcols`, and`metadata`slots for`tbl_geneset`. Both at the gene- and geneset- levels.
+> I've just pushed a draft of vignette ([https://github.com/kevinrue/Hancock](https://github.com/kevinrue/Hancock)) that provides at least one use case, where I currently store individual gene information as additional tibble columns (see object`tgs`for "tibble gene set" in the vignettte). However:
+> 1. that is suboptimal for gene-wise metadata if the same gene occurs more than once
+> 2. same logic applies for geneset-wise metadata (e.g. I have stored the detection rate of the combined geneset as an extra column that stores the same value for all markers within each geneset)
+> 3. an overall`metadata`slot would be nice to store extra information on how the  gene sets were produced (e.g.`packageVersion`)
+  - Attachment (GitHub): [kevinrue/Hancock](https://github.com/kevinrue/Hancock)
+    > Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
+
+**Martin Morgan** (09:01:06):
+> I had kind of hoped that the tibble column would suffice, but you're right that the duplicate genes is problematic (but that's just tidy data, right?). Similarly for set-level data. I think 'externally' the information could be represented as a single tibble, but internally maintain three tables -- gene / set mapping; gene annotation; set annotation.
+
+**Lluís Revilla** (09:04:01):
+> I also think that three tables is the best solution, it would be similar to the tidygraph package solution
+
+**Kevin Rue-Albrecht** (09:06:24):
+> Absolutely. I'm no expert yet on the benefits of`tibble`over`data.frame`(and vice versa), but indeed, I was thinking of a 'triptych' format (at least internally, I'm fine with any sensible external representation)
+
+**Martin Morgan** (09:30:45):
+> it seems like a 'lesson' from usability of, e.g., SummarizedExperiment is that people really don't 'see' the structure and therefore don't know how to use it; I really want to try the approach of giving the user something that looks like a flat table, even if the implementation is a tribble (hey, new word!). I'll see if I can't convince@Kayla Interdonatoto implement this...
+> 
+> tidygraph has the new verb -- what is it,`activate()`? -- that switches between tibbles, but I think we should just require columns of each tibble to be distinct, as implied by the flat table representation.
+
+**Martin Morgan** (09:37:26):
+> ```
+> | gene annos | set annotations   | gene set annos
+> gene    set | egid ensid | id         parent | pvalue
+> <fct> <fct> | <.>  ...   |                   |
+> A       x   | 123  ens01 | longname   Root   | 0.01
+> B       x   | 124  ens02 | longname   Root   | 0.02
+> ...
+> ```
+
+**Lluís Revilla** (09:49:45):
+> That table looks simpler to implement and use. And enough for handling the the current uses of sets
+
+**Lluís Revilla** (09:50:19):
+> `activate`is to select which elements should be modified when plotting them
+
+**Kevin Rue-Albrecht** (09:54:25):
+> “Simpler” than what? As I understood Martin, we’re all on the same page: that table would only be the ‘visible’ result of a print statement on an object that would actually contain 3 separate tibbles
+
+**Lluís Revilla** (09:58:58):
+> @Kevin Rue-Albrechtsimpler than the three tables, but I might have misread:sweat_smile:, if that table would be the representation for the user and internally it uses three tables I'm on the same page:+1:
+
+**Martin Morgan** (10:06:00):
+> Yes I was thinking of the flat table as the user API, with tribble as the implementation; also you guys are too easy, originally my flat table representation wasn't correct, the 'set annotations' should have been the same in the two example rows!
+
+**Kevin Rue-Albrecht** (10:07:16):
+> Personally, I'm still in slow-brain mode after the festivities:wink:
+
+**Lluís Revilla** (10:11:16):
+> I just looked at the column names and the type of data that was shown:smile:
+
+**Kevin Rue-Albrecht** (10:14:34):
+> A Bioconductor Slack without unit testing on the code chunks.. tsk tsk tsk:smirk:
+
+*13:05:27 - @Aedin Culhane has joined the channel*
+**Aedin Culhane** (13:09:20):
+> Hi, its important to have a implementation that retains the history of the geneset (where is came from, ontologies describing the source, and comparisons how  was derived, EFO).  Otherwise its difficult to interpret the enrichment score.  I have put GeneSigDB in github but haven't implemented into Bioc, as I was not sure how best to distribute it
+
+**Kevin Rue-Albrecht** (13:37:52):
+> I like "Error Freaks and Oddities", that the one?
+  - File (PNG): [Pasted image at 2019-01-03, 7:37 PM](https://community-bioc.slack.com/files/U34P8RS3B/FF5PRSFSQ/image.png)
+
+**Kevin Rue-Albrecht** (13:41:15):
+> That said, I absolutely support the need for "traceability metadata". At least a general`@metadata`slot as a free form list, but also perhaps something more formal for "standard" information that can be expected from any method
+
+**Martin Morgan** (15:31:29):
+> closer to home (maybe)[https://www.ebi.ac.uk/efo/](https://www.ebi.ac.uk/efo/)
+  - Attachment (ebi.ac.uk): [The Experimental Factor Ontology < EMBL-EBI](https://www.ebi.ac.uk/efo/)
+    > The Experimental Factor Ontology (EFO) provides a systematic description of many experimental variables available in EBI databases, and for external projects such as the NHGRI GWAS catalog. It combines parts of several biological ontologies, such as UBERON anatomy, ChEBI chemical compounds, and Cell Ontology. The scope of EFO is to support the annotation, analysis and visualization of data handled by many groups at the EBI and as the core ontology for Open Targets. We also add terms for external users when requested. If you are new to ontologies, there is a short introduction on the subject available and a blog post by James Malone on what ontologies are for.
+
+**Aedin Culhane** (16:47:47):
+> Sorry for acromyns:wink:
+
+**Kevin Rue-Albrecht** (17:31:03):
+> Not a problem. Google usually works, but that was a tough one:sweat_smile:hadn’t heard it before
+
+
+## 2019-01-04
+
+**Michael Lawrence** (12:29:32):
+> With regard to "seeing" a SummariedExperiment, are we just limited by the textual console interface of R? Or is it that the user is unable to grok the structure, even with a more visual/interactive display?
+
+**Michael Lawrence** (12:31:28):
+> If it's mostly the former, perhaps we could come up with alternative ways of showing these objects. I know there's been some work in Shiny on that front, but I guess it would need to be more seamless. Perhaps something better would be possible in RStudio, at least?
+
+**Kevin Rue-Albrecht** (12:40:10):
+> Not sure whether there is a direct link between`SummariedExperiment`(SE) objects and#gseabase, I guess the#iseechannel could host this discussion (even if it doesn't involve interactivity).
+> That said, I like the current representation of SE objects at the console given the limitations of the console. Then, as you pointed out, iSEE addressed the "comprehensive" interactive visualization of those objects, yet can be a bit overwhelming for newcomers.
+> Not sure where the compromise is.
+
+**Aedin Culhane** (15:27:59):
+> @Michael Lawrencedo you mean a method str for SummariedExperiment? Or something more graphic?  I think they are several packages that draw plots to give a quick review of the SE.
+
+
+## 2019-01-06
+
+*05:37:22 - @Ludwig Geistlinger has joined the channel*
+
+## 2019-01-07
+
+**Michael Lawrence** (14:06:43):
+> Honestly, we might just need to take our ascii art skills to the next level, and show a textual diagram of the SE structure, with head/tail displays of each component (metadata, colData, rowData, assays).
+
+**Lluís Revilla** (17:41:59):
+> I implemented a new S4 class on :[https://github.com/llrs/BaseSet/blob/master/README.md](https://github.com/llrs/BaseSet/blob/master/README.md)
+  - File (PNG): [Pasted image at 2019-01-07, 11:41 PM](https://community-bioc.slack.com/files/U34P8RS3B/FF8PSLAAH/image.png)
+
+
+## 2019-01-08
+
+**Kevin Rue-Albrecht** (03:51:58):
+> That's the idea, I think. Although, I do prefer Kayla's named argument approach to the creation of the set
+> ```
+> tbl_geneset(set1 = letters, set2 = LETTERS)
+> ```
+> It reduces redundancy with respect of the`sets`argument in your example.
+> What do you think?
+
+**Kevin Rue-Albrecht** (03:54:41):
+> Also, semantically I would avoid the column name "element", I would argue that "feature" is more common to refer to genomic entities
+
+**Lluís Revilla** (03:55:17):
+> I think the named argument become complicated when one imports or creates several sets
+
+**Lluís Revilla** (03:55:44):
+> But one could provide a new function to create the object from a list or other types of data
+
+**Lluís Revilla** (03:56:26):
+> I also experimented a bit with fuzzy sets, and I think that it would be easier to work if a data.frame is provided
+
+**Kevin Rue-Albrecht** (03:56:29):
+> Actually, that's fair enough (supporting multiple signatures which feed into the "canonical" one,whichever that one turns out to be)
+
+**Lluís Revilla** (03:58:03):
+> Initially inspired by GSEABase I am aiming to the broader set analysis not only genomics, that's why I used element
+
+**Lluís Revilla** (03:58:32):
+> The element can be a protein a TF a domain, or an aminoacid, I think we shouldn't restrict it to the genomic field
+
+**Kevin Rue-Albrecht** (03:59:05):
+> Then for the additional two "metadata-frames", I suppose ultimately the call would turn into
+> ```
+> tidySet(relations, featureData, setData)
+> ```
+> with the rownames of`featureData`and`setData`being required to appear in the corresponding columns of`relations`
+
+**Lluís Revilla** (04:00:34):
+> I provided a`elements`and`set`argument to provide information about them (I haven't implemented them yet)
+
+**Kevin Rue-Albrecht** (04:00:36):
+> OK, with that argument, I'm pretty convinced for "element" as that is typically the unit of a "set" in maths
+
+**Lluís Revilla** (04:02:46):
+> In theory one could provide all three arguments or just relations and then add a modifier to add information about sets or the elements.
+
+**Lluís Revilla** (04:02:50):
+> The only requirement is to have a predefined column name
+
+**Kevin Rue-Albrecht** (04:06:36):
+> The column name can just be an internal design choice, no? I think  the key part is just an getter/setter a-la-`colData`/`rowData`
+
+**Lluís Revilla** (04:35:14):
+> Yes, the required column names are defined in the validation method
+
+**Lluís Revilla** (04:35:41):
+> Next time I have some time I'll implement the setters and getters
+
+
+## 2019-01-09
+
+*06:55:53 - @Lori Shepherd has joined the channel*
+
+## 2019-01-14
+
+**Lluís Revilla** (05:40:06):
+> I created getters and setters for the new class
+
+**Lluís Revilla** (05:40:12):
+> But I am not sure how to handle the modifications: if a relations is removed, should I remove the element if it was the only relation it had?
+
+**Lluís Revilla** (05:40:42):
+> Also I don't know how to implement the subseting method
+
+**Kevin Rue-Albrecht** (06:57:16):
+> Thanks for working on that. I don’t have time to test it right now, but perhaps writing a vignette and unit tests could help you identify use cases to guide your decision making? I’m trying very hard to start every package with vignette and unit tests from the start, and it really does help me.
+
+
+## 2019-01-15
+
+**Kevin Rue-Albrecht** (03:11:10):
+> Having looked a bit at the code defining the tidySet class, I'm not convinced by the`fuzzy`(optional) column.
+> Having thought about it more, rather than having optional columns that create`if`clauses in the method creation (btw, the class misses a validity function to check upon updates to the object), I would rather see a system of classes extending each other, with each further classes declaring new**required**columns.
+> Ideally, I'd offer a PR, but the BaseSet package already is already a bit complex with methods that I'd rather see implemented only when the data structure is stable (e.g.`length.R`functions). It's probably be easier for me to illustrate my idea on a blank slate, to avoid confusion. Drawback of that is that I'd need yet another package name to avoid conflict during testing,..
+
+**Lluís Revilla** (03:14:52):
+> Yes the length.R is a legacy code that I need to reimplement for the new class
+
+**Lluís Revilla** (03:15:57):
+> The TidySet class has a validity Function here:[https://github.com/llrs/BaseSet/blob/master/R/AllClasses.R#L18](https://github.com/llrs/BaseSet/blob/master/R/AllClasses.R#L18)
+
+**Lluís Revilla** (03:16:32):
+> I am not sure why it needs to extend a previous class, which would be the advantages of doing so?
+
+**Kevin Rue-Albrecht** (03:16:44):
+> Sorry I was blind, I read it as part of the class definition. My bad
+
+**Lluís Revilla** (03:17:46):
+> Originally on the sample output@Martin Morganposted, it already included a "gene set pvalue"  which is what the "fuzzy" column is suposed to be
+
+**Kevin Rue-Albrecht** (03:17:55):
+> The advantage would be that each class defines a validity function for its own**required**slots, getting rid of unnecessary`if`clauses on~~~optional~~~columns defined only in child classes
+
+**Kevin Rue-Albrecht** (03:18:49):
+> as validity functions "stack", a child object would also run the parent validity checks
+
+**Lluís Revilla** (03:19:18):
+> I think the gain is very low and in the real use case it will make no difference
+
+**Kevin Rue-Albrecht** (03:20:48):
+> your call
+
+**Lluís Revilla** (03:21:19):
+> I'll wait for other's input
+
+**Lluís Revilla** (03:21:22):
+> BTW, pull requests are welcomed make them and I'll polish them
+
+
+## 2019-01-16
+
+**Kevin Rue-Albrecht** (18:23:08):
+> Hi@Kayla Interdonato@Martin MorganI’ve spent some more time on my own proof of concept package for gene sets today, to get a sense of the features that I’d like and the challenges that come with them,. Turns out I’m actually pretty satisfied by the result. Whenever time allows, could I ask for some feedback please?[https://github.com/kevinrue/unisets](https://github.com/kevinrue/unisets)(Tougher and tougher to find a package name on the theme of gene sets without stepping on anyone’s toes!)
+
+
+## 2019-01-17
+
+**Lluís Revilla** (03:26:44):
+> Perhaps we should agree on which repository we work and combine the efforts...
+
+**Lluís Revilla** (03:28:52):
+> Perhaps we can write a google document of the features we want on the new (gene) set classes?
+
+**Lluís Revilla** (03:37:18):
+> Now there are three packages in development aiming to the same...
+
+**Kevin Rue-Albrecht** (03:47:06):
+> I know. But it was impossible for me to write**this**proof of concepts in either GeneSet nor BaseSet, considering the distinct set of dependencies. There’s no point having two completely independent implementations sitting in the same package, apart from confusing all of us as well as users and prospective contributors. The only alternative being like@Kayla Interdonatoto have each implementation on a separate branch… which in the case of multiple developers is just as helpful as having separate repositories to show each other our respective thoughts.
+
+**Kevin Rue-Albrecht** (03:51:32):
+> And, as much a fan as I am about open source, collaborative effort, and pull requests, I genuinely think that at this early stage, it’s still okay for each of us to explore different angles, and learn from each other. The last thing I want is to declare a ‘winner’ package before we’ve even explored a few options. Think of it as “getting quotes before making a purchase”.
+
+**Lluís Revilla** (04:06:39):
+> I think that if it is an early stage it doesn't matter if we have several implementations in the same package
+
+**Lluís Revilla** (04:06:47):
+> At one moment I had three different implementations of fuzzy sets in the same package
+
+**Lluís Revilla** (04:07:11):
+> We can explore different ways but perhaps we should first decide in which direction we explore
+
+**Kevin Rue-Albrecht** (04:07:17):
+> Well, in that case, that’s where we see things differently. I like to keep my independent ideas separate
+
+**Kevin Rue-Albrecht** (04:20:34):
+> <rant> And “we should first decide in which direction we explore” does not make much sense if the point is to use our respective freedom to do our own respective exploration and learn from each other. To me, community work (or even a single group’s work for that matter), doesn’t mean putting everyone’s efforts on a single idea, rather I’d encourage sharing ideas/wishes on Slack and encourage open source development on GH so that we might all learn from and feedback to each other. Perhaps we’ll find that one package is better for its data structure, and the other is better for its calculation efficiency, at which point we can agree on a single package where they should all be implemented. The unexpected is a beautiful thing. </rant>
+
+**Lluís Revilla** (05:00:14):
+> What do you seek on unisets that can't be explored on GeneSet or BaseSet?
+
+**Lluís Revilla** (05:01:02):
+> Sorry I might misunderstood you:sweat:
+
+**Martin Morgan** (06:48:38):
+> What about setting a deadline for 'exploring', say a month from now, and then we have a telecon and do presentations / demos of each. Come up with a feature list and conflicts between approaches, and see if we can arrive at a consensus? I say a month from now, but that's negotiable...
+
+**Lluís Revilla** (07:00:44):
+> Good idea!
+
+**Lluís Revilla** (07:01:16):
+> Could it be by the end of march?
+
+**Kevin Rue-Albrecht** (07:02:58):
+> Great idea! Btw, I've also been thinking about suggesting a "Features of a new Bioconductor class for gene sets" SIG for bioc2019. I just haven't got around to writing out the issue message yet.
+> Still, it would be good to catch up way sooner than that:slightly_smiling_face:
+
+**Kevin Rue-Albrecht** (07:56:10):
+> @Lluís Revilla: i don’t like the idea of storing`fuzzy`as an extra optional column in the`tidySet`, it creates additional`if`statements throughout the downstream code, which is why I’ve pushed it out to a parallel vector and made an explicitly distinct class that inherits all the features of`BaseSet`and more.
+
+**Kevin Rue-Albrecht** (07:57:33):
+> This way each class explicitly knows what’s available and no`if`are needed
+
+**Martin Morgan** (09:01:33):
+> 'end of march' is ok with me; is it too long?
+
+**Martin Morgan** (09:04:31):
+> I'm generally with Kevin that it is better to avoid`if`conditionals and have a 'straight path' through the code; classes provide a way of doing this.
+> 
+> 'Optional' columns that are actually important for the computations (in contrast to optional columns that might contain, e.g., symbol mappings that are for the user's own purposes) definitely seem important enough to merit their own class.
+
+**Lluís Revilla** (09:09:17):
+> I only work on this on my free time, and I though that Kayla couldn't spend too much time on this but if you want to talk about it sooner for me is okay
+
+**Lluís Revilla** (09:09:43):
+> Well the solution I had in mind is to make the fuzzy column compulsory
+
+**Lluís Revilla** (09:10:06):
+> converting all the non-fuzzy sets to a value of 1 for that column and we can drop the`if`statement and we don't need to create a new class
+
+**Lluís Revilla** (09:10:17):
+> According to wikipedia and some papers this is what usually it is assumed when dealing with sets and fuzzy-sets all together
+
+**Kevin Rue-Albrecht** (09:23:37) (in thread):
+> I’m good with “end of march”.
+> I think we’re all working on this on our free time, so it’s not a bad idea to give ourselves a bit of time if we agree on this approach.
+> Plus, we’ve got GH to keep an eye on each other’s progress and Slack to throw in any idea/wish/challenge to each other:wink:
+
+**Kevin Rue-Albrecht** (09:28:45):
+> Here goes:[https://docs.google.com/document/d/1A3bs1rtbTo42Sgm9hPbLoG1lTGbQ-ITENaLRVyK2Njo/edit#](https://docs.google.com/document/d/1A3bs1rtbTo42Sgm9hPbLoG1lTGbQ-ITENaLRVyK2Njo/edit#)
+  - File (Google Docs): [Gene Set working group](https://community-bioc.slack.com/files/U34P8RS3B/FFH8EA2DV/gene_set_working_group)
+
+**Martin Morgan** (09:32:19):
+> Probably it makes sense when the non-fuzzy algebra is a strict subset of the fuzzy, and the implementation doesn't require special cases, e.g., with 0-length, scalar, and arbitrary length vectors`sum()`,`lapply()`... do not require conditional statements, but`sapply()`does (motivating the introduction of`vapply()`). Is that the case with fuzzy set algebra?
+
+**Lluís Revilla** (09:50:18):
+> I don't know yet that's something I wanted to explore more
+
+
+## 2019-01-21
+
+**Lluís Revilla** (04:44:39):
+> Do we want to allow non standard evaluation in the methods of the new class?
+
+**Kevin Rue-Albrecht** (05:10:21):
+> I’d say yes, starting with “simple” functions, e.g.`subset`[https://github.com/kevinrue/unisets/blob/master/vignettes/basic.Rmd#L102)](https://github.com/kevinrue/unisets/blob/master/vignettes/basic.Rmd#L102))`filter`,`select`, etc. are good ones too:[https://github.com/Kayla-Morrell/GeneSet/blob/master/R/tblgeneset-class.R](https://github.com/Kayla-Morrell/GeneSet/blob/master/R/tblgeneset-class.R)
+
+*06:14:14 - @Federico Marini has joined the channel*
+
+## 2019-01-24
+
+*13:58:57 - @Steve Lianoglou has joined the channel*
+
+## 2019-01-28
+
+**Lluís Revilla** (04:26:31):
+> How do we want to handle sets that are included/related to other sets?
+
+**Lluís Revilla** (04:27:21):
+> For instance Rad51B-Rad51C complex GO:0033066 is also a      nuclear part GO:0044428
+
+**Kevin Rue-Albrecht** (07:41:49):
+> You’ll probably need to be more specific about what you mean by “handle”. You’ll get more and more useful feedback if you give 1 or 2 specific use cases.
+
+**Kevin Rue-Albrecht** (07:49:46):
+> That said, I imagine that you’re talking about optimizing the storage of relations: if gene G1 belong to set S1 (stored in relations) and that set S1 is included in set S2 (that information would have to be stored somewhere), then one may not need to explicitly store the relation “gene G1 belongs to set S2”.
+> Even if I’m going off-track compared to your original question here, I’d rather not go down that road. Instead I prefer to explicitly store every relation that exists as an entry in the relations table. One can always imagine downstream methods that compress/decompress relationship tables, but that’s wayyyy down the line in my view.
+
+**Lluís Revilla** (08:10:33):
+> That's exactly the case I had in mind
+
+**Lluís Revilla** (08:10:40):
+> But by handle I was not only refering to storage optimization but also how/if we store this kind of information
+
+**Lluís Revilla** (08:12:47):
+> Although explicitly storing every relation is a good principle too work with it
+
+**Kevin Rue-Albrecht** (09:08:12):
+> One can draw a parallel with the [VariantAnnotation]([http://bioconductor.org/packages/VariantAnnotation](http://bioconductor.org/packages/VariantAnnotation)) package that implements`CollapsedVCF`and`ExpandedVCF`. That said, the thought just crossed my mind - I haven’t thought about all the implications or whether it’s even possible. In a first instance, I’d say working with explicit relations is safer.
+> Also, back to the notion of “fuzzy sets”, what if the membership function of the gene is different for the “direct set” S1, and the “super set” S2? That would require a sort of override mechanism for relations that are both inherited from a subset and are redefined for the superset.
+  - Attachment (Bioconductor): [VariantAnnotation](http://bioconductor.org/packages/VariantAnnotation)
+    > Annotate variants, compute amino acid coding changes, predict coding outcomes.
+
+**Martin Morgan** (09:30:59):
+> I think one wants to separately model the ontology of sets; i'm not sure what the best way to do that is...
+
+**Lluís Revilla** (09:56:37):
+> In a previous iteration I provided a nested function that returned which sets were included in other sets:[https://github.com/llrs/GSEAdv/blob/master/R/nested.R#L24](https://github.com/llrs/GSEAdv/blob/master/R/nested.R#L24)
+
+**Lluís Revilla** (09:56:46):
+> Maybe something like this could be useful
+
+**Lluís Revilla** (09:57:32):
+> About the fuzzy sets: Yes, that's one of the faces of the hierarchical set problem. That's why I think that storing only direct relationships might be better...
+
+**Lluís Revilla** (09:58:14):
+> There is also the hierarchical set package:[https://github.com/thomasp85/hierarchicalSets](https://github.com/thomasp85/hierarchicalSets)as previous experience/things to consider
+
+
+## 2019-02-10
+
+*12:15:03 - @Valerie Obenchain has joined the channel*
+
+## 2019-02-13
+
+**Aedin Culhane** (15:12:08):
+> Sometimes gene overlap is not well correlated with geneset scores. Many genesets include protein complexes or genes that are rarely ranked as DE genes.  Such genesets may have gene overlaps but won't have correlated scores as the geneset score is based on DE genes.
+
+**Aedin Culhane** (15:13:02):
+> However given a list of genesets that have scored highly, they can be "organized" into a hierarchy
+
+
+## 2019-02-17
+
+**Kevin Rue-Albrecht** (12:43:53):
+> `unisets`kinda snowballed from a toy/prototype into something that's maturing if anyone is interested into taking it for a spin. Online documentation and preview here:[https://kevinrue.github.io/unisets](https://kevinrue.github.io/unisets)I'm trying not to get too attached as I truly do look forward to comparing with@Kayla Interdonato’s GeneSet, when`tribble`merges to`master`:slightly_smiling_face:
+  - Attachment (kevinrue.github.io): [Collection of Classes to Store Gene Sets](https://kevinrue.github.io/unisets)
+    > Classes to describe relationships between elements and sets, with an emphasis on gene sets. Slots are available to store element and set metadata. Fuzzy sets (including membership functions) are supported.
+
+
+## 2019-02-21
+
+**Lluís Revilla** (10:06:30):
+> Sometimes filtering out some elements might result in an empty set (The same could happen with the elements).  Should these sets (or elements) be dropped from the corresponding table of the object?
+
+**Kevin Rue-Albrecht** (10:09:21):
+> that's what i did
+
+**Martin Morgan** (10:15:03):
+> I think sets are like factor levels, and can exist even when no observation is in that level -- it's informative to know that no genes in setA were differentially expressed.
+
+**Lluís Revilla** (10:18:24):
+> I agree that they should be kept (unless explicitly removed) but sometimes having a empty set can induce to errors and I wasn't sure what to implement
+
+**Kevin Rue-Albrecht** (10:30:01):
+> That's fair enough. Given that I use`subset(...)`, I can put the`drop=logical(1)`to good use to support both behaviours
+
+**Kevin Rue-Albrecht** (10:51:11):
+> That said, I think that those are two different things:
+> 1. subsetting a collection of gene:set relations (e.g. restricting the GO to only the BP namespace). In this case, I'd argue that it makes sense to drop set names associated with the other namespaces (MF, CC).
+> 2. identifying a subset of genes (e.g. DE) in a geneset. In that case, I don't think this would call for filtering the collection of gene sets, we're just talking about an`intersect`operation.
+
+**Lluís Revilla** (11:00:43):
+> Between which sets would be the intersect operation on the second case?
+
+**Kevin Rue-Albrecht** (11:17:30):
+> well, in the typical use, I’d say between a test set and each non-null set in the collection
+
+**Kevin Rue-Albrecht** (11:18:35):
+> .. or more precisely, between a test set and each~~~non-null~~~set in the collection, with the comparison function returning`NA`for the empty sets in the collection, if any
+
+**Lluís Revilla** (11:35:42):
+> I think I understood what do you mean. If you have a list of genes that are DE that makes another set, then to calculate the overlap between the DE set and other sets on the collection doesn't need a filtering process.
+
+**Lluís Revilla** (11:36:29):
+> But I am not sure this comparison function should be on the same package as the class and methods of the class. It could be but currently there are at least two packages in Bioconductor that do this and they are separated from the set class definition.
+
+**Kevin Rue-Albrecht** (11:45:24):
+> Indeed, that’s more the job of a statistics-oriented package (e.g. enrichment analysis) that processes each set in the collection separately.
+> Back to the original question, I think that both choices should be supported.`subset(..., drop=TRUEorFALSE)`is one approach that can control the subsetting operation itself,`droplevels(...)`is another approach (not mutually exclusive) that can clean up empty sets/elements in a second step.
+
+**Lluís Revilla** (12:02:30):
+> I'll support both choices too
+
+**Lluís Revilla** (12:02:34):
+> Nice idea about using droplevels
+
+**Kevin Rue-Albrecht** (12:08:43):
+> Thanks. I didn’t mention it for brevity, but personally, I also think it is sensible to centralise dropping the empty levels of elements and sets simultaneously, both in the case of`subset(object, ..., drop=)`and`droplevels(object)`, as I can’t imagine dropping the levels of only one of them being a common case. Or one cleans the object, or they don’t. I wouldn’t clean “just elements” or “just sets”. Opinions?
+
+**Lluís Revilla** (13:46:18):
+> Well, it could be useful when one creates new sets to be filled later, but my current implementation allows all combinations
+
+
+## 2019-03-17
+
+*07:18:07 - @gamzeaydilek has joined the channel*
+
+## 2019-03-18
+
+**Lluís Revilla** (06:08:32):
+> We said we could have a teleconference by the end of the month. When/how do we do it?
+
+**Martin Morgan** (17:20:55):
+> I could set up a google poll; I think we're mostly Europe and North America here, so in the 8:00-11:00 Pacific / 11:00 - 13:00 Eastern, 16:00 - 18:00 Central European. Is that the right time frame to be looking?
+
+**Kevin Rue-Albrecht** (17:23:44):
+> Sounds about right to me (UK).@Lluís Revillais an hour later in Spain.
+
+**Kevin Rue-Albrecht** (17:41:06):
+> I think each of us has prioritised a slightly different set of features, which in itself is super interesting and exciting!
+> I was thinking that it would be nice and not necessary a lot of work for each of us to simply prepare a list of features/infrastructures that we've tried out, both kept or dismissed. It could help all of us to spot strengths/limitations in our respective approaches and we could continue the discussion from there?
+> I don't know whether (short) live demos would be useful or sidetrack/distract the conversation. Static slides or vignette documentation might be a more practical alternative. Thoughts?
+
+**Kevin Rue-Albrecht** (17:42:36):
+> PS: I'm away this Friday. Would sometime next week be ok?
+
+
+## 2019-03-19
+
+**Lluís Revilla** (04:24:34):
+> The proposed time range sounds fine to me
+
+**Lluís Revilla** (04:25:38):
+> Next week is ok (but I can't on Monday and Tuesday)
+
+**Lluís Revilla** (04:27:35):
+> Perhaps we can prepare some static slides to discuss the main differences between the packages and why they are relevant to Bioconductor packages
+
+**Lluís Revilla** (04:41:49):
+> It was also mentioned in the channel to propose a SIG for the BioC2019 maybe it is worth talking about it too
+
+**Kevin Rue-Albrecht** (10:02:58):
+> That was me mentioning the SIG, I haven’t forgotten about it, I was just using my package development effort to get a better idea of what to propose. I’m hoping to save some time for that after our discussion next week.
+> Which reminds me: next Wednesday isn’t that good for me (giving a group meeting), which leaves Thursday or Friday.
+
+**Kayla Interdonato** (11:07:42):
+> Thursday or Friday next week works for me
+
+**Rob Amezquita** (12:09:20):
+> just to add a speck of application here, im looking to develop a workflow for the OSCA online resource on "accessing gene signatures programmatically from public databases with R", and it would be neat to show off in that context a geneset container solution!:slightly_smiling_face:
+
+**Rob Amezquita** (12:10:04):
+> (PS if anyone is willing to contribute to that workflow, please get in touch with me, as i am not an expert in the above and always open to learning about better ways of doing it)
+
+
+## 2019-03-20
+
+**Aedin Culhane** (15:31:20) (in thread):
+> HI
+
+**Aedin Culhane** (15:36:07) (in thread):
+> When we have "identifying a subset of genes (e.g. DE) in a geneset. " we have ranked them, by a 1) gene assoc with gene set 2) rank of DE gene eg limma/ssGSEA/ pre-ranked GSEA etc.  3) haven't done, but useful if to know if gene is normally in a complex.
+
+**Aedin Culhane** (15:38:32):
+> Which gene sig db are you connecting to?  There is code in a few packages for this.
+
+
+## 2019-03-21
+
+**Kevin Rue-Albrecht** (05:30:17) (in thread):
+> Thanks for the use cases. It'll be good to showcase how those different scenarios in a vignette for any gene set package!
+
+
+## 2019-03-22
+
+*11:33:24 - @Davide Risso has joined the channel*
+
+## 2019-03-23
+
+**Martin Morgan** (13:49:17):
+> ...and only Friday for me; let's say Friday 29 March at 11am Eastern at[https://bluejeans.com/711598982](https://bluejeans.com/711598982)
+
+
+## 2019-03-26
+
+**Martin Morgan** (08:29:16):
+> @Kayla Interdonato@Kevin Rue-Albrecht@Lluís RevillaI started a comparison sheet at[https://docs.google.com/document/d/1Lk6TLUuevidbLJvq36MFVY04GkvdrbF0ctGuB_BENaM/edit?usp=sharing](https://docs.google.com/document/d/1Lk6TLUuevidbLJvq36MFVY04GkvdrbF0ctGuB_BENaM/edit?usp=sharing)would be great if you added your software to it
+
+**Kevin Rue-Albrecht** (08:29:57):
+> Thanks for starting it. Will do!
+
+**Kevin Rue-Albrecht** (08:35:46):
+> Any particular criteria for “scalable”? I’m pretty sure the “long format” is helping us all, but I haven’t really explored the subject beyond loading the`org.Hs.egGO2ALLEGS`(~3.4 million relationships between Entrez gene ids and GO ids)
+
+**Kevin Rue-Albrecht** (08:35:57):
+> [https://kevinrue.github.io/unisets/articles/bioc-annotation.html#import-gene-ontology](https://kevinrue.github.io/unisets/articles/bioc-annotation.html#import-gene-ontology)
+
+**Martin Morgan** (10:49:12):
+> scalable enough; GSEABase is painfully slow when more than a few hundred gene sets
+
+
+## 2019-03-28
+
+**Martin Morgan** (10:21:58):
+> <!channel>is the plan tomorrow to have short demos (<5 minutes) of the new gene set packages?
+
+**Kevin Rue-Albrecht** (10:55:42):
+> Happy to take this approach. It could give us a chance to see/show the innards of each object on request. Vignettes can be « too » static at times.
+
+**Kevin Rue-Albrecht** (10:56:53):
+> I’ve also broken up my bullet points of the google docs into a handful of slides. Not sure if useful or redundant
+
+**Lluís Revilla** (11:25:50):
+> Short live demos then or a vignette converted into a presentation?
+
+**Kevin Rue-Albrecht** (11:51:47):
+> Sorry if I confused you: live demo sounds more appropriate
+
+
+## 2019-03-29
+
+**Martin Morgan** (11:16:05):
+> Let's reschedule to next Tuesday 11am Eastern
+
+**Lluís Revilla** (11:16:15):
+> Sorry with Hangouts seems to be blocked on my network...
+
+
+## 2019-04-02
+
+**Kevin Rue-Albrecht** (10:02:50):
+> Quick check: it is 10am Eastern now, right?
+
+**Kevin Rue-Albrecht** (10:59:03):
+> what's the plan today? are we trying bluejeans first or straight to Hangouts?
+
+**Lluís Revilla** (10:59:58):
+> I solved the network problems with Hangouts
+
+**Lluís Revilla** (11:00:21):
+> so we can try it first if it is better for you
+
+**Kayla Interdonato** (11:01:52):
+> I think we are going to try bluejeans first
+
+**Ludwig Geistlinger** (14:19:53):
+> RE: data-driven ID mapping[https://github.com/lgeistlinger/EnrichmentBrowser/issues/6#issuecomment-411081818](https://github.com/lgeistlinger/EnrichmentBrowser/issues/6#issuecomment-411081818)Resolving many:many mappings based on certain pre-defined and optionally user-defined strategies. Assumes that certain quantitative measures for each gene are provided. Demonstrated here for mapping the`(row)names`of a`SummarizedExperiment`, but similarly applies to ID mapping of genes in a gene set (collection). Especially if gene sets are directly derived from the SE, as eg demonstrated for`ExpressionSet`-derived gene sets in the`GSEABase`vignette. Useful, but maybe best placed in another package.
+
+
+## 2019-04-03
+
+**Kevin Rue-Albrecht** (07:04:35):
+> Just to debunk what I said during the call yesterday: after discussing it this morning, I’m happy to announce that I’ve decided to come to Bioc2019. I’ve been looking forward to the conference and I want to honour the workshop proposal that I’ve co-submitted.
+> No small thanks to the iSEE gang, always there to help each other in busy times:slightly_smiling_face:
+
+**Lluís Revilla** (11:33:47):
+> Wrote a short summary of yesterday's meeting on the "Gene Set working group" document.
+
+**Lluís Revilla** (11:34:31):
+> I think I covered all the points we talked yesterday but improve the summary if I left something out
+
+**Kevin Rue-Albrecht** (11:47:05):
+> Thanks for the initiative!
+
+
+## 2019-04-05
+
+**Kevin Rue-Albrecht** (18:49:13):
+> FYI, here is a compact SIG proposal draft:[https://docs.google.com/document/d/1oVrdaI8qpbO67Xf6XgFXGBdiYR3JMJZFNJKd7nCNG-w/edit?usp=sharing](https://docs.google.com/document/d/1oVrdaI8qpbO67Xf6XgFXGBdiYR3JMJZFNJKd7nCNG-w/edit?usp=sharing)
+  - File (Google Docs): [Bioc2019 - BOF - Gene Sets and Signatures](https://community-bioc.slack.com/files/U34P8RS3B/FHQNFU6MB/bioc2019_-_bof_-_gene_sets_and_signatures)
+
+**Kevin Rue-Albrecht** (18:50:13):
+> I only realize now that Lluis started another one (linked from our Google Doc)
+
+
+## 2019-04-06
+
+**Kevin Rue-Albrecht** (07:51:46):
+> Nevermind then. Just go ahead as we agreed,@Lluís Revilla. It looks like we wrote very similar things. Feel free to take pieces from mine if you like.
+
+**Kevin Rue-Albrecht** (07:55:08):
+> That said, I think "Desired outcome: A new package to replace GSEABase" is not correct. Or at least a new package is not going to happen during a BoF.
+> Instead please check out my GDoc: I would find it more helpful to encourage a community discussion around expected features and perhaps "superfluous" features to help draw a line between  the core features expected in the new package (e.g. classes, getters/setters, validity checks), and the features that would be best implemented in downstream packages (e.g. computation, plotting)
+
+**Kevin Rue-Albrecht** (07:55:35):
+> I'm generally happy with the rest of your draft
+
+**Martin Morgan** (08:24:45):
+> I like the idea of superfluous features, because 'feature creep' is I think a pretty pervasive and easy-to-fall-into trap, it contributes (along with 'over engineering') to the shortcomings of GSEABase.
+
+**Lluís Revilla** (14:56:50):
+> @Kevin Rue-AlbrechtYes, I will change the desired outcome, I wasn't sure which concrete objective could I set for the SIG/BoF. I'll will take some ideas from your proposal too.
+
+**Kevin Rue-Albrecht** (14:57:38):
+> Great, thanks. Sorry that I didn't spot yours earlier.
+
+**Kevin Rue-Albrecht** (15:00:13):
+> I'm actually glad that you're taking care of this BoF. I'm genuinely short on time and stretched on too many things these days, so I'm happy to take a backseat on this one. That said, if you have any doubt I'm happy to give feedback.
+
+**Lluís Revilla** (15:01:10):
+> Basically I have lots of doubts I have never been to a BoF:sweat_smile:
+
+**Kevin Rue-Albrecht** (15:06:06):
+> From my memories of Boston 2017, it's pretty flexible, about 1h and open discussion generally driven by slides.
+> Check out the slides for ideas:[https://bioconductor.org/help/course-materials/2017/BioC2017/#developer-day](https://bioconductor.org/help/course-materials/2017/BioC2017/#developer-day)
+
+**Kevin Rue-Albrecht** (15:08:11):
+> Don't worry though. No need to overdo it either. What I would suggest is to use some  of the material that we have already compiled in the Google Docs, but then  we can easily drift into vignettes of our packages like we did for the video conference
+
+**Kevin Rue-Albrecht** (15:13:01):
+> An advice that I should apply myself more often: start simple.
+> It gets naturally complex from there.
+> e.g. start with a few slides that identify and list the challenges and limitations of existing gene set containers, and the motivations for new containers
+
+**Kevin Rue-Albrecht** (15:13:54):
+> I've never tried yet, but maybe Google Slides could be a way to do that collaboratively?[https://docs.google.com/presentation/u/0/](https://docs.google.com/presentation/u/0/)
+
+
+## 2019-04-17
+
+*18:08:07 - @Zhi Yang has joined the channel*
+
+## 2019-05-01
+
+*17:52:51 - @Sridhar N has joined the channel*
+
+## 2019-05-08
+
+**Lluís Revilla** (06:13:33):
+> I submitted the BoF:[https://github.com/Bioconductor/BioC2019/issues/25](https://github.com/Bioconductor/BioC2019/issues/25)
+
+**Lluís Revilla** (06:17:47):
+> Here I'll be preparing some slides:[https://docs.google.com/presentation/d/10YxPSwDuWiAjqU5jfmYrRnZAQa2mUJf25KmXAbdah7Q/edit?usp=sharing](https://docs.google.com/presentation/d/10YxPSwDuWiAjqU5jfmYrRnZAQa2mUJf25KmXAbdah7Q/edit?usp=sharing)
+  - File (Google Slides): [BoF BioC2019: sets and signatures](https://community-bioc.slack.com/files/U34P8RS3B/FJHES0H32/bof_bioc2019_sets_and_signatures)
+
+**Kevin Rue-Albrecht** (06:20:31):
+> Thanks for taking care of this
+
+**Kayla Interdonato** (08:09:28):
+> Awesome! Thank you!
+
+
+## 2019-06-05
+
+**Lluís Revilla** (05:45:04):
+> I added a single slide per package, modify as you wish@Kevin Rue-Albrechtand@Kayla Interdonato
+
+**Kevin Rue-Albrecht** (05:47:38):
+> Thanks. Travelling today, but I’ll have a look ASAP
+
+
+## 2019-06-07
+
+**Kayla Interdonato** (12:20:11):
+> @Kevin Rue-Albrecht@Lluís RevillaWe are just about ready to get`BiocSet`(the new name for`GeneSet`) submitted. We are hoping to get it submitted by the end of next week. If you guys wanted to take a look at the branch ([https://github.com/Kayla-Morrell/GeneSet/tree/BiocSet](https://github.com/Kayla-Morrell/GeneSet/tree/BiocSet)) and provide some feedback that would be great. We could also set up a meeting if needed, just let me know.
+
+**Rob Amezquita** (13:01:13):
+> so is the future tidyverse:handshake:S4?
+
+
+## 2019-06-09
+
+**Lluís Revilla** (11:27:56):
+> I am a bit surprised by this.
+> I thought that before settling down for an implementation we would seek further feedback from the community.
+> At least that's how I focused the SIG/BoF for the BioC2019 conference.
+> However, if you plan to submit it this week it could be accepted before the conference...
+> I find strange that it doesn't provide functionality to perform basic set operations on the new es class
+
+**Rob Amezquita** (12:40:12):
+> As an outside observer with some interest in using this class I share@Lluís Revilla's sentiment - obviously a lot of weight if a package is contributed by a Bioc core member and it would be expected to be the new de facto. Given Bioc conf is coming up so soon, I would also second seeking some feedback from the BoF via presenting the various implementations this far, and maybe even getting a discussion going on more broadly the direction of PKG dev (more tbl a la @BiocSet or more S4 a la Kevin's unisets to take the two extremes)
+
+
+## 2019-06-10
+
+**Kayla Interdonato** (10:00:55) (in thread):
+> I think Martin's thoughts were that we could always revise the package based on feedback from the SIG/BoF at conference. As far as basic set operations, I must have neglected to explain in the vignette but there is`union`and`intersect`functionality for the`BiocSet`class. Is there more functionality you were looking for?
+
+**Lluís Revilla** (13:56:41) (in thread):
+> I think it would be better to wait after the conference and see what is the feedback.
+> The package comes from the Bioconductor team and could be read as that the implementation is already decided and the other ones are previous (discarded) trials.
+> re`union`and`intersect`, sorry I missed them. I thought that it was replaced with`filter`but I see now that it isn't. However,  if the`BiocSet`object already has several sets why does it need another object to make an`union`? Couldn't we make the union between the set1 and the set2 on the same object without creating 2 more objects?
+> Did I miss also the fuzzy set operations ? I really think that fuzzy sets should be in mind from the beginning of the design of the package and have an implementation. The operations are not the same as with a numeric value, and later will be a lot harder to add.
+
+
+## 2019-06-14
+
+**Kayla Interdonato** (13:44:52) (in thread):
+> I am giving more thought to`union()`and`intersect()`in the`BiocSet`packages. Since it's not clear how the user would utilize the functions we thought of creating 1 method per operation and each having 2 internal functions depending on if the user provides 1 argument or 2. This should help with the concern of creating more unnecessary objects.
+
+**Kayla Interdonato** (13:45:50) (in thread):
+> We decided to not include fuzzy set operations. However, if you discuss them during the BoF and they seem well received then we can consider adding them before the package is submitted.
+
+
+## 2019-06-15
+
+**Kevin Rue-Albrecht** (14:55:52):
+> Coming back in the conversation a bit late. I’ve been stretched on too many things to keep up everywhere.
+> I was only half surprised by the planned release of`GeneSet`. To be honest, I was feeling  ready to submit`unisets`at our videochat in March, if encouraged to do so, but as@Lluís Revillaand@Rob Amezquita, I thought Bioc would have been a nice place to have a second round of feedback before rushing anything.
+> In the end, I’m don’t have a problem seeing any of our packages submitted. The way I see it, we need new containers, and releasing packages is the best way to notify the community and get “hands on” feedback. It wouldn’t be the first time that multiple packages tackle the same task, creating a bit of confusion at first, and letting the ‘new de facto’ emerge from community adoption and maintenance in the face of issues arising from usage at a larger scale.
+> Obviously, releasing too many packages  would confuse users and create “sub-ecosystems” in the Bioc project, which isn’t desirable either, but hey.. it’s just the 3 of us.
+
+**Kevin Rue-Albrecht** (14:58:46):
+> For what it’s worth, I’ve expored a bit more the`S4Vectors`internal functions to improve the`show`method, which@Martin Morgancommented during the call. (I 100% agree that the`show`method is an essential component of any class, which can make or break the best of packages!)
+> Thanks to@Ludwig Geistlingerfor helpful suggestions.
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/FK8UCCFEF/image.png)
+
+
+## 2019-06-17
+
+**Ludwig Geistlinger** (13:28:45):
+> Some more thoughts on your show method@Kevin Rue-Albrecht:
+> 
+> 1. Is there much gain from typing the`element`and the`set`column
+> as`EntrezIdVector`and`GOIdVector`over just being a`character`vector?
+> 
+> 2. The long repetitive sequences in the`element`,`evidence`, and`ontology`seem to prompt for usage of memory-efficient representation via a run length`Rle`.
+> (similar to what`GRanges`does with eg the`seqnames`).
+> 
+> 3. The somewhat technical`@elementData`and`@setData`could be modeled/showed
+> again after the`GRanges`role model of compactly displaying the`Seqinfo`when
+> printing a`GRanges`. You could name them accordingly`elementInfo`and`setInfo`
+
+**Kevin Rue-Albrecht** (16:25:49):
+> All good points@Ludwig Geistlinger. Let's see if I understand them all correctly.
+> 1. Technically, the view**is**displaying the`character`identifier of`element`and`set`. I thought it was helpful to type the columns with the class of the`elementData`and`setData`components, but (a) I can see the redundancy with the`@elementData`and`@setData`information underneath, (b) typing the column in this summary view may be confusing or even misleading. I'm happy to change the class to`character`.
+> 2. I've just tested and it is possible to store`Rle`in`relations@elementMetadata`. Are you saying that I should enforce`Rle`somehow? I mean it won't always be the case that metadata is that redundant (e.g. probability of association between element and set). I'm happy to hear more details on what you had in mind.
+> ```
+> > bs
+> Sets with 6 relations between 5 elements and 3 sets
+>        element        set |     a
+>     <IdVector> <IdVector> | <Rle>
+> [1]          A       set1 |     1
+> [2]          B       set1 |     1
+> [3]          B       set2 |     1
+> [4]          C       set2 |     1
+> [5]          D       set2 |     1
+> [6]          E       set3 |     1
+> 
+> @elementData
+> IdVector of length 5 with 5 unique identifiers
+> Ids: A, B, C, D, ...
+> Metadata: a (1 column)
+> 
+> @setData
+> IdVector of length 3 with 3 unique identifiers
+> Ids: set1, set2, set3
+> Metadata:  (0 columns)
+> ```
+> 3. How compact are we talking? here is what I get from the`?GRanges`help page
+> ```{-------}
+>   seqinfo: 3 sequences from mock1 genome
+> ```
+> or alternatively
+> ```{-------}
+>   seqinfo: 3 sequences from an unspecified genome; no seqlengths
+> ```
+> That level of compact?
+> Looking back at what I currently have
+> ```
+> @elementData
+> IdVector of length 5 with 5 unique identifiers
+> Ids: A, B, C, D, ...
+> Metadata: a (1 column)
+> ```
+> I can see how the`Ids`line is redundant. I could condense`@elementData: IdVector of length 5 with 5 unique identifiers`on a single line. I do like a preview of the`Metadata`to be honest, since they are not the metadata displayed in the relations table.
+
+**Martin Morgan** (16:33:43):
+> I'd discourage use of Rle for this case -- the data isn't that large, and Rle is likely above the weight of most gene set users. Even if stored internally as an Rle, the show method and return value should be a simple character vector. Also, I think using`@`is close to a cardinal sin -- it encourages the user to look at the structure of the object, which is close to the last thing we'd like them to do!
+> 
+> FWIW@Kayla Interdonatois I believe looking forward to feedback from the BoF before submitting BiocSet...
+
+**Kevin Rue-Albrecht** (16:58:52):
+> - 100% Agreed on the`@`thing. A leftover of development rush.
+> - So I think we agree on the`Rle`. I'm just curious if Ludwig had something else/particular in mind.
+> - Apologies to Kayla. I've had a brief look at the code (comparison with master branch) but haven't taken it for a spin yet. I still have a fair amount to catchup to do into the tidyverse.
+> It's interesting to see all the "verb" functions though. The`map_`functions look pretty helpful too, though I'm wondering whether`map_add_set`and`map_add_element`give more a sense of`merge_*`. Is that a tidy thing to call this`map_`?
+> Nice touch on the`url_ref`by the way. Having done a bit of exploration about it myself, I got a taste of the sheer complexity of URLs merely for the Ensembl website, as they depend on the Ensembl release (host URL, if not the latest release), the species (gene prefix, part 1). and the feature type (gene prefix, part 2), so I haven't put much effort into it yet.
+
+
+## 2019-06-18
+
+**Ludwig Geistlinger** (10:01:20):
+> Looking forward to exchange during the BoF / the conference.
+> It’s an interesting situation with three different approaches to
+> representing gene sets / gene set collections: a tidyverse
+> approach, an`S4Vectors`approach, and an extension of the existing`GSEABase`approach. It would be great if forces could be joined under the roof of`BiocSet`.
+> 
+> I’m curious how a tidyverse implementation will unfold.
+> A frequent use case of the new container will be gene set enrichment analysis, with the two typical inputs being (1) high-throughput assay data (= a`SummarizedExperiment`), and (2) a gene set collection.
+> 
+> Any gene set enrichment package ([https://bioconductor.org/packages/release/BiocViews.html#___GeneSetEnrichment](https://bioconductor.org/packages/release/BiocViews.html#___GeneSetEnrichment)) that works directly on the assay data will thus need to depend on`SummarizedExperiment`and the gene set container class.
+> It would be beneficial to not only borrow conceptually from`SummarizedExperiment`but also from its dependency list (= S4Vectors).@Kevin Rue-Albrechtprovided a prototype based on S4Vectors.
+> If understood him correctly during our last call, this prototype is not intended as a competitor of`BiocSet`, nor does it aim for the long term maintenance that a Bioc implementation does. But it’s an interesting prototype to play around with.
+
+**Kevin Rue-Albrecht** (11:00:25):
+> Would`BiocSet`benefit from an`as.list()`function, or are users expected to work with`gs %>% group_by(set) %>%  ...`?
+> ```
+> > gs = go_sets(org.Hs.eg.db, "ENSEMBL")
+> 'select()' returned 1:many mapping between keys and columns
+> > as.list(gs)
+>  Show Traceback
+>  
+>  Rerun with Debug
+>  Error in as.list.default(gs) : 
+>   no method for coercing this S4 class to a vector 
+> > gs %>% group_by(set) 
+> # A tibble: 282,353 x 2
+> # Groups:   set [17,495]
+>    element         set       
+>    <chr>           <fct>     
+>  1 ENSG00000151729 GO:0000002
+>  2 ENSG00000025708 GO:0000002
+>  3 ENSG00000068305 GO:0000002
+>  4 ENSG00000115204 GO:0000002
+>  5 ENSG00000198836 GO:0000002
+>  6 ENSG00000196365 GO:0000002
+>  7 ENSG00000117020 GO:0000002
+>  8 ENSG00000275199 GO:0000002
+>  9 ENSG00000114120 GO:0000002
+> 10 ENSG00000140451 GO:0000002
+> # … with 282,343 more rows
+> ```
+
+**Kevin Rue-Albrecht** (14:22:57):
+> Just another curiosity@Martin Morganfollowing your earlier point: is it ever OK to use`@...`, say in internal package code? or should those instances use`slot(...)`?
+
+**Kevin Rue-Albrecht** (14:25:52):
+> For instance if the meaning of`@`were to change, then`slot`would be the safe and explicit way of accessing the slot I suppose?
+
+**Ludwig Geistlinger** (15:18:36) (in thread):
+> Yes, that level of compact. And I guess, you also want to similarly divide between user-defined sets (eg.`setInfo: xx sets from an unspecified source`) and a number of frequently used pre-defined sources (eg`setInfo: xx sets from [KEGG|GO]`)
+
+**Martin Morgan** (15:31:21):
+> The best practice is to use the accessors you define, rather than direct slot access; using`@`or`slot()`are equally discouraged. Maybe a good conceptual example is IRanges`start()`,`end()`,`width()`; it's clear that only two of those are sufficient, so one wouldn't expect`@start`,`@end`, and`@width`all to work. Also, there's considerable nuance about the ranges -- open, closed, half-closed interval? -- all of this is handled by the accessors, and the developers of the package benefit as much as the end users by adopting accessor access.
+
+**Kevin Rue-Albrecht** (16:01:36):
+> OK. That clarifies almost all of it. I just meant that at some point some part of the code**needs to**access the actual slots. So if I get it right, only**really**basic accessors should use`@`, taking the example of`start()`
+> ```
+> > showMethods("start", classes = "IRanges", includeDefs = T)
+> Function: start (package stats)
+> x="IRanges"
+> function (x, ...) 
+> x@start
+> ```
+
+**Kevin Rue-Albrecht** (16:08:17):
+> I have had in my line of sight the`unisets::relations()`accessor for a while now, which currently returns the actual slot (`Hits`object, with`from`and`to`as`integer`), while it really should access a  table like the`show`method displays.
+
+
+## 2019-06-20
+
+**Kevin Rue-Albrecht** (06:40:03):
+> Actually, in terms of feedback for BiocSet, while we’re on the subject of`show`methods: is the current view expected to be “final” or are there plans to make more compact too? From the`?BiocSet`help page:
+> ```
+> > es <- BiocSet(set1 = letters, set2 = LETTERS)
+> > es
+> class: BiocSet
+> 
+> es_element():
+> # A tibble: 52 x 1
+>   element
+>   <chr>  
+> 1 a      
+> 2 b      
+> 3 c      
+> # … with 49 more rows
+> 
+> es_set():
+> # A tibble: 2 x 1
+>   set  
+>   <fct>
+> 1 set1 
+> 2 set2 
+> 
+> es_elementset() <active>:
+> # A tbl_elementset: 52 x 2
+>   element set  
+>   <chr>   <fct>
+> 1 a       set1 
+> 2 b       set1 
+> 3 c       set1 
+> # … with 49 more rows
+> ```
+
+**Kayla Interdonato** (08:08:23):
+> We didn't have any plans to change the show method so this is most likely the final view for BiocSet
+
+**Martin Morgan** (08:59:36):
+> is there something simpler that you'd like to see,@Kevin Rue-Albrecht? For me I've come to think of say SummarizedExperiment as too compact -- no sense of the data it contains
+
+**Kevin Rue-Albrecht** (09:05:40):
+> Sorry for delivering a question more than a suggestion. I don’t really have anything precise to offer, but I found the 3 tables a bit much. That said 3 is probably an acceptable maximum of tables to display for a single object. More than that and it’s hard to show the entire object on a single screen
+> In`unisets`I compressed the element and set metadata to get to this point:
+> ```
+> Sets with 5 relations between 4 elements and 2 sets
+>         element         set |      extra1    extra2
+>     <character> <character> | <character> <numeric>
+> [1]           A        set1 |         ABC         0
+> [2]           B        set1 |         ABC      0.25
+> [3]           B        set2 |         ABC       0.5
+> [4]           C        set2 |         DEF      0.75
+> [5]           D        set2 |         DEF         1
+> -----------
+> elementData: IdVector with 2 metadata (stat1, info1)
+>     setData: IdVector with 3 metadata (stat1, info1, ...)
+> ```
+> [edited for illustrationg purposes]
+
+
+## 2019-06-24
+
+**Kevin Rue-Albrecht** (15:24:17):
+> I just wanted to thank@Lluís Revillafor the deck of slides that he prepared. I just looked at them and they’re perfect to kick off the discussion
+
+*16:05:47 - @Vince Carey has joined the channel*
+*16:05:47 - @Levi Waldron has joined the channel*
+*16:32:06 - @Kirk Reardon has joined the channel*
+**Lluís Revilla** (16:38:59):
+> Thanks Kevin, they surely served they purpose:smile:
+
+**Lluís Revilla** (16:41:43):
+> Thank you everyone who has given their feedback!
+
+
+## 2019-06-26
+
+*13:28:01 - @Junhao Li has joined the channel*
+
+## 2019-07-03
+
+**Aedin Culhane** (00:54:48):
+> Thanks for the BoF at the meeting.  Where are the 3 packages heading. What was the outcome/decisions from the BoF?
+
+**Lluís Revilla** (02:26:50):
+> I was reflecting on this, I wrote the feedback I had at the document:[https://docs.google.com/document/d/1A3bs1rtbTo42Sgm9hPbLoG1lTGbQ-ITENaLRVyK2Njo/](https://docs.google.com/document/d/1A3bs1rtbTo42Sgm9hPbLoG1lTGbQ-ITENaLRVyK2Njo/)
+  - File (Google Docs): [Gene Set working group](https://community-bioc.slack.com/files/U34P8RS3B/FFH8EA2DV/gene_set_working_group)
+
+**Lluís Revilla** (02:28:07):
+> I think that one of the first actionable things would be to benchmark each package against the functionality of GSEABase and see were each stands.
+
+**Kevin Rue-Albrecht** (04:39:01):
+> @Aedin CulhaneThanks a ton for the feedback at the conference. I’ve added a couple of points to what Lluis already wrote (thanks!)
+> There was certainly a lot of feedback and suggestions for each package/developer to do further testing before claiming to replace`GSEBase`.
+> 
+> From my (`unisets`) perspective, I already addressed a couple of downstream use cases (what motivated`unisets`in the first place) with the`hancock`package (see BoF slides linked in the Google docs).
+> That said, the development and support of such an important package requires time and effort that is not supported by my current (postdoc researcher) position (until September 2020). As I understand it, Lluis is in a similar position at the moment. As such, Kayla has the edge of having dedicated time and support on her side.
+> 
+> I was probably too shy to ask at the conference, but I do wonder how non-core developers like me or Lluis can hope to obtain dedicated time and support to explore and develop such candidate core packages. As much as I would love to spend my days working on gene set representations and downstream analyses, for the next couple of months, my (paid for) priorities have to be on finishing up overdue analyses and writing an article.
+> 
+> One thing that I experienced with`iSEE`is that having a small group of developers thinking alike can significantly speed up the process, where one picks up where the other one is stuck or tired. This is more difficult in our  “gene set” case where the 3 of us have split very early on into mutually exclusive implementations (tidyverse/S4/hybrid).
+
+**Kevin Rue-Albrecht** (04:43:24):
+> At that point, as I said to Martin and a few other people at the conference, I think that the most efficient decision making approach would be to put the word (i.e., the packages) out there and crowdsource the testing/evaluation. It is one thing to have a few hardcore developers agree between themselves what the most efficient implementation is, it is another altogether to see what the whole community likes to use. Also, the more people use a package, the faster it is to identify bugs and limitations.
+
+**Lluís Revilla** (05:42:49):
+> <!channel>I updated the working document[https://docs.google.com/document/d/1A3bs1rtbTo42Sgm9hPbLoG1lTGbQ-ITENaLRVyK2Njo/edit#](https://docs.google.com/document/d/1A3bs1rtbTo42Sgm9hPbLoG1lTGbQ-ITENaLRVyK2Njo/edit#)with feedback from#bioc2019. Thanks for your feedback:heart_eyes:. Please continue giving your opinions on the document or in slack.
+  - File (Google Docs): [Gene Set working group](https://community-bioc.slack.com/files/U34P8RS3B/FFH8EA2DV/gene_set_working_group)
+
+**Kayla Interdonato** (10:27:05):
+> All of the feedback given at the BoF was great and definitely an eye opener to the potential of this developing package. I think a good first step would be to test out each package with some test cases. If anyone would be willing to provide some of these test cases we (or myself if Kevin and Lluis don't have the time) could then demonstrate each packages strengths/weaknesses. We could provide some sort of summary to the community which would be easier than expecting them to dive into each package independently.
+
+**Lluís Revilla** (10:39:03):
+> One simple test could be checking how well can the new packages can do the functionality of GSEABase, to see if they are able to provide at least the same functionality and how easy is in each case.
+
+
+## 2019-07-04
+
+**Vince Carey** (07:28:46):
+> I pose 5 categories of function, illustrated with GSEABase and ontoProc, that might be useful for comparing new approaches.
+> ```
+> [acquire[http://software.broadinstitute.org/gsea/msigdb/download_file.jsp?filePath=/resources/msigdb/6.2/h.all.v6.2.symbols.gmt](http://software.broadinstitute.org/gsea/msigdb/download_file.jsp?filePath=/resources/msigdb/6.2/h.all.v6.2.symbols.gmt),
+> requires authentication]
+> 
+> 1) ease of import of popular curated gene sets
+> 1a) what are popular curated gene sets?
+> 
+> > h = getGmt("h.all.v6.2.symbols.gmt")
+> > h
+> GeneSetCollection
+>   names: HALLMARK_TNFA_SIGNALING_VIA_NFKB, HALLMARK_HYPOXIA, ..., HALLMARK_PANCREAS_BETA_CELLS (50 total)
+>   unique identifiers: JUNB, CXCL2, ..., SRP14 (4386 total)
+>   types in collection:
+>     geneIdType: NullIdentifier (1 total)
+>     collectionType: NullCollection (1 total)
+> > names(h)
+>  [1] "HALLMARK_TNFA_SIGNALING_VIA_NFKB"          
+>  [2] "HALLMARK_HYPOXIA"                          
+>  [3] "HALLMARK_CHOLESTEROL_HOMEOSTASIS"          
+>  [4] "HALLMARK_MITOTIC_SPINDLE"                  
+>  [5] "HALLMARK_WNT_BETA_CATENIN_SIGNALING"       
+>  [6] "HALLMARK_TGF_BETA_SIGNALING"               
+>  [7] "HALLMARK_IL6_JAK_STAT3_SIGNALING"  
+> ...
+> 
+> 2) concept of "gene set collection" -- do we want to preserve it?  clearly
+> msigdb implements the concept and that is a plus
+> 
+> 2a) assuming we preserve collection concept, ease of measurement of set sizes
+> 
+> > sapply(h,function(x)length(geneIds(x)))
+>  [1] 200 200  74 200  42  54  87 150 200 161  ...
+> 
+> 2b) manage metadata about collections -- in GSEABase, the report on h above is useful
+> 
+> 3) manage metadata about sets
+> 
+> > details(h[[1]])
+> setName: HALLMARK_TNFA_SIGNALING_VIA_NFKB 
+> geneIds: JUNB, CXCL2, ..., MXD1 (total: 200)
+> geneIdType: Null
+> collectionType: Null 
+> setIdentifier: PC001844.local:56045:Thu Jul  4 06:45:49 2019:2
+> description:[http://www.broadinstitute.org/gsea/msigdb/cards/HALLMARK_TNFA_SIGNALING_VIA_NFKB](http://www.broadinstitute.org/gsea/msigdb/cards/HALLMARK_TNFA_SIGNALING_VIA_NFKB)organism: 
+> pubMedIds: 
+> urls: 
+> contributor: 
+> setVersion: 0.0.1
+> creationDate: 
+> 
+> 4) support identifier conversions 
+> 
+> > bgs1 # from GSEA vignette
+> setName: chr16q24 
+> geneIds: 32100_r_at, 32101_at, ..., 35807_at (total: 36)
+> geneIdType: Annotation (hgu95av2)
+> collectionType: Broad
+>   bcCategory: c1 (Positional)
+>   bcSubCategory: NA
+> details: use 'details(object)'
+> 
+> > bgs2 <- mapIdentifiers(bgs, RefseqIdentifier("org.Hs.eg.db"))
+> 
+> > bgs2
+> setName: chr16q24 
+> geneIds: NM_000512, NM_001323543, ..., XP_016878759 (total: 822)
+> geneIdType: Refseq (org.Hs.eg.db)
+> collectionType: Broad
+>   bcCategory: c1 (Positional)
+>   bcSubCategory: NA
+> details: use 'details(object)'
+> 
+> 
+> 5) relationships to ontologies -- a basic concern is relating cell
+> types to expression signatures, the latter are conceptually close to
+> gene sets.  This is a little table from the ctmarks app in ontoProc
+> that starts to get at this ...  the basic idea is that some CL entries have
+> exact-PRO relationships that we can harvest to enumerate genes and thus
+> generate gene sets.  This seems like a good way to proceed to get institutionally
+> endorsed assertions of cell type signatures, but it goes slowly.  Section 3.3
+> of the ontoProc vignette gets into ways of improvising extensions to CL to
+> make use of the infrastructure in real time, anticipating proposals to CL
+> maintainers as experimental evidence solidifies.
+> 
+> CL:0000928    PR:000001343    hasPMP    CD69 molecule    CD69    activated CD4-negative, CD8-negative type I NK T cell
+> CL:0000928    PR:000001004    lacksPMP    CD4 molecule    CD4    activated CD4-negative, CD8-negative type I NK T cell
+> CL:0000928    PR:000001084    lacksPMP    T-cell surface glycoprotein CD8 alpha chain    CD8A    activated CD4-negative, CD8-negative type I NK T cell
+> ```
+
+*07:30:24 - @Robert Castelo has joined the channel*
+*07:30:24 - @Hervé Pagès has joined the channel*
+**Robert Castelo** (12:17:52):
+> Hi there, thanks for inviting me to the channel. Along the lines of what Vince has proposed, I would like to share a Rmarkdown document I wrote two years ago, actually for sharing it with Vince and Martin, with my proposal for updating, back then, the Category and GOstats packages to support OBO ontologies, among other things. They accepted my proposal and the current versions of these two packages contain these updates. I'm new to slack and not sure how I'm supposed to share such a document but you can browse through it in the URL[http://functionalgenomics.upf.edu/ongoing/biocdevel/UpdateCategoryGOstats](http://functionalgenomics.upf.edu/ongoing/biocdevel/UpdateCategoryGOstats)This document essentially describes how to extend the OBOCollection class defined in GSEABase into the classes defined in Category for manipulating gene sets (e.g., OBOCollectionDatPkg, etc.) and into the classes defined in GOstats for conducting enrichment analyses (e.g., OBOHyperGParams, etc.). You will see I'm using the GeneSetCollection class to store annotations of genes to gene sets, particularly in the case of the human phenotype ontology. So, my suggestion here would be to retain the functionality provided by Category and GOstats to conduct enrichment analyses with the human phenotype ontology or any other one that one can retrieve through the OBO format. We did recently another such case with the Experimental Factor Ontology (EFO - see[https://www.ebi.ac.uk/efo](https://www.ebi.ac.uk/efo)) to conduct enrichment analyses on DNA variants (see Table 2 and related main text from[https://jmg.bmj.com/content/56/7/481](https://jmg.bmj.com/content/56/7/481)).
+  - Attachment (ebi.ac.uk): [The Experimental Factor Ontology < EMBL-EBI](https://www.ebi.ac.uk/efo)
+    > The Experimental Factor Ontology (EFO) provides a systematic description of many experimental variables available in EBI databases, and for external projects such as the NHGRI GWAS catalog. It combines parts of several biological ontologies, such as UBERON anatomy, ChEBI chemical compounds, and Cell Ontology. The scope of EFO is to support the annotation, analysis and visualization of data handled by many groups at the EBI and as the core ontology for Open Targets. We also add terms for external users when requested. If you are new to ontologies, there is a short introduction on the subject available and a blog post by James Malone on what ontologies are for.
+
+
+## 2019-07-10
+
+**Kayla Interdonato** (14:48:37):
+> I've spent a bit of time working through the 5 categories of function mentioned above using the BiocSet package. In the inst/script/ directory of the package I've included a bit of code to show the comparison between GSEABase and BiocSet ([https://github.com/Kayla-Morrell/GeneSet/tree/BiocSet/inst/script](https://github.com/Kayla-Morrell/GeneSet/tree/BiocSet/inst/script)). Feel free to take a look and make any  comments or suggestions you may have.
+
+**Kayla Interdonato** (14:50:50):
+> I did identify a couple areas that could use some improvements. First would be the importing of files, currently BiocSet only supports .gmt files but I would like to extend it to other file types. Also, the 5th category about ontologies needs to be developed more. I'm also putting a bit of thought into how we may  want to represent weights in BiocSet.
+
+**Ludwig Geistlinger** (16:57:19):
+> I still have to comment in more detail on these excellent points that were brought by Vince and Robert, but one thing that came immediately to my mind: shouldn’t we have a general class such as`BiocSet`for general representing of biological sets and subclasses for specific entities (e.g. genes, cell types, microbes, phenotypes), with`GeneSet`being a prominent one. This especially concerns point 4) from Vince - mapping identifiers seems currently tied to mapping gene identifiers.
+
+**Kevin Rue-Albrecht** (17:08:52):
+> I agree (again) on the point that having an agnostic set container capable of representing any type of element and set would be**extremely**useful for both developers and users. Most core set-related functions (e.g., as.list, as.matrix, …) can then be implemented on that core class. Conceptually, I think Kayla Lluis and I have pretty much converged to the “tribble” format (modulo the tidy/S4 difference). Subclasses could then benefit from generic methods and add their own specific methods and validity checks (e.g., GO entities requires a namespace attribute). I started going down that road with unisets for proof of concept, but the diversity of entities is one of those things that is probably better crowdsourced across community members / domain experts once the core class is in place and stable guidelines for extensions are set up.
+
+**Ludwig Geistlinger** (17:14:46):
+> BTW thumbs-up for your`es_map`function for ID mapping@Kayla Interdonato- I had long hoped for a harmonization of`GSEABase::mapIdentifiers`with`AnnotationDbi::mapIds`…
+
+
+## 2019-07-11
+
+**Lluís Revilla** (03:37:35):
+> I did something similar on this repository:[https://github.com/llrs/cases_GSEABase](https://github.com/llrs/cases_GSEABase). First thing I noticed is that BaseSet has less lines of examples than the other packages, but that all the three packages do almost the same, but the three of them don't have support for .xml files or .obo files as you mention Kayla.
+
+**Lluís Revilla** (03:38:26):
+> Also I probably missed it but@Kevin Rue-Albrechthow should I map IDs on the unisets class?
+
+**Lluís Revilla** (03:39:43):
+> However I am not sure that we need different classes for each specific entities. What would be the use case?
+
+**Lluís Revilla** (03:42:47):
+> BTW weights are already considered on the TidySet class of the BaseSet package, they are used on the union, intersection, incidence, size of sets, ....
+
+**Kevin Rue-Albrecht** (03:44:59):
+> Given that IDs are types by their class, I imagined using as(entrezids, “ENSEMBL”) as the origin type of ID is known and doesn’t need to be defined. 
+> That said, one still needs to declare the orgDb package, and other complications such as multi mapping, which is when I decided to pause development to think about it. Haven’t gone back to it yet
+
+**Kevin Rue-Albrecht** (03:47:37):
+> In the end, the solution will be based on mapIds() but it’s the impact of multi mapping on the entire object (element metadata, relations) that will create complications to resolve carefully or at least transparently to the user
+
+**Martin Morgan** (04:05:40):
+> I'm fairly concerned about typing identifiers, because it introduced complexity and I'd say barriers to use, especially by the more pragmatic users who are in fact perhaps a major component of the audience for gene set analysis. At least some identifiers (Ensembl, GO) are self-describing. Maybe similar concerns apply to subclasses, e.g., in GSEABase how many people actually know or use a GeneColorSet?
+
+**Lluís Revilla** (04:07:09):
+> Yes, I got some problem when translating some ids of mapped to GO, as they where translated to the same duplicated ID which prevented the creation of the new class
+
+**Lluís Revilla** (04:10:23):
+> Maybe it is easier to check if there is any method implemented for GeneColorSet outside GSEABase in the package on Bioconductor
+
+**Lluís Revilla** (04:10:48):
+> but as a user I never made use of the GeneColorSet class
+
+**Martin Morgan** (04:59:26):
+> Not a completely current collection of repositories, but only PGSEA & gCMAP reference GeneColorSet
+
+**Ludwig Geistlinger** (05:12:58):
+> I agree that (here for the example of mapping a gene set collection from
+> ENSEMBL to ENTREZ IDs):
+> ```
+> mapIds(gsc, org, from="ENSEMBL", to="ENTREZID")
+> ```
+> is most intuitive, and comes closest to what`AnnotationDbi::mapIds`does.
+> 
+> However, neither`GSEABase`nor`BiocSet`is particularly verbose about the
+> complications / information loss that is often part of ID mapping.
+
+**Ludwig Geistlinger** (05:13:11):
+  - File (PNG): [idmap.png](https://community-bioc.slack.com/files/U34P8RS3B/FKZS00XTL/idmap.png)
+
+**Ludwig Geistlinger** (05:13:23):
+> For mapping of simple sets (current situation), you are only concerned about
+> 1:n and 1:NA mappings.
+> 
+> But as soon as you have weights / data on the genes (entities), you will also
+> need to find strategies for n:1 mappings.
+> Users might want to eg. choose for taking the min or max weight of several from.IDs mapping to the same to.ID.
+
+**Martin Morgan** (05:33:56):
+> For 1:n I wonder if it's better (lessons leanred from the tidyverse) to implement something like`map_gene_unique()`/`map_gene_multiple()`(and remove`map_gene()`)? For the latter my preference would be to represent as a plain-old list() of character(), rather than`CharacterList()`, again for simplicity and necessary to play well with data.frame / tibble.
+
+**Ludwig Geistlinger** (06:13:47):
+> Agreed with the`list`of`character`vectors. Why not just having an additional argument to`map_gene`(e.g.`multiTo`) and passing that on to the`multiVals`argument of`AnnotationDbi::mapIds`?
+
+**Martin Morgan** (06:20:01):
+> Yes an argument is possible, but maybe it is easier conceptually on the user to have distinct functions, especially if they can't 'default' to some behavior but actually have to choose how to complete`map_gene_...`. I thought sort of that this was a principle of tidy programming? This also helps with consistency --`map_gene_unique()`always returns a character column, whereas`map_gene()`sometimes returns a list, sometimes a character. Could be mistaken...
+
+**Ludwig Geistlinger** (07:53:16):
+> I see. Well, I like that solution. Question is whether the user always knows beforehand whether he/she deals with a unique (eg ENTREZ -> SYMBOL) or a multi (eg. ENSEMBL -> ENTREZ) mapping. Does the user actually directly interacts with`map_gene`/`map_element`- I think he/she only interacts with`es_map`which works on a`BiocSet`and returns a`BiocSet`?
+
+**Lluís Revilla** (10:00:57):
+> As it was pointed in the SIG this produces problems when the sets are mapped through several IDs, or when n:1 and the information of the relationship between the original IDs is different, thus I would not provide an automatic way of translating IDs,`AnnotationDbi`is already for that...:man-shrugging:
+
+**Kevin Rue-Albrecht** (10:05:28):
+> > mapped through several IDs
+> I would not like to be in that situation. Ever. One gene set = one type of identifiers. Multiple collections of gene sets that use different identifiers = different objects. Otherwise, it’s a nightmare for both developers and users.
+
+**Lluís Revilla** (10:09:17):
+> The issue I think was with MSigDB which derives its gene signatures from some ids and then sometimes the user translate them to other IDs, so you might not know which is the original identifier (unless there is a field for that, as it was suggested)
+
+**Ludwig Geistlinger** (10:17:00):
+> Agreed with Kevin. One gene set collection, one gene ID type.
+
+**Vince Carey** (11:08:57):
+> In case the MSigDb v7 strategy is not well described elsewhere, here is a link to a slide set:[https://nciphub.org/groups/itcr/File:Castanza_2019_ITCR_Meeting.pdf](https://nciphub.org/groups/itcr/File:Castanza_2019_ITCR_Meeting.pdf)
+
+
+## 2019-07-12
+
+**Lori Shepherd** (08:14:02):
+> ClusterProfiler/GSEA question on support site -  kind of theoretically but can anyone answer? -[https://support.bioconductor.org/p/122496/](https://support.bioconductor.org/p/122496/)
+
+**Ludwig Geistlinger** (08:57:30) (in thread):
+> Done
+
+**Lori Shepherd** (08:58:02) (in thread):
+> Thanks!
+
+**Lluís Revilla** (09:35:54):
+> Several months ago we agreed that the relationship between an element and a set should be stored only once, as well as, the information about this relationship. I was now parsing some .gaf files from GO and I found one relationship which has up to 64 different annotations/origins of a relationship between a gene and the GO term. How do you propose to store this information?
+
+
+## 2019-07-14
+
+**Kevin Rue-Albrecht** (14:25:54):
+> Maybe I misunderstand you now, but I believe we agreed the exact opposite, in line with what you just observed. Specifically, I remember asking you whether`duplicated(...)`should take into account the metadata (e.g., annotations/origin, evidence code for GO) or only the “element:set” mapping. You replied (and I agreed) that relations with different metadata are not duplicates, i.e. they are different relations between the element and the set. A great example of that is STRING db which always strikes me with many different types of relationships represented as individual lines
+  - File (PNG): [string_normal_image.png](https://community-bioc.slack.com/files/U34P8RS3B/FLFV5H8SK/string_normal_image.png)
+
+
+## 2019-07-15
+
+**Lluís Revilla** (05:02:57):
+> Oh, then I misunderstood you some months ago or due to the fuzziness of the relationship I stored one relationship and the different types of relationships in the wide format (each type of relationship in a new column). However, this becomes harder when a relationship between an element and a set has the same relationship type but from different sources. I'll need to reconsider that decision and how to keep supporting fuzziness...
+
+*20:27:46 - @Matt Ritchie has joined the channel*
+
+## 2019-07-25
+
+**Lluís Revilla** (09:20:20):
+> I added functions to read from GAF and OBO files on the BaseSet package:[https://llrs.github.io/BaseSet/reference/index.html#section-reading-files](https://llrs.github.io/BaseSet/reference/index.html#section-reading-files)I see that GSEABase has a note mentioning differences between files provided by the MSigDB and other types of xml files. What is the XML format files for signatures and gene sets?
+
+**Martin Morgan** (09:46:14):
+> the function was written a long time ago. My guess from scanning the man page and R code is simply that the MEMBERS_SYMBOLIZED field described in the DTD did not specify symbols separated by`,`, but I'm really not sure now...
+
+**Lluís Revilla** (10:23:29):
+> I'll omit the XML files if there isn't a pressing need to parse them.
+
+**Aedin Culhane** (10:24:36):
+> At one stage I think MsigDB and def GeneSigBD did an xml format but it’s depreciated
+
+**Martin Morgan** (10:29:23):
+> It looks like the XML are at least in principle more informative than the gmt --[http://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/MSigDB_XML_description](http://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/MSigDB_XML_description)says that original ids, gene symbols, entrez ids, and the mapping between them are all required, whereas gmt just gives us a single set / id mapping (I don't think GSEABase took advantage of this)
+
+**Lluís Revilla** (10:47:34) (in thread):
+> Is GeneSigBD still working? I see that it's last release was September 2011 and the paper is from October 2011
+
+**Lluís Revilla** (10:51:43):
+> Thanks for the link! I wasn't sure about the accuracy of an old one at[http://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Msigdb_dtd](http://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Msigdb_dtd)
+
+**Aedin Culhane** (13:01:03) (in thread):
+> We stopped collecting signature in 2013/2014.  We have >5,000 signatures.  I wanted to release as R package but student left and I didn't finish release.  I have the data on github, Happy to work with you if you want to put this out. The website hasn't been updated for a while.
+
+**Aedin Culhane** (13:01:37) (in thread):
+> It whole thing was originally built with perl scripts, and I wanted to replace it all with R,python.
+
+**Aedin Culhane** (13:03:30) (in thread):
+> We stopped collecting signatures as field was changing moving from signature based papers.  I had collected a lot of interesting stats, on genes that are over-represented in DE lists across cancer types, genesets random/freq etc.  But then went on maternity leave and then was part-time, so I shelved it to work on other projects
+
+**Aedin Culhane** (13:04:50) (in thread):
+> We released 2 NAR papers, 2010, 2012.  That second paper was the more surprising review I ever got...  The reviewers comments were "Sure why not!"... that was it. Accepted without modification
+
+
+## 2019-07-26
+
+**Lluís Revilla** (05:00:22) (in thread):
+> Oh, nice I was about to add the 2nd paper but I already had it in my bibliography manager:smiley:
+
+**Lluís Revilla** (05:04:03) (in thread):
+> I think I found the repositories, but I didn't saw any perl script there.
+
+**Lluís Revilla** (05:11:15) (in thread):
+> I'm very much interested in this but at the moment I prefer to focus on the BaseSet development.
+
+
+## 2019-08-16
+
+**Martin Morgan** (18:25:51):
+> @Kevin Rue-Albrecht@Aedin Culhanefrom[https://community-bioc.slack.com/archives/CE8AB163W/p1565992435429000](https://community-bioc.slack.com/archives/CE8AB163W/p1565992435429000)just to mention that BiocSet**is**S4
+> ```
+> > isS4(BiocSet())
+> [1] TRUE
+> ```
+> Also I walked through the SingleR vignette to this line[https://github.com/LTLA/SingleR/blob/a2a89216ff230a31d25e0aaa66b10db511de3218/vignettes/SingleR.Rmd#L103](https://github.com/LTLA/SingleR/blob/a2a89216ff230a31d25e0aaa66b10db511de3218/vignettes/SingleR.Rmd#L103)and then coerced the result into a BiocSet
+> ```
+> elementset <-
+>     tibble(element=rownames(pred), set = pred$labels)
+> element <-
+>     tibble(element = rownames(pred)) %>%
+>     bind_cols(as_tibble(pred$scores))
+> es <- BiocSet_from_elementset(elementset, element)
+> ```
+> The summary on the next line of the vignette is
+> ```
+> > es %>% count(set)
+> # A tibble: 5 x 2
+>   set         n
+>   <chr>   <int>
+> 1 acinar     52
+> 2 beta        4
+> 3 delta       1
+> 4 duct       42
+> 5 unclear     1
+> ```
+> I'd argue the display is more informative than the`DataFrame`that`pred`is
+> ```
+> > es
+> class: BiocSet
+> 
+> es_element():
+> # A tibble: 100 x 11
+>   element alpha endothelial delta  beta unclear  duct acinar    pp mesenchymal
+>   <chr>   <dbl>       <dbl> <dbl> <dbl>   <dbl> <dbl>  <dbl> <dbl>       <dbl>
+> 1 D2ex_1  0.180       0.215 0.184 0.197   0.257 0.350  0.477 0.179       0.242
+> 2 D2ex_2  0.156       0.193 0.146 0.159   0.273 0.342  0.492 0.148       0.226
+> 3 D2ex_3  0.157       0.185 0.158 0.159   0.252 0.322  0.471 0.151       0.184
+> # … with 97 more rows, and 1 more variable: epsilon <dbl>
+> 
+> es_set():
+> # A tibble: 5 x 1
+>   set   
+>   <chr> 
+> 1 acinar
+> 2 beta  
+> 3 delta 
+> # … with 2 more rows
+> 
+> es_elementset() <active>:
+> # A tbl_elementset: 100 x 2
+>   element set   
+>   <chr>   <chr> 
+> 1 D2ex_1  acinar
+> 2 D2ex_2  acinar
+> 3 D2ex_3  acinar
+> # … with 97 more rows
+> ```
+> One thing that would not work would be to bind`es`onto the colData of`sceG`, which one might want to do... 'By hand' it might look like
+> ```
+> df <- left_join(
+>     es_element(es),
+>     es_elementset(es)) %>% select(-element, label = set, everything())
+> )
+> colData(sceG)$pred = df
+> ```
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CE8AB163W/p1565992435429000)
+    > @Aedin Culhane
+    > I’m still curious to see how [https://github.com/Kayla-Morrell/BiocSet](https://github.com/Kayla-Morrell/BiocSet) will be received by the community, given the tidy/S4 discussion that happened at bioc2019
+    > 
+    > As I’ve been saying for myself, `unisets` ([https://github.com/kevinrue/unisets](https://github.com/kevinrue/unisets)) was meant as a proof of concept that snowballed (that tends to happen to me a lot). I’ve paused it for various reasons, including:
+    > - i am still “just a postdoc” / not master of my own time yet (#jobs welcome)
+    > - waiting for feedback from volunteer testers before I invest more time into something that no one wants to use
+    > - a discussion with Herve Pages at bioc2019, that he started a `graph2` package ([https://github.com/hpages/graph2](https://github.com/hpages/graph2)) which happens to implement `AnnotatedIDs` as a very similar concept to my `IdVector`. Basically, we met at the concept where gene:set is a bipartite graph between two sets of entities
+
+**Kevin Rue-Albrecht** (18:29:37):
+> Oh right, my bad then. I fell out of the loop for too long. I saw activity on the repo, but couldn’t keep up following their content. The SingleR use case would be a good motivation to revisit all that. Thanks Martin !
+
+**Aedin Culhane** (20:05:40):
+> Thanks@Kevin Rue-Albrecht@Martin Morgan, I think I am picking up parts of different conversations and I regret I haven't tuned into Slack as often as I should.  I agree S4 is easier to read
+
+
+## 2019-09-03
+
+**Lluís Revilla** (05:10:47):
+> Where do we stand regarding this project?
+
+**Kevin Rue-Albrecht** (05:14:18):
+> I’m burned out dealing with other things, unfortunately
+
+**Vince Carey** (09:47:20):
+> Should we have a videoconference for the gene set teams to discuss desired approaches for the release of 3.10?  We have time to coordinate relationships between packages/classes if desired.
+
+**Martin Morgan** (09:58:46):
+> Kayla is essentially finished her package, and we intend to move forward with its submission; it has an extensive vignette and we've responded to most of the issues that have come up in discussions in this thread and elsewhere. The package is at[https://github.com/Kayla-Morrell/BiocSet](https://github.com/Kayla-Morrell/BiocSet).
+> 
+> There are some very convenient features, including building GO and KEGG sets dynamically, easy`map_elements()`for translation between identifiers (including 1:many, many:1, and many:0), and flexible annotation of elements, sets, and element-set combinations.
+> 
+> One thing that is not incorporated is the notion of fuzzy sets. Also, though S4 based we don't re-use the Hits construct which might be a natural representation of bipartite graphs -- I'd call this to an implementation note, since I don't think gene set users would want to interact with this representation directly... Another area that is a little unsatisfactory is that BiocSet does not behave like a vector or data.frame, so it does not have a`length()`or`[`operations; this is consistent with the 'tidyverse' approach to things and also that there are really two 'lengths', along the gene and set axes. Instead there are convenient functions to coerce to data.frame / tibble from either set or element, without losing annotations. This was partly inspired by the single cell work flow of classifying cells to cell type, and wanting to add the classification as columns of a data frame to the colData.
+> 
+> 'We' have invested considerable effort in developing this, and it will be submitted. Of course directions for refinement are always welcome.
+
+**Kevin Rue-Albrecht** (10:01:09) (in thread):
+> > to add the add
+> not being picky here, but I can't guess what you mean behind this typo
+
+**Martin Morgan** (10:04:16) (in thread):
+> sorry, tried to clarify in the message -- having classified cells, one wants to add the classification (including perhaps statistical support) to the colData of the SingleCellExperiment
+
+**Kevin Rue-Albrecht** (10:10:32) (in thread):
+> Awesome, it's perfectly clear now. I'm sure#sc-signaturewill be interested in that feature.
+
+**Martin Morgan** (10:12:19) (in thread):
+> A little more specifically, the SimpleR vignette takes us to the annotations
+> ```
+> pred <- SingleR(test=sceG, ref=sceM, labels=sceM$label)
+> ```
+> which is a DataFrame. This could instead be a BiocSet
+> ```
+> gs = as_tibble(pred, rownames="element") %>%
+>     select(element, set = labels, everything()) %>% 
+>    BiocSet_from_elementset()
+> ```
+> and if one wanted to add this back to the SCE one could
+> ```
+> > tibble_by_element(gs)   # or data.frame_by_element()
+> Joining, by = "set"
+> Joining, by = "element"
+> # A tibble: 100 x 13
+>    element set   scores.alpha scores.endothel… scores.delta scores.beta
+>    <chr>   <chr>        <dbl>            <dbl>        <dbl>       <dbl>
+>  1 D2ex_1  acin…        0.180            0.215        0.184       0.197
+>  2 D2ex_10 acin…        0.169            0.202        0.172       0.183
+>  3 D2ex_11 acin…        0.149            0.170        0.153       0.151
+>  4 D2ex_12 duct         0.192            0.227        0.191       0.208
+>  5 D2ex_13 acin…        0.154            0.196        0.156       0.160
+>  6 D2ex_14 duct         0.161            0.215        0.167       0.169
+>  7 D2ex_15 acin…        0.169            0.161        0.165       0.169
+>  8 D2ex_16 acin…        0.197            0.195        0.184       0.200
+>  9 D2ex_17 duct         0.162            0.178        0.162       0.154
+> 10 D2ex_18 acin…        0.201            0.230        0.194       0.208
+> # … with 90 more rows, and 7 more variables: scores.unclear <dbl>,
+> #   scores.duct <dbl>, scores.acinar <dbl>, scores.pp <dbl>,
+> #   scores.mesenchymal <dbl>, scores.epsilon <dbl>, first.labels <chr>
+> ```
+> -- kind of circular in this particular case because the DataFrame`pred`was already formatted appropriately, but one could easily imaging utility for thinking about the annotations as sets...
+
+**Kevin Rue-Albrecht** (10:12:51):
+> I can join in a call or review the vignette to give feedback, when the time is right. Unfortunately, I'm at capacity in terms of coding brainpower.
+
+**Kevin Rue-Albrecht** (10:16:13) (in thread):
+> Absolutely. I got to a similar point in[https://kevinrue.github.io/hancock2018/2-learn-signatures.html](https://kevinrue.github.io/hancock2018/2-learn-signatures.html)so I'm happy with any implementation that works on the same concept. Thanks!
+
+
+## 2019-09-04
+
+**Lluís Revilla** (10:17:43):
+> Thanks@Martin Morganfor the last example, now I understand why the fuzzy notion isn't implemented on BiocSet.
+> Similar to the example converting to data.frame the BiocSet object:
+> ```
+> element    set score.acin score.duct  score.endo
+>   Cell1   acin        0.9        0.6         0.2
+>   Cell2   acin        0.9        0.4         0.4
+>   Cell3   duct        0.2        0.9         0.8
+>   Cell4   acin        0.7        0.5         0.4
+> ```
+> The same data converted from a TidySet to data.frame would be represented like this:
+> ```
+> element    set fuzzy
+>   Cell1   acin   0.9
+>   Cell1   endo   0.2
+>   Cell1   duct   0.6
+>   Cell2   acin   0.9
+>   Cell2   endo   0.4
+>   Cell2   duct   0.4
+>   Cell3   acin   0.2
+>   Cell3   endo   0.8
+>   Cell3   duct   0.9
+>   Cell4   acin   0.7
+>   Cell4   endo   0.4
+>   Cell4   duct   0.5
+> ```
+> As you can see, there isn't an assigned class for each cell but several with different scores. If the user want to select which one set corresponds to each element they can simply use group_by and use a filtering function.
+> I too invested considerable effort into this and will submit to a repository too. Let me know if you have some more comments.
+> At one point it was said that the users/developers should choose. I'm sure that further improvements will arise from users and developers experiences.
+
+
+## 2019-09-10
+
+**Lluís Revilla** (03:11:18):
+> BiocSet is now submitted to Bioconductor:[https://github.com/Bioconductor/Contributions/issues/1229](https://github.com/Bioconductor/Contributions/issues/1229)
+
+
+## 2019-09-23
+
+*17:25:29 - @Marcel Ramos Pérez has joined the channel*
+
+## 2019-10-31
+
+**Lluís Revilla** (07:52:38):
+> Congrats! BiocSet is now on release!
+
+**Lluís Revilla** (07:53:11):
+> I thought it would miss it as it was just accepted 3 days ago several weeks after the deadline for new package submissions.
+
+**Lori Shepherd** (08:15:24) (in thread):
+> technically BiocSet was submitted Sept 5th  -  which was way before the deadline of Oct 4.   And while the package was accepted 3 days ago and the deadline was the 23th we did make several other exceptions do to late reviews on our end.
+
+**Lluís Revilla** (08:24:57) (in thread):
+> Great! More packages included:parrotconga:
+
+
+## 2020-01-23
+
+*04:12:08 - @Charlotte Soneson has left the channel*
+
+## 2020-02-14
+
+*05:05:23 - @Andrew Skelton has joined the channel*
+
+## 2020-03-23
+
+*10:34:21 - @Edgar has joined the channel*
+*11:32:33 - @Laurent Gatto has joined the channel*
+
+## 2020-05-06
+
+**Robert Castelo** (03:00:19):
+> hi, i guess this is the right channel to discuss this, let me know otherwise.
+> 
+> In this[thread](https://support.bioconductor.org/p/130649/#130804)at the support site, a user has hit a limitation of the`annotate::getAnnMap()`function, by which you cannot use`EnsDb.*`packages with functions such as`GSEABase::mapIdentifiers`. Would it be possible to have that working? .. this would facilitate working with Ensembl identifiers throughout the`GSEABase`and`AnnotationDbi`packages. (cc:@Martin Morgan@Johannes Rainer)
+
+**Martin Morgan** (08:34:45) (in thread):
+> So is a minimal reproducible example along the iines of
+> ```
+> library(GSEABase)
+> 
+> ## illustrated with the 'c2.cp.kegg.v7.1.symbols.gmt' file from MSigDB 7.1
+> keggsym <- getGmt("c2.cp.kegg.v7.1.symbols.gmt",  geneIdType=SymbolIdentifier())
+> mapIdentifiers(keggsym, ENSEMBLIdentifier("EnsDb.Hsapiens.v75.db"))
+> ```
+> This ends with
+> ```
+> > mapIdentifiers(keggsym, ENSEMBLIdentifier("EnsDb.Hsapiens.v75.db"))
+> Error in eval(parse(text = pkg)) :
+>   object 'EnsDb.Hsapiens.v75.db' not found
+> ```
+> Once we sort out where the fix needs to be made, I think it is better to post an issue on the corresponding github page ([github.com/Bioconductor/](http://github.com/Bioconductor/)for Bioconductor packages).
+
+**Robert Castelo** (13:35:16) (in thread):
+> Thanks Martin, I've opened an[issue](https://github.com/Bioconductor/GSEABase/issues/4)as suggested.
+
+*16:25:27 - @Johannes Rainer has joined the channel*
+**Johannes Rainer** (16:28:29) (in thread):
+> To problem was that`keytype`had no default in the`select,EnsDb`method. I changed that to use by default Ensembl gene IDs. A separate issue is the workaround of renaming the EnsDb variable and requiring an installed package - it would be nice if`mapIdentifiers`would also accept a plain`EnsDb`(e.g. downloaded from`AnnotationHub`) instead of a package.
+
+**Robert Castelo** (17:12:56) (in thread):
+> Excellent!! Thanks Johannes for the quick fix!!
+
+
+## 2020-06-06
+
+*19:57:23 - @Olagunju Abdulrahman has joined the channel*
+
+## 2020-06-24
+
+**Sridhar N** (01:25:49):
+> is there a function or package to create your own gmt files which can be used for fgsea?
+
+**Sridhar N** (01:27:08):
+> I found`msigdbr`really useful but dumping out genesets in gmt is not something that is supported.
+
+**Federico Marini** (02:03:35):
+> you’d have to use a DIY solution, probably
+
+**Federico Marini** (02:04:23):
+> or well, there are many gmt files sources around: I can mention MSigDB itself, then some collections from the g:Profiler tool I guess, …
+
+**Sridhar N** (02:07:57):
+> Ye I figured
+
+**Sridhar N** (02:08:12):
+> thanks
+
+**Ludwig Geistlinger** (10:34:13):
+> Maybe`EnrichmentBrowser::writeGMT`is helpful in this context
+
+**Martin Morgan** (11:39:49):
+> `BiocSet::export(<object>, "my.gmt")`and conversely`BiocSet::import("my.gmt")`
+
+**Sridhar N** (12:01:35):
+> Ahh both are elegant options thanks, i can now get rid of my ugly function with`lapply and cat`
+
+**Federico Marini** (16:03:36):
+> gosh I need to pick up with`BiocSet`, so much good stuff in it
+
+
+## 2020-06-29
+
+**Aedin Culhane** (22:59:26):
+> Have a look at hypeR, they have create some nice functions
+
+**Aedin Culhane** (23:00:17):
+> msigdb_info <- hypeR::msigdb_available(“Homo sapiens”)
+> 
+> msigdb_version()
+> BIOCARTA <- msigdb_gsets(“Homo sapiens”, “C2”,“CP:BIOCARTA”)
+
+**Aedin Culhane** (23:00:23):
+> msigdb_info()
+
+
+## 2020-07-29
+
+*13:04:00 - @Nick Owen has joined the channel*
+*17:39:30 - @Riyue Sunny Bao has joined the channel*
+
+## 2020-07-31
+
+*14:05:13 - @Kirk Reardon has joined the channel*
+*16:26:23 - @Dr Awala Fortune O. has joined the channel*
+
+## 2020-08-05
+
+*13:47:19 - @shr19818 has joined the channel*
+
+## 2020-10-08
+
+*15:45:07 - @B P Kailash has joined the channel*
+
+## 2020-10-10
+
+*04:09:11 - @Hervé Pagès has left the channel*
+
+## 2020-10-11
+
+*21:41:59 - @Kozo Nishida has joined the channel*
+
+## 2020-11-11
+
+**Lluís Revilla** (10:15:38):
+> It's been over a year since BaseSet was presented on Bioc2019 but finally it is on CRAN:[https://CRAN.R-project.org/package=BaseSet](https://CRAN.R-project.org/package=BaseSet)
+  - Attachment (cran.r-project.org): [BaseSet: Working with Sets the Tidy Way](https://CRAN.R-project.org/package=BaseSet)
+    > Implements a class and methods to work with sets, doing intersection, union, complementary sets, power sets, cartesian product and other set operations in a "tidy" way. These set operations are available for both classical sets and fuzzy sets. Import sets from several formats or from other several data structures.
+
+
+## 2020-11-19
+
+*08:29:51 - @Kevin Blighe has joined the channel*
+
+## 2021-01-01
+
+*14:05:08 - @Bernd has joined the channel*
+
+## 2021-01-02
+
+*08:15:37 - @Charlotte Soneson has joined the channel*
+
+## 2021-01-22
+
+*15:44:13 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-05-11
+
+*16:44:59 - @Megha Lal has joined the channel*
+
+## 2021-05-25
+
+*03:49:35 - @Enrica Calura has joined the channel*
+*12:19:27 - @Quang Nguyen has joined the channel*
+
+## 2021-06-07
+
+*11:26:13 - @David Dittmar has joined the channel*
+
+## 2021-08-15
+
+*01:41:19 - @KP has joined the channel*
+
+## 2021-09-07
+
+*14:50:56 - @Andrew Jaffe has joined the channel*
+
+## 2021-09-28
+
+*10:54:30 - @Michael Lawrence has left the channel*
+
+## 2021-11-08
+
+*03:27:20 - @Paula Nieto García has joined the channel*
+
+## 2022-01-03
+
+*17:04:10 - @Kurt Showmaker has joined the channel*
+
+## 2022-01-28
+
+*11:12:43 - @Megha Lal has left the channel*
+
+## 2022-05-16
+
+*07:02:31 - @Pedro Sanchez has joined the channel*
+
+## 2022-10-10
+
+*13:55:55 - @Mercilena Benjamin has joined the channel*
+
+## 2022-12-12
+
+*17:58:29 - @Lexi Bounds has joined the channel*
+
+## 2023-01-10
+
+*10:50:10 - @Vince Carey has left the channel*
+
+## 2023-01-18
+
+*13:09:57 - @José Basílio has joined the channel*
+
+## 2023-01-21
+
+*16:02:29 - @Hien has joined the channel*
+
+## 2023-02-03
+
+*07:02:25 - @Ciro Ramírez-Suástegui has joined the channel*
+
+## 2023-03-01
+
+*12:12:36 - @jeremymchacón has joined the channel*
+
+## 2023-05-08
+
+*08:54:14 - @Axel Klenk has joined the channel*
+
+## 2023-05-31
+
+*14:15:00 - @Alyssa Obermayer has joined the channel*
+
+## 2023-06-07
+
+*18:29:43 - @Alyssa Obermayer has joined the channel*
+
+## 2023-07-28
+
+*15:57:31 - @Benjamin Yang has joined the channel*
+
+## 2023-09-13
+
+*17:03:46 - @Christopher Chin has joined the channel*
+
+## 2023-09-20
+
+*05:30:02 - @Jaykishan has joined the channel*
+
+## 2024-02-09
+
+**Marcel Ramos Pérez** (10:15:22):
+> archived the channel

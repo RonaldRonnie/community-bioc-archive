@@ -1,0 +1,827 @@
+---
+title: "#zarr"
+format: gfm
+---
+
+
+## 2022-06-28
+
+*11:44:50 - @Ludwig Geistlinger has joined the channel*
+**Ludwig Geistlinger** (11:44:50):
+> set the channel description: Working with data in zarr format in R
+
+*11:45:30 - @Vince Carey has joined the channel*
+*11:45:30 - @Alex Mahmoud has joined the channel*
+*11:45:30 - @Mark Keller has joined the channel*
+*11:45:30 - @Nils Eling has joined the channel*
+*11:45:30 - @Shila Ghazanfar has joined the channel*
+*11:47:44 - @Martin Morgan has joined the channel*
+*11:47:44 - @Hervé Pagès has joined the channel*
+*11:47:44 - @Tyrone Lee has joined the channel*
+*11:47:44 - @Isaac Virshup has joined the channel*
+*11:47:44 - @Helena L. Crowell has joined the channel*
+*11:47:44 - @Dario Righelli has joined the channel*
+*11:47:44 - @Artem Sokolov has joined the channel*
+*11:49:22 - @Marcel Ramos Pérez has joined the channel*
+
+## 2022-07-01
+
+**Ludwig Geistlinger** (10:44:45):
+> Hi<!channel>,@Alex Mahmoud,@Vince Carey, and myself have been working on getting[CyCIF](https://www.cycif.org/)image data in[Zarr](https://zarr.readthedocs.io/en/stable/)format up on Bioconductor's[Open Storage Network](https://www.openstoragenetwork.org/)account.
+> 
+> We will be turning this into a designated ExperimentHub package, but we wanted
+> to share the data already at this point for everyone interested in doing some
+> more experimentation with reading and working with data in Zarr format in R.
+> 
+> The image data is from this publication:[https://doi.org/10.1038/s41592-021-01308-y](https://doi.org/10.1038/s41592-021-01308-y). Here, we took the image data from a[tissue microarray](https://en.wikipedia.org/wiki/Tissue_microarray)that has been obtained as described here:[https://mcmicro.org/datasets/#tissue-microarrays-tmas](https://mcmicro.org/datasets/#tissue-microarrays-tmas). The data has been kindly provided by@Artem Sokolov.
+> 
+> What we have are 123 dearrayed tiff images (64 channels each), each corresponding to one tissue core of the microarray that we read in and saved to zarr format using
+> the`zarr.convenience.save`function from the`zarr`python package.
+> 
+> The data is now available on the Open Storage Network here:[https://mghp.osn.xsede.org/bir190004-bucket01/index.html#TMA11/zarr/](https://mghp.osn.xsede.org/bir190004-bucket01/index.html#TMA11/zarr/)and can be read into python like this (here for the 5th core / image):
+> ```
+> import s3fs
+> import zarr
+> import xarray as xr
+> fs = s3fs.S3FileSystem(anon=True, key="dummy", secret="dummy", client_kwargs={'endpoint_url': "[https://mghp.osn.xsede.org/](https://mghp.osn.xsede.org/)"})
+> mapper = fs.get_mapper('bir190004-bucket01/TMA11/zarr/5.zarr')
+> zarr.load(mapper)
+> ```
+> And we are looking for similar ways to read the data into R. Happy to discuss
+> and please just let us know if you have any questions / comments regarding the data.@Vince Careyany comments from your side in addition to this?
+
+*10:47:35 - @Josh Moore has joined the channel*
+**Josh Moore** (10:53:04) (in thread):
+> This is great!
+
+*10:53:35 - @Luke Zappia has joined the channel*
+**Josh Moore** (10:54:08) (in thread):
+> Just as a side note: I assume that the data is formatted such that existing pipelines could convert it directly to OME-Zarr for compatibility with web viewers like Vizarr.
+
+**Ludwig Geistlinger** (10:57:08) (in thread):
+> It's a great point. Right now these are plain tiffs / zarrs without OME annotation. I think we want to turn to existing pipelines such as`bioformats2raw`to convert to OME-annotated formats as a next step.
+
+**Josh Moore** (10:59:27) (in thread):
+> I see the raw TIFFs in[https://www.synapse.org/#!Synapse:syn25454905](https://www.synapse.org/#!Synapse:syn25454905)— is there a description of their mapping to image space? If so, I can probably create the conversion for you.
+
+**Vince Carey** (11:00:06) (in thread):
+> Thanks@Ludwig Geistlinger-- no comments from me just now except to thank the NSF/ACCESS Open Storage Network (OSN) for allocating space for us to work on this.@Alex Mahmoudhas managed our OSN allocation and will take any technical questions about storage access.
+
+**Ludwig Geistlinger** (11:01:00) (in thread):
+> That would be great@Josh Moore!@Artem Sokolovdo you know whether such a mapping to image space is available for these TIFFs?
+
+*11:10:15 - @Paul Hoffman has joined the channel*
+**Artem Sokolov** (12:59:31) (in thread):
+> Canyou clarifywhatyoumean byimagespace?Areyoulookingforwhereeachcorewaslocatedinthe originalTMAimage?IntermsofOMEannotations,that’ssomething still on our plate.TheoriginalTMAimageisanOME-TIFF,butourtoolforsplittingaTMAintocoreswritesplainTIFFs.It’sactuallycreatingproblemsforotherdownstreammodulesas well,soweneedto update it to outputOME-TIFFfilesinstead.
+
+*18:40:56 - @Peter Hickey has joined the channel*
+
+## 2022-07-04
+
+**Josh Moore** (08:52:29) (in thread):
+> @Artem Sokolov: understood. If you run`bioformats2raw`on the OME-TIFF (or if you can point me to the OME-TIFF) then we’ll have a Zarr for looking at.
+
+
+## 2022-07-05
+
+*06:42:11 - @Sanket Verma has joined the channel*
+**Artem Sokolov** (13:58:31) (in thread):
+> @Josh MooreSurething.I’m outonholidaythisweek,butI'lluploadeithertheoriginalOME-TIFFortheZarroutputtoSynapsewhenIgetback.
+
+**Vince Carey** (13:59:45) (in thread):
+> @Artem Sokolovwould you be willing to upload them to the Open Storage Network instead?   Then they could be pushed to Synapse without egress charge...  If OSN works please be in touch with@Alex Mahmoud
+
+*19:18:49 - @Sean Davis has joined the channel*
+
+## 2022-07-07
+
+**Artem Sokolov** (10:21:24) (in thread):
+> @Vince CareyNo problem to upload to OSN.@Alex MahmoudCan you please point me at the instructions to get started?
+
+**Alex Mahmoud** (10:25:39) (in thread):
+> Hey Artem! We can't generate credentials for the allocation, so ideally you would upload it to a service you have access to (Google Drive, Box, OneDrive, DropBox, etc...) and I would sync it for you from there to OSN. Does that work for you/your data? Alternatively, I can give you credentials and instructions for a Jetstream2 bucket which we also have as of last week, and I can send you instructions on how to upload to there for me to copy to OSN afterwards
+
+**Artem Sokolov** (10:30:29) (in thread):
+> The OME-TIFF is 138GB in size. What would you suggest?
+
+**Alex Mahmoud** (11:06:22) (in thread):
+> The latter is probably best. I can create the credentials and send you instructions. Do you have any experience using Docker?
+
+**Alex Mahmoud** (11:06:57) (in thread):
+> And where does the data currently live, is it just on your local machine/a server?
+
+**Artem Sokolov** (12:26:25) (in thread):
+> Yep. Plenty of experience with Docker. I just pulled the file off our institutional cluster onto my local machine, so I can upload it to wherever.
+
+**Alex Mahmoud** (12:30:50) (in thread):
+> I'll DM you credentials and instructions
+
+**Artem Sokolov** (15:13:24) (in thread):
+> It's rolling but may take a while:
+> ```
+> Transferred:   	    1.989 GiB / 128.907 GiB, 2%, 13.349 MiB/s, ETA 2h42m16s
+> Transferred:            0 / 1, 0%
+> Elapsed time:       3m1.3s
+> Transferring:
+>  *                                 TMA22.ome.tif:  1% /128.907Gi, 13.349Mi/s, 2h42m16s
+> ```
+> It's running on my machine in the office, so I'll just leave it up when I take off for the day.
+> If helpful for verifying integrity after it finishes:
+> ```
+> $ md5sum *.ome.tif
+> 97acc4168abf77aef8959e70f54d4655  TMA11.ome.tif
+> 93657d888cf1912d958d33a0cb0de741  TMA22.ome.tif
+> ```
+
+**Artem Sokolov** (15:15:10) (in thread):
+> Oh wait, I'm just now realizing that you started with TMA11, not 22.:man-facepalming:Let me get it uploading both.
+
+**Alex Mahmoud** (15:18:09) (in thread):
+> Make sure you add a filename in the second portion of the`rclone copyto`, as it will overwrite if not.
+> If you're copying a single file or directory, make sure it's:
+> ```
+> js:OME-TIFF/newdir
+> ```
+> (`OME-TIFF`is the root bucket name)
+> We can easily change directory structure and filenames after for production, just want to make sure the uploads don't cancel each other
+
+**Alex Mahmoud** (15:19:40) (in thread):
+> Also, if you think the institutional cluster will have better upload speed than your machine, you could potentially try to run it directly from there. If you can't use docker, you can try installing`rclone`directly on the cluster ([https://rclone.org/install/](https://rclone.org/install/)) assuming you have enough permissions to do that
+  - Attachment (rclone.org): [Install](https://rclone.org/install/)
+    > Rclone Installation
+
+**Artem Sokolov** (15:21:53) (in thread):
+> Thanks,@Alex Mahmoud. I stopped the transfer, since it was only at 2%. Just moving`TMA11.ome.tif`to the same directory, then going to restart using the original command to copy the entire directory over to the root bucket. Unfortunately, the transfer nodes that provide access to the data on our compute cluster are very restricted, so it's better to pull than push.
+
+
+## 2022-07-08
+
+**Alex Mahmoud** (16:40:19) (in thread):
+> It seems TMA11 is uploaded with 221 GB, and TMA22 with 129 GB. Can you confirm that the uploads are done, and then I can move them to OSN as well?
+
+**Artem Sokolov** (16:42:05) (in thread):
+> @Alex MahmoudAre you able to get checksum values for the files on your end?
+> ```
+> $ md5sum *.ome.tif
+> 97acc4168abf77aef8959e70f54d4655  TMA11.ome.tif
+> 93657d888cf1912d958d33a0cb0de741  TMA22.ome.tif
+> ```
+> I left it running overnight on my office machine, but I am working remotely today.
+
+**Alex Mahmoud** (16:58:03) (in thread):
+> Unfortunately because of the file size, it is segmented at upload and hashes are per segment:
+> ```
+> TMA11.ome.tif/1657225716.182074825/237701794480/00000000
+> c00981fd06b0bd3f5a4e7c438b859ca9
+> TMA11.ome.tif/1657225716.182074825/237701794480/00000001
+> ced14603e43f2a3de0060a616f710877
+> TMA11.ome.tif/1657225716.182074825/237701794480/00000002
+> 5cf944d1175c8e08ed5280cc9df18cdc
+> ........
+> TMA22.ome.tif/1657225716.260260825/138413329219/00000023
+> f11fc03f3aeb2606ec943019340777d9
+> TMA22.ome.tif/1657225716.260260825/138413329219/00000024
+> b0cb1d2e37a6a20afd82ff85b4c76222
+> TMA22.ome.tif/1657225716.260260825/138413329219/00000025
+> a53f9ff6ff9610c692aec75784961e41
+> ```
+
+**Alex Mahmoud** (16:58:28) (in thread):
+> (although it can be downloaded outright at[https://js2.jetstream-cloud.org/api/swift/containers/OME-TIFF/object/TMA11.ome.tif](https://js2.jetstream-cloud.org/api/swift/containers/OME-TIFF/object/TMA11.ome.tif))
+
+**Alex Mahmoud** (16:58:55) (in thread):
+> I'll go ahead and move them to OSN as is, and get the hash during that
+
+**Artem Sokolov** (16:59:15) (in thread):
+> Sounds good!
+
+**Alex Mahmoud** (18:28:19) (in thread):
+> Hashes are the same:tada:Moving from JS2 to OSN in progress
+> ```
+> 97acc4168abf77aef8959e70f54d4655  TMA11.ome.tif
+> 93657d888cf1912d958d33a0cb0de741  TMA22.ome.tif
+> ```
+
+**Alex Mahmoud** (20:26:25) (in thread):
+> The upload is complete! You can see the data in the browser at[https://mghp.osn.xsede.org/bir190004-bucket01/index.html#OME-TIFF/](https://mghp.osn.xsede.org/bir190004-bucket01/index.html#OME-TIFF/)and download for eg from[https://mghp.osn.xsede.org/bir190004-bucket01/OME-TIFF/TMA11.ome.tif](https://mghp.osn.xsede.org/bir190004-bucket01/OME-TIFF/TMA11.ome.tif)
+
+
+## 2022-07-11
+
+**Josh Moore** (07:01:52) (in thread):
+> A test conversion can be found at a temporary location:[https://hms-dbmi.github.io/vizarr/?source=https://uk1s3.embassy.ebi.ac.uk/idr/share/community-bioc/TMA11.ome.zarr/0](https://hms-dbmi.github.io/vizarr/?source=https://uk1s3.embassy.ebi.ac.uk/idr/share/community-bioc/TMA11.ome.zarr/0)
+
+
+## 2022-08-23
+
+**Vince Carey** (00:48:53):
+> @Ludwig Geistlinger, the code you provided above yields a 64 * 3007 * 3007 array.  image of one 3007x3007 slice shows the expected shape of core.  but what  metadata are available about this core?  are they in the zarr resource?
+
+**Vince Carey** (08:07:40):
+> A little more precisely, is the information about 64 antibodies at[https://static-content.springer.com/esm/art%3A10.1038%2Fs41592-021-01308-y/MediaObjects/41592_2021_1308_MOESM1_ESM.pdf](https://static-content.springer.com/esm/art%3A10.1038%2Fs41592-021-01308-y/MediaObjects/41592_2021_1308_MOESM1_ESM.pdf)relevant to the 64 'rows' of the array produced by the code, and is such information routinely bound to the numerical arrays at some stage of the workflow?
+
+**Ludwig Geistlinger** (08:28:32):
+> Hi@Vince Carey, indeed each of the 123 zarr stores correspond to an image with 64 channels. Each of the 64 channels corresponds to one of the 64 antibody markers used for staining. As@Artem Sokolovexplains a bit further up in the thread, right now the metadata in OME format is only bound to the overall image, but not to the 123 dearrayed images given in plain tiff (which I converted here to plain zarr). Metadata on markers and tissues is currently separately available as csv in the above linked synapse dir.
+
+**Ludwig Geistlinger** (08:29:51):
+> Here is a small vignette that explores the different components of the TMA11 dataset (metadata, expression data, image data):
+
+**Ludwig Geistlinger** (08:30:03):
+  - File (HTML): [CyCIF_TMA11.html](https://community-bioc.slack.com/files/U34P8RS3B/F0401TFL2AC/cycif_tma11.html)
+
+
+## 2022-09-19
+
+*16:41:04 - @Tao Liu has joined the channel*
+*16:46:43 - @Maria Doyle has joined the channel*
+*16:51:43 - @John Kirkham US has joined the channel*
+*16:53:24 - @Ryan Williams has joined the channel*
+*17:26:49 - @Mengbo Li has joined the channel*
+**Vince Carey** (17:30:32):
+> Here are notes on the CZI discussion:[https://docs.google.com/document/d/1KpMbZbn789FPCMvsgKdIrHbSm74K_XuVY2XqCbzyJHs/edit?usp=sharing](https://docs.google.com/document/d/1KpMbZbn789FPCMvsgKdIrHbSm74K_XuVY2XqCbzyJHs/edit?usp=sharing)
+  - File (Google Docs): [CZI Zarr, R/Bioconductor and Big Data](https://community-bioc.slack.com/files/U34P8RS3B/F043QSSUR7S/bioconductor_and_big_data)
+
+**Ludwig Geistlinger** (17:36:36) (in thread):
+> When did this happen? At EuroBioc?
+
+**Maria Doyle** (18:06:17) (in thread):
+> At the CZI Open Science Annual Meeting
+
+
+## 2022-09-20
+
+**Josh Moore** (05:22:19) (in thread):
+> Sorry I couldn’t make it. (Just ran out of steam) Hope it was useful.
+
+
+## 2022-11-03
+
+**Shila Ghazanfar** (00:46:56):
+> Hi everyone, I’m sorry if I’m asking a naive question but it’s related to using zarr for representing cell segmentation. Looking at the 10X Xenium breast cancer data that was recently preprinted[https://www.biorxiv.org/content/10.1101/2022.10.06.510405v1](https://www.biorxiv.org/content/10.1101/2022.10.06.510405v1)my collaborator is hoping to extract the existing cell segmentation mask, listed as “Cell segmentation (Zarr)” in the download page[https://www.10xgenomics.com/products/xenium-in-situ/preview-dataset-human-breast](https://www.10xgenomics.com/products/xenium-in-situ/preview-dataset-human-breast)however my collaborators not familiar with this format (and tbh it’s still extremely new to me) and is more used to a .tif with labels... so my questions are 1. how to convert to such a .tif file? and in any case 2. how to visualise or bring into R/Bioc setting? Would ZarrExperiment be a viable option here?
+> 
+> Thanks in advance! I’m also curious if anyone’s interacting with these data already and have thoughts? cheers, Shila
+  - Attachment (bioRxiv): [High resolution mapping of the breast cancer tumor microenvironment using integrated single cell, spatial and in situ analysis of FFPE tissue](https://www.biorxiv.org/content/10.1101/2022.10.06.510405v1)
+    > Single cell and spatial technologies that profile gene expression across a whole tissue are revolutionizing the resolution of molecular states in clinical tissue samples. Commercially available methods that characterize either single cell or spatial gene expression are currently limited by low sample throughput and/or gene plexy, lack of on-instrument analysis, and the destruction of histological features and epitopes during the workflow. Here, we analyzed large, serial formalin-fixed, paraffin-embedded (FFPE) human breast cancer sections using a novel FFPE-compatible single cell gene expression workflow (Chromium Fixed RNA Profiling; scFFPE-seq), spatial transcriptomics (Visium CytAssist), and automated microscopy-based in situ technology using a 313-plex gene panel (Xenium In Situ). Whole transcriptome profiling of the FFPE tissue using scFFPE-seq and Visium facilitated the identification of 17 different cell types. Xenium allowed us to spatially resolve these cell types and their gene expression profiles with single cell resolution. Due to the non-destructive nature of the Xenium workflow, we were able to perform H&E staining and immunofluorescence on the same section post-processing which allowed us to spatially register protein, histological, and RNA data together into a single image. Integration of data from Chromium scFFPE-seq, Visium, and Xenium across serial sections allowed us to do extensive benchmarking of sensitivity and specificity between the technologies. Furthermore, data integration inspired the interrogation of three molecularly distinct tumor subtypes (low-grade and high-grade ductal carcinoma in situ (DCIS), and invasive carcinoma). We used Xenium to characterize the cellular composition and differentially expressed genes within these subtypes. This analysis allowed us to draw biological insights about DCIS progression to infiltrating carcinoma, as the myoepithelial layer degrades and tumor cells invade the surrounding stroma. Xenium also allowed us to further predict the hormone receptor status of tumor subtypes, including a small 0.1 mm2 DCIS region that was triple positive for ESR1 (estrogen receptor), PGR (progesterone receptor) and ERBB2 (human epidermal growth factor receptor 2, a.k.a. HER2) RNA. In order to derive whole transcriptome information about these cells, we used Xenium data to interpolate the cell composition of Visium spots, and leveraged Visium whole transcriptome information to discover new biomarkers of breast tumor subtypes. We demonstrate that scFFPE-seq, Visium, and Xenium independently provide information about molecular signatures relevant to understanding cancer heterogeneity. However, it is the integration of these technologies that leads to even deeper insights, ushering in discoveries that will progress oncology research and the development of diagnostics and therapeutics. ### Competing Interest Statement All authors are employees and shareholders of 10x Genomics.
+
+**Ludwig Geistlinger** (09:48:36):
+> Hi Shila, very interesting! I saw a talk about that dataset recently, didn't know it's already out. There are a number of options here including going directly via python's`zarr`package. But going down the`ZarrExperiment`route here (which reticulates around python's`zarr`package):
+> ```
+> > library(ZarrExperiment)
+> > fl <- "Xenium_FFPE_Human_Breast_Cancer_Rep1_cells.zarr"
+> > dir(fl)
+> [1] "cell_id"               "cell_summary"          "homogeneous_transform"
+> [4] "masks"                 "polygon_num_vertices"  "polygon_vertices"
+> ```
+> shows the content of the zarr archive, which contains besides the masks a couple of other interesting things such as eg the cell polygons (number of vertices and coordinates of the vertices itself). Further, wrapping this into a`ZarrExperiment::ZarrArchive`gives us some more ideas about data types and dimensions:
+> ```
+> > arr <- ZarrArchive(fl)
+> > arr
+> class: ZarrArchive
+> resource: Xenium_FFPE_Human_Breast_Cancer_Rep1_cells.zarr
+> /
+>  ├── cell_id (167782,) uint32
+>  ├── cell_summary (167782, 7) float64
+>  ├── homogeneous_transform (3, 3) float32
+>  ├── masks
+>  │   ├── 0 (25779, 35416) uint32
+>  │   ├── 1 (25779, 35416) uint32
+>  │   └── homogeneous_transform (4, 4) float32
+>  ├── polygon_num_vertices (2, 167782) int32
+>  └── polygon_vertices (2, 167782, 26) float32
+> ```
+> We can proceed by eg pulling out the polygon vertices, where we seem to have two different segmentations in here for some 170k cells in total, and we can eg look at some of the coordinates of the first segmentation:
+> ```
+> > m <- as(arr$polygon_vertices, "matrix")
+> > dim(m)
+> [1]      2 167782     26
+> > m[1,1:5,1:5]
+>          [,1]     [,2]     [,3]     [,4]     [,5]
+> [1,] 377.1875 838.7375 375.4875 839.3750 374.6375
+> [2,] 383.7750 856.1625 382.7125 856.5875 382.0750
+> [3,] 320.8750 866.5750 319.1750 867.8500 319.1750
+> [4,] 257.7625 848.0875 256.9125 848.3000 254.5750
+> [5,] 370.6000 862.1125 368.9000 863.1750 368.4750
+> ```
+> We can analogously look for the number of vertices for each cell polygon:
+> ```
+> > n <- as(arr$polygon_num_vertices, "matrix")
+> > dim(n)
+> [1]      2 167782
+> > n[1,1:5]
+> [1] 13 13 13 13 13
+> > n[2,1:5]
+> [1] 13 13 13 13 13
+> ```
+> where it looks like we have some 13 vertices for each cell polygon. Now from your question it seems we are primarily interested in pulling out the masks and save as tiff, and I would assume that we can equally pull out`arr$masks`and turn into matrix, and use eg the`tiff`package to write to tiff and this would go along the following lines to eg pull out the first segmentation mask:
+> ```
+> > m <- as(arr$masks$`0`, "matrix")
+> > dim(m)
+> [1] 25779 35416
+> ```
+
+**Shila Ghazanfar** (19:48:04) (in thread):
+> that’s phenomenal, thanks so much Ludwig!! extremely helpful.. for some reason when input directly into python the ‘masks’ wasn’t visible, which had us thinking that it wasn’t even in the file
+> ```
+> import zarr
+> 
+> path = 'Xenium_FFPE_Human_Breast_Cancer_Rep1_cells.zarr'
+> zarr_data = zarr.convenience.load(path)
+> 
+> print(zarr_data)
+> 
+> print(zarr_data['cell_id'].shape)
+> print(zarr_data['cell_summary'].shape)
+> print(zarr_data['polygon_num_vertices'].shape)
+> print(zarr_data['polygon_vertices'].shape)
+> ```
+
+
+## 2022-11-04
+
+**Shila Ghazanfar** (01:46:45) (in thread):
+> PS that script you shared worked a charm ludwig! here’s what i can see for Rep1 mask “0” and mask “1" when i input into napari, change to labels and zoom in (albeit to different regions):slightly_smiling_face:0 is nuclei then and 1 is full cells:
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F049G40DSQ3/image.png)
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F049G6ZDAV8/image.png)
+
+**Ludwig Geistlinger** (08:39:15) (in thread):
+> That's cool, Shila!
+
+
+## 2022-11-17
+
+**Isaac Virshup** (10:30:50):
+> Hey all, there's a conversation on the[image.sc](http://image.sc)forum about reading OME-NGFF zarr stores (espeically tables) from R. Would appreciate a perspective from bioconductor here![https://forum.image.sc/t/accessing-ome-ngff-esp-tables-from-r/74051](https://forum.image.sc/t/accessing-ome-ngff-esp-tables-from-r/74051)
+
+
+## 2022-11-18
+
+*06:37:28 - @Stephanie Hicks has joined the channel*
+*11:51:17 - @Kasper D. Hansen has joined the channel*
+**Ludwig Geistlinger** (12:31:08):
+> Hi@Vince CareyI am a bit inclined to rename this channel to #imaging to discuss all kinds of question around image analysis with R/Bioc, and leave the big-data rep component of the zarr discussion to#bigdata-repto pull in more folks with on-disk out-of-memory format experience for this piece. Thoughts?
+
+**Kasper D. Hansen** (14:00:30):
+> Im new here, but that seems to be a bad idea. The channel has a very specific name
+
+**Kasper D. Hansen** (14:00:46):
+> Why don’t you just make a new channel and also announce it here?
+
+**Ludwig Geistlinger** (14:40:10):
+> Thanks, Kasper. My impression is that most folks came here because they wanted to analyze some big images and zarr is just one piece to the puzzle for them. Also the folks that really could drive some robust developments with regard to reading zarr from R are the folks in#bigdata-repnot necessarily the applied folks interested in working with image data. But creating a new channel instead is a good idea.
+
+
+## 2022-11-19
+
+*21:03:20 - @Hieu Nim has joined the channel*
+
+## 2022-11-21
+
+**Josh Moore** (05:39:51) (in thread):
+> for my part, being at the intersection, happy to join either or both:wink:
+
+
+## 2022-11-22
+
+*15:53:43 - @Ellis Patrick has joined the channel*
+
+## 2022-12-12
+
+**Stephanie Hicks** (10:35:21):
+> fwiw, my two cents on the discussion about renaming the channel is that my recommendation would be to keep#zarrbecause the format can be used to store images, but also others use it to store count data (e.g.[https://www.nature.com/articles/s41467-022-32097-3](https://www.nature.com/articles/s41467-022-32097-3)). So relabeling it to just #imaging feels not quite right.
+> 
+> Now, it's not clear whether we want to have multiple#bigdata-repchannels (e.g.`#bigdata-rep-zarr`,`#bigdata-rep-hdf5`), but there clearly are a theme we could have all in one channel or broken up.
+> 
+> Going back to the discussion on the proposed #imaging channel, I think that makes total sense and is long over due.
+  - Attachment (Nature): [Scarf enables a highly memory-efficient analysis of large-scale single-cell genomics data](https://www.nature.com/articles/s41467-022-32097-3)
+    > Nature Communications - As the scale of single-cell genomics experiments grows into the millions, the computational requirements to process this data are beyond the reach of many. Here the authors...
+
+**Ludwig Geistlinger** (16:23:17):
+> Thanks for the input@Kasper D. Hansen@Josh Moore@Stephanie Hicks- there is now a new channel#image-analysisproviding opportunities to discuss tools and packages for image analysis including segmentation, tiling, stitching, machine learning, image viewers, ...
+
+**Stephanie Hicks** (20:38:44):
+> thank you for leading this@Ludwig Geistlinger!
+
+
+## 2023-01-09
+
+*06:12:09 - @Charlotte Soneson has joined the channel*
+*06:21:38 - @Giovanni Palla has joined the channel*
+
+## 2023-02-02
+
+*05:37:45 - @Davide Risso has joined the channel*
+
+## 2023-02-09
+
+**Ludwig Geistlinger** (14:32:27):
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C04FKM9C7LG/p1675970998524369?thread_ts=1670921194.447239&cid=C04FKM9C7LG)
+    > Just as an update I've now submitted Rarr to Bioconductor ([https://github.com/Bioconductor/Contributions/issues/2925](https://github.com/Bioconductor/Contributions/issues/2925))
+    > 
+    > If anyone has Zarr files and wants to test out the package it'd be great to get feedback as part of the review.
+
+
+## 2023-03-31
+
+*08:34:11 - @Aedin Culhane has joined the channel*
+*08:59:09 - @Ilaria Billato has joined the channel*
+
+## 2023-04-18
+
+*14:06:41 - @Lukas Weber has joined the channel*
+
+## 2023-06-07
+
+*13:35:26 - @Laura Luebbert has joined the channel*
+
+## 2023-08-02
+
+*08:21:27 - @Beth Cimini has joined the channel*
+
+## 2023-08-07
+
+*11:23:41 - @Jiaji George Chen has joined the channel*
+
+## 2023-09-14
+
+*03:50:42 - @Mike Smith has joined the channel*
+
+## 2024-01-10
+
+*19:39:57 - @Artür Manukyan has joined the channel*
+
+## 2024-05-10
+
+**Vince Carey** (11:59:29):
+> Timetable for zarr v3 python bindings:[https://github.com/zarr-developers/zarr-python/issues/1777](https://github.com/zarr-developers/zarr-python/issues/1777)
+  - Attachment: [#1777 Announcement: Zarr-Python version 3 release schedule](https://github.com/zarr-developers/zarr-python/issues/1777)
+    > This issue describes the planned development path toward the 3.0 release of Zarr-Python.
+    > 
+    > **Important information**
+    > 
+    > • [3.0 Roadmap and Design Doc](https://github.com/zarr-developers/zarr-python/blob/main/v3-roadmap-and-design.md)
+    > • [3.0 Project Board](https://github.com/orgs/zarr-developers/projects/5/views/2)
+    > • [3.0 Development Branch: `v3`](https://github.com/zarr-developers/zarr-python/tree/v3)
+    > 
+    > **Release schedule**
+    > **2.18.0 - May 9, 2024 ([Milestone](https://github.com/zarr-developers/zarr-python/milestones))**
+    > 
+    > • Goal: prepare the way for the 3.0 releases
+    > • Includes deprecation and/or future warnings where breaking changes are expected in 3.0
+    > • Anticipated final minor release of 2.* series
+    > • Additional bug fix releases may be made as needed
+    > 
+    > **3.0.0.alpha0 - May 10, 2024 ([Milestone](https://github.com/zarr-developers/zarr-python/milestone/15))**
+    > 
+    > • Goal: facilitate testing by early adopters and downstream libraries
+    > • Includes >90% of the surface area of the expected 3.0.0 release
+    > • May be missing some documentation, test coverage, or features beyond the core API
+    > 
+    > **3.0.0 - June 14, 2024 ([Milestone](https://github.com/zarr-developers/zarr-python/milestone/16))**
+    > 
+    > • Goal: full release of Zarr-Python 3 :tada:
+    > • Includes 100% of the expected surface area of 3.0.0 release
+    > • May or may not include extensions beyond the core spec
+    > 
+    > **Note to contributors**
+    > 
+    > Over the next 2-3 months, we expect to transition the majority of development to the `v3` branch. By no means are we ceasing support for the 2.* series but the general direction of the library is toward `v3`. If you are considering a contribution to Zarr-Python beyond the scope of a bug fix, the `v3` branch is likely your best bet.
+
+
+## 2024-05-15
+
+*02:53:06 - @Hans-Rudolf Hotz has joined the channel*
+
+## 2024-06-12
+
+**Aedin Culhane** (13:05:29):
+> Met@Sanket Vermaat czi.The v3 alpha release of zarr-Python is now out (last night).He would like to establish a working group to consider zarr bindings, or maybe a hackathon/discussions at#biocclasses#bioc-conference-everyonebioc2024 or euroBioc?
+
+**Aedin Culhane** (13:05:55):
+> @Isaac Virshup
+
+**Vince Carey** (21:59:25):
+> Note that there will be a BOF on Zarr and R at CZI meeting on Thursday (session S, 1345, room not yet assigned)
+
+**Vince Carey** (22:00:04):
+> Unfortunately it collides with another BOF on python for statistics that will include Fernando Perez as discussant....
+
+
+## 2024-06-13
+
+**Mike Smith** (03:37:47):
+> I would be interested in knowing what's discussed if anyone attends. If it's in anyway useful, the EOSS6 application I wrote can be found at[https://github.com/grimbough/Rarr/blob/devel/inst/funding_applications/EOSS6-2024.md](https://github.com/grimbough/Rarr/blob/devel/inst/funding_applications/EOSS6-2024.md)
+
+**Vince Carey** (06:14:30):
+> Thanks Mike!  Will keep you posted.
+
+**Sanket Verma** (11:39:27) (in thread):
+> Thanks for the message@Aedin Culhane.
+> 
+> For anyone who’s interested here’s the PyPi release:[https://pypi.org/project/zarr/3.0.0a0/](https://pypi.org/project/zarr/3.0.0a0/)
+  - Attachment (PyPI): [zarr](https://pypi.org/project/zarr/3.0.0a0/)
+    > An implementation of chunked, compressed, N-dimensional arrays for Python
+
+**Sanket Verma** (11:43:32) (in thread):
+> We’re aiming for mid-July for the main release, i.e. V3.0.0
+> 
+> The full release schedule can be seen here:[https://github.com/zarr-developers/zarr-python/issues/1777](https://github.com/zarr-developers/zarr-python/issues/1777)I think, now would be a good time to try out the V3 module and provide feedback before the API freezes and we ship the main release.
+> We can also start discussing if someone from the Bioconductor community would like to work on the R bindings for Zarr-Python V3.
+  - Attachment: [#1777 Announcement: Zarr-Python version 3 release schedule](https://github.com/zarr-developers/zarr-python/issues/1777)
+    > This issue describes the planned development path toward the 3.0 release of Zarr-Python.
+    > 
+    > **Important information**
+    > 
+    > • [3.0 Roadmap and Design Doc](https://github.com/zarr-developers/zarr-python/blob/main/v3-roadmap-and-design.md)
+    > • [3.0 Project Board](https://github.com/orgs/zarr-developers/projects/5/views/2)
+    > • [3.0 Development Branch: `v3`](https://github.com/zarr-developers/zarr-python/tree/v3)
+    > 
+    > **Release schedule**
+    > **2.18.0 - May 9, 2024 ([Milestone](https://github.com/zarr-developers/zarr-python/milestones))**
+    > 
+    > • Goal: prepare the way for the 3.0 releases
+    > • Includes deprecation and/or future warnings where breaking changes are expected in 3.0
+    > • Anticipated final minor release of 2.* series
+    > • Additional bug fix releases may be made as needed
+    > 
+    > **3.0.0.alpha0 - June 5, 2024 ([Milestone](https://github.com/zarr-developers/zarr-python/milestone/15))**
+    > 
+    > • Goal: facilitate testing by early adopters and downstream libraries
+    > • Includes >90% of the surface area of the expected 3.0.0 release
+    > • May be missing some documentation, test coverage, or features beyond the core API
+    > 
+    > **3.0.0 - Mid-July, 2024 ([Milestone](https://github.com/zarr-developers/zarr-python/milestone/16))**
+    > 
+    > • Goal: full release of Zarr-Python 3 :tada:
+    > • Includes 100% of the expected surface area of 3.0.0 release
+    > • May or may not include extensions beyond the core v2 and v3 specs
+    > • Minimal breaking changes relative to 2.*
+    > • Complete migration guide
+    > 
+    > **Note to contributors**
+    > 
+    > Over the next 2-3 months, we expect to transition the majority of development to the `v3` branch. By no means are we ceasing support for the 2.* series but the general direction of the library is toward `v3`. If you are considering a contribution to Zarr-Python beyond the scope of a bug fix, the `v3` branch is likely your best bet.
+    > 
+    > *Update 5/31/24: We have fallen off our intended timeline by a few weeks. I've updated the alpha release and full release dates accordingly.*
+
+**Sanket Verma** (11:44:43) (in thread):
+> I can also assist if there’s an interest in organising a parallel track/theme for Zarr at the Bioconductor conference in US/Europe.
+
+*14:23:24 - @Robert Castelo has joined the channel*
+
+## 2024-06-17
+
+*06:43:31 - @Kevin Rue-Albrecht has joined the channel*
+
+## 2024-06-28
+
+**Robert Castelo** (09:05:52):
+> @Mike Smithand others, will you be attending Eurobioc in Oxford in September 4th-6th? If yes, would you be interested in attending a BoF session on Zarr and R/Bioconductor on Friday 6th from 11:15am to 12pm (see Eurobioc[schedule](https://eurobioc2024.bioconductor.org/schedule))?
+> 
+> (if we would have enough critical mass, maybe Sanket@Sanket Vermacould come over and help us navigate through Zarr v3).
+
+**Sanket Verma** (09:30:24) (in thread):
+> Thanks for starting the thread,@Robert Castelo.
+> 
+> Unfortunately, I won’t be able to travel to UK around that time but I’m happy to join via Zoom call and answer questions around Zarr V3.
+
+**Sanket Verma** (09:32:14) (in thread):
+> As I said here:[https://community-bioc.slack.com/archives/C03MKFSS7V2/p1718293483762529?thread_ts=1718211929.575479&channel=C03MKFSS7V2&message_ts=1718293483.762529](https://community-bioc.slack.com/archives/C03MKFSS7V2/p1718293483762529?thread_ts=1718211929.575479&channel=C03MKFSS7V2&message_ts=1718293483.762529)-I’mhappy to assist ifthere’san interest in organising a parallel track/theme for Zarr.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C03MKFSS7V2/p1718293483762529?thread_ts=1718211929.575479&amp;channel=C03MKFSS7V2&amp;message_ts=1718293483.762529)
+    > I can also assist if there’s an interest in organising a parallel track/theme for Zarr at the Bioconductor conference in US/Europe.
+
+**Robert Castelo** (10:23:02) (in thread):
+> Great, thanks, let’s see if there’s enough interest and we’ll let you know.
+
+
+## 2024-06-29
+
+**Davide Risso** (07:59:58) (in thread):
+> I am definitely interested and will be attending EuroBioc
+
+
+## 2024-07-30
+
+*06:06:22 - @Jacques SERIZAY has joined the channel*
+
+## 2024-08-02
+
+**Robert Castelo** (09:42:18) (in thread):
+> Hi,@Sanket Verma@Davide Risso@Mike SmithI’ve just opened an[issue](https://github.com/Bioconductor/EuroBioC2024/issues/53)at the EuroBioC2024 repo proposing this BoF.@Charlotte Sonesontold me she may be also interested, so let’s have it proposed and will see whether we get enough interest. If it happens, we’ll open a Zoom call so that Sanket could join.
+  - Attachment: [#53 BoF on Zarr and R/Bioconductor](https://github.com/Bioconductor/EuroBioC2024/issues/53)
+    > Proposal to do a Birds-Of-a-Feather (BoF) on Zarr and R/Bioconductor at EuroBioC2024, on Friday 6th from 11:15am to 12pm (see [EuroBioC2024 schedule](https://eurobioc2024.bioconductor.org/schedule)).
+
+
+## 2024-08-04
+
+**Sanket Verma** (03:07:29) (in thread):
+> Sounds good,@Robert Castelo. Thanks for letting me know.
+
+
+## 2024-08-19
+
+**Dario Righelli** (06:25:32) (in thread):
+> I’m in too!
+
+
+## 2024-09-03
+
+**Hervé Pagès** (14:55:55) (in thread):
+> @Robert CasteloI'm also interested in joining the Zoom call on Friday.
+
+**Robert Castelo** (18:05:05) (in thread):
+> Hi@Hervé Pagès@Sanket Verma@Davide Risso@Dario Righelli@Mike SmithI’ve just create the Zoom call event, for Friday’s BoF on Zarr and R/Bioconductor. Here is the link:
+> 
+> Topic: EuroBioC2024 BoF on Zarr and R/Bioconductor
+> Time: Sep 6, 2024 11:15 AM London
+> 
+> Join Zoom Meeting[https://upf-edu.zoom.us/j/95461813845?pwd=IEtef3VWd2XGSsz16KcR8bbMRbmiOg.1](https://upf-edu.zoom.us/j/95461813845?pwd=IEtef3VWd2XGSsz16KcR8bbMRbmiOg.1)Meeting ID: 954 6181 3845
+> Passcode: 402675
+> 
+> See you soon!
+
+
+## 2024-09-05
+
+**Sanket Verma** (06:54:28) (in thread):
+> Thanks for creating the Zoom meeting,@Robert Castelo.
+> Just to make sure, the BoF starts at 11:15 CET?
+
+**Robert Castelo** (07:03:08) (in thread):
+> Oh sorry, I forgot about this, we're in Oxford, UK, so this is not CET but 11:15 GMT+1.
+
+**Sanket Verma** (11:40:02) (in thread):
+> Cc:@Vince Carey
+
+**Mike Smith** (11:43:23) (in thread):
+> I'm afraid I'm still confused. Is it 11:15 or 11:45 UK time?
+
+**Robert Castelo** (11:58:22) (in thread):
+> According to the schedule at[https://eurobioc2024.bioconductor.org/schedule](https://eurobioc2024.bioconductor.org/schedule)BoF sessions tomorrow take place from 11:15 to 12:00, UK time.
+  - Attachment (eurobioc2024.bioconductor.org): [Schedule](https://eurobioc2024.bioconductor.org/schedule)
+    > Schedule
+
+**Mike Smith** (12:34:46) (in thread):
+> Great thanks. I was confused by the timings on the zoom link above
+
+**Robert Castelo** (13:19:40) (in thread):
+> oh, you’re right, the time on the zoom call was wrong, I wanted to open it already 30 minutes before at 10:45, I’ve just corrected the time in the Zoom call.@Sanket Vermacould you prepare a few slides about Zarr, its new version 3.0 and if you have any views/suggestions/challenges in interfacing it from R?
+
+**Hervé Pagès** (13:25:14) (in thread):
+> I still see "Time: Sep 6, 2024 11:45 AM London" on your comment from Tuesday above. Should this be corrected too?
+
+**Robert Castelo** (13:29:14) (in thread):
+> Oh sorry again, yes, I’ve just corrected it, I did this too quickly without looking at twice. Thanks for asking.
+
+
+## 2024-09-06
+
+**Vince Carey** (06:15:19) (in thread):
+> i don't see the zoom link
+
+**Vince Carey** (06:15:43) (in thread):
+> maybe i do now
+
+**Robert Castelo** (06:15:54) (in thread):
+> [https://upf-edu.zoom.us/j/95461813845?pwd=IEtef3VWd2XGSsz16KcR8bbMRbmiOg.1](https://upf-edu.zoom.us/j/95461813845?pwd=IEtef3VWd2XGSsz16KcR8bbMRbmiOg.1)
+
+**Robert Castelo** (06:16:34) (in thread):
+> This is a shared Google Drive document for anyone to write in:[https://docs.google.com/document/d/1tZ6Z6TkQxLULatmqkrtds9nYdhoh2DXwfnxTEBI5P1I/edit](https://docs.google.com/document/d/1tZ6Z6TkQxLULatmqkrtds9nYdhoh2DXwfnxTEBI5P1I/edit)
+
+**Mike Smith** (06:21:52):
+> For those attending the Zarr BoF here:s Sanket's link:[https://github.com/zarr-developers/zarr-python](https://github.com/zarr-developers/zarr-python)
+
+**Mike Smith** (06:27:39):
+> And his presentation:[https://docs.google.com/presentation/d/1Mj_iBkvM5HXrPzCZ3C4VrwhZJDJd1408TPm-mRbJUWg/edit](https://docs.google.com/presentation/d/1Mj_iBkvM5HXrPzCZ3C4VrwhZJDJd1408TPm-mRbJUWg/edit)
+
+**Mike Smith** (06:40:24):
+> [https://github.com/zarr-developers/zarr-specs/issues/245](https://github.com/zarr-developers/zarr-specs/issues/245)
+
+**Mike Smith** (06:41:09) (in thread):
+> [https://github.com/GraphBLAS/binsparse-specification](https://github.com/GraphBLAS/binsparse-specification)
+
+**Mike Smith** (06:41:12) (in thread):
+> [https://github.com/ivirshup/binsparse-python](https://github.com/ivirshup/binsparse-python)
+
+**Mike Smith** (06:43:39):
+> [https://arxiv.org/pdf/2207.09503/1000](https://arxiv.org/pdf/2207.09503/1000)
+
+**Mike Smith** (06:58:30):
+> [https://zarr.dev/community-calls/](https://zarr.dev/community-calls/)
+  - Attachment (Zarr Community Calls): [home](https://zarr.dev/community-calls/)
+    > Zarr Community Calls
+
+**Artür Manukyan** (07:01:13):
+> Also[https://github.com/keller-mark/pizzarr](https://github.com/keller-mark/pizzarr)has almost identical utility and similar API to[https://github.com/zarr-developers/zarr-python](https://github.com/zarr-developers/zarr-python)
+
+*11:14:57 - @Estella Dong has joined the channel*
+
+## 2024-10-08
+
+**Mike Smith** (06:10:30):
+> Following the discussion at EuroBioc2024 the devel version of Rarr now includes some support for array-style semantics and****{DelayedArray}****operations.  There's also a number of performance improvements for I/O tasks, where performance degraded badly as the number of chunks increased.  Happy to get any feedback from people who wanted this functionality.
+> ```
+> suppressPackageStartupMessages(library(Rarr))
+> packageVersion('Rarr')
+> #> [1] '1.5.2'
+> ```
+> 
+> ```
+> ## Create an array
+> a <- array(runif(1e6), dim = c(100,100,100))
+> 
+> ## To write the in-memory array to Zarr we need to provide a file path and chunk dims
+> tf1 <- tempfile(fileext = ".zarr")
+> z1 <- writeZarrArray(a, tf1, chunk_dim = c(50,50,50))
+> ## The output is a ZarrArray
+> z1
+> #> <100 x 100 x 100> ZarrArray object of type "double":
+> #> ,,1
+> #>             [,1]      [,2]      [,3] ...     [,99]    [,100]
+> #>   [1,] 0.5788205 0.1308598 0.5940766   . 0.3149524 0.3477633
+> #>   [2,] 0.7481251 0.7306149 0.9987839   . 0.4490903 0.9582130
+> #>    ...         .         .         .   .         .         .
+> #>  [99,] 0.6033049 0.6744013 0.7988372   . 0.4846736 0.7019329
+> #> [100,] 0.7699348 0.8501355 0.1450314   . 0.2610579 0.7752824
+> #> 
+> #> ...
+> #> 
+> #> ,,100
+> #>              [,1]       [,2]       [,3] ...     [,99]    [,100]
+> #>   [1,]  0.9410195  0.6239022  0.2053890   . 0.9505412 0.4391817
+> #>   [2,]  0.6959852  0.4591667  0.8982134   . 0.2267410 0.8722747
+> #>    ...          .          .          .   .         .         .
+> #>  [99,] 0.21171740 0.66218151 0.09602749   . 0.8207834 0.8645450
+> #> [100,] 0.54338133 0.70263702 0.22328942   . 0.1423260 0.4273642
+> ```
+> 
+> ```
+> ## We can use array semantics on this.
+> ## E.g. subset with [.  It becomes a DelayedArray.
+> z_subset <- z1[1:10, 1, 1, drop = FALSE]
+> z_subset
+> #> <10 x 1 x 1> DelayedArray object of type "double":
+> #> ,,1
+> #>            [,1]
+> #>  [1,] 0.5788205
+> #>  [2,] 0.7481251
+> #>   ...         .
+> #>  [9,] 0.8996813
+> #> [10,] 0.6145496
+> ```
+> 
+> ```
+> ## The operation is not realised on disk yet
+> ## Call writeZarrArray() again to do so, with new writing parameters
+> tf2 <- tempfile(fileext = ".zarr")
+> writeZarrArray(z_subset, zarr_array_path = tf2, chunk_dim = c(5,1,1))
+> #> <10 x 1 x 1> ZarrArray object of type "double":
+> #> ,,1
+> #>            [,1]
+> #>  [1,] 0.5788205
+> #>  [2,] 0.7481251
+> #>   ...         .
+> #>  [9,] 0.8996813
+> #> [10,] 0.6145496
+> ```
+> 
+> ```
+> ## Check the created Zarr has the dims and chunkdims we expected
+> zarr_overview(tf2)
+> #> Type: Array
+> #> Path: /tmp/RtmpcMTf7G/file5577445726c7c.zarr
+> #> Shape: 10 x 1 x 1
+> #> Chunk Shape: 5 x 1 x 1
+> #> No. of Chunks: 2 (2 x 1 x 1)
+> #> Data Type: float64
+> #> Endianness: little
+> #> Compressor: zlib
+> ```
+
+**Artür Manukyan** (06:21:34) (in thread):
+> Hey Mike, are you also considering on adding soon  utilities to open, create and detect groups in zarr stores in Rarr, or is it available already now ?
+
+
+## 2024-10-09
+
+**Mike Smith** (03:58:08) (in thread):
+> To be honest development is sporadic, although getting feature requests is the sort of thing that  motivates me.  Handling of groups is not supported in any way by Rarr at the moment.  Everything is focused on single Zarr arrays.
+> 
+> What sort of features would you like to see for working with groups?  Now the`ZarrArray`class exists a really simple approach could be to just create a list containing`ZarrArrays`to replicate the Zarr store heirachy.   I'd be interested to know if there are specific operations you'd like that make use of the group structure.
+
+**Artür Manukyan** (05:37:21) (in thread):
+> Thanks Mike! I have been just reviewing the`rhdf5`package where you can create groups (or nested groups it seems) using`h5createGroup`. A similar implementation using zarr can ultimately help with creating and tapping into, for example, subsub groups within a zarr store and create`ZarrArrays`in there, which now you can do with a combination of`h5createGroup`and`writeHDF5Array`using the`name`argument. Here, the name can be the name of an array under a group`<group_name>/<array_name>`, or under a group of a group ? ``<group_name>/<subgroup_name>/<array_name>``
+> 
+> A lot of folks (including myself) would like to achieve R/Python interoperability for up-and-coming spatial data objects, such as SpatialData ([https://spatialdata.scverse.org/en/stable/](https://spatialdata.scverse.org/en/stable/)) where there are multiple zarrarrays sit on multiple groups.
+> 
+> I can currently do this using a combination of a custom R native`zarr`interface ([https://github.com/keller-mark/pizzarr](https://github.com/keller-mark/pizzarr)) and another DelayedArray implementation that I cooked myself which uses pizzarr ([https://github.com/BIMSBbioinfo/ZarrArray](https://github.com/BIMSBbioinfo/ZarrArray)). However, I would love it if this is available for a bioconductor native package too.
+
+
+## 2024-10-21
+
+**Artür Manukyan** (14:24:42) (in thread):
+> @Mike Smithwe discuss here R packages for manipulating SpatialData objects, which will require zarr engines such as Rarr (fyi the package already depends on Rarr). SpatialData objects are fully stored in zarr.[https://community-bioc.slack.com/archives/C0558SHL814](https://community-bioc.slack.com/archives/C0558SHL814)
+
+
+## 2024-10-23
+
+*11:49:49 - @Sounkou Mahamane Toure has joined the channel*

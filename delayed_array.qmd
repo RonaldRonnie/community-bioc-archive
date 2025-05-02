@@ -1,0 +1,1904 @@
+---
+title: "#delayed_array"
+format: gfm
+---
+
+
+## 2018-07-09
+
+*15:29:24 - @Kasper D. Hansen has joined the channel*
+*15:29:24 - @Hervé Pagès has joined the channel*
+*15:29:25 - @Peter Hickey has joined the channel*
+**Kasper D. Hansen** (15:29:55):
+> So@Hervé Pagèswe have some things for DelayedArray; might be worth a discussion. Is this platform something you check?
+
+
+## 2018-07-10
+
+**Hervé Pagès** (10:48:03):
+> Yes we can discuss here or via issues on GitHub:[https://github.com/Bioconductor/DelayedArray/issues](https://github.com/Bioconductor/DelayedArray/issues)
+  - Attachment (GitHub): [Bioconductor/DelayedArray](https://github.com/Bioconductor/DelayedArray/issues)
+    > DelayedArray - Delayed operations on array-like objects
+
+**Kasper D. Hansen** (13:09:48):
+> What do you prefer? I think of issues as being the next step from a discussion.
+
+**Kasper D. Hansen** (13:10:29):
+> We are trying to finalize changes to minfi / bsseq to move it into productions with a  DelayedArray / HDF5 backend and have various questions and things we would like to get into DelayedArray.
+
+**Kasper D. Hansen** (13:12:20):
+> Some of these are basic, some more advanced.  Pete is the expert here, but he is traveling in Australia and I have some newbie questions / concerns.
+
+**Kasper D. Hansen** (13:13:29):
+> I am in the process of doing sample-based processing.  Ie. one sample at a time in parallel. Should be easy.  The issue here is that I have
+>   - two input matrices R, G
+>   - two output matrices U, M
+>   - all matrices have same`ncol`but the`nrow`differ
+
+**Kasper D. Hansen** (13:14:35):
+> So now I have to do something like (pseudo code)
+> ```
+> for( i in 1:nSamples) {
+>    U[, i] = function_U(R[,i]. G[,i])
+>    M[, i] = function_M(R[,i]. G[,i])
+> }
+> ```
+
+**Kasper D. Hansen** (13:16:20):
+> so super simple.  Now, since all matrices are big, I set up a realizaton backend.  Since we want to operate in terms of samples, we use
+> ```
+> > colGrid
+> function (x)
+> {
+>     block_maxlen <- max(nrow(x), DelayedArray:::get_default_block_maxlength(type(x)))
+>     makeRegularArrayGridOfCappedLengthViewports(refdim = dim(x),
+>         viewport_maxlen = block_maxlen, viewport_shape = "first-dim-grows-first")
+> }
+> ```
+> (in`DelayedMatrixStats`).  This function would be good to have in`DelayedArray`since sample-wise processing is common.
+
+**Kasper D. Hansen** (13:17:02):
+> Now, when I use this function on two different matrices with different dimensions, the grid gets messed up in the sense that each block will have different number of samples (because the rows are the same).
+
+**Kasper D. Hansen** (13:17:22):
+> Wanted: a function which makes the sample Grid sample based, but with a different number of rows.  Right now I do
+
+**Kasper D. Hansen** (13:17:56):
+> ```
+> Red_grid <- colGrid(Red)
+> M_sink_grid <- RegularArrayGrid(
+>             refdim = dim(M_sink),
+>             spacings = c(nrow(M_sink), Red_grid@spacings[2]))
+> ```
+
+**Kasper D. Hansen** (13:18:33):
+> So (1) add something like`colGrid()`. (2) have functionality to setup similar, but not identical grids
+
+**Kasper D. Hansen** (13:29:42):
+> -----
+
+**Kasper D. Hansen** (13:30:26):
+> Regarding`BACKEND`: from a design perspective I don’t like using`NULL`to confer information.  I think in-memory should have a`BACKEND`designation like`in-memory`or something
+
+**Kasper D. Hansen** (13:30:50):
+> that way you can also use`match.args()`to get the allowable values
+
+
+## 2018-07-13
+
+**Hervé Pagès** (14:07:50):
+> Hi@Kasper D. Hansen- I'll look into this. I'm currently traveling so it will take a couple of days before I get a chance to come up with something.
+
+**Kasper D. Hansen** (14:10:08):
+> At this stage I am really just discussing / brainstorming
+
+
+## 2018-07-17
+
+**Kasper D. Hansen** (10:26:27):
+> Is it possible to get an`overwrite`argument to`setHDF5RealizationSink()`and friends?
+
+
+## 2018-07-19
+
+*16:49:15 - @Aedin Culhane has joined the channel*
+
+## 2018-08-08
+
+**Hervé Pagès** (01:28:05):
+> @Kasper D. HansenI added`rowGrid()`and`colGrid()`to DelayedArray 0.7.25. Also exported and documented the backend-agnostic`RealizationSink()`constructor. I added an advanced example to the man page for`RealizationSink()`where I show how to walk on 2 arrays at the same time, like`R`and`G`in your example above, block by block, and write the computed blocks to`U`. This uses various key components like`colGrid()`,`setRealizationBackend()`,`RealizationSink()`,`read_block()`,`write_block()`. Hope this is close enough to your use case. Let me know if not.
+
+**Hervé Pagès** (01:35:56):
+> For adding the`overwrite`argument to`setHDF5RealizationSink()`. Do you mean`HDF5RealizationSink()`? (there is no`setHDF5RealizationSink()`function). This could be done but note that`HDF5RealizationSink()`is not exported because I don't want to encourage its use. For now I want to encourage the use of`RealizationSink()`instead because it's backend-agnostic. If you really need`HDF5RealizationSink()`to get the`overwrite`argument, please open an HDF5Array issue on GitHub and describe your use case. Thanks!
+
+**Peter Hickey** (01:42:25):
+> Thanks for adding`rowGrid()`and`colGrid()`. I’ll remove these from***DelayedMatrixStats***and use these
+
+**Hervé Pagès** (01:48:00):
+> Sounds good@Peter HickeyBefore I forget, would be great if you or@Kasper D. Hansencould also open an HDF5Array issue to describe the use case not currently supported by`saveHDF5SummarizedExperiment()`that you mentioned in Toronto. Thanks!
+
+**Peter Hickey** (02:05:04):
+> Will do
+
+**Kasper D. Hansen** (10:02:55):
+> Thanks
+
+**Kasper D. Hansen** (10:03:23):
+> Will take a look soon - have been a bit distracted away from DelayedArray following Bioc2018, but hope to return really soon.
+
+
+## 2018-08-13
+
+*10:04:15 - @Davide Risso has joined the channel*
+
+## 2018-08-27
+
+*06:48:50 - @Malte Thodberg has joined the channel*
+
+## 2018-09-18
+
+**Kasper D. Hansen** (11:42:32):
+> @Hervé PagèsSay we have a matrix which is substantially sparse, like the TENxBrainData. As I understand it, the standard HDF5 representation does not support sparse matrices. So we store it as a dense matrix anyway.  Is it possible to get the result of`read_block()`as a sparse matrix instead of a standard matrix?
+
+
+## 2018-09-19
+
+**Hervé Pagès** (11:15:50):
+> `read_sparse_block()`does that. Can only be used if the DelayedArray object is considered sparse i.e. if`is_sparse(x)`is TRUE. This is the case if the seed of`x`is considered sparse and if sparsity is preserved by the delayed operations carried by`x`. Only seeds of type TENxMatrixSeed are considered sparse for now but seeds of type dgCMatrix will follow soon.`writeTENxMatrix()`will take advantage of this new mechanism (in DelayedArray 0.7.41 and HDF5Array 1.9.20) to preserve sparsity all the way along when possible e.g. when doing something like`M <- TENxMatrix(...); writeTENxMatrix(log(M + 1))`, reducing the time of the whole operation to 30 min instead of > 2h on my laptop when`M`is the 1.3 Million Brain Cell data. Things like`rowSums()`and`colSums()`will also take advantage of this. This is still work-in-progress.
+
+**Kasper D. Hansen** (11:33:47):
+> Ok, so this suggests that to use this (eventually) we would want to use sparse HDF5 representations like`TENxMatrixSeed`. Now, I am not an expert, but I had the impression that TENx is essentially overloading the HDF5 format by putting sparse matrices in there.  Ie sparse matrices are not really supported by HDF5? Like can we for example grab out a whole row or a whole column of these sparse matrices?
+
+**Kasper D. Hansen** (11:34:44):
+> If this is the case, is it clear that the sparse HDF5 format by TENx is really using HDF5 well?
+
+**Hervé Pagès** (12:05:44):
+> Sparse matrices are not natively supported by HDF5. The 10x people came up with their own HDF5-based sparse representation. This is a column oriented sparse representation so it's easy and efficient to grab arbitrary columns but AFAIK there is no easy way to grab a full row without loading the full dataset in memory. Extending the`is_sparse()`/`read_sparse_block()`framework to support a "classic" HDF5 dataset that contains mostly zeroes would be possible but my feeling is that it would have limited interest because AFAIK there is no way to load the data directly in a sparse form. My understanding is that you first have to load it as a dense matrix before you can turn it into something sparse. However the real benefit of something like the`is_sparse()`/`read_sparse_block()`framework is to preserve sparsity all the way i.e. never have a dense block in memory. I'm curious to see whether there is still some substantial benefit in extending the`is_sparse()`/`read_sparse_block()`framework to support a "classic" HDF5 dataset though, so will need to spend some time playing around with this.
+
+**Kasper D. Hansen** (19:39:44):
+> @Mike Smithis it possible to extend`h5read()`to “force” it to return a`dgCMatrix`instead of a standard matrix
+
+**Kasper D. Hansen** (19:41:48):
+> There are two reasons for sparsity: one is memory efficiency - and if that is the goal, going through a dense representation is pointless - and another one is efficient computations. I am interested in the second one.  I could wrap the matrix resulting from`read_block()`into`Matrix(read_block(), sparse = TRUE)`but in my testing it is pretty slow. I am wondering if this could be made much faster by constructing the`dgCMatrix`in C as part of`h5read()`.
+
+**Kasper D. Hansen** (19:43:35):
+> If the speed of reading in a block as sparse is about the same as reading in a block as dense, there will be substantial downstream savings. I am estimating a 5-10x speedup for my current approach to PCA
+
+**Kasper D. Hansen** (19:43:50):
+> But perhaps it is too early to go the sparse way.
+
+**Kasper D. Hansen** (19:43:58):
+> Just feeling out possibiltiies here
+
+*19:44:00 - @Mike Smith has joined the channel*
+
+## 2018-09-20
+
+*15:07:56 - @Mike Jiang has joined the channel*
+**Mike Jiang** (15:11:52):
+> I think it is probably been asked before related to adapt the`DelayedArray`to the existing tooling that deal with in-memory matrix , it maybe more of a general question regarding to the method dispatching
+
+**Mike Jiang** (15:12:04):
+> ```
+> > aheatmap(assay([scaRaw.bm\[1:1000,\]](http://scaRaw.bm[1:1000,])), labRow='', annCol=as.data.frame(colData([scaRaw.bm](http://scaRaw.bm))[,c('condition', 'ourfilter')]), distfun='spearman')
+> Error in rowMeans(mat, na.rm = na.rm) : 
+>   'x' must be an array of at least two dimensions
+> > traceback()
+> 4: stop("'x' must be an array of at least two dimensions")
+> 3: rowMeans(mat, na.rm = na.rm)
+> 2: cluster_mat(mat, Rowv, distfun = distfun, hclustfun = hclustfun, 
+>        reorderfun = reorderfun, subset = subsetRow, verbose = verbose)
+> 1: aheatmap(assay([scaRaw.bm\[1:1000](http://scaRaw.bm[1:1000), ]), labRow = "", annCol = as.data.frame(colData([scaRaw.bm](http://scaRaw.bm))[, 
+>        c("condition", "ourfilter")]), distfun = "spearman")
+> ```
+
+**Mike Jiang** (15:15:51):
+> basically`NMF`package isn't aware of`DelayedArray::rowMeans`, and question is if there is anything I can do about it without asking`NMF`author to import`BiocGenerics::rowMeans`?
+
+**Kasper D. Hansen** (15:53:35):
+> Probably not
+
+**Kasper D. Hansen** (15:54:41):
+> Especially if the**function**and not the method is imported; then it is not easy to work around I think
+
+**Hervé Pagès** (17:19:41):
+> Yes they would need to import`BiocGenerics::rowMeans`(and add BiocGenerics to their Depends or Imports field of course). Importing specific methods is not needed and is not a good idea (even though many packages do it). NMF being a CRAN package they'll arguably be reluctant to depend on BiocGenerics. This is why we need something like the MatrixGenerics package ([https://github.com/Bioconductor/MatrixGenerics](https://github.com/Bioconductor/MatrixGenerics)) where we centralize all matrix row/col summarization generics, and push it to CRAN. Note that in the particular case of`base::row/colSums`and`base::row/colMeans`, convincing R-core to make them S3 generics with a default method would solve the problem (but that won't become available until BioC 3.9 i.e. when Bioconductor starts using R 3.6). They already do this for many other R base things so there is no reason a priori why this couldn't also be done for`row/colSums`and`row/colMeans`.
+  - Attachment (GitHub): [Bioconductor/MatrixGenerics](https://github.com/Bioconductor/MatrixGenerics)
+    > Playground for implementing S4 generics for matrix operations - Bioconductor/MatrixGenerics
+
+**Mike Jiang** (17:56:27) (in thread):
+> Good to know. Thanks a lot for the detailed explanations!
+
+
+## 2018-09-21
+
+**Mike Jiang** (13:06:53):
+> [https://github.com/Bioconductor/DelayedArray/issues/31](https://github.com/Bioconductor/DelayedArray/issues/31)
+  - Attachment (GitHub): [generic for deep copying · Issue #31 · Bioconductor/DelayedArray](https://github.com/Bioconductor/DelayedArray/issues/31)
+    > I haven't found the specification regarding to the generic interface (e.g. clone or deep_copy generics) for implementing the deep copy of DelayedArray object with the file backend.
+
+
+## 2018-10-24
+
+*05:55:13 - @Gabriele Sales has joined the channel*
+
+## 2018-10-27
+
+**Gabriele Sales** (16:46:20):
+> Hi, I just released on GitHub the package`kll`([https://github.com/gbrsales/kll](https://github.com/gbrsales/kll)) implementing one of the Karnin-Lang-Liberty algorithms for approximate quantile estimation over streams. It employs block reduction of`DelayedArray`s to efficiently process large data volumes. Any feedback welcome!
+  - Attachment (GitHub): [gbrsales/kll](https://github.com/gbrsales/kll)
+    > Streaming Quantile Approximation for R. Contribute to gbrsales/kll development by creating an account on GitHub.
+
+
+## 2018-10-29
+
+**Hervé Pagès** (00:29:05):
+> @Gabriele SalesNice! I wonder if forcing the input to be a single column of a 2D DelayedArray is really necessary.
+
+**Gabriele Sales** (03:39:18):
+> @Hervé PagèsNot really necessary. Just convenient for this initial version of the software:wink:
+
+**Gabriele Sales** (03:46:52):
+> I guess that in the presence of multiple columns, the software should compute a separate CDF for each one.
+
+**Hervé Pagès** (10:31:59):
+> Or maybe quantile estimation should ignore the dimensions of an array-like object and treat it as if it was a vector (like`mean`does).
+
+**Peter Hickey** (17:35:39):
+> you might consider`col/row`versions for 2D objects (like***matrixStats***)
+
+
+## 2018-10-30
+
+**Gabriele Sales** (11:58:07) (in thread):
+> Implemented in version 0.3.0 for columns. Will add row-level operation shortly.
+
+
+## 2018-11-01
+
+**Hervé Pagès** (15:13:09) (in thread):
+> On a DelayedMatrix`x`, this could just be something like`setMethod("rowFoo", "DelayedMatrix", function(x, ...) colFoo(t(x), ...))`. This is ok because`t`is delayed and an acceptable price to pay during realization of the individual blocks.
+
+
+## 2018-11-20
+
+*17:43:03 - @Aaron Lun has joined the channel*
+**Aaron Lun** (17:44:44):
+> Okay, now that I've realized we have a DA channel, I'm going to do all of my pestering here now.
+
+**Aaron Lun** (17:45:41):
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C35BSB5NF/p1542743732179600)
+    > @Hervé Pagès any feedback on my DA PR? Good? Bad? CRAAZY?
+
+
+## 2018-12-01
+
+**Aaron Lun** (12:17:37):
+> @Hervé Pagèsis there a time-frame for parallelized`%*%`in DA?
+
+**Aaron Lun** (12:18:38):
+> I'd like to get**BiocSingular**in the system sooner rather than later.
+
+
+## 2018-12-04
+
+**Aaron Lun** (11:41:38):
+> Thanks for the merge@Hervé Pagès!
+
+**Hervé Pagès** (11:58:11):
+> No problem (and sorry again for the delay). With this change multiplying an ordinary matrix with a DelayedMatrix object returns an ordinary matrix instead of a DelayedMatrix. Probably not what we want. I added you as a collaborator to[https://github.com/Bioconductor/DelayedArray](https://github.com/Bioconductor/DelayedArray)so you should be able to commit there directly. No need for a new PR. Thanks!
+  - Attachment (GitHub): [Bioconductor/DelayedArray](https://github.com/Bioconductor/DelayedArray)
+    > Delayed operations on array-like objects. Contribute to Bioconductor/DelayedArray development by creating an account on GitHub.
+
+**Aaron Lun** (12:04:07):
+> Should it just be a case of wrapping the output in a DA? It's hard to see`%*%`preserving types in the low-level calculations, given that we have to`read_block`at some point.
+
+**Hervé Pagès** (12:08:45):
+> That wouldn't work if I try to multiply say a 500x200 ordinary matrix with a 200x95000000 DelayedMatrix object. You can't have the result in memory as an ordinary matrix. Blocks of result have to be written to disk as we go.
+
+**Aaron Lun** (12:13:42):
+> I guess that will require interaction with the backend facilities in DA; I'm not so familiar with those.
+
+**Aaron Lun** (12:16:32):
+> I presume the user should still be able to control the realization backend here; I wouldn't want to waste time writing to disk if I'm confident that the matrix product can fit in memory, which is the use case in**BiocSingular**.
+
+**Hervé Pagès** (12:23:14):
+> Yes the current realization backend should be used. Look at the matrix multiplication example in`?DelayedArray-utils`.  Right now it's broken because`P2`is returned as an ordinary matrix even though the user explicitly requested realization in hdf5 (`setRealizationBackend("HDF5Array")`). I'm not sure what your concerns are about preserving types in low-level calculations. The type of all the blocks is the same and known in advance (type of result is`typeof(vector(type(x), 1L) * vector(type(y), 1L))`). See`.BLOCK_mult_by_left_matrix`in DelayedArray/R/DelayedMatrix-utils.R
+
+**Aaron Lun** (12:23:42):
+> Ah, ignore the "types" comment.
+
+**Aaron Lun** (13:05:54):
+> Right, let's look at`.super_BLOCK_mult`first. If`chosen_scheme=="common"`, we can simply`realize(ans)`to satisfy the output requirements. This is because the final matrix product is of the same dimension as the matrix product of the individual blocks, so if you can hold the latter in memory, you should be able to hold the former.
+
+**Aaron Lun** (13:06:41):
+> If`chosen_scheme`is`"x"`or`"y"`, it becomes harder.`bpiterate`needs to write to the backend as we go along. I'm not sure how to do that - via`REDUCE=`, presumably? It would have to write to a sink, but how would it know at what position to write each matrix product? This would require the grid information from the function produced by`.single_grid_iterate`, but that's not available to the`REDUCE`function AFAIK.
+
+**Hervé Pagès** (18:00:26):
+> It's probably easier if we discuss this on GitHub.  See my answer here:[https://github.com/Bioconductor/DelayedArray/issues/33#issuecomment-444292128](https://github.com/Bioconductor/DelayedArray/issues/33#issuecomment-444292128)
+  - Attachment (GitHub): [Implementing crossprod and dual-DA %*% · Issue #33 · Bioconductor/DelayedArray](https://github.com/Bioconductor/DelayedArray/issues/33#issuecomment-444292128)
+    > I recently needed crossprod for DA objects, as well as a %*% that would accept two DAs. I&#39;ve put the code I&#39;ve used here, in the hope that it may help development of the methods within the ...
+
+
+## 2018-12-05
+
+**Aaron Lun** (09:00:38):
+> Gee, I gotta say, multicore overheads are pretty high even with`bpstart`:
+> ```
+> > library(BiocSingular)
+> > a <- matrix(rnorm(100000), ncol=20)
+> > system.time(out <- runIrlbaSVD(a, k=5, fold=Inf, BPPARAM=SerialParam()))
+>    user  system elapsed 
+>   0.009   0.000   0.009 
+> > str(out)
+> List of 3
+>  $ d: num [1:5] 75.1 74.4 74.2 73.4 73.2
+>  $ u: num [1:5000, 1:5] -0.0313 0.00312 -0.01233 -0.00924 0.01047 ...
+>  $ v: num [1:20, 1:5] -0.197 -0.4 -0.141 0.145 0.222 ...
+> > system.time(out2 <- runIrlbaSVD(a, k=5, fold=Inf, BPPARAM=MulticoreParam()))
+>    user  system elapsed 
+>   2.031   0.102   5.189 
+> > str(out2)
+> List of 3
+>  $ d: num [1:5] 75.1 74.4 74.2 73.4 73.2
+>  $ u: num [1:5000, 1:5] -0.0313 0.00312 -0.01233 -0.00924 0.01047 ...
+>  $ v: num [1:20, 1:5] -0.197 -0.4 -0.141 0.145 0.222 ...
+> ```
+
+**Aaron Lun** (09:02:18):
+> `bpstart`is called internally, but I get basically the same delay if I call it explicitly.
+
+**Aaron Lun** (09:33:12):
+> I don't think it's the costing calculations, because those are performed regardless of the number of`bpnworkers`.
+
+**Aaron Lun** (10:20:17):
+> In any case, BiocSingular is fully DA-ized.
+
+
+## 2018-12-12
+
+**Aaron Lun** (00:09:41):
+> Re the above example: I realized that part of the slowdown is because`runIrlbaSVD`will dispatch to C code when encountering a single core with no modifications. A fairer comparison would forcibly use R code regardless of the number of cores, which can be achieved by turning the input matrix into a non-ordinary representation:
+> ```
+> > a <- DelayedArray(matrix(rnorm(100000), ncol=20))
+> > system.time(out <- runIrlbaSVD(a, k=5, fold=Inf, BPPARAM=SerialParam()))
+>    user  system elapsed 
+>   1.092   0.047   1.229 
+> > system.time(out2 <- runIrlbaSVD(a, k=5, fold=Inf, BPPARAM=MulticoreParam()))
+>    user  system elapsed 
+>   2.013   0.375   3.308
+> ```
+
+**Aaron Lun** (00:10:28):
+> So, still pretty bad in terms of the overheads. As a result, I’ve turned off parallelization by default. People can choose to parallelize for large matrices where it’s actually neccessary.
+
+
+## 2018-12-14
+
+*12:40:32 - @Rena Yang has joined the channel*
+
+## 2018-12-21
+
+**Aaron Lun** (06:52:53):
+> @Hervé PagèsI assume the latest parallelized`%*%`made it into Bioc-devel. I wonder whether it is causing my**scran**`TIMEOUT`s on Windows ([http://bioconductor.org/checkResults/devel/bioc-LATEST/scran/tokay2-checksrc.html](http://bioconductor.org/checkResults/devel/bioc-LATEST/scran/tokay2-checksrc.html)); if the default`bpparam()`is a`SnowParam`, the overheads are probably considerable for any matrix multiplication that I might do (and I do a lot of them). For example, the`DelayedArray-utils.R`examples take 3-times longer on Windows compared to Linux.
+
+
+## 2019-01-08
+
+**Hervé Pagès** (01:41:02):
+> @Aaron LunYes because SnowParam has too much overhead, the`BPPARAM`arg of`blockApply()`has its default set to`getAutoBPPARAM()`.`getAutoBPPARAM()`will return a MulticoreParam object on Linux and Mac and a SerialParam object on Windows. I guess parallelized`%*%`should also use`getAutoBPPARAM()`internally to obtain the parallelization backend. Note that the user can use`setAutoBPPARAM()`to change the parallelization backend returned by`getAutoBPPARAM()`. The`setAutoBPPARAM()/getAutoBPPARAM()`thing was my attempt at overriding the factory defaults provided by BiocParallel since those defaults don't play well in general with parallel block processing in DelayedArray. Not very elegant or user-friendly:pensive:
+
+**Aaron Lun** (01:52:28):
+> Yes, and that’s part of the motivation for my Bioc-devel request to change the BiocParallel defaults to SerialParam in all cases.
+
+*02:02:49 - @Laurent Gatto has joined the channel*
+
+## 2019-01-10
+
+*09:15:08 - @Samuela Pollack has joined the channel*
+*11:32:26 - @Lori Shepherd has joined the channel*
+
+## 2019-01-21
+
+**Aaron Lun** (05:03:05):
+> @Hervé PagèsI added a global option to allow users to control whether or not the matrix multiplication yields***identical***results with multiple cores, by shutting off the parallelization scheme that can yield numerically different results due to changes in the addition order. (I pushed this to your`master`accidentally; I was hoping to push it to my fork and make a PR, but I forgot I changed my remotes - sorry.)
+
+
+## 2019-01-22
+
+**Hervé Pagès** (11:54:28):
+> @Aaron LunNo worries. I wonder if at some point we shouldn't think about this as a setting that controls various block processed operations though, since the issue of "possibly altered result because of block processing" does not only affect matrix multiplication.
+
+**Aaron Lun** (11:54:49):
+> That would probably be a good idea.
+
+
+## 2019-02-09
+
+**Aaron Lun** (09:29:57):
+> WOAH. Making a DelayedArray backend is AMAZING.
+
+**Aaron Lun** (09:48:21):
+> Just converted a`DeferredMatrix`into a DA backend.
+
+**Aaron Lun** (09:48:45):
+> I mean, damn! It just works!
+
+**Aaron Lun** (09:48:56):
+> Moving onto my next party trick -`LowRankMatrix`.
+
+**Aaron Lun** (11:49:43):
+> In summary:**BiocSingular**now has two matrix classes - the`DeferredMatrix`, which supports delayed centering and scaling prior to matrix multiplication; and the`LowRankMatrix`, which provides an efficient representation of a low-rank reconstruction of the input matrix after PCA.
+
+**Aaron Lun** (16:04:26):
+> Geez. Takes 150 lines to multiply two`DeferredMatrix`objects together without reverting to DelayedMatrix multiplication.
+
+
+## 2019-03-13
+
+*23:25:21 - @Kylie Bemis has joined the channel*
+
+## 2019-05-21
+
+*09:49:24 - @Kevin Rue-Albrecht has joined the channel*
+*09:50:44 - @Kevin Rue-Albrecht has left the channel*
+*09:56:28 - @Kevin Rue-Albrecht has joined the channel*
+**Kevin Rue-Albrecht** (10:00:40):
+> Hi, please let me know if there’s a better channel for that, as it combines`DelayedMatrix`,`BiocSingular`and`scater`(with a hint of`TENxPBMCData`).
+> I’m sure I’ve come across that`check_Ops_vector_arg_length`error before, but I’m not sure anymore how to chase down and fix the source of the issue below
+> ```
+> library(TENxPBMCData)
+> tenx_pbmc3k <- TENxPBMCData(dataset="pbmc3k")
+> #> snapshotDate(): 2019-05-07
+> #> see ?TENxPBMCData and browseVignettes('TENxPBMCData') for documentation
+> #> downloading 0 resources
+> #> loading from cache 
+> #>     'EH1607 : 1607'
+> library(scater)
+> tenx_pbmc3k <- normalize(tenx_pbmc3k)
+> #> Warning in .local(object, ...): using library sizes as size factors
+> 
+> assayNames(tenx_pbmc3k)
+> #> [1] "counts"    "logcounts"
+> assay(tenx_pbmc3k, "logcounts")
+> #> <32738 x 2700> DelayedMatrix object of type "double":
+> #>                    [,1]    [,2]    [,3] ... [,2699] [,2700]
+> #> ENSG00000243485       0       0       0   .       0       0
+> #> ENSG00000237613       0       0       0   .       0       0
+> #> ENSG00000186092       0       0       0   .       0       0
+> #> ENSG00000238009       0       0       0   .       0       0
+> #> ENSG00000239945       0       0       0   .       0       0
+> #>             ...       .       .       .   .       .       .
+> #> ENSG00000215635       0       0       0   .       0       0
+> #> ENSG00000268590       0       0       0   .       0       0
+> #> ENSG00000251180       0       0       0   .       0       0
+> #> ENSG00000215616       0       0       0   .       0       0
+> #> ENSG00000215611       0       0       0   .       0       0
+> 
+> tenx_pbmc3k <- scater::runPCA(tenx_pbmc3k)
+> #> Error in .check_Ops_vector_arg_length(e, x_nrow, e_what = e_what, x_what = x_what): right object is longer than first dimension of left object
+> 
+> > BiocManager::valid()
+> [1] TRUE
+> ```
+
+**Hervé Pagès** (16:54:46):
+> @Kevin Rue-AlbrechtBest place for this is the support site with proper tags,`sessionInfo()`, etc... Thanks!
+
+
+## 2019-06-08
+
+**Peter Hickey** (20:25:28):
+> Trying to make some sense of the DelayedArray hierarchy and why/when classes 'know' about their 'parents' and 'children'. This might be a more of a general S4 puzzle.
+> Can anyone help me understand the following:
+
+**Peter Hickey** (20:30:58):
+> ```
+> suppressPackageStartupMessages(library(HDF5Array)) # For HDF5Matrix
+> suppressPackageStartupMessages(library(BiocSingular)) # For DeferredMatrix and LowRankMatrix
+> 
+> # Let's find out about the DelayedMatrix class:
+> # - Knows about RleMatrix (from DelayedArray).
+> # - Doesn't know about DeferredMatrix and LowRankMatrix (from BiocSingular).
+> # - Doesn't know about HDF5Matrix or HDF5Array (from HDF5Array).
+> showClass("DelayedMatrix")
+> #> Class "DelayedMatrix" [package "DelayedArray"]
+> #> 
+> #> Slots:
+> #>            
+> #> Name:  seed
+> #> Class:  ANY
+> #> 
+> #> Extends: 
+> #> Class "DelayedArray", directly
+> #> Class "DelayedUnaryIsoOp", directly
+> #> Class "DelayedUnaryOp", directly
+> #> Class "DelayedOp", directly
+> #> Class "Array", directly
+> #> Class "DataTable", directly
+> #> Class "DataTable_OR_NULL", by class "DataTable", distance 2
+> #> 
+> #> Known Subclasses: "RleMatrix"
+> 
+> # Let's find out about the DelayedArray class:
+> # - Knows about RleMatrix (from DelayedArray) and also now RleArray (from DelayedArray).
+> # - A new class! Now knows about DeferredMatrix and LowRankMatrix (from BiocSingular).
+> # - But still doesn't know about HDF5Matrix or HDF5Array (from HDF5Array).
+> showClass("DelayedArray")
+> #> Class "DelayedArray" [package "DelayedArray"]
+> #> 
+> #> Slots:
+> #>            
+> #> Name:  seed
+> #> Class:  ANY
+> #> 
+> #> Extends: 
+> #> Class "DelayedUnaryIsoOp", directly
+> #> Class "DelayedUnaryOp", by class "DelayedUnaryIsoOp", distance 2
+> #> Class "DelayedOp", by class "DelayedUnaryIsoOp", distance 3
+> #> Class "Array", by class "DelayedUnaryIsoOp", distance 4
+> #> 
+> #> Known Subclasses: 
+> #> Class "DelayedMatrix", directly, with explicit coerce
+> #> Class "DelayedArray1", directly
+> #> Class "RleArray", directly
+> #> Class "RleMatrix", by class "RleArray", distance 2
+> #> Class "DeferredMatrix", by class "DelayedMatrix", distance 2
+> #> Class "LowRankMatrix", by class "DelayedMatrix", distance 2
+> 
+> # Let's go look at the DeferredMatrix class:
+> # - Cool, it reciprocates knowledge of DelayedArray (from DelayedArray).
+> # - Surprise! It also knows about the DelayedMatrix (from DelayedArray) but this isn't reciprocated.
+> showClass("DeferredMatrix")
+> #> Class "DeferredMatrix" [package "BiocSingular"]
+> #> 
+> #> Slots:
+> #>                          
+> #> Name:                seed
+> #> Class: DeferredMatrixSeed
+> #> 
+> #> Extends: 
+> #> Class "DelayedMatrix", directly
+> #> Class "DelayedArray", by class "DelayedMatrix", distance 2
+> #> Class "DelayedUnaryIsoOp", by class "DelayedMatrix", distance 2
+> #> Class "DelayedUnaryOp", by class "DelayedMatrix", distance 2
+> #> Class "DelayedOp", by class "DelayedMatrix", distance 2
+> #> Class "Array", by class "DelayedMatrix", distance 2
+> #> Class "DataTable", by class "DelayedMatrix", distance 2
+> #> Class "DataTable_OR_NULL", by class "DelayedMatrix", distance 3
+> 
+> # Let's go look at the HDF5Matrix class:
+> # - Knows about HDF5Array (from HDF5Array).
+> # - Surprise! It also knows about the DelayedMatrix and DelayedArray (from DelayedArray) but neither is reciprocated.
+> showClass("HDF5Matrix")
+> #> Class "HDF5Matrix" [package "HDF5Array"]
+> #> 
+> #> Slots:
+> #>                     
+> #> Name:           seed
+> #> Class: HDF5ArraySeed
+> #> 
+> #> Extends: 
+> #> Class "HDF5Array", directly
+> #> Class "DelayedMatrix", directly
+> #> Class "DelayedArray", by class "HDF5Array", distance 2
+> #> Class "DelayedUnaryIsoOp", by class "DelayedMatrix", distance 2
+> #> Class "DelayedUnaryOp", by class "DelayedMatrix", distance 2
+> #> Class "DelayedOp", by class "DelayedMatrix", distance 2
+> #> Class "Array", by class "DelayedMatrix", distance 2
+> #> Class "DataTable", by class "DelayedMatrix", distance 2
+> #> Class "DataTable_OR_NULL", by class "DelayedMatrix", distance 3
+> ```
+
+
+## 2019-06-11
+
+**Peter Hickey** (07:49:01):
+> ping@Hervé Pagès
+
+**Hervé Pagès** (19:35:01):
+> This sounds more like a question about`showClass()`accuracy/reliability than a specific DelayedArray question to me. What I've observed is that`showClass()`fails to list all the known subclasses, even when the packages where these subclasses are defined are loaded. E.g.:
+> ```
+> > library(IRanges)
+> > showClass("Vector")
+> Virtual Class "Vector" [package "S4Vectors"]
+> 
+> Slots:
+>                                           
+> Name:    elementMetadata          metadata
+> Class: DataTable_OR_NULL              list
+> 
+> Extends: "Annotated", "vector_OR_Vector"
+> 
+> Known Subclasses: 
+> Class "Hits", directly
+> Class "Rle", directly
+> Class "Factor", directly
+> Class "List", directly
+> Class "Pairs", directly
+> Class "SelfHits", by class "Hits", distance 2
+> Class "SortedByQueryHits", by class "Hits", distance 2
+> Class "SimpleList", by class "List", distance 2
+> Class "SortedByQuerySelfHits", by class "Hits", distance 3
+> Class "SortedByQuerySelfHits", by class "Hits", distance 3
+> Class "HitsList", by class "List", distance 3
+> Class "SelfHitsList", by class "List", distance 4
+> Class "SortedByQueryHitsList", by class "List", distance 4
+> Class "SortedByQuerySelfHitsList", by class "List", distance 5
+> Class "FilterRules", by class "SimpleList", distance 3
+> ```
+> No IRanges class in the list of Known Subclasses:thinking_face:
+
+**Peter Hickey** (21:17:24):
+> :thinking_face:indeed
+> i'll see if I can make a version of this using just base/recommended packages. if so, i'll post to r-devel
+
+
+## 2019-06-25
+
+*10:16:44 - @Aaron Wolen has joined the channel*
+
+## 2019-06-26
+
+*16:18:22 - @FelixErnst has joined the channel*
+
+## 2019-10-29
+
+*17:34:10 - @Kevin Rue-Albrecht has left the channel*
+
+## 2019-12-04
+
+*17:39:05 - @Jonathan Carroll has joined the channel*
+
+## 2020-01-23
+
+*07:13:54 - @Constantin Ahlmann-Eltze has joined the channel*
+
+## 2020-02-25
+
+**Malte Thodberg** (05:11:51):
+> Quick question about RleMatrix:
+> Is possible to change the storage/type of an RleMatrix?
+> E.g. I have a`<3515575 x 3> matrix of class RleMatrix and type "double":`, but i would like to convert it to`type "integer"`
+
+**Hervé Pagès** (14:50:50):
+> I got you covered:[https://github.com/Bioconductor/DelayedArray/commit/1b4a84b3ac2865ed23dc039f1d806fbf30858af9](https://github.com/Bioconductor/DelayedArray/commit/1b4a84b3ac2865ed23dc039f1d806fbf30858af9)(this is in devel only)
+
+
+## 2020-02-26
+
+**Malte Thodberg** (07:45:36):
+> Thanks, I will have a look!
+> The use case I have is converting a dgCMatrix to RleMatrix. As dgCMatrix only stores integer, it’s useful to be able to convert the type as well after conversion.
+
+
+## 2020-02-28
+
+**Malte Thodberg** (07:43:50):
+> I have to update CAGEfightR since a CRAN dependency Matrix.utils was removed. CAGEfightR currently uses dgCMatrix to store large sparse matrices and summarize them with colSums, rowSums and rowsum.
+> 
+> Since I had update stuff anyway, I decided to have a look at using DelayedArray/DelayedMatrixStats instead. However, I’m seeing some strange results:
+> 
+> The data is a 10916237 row by 10 column 85% sparse matrix (CAGE Transcription Start Sites counts from the FANTOM5 project).
+> 
+> To test, I wrapped various DelayedArray approached:
+> - dgCMatrix: DelayedArray around a dgCMatrix.
+> - DataFrame: DelayedArray around a DataFrame of Integer Rles
+> - RleMatrix: Integer Rle chunked by columns (ChunkedRleSeed, made with RleArray(DataFrame))
+> 
+> Sizes with`pryr::object_size`are:
+> ```
+> $dgC
+> 193 MB
+> 
+> $DataFrame
+> 190 MB
+> 
+> $RleMatrix
+> 190 MB
+> ```
+> I then tested the performance of the various functions from DelayedArray/DelayedMatrixStats (with`register(MulticoreParam(10)`):
+> 
+> colSums
+> ```
+> Unit: seconds
+>       expr      min       lq     mean   median       uq      max neval
+>        dgC 1.439941 1.450260 1.537633 1.567637 1.568433 1.661894     5
+>  DataFrame 2.249576 2.451812 2.436912 2.459685 2.482498 2.540992     5
+>  RleMatrix 7.164973 7.273550 7.356017 7.292057 7.319697 7.729806     5
+> ```
+> rowSums
+> ```
+> Unit: seconds
+>       expr      min       lq     mean   median        uq      max neval
+>        dgC 1.496281 1.531065 3.658413 1.563097  1.703526 11.99809     5
+>  DataFrame 1.968783 2.011974 2.062985 2.075198  2.080672  2.17830     5
+>  RleMatrix 6.140917 6.666853 8.365040 7.393074 10.777367 10.84699     5
+> ```
+> colSums2
+> ```
+> Unit: milliseconds
+>       expr         min          lq        mean      median          uq       max neval
+>        dgC    32.51855    37.32353    57.35036    44.53217    54.96854   117.409     5
+>  DataFrame  1146.64347  1164.11161  1569.74301  1590.89606  1861.79085  2085.273     5
+>  RleMatrix 20874.20584 20913.28288 21628.26395 22090.04003 22113.75296 22150.038     5
+> ```
+> rowSums2
+> ```
+> Unit: milliseconds
+>       expr        min         lq       mean    median         uq       max neval
+>        dgC   381.4779   392.1691   392.3106   393.111   393.9608   400.834     5
+>  DataFrame  5296.8470  5406.9673  5706.0741  5557.695  6086.3034  6182.558     5
+>  RleMatrix 20996.7990 21073.6121 21854.9328 22357.792 22405.5759 22440.885     5
+> ```
+> rowsum (508957 groups + NA to summarize)
+> ```
+> Unit: seconds
+>       expr       min        lq      mean    median        uq       max neval
+>        dgC  3.778074  3.831676  3.880812  3.850150  3.956066  3.988093     5
+>  DataFrame  6.704347  6.772696  6.817167  6.842812  6.852748  6.913230     5
+>  RleMatrix 21.633152 22.132371 22.984483 23.609404 23.684137 23.863352     5
+> ```
+> I was surprised by the following:
+> - Despite storing floats instead of integers, dgCMatrix is almost same size as the Rle-based objects.
+> - dgCMatrix is the fastest option: The seed-optimized Matrix methods are a lot faster, but even the non-optimized colSum/rowSums is faster than DataFrame/RleMatrix in all  cases.
+> - I was suprised to see that RleMatrix was much slower than a simple DataFrame of Rle’s. Is there some trick to make RleMatrix perform better?
+> 
+> Any expert advice is much appreciated!
+
+**Kasper D. Hansen** (09:34:31):
+> This points to some needed optimization in the stack so to speak
+
+**Kasper D. Hansen** (09:34:59):
+> especially colSums on an RleMatrix should be fast
+
+**Kasper D. Hansen** (09:35:23):
+> How does this look without parallelization. You cannot assume that all approaches take advantage of parallelization
+
+**Kasper D. Hansen** (09:36:10):
+> Tagging@Hervé Pagèsand@Peter Hickey
+
+**Hervé Pagès** (13:23:35):
+> Definitely need to take a look at what's going on with`colSums2(RleMatrix)`and`rowSums2(RleMatrix)`. It would be great if you could open an issue at[https://github.com/Bioconductor/DelayedArray/issues](https://github.com/Bioconductor/DelayedArray/issues)with reproducible example etc... so we can keep track of this. A few comments:***A word about memory footprint***Generally speaking you should not expect switching from sparse representation to Rle representation to reduce memory footprint, even if you use integer storage for the Rle representation:
+> ```
+> library(Matrix)
+> library(S4Vectors)
+> library(pryr)
+> randomSparseMatrix <- function(nrow, ncol,
+>                                sparsity=0.85)
+> {
+>     m_len <- nrow * ncol
+>     m_data <- runif(m_len) * 50
+>     zidx <- sample(m_len, as.integer(m_len * sparsity))
+>     m_data[zidx] <- 0
+>     m <- matrix(m_data, nrow=nrow, ncol=ncol)
+>     as(m, "dgCMatrix")
+> }
+> 
+> m0 <- randomSparseMatrix(10916237, 10)
+> object_size(m0)
+> # 196 MB
+> 
+> rle0 <- Rle(as.integer(as.vector(m0)))
+> object_size(rle0)
+> # 237 MB
+> ```
+> That's because sparse representation uses 1 integer + 1 double per non-zero val whereas integer-Rle representation uses 4 integers (in average) per non-zero val.
+> That being said, the`RleArray()`constructor will try to reduce the memory footprint of the Rle data passed to it by storing some chunks as raw-Rle's (it does it for the chunks that contain values >= 0 and <= 255):
+> ```
+> library(DelayedArray)
+> M1 <- DelayedArray(m0)
+> M2 <- RleArray(rle0, dim=dim(m0), chunksize=nrow(m0))
+> object_size(M1)
+> # 196 MB
+> object_size(M2)
+> # 148 MB
+> ```
+> Nice isn't it!
+> Well in our case this works well because***all***the chunks have values between 0 and 255. For real-world count data, reducing the size of the chunks will increase the chance to have chunks that can be switched from integer-Rle to raw-Rle.***A word about chunk size***Using a small chunk size is always a good idea anyway because it also tends to improve speed. This is mostly true for on-disk data (e.g. HDF5) though, but it seems to still help a little bit with RleArray objects:
+> ```
+> M3 <- RleArray(rle0, dim=dim(m0), chunksize=2e4)
+> system.time(rs1 <- rowSums(M1))
+> #    user  system elapsed 
+> #   4.585   2.654   1.737 
+> system.time(rs2 <- rowSums(M2))
+> #    user  system elapsed 
+> #  27.688   5.253   8.282 
+> system.time(rs3 <- rowSums(M3))
+> #    user  system elapsed 
+> #  24.371   5.946   7.510
+> ```
+> ***A word about block processing***Row/col summarization functions like`rowSums`/`colSums`use block processing on DelayedMatrix objects. See`?getAutoBlockSize`for how to get/set the block size. Increasing it might help. My guess is that block processing is the main culprit for the slowdown you observe with the DelayedArray approaches (DelayedArray around a dgCMatrix and RleMatrix).  The major cause of inefficiency is that the blocks are expanded in memory (as ordinary matrices) each time they are accessed! This is a known bottleneck and there is currently some work in progress to address it, at least in the case of a DelayedArray around a dgCMatrix (the plan is to have block processing extract the blocks as sparse objects).***A word about using parallel evaluation***Note that doing so on an in-memory DelayedArray object means that each worker gets its own copy of the entire array data. So instead of e.g. using 8 workers, it might be more beneficial to disable parallel evaluation and increase the size of the blocks by 8x.***Bottom line***: no DelayedArray approach will beat the performance of operating directly on your dgCMatrix object. Unfortunately the row/col summarization functions from the matrixStats package don't work on a dgCMatrix object so wrapping it in a DelayedArray is a convenient way to make them work (thanks to the DelayedMatrixStats package). But this is at the cost of a significant slowdown at the moment. Once@Constantin Ahlmann-Eltze’s sparseMatrixStats package is ready ([https://github.com/const-ae/sparseMatrixStats](https://github.com/const-ae/sparseMatrixStats)) you will no longer need to do this.
+
+
+## 2020-03-03
+
+**Malte Thodberg** (11:15:29):
+> Thanks for the detailed response Herve Page!
+> I think that means for now I will stick to dgCMatrix, since the performance is quite a bit better it seems (although I really like the DelayedArray/DelayedMatrixStats interface!).
+> The thing that started the whole thing was actually looking for an  efficient rowsum-equivalent for dgCmatrix.  After a new round of research, it stumbled across this:[https://stackoverflow.com/a/54437289/1920028](https://stackoverflow.com/a/54437289/1920028). This uses Matrix::fac2sparse, which seems to  be comparable to Matrix.utils in speed. Might interested for DelayedMatrixStats/sparseMatrixStats?
+  - Attachment (Stack Overflow): [Aggregating a sparse matrix by a single column](https://stackoverflow.com/a/54437289/1920028)
+    > I have a very large sparse matrix that looks like: client item_1 item_2 item_3.... item_n a 1 0 0 0 a 0 0 1 0 b 0 1 0 ...
+
+**Hervé Pagès** (17:22:09):
+> OK so we need a native`rowsum()`for dgCMatrix objects. Well, since this is not too hard to implement, I just added one to the DelayedArray package:[https://github.com/Bioconductor/DelayedArray/commit/215ef2732f5b3ff5076ed51d102c67ad2653d363](https://github.com/Bioconductor/DelayedArray/commit/215ef2732f5b3ff5076ed51d102c67ad2653d363)Just a temporary location. This stuff will need to go to MatrixGenerics/sparseMatrixStats at some point.
+
+**Peter Hickey** (17:33:08):
+> Nice! Or into***Matrix***itself (although it seems like this may be a push ..)
+
+
+## 2020-03-04
+
+*12:18:20 - @Stephanie Hicks has joined the channel*
+*15:04:03 - @Jialin Ma has joined the channel*
+
+## 2020-03-07
+
+**Hervé Pagès** (03:25:04):
+> Dimnames in the HDF5 file, finally![https://github.com/Bioconductor/HDF5Array/commit/c2cd0268c2d1946ec92715ece0e90a841b80a89b](https://github.com/Bioconductor/HDF5Array/commit/c2cd0268c2d1946ec92715ece0e90a841b80a89b)
+
+
+## 2020-03-08
+
+**Stephanie Hicks** (22:07:55):
+> nice! thanks@Hervé Pagèsand@Mike Smith!
+
+
+## 2020-03-09
+
+**Aaron Lun** (03:31:54):
+> I haven't checked it out, but just to confirm, this change won't break our old HDF5 files, right? I'm assuming that if HDF5Array doesn't see dimnames in the file, it just shrugs and moves on, i.e., does what it used to do.
+
+**Hervé Pagès** (05:54:40):
+> Yes, if there are no dimnames in the file then`dimnames(HDF5Array(...))`will be NULL, as usual.
+
+
+## 2020-03-26
+
+**Aaron Lun** (01:19:04):
+> @Hervé Pagèsis DA aware of BiocParallel evaluation context?
+
+**Aaron Lun** (01:19:53):
+> So if I'm calling, say, `DelayedArray::`rowSums`inside`bplapply`, is it smart enough to not do**more**parallelization?
+
+**Aaron Lun** (01:22:22):
+> IMO all functions should use 1 process, by default, unless explicitly told not to. This auto-parallelization philosophy with`bpparam`'s defaults and DA's defaults really makes it hard to get a handle on resource usage. In fact, when you're working on clusters, it can be catastrophic because MulticoreParam and friends don't respect the resource limits so they just autograb all available CPUs on a node, even if they are only provisioned 1-2 CPUs.
+
+**Hervé Pagès** (01:34:01):
+> I agree. Parallel evaluation should be the user choice, not the default. I'll change this. Note that this is already the default on Windows so DelayedArray's defaults will be consistent on all platforms which is good. I think this will also eliminate some other issue with DelayedArray currently trying to initialize the BiocParallel backend in a platform-dependent way at load time which I've been told is not good practice.
+
+**Aaron Lun** (01:48:11):
+> :+1:
+
+**Aaron Lun** (01:48:14):
+> YES
+
+**Hervé Pagès** (02:58:50):
+> Done in DelayedArray 0.13.8:[https://github.com/Bioconductor/DelayedArray/commit/1724ed97b88b316e9524ed1e634abc8959d05aa4](https://github.com/Bioconductor/DelayedArray/commit/1724ed97b88b316e9524ed1e634abc8959d05aa4)
+
+**Aaron Lun** (02:59:13):
+> :flag-au:
+
+**Aaron Lun** (02:59:20):
+> :+1:
+
+**Aaron Lun** (02:59:27):
+> :party_parrot:
+
+**Hervé Pagès** (02:59:46):
+> :fr:
+
+**Aaron Lun** (03:04:50):
+> :croissant:
+
+**Hervé Pagès** (03:13:11):
+> Too late (or too early) for that. Need to get some sleep first. Good night!
+
+**Aaron Lun** (03:13:34):
+> night
+
+**Aaron Lun** (03:56:15):
+> I too am finally done with work, so I shall sleep as well.
+
+**Aaron Lun** (03:58:27) (in thread):
+> My personal before-bedtime routine.
+  - File (GIF): [MilkyIdenticalHeron-size_restricted.gif](https://community-bioc.slack.com/files/U34P8RS3B/F010HK9RW6M/milkyidenticalheron-size_restricted.gif)
+
+*09:02:46 - @Marcel Ramos Pérez has joined the channel*
+*10:34:54 - @Nicholas Knoblauch has joined the channel*
+*10:40:04 - @Nolan Nichols has joined the channel*
+
+## 2020-07-07
+
+*02:59:09 - @Vivek Das has joined the channel*
+
+## 2020-07-27
+
+*00:41:54 - @Ayush Raman has joined the channel*
+
+## 2020-07-30
+
+*08:56:33 - @Jeroen Gilis has joined the channel*
+**Peter Hickey** (16:43:56):
+> [https://community-bioc.slack.com/archives/C35BSB5NF/p1596114464092100](https://community-bioc.slack.com/archives/C35BSB5NF/p1596114464092100)some questions from my delayedarray workshop at BioC 2020 with answers from Hervé
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C35BSB5NF/p1596114464092100)
+    > Copying the poll questions from the DelayedArray workshop here for @Peter Hickey (when it’s morning again in Australia :slightly_smiling_face:) or others:
+    > ```1. Can users specify the maximum memory usage or should it be controlled by the chunk size of HDF5 in advance?
+    > 2. If we want to analyze the raw count matrix of scRNAseq downloaded from scRNAseqdb, do we need to convert the matrix to HDF5 file?
+    > 3. What are the best practices around parallelization for HDF5Arrays? For example reading from a file within a bpapply() loop?
+    > 4. How do you mean by "realizing" a DelayedArray or HDF5Array dataset?
+    > 5. Curious about huge datasets. Any limitations you can think about around, say, biobank-scale data (10s + of TB)? Any thoughts about also performance in cluster environments? Assuming performance scales both with the flavor of HDD + network overhead if using NFS or similar.
+    > 6. Is there a saveHDF5SingleCellExperiment?
+    > 7. What's the relationship between the chunk size on disk and the block size on input to R? Do they have to match? Is there an optimal choice for each?```
+
+
+## 2020-07-31
+
+*16:22:33 - @Dr Awala Fortune O. has joined the channel*
+
+## 2020-08-03
+
+*19:26:48 - @Rene Welch has joined the channel*
+
+## 2020-08-05
+
+*18:22:29 - @Lukas Weber has joined the channel*
+
+## 2020-10-02
+
+*03:23:09 - @Paul Harrison has joined the channel*
+
+## 2020-10-04
+
+**Aedin Culhane** (02:14:04):
+> Hi  I am getting errors with MatrixStats and DelayedArray which is causing trouble. Both define rowRanges
+
+**Hervé Pagès** (18:01:03):
+> DelayedArray and SummarizedExperiment have both been modified last week to import the`rowRanges()`generic from the MatrixGenerics package. Make sure you have the latest version of MatrixGenerics (1.1.3), DelayedArray (0.15.15), and SummarizedExperiment (1.19.9). Let me know if the symptoms persist and I can try to adjust the prescription but I will need more information for that.
+
+
+## 2020-10-15
+
+*16:56:25 - @Dirk Eddelbuettel has joined the channel*
+
+## 2020-10-16
+
+**Aaron Lun** (02:01:46):
+> Flipping DMS to`blockApply`now. My god, it's such a grind
+
+**FelixErnst** (02:03:36):
+> The new monitor does not help?:grin:
+
+**Hervé Pagès** (02:04:05):
+> Oh so you're doing it? Was going to give this a shot later tonight after I take a few package reviews out of my plate. Well, since it sounds like you started already then it's all yours. Thanks!
+
+**Hervé Pagès** (02:05:30):
+> @FelixErnstLOL!
+
+**Hervé Pagès** (02:07:51):
+> BTW I should receive mine tomorrow or after tomorrow.:crossed_fingers:
+
+**Aaron Lun** (02:39:46):
+> Debugging these tests is literally hell.
+
+**Aaron Lun** (02:44:17):
+> Looks like the`MatrixGenerics:::.load_next_suggested_package_to_search`has broken a bunch of tests because it now provides a (failing) method for unsupported matrix classes; so I can't just use`selectMethod()`to check for the existence of those classes anymore.
+
+**Aaron Lun** (02:45:39):
+> To be more precise, the`ANY`method for all generics means that DMS can't rely on the absence of a method to decide whether or not to dispatch to a seed-aware approach.
+
+**Aaron Lun** (02:47:19):
+> guess I could switch to`getMethod()`instead of`selectMethod()`.
+
+**Hervé Pagès** (02:50:14):
+> In my experience relying on`selectMethod()`is rarely a good idea. It's not robust. I have a general "use the seed-aware method" mechanism in my bag that I'm planning to implement soon in DelayedArray and for all the methods in DMS.
+
+**Hervé Pagès** (02:51:00):
+> `getMethod()`is maybe a little better but still fragile
+
+**Aaron Lun** (02:51:11):
+> what are the failure points?
+
+**Hervé Pagès** (02:52:39):
+> The failure point is that not just because`getMethod()`returns something means that this something is doing what you think it's doing.
+
+**Hervé Pagès** (02:53:29):
+> It could just be something that say: "hey, I'm not ready yet... got you!"
+
+**Hervé Pagès** (02:57:17):
+> I guess you could go with`getMethod()`for the time being. All the methods in DMS are going to be refactored very soon.
+
+**Aaron Lun** (03:07:10):
+> I just checked for equality of the`selectMethod()`output with the MatGen`ANY`method and switched to block processing if that was the case.
+
+**Aaron Lun** (03:07:20):
+> In any case: the switch to`blockApply`is done.
+
+**Aaron Lun** (03:07:46):
+> Most tests are fine. Some tests might still be broken due to SMS. Need to check.
+
+**Aaron Lun** (03:17:38):
+> In fact, I would say that if we're going to refactor anything, it should be the tests. The code itself is mostly fine now that it's been switched to blockApply.
+
+**Aaron Lun** (03:18:53):
+> wait. Can it be? Does DMS pass R CMD check?
+
+**Aaron Lun** (03:24:24):
+> No, is the answer.
+
+**Hervé Pagès** (03:33:06):
+> The switch to`blockApply()`only gives you parallel block processing. It's a nice improvement but there are other important improvements on the todo list e.g. better choice of grid, more efficient handling of the sparse case, and use backend-optimized methods when available.
+
+**Hervé Pagès** (03:36:52):
+> Backend-optimized methods for HDF5Array are coming soon. Will be based on`h5chunkApply()`and`h5chunkReduce()`. Having backend-optimized methods will by-pass block processing and, in the case of hdf5, will delegate to chunk processing which will be done at the C level.
+
+**Hervé Pagès** (03:39:33):
+> Overall, things like`sum()`and`colSums()`should be a lot faster with backend-optimized methods. Maybe 10x or more in the hdf5 case.
+
+**Aaron Lun** (03:43:22):
+> Down to 6 errors.
+
+**Aaron Lun** (04:04:19):
+> IT LIVES
+
+**Aaron Lun** (04:05:08):
+> I had to kill a couple of tests ([https://github.com/const-ae/sparseMatrixStats/issues/11](https://github.com/const-ae/sparseMatrixStats/issues/11)) but otherwise DMS now passes CHECK.
+
+**Aaron Lun** (04:06:14):
+> You can see the results at[https://github.com/PeteHaitch/DelayedMatrixStats/pull/62](https://github.com/PeteHaitch/DelayedMatrixStats/pull/62).
+
+**Aaron Lun** (04:11:06):
+> Anyway, I don't think that much refactoring is necessary. An improved choice of grid should automatically trickle down to DMS via`colAutoGrid()`and`rowAutoGrid()`. A few modifications to DMS's blockApply wrappers should allow us to use`as.sparse=NA`effectively. And exploiting back-end specific methods is probably only going to be possible in specific cases, e.g., diverting`colSums2`to a potentially more efficient`colSums`when`col=NULL`and`row=NULL`.
+
+**Hervé Pagès** (11:22:32):
+> It's going to be a complete refactoring.
+> * Right now you cannot do`rowVars()`on a dataset where chunks contain full columns.  An improved choice of grids means that grids won't necessarily be row- or column-oriented. The current methods need to be re-implemented to support grids with an arbitrary geometry (the mat stats method in DelayedArray already do that). BTW, at some point matrix multiplication should do the same.
+> * There is more to just set`as.sparse=NA`in DMS's`blockApply`wrappers to take full advantage of sparsity. The callback function`FUN`passed to`blockApply()`will need to be modified for each method.
+> * Back-end specific methods can and will be used even when the DelayedArray object contains delayed subsetting/transposing/rbinding/cbinding. That will cover a lot more cases than just the`rows=cols=NULL`case.
+
+**Aaron Lun** (11:28:57):
+> Fine, but:
+> - I would argue that arbitrary geometry calculations should only be a fallback when a full row/col grid cannot be achieved, for similar reasons as discussed previously for ensuring that the matrix multiplication is agnostic to the block extraction settings.
+> - This should still be fairly straightforward in the current DMS codebase. DMS’s`rowblock_APPLY`and`colblock_APPLY`can wrap`FUN`in another function that handles the dense/sparse switch and dispatches internally to MS/SMS as necessary.
+> - Sure, but this still only affects a small number of generics. Unless you’re planning to write back-end specific methods for the whole cohort.
+
+**Hervé Pagès** (11:40:11):
+> > Unless you’re planning to write back-end specific methods for the whole cohort..
+> Of course. When I said "things like`sum()`and`colSums()`...", it was just an example.
+
+**Aaron Lun** (11:41:37):
+> because some of those generics are pretty niche. They wouldn’t seem worth the time to write back-end specific methods for.
+
+**Hervé Pagès** (11:46:52):
+> Maybe but excluding generics on the basis that they are not used by the book/scuttle stack wouldn't be fair:wink:
+
+**Aaron Lun** (11:48:48):
+> right, but perhaps it would be expedient to let them fall back to block processing in DMS if they’re not going to be used much. I’m just thinking of what would be the best use of your time. Like, maybe you can instead help me solve this damn forking problem that I’ve been banging my head against for days.
+
+**Hervé Pagès** (11:51:15):
+> Of course they will fall back to block processing. That's the default. So it's not like you and I have to implement them all at once in the same night (me for the hdf5 backend and you for the tiledb backend).
+
+**Aaron Lun** (11:57:40):
+> I probably won’t be writing back-end methods for anything but TileDB’s`colSums`and`rowSums`and means, if any. Maybe`colVars`, but probably not.
+
+**Aaron Lun** (11:58:14):
+> In any case, if it’s going to be gradual, it should probably be easy enough to change DMS bit by bit as well.
+
+**Hervé Pagès** (12:01:19):
+> Yes, things can be and will be gradual. My point is that in the end, the whole thing in DMS will be refactored. But not overnight.
+
+**Aaron Lun** (12:04:51):
+> as is the fate of all packages, one might say.
+
+**Hervé Pagès** (12:49:18):
+> all packages are temporary hacks, but some more than others
+
+**Aaron Lun** (12:50:50):
+> hey! scran’s been a temporary hack for 5 years!
+
+**Hervé Pagès** (13:03:23):
+> pfff! not impressed, mines have been for 15 years
+
+**Aaron Lun** (17:44:28):
+> @Peter Hickeycan you look at my PR and merge it? All tests pass except for a few I disabled due to discrepancies with SMS at extreme edge cases (e.g., all-NA logical sparse matrices).
+
+**Peter Hickey** (20:19:49):
+> thanks for your work on this@Aaron Lun! I’ll take a look now
+
+**Peter Hickey** (20:21:53):
+> @Hervé Pagès“all packages are temporary hacks, but some more than others” that hit way too close to home:rolling_on_the_floor_laughing:i’m excited to know that you’re interested in developing backend-specific methods because that’s always been my hope (in the gradual manner and focusing on functions I/BioC need like@Aaron Lun)
+
+**Hervé Pagès** (21:07:30):
+> There are 2 things: 1) Put in place the infrastructure for supporting backend-specific methods. This will be done via the introduction of a bunch of generic functions, all prefixed with`SEED_`e.g.`SEED_sum()`,`SEED_colSums()`,`SEED_colVars()`, etc..., with default methods that do block processing, 2) Actually implementing backend-specific methods e.g.`SEED_sum()`,`SEED_colSums()`,`SEED_colVars()`methods for seed objects e.g. for HDF5ArraySeed objects. These methods won't do block processing. In the case of HDF5ArraySeed objects they'll do chunk processing at the C level. In the case of dgCMatrix/lgCMatrix objects they'll just call the methods defined in sparseMatrixStats. The`SEED_*`generics will have an`index`argument (the multi-dim generalization of the`rows`/`cols`args of the matrixStats functions) so they can be used in the context of DelayedArray objects that carry a delayed subsetting op. All this will be transparent to the end user i.e. when someone calls`colVars(x)`on their DelayedArray, the right thing will happen behind the scene.
+
+
+## 2020-11-03
+
+*11:39:42 - @Pablo Rodriguez has joined the channel*
+
+## 2020-11-06
+
+**Aaron Lun** (11:13:45):
+> @Hervé PagèsI coded myself into a pickle.
+
+**Aaron Lun** (11:14:33):
+> Remember how I told you that beachmat avoids using block processing in certain situations where it would be more efficient to process the matrix directly?
+
+**Aaron Lun** (11:15:22):
+> In such cases, I create a dummy`grid`that spans the entire matrix. But I didn’t realize that ArrayGrid limits its viewports to be of size less than Integer.max.
+
+**Aaron Lun** (11:16:11):
+> This causes apparently unnecessary errors when people have, e.g., a sparse matrix that can easily fit into memory.
+
+**Aaron Lun** (11:16:29):
+> Now that we have a sparse mode, is there any need for this limitation?
+
+**Hervé Pagès** (13:10:10):
+> Maybe. But it sounds like you are not completely bypassing block processing if you still need to define a grid with 1 block. Any reason why you can't replace
+> ```
+> list(.helper(frag.info, beachmat_internal_FUN=FUN, ...))
+> ```
+> with something like
+> ```
+> list(FUN(x, ...))
+> ```
+> when`is.null(grid) || length(grid)==1L`in`beachmat:::.blockApply2()`?
+
+**Aaron Lun** (13:10:55):
+> The problem is that I need to respect a user-supplied function that calls`currentViewport()`inside it.
+
+**Aaron Lun** (13:11:15):
+> So currently, I’ve been making a one-block grid and giving that to`set_grid_context`.
+
+**Aaron Lun** (13:12:23):
+> Otherwise, if a function calling`currentViewport()`would presumably just error out when no viewport is found.
+
+**Hervé Pagès** (13:21:52):
+> I see. Well, the current restriction on the size of viewports was a preventive mean to avoid all kinds of headaches that could possibly (and will almost certainly) arise when we start handling ordinary matrices of length >`.Machine$integer.max`. I know they are officially supported now, at least in theory, but the question is how well? I have a strong feeling that big matrices could easily bite us where it hurts.
+
+**Aaron Lun** (13:24:51):
+> For the average user, I suppose it wouldn’t be a problem if they don’t fiddle around with`setAutoBlockSize`. And if they do, it should be pretty obvious that they did something like, e.g.,`setAutoBlockSize(1e10)`, in which case it is on them. Are there any other systems (other than***beachmat***) that automatically provision large-block grids?
+
+**Hervé Pagès** (13:31:41):
+> The "if they don't fiddle around with`setAutoBlockSize`" is a BIG if and I don't share your optimism that it will be pretty obvious to them that when they get a segfault it's because they did something wrong. A segfault is always the fault of the software, not of the user.
+
+**Aaron Lun** (13:32:34):
+> Perhaps you could put the protection at`setAutoBlockSize()`instead of putting it in the class, then.
+
+**Aaron Lun** (13:34:37):
+> then it protects the end-user without obstructing more programmatic uses of the`Grid`machinery
+
+**Aaron Lun** (16:34:47):
+> Hm. Writing a PseudoArrayViewport is a bit more challenging than I thought.
+
+
+## 2020-11-07
+
+**Aaron Lun** (19:26:00):
+> So. What should we do about this? As a dev, I'd like to be able to create ArrayGrid and ArrayViewports with no size limitations; it seems that, if we want to protect the user, any checks should be deferred to, e.g.,`extract_array`when we see that a user is trying to create an ordinary mega-matrix. This will at least spare the sparse case.
+
+**Hervé Pagès** (22:19:45):
+> I'll look into lifting the size restriction and maybe move it to`setAutoBlockSize()`. Just not sure when I'll be able to do this.
+
+**Aaron Lun** (22:21:19):
+> thanks
+
+
+## 2020-11-13
+
+**Pablo Rodriguez** (05:58:06):
+> Hi everyone. I'm at the moment trying to develop an on-disk backend for a package (GSVA). I've a question: is there any equivalence in the Delayed framework for the function[scale](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/scale)() ? I've managed to create a very simple one by following this[example](https://github.com/Bioconductor/DelayedArray/issues/10), but don't know if there is a native implementation
+
+**Hervé Pagès** (12:25:19):
+> No`scale()`method for DelayedMatrix objects yet (never heard of`scale()`before). I'll add one. It will be implemented as a delayed operation (like`sweep()`, which it is based on). So no block processing involved.
+
+**Hervé Pagès** (13:12:21):
+> > So no block processing involved.
+> Actually it depends. Seems like when`center`and/or`scale`are TRUE, some block processing is needed to extract the column means and standard deviations.
+
+**Hervé Pagès** (16:58:53):
+> Done in DelayedArray 0.17.1:[https://github.com/Bioconductor/DelayedArray/commit/aa9a74556f5c36307ceb638eb31199477139fea8](https://github.com/Bioconductor/DelayedArray/commit/aa9a74556f5c36307ceb638eb31199477139fea8)This is actually the first DelayedArray/DelayedMatrix method that is implemented with a mix of delayed and block processed operations.
+
+
+## 2020-11-15
+
+**Hervé Pagès** (19:37:47) (in thread):
+> I've added DummyArrayGrid and DummyArrayViewport in DelayedArray 0.17.2:[https://github.com/Bioconductor/DelayedArray/commit/7a8a4ff1090c5b74965ce3410313aad98d7472fb](https://github.com/Bioconductor/DelayedArray/commit/7a8a4ff1090c5b74965ce3410313aad98d7472fb)A DummyArrayGrid is a one-block grid with a dummy viewport that spans the entire array. There is no limit on the size of the dummy viewport as long as all the individual dimensions of the reference array are <=`.Machine$integer.max`. You should be able to use`DummyArrayGrid(dim(x))`instead of`RegularArrayGrid(dim(x))`in***beachmat***for`row/colBlockApply()`. Note that it's actually pretty easy to get into trouble when using a dummy grid on a big matrix e.g. things like`colBlockApply(m, function(block) {block <- as(block, "dgCMatrix"); m <- block + 1; ...})`will fail if`m`is a dgCMatrix object of length >`.Machine$integer.max`.
+
+**Aaron Lun** (19:39:49) (in thread):
+> thanks
+
+
+## 2020-11-16
+
+**Pablo Rodriguez** (04:21:29):
+> Thank you so much!
+
+*05:21:57 - @Robert Castelo has joined the channel*
+
+## 2020-11-19
+
+*12:11:59 - @Dania Machlab has joined the channel*
+
+## 2020-12-12
+
+*00:40:22 - @Huipeng Li has joined the channel*
+
+## 2020-12-15
+
+*05:41:51 - @Francesc Català has joined the channel*
+
+## 2021-01-02
+
+*08:15:42 - @Charlotte Soneson has joined the channel*
+
+## 2021-01-22
+
+*15:43:37 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-02-02
+
+**Aaron Lun** (15:29:55):
+> @Hervé Pagès[https://github.com/LTLA/DelayedMatrixStats](https://github.com/LTLA/DelayedMatrixStats)has patches on`master`and`RELEASE_3_12`for the MatrixGenerics issue that is breaking people at[https://github.com/PeteHaitch/DelayedMatrixStats/issues/73](https://github.com/PeteHaitch/DelayedMatrixStats/issues/73). Can you push this into the BioC repositories? Pete won't be back til Friday.
+
+**Hervé Pagès** (23:11:44):
+> Applied as-is to release and devel. Not sure about the manual edit of`man/colAvgsPerRowSet.Rd`though.
+
+
+## 2021-02-03
+
+**Aaron Lun** (00:17:34):
+> there's a manual edit?
+
+**Aaron Lun** (00:25:03):
+> just to be clear, I'm looking at`d930b091ec6e3377c5cedc36b202402e684f1733`on my`master`
+
+**Hervé Pagès** (00:47:55):
+> Yes, that's what I grabbed. What about the change to`man/colAvgsPerRowSet.Rd`? Doesn't seem to come from an roxygenisation but what do I know about roxygen2.
+
+**Aaron Lun** (00:51:38):
+> I'm looking at it right now:
+  - File (PNG): [Screenshot from 2021-02-02 21-51-17.png](https://community-bioc.slack.com/files/U34P8RS3B/F01LT1Q0N6N/screenshot_from_2021-02-02_21-51-17.png)
+
+**Aaron Lun** (00:52:20):
+> everything seems to be in order there, if that's also what you see.
+
+**Hervé Pagès** (01:05:49):
+> Not clear where the description of the new`na.rm`arg is coming from. Can't see it anywhere else so it looks like the`Rd`file was directly edited. But if you say that this is the result of some advanced roxygenisation technique then all is fine. Again, what do I know about roxygen2, I could just be talking non-sense so please forgive me.
+
+**Aaron Lun** (01:06:39):
+> oh, yeah, it's magic.
+
+**Aaron Lun** (01:06:51):
+> pulling from`?matrixStats`
+
+**Aaron Lun** (01:06:56):
+> Not really sure how it does it, but whatever.
+
+**Hervé Pagès** (01:06:58):
+> I suspected that. Please enlighten me
+
+**Aaron Lun** (01:07:48):
+> The corresponding`.R`file should have an roxygen directive along the lines of`@inheritParams matrixStats::colAvgsPerRowSet`, or something along those lines
+
+**Aaron Lun** (01:08:21):
+> this tells roxygen to strip the argument descriptions from`?matrixStats::colAvgsPerRowSet`and slap them into the`.Rd`file.
+
+**Hervé Pagès** (01:08:21):
+> Ah I see. Powerful!
+
+**Hervé Pagès** (01:10:34):
+> ... even though I'd rather stick to my good old 'na.rm: see`?colAvgsPerRowSet`in the matrixStats package'. I'm very fond of the DRY philosophy.
+
+**Aaron Lun** (01:11:29):
+> yes, that was what I was going to manually write before I realized it was all roxygenated.
+
+**Peter Hickey** (02:16:00):
+> thanks both for sorting it out while i was away from a laptop
+
+**Hervé Pagès** (02:22:02):
+> No problem. Just ship the keg of beer somewhere between Seattle and SF and we'll take it from there.
+
+
+## 2021-03-23
+
+*23:04:50 - @Lambda Moses has joined the channel*
+
+## 2021-05-11
+
+*16:44:49 - @Megha Lal has joined the channel*
+
+## 2021-05-15
+
+*04:53:06 - @Belinda Phipson has joined the channel*
+
+## 2021-05-25
+
+**Charlotte Soneson** (12:39:32):
+> Hello`HDF5Array`experts:slightly_smiling_face:I was wondering if you might have an opinion on the following:
+> * We are preparing the Tabula Muris Senis dataset for submission to Bioconductor as an ExperimentHub package. We get the full count matrix etc from figshare, and save it as an`HDF5Array`(see[https://github.com/fmicompbio/TabulaMurisSenisData/blob/ff833f136b405376398f5441e8\[…\]fb06d1b56/inst/scripts/make-data-tabula-muris-senis-droplet.Rmd](https://github.com/fmicompbio/TabulaMurisSenisData/blob/ff833f136b405376398f5441e89325cfb06d1b56/inst/scripts/make-data-tabula-muris-senis-droplet.Rmd#L85-L111)).
+> * We have a user-facing function that will pull down the different components and build a`SingleCellExperiment`to return (skeleton[here](https://github.com/fmicompbio/TabulaMurisSenisData/blob/ff833f136b405376398f5441e89325cfb06d1b56/R/TabulaMurisSenisDroplet.R#L30-L52)).
+> * Now, the question is how to best serve the user with different subsets (tissues) of this data. The consortium provides separate files for each tissue, so we could save them individually, and the user-facing function would then combine the selected ones into the`SCE`to return. Or, we could get the full`HDF5Array`as we have it now, and then subset the generated`SCE`before returning it to the user. We’re not really sure about the tradeoffs here, if any (it seems that ideally you’d like an`HDF5Array`generated for precisely the cells you want to return?), and we’d be interested in hearing more informed opinions.
+> :pray:
+
+**Peter Hickey** (17:49:40):
+> How large is the`.h5`file of the full count matrix compared to a version containing the single smallest or largest tissue?
+
+**Peter Hickey** (17:50:30):
+> Does the chunking of full count matrix in the`.h5`allow reasonably fast cell-wise access? Here I’m assuming you don’t need gene-wise access, but that may not be true now that I think about it, say, if you only want to include genes in the count matrix with non-zero counts in at least 1 cell
+
+**Hervé Pagès** (22:37:54):
+> I don't have an answer, just a few thoughts:
+> * Is the data likely to receive updates? If that's the case, it seems that a collection of small files is going to be easier/cheaper to manage than a big file.
+> * Another thing is that, with the one big file solution, the user will need to pay the cost of downloading the big file whatever their tissues of interest are. If you provide one file/SCE per tissue, then they will end up downloading only what they need.
+> Now some technical considerations from the DelayedArray side of things (maybe too technical, and with no clear conclusion:woozy_face:):
+> * In both cases, the assay in the SCE presented to the user will carry delayed operations. This would be a delayed`cbind()`for the*one ***`.h5`*** file per tissue*solution, or a delayed subsetting (`m[ , tissue_selection]`) for the*all tissues in one big ***`.h5`*** file*solution. So in both cases, block processing will pay the cost of applying the delayed operations each time a block is loaded in memory, in addition to the cost of I/O. I don't expect this cost to be outrageous, and it should be small compared to the cost of I/O, but just something to be aware of. And most importantly, the difference in cost between the 2 solutions might not be important enough to be a decisive factor.
+> * There's actually another cost to take into consideration when doing block processing: it's the cost of using blocks that don't align well with the physical chunks of the`.h5`file(s). Block processing on a naked HDF5Array object is usually able to choose blocks that are compatible with the layout of the physical chunks, but, unfortunately, that's no longer the case when the object carries delayed operations like`cbind()`or subsetting (at least not at the moment, but this is an area where things could maybe be improved in the future). Anyways, this is something that should impact the 2 solutions equally, so not a decisive factor either.
+> All this to say that, from a performance point of view, I can't think of any significant difference between the 2 solutions,**a priori**. Although this kind of stuff is really hard to predict and it could be that I'm overlooking something. If you decide to try both and do some benchmarking, let us know what you find.
+
+
+## 2021-05-26
+
+**Charlotte Soneson** (01:24:47):
+> Thank you both, this is very helpful! To answer your questions:
+> * The full`.h5`file for the counts is just over 1GB. We haven’t actually downloaded and processed the individual tissue data yet, will have to check that (the FACS dataset is reasonably evenly split over 24 tissues, the droplet dataset somewhat less evenly split over 15 tissues)
+> * I agree that we’d likely want both cell and gene-wise access for downstream analysis.
+> * I don’t expect that the data will be updated - from what I understand this is the final release.
+> * Totally agree on the download - what’s not clear to me yet is whether the most common use case will be to consider only a single tissue, or multiple tissues/the full data set.
+> For the performance, sounds like we’d need to do some benchmarking:slightly_smiling_face:
+
+**Peter Hickey** (02:00:56):
+> this is probably overkill but if the samples were ordered by tissue (and the number of samples/tissue were similar-ish) you might chunk into sub-matrices with number of columns = number of samples in each tissue
+
+**Peter Hickey** (02:01:48):
+> 1GB doesn’t strike me as too huge a download but might make difficult its use in workshops?
+
+**Charlotte Soneson** (02:19:18):
+> Yes, good point. I’m not actually sure whether the main use case would be to consider the full data set (which is also nice since they provide normalized data as well as pre-computed PCA/UMAP to reproduce their plots) or a single tissue, or something in between.
+
+**Peter Hickey** (02:28:16):
+> sounds like a good dataset!
+
+**Charlotte Soneson** (02:29:16):
+> Yes - but so many options:smile:
+
+*03:03:07 - @Federico Marini has joined the channel*
+**Mike Smith** (07:32:52):
+> Does the raw count matrix need to be of type`float`like it is in the .loom file?   You'll probably get ~50% space saving if that's an integer matrix on disk.
+
+**Charlotte Soneson** (07:35:12):
+> That is a very good point - no, I don’t think there’s any need for that.
+
+**Mike Smith** (07:45:28):
+> Just to add to complexity, you could also consider another option for the multiple tissues, where you have a single HDF5 file for the whole experiment, but separate HDF5 datasets for each tissue.  You'd construct `HDF5Array()` for a specific tissue by setting the `name` argument to the appropriate dataset.  I'm not convinced it wouldn't just make things more complicated, but I quite like the idea of a single file representing the whole experiment, rather than trying to wrangle all these subset files and having specific ExperimentHub IDs for each etc.  It also means HDF5 chunks would align perfectly for each tissue type, although I suspect that's not really a big bottleneck most of the time.
+
+**Charlotte Soneson** (07:54:43):
+> Hm, I’d need to look into that:thinking_face:actually the full story doesn’t really end at having different tissues - there are also different timepoints (crossing over multiple tissues), and subtissues…so depending on what the user may want, aligning too much to the tissue annotation is perhaps not optimal, and maybe just having a single (integer) object that the user can then subset at will (and realize the matrix if it’s small enough after subsetting) will turn out to be the easiest.
+
+**Federico Marini** (10:53:32):
+> That is actually a pretty peculiar aspect of the TabulaMurisSenis dataset - having old & young, from all tissues
+
+**Federico Marini** (10:54:48):
+> It is probably not the “cheapest” strategy, but I somehow suspect the straightforward strategy of download-all-then-subset will be most used
+
+**Dirk Eddelbuettel** (11:01:34):
+> (Not sure if h5 / hdf is a must here but it may be worth mentioning that TileDB works as a DelayedArray backend and would allow you subset, index, ... and only download the slice you need. )
+
+
+## 2021-06-04
+
+*04:21:03 - @Izaskun Mallona has joined the channel*
+
+## 2021-06-07
+
+*11:28:40 - @Pedro Baldoni has joined the channel*
+
+## 2021-06-24
+
+*08:30:10 - @Ilaria Billato has joined the channel*
+
+## 2021-07-19
+
+*17:01:18 - @Leo Lahti has joined the channel*
+
+## 2021-07-22
+
+**Malte Thodberg** (08:37:58):
+> Is there an implementation of`cor()`for a DelayedArray?
+
+
+## 2021-07-28
+
+**Hervé Pagès** (20:03:50) (in thread):
+> Not that I know of. At least not in the***DelayedArray***or***DelayedMatrixStats***packages:
+> ```
+> library(DelayedArray)
+> library(DelayedMatrixStats)
+> showMethods(cor)
+> # Function: cor (package stats)
+> # x="ANY", y="ANY"
+> # x="AtomicList", y="AtomicList"
+> # x="Rle", y="Rle"
+> ```
+
+
+## 2021-08-18
+
+**Pedro Baldoni** (18:45:43):
+> Hi all, I have a somewhat naive question about`DelayedArray`and`HDF5Array`.
+> 
+> From the output of`cellranger-atac count`, I would like to write an HDF5 file using`HDF5Array`with single-cell counts for a given set of genomic ranges. For the context, I am interested in obtaining genome-wide counts for narrow-ish genomic windows (e.g. 1000bp wide; hence sparse counts). The resulting array would have, say,`1e6`rows and about`1e5`columns.
+> 
+> I’m looking into`HDF5Array`&`DelayedArray`because (1) I obviously can’t load the entire data into memory, and (2) I will only be accessing the data later on from blocks of rows that I would define when calling`writeHDF5Array`.
+> 
+> Is anyone aware of the most efficient way to do this?
+> 
+> I am currently computing counts for non-overlapping chunks of genomic windows with`Signac::FeatureMatrix`, realizing each chunk on disk, and working with these independent chunks separately. Realizing the entire data (after rbinding everything and obtaining a`DelayedArray`object) on disk seemed too time consuming.
+> 
+> Thanks!
+
+**Hervé Pagès** (20:54:42) (in thread):
+> > Realizing the entire data (after rbinding everything and obtaining a DelayedArray object) on disk seemed too time consuming.
+> I would just loop on your chunks and write them to a big HDF5 dataset as you go. This is a one time operation. Let's assume that your chunks are separated datasets of dimensions 5000 x 1e5 (so you have 200 of them). BTW to avoid any confusion, let's call them**small datasets**instead of chunks. This is to avoid confusion with the**physical chunks**used by HDF5 to organize the data of the big dataset on disk.
+> ```
+> library(HDF5Array)
+> 
+> big_path <- "big_dataset.h5"
+> big_name <- "big"
+> big_dim <- c(1e6L, 1e5L)
+> big_dimnames <- list(<your-row-names-here>,
+>                      <your-col-names-here>)
+> ## This will be the dimensions of the
+> ## physical chunks of the big HDF5
+> ## dataset. Should be adjusted based on
+> ## typical read patterns of the
+> ## downstream analysis.
+> big_chunkdim <- c(500, 500)
+> 
+> sink <- HDF5RealizationSink(big_dim,
+>     big_dimnames,
+>     type="integer",
+>     filepath=big_path, name=big_name,
+>     chunkdim=big_chunkdim)
+> 
+> ## We create a grid that reflects how your small
+> ## datasets will cover the big dataset.
+> sink_grid <- RegularArrayGrid(dim(sink),
+>                          spacings=c(5000L, 1e5L))
+> 
+> ## Walk on the grid, and, for each viewport in
+> ## the grid, load the corresponding small dataset
+> ## in memory as an ordinary matrix, and write
+> ## it to the big dataset. I will assume that you
+> ## have implemented load_small_dataset(), a
+> ## function that takes one integer 'i' and returns
+> ## the i-th small dataset as a 5000 x 1e5 matrix.
+> for (bid in seq_along(sink_grid)) {
+>     viewport <- sink_grid[[bid]]
+>     block <- load_small_dataset(bid)
+>     sink <- write_block(sink, viewport, block)
+> }
+> close(sink)
+> ```
+> Once this is done, you should be able to access the big dataset with:
+> ```
+> big <- HDF5Array(big_path, big_name)
+> ```
+> Let us know how it goes.
+
+
+## 2021-08-19
+
+**Pedro Baldoni** (03:37:16) (in thread):
+> Thanks a lot Hervé, I will give it a try!
+
+
+## 2021-09-25
+
+*07:20:52 - @Haichao Wang has joined the channel*
+
+## 2021-10-18
+
+*09:15:54 - @John Kerl has joined the channel*
+
+## 2021-11-26
+
+*06:43:40 - @Francesc Català has left the channel*
+
+## 2021-12-14
+
+*08:24:36 - @Megha Lal has left the channel*
+
+## 2022-05-12
+
+*06:05:26 - @Helen Lindsay has joined the channel*
+
+## 2022-07-28
+
+*17:19:43 - @Mervin Fansler has joined the channel*
+
+## 2023-04-05
+
+*23:53:43 - @Michael Milton has joined the channel*
+
+## 2023-04-06
+
+**Michael Milton** (00:17:01):
+> What are the benefits of implementing a`DelayedArray`wrapper for an array format, as opposed to just making an array-like class in R? Especially if I don’t want to use the chunking mechanism and have my own handling of “chunks”.
+
+**Michael Milton** (00:18:45):
+> Is it just the laziness? Where does that provide value?
+
+**Hervé Pagès** (00:49:06):
+> I suppose your array-like class is for on-disk data. It all depends on how much of the "standard array API" you want to support, but implementing your own array-like class in R can be a lot of work. OTOH implementing a DelayedArray backend for your on-disk data is quite simple: you only need to make sure that your seed supports`dim()`,`dimnames()`, and`extract_array()`. See[https://github.com/Bioconductor/DelayedArray/blob/devel/vignettes/02-Implementing_a_backend.Rmd](https://github.com/Bioconductor/DelayedArray/blob/devel/vignettes/02-Implementing_a_backend.Rmd)Then you get everything that DelayedArray objects support for free. This means that your object can be used as a drop-in replacement for an ordinary array in many places, e.g. in a SummarizedExperiment derivative where the assay slot is expected to contain array-like objects that support a bunch of operations like`[`,`rbind`,`cbind`(these are delayed) and row/col summarization (these are block-processed), etc... It all depends on the application.
+
+**Michael Milton** (00:53:30):
+> Okay, so mostly ease of implementation then. Thanks
+
+**Hervé Pagès** (01:02:55):
+> Also not reinventing the wheel. For on-disk data, operations like`[`,`rbind()`,`cbind()`***have***to be delayed anyways. They should not return an ordinary array for 2 reasons:
+> * this would potentially bring all the data in memory which defeats the purpose of using an on-disk representation in the first place
+> * also for consistency with established practices,`[`should preserve the class of the object (endomorphism)
+
+**Michael Milton** (01:06:39):
+> Ah I think I see. So the laziness allows preserving the class of the array for longer, which keeps it on disk
+
+**Michael Milton** (03:26:01):
+> Also is the sink protocol documented anywhere? How does the block grid relate to a given sink? Does it have to be compatible with an imposed grid, or can it impose its own grid?
+
+**Michael Milton** (04:12:00):
+> Also, if a DelayedArray implementation has an intrinsic chunking, should this be indicating by implementing`chunkdim`only? What happens if this isn’t implemented? Is the array treated as one big chunk?
+
+**Hervé Pagès** (10:21:24):
+> The RealizationSink API is documented in`?write_block`. The man page also explains how to define your own grid of blocks on top of the sink.
+> Yes, if a DelayedArray implementation has an intrinsic chunking, this shoud be indicated by implementing a`chunkdim()`method for the seed object. Then`defaultAutoGrid()`will respect the chunking by generating a grid where the blocks are compatible with the chunking (typically a block wil contain more than 1 chunk). If`chunkdim()`returns NULL, then`defaultAutoGrid()`has more freedom for defining the grid (one less constraint). See`?defaultAutoGrid`for the details.
+
+**Michael Milton** (10:23:22):
+> Thanks!
+
+
+## 2023-04-10
+
+**Malte Thodberg** (02:18:36):
+> If it’s helpful, I wrote a DelayedArray wrapper for the`bigmemory`package. It’s based on the DelayedArray vignette,[https://github.com/Bioconductor/DelayedArray/issues/37](https://github.com/Bioconductor/DelayedArray/issues/37)for realization backends and the TileDbArray package for the vignette examples:
+  - Attachment: [#37 How to implement a realization backend](https://github.com/Bioconductor/DelayedArray/issues/37)
+    > The [*Implementing A DelayedArray Backend*](https://github.com/Bioconductor/DelayedArray/blob/master/vignettes/02-Implementing_a_backend.Rmd) vignette only covers how to implement a backend for read access only. Backends that support saving DelayedArray objects (a.k.a. *realization backends*) are not covered yet. Reasons for this are various: no demand so far, exact procedure still kind of a work-in-progress and subject to changes, lack of time, etc...
+    > 
+    > In the meantime, I'm putting some material here (and will move it to the *Implementing A DelayedArray Backend* vignette as time allows).
+    > 
+    > Say we want to implement a realization backend for the ADS format (the imaginary format made up for the *Implementing A DelayedArray Backend* vignette), the 2 core things we need to implement are:
+    > 
+    > 1. A RealizationSink subclass for the ADS backend. RealizationSink is a virtual class defined in the DelayedArray package (in [`R/RealizationSink-class.R`](https://github.com/Bioconductor/DelayedArray/blob/master/R/RealizationSink-class.R)). By analogy with the HDF5RealizationSink class defined in the HDF5Array package (in [`R/writeHDF5Array.R`](https://github.com/Bioconductor/HDF5Array/blob/master/R/writeHDF5Array.R)), let's assume that the RealizationSink subclass for the ADS backend will be called ADSRealizationSink.
+    > 2. Coercion methods from ADSRealizationSink to ADSArraySeed, ADSArray, and DelayedArray.
+    > 
+    > **RealizationSink subclass**
+    > 
+    > The purpose of an ADSRealizationSink object is to point to a new ADS dataset and allow writing blocks of data to it. The class definition for ADSRealizationSink would typically look something like:
+    > 
+    > ```
+    > setClass("ADSRealizationSink",
+    >     contains="RealizationSink",
+    >     representation(
+    >         dim="integer",     # Naming this slot "dim" makes dim() work out of the box.
+    >         dimnames="list",
+    >         type="character",  # Single string.
+    >         ## Additional slots would typically include the path or connection to a file....
+    >         ...
+    >     )
+    > )
+    > ```
+    > 
+    > Then we need a constructor function for these objects. The constructor should be named as the class and its first 3 arguments should be `dim`, `dimnames`, and `type`. It can have more arguments but those are optional and calling `ADSRealizationSink()` with the first 3 arguments only (i.e. `ADSRealizationSink(dim, dimnames, type)`) should work. Furthermore, every call to `ADSRealizationSink()` should create a **new** dataset that is ready to be written to.
+    > 
+    > ADSRealizationSink objects must support the following operations (via defining appropriate methods):
+    > 
+    > 1. `dim()`, `dimnames()`, and `type()`. These should return the values that were passed to the call to `ADSRealizationSink()` that was used to create the object.
+    > 2. `write_block()`. This is a generic defined in the DelayedArray package in [`R/read_block.R`](https://github.com/Bioconductor/DelayedArray/blob/master/R/read_block.R).
+    > 3. `close()`. This base R S3 generic is promoted to S4 generic in the DelayedArray package in [`R/RealizationSink-class.R`](https://github.com/Bioconductor/DelayedArray/blob/master/R/RealizationSink-class.R). A default method for RealizationSink objects is provided and does nothing (no-op). Implement a method for ADSRealizationSink objects only if some connection needs to be closed and/or other resources need to be released after writing the data is complete and before the ADSRealizationSink object can be turned into an ADSArraySeed object for reading.
+    > 
+    > **Coercion methods from ADSRealizationSink to ADSArraySeed, ADSArray, and DelayedArray**
+    > **From ADSRealizationSink to ADSArraySeed**
+    > 
+    > Think of an ADSRealizationSink object as a "write" connection to an ADS data set. Think of an ADSArraySeed object as a "read only" connection to an ADS data set. The purpose of the coercion from ADSRealizationSink to ADSArraySeed is to change the nature of this connection from "write" to "read only" and to produce an object that can be wrapped into a DelayedArray object.
+    > 
+    > **From ADSRealizationSink to ADSArray and DelayedArray**
+    > 
+    > ```
+    > setAs("ADSRealizationSink", "ADSArray",
+    >     function(from) DelayedArray(as(from, "ADSArraySeed"))
+    > )
+    > 
+    > setAs("ADSRealizationSink", "DelayedArray", function(from) as(from, "ADSArray"))
+    > ```
+    > 
+    > **A basic example**
+    > 
+    > Once we have the above (i.e. ADSRealizationSink objects, `ADSRealizationSink()` constructor, and the 3 coercion methods), we can realize an arbitrary DelayedArray object `x` as a new pristine ADSArray object `x2` by using the simple code below:
+    > 
+    > ```
+    > realize_as_ADSArray <- function(x)
+    > {
+    >     sink <- ADSRealizationSink(dim(x), dimnames(x), type(x))
+    >     DelayedArray:::BLOCK_write_to_sink(x, sink) 
+    >     close(sink)
+    >     as(sink, "DelayedArray")  # a pristine ADSArray object semantically equivalent to `x`
+    > }
+    > ```
+    > 
+    > `DelayedArray:::BLOCK_write_to_sink()` reads blocks from `x`, realizes them in memory, and writes them to `sink` (with `write_block()`).  
+    > Note that `realize_as_ADSArray()` also works on an ordinary array or any array-like object that supports `extract_array()`, not just on a DelayedArray object.
+    > 
+    > **Add some convenience**
+    > 
+    > Now we can build some convenience on top of this.
+    > 
+    > One basic convenience is a coercion method from ANY to ADSArray that just does what `realize_as_ADSArray()` does:
+    > 
+    > ```
+    > setAs("ANY", "ADSArray", function(from) realize_as_ADSArray(from))
+    > ```
+    > 
+    > Unfortunately, trying to coerce a DelayedArray or DelayedMatrix object to ADSArray would produce a broken object if we didn't also have the following coercion methods:
+    > 
+    > ```
+    > setAs("DelayedArray", "ADSArray", function(from) realize_as_ADSArray(from))
+    > setAs("DelayedMatrix", "ADSArray", function(from) realize_as_ADSArray(from))
+    > ```
+    > 
+    > So in the same way that an array-like object `x` (ordinary array or DelayedArray object) can be realized as an HDF5Array or RleArray object with `as(x, "HDF5Array")` or `as(x, "RleArray")`, now it can also be realized as an ADSArray object with `as(x, "ADSArray")`.
+    > 
+    > **Real examples of realization backends**
+    > 
+    > Refer to [`R/writeHDF5Array.R`](https://github.com/Bioconductor/HDF5Array/blob/master/R/writeHDF5Array.R) and [`R/writeTENxMatrix.R`](https://github.com/Bioconductor/HDF5Array/blob/master/R/writeTENxMatrix.R) in the HDF5Array package for the implementation of the HDF5Array and TENxMatrix realization backends.
+    > 
+    > Note that you can use `supportedRealizationBackends()` to see the list of realization backends currently supported.
+
+**Malte Thodberg** (02:18:36):
+> [https://github.com/MalteThodberg/BigArray](https://github.com/MalteThodberg/BigArray)
+
+**Michael Milton** (08:29:38):
+> Oh, great! That issue in particular will come in handy I'm sure
+
+**Aaron Lun** (11:17:12):
+> fwiw we have been working on a C++ API for read access to DelayedArrays (see examples at[https://github.com/LTLA/arbalist/blob/master/src/translate_delayed_operations.cpp](https://github.com/LTLA/arbalist/blob/master/src/translate_delayed_operations.cpp))
+
+
+## 2023-04-26
+
+*03:08:46 - @Jeroen Gilis has left the channel*
+
+## 2023-05-03
+
+*16:15:51 - @Rebecca Butler has joined the channel*
+**Hervé Pagès** (21:10:50) (in thread):
+> Ah, I missed this. Is it based on`extract_array()`?`extract_array()`is the low-level generic in R that is intended to provide read access to**any**array-like object, delayed or not, on disk or not (big difference with`[`is that`extract_array()`is expected to always return the data in an ordinary array, this is a feature!). So if you somehow manage to call this from the C++ level, then you kind of have your C++ API for read access to DelayedArrays (+ any array-like object) without the need to do anything else. Plus you remain completely agnostic of all the complex mechanics behind delayed ops (which are better handled at the R level).
+
+
+## 2023-05-04
+
+**Aaron Lun** (02:39:13) (in thread):
+> not this particular implementation; here, we peel apart the various delayed layers and reassemble them on the C++ side with various wrappers from[https://github.com/LTLA/tatami](https://github.com/LTLA/tatami). There is another method used by***SingleR***, which calls[https://github.com/LTLA/raticate/](https://github.com/LTLA/raticate/), which calls`extract_array()`and`extract_sparse_array()`to obtain the matrix data (with thread safety, despite R's insistence of always executing on the main thread). This builds on top of***tatami***so callers can switch between the two at runtime, and then provide the resulting object to***tatami***-compatible downstream functions.
+
+**Hervé Pagès** (02:52:25) (in thread):
+> Hmm I don't know, a tatami definitely sounds like an upgrade over a beachmat but it's also much less convenient to carry around, especially if you ride your bike to the beach:wink:
+
+
+## 2023-05-06
+
+*15:18:44 - @Axel Klenk has joined the channel*
+
+## 2023-05-09
+
+*23:34:59 - @Ben Parks has joined the channel*
+
+## 2023-07-03
+
+**Aaron Lun** (17:41:21):
+> <!here>the***tatami***C++ library is now included in the***beachmat***package on BioC-devel, and is a C++ API for abstract R matrices.
+> 
+> This provides native access to the underlying memory allocations, be they ordinary dense matrices, different varieties of sparse matrices, or delayed operations from***DelayedArray***. We have a***beachmat.hdf5***package in submission that directly interfaces with the HDF5 C++ library for`HDF5Array`and`H5SparseMatrix`objects, and we have a***beachmat.tiledb***package that interfaces with the TileDB C++ library for`TileDBMatrix`objects. All other matrices are supported via***DelayedArray***'s`extract_*_array()`functions with calls back into R.
+> 
+> So, if you want to iterate over a matrix in C++, and you want to support more matrix classes than the usual`Rcpp::Matrix`objects, try out***tatami***. This will (eventually) replace all current uses of the***beachmat***v3 C++ API.
+> * ***beachmat***landing page:[http://bioconductor.org/packages/3.18/bioc/html/beachmat.html](http://bioconductor.org/packages/3.18/bioc/html/beachmat.html)
+> * Package developer guide:[http://bioconductor.org/packages/3.18/bioc/vignettes/beachmat/inst/doc/linking.html](http://bioconductor.org/packages/3.18/bioc/vignettes/beachmat/inst/doc/linking.html)
+> * ***tatami***home page:[https://github.com/tatami-inc/tatami](https://github.com/tatami-inc/tatami)
+
+
+## 2023-07-04
+
+**Stephanie Hicks** (13:36:00):
+> thank you@Aaron Lun!
+
+
+## 2023-07-05
+
+*13:34:35 - @Jayaram Kancherla has joined the channel*
+
+## 2023-08-07
+
+*11:21:07 - @Jiaji George Chen has joined the channel*
+**Jayaram Kancherla** (16:00:34) (in thread):
+> If you want to use the same underlying tatami representations from Python, you can now do so with the[mattress](https://github.com/BiocPy/mattress)package. don’t have delayed representations yet but thats coming soon…
+
+
+## 2023-08-14
+
+*09:41:13 - @Josh Moore has joined the channel*
+
+## 2024-07-02
+
+**Hervé Pagès** (23:38:36):
+> A heads-up that the following are now deprecated in***DelayedArray***0.31.5:`SparseArraySeed`objects plus the`OLD_extract_sparse_array()`and`read_sparse_block()`generics. This is part of the modernization of block-processing of sparse datasets. In particular`read_block()`now loads sparse blocks in an`SVT_SparseArray`object instead of a`SparseArraySeed`or`dgCMatrix`object, hence leveraging the efficiency of the former. For example the code below is between 3x and 4x faster in BioC 3.20 vs BioC 3.19:
+> ```
+> library(ExperimentHub)
+> fname <- ExperimentHub()[["EH1039"]]
+> library(HDF5Array)
+> oneM <- TENxMatrix(fname, group="mm10")
+> cv <- colVars(oneM)  # block processed
+> ```
+> The packages possibly affected by these deprecations are:***batchelor***,***beachmat***,***SCArray***,***DropletUtils***,***glmGamPoi***,***scuttle***,***DelayedMatrixStats***,***alabaster.matrix***,***scran***,***dreamlet***,***DelayedTensor***,***TileDBArray***,***CAGEfightR***,***DelayedRandomArray***,***TSCAN***,***scater***,***SCArray.sat***. I'll take care of each of them in the next few days.
+
+
+## 2024-07-04
+
+*03:00:43 - @Paul Hoffman has joined the channel*
+
+## 2024-07-30
+
+*17:48:17 - @Jorge Kageyama has joined the channel*
+
+## 2024-10-31
+
+*10:33:17 - @Artür Manukyan has joined the channel*
+**Artür Manukyan** (12:53:17):
+> Is`DelayedDataFrame`still under active development ?[https://www.bioconductor.org/packages/release/bioc/html/DelayedDataFrame.html](https://www.bioconductor.org/packages/release/bioc/html/DelayedDataFrame.html)I was playing around with some its utilities and realised that rownames are kept in memory ?
+> Say that you store columns in hdf5, could rownames be potentially kept within disk as well like implemented for dimnames in HDF5Arrays ?
+  - Attachment (Bioconductor): [DelayedDataFrame](https://www.bioconductor.org/packages/release/bioc/html/DelayedDataFrame.html)
+    > Based on the standard DataFrame metaphor, we are trying to implement the feature of delayed operation on the DelayedDataFrame, with a slot of lazyIndex, which saves the mapping indexes for each column of DelayedDataFrame. Methods like show, validity check, [/[[ subsetting, rbind/cbind are implemented for DelayedDataFrame to be operated around lazyIndex. The listData slot stays untouched until a realization call e.g., DataFrame constructor OR as.list() is invoked.
+
+**Hervé Pagès** (15:33:21) (in thread):
+> Last commit by Qian Liu is from 2021, so package doesn't look very active:[https://github.com/Bioconductor/DelayedDataFrame/commits/devel/](https://github.com/Bioconductor/DelayedDataFrame/commits/devel/)I don't see any reason**a priori**why the rownames could not be stored on disk like for HDF5Array objects. However, for a data-frame-like object, it's easy to work around this by turning the rownames into a column. Something you can not do with an array-like object in general.
+
+**Artür Manukyan** (15:47:47) (in thread):
+> any bioc favored alternatives to`DelayedDataFrame`?
+
+**Malte Thodberg** (17:42:19) (in thread):
+> Perhaps[https://github.com/Bioconductor/SQLDataFrame](https://github.com/Bioconductor/SQLDataFrame)or[https://github.com/LTLA/ParquetDataFrame](https://github.com/LTLA/ParquetDataFrame)?
+
+
+## 2024-11-03
+
+**Artür Manukyan** (09:54:10) (in thread):
+> Would folks wanna see HDF5 or Zarr versions of`ParquetDataFrame`? This might also allow cleaner ondisk storage in collaboration with`saveHDF5SummarizedExperiment`where the metadata columns and data are stored in different arrays of the same`h5`? and the same could be implemented in zarr in near future perhaps. Dont know how much would be the performance difference between parquet and h5 though
+
+
+## 2024-11-04
+
+**Michael Milton** (01:40:48) (in thread):
+> Although I haven’t benchmarked it, I would strongly suspect that DuckDB and therefore`duckplyr`would blow all of these out of the water  in terms of performance and usability. Some work might have to be done to integrate it into a`SummarizedExperiment`however.
+
+**Artür Manukyan** (05:18:36) (in thread):
+> [https://gitlab2.nouvel.co.uk/home-exp/duckdb-hdf5-extension/-/tree/v0.1-wip](https://gitlab2.nouvel.co.uk/home-exp/duckdb-hdf5-extension/-/tree/v0.1-wip)
+  - Attachment (GitLab): [Files · v0.1-wip · home-exp / Duckdb Hdf5 Extension · GitLab](https://gitlab2.nouvel.co.uk/home-exp/duckdb-hdf5-extension/-/tree/v0.1-wip)
+    > GitLab Community Edition
+
+
+## 2024-11-08
+
+**Artür Manukyan** (13:30:35):
+> Is it possible to define a delayed operation of say`paste0(x,"_postfix")`on`DelayedArray`of strings externally ? or is it only possible by internally defining it in the DelayedArray package ?
+
+
+## 2024-11-11
+
+**Hervé Pagès** (19:19:48) (in thread):
+> It's a tricky one because`paste0()`'s has the ellipsis as 1st argument so the generic won't be able to dispatch on the method we define for DelayedArray objects, unless**all**the arguments passed thru the ellipsis are DelayedArray objects.
+> We could introduce new verbs for these things though, like`add_suffix`/`add_prefix`. These would go in***BiocGenerics***and have a clean signature. Would make it completely straightforward to implement the delayed methods. Would that work?
+
+**Hervé Pagès** (20:02:08) (in thread):
+> Oh, and also`paste0()`drops the names and dimensions:
+> ```
+> paste0(c(A="a", B="b"), "_postfix")
+> # [1] "a_postfix" "b_postfix"
+> 
+> m <- matrix(letters[1:6], ncol=2, dimnames=list(NULL, LETTERS[1:2]))
+> paste0(m, "_postfix")
+> # [1] "a_postfix" "b_postfix" "c_postfix" "d_postfix" "e_postfix" "f_postfix"
+> ```
+> so it would be wrong to implement a delayed method that returns a DelayedArray of same dimensions as the input DelayedArray. Methods for base functions should mimic the original behavior as closely as possible.
+> With the`add_suffix`/`add_prefix`approach we start with a clean slate so we can define methods for ordinary matrices/arrays and for DelayedArray objects that preserve the dims and dimnames.
+
+
+## 2024-11-14
+
+**Hervé Pagès** (14:21:57) (in thread):
+> Delayed`add_prefix()`and`add_suffix()`now in***DelayedArray***0.33.2 (BioC devel). They're both based on`paste2()`, a new generic added to***BiocGenerics***0.53.3 (also devel).
+
+
+## 2024-11-15
+
+**Artür Manukyan** (06:06:02) (in thread):
+> Thanks so much@Hervé Pagès, really appreciate it!Perhapsthe same could be done to`gsub`as well?Essentially I would like to add (or update) postfixes and prefixes lazily. I can also do a PR myself!
+
+
+## 2024-11-20
+
+**Hervé Pagès** (21:47:04) (in thread):
+> I suppose you're lucky: delayed`nchar()`,`tolower()`,`toupper()`,`grepl()`,`sub()`, and`gsub()`have been around forever.:smiley:
+
+
+## 2024-11-21
+
+**Artür Manukyan** (03:19:24) (in thread):
+> Ah thanks, I missed that!
+
+
+## 2025-04-04
+
+**Lambda Moses** (12:24:40):
+> Anyone often find the R session hanging when working with large sparse HDF5Arrays with DelayedArray? That doesn't happen if I convert it into dgCMatrix or TileDBArray.
+
+**Hervé Pagès** (12:54:03) (in thread):
+> Never observed this. Are you setting multiple workers (e.g. via`setAutoBPPARAM()`) for the block-processed operations? I personally don't since it usually doesn't significantly improve performance but increases memory usage A LOT!
+> Would be curious to know if you've tried to convert your HDF5Arrays to SparseMatrix and work directly on that, and how that went for you.
+
+**Kasper D. Hansen** (13:51:26) (in thread):
+> What file system are you storing the HDF5 files on? Is it a network mounted disk or something?
+
+**Lambda Moses** (15:35:52) (in thread):
+> I didn’t change any option. Using the hard drive on Ubuntu, not external or cloud, R 4.5.0 installed a while ago
+
+**Kasper D. Hansen** (17:35:41) (in thread):
+> Soit’son a desktop / laptop and not a server? Do you happen to know if the harddrive is SSD?
+
+**Lambda Moses** (17:45:41) (in thread):
+> It's a laptop with SSD. Sometimes R seems to use 100% of one CPU core and loads some stuff into memory. In some cases, when I try to subset one row, R seems to end up loading the whole thing into memory. Often using HDF5Array isn't worth it; I just convert it into dgCMatrix and it fits into memory, like for Xenium.
+
+**Kasper D. Hansen** (20:50:23) (in thread):
+> Thanks.
+
+**Kasper D. Hansen** (20:50:31) (in thread):
+> There is a couple of things to unpack here.
+
+**Kasper D. Hansen** (20:51:21) (in thread):
+> First, an in-memory solution like dgCMatrix, will always be faster and something I would always pursue if the dataset is small. That is irrespective of which file-based backend you use.
+
+**Kasper D. Hansen** (20:53:19) (in thread):
+> Second, when an HDF5 file stores a matrix, it starts by separating it into chunks, regular m x n sub-matrices. There could be 1 chunk containing the entire matrix or there could be 1 chunk for each element in the matrix. Most likely it is something in between. Chunks can absolutely impact all of this. Because when you access an element in the matrix, HDF5 reads the entire chunk containing it into memory, decompresses the chunk and extracts the element.
+
+**Kasper D. Hansen** (20:53:55) (in thread):
+> So if you have the entire matrix in a chunk and you do`A[x,y]`, you need to parse the entire matrix every time.
+
+**Kasper D. Hansen** (20:54:23) (in thread):
+> This means that your access pattern to the matrix matters a lot. Because each data extraction costs time.
+
+**Kasper D. Hansen** (20:54:46) (in thread):
+> This implies that you usually need to think about your access patterns for HDF5 to work well.
+
+**Kasper D. Hansen** (20:55:14) (in thread):
+> Having said that, in my limited command line experience, I wouldn’t say I experience hanging.
+
+**Lambda Moses** (21:44:41) (in thread):
+> By hanging I mean after a line of code, usually involving HDF5Array, is done executing and I got the`>`prompt for the next line, the R session does not respond and uses 100% of one CPU core when I just press Enter in the console or try to execute another line of code.
+
+**Kasper D. Hansen** (21:55:07) (in thread):
+> That’sweird.Really weird
+
+
+## 2025-04-06
+
+**Hervé Pagès** (03:39:02) (in thread):
+> I second Kasper on this: if your dataset fits in memory, there's absolutely no benefit in using a disk-based representation. So to me it's not even a question of whether a disk-based representation like HDF5Array is worth it or not, because originally it was meant to be used when that's the only option.
+> That being said, the hanging you describe is puzzling. Are you operating on an HDF5Array directly or is it done via operations implemented in another (higher-level) package? Could it be that this higher-level package tries to parallelize operations via***BiocParallel***?
+
+**Lambda Moses** (09:21:14) (in thread):
+> Both directly by subsetting and indirectly with`scater`and`scran`. When it fits into memory I just use dgCMatrix, and when it does not, I find converting to TileDB very helpful. TileDB takes up more disk space but operations are way faster.
+
+**Hervé Pagès** (19:42:22) (in thread):
+> May I ask what functions in***scater***and***scran***you were using when you observed the session hanging? I suppose that the issue is difficult to reproduce but any info that narrows down the context helps.
+> Good to know about TileDB vs HDF5, and not too surprising since the former natively supports sparse representation whereas the latter doesn't. To give HDF5 a chance to compete against TileDB when your data is sparse, you'd have to put the data in 10x Genomics format (e.g. with`HDF5Array::writeTENxMatrix()`) or other CSC-over-hdf5 format. However, even like that, I'd expect TileDB to perform better. Nothing can beat native support for sparse data!
+> Note that, if you don't really care about disk space, you can use uncompressed HDF5 datasets (obtained for example with`writeHDF5Array(..., level=0)`), which should make block-processed operations slightly faster. This should help regardless of whether the data is sparse or not.
+> FWIW I recently spent quite a bit of time benchmarking***HDF5Array***extensively:[https://bioconductor.org/packages/devel/bioc/vignettes/HDF5Array/inst/doc/HDF5Array_performance.html](https://bioconductor.org/packages/devel/bioc/vignettes/HDF5Array/inst/doc/HDF5Array_performance.html)Maybe at some point I try to extend these benchmarks to include the no-compression case and comparisons with TileDB.
+
+**Lambda Moses** (21:18:52) (in thread):
+> Actually I think it might be a problem with RStudio instead of or in addition to HDF5Array, because sometimes I get the hang without using HDF5Array though the worst cases occurred when using HDF5Array.

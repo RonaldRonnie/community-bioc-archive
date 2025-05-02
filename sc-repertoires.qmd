@@ -1,0 +1,651 @@
+---
+title: "#sc-repertoires"
+format: gfm
+---
+
+
+## 2019-09-11
+
+*23:56:46 - @Aaron Lun has joined the channel*
+**Aaron Lun** (23:56:47):
+> set the channel description: Discussion of single-cell repertoire sequencing
+
+**Aaron Lun** (23:56:53):
+> First.
+
+
+## 2019-09-12
+
+**Aaron Lun** (00:01:55):
+> WHEEE
+
+**Aaron Lun** (00:01:59):
+> All by myself.
+
+**Aaron Lun** (00:02:10):
+> I can say anything I want!
+
+**Aaron Lun** (00:09:42):
+> Pipes are so stupid.
+
+**Aaron Lun** (00:09:50):
+> `%>%`:face_vomiting:
+
+**Aaron Lun** (00:18:45):
+> `alakazam`. Really?
+
+**Aaron Lun** (00:18:49):
+> Whoever came up with that should be shot.
+
+
+## 2019-09-20
+
+*11:35:57 - @Rob Amezquita has joined the channel*
+**Rob Amezquita** (11:36:18):
+> `alakazam`is because its part of an`immcantation`pipeline
+
+**Rob Amezquita** (11:36:51):
+> youd have to shoot jason if you feel that way though, but hes pretty useful...so...might avoid that
+
+**Rob Amezquita** (11:36:53):
+> is he here
+
+**Rob Amezquita** (11:37:09):
+> and andrew mcdavid is working on repertoire stuff stuff
+
+*13:36:58 - @Jared Andrews has joined the channel*
+
+## 2019-09-24
+
+*07:42:54 - @Charlotte Soneson has joined the channel*
+
+## 2019-10-18
+
+**Aaron Lun** (23:35:58):
+> Kind of off-topic, but I CBF'd to start a new channel.
+
+**Aaron Lun** (23:36:10):
+> Okay, CITE-seq normalization, let's do this properly.
+
+**Aaron Lun** (23:56:04):
+> From what I understand, people do a geometric mean, which seems like an unnecessarily fancy way of doing library size normalization.
+
+
+## 2019-10-19
+
+**Aaron Lun** (00:28:46):
+> Hey, running`computeSumFactors`works pretty well if you have a diverse enough set of markers.
+
+**Aaron Lun** (01:03:04):
+> Needs some hacks to force it to behave, but otherwise it's passable.
+
+
+## 2019-11-04
+
+*07:57:17 - @Izaskun Mallona has joined the channel*
+
+## 2019-11-07
+
+*11:24:17 - @Aedin Culhane has joined the channel*
+**Aedin Culhane** (11:25:39):
+> Any use[https://amp.pharm.mssm.edu/archs4/](https://amp.pharm.mssm.edu/archs4/)
+
+**Aaron Lun** (11:29:27):
+> I don’t see the relevance here?
+
+
+## 2019-12-06
+
+**Aedin Culhane** (11:15:37):
+> Sorry mis-read repertoire as repository.. My bad. (Shouldn't  check slack before bed)
+
+
+## 2020-01-10
+
+**Aaron Lun** (13:10:24):
+> @Andrew McDavidyour package. forgot the link but it might make some sense to split off the data structure for common re-use. Sort of like how SingleCellExperiment was split off from scater’s SCESet (conceptually, at least).
+
+*13:22:48 - @Andrew McDavid has joined the channel*
+**Andrew McDavid** (13:28:41):
+> I think you could be right but want actually get to 1.0, which should happen this release cycle to make sure the API is stable before splitting it off, which feels like a more public endorsement of the API.  There do seem to be some minor downsides to promiscuous package forking (somewhat harder to maintain, somewhat more opaque for users, dependencies maybe more complicated? Slower calls to`library`?), Though in general the benefit from encapsulation and reuse seems worth it.
+
+**Aaron Lun** (13:58:22):
+> For context, I’ve been playing around with re-using BioC’s DataFrameList machinery for represneting the many:1 mappings in repertoire data. I’ll send you an invite.
+
+**Aaron Lun** (14:00:29):
+> There may or may not be something we can combine our efforts on.
+
+**Aaron Lun** (14:04:17):
+> Re package break-up: I actually think it’s easier to maintain such compartmentalized packages. No need to wonder if there’s unspoken requirements between components.
+
+**Andrew McDavid** (14:04:59):
+> Yes, the many-to-one mapping with implicit missing values is the main data structure challenge I am attempting to solve
+
+**Andrew McDavid** (14:05:24):
+> [https://amcdavid.github.io/CellaRepertorium/](https://amcdavid.github.io/CellaRepertorium/)
+  - Attachment (amcdavid.github.io): [Data structures, clustering and testing for single      cell immune receptor repertoires (scRNAseq RepSeq/AIRR-seq)](https://amcdavid.github.io/CellaRepertorium/)
+    > Methods to cluster and analyze high-throughput single cell immune cell repertoires, especially from the 10X Genomics VDJ solution. Contains an R interface to CD-HIT (Li and Godzik 2006). Methods to visualize and analyze paired heavy-light chain data. Tests for specific expansion, as well as omnibus oligoclonality under hypergeometric models.
+
+**Andrew McDavid** (14:06:57):
+> How are you using the dataframe list?  A list of cells, with one dataframe per cell?
+
+**Aaron Lun** (14:07:11):
+> That’s right. Possibly zero-row DFs per cell.
+
+**Aaron Lun** (14:07:26):
+> Note that this is a`CompressedSplitDataFrameList`, so it’s not actually storing a DF per cell.
+
+**Andrew McDavid** (14:08:21):
+> So I have something akin to that, but explicitly generate a linked "canonicalized" representation of the data structure that are one row per cell, with NAs filled as needed.
+
+**Andrew McDavid** (14:08:42):
+> and use tibbles under the hood, which is a decision I may ultimately rue
+
+**Aaron Lun** (14:12:26):
+> Anyway. Some food for thought. Would be nice to have an “official” BioC structure for repertoire data, especially one that re-uses existing BioC machinery. Would also lighten our mutual development loads.
+
+**Andrew McDavid** (14:15:26):
+> Yeah, I have no desire to introduce multiple APIs.   I essentially depend on APIs that generate "cell-canonical" views of the the`rbind`'d DataFrameList, but both the "contig" view and the "cell" view are mutable.
+
+**Andrew McDavid** (14:18:43):
+> Which I guess i have 1600 LOC depending on at this point...
+
+**Andrew McDavid** (14:19:24):
+> I think there is an alternate formulation that would make one of those views immutable, but I have found have mutability in both was important to actually implement various useful operations on the data
+
+**Aaron Lun** (14:20:13):
+> Why would it need to be immutable?
+
+**Andrew McDavid** (14:20:43):
+> conceptually easier to only have one "index" that changes an object
+
+**Andrew McDavid** (14:22:08):
+> as far as the DataFrameList is concerned, how do you suppose it will be used by its clients?  Like if I want to make a plot like these:[https://amcdavid.github.io/CellaRepertorium/articles/repertoire_and_expression.html#visualization-of-tcr-features-with-scater](https://amcdavid.github.io/CellaRepertorium/articles/repertoire_and_expression.html#visualization-of-tcr-features-with-scater)
+
+**Aaron Lun** (14:30:48):
+> Right now, the RepertoireComponent is really just a convenient storage mechanism to handle the many:1 mapping and to allow it to fit nicely in an SCE’s metadata and to travel along with us throughout our analysis. Ultimately for use though it would need to be converted to this “per-cell” structure that you mentioned. Have to think about the smoothest method to do this.
+
+**Aaron Lun** (14:31:47):
+> Probably the default interface would be on a one-row-per-cell, even if the backend retains the multiple rows per cell.
+
+**Aaron Lun** (14:32:19):
+> basically a DFL in a DF’s clothing.
+
+**Aaron Lun** (14:32:29):
+> brb lunch.
+
+**Andrew McDavid** (14:33:34):
+> You might take a look at the vignette I linked, and let me know what you think of the approach there.  I have found it useful to generate several "per-cell" views.  These aren't explicitly linked to each other, but are linked to multiple copies of the underlying "contig" table that contains the many-to-one parent table
+
+**Andrew McDavid** (14:34:25):
+> so there's duplication, but the fact that each copy is embedded in a SingleCellExperiment means things can't get out of sync with respect to "cells", subsetting the underlying SCE subsets all the "cell" views
+
+
+## 2020-01-16
+
+*07:27:32 - @Nitin Sharma has joined the channel*
+
+## 2020-01-23
+
+**Aaron Lun** (15:45:29):
+> @Jason Vander HeidenI choose you!
+
+*15:45:33 - @Jason Vander Heiden has joined the channel*
+**Aaron Lun** (15:46:05):
+> :musical_note:in a world we must defend:musical_note:
+
+**Jason Vander Heiden** (15:53:39):
+> Heh. I feel... chosen.
+
+**Aaron Lun** (15:54:11):
+> The correct response would have been “pika pika” or something like that.
+
+**Jason Vander Heiden** (15:55:37):
+> I'm content with my incorrect response:stuck_out_tongue:
+
+**Jason Vander Heiden** (16:00:04):
+> It's still pretty early, but we probably want to think about the data structure in a such way that we can handle this:[https://github.com/airr-community/airr-standards/issues/320](https://github.com/airr-community/airr-standards/issues/320)
+
+**Jason Vander Heiden** (16:02:45):
+> I'm guessing we're maybe 6 months from a release on that. Spawned out of trying to address the more difficult cases: allelic inclusion, bispecific antibodies, and other stuff that breaks 1 cell to 1 receptor in a way that isn't productive/non-productive or bad data.
+
+**Aaron Lun** (16:02:45):
+> Can the AIRR servers find some place to host some of, say, the 10X TCR/BCR data in the AIRR format? This would give me something to play with directly, especially for the book, which is built in a manner that all required resources must be pulled from some public source.
+
+**Jason Vander Heiden** (16:04:25):
+> I don't think there's any 10x data in the two repos that are compliant with the REST API yet:[http://ireceptor.irmacs.sfu.ca](http://ireceptor.irmacs.sfu.ca)or[https://vdjserver.org/](https://vdjserver.org/). I can ask tho.
+
+**Jason Vander Heiden** (16:05:14):
+> But we can just drop the re-annotated public data on zendodo or something for the book
+
+**Aaron Lun** (16:06:29):
+> That would be… okay, for the time being. Would have preferred a nice official-sounding place to pull data from. I can’t imagine I’m the only one who wants some single-cell AIRR formatted data to play with.
+
+**Aaron Lun** (16:07:40):
+> I thought they’d be climbing over the walls to get it, if this is what everyone is going to use moving forward.
+
+**Jason Vander Heiden** (16:12:41):
+> Well, just getting all the bulk repertoire data imported is a lot of work.
+
+
+## 2020-01-26
+
+**Aaron Lun** (04:03:47):
+> One compilation error from a flawless C++ script.
+
+
+## 2020-02-02
+
+**Aaron Lun** (19:45:03):
+> So, uh, these B cell lineage trees.
+
+**Aaron Lun** (19:45:10):
+> What are they good for?
+
+**Aaron Lun** (19:46:24):
+> Not going to sing the rest the song here.
+
+
+## 2020-02-03
+
+**Jason Vander Heiden** (14:00:12):
+> absolutely everything
+
+**Jason Vander Heiden** (14:03:45):
+> real answer: lineage trees are good for any kind of temporal/spatial mapping of evolution. So, that could be looking at shifts in mutational load across time points, demonstrating tissue compartment trafficking (eg, blood to tissue, upper gut to lower gut, etc), or differentiation of cell type as it relates to time/space (eg, naive to memory/plasmablast, IgD/IgM to IgA/IgG).
+
+**Jason Vander Heiden** (14:08:48):
+> They are also good for more esoteric stuff. Like quantifying selection pressure on a given clonal population via tree topology metrics and identifying the relevant mutations for antigen recognition (ie, where negative/positive selection ends and neutral selection/drift begins). I wouldn't add that sort of stuff to the book though.
+
+**Aaron Lun** (15:16:57):
+> I’m just wondering whether single-cell data even has enough clones to generate a lineage tree for a given clonotype.
+
+**Jason Vander Heiden** (15:26:55):
+> mostly, no.
+
+**Jason Vander Heiden** (15:27:37):
+> i think a tissue sample, like a tumor microenvironment would, but peripheral blood isn't going to give much
+
+**Aaron Lun** (15:30:12):
+> For the 10X data, T cells are actually okay, I got one clonotypes with 22 cells. B cells weren’t so good, nothing more than 2 cells per clonotype.
+
+**Jason Vander Heiden** (15:37:16):
+> Not suprising. Less diversity in T cells.
+
+**Jason Vander Heiden** (15:44:30):
+> just for reference, in a typical bulk BCR sequencing project from peripheral blood you'll often get trees with hundred of unique variants.
+
+**Aaron Lun** (15:45:15):
+> I don’t even have enough fingers for that.
+
+**Jason Vander Heiden** (15:45:32):
+> hehe
+
+**Jared Andrews** (16:31:28):
+> Could see good use out of trees for longitudinal studies of blood cancers. Not that I'm doing that and could desparately use~~~a better ~~~any way to incorporate 10X VDJ data other than saying "They pretty clonal".
+
+
+## 2020-02-26
+
+*15:49:35 - @Jamie Burke has joined the channel*
+
+## 2020-03-25
+
+*13:31:56 - @brian capaldo has joined the channel*
+
+## 2020-04-06
+
+*13:54:23 - @Anna Lorenc has joined the channel*
+
+## 2020-04-22
+
+**Jared Andrews** (09:27:37):
+> @Andrew McDavidIs there any plan to submit CellaRepertorium to bioconductor? I recognize that it may not be perfect, but it's by far the most convenient way to get cell canonical info that I've found.
+
+*20:12:31 - @Peter Hickey has joined the channel*
+
+## 2020-04-23
+
+**Andrew McDavid** (12:38:00):
+> @Jared Andrewsyes, I have been planning to submit it...honestly it should have been submitted last fall.  The API is pretty stable, at least I am using on several projects.  There's just some refactoring under the hood that I have been procrastinating on.
+
+**Andrew McDavid** (12:38:18):
+> Glad that you have found it somewhat useful, that's a good sign!
+
+**Jared Andrews** (12:39:15):
+> It helped me replace a bunch of gunk code with a one liner that I have a lot more confidence in, so it's been useful for me:man-shrugging:
+
+**Andrew McDavid** (12:40:40):
+> yeah, i have been able to remove some frightening "group_by" spaghetti as well.  I probably should stop letting the perfect the enemy of the good-enough..
+
+**Andrew McDavid** (12:42:16):
+> anyways, bug reports or PR welcome.  it's definitely not orphaned, just I have had trouble clearing out time to put the finishing touches on ti.
+
+**Jared Andrews** (12:45:52):
+> Fair enough. There are other projects that are redundant/complement its function as well, a new collaborator built this one:[https://github.com/ncborcherding/scRepertoire](https://github.com/ncborcherding/scRepertoire)It would still need work if he wanted to submit to Bioconductor though.
+
+**Andrew McDavid** (13:00:05):
+> thanks, i wasn't aware of that.  looks like it has some useful plotting methods.
+
+
+## 2020-05-03
+
+**Nitin Sharma** (12:18:21):
+> Hello everyone, I  have created a channel#singlecell-queriesfor more general queries regarding single-cell analysis.
+
+
+## 2020-05-06
+
+**Peter Hickey** (21:43:45):
+> I've got some 10X 5' gene expression + VDJ sequencing of human CD4+ T-cells (from a humanized mouse model). It's my first time analysing anything repertoire-seq flavoured and I've been using[https://osca.bioconductor.org/repertoire-seq.html](https://osca.bioconductor.org/repertoire-seq.html)(work-in-progress) by@Aaron Lunas a skeleton for the analysis. This uses a publicly available 10X Genomics dataset of mouse PBMCs.
+> 
+> My issue: when analysing the VDJ data I'm observing a good 10-25% of cells with multiple sequences for a TCR component (alpha or beta chain). This is consistent with[https://osca.bioconductor.org/repertoire-seq.html#fig:tcr-prop-cluster-multi](https://osca.bioconductor.org/repertoire-seq.html#fig:tcr-prop-cluster-multi)where it's written "we also count the number of cells in each cluster that have multiple sequences for a component (Figure 19.4). The percentages are clearly lower but***this phenomenon is still surprisingly common.***"  (emphasis mine).
+> When I take this result to my immunology collaborator, however, they basically say "this should never happen because 1 cell = 1 TCR". I think they believe this result is some sort of error (e.g. sequencing error).
+> 
+> It is still not clear to me if a single T cell can really express multiple (productive) sequences for a TCR component.
+> However, a quick Google search suggests that it is possible (e.g.,[https://www.ncbi.nlm.nih.gov/pubmed/8211163](https://www.ncbi.nlm.nih.gov/pubmed/8211163);[https://www.jimmunol.org/content/202/3/637](https://www.jimmunol.org/content/202/3/637);[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4701647/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4701647/)).
+> 
+> I don't know enough about this to know what to say to my collaborat's concerns but the fact that this is observed in 10X's own data makes me think it's a real thing. Any advice?
+
+**Aaron Lun** (21:44:41):
+> ¯\*(ツ)*/¯
+
+**Aaron Lun** (21:45:03):
+> Guess you could have a look at the UMI counts for the two productive sequences. If it is an error, there should be one clearly dominant sequence.
+
+**Peter Hickey** (21:50:05):
+> here's one example.
+> ```
+> > sce[, "AAACCTGAGCCAACAG-1"]$TRA[[1]]
+> DataFrame with 2 rows and 18 columns
+>              barcode     is_cell                   contig_id high_confidence    length       chain      v_gene      d_gene      j_gene      c_gene full_length  productive
+>          <character> <character>                 <character>     <character> <integer> <character> <character> <character> <character> <character> <character> <character>
+> 1 AAACCTGAGCCAACAG-1        True AAACCTGAGCCAACAG-1_contig_1            True       506         TRA      TRAV25        None      TRAJ47        TRAC        True        True
+> 2 AAACCTGAGCCAACAG-1        True AAACCTGAGCCAACAG-1_contig_3            True       514         TRA  TRAV14/DV4        None      TRAJ43        TRAC        True        True
+>            cdr3                                 cdr3_nt     reads      umis raw_clonotype_id         raw_consensus_id
+>     <character>                             <character> <integer> <integer>      <character>              <character>
+> 1 CAGRREYGNKLVF TGTGCAGGGCGGCGGGAATATGGAAACAAGCTGGTCTTT      8906        13     clonotype478 clonotype478_consensus_1
+> 2   CAMRGMNDMRF       TGTGCAATGAGAGGGATGAATGACATGCGCTTT     13724        22     clonotype478 clonotype478_consensus_3
+> ```
+
+**Peter Hickey** (21:50:11):
+> ugh yuck
+
+**Peter Hickey** (21:50:40):
+> but umis are 13 and 22
+
+**Aaron Lun** (22:00:15):
+> Seems pretty definitive to me.
+
+**Aaron Lun** (22:00:36):
+> Always possible that you’ve got some doublets.
+
+**Peter Hickey** (23:07:55):
+> true, although these samples were hash-tagged + genotype demultiplexed, so there shouldn't be too many leftover i think
+
+**Aaron Lun** (23:40:17):
+> hash tag and genotyped? Talk about overkill.
+
+**Aaron Lun** (23:40:35):
+> Didn't know WEHI had that much money sloshing around.
+
+**Peter Hickey** (23:49:46):
+> 4 donors x 2 treatments. so HTOs to distinguish treatments
+
+
+## 2020-05-07
+
+**Jason Vander Heiden** (17:27:07):
+> From one of those papers you cited: "Subsequent studies have estimated that ∼10% of αβ T cells express dual surface TCR α-chains ([9](https://www.jimmunol.org/content/202/3/637#ref-9)–[11](https://www.jimmunol.org/content/202/3/637#ref-11)), whereas ∼1% express dual surface TCR β-chains".
+
+**Jason Vander Heiden** (17:28:48):
+> It sounds like the numbers you're seeing aren't far of from that. If you see ~10-20% cells with two TRA sequences and 1-5% of cell with two TRB sequences, then that would be consistent.
+
+**Jason Vander Heiden** (17:30:32):
+> I would be a lot more suspicious of technical artifacts if you don't see a TRA vs TRB bias in allelic inclusion.
+
+**Peter Hickey** (18:57:41):
+> Thanks for reading the paper more closely than I did,@Jason Vander Heiden! I do indeed see lower percentages for TRB
+
+**Jason Vander Heiden** (19:04:08):
+> Cool. Maybe okay then? I'm not overly familiar with T cell development, but I think the rearrangement process works a little differently for TRA than it does for IGK/IGL, so you get more secondary productive rearrangements in TCR alpha chains because the process doesn't shut off like it does in B cells. I'd have to read up on it more, but here's a quote about it:
+
+**Jason Vander Heiden** (19:04:08):
+> *Allelic exclusion of T cell receptor (TCR) genes is regulated differently for the α and β-chains *[\[1\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Gascoigne1)**–**[\[3\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Malissen1)*: for the β-chain, rearrangement stops when the cell detects a productively rearranged membrane-bound β-chain protein associated with pre-Tα, leading to downregulation of Rag1/2 gene expression. Thus only one of the β-chain loci is capable of producing full-length, correctly rearranged, β-chain mRNA and therefore protein. In contrast, the TCR α-chain gene does not cease rearranging until the developing T cell undergoes positive selection. During the CD4+8+ “double positive” (DP) stage of thymocyte development, both of the α-chain alleles rearrange until a positively-selectable heterodimer is formed with the previously-formed β-chain *[\[4\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Borgulya1)*, leading to Rag1/2-turnoff which stops further rearrangement *[\[5\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Brandle1)**–**[\[7\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Malissen2)*. Immature thymocytes (DP, TCRlo) frequently express dual α-chains on the cell surface, but almost all mature (DP, or SP, TCRhi) thymocytes express a single αβ-combination *[\[8\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Alam1)*, *[\[9\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Boyd1)*, in what has been termed phenotypic allelic exclusion *[\[1\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Gascoigne1)*, *[\[10\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Alam2)**.***Similarly, most peripheral T cells express a single α-chain on the cell surface, despite frequently (20–30%) having two functionally rearranged and expressed α-chain genes. Estimates of the number of peripheral T cells expressing two cell surface α-chains vary widely from <5% to 15% *[\[10\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Alam2)**-**[\[13\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Heath1)* in mice, and 30% in humans *[\[14\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Padovan1)*. The dual receptor cells can cause autoimmunity in some systems *[\[15\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Sarukhan1)*, *[\[16\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-McGargill1)* or be highly alloreactive *[\[17\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Morris1)*, although other reports did not find them to increase susceptibility to autoimmunity *[\[11\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Corthay1)*, *[\[18\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-Elliott2)*. They have also been reported to usefully increase the TCR repertoire *[\[19\]](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320#pone.0114320-He1)**.**
+
+**Jason Vander Heiden** (19:04:33):
+> [https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320)
+  - Attachment (journals.plos.org): [Allelic Exclusion of TCR α-Chains upon Severe Restriction of Vα Repertoire](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0114320)
+    > Development of thymocytes through the positive selection checkpoint requires the rearrangement and expression of a suitable T cell receptor (TCR) α-chain that can pair with the already-expressed β-chain to make a TCR that is selectable. That is, it must have sufficient affinity for self MHC-peptide to induce the signals required for differentiation, but not too strong so as to induce cell death. Because both alleles of the α-chain continue to rearrange until a positively-selectable heterodimer is formed, thymocytes and T cells can in principle express dual α-chains. However, cell-surface expression of two TCRs is comparatively rare in mature T cells because of post-transcriptional regulatory mechanisms termed “phenotypic allelic exclusion”. We produced mice transgenic for a rearranged β-chain and for two unrearranged α-chains on a genetic background where endogenous α-chains could not be rearranged. Both Vα3.2 and Vα2 containing α-chains were efficiently positively selected, to the extent that a population of dual α-chain-bearing cells was not distinguishable from single α-chain-expressors. Surprisingly, Vα3.2-expressing cells were much more frequent than the Vα2 transgene-expressing cells, even though this Vα3.2-Vβ5 combination can reconstitute a known selectable TCR. In accord with previous work on the Vα3 repertoire, T cells bearing Vα3.2 expressed from the rearranged minilocus were predominantly selected into the CD8+ T cell subpopulation. Because of the dominance of Vα3.2 expression over Vα2 expressed from the miniloci, the peripheral T cell population was predominantly CD8+ cells.
+
+**Jason Vander Heiden** (19:04:52):
+> PLoS ONE, but I don't judge :)
+
+**Jason Vander Heiden** (19:07:16):
+> So, maybe your collaborator is correct in that most T cells have only one***surface***receptor, but***expression***of multiple productive TRA RNA may be common.
+
+**Peter Hickey** (19:40:30):
+> this is very helpful. thank you!
+
+
+## 2020-05-08
+
+**Anna Lorenc** (02:54:06):
+> Hi, I have some human datasets done with 10x, sorted T cells RNAseq+ TCRs. We are seeing similar fraction of “double alphas” and “double betas”.  Thank you for the paper above!  I am convinced that double alphas are real (up to a certain percentage), as I can find expanded clone - several cells with identical double alpha + single beta chain.  I saw it only once (as in one case of two cells with identical combination of double beta and single alpha) for beta chain - so still interpreting it as a doublet rather than reality.  Fraction of “double alphas” and “double betas” are experiment-dependent - we had a very bad run done in a facility and there it was twice what we are seeing normally, so there is this subtle line between biology/technical artefacts here.
+
+**Jason Vander Heiden** (11:55:25):
+> @Aaron Lun, I guess we're going to need to come up with something more complicated for those 1-N cell-rearrangement relationships instead of "store them all, but pick one to analyze".
+
+**Jason Vander Heiden** (12:03:35):
+> It's going to make the light/alpha/delta correction step to clonal clustering a bit of a hassle. We'll have to do some sort of set union thing across the light/alpha/delta to identify which heavy/beta/gamma clones need to be split. Or something. Not sure. Hassling with getting releases on CRAN right now, so once that's done I'll think about this more.
+
+**Aaron Lun** (12:07:39):
+> A couple of options here; if this information really is important, then perhaps the best option is to carry around the full data in the analysis pipeline and write some easy getters that either pull out the entire data or pull out a 1:1 DF. The latter is easier to use with existing SCE-compatible code, but the former is at least still sticking around.
+
+**Aaron Lun** (12:08:21):
+> Kind of depends on downstream methods knowing how to handle the 1:many relationship. Probably fine for alakazam and dedicated tools but not so much for general tools.
+
+**Jason Vander Heiden** (12:13:40):
+> The problem is that we won't have a way to determine which TRA sequence is dominant on the surface. When allelic inclusion is a minor occurrence, it's not that big of a deal to just toss those events out as too complicated to deal with. Same reasoning as why we just ignore CDR3 indel events caused by somatic hypermutation.  Too much of a hassle to figure out a solution for a rare event.
+
+**Jason Vander Heiden** (12:17:44):
+> This seems common enough that if we split clones by alpha chain we'll be creating a lot of artificial diversity if both TRA sequences aren't considered. I wonder about dropouts too. In these dual-productive TRA instances, would it be better to require both TRA present or just one to call something the same clone?  If we go with just one, then we account for dropouts, but we then fail to account for convergent rearrangements which will be common in TRA sequences.
+
+**Jason Vander Heiden** (12:20:29):
+> I guess we'll have to look at the trade-offs in some real data.
+
+**Aaron Lun** (13:19:30):
+> I’m not even going that deep. I’m just thinking if people want to do something like`plotTSNE(sce, colour_by="V_GENE")`, the`V_GENE`field in the`colData`needs to be a vector and can’t support multiple mappings. I would accept setting multiple valid mappings to`NA`in such cases; and in fact, the collapsar function probably can have a few settings to allow people to tune the desired behavior. So, e.g.,`plotTSNE(sce, colour_by=collapse(sce$IGH, "first"))`to just pick the first.
+
+**Aaron Lun** (13:21:13):
+> If the downstream functions really do need to know about the 1:many mapping, our old friend the`SplitDataFrameList`should give you that. Just`unlist`it and you get the underlying`DataFrame`with everything.
+
+**Aaron Lun** (13:22:40):
+> Also, I can’t remember whether the alakazam functions have an`as.data.frame`coercion inside them, but that would be nice for any argument passed in that wasn’t already a data.frame. Then the user could just use them directly with Bioconductor`DataFrame`s without having to do, e.g.,`countGenes(as.data.frame(unlist(sce$IGH)))`. At least the`as.data.frame`could be internalized.
+
+**Jason Vander Heiden** (14:20:59):
+> Ah, yeah, good point.
+
+**Jason Vander Heiden** (14:30:48):
+> There shouldn't be any coercion of the input tables in any of the immcantation packages, but I'd have to check what people have done. I wouldn't be surprised to find some hiding in there. What we try to do is make sure the most common things that`is(df, "data.frame")`just work (data.frame, tibble, data.table). Which a`DataFrame`is not.
+
+**Jason Vander Heiden** (14:31:57):
+> I guess we should look into a solution for that. Ideally it's same solution for handling on-disk data frame representations, which we also aren't supporting right now but should
+
+**Aaron Lun** (15:19:19):
+> are these datasets big enough for on-disk to really matter? How many sequences are we talking about?
+
+**Jason Vander Heiden** (15:23:31):
+> A lot, potentially. Just had a user question the other day about how to speed up processing of 85 samples each with 350K to 750K unique sequences. So like 85GB of data.
+
+**Jason Vander Heiden** (15:24:32):
+> Most projects are smaller though. Usually in the 1-2 million range.
+
+**Aaron Lun** (15:36:09):
+> I think we have an`SQLDataFrame`that could do this.
+
+**Aaron Lun** (15:36:24):
+> Pretty much what it says on the can, I think.
+
+**Aaron Lun** (15:36:33):
+> Never tried it myself, though.
+
+**Aaron Lun** (15:36:50):
+> Another approach is to use altreps but this can end in tears if your user accidentally does the wrong thing.
+
+**Jason Vander Heiden** (15:38:53):
+> Do you know anything about DelayedDataFrame or disk.frame?
+
+**Aaron Lun** (15:40:33):
+> Not the latter. I thought there are some Delayed vectors in place here, that’s how some VCF files are represented - tagging@Hervé Pagès.
+
+**Anna Lorenc** (16:38:33) (in thread):
+> Hi, I think it will be dataset-dependent. In my dataset with expanded clones with double TRAs, I assume cells with one of these TRAs and identical TRB is from the same clone. And reassuringly, they have similar expression. But for naive cells I would not be so sure…I have implemented a sort of decision tree for re-grouping clonotypes.
+
+**Anna Lorenc** (16:39:42) (in thread):
+> And of course depends on questions, I am looking on antigen-specific cells, so for me it really matters…
+
+*17:11:34 - @Hervé Pagès has joined the channel*
+**Hervé Pagès** (17:12:13):
+> annoying that I have to join a channel just to be able to comment
+
+**Hervé Pagès** (17:16:58):
+> So I don't have much experience with on-disk data frame representations. I don't know how well SQLDataFrame would handle 85GB of data. Never tried it. No Delayed vectors yet AFAIK and not something I'm planning to work on (would have to be implemented outside of DelayedArray). I don't know much about VCFArray or VariantExperiment objects either even though my name might appear somewhere in the DESCRIPTION file of these packages.
+
+**Jason Vander Heiden** (17:18:57):
+> Okay, thanks!
+
+**Hervé Pagès** (17:20:47):
+> For big on disk data-frame-like storage I've used the OnDiskLongTable container I developed for storing SNP locations. I use it internally for SNPlocs objects. Can store 500 millions of SNPs on disk organized in a data-frame-like fashion. The columns can be anything that is allowed in a DataFrame (e.g. S4 objects). However OnDiskLongTable objects do not adhere to the DataFrane API. They have their own API that allows a very limited set of queries. Also since this was for internal use only the container is not exported or documented. If I had more time to work on this, I would try to turn it into something that supports more of the DataFrame API, with the long term goal to be able to extend the future virtual DataFrame class.
+
+*18:28:42 - @Hervé Pagès has left the channel*
+**Peter Hickey** (21:16:39) (in thread):
+> Good to know,@Anna Lorenc! I might try looking more closely at whether these are expanded clones
+
+
+## 2020-06-06
+
+*19:58:22 - @Olagunju Abdulrahman has joined the channel*
+
+## 2020-07-31
+
+*13:59:34 - @bogdan tanasa has joined the channel*
+
+## 2020-08-05
+
+*13:47:49 - @shr19818 has joined the channel*
+
+## 2020-11-19
+
+*08:33:04 - @David Dittmar has joined the channel*
+
+## 2020-12-12
+
+*00:38:32 - @Huipeng Li has joined the channel*
+
+## 2020-12-13
+
+*13:42:08 - @Kelly Eckenrode has joined the channel*
+
+## 2020-12-14
+
+*10:15:13 - @Katharina Imkeller has joined the channel*
+*13:21:45 - @Nick Owen has joined the channel*
+
+## 2021-01-01
+
+*14:06:35 - @Bernd has joined the channel*
+
+## 2021-01-22
+
+*15:45:22 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-02-28
+
+*17:45:55 - @Alexander Toenges has joined the channel*
+
+## 2021-03-30
+
+*18:09:23 - @Wes W has joined the channel*
+
+## 2021-05-11
+
+*16:45:39 - @Megha Lal has joined the channel*
+
+## 2021-09-06
+
+*08:23:29 - @Eddie has joined the channel*
+*09:10:28 - @Eddie has left the channel*
+
+## 2021-09-09
+
+*01:59:30 - @Julien Roux has joined the channel*
+
+## 2021-10-18
+
+*19:33:32 - @Qirong Lin has joined the channel*
+
+## 2021-11-08
+
+*03:29:30 - @Paula Nieto García has joined the channel*
+
+## 2022-01-28
+
+*11:14:36 - @Megha Lal has left the channel*
+
+## 2022-02-15
+
+*12:01:28 - @Gene Cutler has joined the channel*
+
+## 2022-03-21
+
+*05:02:40 - @Pedro Sanchez has joined the channel*
+
+## 2022-07-15
+
+*15:18:30 - @Ashley Robbins has joined the channel*
+
+## 2022-09-13
+
+*14:35:25 - @ImranF has joined the channel*
+
+## 2022-11-06
+
+*11:21:18 - @Sherine Khalafalla Saber has joined the channel*
+
+## 2022-12-20
+
+*10:41:24 - @Jennifer Foltz has joined the channel*
+
+## 2023-01-26
+
+*12:32:51 - @Yu Zhang has joined the channel*
+
+## 2023-05-12
+
+*13:33:12 - @Aaron Lun has left the channel*
+
+## 2023-06-19
+
+*05:12:16 - @Pierre-Paul Axisa has joined the channel*
+
+## 2023-07-12
+
+*19:33:45 - @Axel Klenk has joined the channel*
+
+## 2023-07-28
+
+*15:58:54 - @Benjamin Yang has joined the channel*
+
+## 2023-09-13
+
+*17:05:00 - @Christopher Chin has joined the channel*
+
+## 2023-12-27
+
+*14:37:25 - @Cindy Reichel has joined the channel*
+
+## 2024-05-14
+
+**Lori Shepherd** (10:42:19):
+> archived the channel

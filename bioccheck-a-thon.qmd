@@ -1,0 +1,733 @@
+---
+title: "#bioccheck-a-thon"
+format: gfm
+---
+
+
+## 2020-05-06
+
+*11:59:47 - @Marcel Ramos Pérez has joined the channel*
+**Marcel Ramos Pérez** (11:59:48):
+> set the channel description: Hack-a-thon for BiocCheck
+
+*12:00:46 - @Nitesh Turaga has joined the channel*
+*12:00:49 - @Kayla Interdonato has joined the channel*
+*12:01:14 - @Martin Morgan has joined the channel*
+*12:01:15 - @Lori Shepherd has joined the channel*
+*12:01:23 - @Daniel Van Twisk has joined the channel*
+*12:01:28 - @Hervé Pagès has joined the channel*
+**Nitesh Turaga** (12:01:56):
+> set the channel description: Hack-a-thon for BiocCheck ([https://github.com/Bioconductor/BiocCheck/projects/1](https://github.com/Bioconductor/BiocCheck/projects/1))
+
+**Nitesh Turaga** (12:04:37):
+> Link to projects board:[https://github.com/Bioconductor/BiocCheck/projects/1](https://github.com/Bioconductor/BiocCheck/projects/1)Link of github repo:[https://github.com/Bioconductor/BiocCheck](https://github.com/Bioconductor/BiocCheck)Hackathon issues:[https://github.com/Bioconductor/BiocCheck/issues?q=is%3Aopen+is%3Aissue+label%3AHackathon](https://github.com/Bioconductor/BiocCheck/issues?q=is%3Aopen+is%3Aissue+label%3AHackathon)
+
+*12:05:54 - @Mike Smith has joined the channel*
+*12:05:54 - @Sean Davis has joined the channel*
+*12:05:54 - @Leonardo Collado Torres has joined the channel*
+**Martin Morgan** (12:14:12):
+> @Nitesh Turagado we want a wiki or something (somehow a markdown document doesn't seem appropriate, despite what I might have said in the past!) where we can outline the hackathon? I have a little starter material...
+
+**Nitesh Turaga** (12:14:48):
+> Yes, I agree. A description would be great. I'll put something together.
+
+**Martin Morgan** (12:17:31):
+> if you start the wiki I already have a little starting material
+
+**Martin Morgan** (12:17:52):
+> also, who can tag issues on the repo? the person opening the issue, or only the repo contributors?
+
+**Nitesh Turaga** (12:18:06):
+> All owners, so core team so far.
+
+**Nitesh Turaga** (12:22:03):
+> But, everyone can open issues. If they can leave ideas, there, and just say a "level" I can follow up on the issues and assign the labels. I'm trying to figure out a way to open up labels and see if everyone can tag labels.
+
+**Martin Morgan** (12:27:42):
+> Some intial material is at[https://github.com/Bioconductor/BiocCheck/wiki](https://github.com/Bioconductor/BiocCheck/wiki)
+
+*13:03:12 - @Aaron Lun has joined the channel*
+*13:03:43 - @Charlotte Soneson has joined the channel*
+
+## 2020-05-08
+
+*03:29:09 - @Davide Risso has joined the channel*
+*03:44:12 - @Robert Ivánek has joined the channel*
+*03:50:04 - @Federico Marini has joined the channel*
+*03:59:01 - @Panagiotis Moulos has joined the channel*
+**Federico Marini** (04:01:05):
+> Don’t know whether this is the right place for the suggestion since it is only tangentially related to this, but:
+> I’m a big fan of`codetoolsBioc`, especially the namespace suggestions. Is there any plan for that to be added as a fully fledged bioc package?
+
+**Federico Marini** (04:01:28):
+> I did get the svn checkout back then and I am always using that to install from local..
+
+*05:59:35 - @Kevin Rue-Albrecht has joined the channel*
+*08:32:36 - @Vince Carey has joined the channel*
+**Nitesh Turaga** (08:39:37):
+> @Federico MariniJust for some clarity, the scope of the "bioccheck-a-thon" is adding new "features" or "enhancements" to the BiocCheck package. We envision this to be done in a hackathon fashion.
+> 
+> If you can elaborate on your`codetoolBioc`idea, we can talk through it some more and get a better idea if it fits.
+
+**Federico Marini** (08:40:38):
+> Sure. I always found it an “implicit” enhancement of the BiocCheck package, especially when writing a well behaved namespace file
+
+**Federico Marini** (08:41:07):
+> the package itself lives on the older svn if I am correct, and never made it to be a part of Bioc itself
+
+**Federico Marini** (08:41:35):
+> The idea is that`codetoolsBioc`could indeed become a first class citizen of the project
+
+**Federico Marini** (08:41:54):
+> (and potentially be in the Enhances: of BiocCheck)
+
+**Nitesh Turaga** (08:42:23):
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CLUJWDQF4/p1588928091230100?thread_ts=1588921010229900&cid=CLUJWDQF4)
+    > Does BiocCheck only applies to new packages? Is there a way to suggest checks on the daily builds? Sometimes once in Bioconductor there are drastic changes that might need to be automatically checked.
+
+**Lori Shepherd** (08:44:29):
+> Currently it is only on new packages.   We could consider applying it to the daily builders but it would cause massive failures so there might need to be a longer roll out period for this to occur.
+
+**Charlotte Soneson** (08:47:06):
+> I added BiocCheck to my GitHub Actions workflows a couple of days ago - it gave some interesting revelations for some old packages:smile:
+
+**Nitesh Turaga** (08:47:29):
+> @Federico MariniI'll just reply here, not a fan of threading in Slack.
+> 
+> That would be a potentially a good feature if you are willing to post an issue on the BiocCheck issues page on github. There will be a larger discourse there hopefully.
+> 
+> I have a question though, we have seen a major shift towards roxygen for NAMESPACE file generation. Does this still add value?
+> 
+> I have no idea what codetoolsBioc does, so I guess i'm still confused.
+
+**Mike Smith** (08:47:30) (in thread):
+> Maybe make it like the long tests, where a failure doesn't actually impact propagation?  I don't think I would like the sea of red badges I would get though
+
+**Federico Marini** (08:47:55):
+> I’m posting an excerpt
+
+**Nitesh Turaga** (08:48:27) (in thread):
+> Too many issues?
+
+**Federico Marini** (08:48:57):
+> You’re right in the shift for roxygen. What codetoolsBioc does is actually upstream of it
+
+**Federico Marini** (08:49:38):
+> If codetoolsBioc is installed, running BiocCheck additionally gives a section
+
+**Federico Marini** (08:49:38):
+> ```
+> * Checking for namespace import suggestions...
+>     Namespace import suggestions are:
+>     #Generated by codetoolsBioC version 0.1-0
+>     #Timestamp: Fri May  8 14:48:43 2020
+>     
+>     #Imports: AnnotationDbi, BiocGenerics, bs4Dash, ComplexHeatmap, DelayedArray, dendextend,
+>     #         DESeq2, dplyr, DT, dynamicTreeCut, GenomicRanges, ggforce, ggplot2, ggrepel,
+>     #         GO.db, graphics, grDevices, grid, igraph, IRanges, matrixStats, methods, plotly,
+>     #         RColorBrewer, rintrojs, rlang, rmarkdown, S4Vectors, scales, shiny,
+>     #         shinycssloaders, shinyWidgets, stats, SummarizedExperiment, tidyr, tools, utils,
+>     #         visNetwork
+>     
+>     importMethodsFrom(AnnotationDbi, colnames, Definition, GOID, ncol, nrow, Ontology,
+>                       Secondary, Synonym, Term)
+>     
+>     importMethodsFrom(BiocGenerics, basename)
+>     
+>     importMethodsFrom(ComplexHeatmap, draw)
+>     
+>     importMethodsFrom(DelayedArray, apply, as.matrix, colMeans, colSums, gsub, mean, rowMeans,
+>                       sub, t, table, unique, which)
+>     
+>     importMethodsFrom(DESeq2, counts, estimateSizeFactors, normalizationFactors, sizeFactors)
+>     
+>     importMethodsFrom(GenomicRanges, as.factor, intersect, setdiff, union)
+>     
+>     importMethodsFrom(IRanges, "colnames<-", lapply, paste, rownames, "rownames<-", which.max)
+>     
+>     importMethodsFrom(S4Vectors, "%in%", do.call, expand.grid, levels, Reduce, rev, substr)
+>     
+>     importMethodsFrom(SummarizedExperiment, as.data.frame, assay, assays, cbind, colData,
+>                       duplicated, match, mcols, order, rank, rbind)
+>     
+>     importFrom(bs4Dash, bs4Card, bs4DashBody, bs4DashControlbar, bs4DashFooter, bs4DashNavbar,
+>                bs4DashPage, bs4DashSidebar, bs4InfoBox, bs4InfoBoxOutput, bs4SidebarMenu,
+>                bs4SidebarMenuItem, bs4TabCard, bs4TabItem, bs4TabItems, bs4TabPanel,
+>                bs4ValueBox, bs4ValueBoxOutput, column, renderbs4InfoBox, renderbs4ValueBox)
+>     
+>     importFrom(ComplexHeatmap, Heatmap, HeatmapAnnotation)
+>     
+>     importFrom(dendextend, branches_attr_by_clusters, set)
+>     
+>     importFrom(DESeq2, vst)
+>     
+>     importFrom(dplyr, arrange, desc, group_by, mutate, pull)
+>     
+>     importFrom(DT, datatable, dataTableOutput, formatRound, formatStyle, renderDataTable)
+>     
+>     importFrom(ggplot2, aes, aes_string, coord_flip, element_blank, element_text,
+>                geom_boxplot, geom_jitter, geom_line, geom_point, geom_segment, geom_text,
+>                geom_tile, geom_violin, geom_vline, ggplot, ggtitle, labs, position_jitter,
+>                scale_color_brewer, scale_color_discrete, scale_color_gradient2,
+>                scale_fill_gradient2, scale_x_continuous, scale_x_discrete, scale_y_continuous,
+>                scale_y_discrete, scale_y_log10, stat_summary, theme, theme_bw, theme_minimal,
+>                xlab, ylab, ylim)
+>     
+>     importFrom(ggrepel, geom_label_repel, geom_text_repel)
+>     
+>     importFrom(graphics, par)
+>     
+>     importFrom(grDevices, col2rgb, colorRampPalette)
+>     
+>     importFrom(grid, gpar)
+>     
+>     importFrom(igraph, as_adjacency_matrix, delete.edges, E, "E<-", graph.data.frame,
+>                is_named, permute.vertices, V, "V<-", vcount)
+>     
+>     importFrom(methods, is)
+>     
+>     importFrom(plotly, add_trace, ggplotly, layout, plot_ly, plotlyOutput, renderPlotly)
+>     
+>     importFrom(RColorBrewer, brewer.pal)
+>     
+>     importFrom(scales, alpha, muted)
+>     
+>     importFrom(shiny, actionButton, addResourcePath, column, downloadButton, downloadHandler,
+>                fluidRow, icon, modalDialog, need, numericInput, observeEvent, plotOutput,
+>                reactive, reactiveValues, renderPlot, renderPrint, renderUI, selectInput,
+>                shinyApp, showModal, showNotification, uiOutput, validate, withProgress)
+>     
+>     importFrom(shinycssloaders, withSpinner)
+>     
+>     importFrom(stats, as.dendrogram, as.dist, cmdscale, dist, hclust, median,
+>                order.dendrogram, runif, var)
+>     
+>     importFrom(tidyr, pivot_longer, separate_rows)
+>     
+>     importFrom(utils, browseURL, citation, read.delim, sessionInfo)
+>     
+>     importFrom(visNetwork, renderVisNetwork, visIgraph, visNetworkOutput, visOptions)
+>     
+>     importFrom(dynamicTreeCut, cutreeDynamic)
+>     
+>     importFrom(ggforce, geom_sina)
+>     
+>     importFrom(matrixStats, rowSds)
+>     
+>     importFrom(rintrojs, introjs, introjsUI)
+>     
+>     importFrom(rmarkdown, render)
+>     
+>     importFrom(shinyWidgets, dropdownButton, tooltipOptions)
+>     
+>     importFrom(tools, file_ext, file_path_sans_ext)
+>     
+>     importFrom(dplyr, tags)
+>     
+>     importFrom(ggplot2, GOTERM)
+>     
+>     importFrom(GO.db, )
+>     
+>     importFrom(rlang, .data)
+>     
+>     importFrom(shiny, )
+>     
+>     --END of namespace import suggestions.
+> ```
+
+**Federico Marini** (08:50:25):
+> now, I know many of use are skilled in knowing where to pick what, but it is a nice commodity to have a semiautomated suggestion
+
+**Charlotte Soneson** (08:52:03) (in thread):
+> Well, I guess it was submitted before the sapply->vapply, class->is recommendations, and other more recent additions:slightly_smiling_face:
+
+**Martin Morgan** (08:52:53) (in thread):
+> or a .BBSoptions 'opt in', where we enable for all new package, and existing package maintainers need to actively opt in / opt out?
+
+**Nitesh Turaga** (08:53:13):
+> I see, yeah, that sounds like a good feature. I like the`Enchances`feature too. And instead of taking the "entire" codebase from codetoolsBioc, maybe you can import just the functions which are needed to make this available. The package is available here,[https://github.com/Bioconductor/codetoolsBioC/](https://github.com/Bioconductor/codetoolsBioC/). Even though it's not on Bioc.
+> 
+> But we posting it on github issues will give you a better idea with larger community discourse.
+
+**Martin Morgan** (08:53:50) (in thread):
+> would be useful to know whether you thought the recommendations were good, or maybe noise that made you want to not run BiocCheck?
+
+**Federico Marini** (08:54:17):
+> Yup, I’ll see to put up an issue. Functionality is actually already in BiocCheck
+
+**Federico Marini** (08:54:49):
+> [https://github.com/Bioconductor/BiocCheck/blob/4687a90efd5a30218320af9eb79f778463397d2e/R/BiocCheck.R#L190](https://github.com/Bioconductor/BiocCheck/blob/4687a90efd5a30218320af9eb79f778463397d2e/R/BiocCheck.R#L190)
+
+**Federico Marini** (08:55:26):
+> so not much is required for BiocCheck but more to finalize the “making it to Bioc” of`codetoolsBioc`
+
+**Charlotte Soneson** (08:58:12) (in thread):
+> I think they mostly make sense, and act more as a motivation to fix them and make the package adhere to the more modern recommendations. The ones that are usually left for me are the function length (50 lines is very short…) and the 4 space indentation (when aligning function arguments). In this particular case the suggested biocViews were a bit off. But the rest are things that I will attempt to fix.
+
+*09:23:51 - @Lluís Revilla has joined the channel*
+**Lluís Revilla** (09:25:44) (in thread):
+> Thanks for bringing the comment here I wasn't aware of this channel
+
+*09:56:27 - @Theresa Alexander has joined the channel*
+*11:19:19 - @Malte Thodberg has joined the channel*
+*12:07:00 - @Steffen Neumann has joined the channel*
+**Steffen Neumann** (12:09:22):
+> Currently the build machines run`R CMD check`. Is there a chance to have  another column with`BiocCheck`results ? At least in prep for the hackathon ? I know the hackathon aims at the Checks themselves, but this would help looking at the impact of BiocChecks ...
+
+*12:11:22 - @Constantin Ahlmann-Eltze has joined the channel*
+**Lori Shepherd** (12:30:37) (in thread):
+> Not immediately.  We don't know the strain that would put on the builders and know it would cause a lot of failures right now to do stricter constraints in more recent years.  There was a previous thread started about this as well[https://community-bioc.slack.com/archives/C012YQP9VHU/p1588941869020200](https://community-bioc.slack.com/archives/C012YQP9VHU/p1588941869020200)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C012YQP9VHU/p1588941869020200)
+    > Currently it is only on new packages.   We could consider applying it to the daily builders but it would cause massive failures so there might need to be a longer roll out period for this to occur.
+
+**Lori Shepherd** (12:31:08) (in thread):
+> We want to think about moving it over to the daily builder but it would have to be something done in stages.
+
+*13:15:01 - @Sehyun Oh has joined the channel*
+**Hervé Pagès** (13:56:35) (in thread):
+> E.g. this could be on Linux only and the results would be ignored as far as propagation is concerned.
+
+**Kevin Rue-Albrecht** (13:59:51) (in thread):
+> daily inspections on say a random ~10% of packages:stuck_out_tongue_winking_eye:
+
+**Hervé Pagès** (15:32:44) (in thread):
+> with some privileged ones that are exempt from inspection:stuck_out_tongue_closed_eyes:
+
+**Leonardo Collado Torres** (16:01:36) (in thread):
+> I’m also running`BiocCheck`on GitHub actions and it also helped me with some older packages, though I’m running them using`BiocCheck::BiocCheck()`instead of`R CMD BiocCheck`such that the GHA workflow doesn’t fail if BiocCheck fails. This is useful when you are on a brand new package and still want the GHA workflow to cache the installed packages on a non-error`R CMD check`run. This is the code I’m using:[https://github.com/lcolladotor/biocthis/blob/master/.github/workflows/check-bioc.yml#L225-L235](https://github.com/lcolladotor/biocthis/blob/master/.github/workflows/check-bioc.yml#L225-L235)
+
+*17:09:43 - @Henrik Bengtsson has joined the channel*
+
+## 2020-05-09
+
+*00:28:06 - @Upasna Srivastava has joined the channel*
+*15:58:34 - @Preethy has joined the channel*
+
+## 2020-05-10
+
+*09:24:58 - @Sangram Keshari Sahu has joined the channel*
+
+## 2020-05-11
+
+**Mike Smith** (04:19:23):
+> Do people think there's any merit in dedicating most of this months developers forum to this project?  It'll fall close(ish) to the middle of the week, so we could use it to discuss what's happened, plans for the final two days etc?
+
+**Lori Shepherd** (08:56:23):
+> I was hoping for that but hadn't emailed you yet --   doesnt have to necessarily be most of the time -- but maybe ending with it and if people weer encountering issues we could stay on to help or schedule time to help
+
+**Vince Carey** (09:04:03):
+> Do we have a package that triggers all the current BiocCheck warn/error conditions?  Would it be advantageous to have one?
+
+**Martin Morgan** (11:56:30):
+> It has (RUnit) tests for many of the issues in[https://github.com/Bioconductor/BiocCheck/blob/master/inst/unitTests/test_BiocCheck.R](https://github.com/Bioconductor/BiocCheck/blob/master/inst/unitTests/test_BiocCheck.R). Presumably this is part of any hackathon product -- not just the code, but tests that demonstrate that the code works!
+
+**Federico Marini** (12:02:38):
+> switching to`testthat`is in the thoughts?
+
+**Mike Smith** (12:47:56) (in thread):
+> Developers actively discussing on-going development seems pretty on point for the devel forum, so I'm happy to try something a little different this month.
+> 
+> This should really be guided by whether hack-a-thon participants think it will be useful. If you think this would be beneficial, please reply with a:+1:and if not then:-1:I'm also happy to try and coordinate an complementary meeting at a time more convenient for anyone from Asia or Australasia
+
+*14:17:49 - @Kara Woo has joined the channel*
+*15:41:03 - @Daniela Cassol has joined the channel*
+**Vince Carey** (20:59:10) (in thread):
+> What is the benefit of that Federico?  I could work on that if it is significant.
+
+
+## 2020-05-12
+
+*02:00:57 - @Jialin Ma has joined the channel*
+**Federico Marini** (03:36:48) (in thread):
+> Just the fact that it seems the framework which seems to be more widely used. Benefit could be that it would be easier for people to contribute?
+
+**Federico Marini** (03:37:24) (in thread):
+> Disclaimer: it is also the one I am using (and I did not get exposed to Runit in the first place
+
+**Vince Carey** (11:05:45) (in thread):
+> I tend to use testthat too ... i will look at the prospects for conversion and have a dialogue with maintainers
+
+*20:30:39 - @Stuart Lee has joined the channel*
+
+## 2020-05-14
+
+**Federico Marini** (04:39:32) (in thread):
+> FWIW,@Vince Carey: while we are at it, we could also think of switching to roxygen for the documentation framework
+
+**Federico Marini** (04:40:04) (in thread):
+> I think it would help a lot for creating fitting examples & tests
+
+
+## 2020-05-15
+
+**Mike Smith** (05:18:27):
+> Is there's a plan for organising this?  Would you like people to start assigning themselves to issues on Github?
+
+**Lori Shepherd** (07:15:35):
+> The core team is reviewing later today to iron out details -- there is an organizational/intro meeting schedule for Monday May 18th open to the public with a plan to discuss how to fork, branch, and pull request along with an overview of the BiocCheck code@Martin MorganDid the meeting get scheduled and announced?
+
+**Martin Morgan** (08:58:27):
+> <!channel>The orientation meeting is at 11am US Eastern Time, at[https://bluejeans.com/864347657](https://bluejeans.com/864347657)Take a minute to add issues at[https://github.com/Bioconductor/BiocCheck/issues](https://github.com/Bioconductor/BiocCheck/issues)and create your own prioritized list of things you'd like to work on! We'll create working groups at the Monday meeting
+
+**Leonardo Collado Torres** (12:30:30):
+> Ugh… I guess that I do a lot of non-standard stuff:stuck_out_tongue:Anyway, I just commented on several issues, exposing my possibly non-approved`BiocCheck`behavior:sweat_smile:
+
+**Leonardo Collado Torres** (12:38:22):
+> I do feel like several proposed changes could benefit from doc changes at the BioC website, so maybe encouraging those issues as part of the BiocCheck-a-thon would be good (if you want those issues)
+
+**Leonardo Collado Torres** (12:48:28):
+> It’s also unclear to me if the new BiocCheck will be run on all current packages or if the changes will be enforced only with new submissions (specially with the new or upgraded warning/errors that would have been missed in current BioC packages)
+
+**Lori Shepherd** (13:01:10):
+> We mentioned this a few times --  Ideally we want to have this run on all the current packages but because of legacy and the increasing stringency of guidelines this would cause many many many failures of current Bioconductor package. We would have to work on this in stages and come up with a plan over time to adapt it.  We also have to do some time specs to see what additional strain it would put on the builders.  Initially it will be immediately implemented in the single package builder for new packages.
+
+**Leonardo Collado Torres** (14:59:17):
+> Ahh yup, I had seen that reasoning explained in relation to running`BiocCheck`on the nightly build machines: so you are right, I knew the answer about`enforcing`.
+> 
+> What I was thinking about that I didn’t explain clearly was more on the line of thought of running`BiocCheck`(the new version) manually once across all packages, then sharing the reports back to maintainers. As a way to ask (or**strongly request**) people to update their code.
+
+**Leonardo Collado Torres** (15:07:00):
+> I see that Nitesh is doing this already in some of the issues, but maybe adding links to the relevant related code would be useful for those of us that are not familiar with the`BiocCheck`internals
+
+*15:32:43 - @Lauren Hsu has joined the channel*
+*20:50:58 - @Joselyn Chávez has joined the channel*
+
+## 2020-05-16
+
+*07:54:16 - @Shian Su has joined the channel*
+
+## 2020-05-17
+
+*20:32:24 - @Peter Hickey has joined the channel*
+*21:53:21 - @Aedin Culhane has joined the channel*
+
+## 2020-05-18
+
+*02:31:41 - @Helena L. Crowell has joined the channel*
+*02:59:50 - @Luke Zappia has joined the channel*
+**Federico Marini** (04:35:08):
+> A general thought “before” starting the hackathon (as this can influence many forks that will come): do we want to updated docs and test suite here? i.e., Roxygen-based, and testthat
+
+**Martin Morgan** (08:00:58):
+> @Federico Marinisounds like a separate project! I'd be supportive of the transition but at a later date...
+
+**Federico Marini** (08:01:37):
+> Perfect!
+
+**Federico Marini** (08:02:29):
+> Just thought that more “modern” systems could make it easier to welcome new contributors, but as you said, it is a project of its own
+
+**Federico Marini** (08:03:49):
+> I did some first steps in converting`codetoolsBioc`in a separate fork - that is not going to be so central for this hackathon
+
+*08:38:51 - @FeiZhao has joined the channel*
+*08:45:19 - @B P Kailash has joined the channel*
+*08:53:59 - @Teun van den Brand has joined the channel*
+**Lori Shepherd** (09:29:32):
+> here is the link to slides for the bioccheck-a-thon start off meeting today  at 11 am EST, We will review these slides and then review the currently open issues available to work on:[https://docs.google.com/presentation/d/1DkN2WVPOMVGqUtlSSrWbx6IMjtGP_cEHoE3nfOEnD68/edit?usp=sharing](https://docs.google.com/presentation/d/1DkN2WVPOMVGqUtlSSrWbx6IMjtGP_cEHoE3nfOEnD68/edit?usp=sharing)
+
+*10:23:57 - @Anna Evans has joined the channel*
+**Anna Evans** (10:25:28):
+> Newbie to this, not sure how this works yet, but if there is something I can do to help Bioconductor great.
+
+**Lori Shepherd** (10:52:46):
+> As a reminder the link for the meeting starting in roughly 8 min:[https://bluejeans.com/864347657](https://bluejeans.com/864347657)
+
+*10:59:48 - @Nick Eagles has joined the channel*
+*11:04:18 - @Huipeng Li has joined the channel*
+**Nitesh Turaga** (11:16:19):
+> Example of an informative commit message: if i’m changing the code style recommendation from formatR to styleR
+> ```
+> Switch code style recommendation to StyleR
+> 
+> - The recommendation from formatR is being changed to styleR.
+> - This is because styleR provides a more informative code style fixer.
+> - Version is being bumped from x.y.z to x.y.z+1
+> 
+> This commit is related to the issue number #75
+> ```
+
+**Leonardo Collado Torres** (11:19:52) (in thread):
+> hehe thanks, I’ll use that later =)
+
+**Nitesh Turaga** (11:20:21) (in thread):
+> Make sure to check the issue number:smile:, I just made that number up.
+
+**Nitesh Turaga** (11:23:35):
+> From Martin:
+> ```
+> This[https://github.com/Bioconductor/BiocManager/commit/1daede2417e0459064eaf7d041c6ccbb41b1dd53](https://github.com/Bioconductor/BiocManager/commit/1daede2417e0459064eaf7d041c6ccbb41b1dd53)is a recent commit; I like the first line to be a summary, then blank line, then bullets that go into detail about the *motivation* rather than implementation
+> ```
+
+**Leonardo Collado Torres** (11:30:22):
+> this might be useful to give credit to others if you write the code in a group[https://github.blog/2018-01-29-commit-together-with-co-authors/](https://github.blog/2018-01-29-commit-together-with-co-authors/)
+  - Attachment (The GitHub Blog): [Commit together with co-authors - The GitHub Blog](https://github.blog/2018-01-29-commit-together-with-co-authors/)
+    > With faster onboarding for junior developers, increased code quality, and more thorough code review, it’s easy to see why more developers than ever are writing code collaboratively. Your team’s (and our own) great results from
+
+**Leonardo Collado Torres** (11:42:38) (in thread):
+> hehe thanks ^^[https://github.com/Bioconductor/BiocCheck/issues/57](https://github.com/Bioconductor/BiocCheck/issues/57)
+
+*11:43:56 - @Vasant Marur has joined the channel*
+**Aedin Culhane** (12:06:50):
+> @Leonardo Collado Torresjust saw your biocthis package.. looks like a great idea
+
+**Luke Zappia** (12:08:17):
+> I was thinking it might be helpful to have a GitHub action set up to check pull requests during the hackathon. I've started doing this using`biocthis`here[https://github.com/lazappi/BiocCheck/tree/gh-actions](https://github.com/lazappi/BiocCheck/tree/gh-actions). The Ubuntu build works by Windows and MacOS fail[https://github.com/lazappi/BiocCheck/actions/runs/108328848](https://github.com/lazappi/BiocCheck/actions/runs/108328848). I will see if I can get those working too but if anyone else wants to help out you are more than welcome!
+
+**Leonardo Collado Torres** (12:09:02) (in thread):
+> hehe, I just wrote[https://github.com/Bioconductor/BiocCheck/issues/84#issue-620332923](https://github.com/Bioconductor/BiocCheck/issues/84#issue-620332923)
+
+**Nitesh Turaga** (12:10:11):
+> @Aedin CulhaneWe’re marking your issue[https://github.com/Bioconductor/BiocCheck/issues/83](https://github.com/Bioconductor/BiocCheck/issues/83)as a intermediate issue.
+
+**Nitesh Turaga** (12:10:17):
+> Does that sound about right?
+
+**Leonardo Collado Torres** (12:11:25) (in thread):
+> thanks:smiley:I need to write a blog post about it soon. I was going to do so this past weekend, but had a personal matter to attend.
+
+**Luke Zappia** (12:12:17) (in thread):
+> I thought that might happen:joy_cat:! You probably have more experience with this than me but happy to help out if I can.
+
+**Lori Shepherd** (12:15:00):
+> <!channel>Can those of you receiving errors when trying to build and check the current version of BiocCheck please send me your`sessionInfo()`I am not able to reproduce this locally on my computer but will look into it asap on another platform if necessary.
+
+**Constantin Ahlmann-Eltze** (12:16:27) (in thread):
+> ```
+> > sessionInfo()
+> R version 4.0.0 Patched (2020-05-04 r78358)
+> Platform: x86_64-apple-darwin17.0 (64-bit)
+> Running under: macOS Mojave 10.14.6
+> 
+> Matrix products: default
+> BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+> LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+> 
+> locale:
+> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base     
+> 
+> other attached packages:
+> [1] testpkg_0.0.0.9000 badpkg_0.0.1       devtools_2.3.0     usethis_1.6.1      RUnit_0.4.32       BiocCheck_1.25.0  
+> 
+> loaded via a namespace (and not attached):
+>  [1] Rcpp_1.0.4.6        git2r_0.27.1        compiler_4.0.0      BiocManager_1.30.10 prettyunits_1.1.1   bitops_1.0-6        remotes_2.1.1      
+>  [8] tools_4.0.0         testthat_2.3.2      digest_0.6.25       pkgbuild_1.0.7      pkgload_1.0.2       memoise_1.1.0       rlang_0.4.6        
+> [15] graph_1.66.0        cli_2.0.2           rstudioapi_0.11     parallel_4.0.0      xfun_0.13           xml2_1.3.2          stringr_1.4.0      
+> [22] roxygen2_7.1.0      knitr_1.28          httr_1.4.1          withr_2.2.0         desc_1.2.0          fs_1.4.1            getopt_1.20.3      
+> [29] stats4_4.0.0        rprojroot_1.3-2     optparse_1.6.6      glue_1.4.0          Biobase_2.48.0      R6_2.4.1            processx_3.4.2     
+> [36] fansi_0.4.1         XML_3.99-0.3        RBGL_1.64.0         sessioninfo_1.1.1   purrr_0.3.4         callr_3.4.3         magrittr_1.5       
+> [43] codetools_0.2-16    backports_1.1.6     ps_1.3.2            ellipsis_0.3.0      biocViews_1.56.0    BiocGenerics_0.34.0 stringdist_0.9.5.5 
+> [50] assertthat_0.2.1    stringi_1.4.6       RCurl_1.98-1.2      crayon_1.3.4
+> ```
+
+**Constantin Ahlmann-Eltze** (12:17:01) (in thread):
+> The error is :
+> ```
+> 1 Test Suite : 
+> BiocCheck RUnit Tests - 31 test functions, 2 errors, 0 failures
+> ERROR in test_checkExportsAreDocumented: Error in (function (package, help, pos = 2, lib.loc = NULL, character.only = FALSE,  : 
+>   there is no package called 'testpkg0'
+> ERROR in test_checkForBadDepends: Error in (function (package, help, pos = 2, lib.loc = NULL, character.only = FALSE,  : 
+>   there is no package called 'testpkg0'
+> 
+> Test files with failing tests
+> 
+>    test_BiocCheck.R 
+>      test_checkExportsAreDocumented 
+>      test_checkForBadDepends
+> ```
+
+**Leonardo Collado Torres** (12:17:53) (in thread):
+> no worries:smiley:I’ll do this shortly after I eat my lunch ^^
+
+**Constantin Ahlmann-Eltze** (12:18:32) (in thread):
+> Okay, calling`install.packages("RJSONIO")`solved the problem for me
+
+**Leonardo Collado Torres** (12:21:55) (in thread):
+> nvm, I don’t have Bioconductor 3.12 setup on my computer yet, so I’m doing that now :P
+
+**Nitesh Turaga** (12:22:42):
+> I’m happy to collaborate with someone on an issue if they need a hand with anything. Please feel free to reach out to me. If you also have issues with git or anything related “@” me on this slack channel.
+
+**Luke Zappia** (12:29:32) (in thread):
+> :+1:It's dinner time here. If you get around to it maybe link to your branch here/the issue? Otherwise I might play with it again later.
+
+**Leonardo Collado Torres** (14:03:44):
+> [https://twitter.com/fellgernon/status/1262443585955340290?s=20](https://twitter.com/fellgernon/status/1262443585955340290?s=20)
+  - Attachment (twitter): [Attachment](https://twitter.com/fellgernon/status/1262443585955340290?s=20)
+    > The #BiocCheck-a-thon started today :tada:
+    > 
+    > Here's a 15 min video where I try to resolve issue 84 & show how to fork/clone/make a branch ([@xieyihui](https://twitter.com/xieyihui) shoutout)
+    > 
+    > :globe_with_meridians:[https://github.com/Bioconductor/BiocCheck/issues/84](https://github.com/Bioconductor/BiocCheck/issues/84)
+    > :video_camera:[https://jh.zoom.us/rec/share/7sFNELqvqjtIBbOcwgLAVrA5QZbUaaa81SEZ_vFYmhrYqJS2C2vYm-7tGc4LkFLs?startTime=1589820756000](https://jh.zoom.us/rec/share/7sFNELqvqjtIBbOcwgLAVrA5QZbUaaa81SEZ_vFYmhrYqJS2C2vYm-7tGc4LkFLs?startTime=1589820756000)
+    > :notebook_with_decorative_cover:[https://docs.google.com/document/d/1bmER5f3jN4lPhaMO83VWxHkPlsZwCfsJy4DvudvMWo8/edit?usp=sharing](https://docs.google.com/document/d/1bmER5f3jN4lPhaMO83VWxHkPlsZwCfsJy4DvudvMWo8/edit?usp=sharing)
+    > 
+    > #rstats [@Bioconductor](https://twitter.com/Bioconductor)
+    > 
+    > [https://twitter.com/Bioconductor/status/1258652866841063424?s=20](https://twitter.com/Bioconductor/status/1258652866841063424?s=20) [https://pbs.twimg.com/media/EYUZsjIXgAIzYX1.jpg](https://pbs.twimg.com/media/EYUZsjIXgAIzYX1.jpg)
+  - Attachment (twitter): [Attachment](https://twitter.com/Bioconductor/status/1258652866841063424)
+    > #rstats / [@Bioconductor](https://twitter.com/Bioconductor) Join us for 'BiocCheck-a-thon', a week-long virtual activity to improve BiocCheck and the consistency and quality of Bioconductor packages! See [https://github.com/Bioconductor/BiocCheck/wiki](https://github.com/Bioconductor/BiocCheck/wiki) for details; starting May 18.
+
+**Leonardo Collado Torres** (14:04:19) (in thread):
+> @Luke Zappia[https://twitter.com/fellgernon/status/1262443585955340290?s=20](https://twitter.com/fellgernon/status/1262443585955340290?s=20):smiley:
+
+*15:08:51 - @Mikhael Manurung has joined the channel*
+
+## 2020-05-19
+
+**Mike Smith** (05:30:17):
+> Am I right in thinking that if you have man pages generated by`roxygen2`the .Rd files will be created before BiocCheck starts working?  So if I want to write a unit test for something in a man page, I can add an example to an .Rd file in[https://github.com/Bioconductor/BiocCheck/tree/master/inst/testpackages/testpkg0/man](https://github.com/Bioconductor/BiocCheck/tree/master/inst/testpackages/testpkg0/man)and not worry about whether it originally came from roxygen or was hand-crafted?
+
+**Federico Marini** (05:50:44):
+> In my head you need to reoxygenize before running BiocCheck
+
+**Federico Marini** (05:51:24):
+> but if you touch the Rd directly, it should not be a problem - per se.
+
+**Federico Marini** (05:51:55):
+> probably RStudio would still try to suggest to not edit the Rd directly but go to the .R source
+
+**Mike Smith** (06:14:31):
+> Cool, I think that's my understanding too.  I might be wrong, but I don't think that any of the examples in BiocCheck use roxygen, but I wanted to be sure I'm not missing a large number of cases if I only focus on the .Rd
+
+**Lori Shepherd** (08:11:01):
+> BiocCheck is older and hence uses RUnit and manual man page.
+
+**Mike Smith** (09:02:01):
+> Is there a way to check the percentages that returned by Notes etc in a unit test?  e.g. If I know that half the man pages should trigger a note, I might want to check I see "50% of man pages use one of these cases." rather than "75% of man pages use one of these cases."
+
+**Lori Shepherd** (09:07:07):
+> you could see how the percentage is calculated in the checks.R -- not entirely sure I follow but you could also use the .notes$getNum()
+
+**Mike Smith** (09:27:09):
+> I'm trying to update`checkUsageOfDont()`so that it doesn't count man pages that include they keyword internal (issue 59). But it should still trigger on a man page that really does have`\dontrun`and isn't 'internal'.  From what I can see there's no unit test in BiocCheck for`checkUsageOfDont()`so I'm trying to add one.  To do this I've added a new man page to testpkg0 that has the 'internal' keyword.  What I want then is for BiocCheck to generate the note, because there are some 'bad' man pages, but also ignore the 'internal' one - so really I want  to check the contents of the message.
+
+**Mike Smith** (09:27:35):
+> Perhaps its simpler to add the man page to a new test package and check that no note is produced for that.
+
+**Mike Smith** (11:38:06):
+> Sorting out the merge conflicts in the NEWS and DESCRIPTION file is going to be fun.  I'm thinking about making my pull request version 1.25.10 to try and be on the safe side.
+
+**Mike Smith** (11:38:38):
+> Perhaps we should agree to not bump the version number until the end of the week?
+
+**Lori Shepherd** (11:39:22):
+> Yes that might be a good idea.
+
+**Federico Marini** (11:48:12):
+> I was about to propose it as well:smile:indeed it could be a big chaos
+
+**Federico Marini** (11:48:56):
+> I thought also of noting down in the news that change X was done in the scope of the BiocCheck-a-thon, referring to the issue  # as well
+
+**Mike Smith** (11:53:52):
+> I think we should each add an item to the news, and accept almost everyone will get a merge conflict, but maybe ignore the`(1.23.10) this change was made`style and group all this weeks changes together.  I presume the master branch doesn't go to[git.bioconductor.org](http://git.bioconductor.org)automatically, so one version bump after a number of merges will be ok.
+
+
+## 2020-05-20
+
+**Lori Shepherd** (13:50:40):
+> Hope everyone is making progress and finding this a fun exercise -- Just a reminder Mike is slotting a little time in the developers forum tomorrow (12 EST) if anyone is having issues or wants to discuss or demo progress
+
+**Mike Smith** (16:34:40) (in thread):
+> I don't really have any other agenda items for tomorrow, so we have the full hour to discuss things.  I thought it might be fun to share some demos of what we've done so far, or discuss either a a few of the outstanding issues that haven't been worked on or things we've encountered that might want some immediate feedback.
+
+
+## 2020-05-21
+
+**Lori Shepherd** (11:59:11):
+> Developers forum starting at[https://bluejeans.com/114067881](https://bluejeans.com/114067881)
+
+**Leonardo Collado Torres** (13:14:22):
+> Thanks for the discussion! This was really informative:smiley:Also, I’ll skip the meeting tomorrow, sorry (I have another work meeting then)
+
+
+## 2020-05-22
+
+**Lori Shepherd** (09:43:33):
+> Reminder:  We will be having another meeting today at 11 am EST   at[https://bluejeans.com/296225857](https://bluejeans.com/296225857)We would like to encourage you all to demo work, ask questions about any concerns or blockers you are experiencing, and general discussion/feedback for the BiocCheck-a-thon.   We will also be merging a pull request that is ready to be merged for a live demo.   Cheers.
+
+**Nitesh Turaga** (11:40:25):
+> Some numbers help guide peoples thinking in this BiocCheck collaboration event:***9***people who forked the BiocCheck repo before the hackathon***8***new Pull requests***5***individual contributors towards the 8 pull requests***1***hopefully soon, incoming PR***Lots of learning and engagement***in other ways which cannot be measured in numbers!
+
+**Kayla Interdonato** (12:18:57):
+> <!channel>We would like to get some feedback about this weeks BiocCheck-a-thon. Even if you didn’t get a chance to work on an issue, we would appreciate the community filling out this forum we’ve put together -[https://docs.google.com/forms/d/e/1FAIpQLSfBdBuTcawOAgm9CXfjRl-tzaKBWbIB7ilYCMku747qUJPBGQ/viewform?usp=sf_link](https://docs.google.com/forms/d/e/1FAIpQLSfBdBuTcawOAgm9CXfjRl-tzaKBWbIB7ilYCMku747qUJPBGQ/viewform?usp=sf_link). Thank you!
+
+*12:37:31 - @Sean Davis has left the channel*
+*13:51:13 - @Sehyun Oh has left the channel*
+*16:08:28 - @Steffen Neumann has left the channel*
+
+## 2020-05-24
+
+*19:31:06 - @Shian Su has left the channel*
+
+## 2020-05-29
+
+**Lori Shepherd** (09:24:21):
+> Hello all -- Just a quick notes to say we will be reviewing the current pull requests next week to hopefully merge those into the master branch!   We encourage everyone that started working on issues to continue to ask questions and work towards the pull requests even though the hack-a-thon week is over.   Cheers
+
+
+## 2020-06-02
+
+*00:03:11 - @Hervé Pagès has left the channel*
+
+## 2020-07-31
+
+*16:17:26 - @Dr Awala Fortune O. has joined the channel*
+
+## 2020-09-16
+
+*09:32:53 - @Nitesh Turaga has left the channel*
+
+## 2020-12-02
+
+*05:42:25 - @Konstantinos Geles (Constantinos Yeles) has joined the channel*
+
+## 2020-12-15
+
+*05:41:11 - @Francesc Català has joined the channel*
+
+## 2020-12-16
+
+*11:41:14 - @Francesc Català has left the channel*
+
+## 2021-01-22
+
+*15:41:59 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-02-07
+
+*11:10:01 - @Mikhael Manurung has left the channel*
+
+## 2021-03-11
+
+*17:50:35 - @Stuart Lee has left the channel*
+
+## 2021-05-11
+
+*16:44:08 - @Megha Lal has joined the channel*
+
+## 2021-07-23
+
+*15:52:01 - @Batool Almarzouq has joined the channel*
+
+## 2021-09-25
+
+*07:20:45 - @Haichao Wang has joined the channel*
+
+## 2022-01-28
+
+*11:12:17 - @Megha Lal has left the channel*
+
+## 2023-03-24
+
+*06:46:25 - @Mike Smith has left the channel*
+
+## 2023-09-11
+
+**Marcel Ramos Pérez** (12:23:16):
+> archived the channel

@@ -1,0 +1,541 @@
+---
+title: "#artifactdb"
+format: gfm
+---
+
+
+## 2023-05-12
+
+*13:33:33 - @Aaron Lun has joined the channel*
+*13:33:52 - @Vince Carey has joined the channel*
+*13:33:52 - @Lori Shepherd has joined the channel*
+*13:33:53 - @Alex Mahmoud has joined the channel*
+**Aaron Lun** (13:33:54):
+> first
+
+**Aaron Lun** (13:33:58):
+> and did i forget anyone
+
+**Aaron Lun** (13:34:42):
+> it's finally up:[https://demodb.api.artifactdb.io/](https://demodb.api.artifactdb.io/)
+
+**Aaron Lun** (13:43:00):
+> this can be tested with the current build of zircon ([https://github.com/ArtifactDB/zircon-R](https://github.com/ArtifactDB/zircon-R)) and CollaboratorDB ([https://github.com/CollaboratorDB/CollaboratorDB-R](https://github.com/CollaboratorDB/CollaboratorDB-R))
+> ```
+> X <- fetchObject("test-aaron3:zeisel@2023-05-11") # zeisel brain data
+> Y <- fetchObject("cellranger2:features@2020-A") # cellranger annotation as a GRangesList
+> Z <- fetchObject("visium-examples:mouse-brain@2023-05-12") # visium dataset
+> ```
+> Still ironing out some kinks, especially around permissions. Right now it's read-only until we figure out what authentication you can use.
+
+*13:45:13 - @Jayaram Kancherla has joined the channel*
+*13:45:52 - @Marcel Ramos Pérez has joined the channel*
+*13:45:52 - @Michael Lawrence has joined the channel*
+**Aaron Lun** (16:29:20):
+> set the channel description: Deploying an ArtifactDB instance for Bioconductor
+
+**Aaron Lun** (20:25:07):
+> Now with search:
+> ```
+> library(zircon)
+> X <- searchMetadata("zeisel", field=c("path", "description"), url=example.url)
+> lapply(X, function(x) x$description)
+> lapply(X, function(x) x$path)
+> ```
+> Still a few kinks to sort out with that but you get the idea
+
+*20:38:21 - @Sebastien Lelong has joined the channel*
+
+## 2023-05-13
+
+*03:24:50 - @Leo Lahti has joined the channel*
+*19:34:55 - @Robert Shear has joined the channel*
+
+## 2023-05-18
+
+*05:53:53 - @Oluwafemi Oyedele has joined the channel*
+**Vince Carey** (06:51:35):
+> Here are some experiences.  Most salient seems to be:
+> ```
+> > tt = getFile("cellranger:features@2020-A.v1", url=example.url, cache=cache.fun)
+> trying URL '[https://adb-demodb.s3.amazonaws.com/cellranger/2020-A.v1/features?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA4HZGC6KPQCJKQTYP%2F20230518%2Fus-wes](https://adb-demodb.s3.amazonaws.com/cellranger/2020-A.v1/features?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA4HZGC6KPQCJKQTYP%2F20230518%2Fus-wes)
+> ```
+> ...
+> ```
+> Error in download.file(final, path, mode = "wb") : 
+>   cannot open URL '[https://adb-demodb.s3.amazonaws.com/cellranger/2020-A.v1/features?X-Amz](https://adb-demodb.s3.amazonaws.com/cellranger/2020-A.v1/features?X-Amz)...
+> ```
+> this is with
+> ```
+> > example.url
+> [1] "[https://demodb.api.artifactdb.io/v1](https://demodb.api.artifactdb.io/v1)"
+> ```
+
+**Vince Carey** (06:52:25):
+> ```
+> > example(getFile)
+> 
+> getFil> getFileURL(example.id, url = example.url)
+> Error in checkResponse(link.data, allow.redirect = TRUE) : 
+>   Client error: (404) Not Found
+>   No such file
+> ```
+
+**Vince Carey** (06:54:15):
+> listProjects works nicely, and getProjectMetadata ... is the demo supposed to support file downloads?  do i need to register a github id somewhere?
+
+**Vince Carey** (07:03:55):
+> now I am trying out the calcite-R README code and that is working....
+
+**Vince Carey** (07:04:22):
+> I do need to read over the docs, maybe a preferred path through them could be jotted down here.
+
+*12:27:12 - @Levi Waldron has joined the channel*
+**Aaron Lun** (15:51:02):
+> thanks@Vince Carey, yes the public instance still has a few kinks that we're working on
+
+**Aaron Lun** (15:53:04):
+> fwiw, the`cellranger:features@2020-A.v1`example works fine for me, though i think something was fixed between now and then, so that might be why.
+
+**Aaron Lun** (15:53:44):
+> many of the examples in the***zircon***and***CollaboratorDB***packages are not working, we're still sorting out the porting issues
+
+**Vince Carey** (16:16:25):
+> OK, I don't see any changes to source since I installed. ... I wonder if the cellranger example won't work without a token?  Anyway, keep me posted
+
+**Aaron Lun** (18:44:27):
+> i'll check on my home computer, that's outside the corporate network and has no tokens
+
+
+## 2023-05-19
+
+**Aaron Lun** (02:27:18):
+> hm. looks like I can't even`BiocManager::install("alabaster.base")`on 3.18, it just complains
+> ```
+> Warning message:
+> package ‘alabaster.base’ is not available for Bioconductor version '3.18'
+> ```
+
+**Aaron Lun** (02:45:51):
+> well, installed it manually, and`Y <- CollaboratorDB::fetchObject("cellranger2:features@2020-A")`works for me. Had to fix`zircon`a bit but that was unrelated to the connection errors reportedabove
+
+**Vince Carey** (06:14:04):
+> alabaster.schemas seems to have run afoul of *R_CHECK_SUGGESTS_ONLY*
+> ```
+> Error: processing vignette 'userguide.Rmd' failed with diagnostics:
+> there is no package called ‘BiocStyle’
+> --- failed re-building ‘userguide.Rmd’
+> ```
+
+**Aaron Lun** (11:02:50):
+> hm. didn't notice that during submission. fixed.
+
+**Aaron Lun** (11:05:01):
+> i'm going to flush the bucket and re-upload everything to try to fix some issues, back in a bit.
+
+
+## 2023-05-22
+
+**Aaron Lun** (19:35:14):
+> alright@Vince Carey, i think we sorted out a lot of permission issues. can you install the latest***zircon***and***collaboratorDB***and see if it helps?
+
+**Vince Carey** (19:35:32):
+> yes i will do that shortly
+
+
+## 2023-05-24
+
+**Vince Carey** (21:54:52):
+> I reinstalled and example(getFile) in zircon now works fine.
+
+
+## 2023-05-25
+
+**Aaron Lun** (00:39:25):
+> great
+
+**Aaron Lun** (00:39:41):
+> probably still going to be a few hiccups, but hopefully you can pull the other resources
+
+**Aaron Lun** (00:40:06):
+> now would be a good time to think about how, exactly, we should handle authentication
+
+
+## 2023-06-01
+
+*08:02:33 - @Giulio Benedetti has joined the channel*
+
+## 2023-06-08
+
+**Aaron Lun** (19:54:56):
+> our demoDB instance is going to go down for a while to implement some improvements to our public-facing network config
+
+**Aaron Lun** (19:55:24):
+> we're also working on enabling github-based authentication, so people can just login and upload datasets with their github credentials.
+
+
+## 2023-06-09
+
+**Vince Carey** (10:30:13):
+> let me know when to revisit
+
+
+## 2023-06-19
+
+*05:08:33 - @Pierre-Paul Axisa has joined the channel*
+
+## 2023-07-21
+
+**Vince Carey** (07:57:14):
+> @Aaron Lunare we ready to explore again with github credential-based artifact/demoDB?  i think we have some bandwidth to try this out now.
+
+**Aaron Lun** (11:11:15):
+> i think we're still waiting on our company's IT to set up the network isolation properly. i'll ping them and see how it's going
+
+**Vince Carey** (13:15:29):
+> ok
+
+**Aaron Lun** (13:17:39):
+> let me brainstorm on what we can get running in the meantime
+
+
+## 2023-07-26
+
+**Michael Lawrence** (18:30:38):
+> @Sebastien Lelongis there an update on the network isolation?
+
+**Sebastien Lelong** (18:37:27):
+> Yes, IT is now thinking about using security groups and automate their creation/update. Edit: let me extend the scope of my message. IT is working on isolation the cloud account, several approaches have been considered: NACLs, then firewall rules, then NACLs again, and now security groups.
+
+
+## 2023-07-28
+
+**Aaron Lun** (13:41:12):
+> Alright@Vince Careywe finally got the networking stuff sorted out.
+> 
+> The[zircon](https://github.com/ArtifactDB/zircon-R)and[CollaboratorDB](https://github.com/CollaboratorDB/CollaboratorDB-R)packages have been updated to use the GitHub web authentication flow for authenticating users. This uses GitHub as an identity provider under the assumption that users who want to do privileged actions will have a GitHub account. It also uses Github teams (e.g.,[https://github.com/orgs/CollaboratorDB/teams](https://github.com/orgs/CollaboratorDB/teams)) to determine the roles for each user. If you accept the relevant invites, you should be able to upload to CollaboratorDB (see, e.g.,[https://github.com/CollaboratorDB/CollaboratorDB-R/blob/master/tests/testthat/fresh-upload.R](https://github.com/CollaboratorDB/CollaboratorDB-R/blob/master/tests/testthat/fresh-upload.R)).
+> 
+> On first upload, this will open a "authorize ArtifactDB for GitHub" page to prompt you to give some limited privileges to this app. Make sure that you grant it read capabilities on CollaboratorDB membership (or make sure your own membership is public), otherwise it won't be able to read the teams in which you belong. Note that the Oauth flow will open a browser, so if you're on a HPC, you may need to supply a GitHub PAT manually; in such cases, make sure to select the`read:user`and`read:org`scopes.
+> 
+> I'm currently working on generating a Docker image to make life easier for testing. When it's done, you should see it at[https://github.com/orgs/CollaboratorDB/packages?repo_name=CollaboratorDB-docker](https://github.com/orgs/CollaboratorDB/packages?repo_name=CollaboratorDB-docker).
+> 
+> You have owner access on the CollaboratorDB github organization, so feel free to add or delete people from the teams as necessary.
+
+
+## 2023-08-04
+
+**Vince Carey** (05:57:03):
+> It looks like I am just a member of CollaboratorDb organization.  Since other bioc devs are not members of the organization I can't invite them to a team.
+
+**Aaron Lun** (10:57:29):
+> i thought sent you an invite to be an org owner
+
+**Aaron Lun** (10:57:44):
+> well, you are now.
+
+**Aaron Lun** (10:58:48):
+> (also note; the docker image doesn't have a browser installed, so i don't know whether the oauth flow will work properly, in which case you can supply a token with the appropriate scopes via`setGitHubToken()`.
+
+
+## 2023-08-05
+
+**Vince Carey** (07:15:56):
+> thanks -- i did some invitations, will be doing some testing soon.  had a good meeting with mike and jayaram at bioc23
+
+
+## 2023-08-08
+
+**Aaron Lun** (19:52:16):
+> I just uploaded many (~50) datasets from the***scRNAseq***package to the CollaboratorDB instance - you can see upload scripts at[https://github.com/CollaboratorDB/scRNAseq-upload-demo](https://github.com/CollaboratorDB/scRNAseq-upload-demo)(most of the code invovles trying to wrangle some meaningful metadata out of the help files).
+> 
+> You can check out the available datasets with`listObjects("scRNAseq")`, and you can pull them down based on their IDs with, e.g.,`Y <- fetchObject("scRNAseq:GrunHSCData@2023-08-08")`.
+
+
+## 2023-08-09
+
+**Vince Carey** (07:22:09):
+> For newcomers, easiest way to proceed (at this time):
+> ```
+> docker run -ti ghcr.io/collaboratordb/collaboratordb-docker/builder:latest bash
+> # start R
+> library(CollaboratorDb)
+> listObjects("scRNAseq")
+> ```
+
+**Vince Carey** (07:26:46):
+> @Aaron Lunwhat's a process for adding to the metadata about datasets?
+> ```
+> > as.data.frame(tab[[1]][1,])
+>                    path                              title
+> 1 FletcherOlfactoryData Obtain the Fletcher Olfactory data
+>                                                                                                     description
+> 1 \n Obtain the mouse olfactory epithelial HBC stem cell differentiation dataset from Fletcher et al. (2017).\n
+>        authors species genome origin terms
+> 1 list(nam....   10090                    
+>                                          id
+> 1 scRNAseq:FletcherOlfactoryData@2023-08-08
+> ```
+> for this collection looks like genome, origin, terms need some content.
+
+**Aaron Lun** (11:38:11):
+> For any given version of the project, the metadata about the object is added at upload time (see the`annotateObject`call in[https://github.com/CollaboratorDB/scRNAseq-upload-demo](https://github.com/CollaboratorDB/scRNAseq-upload-demo)).
+> 
+> This is "immutable" (from a user perspective) once uploaded. If they want to update it, they create a new version with the updated metadata. (Currently this is a little tedious - users have to pull down the object, fiddling with the annotation in the`metadata()`, and then`saveObject`it again - but the`cloneDirectory`function should make things a lot easier when only metadata changes are to be performed.)
+> 
+> Of course, from an admin perspective, nothing is really immutable, and you can just go into the S3 bucket, change the metadata in the JSON files, and then reindex the project.
+
+
+## 2023-08-15
+
+**Vince Carey** (08:07:00):
+> So let's see if I have a consistent vision on this project.  Should the scRNAseq data elements in ArtifactDb include references to literature and worked examples?  If so I will engage a staff member to carry out some metadata enrichment for a few examples.  These will then be considered exemplars for future contributions, and any aids to appropriate metadata enrichment (like use of paperpile-like APIs to produce references) would be documented as best practices.
+
+**Aaron Lun** (11:09:14):
+> > Should the scRNAseq data elements in ArtifactDb include references to literature and worked examples?
+> Ultimately yes. But this should be a user-level responsibility (i.e., me), not any task for the BioC team. The real decision is to decide what are the required fields in[https://github.com/CollaboratorDB/CollaboratorDB-schemas/blob/master/raw/_common/v1.json](https://github.com/CollaboratorDB/CollaboratorDB-schemas/blob/master/raw/_common/v1.json), which dictate the entire deployment's minimal metadata standards. At that point, you can just force people to supply the appropriate metadata, because they won't have any choice if they want to upload data.
+> 
+> IMO the real challenge for the core team is to actually deploy their own ArtifactDB instance. The current instance is just for demonstration purposes, so we shouldn't get too bogged down in the details of the metadata requirements and schemas.
+
+**Vince Carey** (11:51:17):
+> Thanks for that clarification.  Hope I'm not being too dense but[https://github.com/ArtifactDB#configuring-the-backend](https://github.com/ArtifactDB#configuring-the-backend)has 'open source details coming soon'.  We have folks who are facile with AWS so if the pointers can be updated/tuned up we can have a go at this.
+
+**Vince Carey** (11:52:47):
+> And it is understood that the metadata contents are contributor obligations.  I was offering to do the revisions as a "pretend contributor" so that we know what the steps are ....
+
+**Sebastien Lelong** (11:55:28):
+> @Vince CareyI will update the pointers, we have a repo with terraform modules and a documentation, + a repo as an example of how to use these and set up the cloud infrastructure (what we did for that DemoDB instance)
+
+**Aaron Lun** (12:05:32) (in thread):
+> sure
+
+**Aaron Lun** (12:14:51) (in thread):
+> currently there's two ways to update a project. the first way is general-purpose and allows you to update the data and metadata, but it is less efficient as it has to re-save objects. the second way is lighter and allows for just updating the metadata; we have this deployed internally and can roll it out to the demonstration instance.
+> 
+> This is covered in[https://github.com/CollaboratorDB/CollaboratorDB-R/blob/cbbd4184d65eaa332965945cd8387d54188f41ed/vignettes/userguide.Rmd#L198](https://github.com/CollaboratorDB/CollaboratorDB-R/blob/cbbd4184d65eaa332965945cd8387d54188f41ed/vignettes/userguide.Rmd#L198); currently the`cloneDirectory()`function doesn't work on the public instance.
+
+
+## 2023-08-16
+
+**Sebastien Lelong** (12:51:23):
+> @Vince CareyI updated the README content for the backend section, with links pointing to[https://github.com/ArtifactDB/artifactdb-infra](https://github.com/ArtifactDB/artifactdb-infra)in particular. The[documentation](https://github.com/ArtifactDB/artifactdb-infra/blob/main/books/apci/apci.pdf)gives an overview of the infra, and the rest of the repo contains Terraform modules.[artifactdb-demo](https://github.com/ArtifactDB/artifactdb-demo)shows an example on how to use these modules, based on what we did for the DemoDB instance. Kind of source of “inspiration”... HTH.
+
+**Sebastien Lelong** (12:53:33):
+> On top of that infra, an ArtifactDB instance can be deployed (eg.[DemoDB](https://github.com/ArtifactDB/demodb)/ CollaboratorDB). The instructions for that deployment are coming soon, later today or tomorrow (I’ll also proceed to a minor upgrade of DemoDB, shouldn’t be any downtime though, just a notice there)
+
+**Vince Carey** (13:09:49):
+> thanks!
+
+*14:15:13 - @Andres Wokaty has joined the channel*
+*14:18:12 - @Nikhil Mane has joined the channel*
+
+## 2023-08-17
+
+**Sebastien Lelong** (18:37:07):
+> and here’s some doc/instructions about what I did to deploy the DemoDB instance (so, not the infra level, but more the app/api level), and some procedures to maintain the instance.[https://github.com/ArtifactDB/DemoDB/blob/master/README.md](https://github.com/ArtifactDB/DemoDB/blob/master/README.md)
+
+
+## 2023-08-19
+
+**Vince Carey** (15:11:30) (in thread):
+> that link does not resolve ...
+
+
+## 2023-08-21
+
+**Sebastien Lelong** (11:52:20) (in thread):
+> The repo is private. I just sent an invite to join a github team that has read access, it should be good now
+
+**Vince Carey** (12:31:43) (in thread):
+> thanks.  there are image links at[https://github.com/ArtifactDB/artifactdb-backend](https://github.com/ArtifactDB/artifactdb-backend)that don't resolve.... just FYI
+
+
+## 2023-08-23
+
+**Sebastien Lelong** (11:38:34) (in thread):
+> thanks, these fell through the cracks... it’s fixed now!
+
+
+## 2023-09-19
+
+**Vince Carey** (13:42:50):
+> Back again.  Is there a python client function for DemoDB/scRNAseq that would accept an id and return an AnnData instance?@Jayaram Kancherla
+
+**Vince Carey** (13:46:30):
+> Really trying to carve out time to get an ArtifactDb instance up in AWS and just looking for simple examples to motivate it.
+
+
+## 2023-09-20
+
+**Aaron Lun** (02:16:33):
+> @Jayaram Kancherla:point_up:(he's on the BiocPy grind at the moment)
+
+**Aaron Lun** (02:19:05):
+> i'll see what i can do over the next few days though
+
+*05:30:11 - @Jaykishan has joined the channel*
+**Sebastien Lelong** (13:29:55) (in thread):
+> Hi@Vince Carey, is there another environment, or way to deploy docker images you would prefer over Kubernetes? I had the impression you were already using Kubernetes, but if that’s not the case, there’s probably simpler ways to deploy an ArtifactDB instance. I’m using Kubernetes I have several of them.
+
+**Vince Carey** (13:30:28) (in thread):
+> We have kubernetes.  It would be fine.
+
+**Vince Carey** (13:30:51) (in thread):
+> Just trying to carve out bandwidth.  If the doc is considered adequate you can wait for more queries from us.
+
+**Aaron Lun** (20:00:31):
+> @Vince Carey: me and@Jayaram Kancherlaare beginning the open-sourcing of the python side. hopefully we'll have a (very stripped down) MVP by next week, but it should be enough to load the scRNAseq datasets I've currently got floating around on collaboratorDB.
+
+**Jayaram Kancherla** (20:01:14) (in thread):
+> I think Aaron replied just now:slightly_smiling_face:
+
+
+## 2023-09-21
+
+*18:27:45 - @Peter Hickey has joined the channel*
+
+## 2023-09-28
+
+**Aaron Lun** (19:58:09):
+> @Vince Careymaking slow but steady progress on the python open-sourcing. In the meantime, you could check out a Python port of a subset of the***DelayedArray***functionality ([https://pypi.org/project/DelayedArray](https://pypi.org/project/DelayedArray)).
+
+
+## 2023-09-29
+
+**Aaron Lun** (16:11:55):
+> Alright@Vince Careyafter much struggle we have a very primitive MWE at[https://github.com/CollaboratorDB/CollaboratorDB-py](https://github.com/CollaboratorDB/CollaboratorDB-py)Clone and install, and then you can do:
+> ```
+> import collaboratordb as cdb
+> obj = cdb.fetch_object("scRNAseq:ZeiselBrainData@2023-08-08")
+> ## Class SummarizedExperiment with 20006 features and 3005 samples
+> ##   assays: ['counts']
+> ##   row_data: ['featureType']
+> ##   col_data: ['tissue', 'group #', 'total mRNA mol', 'well', 'sex', 'age', 'diameter', 'cell_id', 'level1class', 'level2class']
+> ```
+> Note that[obj.to](http://obj.to)`_anndata()`doesn't quite work with our file-backed arrays yet, but@Jayaram Kancherlawill add some more comments.
+
+**Jayaram Kancherla** (16:25:07):
+> Last I had a conversation, anndata does not accept custom[matrix types](https://github.com/scverse/anndata/issues/1019#issuecomment-1609407911), and I understand where they come from. We probably need to realize the matrix fully into memory, transpose and pass that along to construct the`AnnData`object. I’ll make this change later today
+  - Attachment: [Comment on #1019 Support custom matrix formats for `X`](https://github.com/scverse/anndata/issues/1019#issuecomment-1609407911)
+    > A broad issue in the python ecosystem is that while things look "array-like", they actually have a number of idiosyncrasies. This is especially the case for indexing. This has started to be addressed by projects like the [array-api](https://data-apis.org/array-api/2022.12/).
+    > 
+    > There are a number of issues open for other classes, is there a specific class you'd like to see implemented here?
+
+
+## 2023-10-08
+
+*13:41:04 - @Charlotte Soneson has joined the channel*
+
+## 2023-10-11
+
+**Vince Carey** (05:39:13):
+> I have communicated the cdb.fetch_object example to the classes working group.  worked for me but lots of unverified https warnings.
+
+**Aaron Lun** (15:58:31):
+> oh yeah, don't worry about those for now. had to set`verify=False`for things to work with some of our internal certificates. Not really sure what's going on.
+
+**Aaron Lun** (15:58:46):
+> but will obviously remove that option when we actually release it.
+
+
+## 2024-03-29
+
+*06:15:58 - @Manisha Nair has joined the channel*
+
+## 2024-09-10
+
+**Vince Carey** (12:03:56):
+> This has been quite for a while.  I see that the repo for BiocObjectSchemas has been archived.   Just checking into the approach, making sure I am not too far off.  ```
+
+**Vince Carey** (12:04:53):
+> ```
+> ├── alternative_experiments
+> │   ├── 0
+> │   │   ├── assays
+> │   │   │   ├── 0
+> │   │   │   │   ├── array.h5
+> │   │   │   │   └── OBJECT
+> │   │   │   └── names.json
+> │   │   ├── column_data
+> │   │   │   ├── basic_columns.h5
+> │   │   │   └── OBJECT
+> │   │   ├── OBJECT
+> │   │   └── row_data
+> │   │       ├── basic_columns.h5
+> │   │       └── OBJECT
+> │   └── names.json
+> ├── assays
+> │   ├── 0
+> │   │   ├── array.h5
+> │   │   └── OBJECT
+> │   └── names.json
+> ├── column_data
+> │   ├── basic_columns.h5
+> │   └── OBJECT
+> ├── OBJECT
+> ├── reduced_dimensions
+> │   ├── 0
+> │   │   ├── array.h5
+> │   │   └── OBJECT
+> │   ├── 1
+> │   │   ├── array.h5
+> │   │   └── OBJECT
+> │   └── names.json
+> └── row_data
+>     ├── basic_columns.h5
+>     └── OBJECT
+> ```
+> is the layout from example(loadSingleCellExperiment).
+
+**Aaron Lun** (12:05:13):
+> Yes, that looks up to date
+
+**Aaron Lun** (12:06:20):
+> The object schemas have been replaced by[https://github.com/ArtifactDB/takane](https://github.com/ArtifactDB/takane); the latter actually enforces the file format, whereas the former only enforced metadata and was advisory on the format
+
+**Vince Carey** (12:07:12):
+> thanks
+
+**Aaron Lun** (12:08:47):
+> The metadata itself is now enforced by a separate schema at[https://artifactdb.github.io/bioconductor-metadata-index/bioconductor/v1.json](https://artifactdb.github.io/bioconductor-metadata-index/bioconductor/v1.json)
+
+**Aaron Lun** (12:09:26):
+> this strategy separates out the file formats from the metadata, which makes life a little bit easier as the metadata often changes more rapidly than the files
+
+**Aaron Lun** (12:10:06):
+> (still a little bit of object information in the metadata but this is mostly to power search rather than for validation)
+
+
+## 2025-02-06
+
+**Vince Carey** (20:27:21):
+> @Hervé Pagèsthere are historical discussions here.
+
+*20:27:28 - @Hervé Pagès has joined the channel*
+*21:41:02 - @Ludwig Geistlinger has joined the channel*
+
+## 2025-02-07
+
+*05:30:37 - @Federico Marini has joined the channel*
+
+## 2025-02-24
+
+**Vince Carey** (05:44:09):
+> See#papersandpreprintsfor a paper by Vince Buffalo on a rust implementation of methods related to plyranges.  Maybe a "rust client" for the takane-formatted range serializations would not be too far off?
+
+**Vince Carey** (05:46:21):
+> BTW there was a bit of nomenclature discussion in bioc core ... "saveObject" for alabaster clients might be better named "saveTakaneObject" at least at the user-facing level?
+
+
+## 2025-02-25
+
+*11:14:10 - @Artür Manukyan has joined the channel*
+
+## 2025-02-26
+
+**Hervé Pagès** (20:17:25):
+> Actually saveTakane, not saveTakaneObject, like we have saveRDS, not saveRDSObject. The misleading/confusing validateObject would also be better named validateTakane. Also I'm not sure why the alabaster and dolomite suites aren't simply called takame something. Why so many diffrent names when all these things are about handling the takane format?
+
+
+## 2025-02-27
+
+*09:45:29 - @Lambda Moses has joined the channel*

@@ -1,0 +1,954 @@
+---
+title: "#machine-learning"
+format: gfm
+---
+
+
+## 2019-11-28
+
+*19:00:04 - @Dario Strbenac has joined the channel*
+**Dario Strbenac** (19:00:07):
+> set the channel description: Bioconductor-centric Bioinformatics-flavoured Machine Learning
+
+*19:00:34 - @Vince Carey has joined the channel*
+*19:00:35 - @Alan O'C has joined the channel*
+
+## 2019-11-29
+
+**Vince Carey** (06:17:37):
+> Thanks@Dario Strbenac.  A number of references to tensorflow have come up in Bioc development, and@Aaron Lunhas created the basilisk package to help systematize Bioc-python interfaces.  Perhaps a plan for simplifying use of tensorflow with bioc could be sketched in this channel (among other plans...)
+
+*06:17:43 - @Aaron Lun has joined the channel*
+**Aaron Lun** (13:30:40):
+> basilisk now pulls down anaconda on install, with the specified version of tensorflow. Seems to work well with[https://github.com/Irrationone/cellassign/issues/36](https://github.com/Irrationone/cellassign/issues/36). Ready to get into BioC once I get some assistance on issues in[https://github.com/LTLA/basilisk/issues/1](https://github.com/LTLA/basilisk/issues/1).
+
+*17:42:23 - @Dror Berel has joined the channel*
+
+## 2019-11-30
+
+**Dario Strbenac** (00:00:15):
+> Ah, I haven't used TensorFlow. Has anyone seen any scenarios where the new and trendy classifiers perform significantly better than older classifiers popular in R for bioinformatics classification problems (large**p**, small**n**data set)? I often see tables in machine learning journal articles where they show their method has 1% or 2% better performance than an existing method and they report their performance metric to three or more decimal places. If an oncologist or cellular biologist has a data set of 50 cancer patients (a typical size if you're not the TCGA consortium but rely on typical research grants), they don't get excited if a classifier is developed that has 78.456% accuracy instead of 76.123%. I work in a statistics department that frequently collaborates with biologists and the statisticians cringe when someone uses the phrase "machine learning".
+
+**Dario Strbenac** (00:05:09):
+> A co-worker of mine recently developed an interesting bioinformatics classifier that works surprisingly better than its components[http://www.oncotarget.com/index.php?journal=oncotarget&page=article&op=view&path%5B%5D=13203&path%5B%5D=41874](http://www.oncotarget.com/index.php?journal=oncotarget&page=article&op=view&path%5B%5D=13203&path%5B%5D=41874)The basic idea is:
+> 1. Do repeated cross-validation on gene expression data within the training partition of samples. Calculate a per-sample error rate (i.e. how often each patient is misclassified).
+> 2. Search the matched clinical data for clinical variables which explain why some patients are tough to classify correctly using omics data (i.e. regression of covariates on the patient error rate).
+> 3. Create a rule like IF extranodal_spread IS Yes THEN Poor Outcome ELSE predict either Poor or Good Outcome using trained gene expression classifier (such as diagonal LDA) and apply to test set.
+> Repeat many times to get estimate of performance variability.
+> 
+> Such a two-stage classifier works better than putting all of the clinical and omics variables into a single classifier and also better than Tibshirani's pre-validation approach to combining the large**p**omics data with the small**p**clinical data (Figure 2).
+> 
+> I think this style of classification that is specifically tailored to the problem is what sets ClassifyR apart from a package like caret. ClassifyR has a version of the aforementioned approach that avoids the nested cross-validation and other functions for gene network-based classification.
+
+**Dario Strbenac** (23:30:19):
+> I had time today to explore mlr. It is comprehensive and I notice many similarities to ClassifyR. One important aspect of Bioconductor is that the user base is largely comprised of statisticians. Many of my colleagues who have tried ClassifyR didn't like it. Its design uses a lot of S4 objects, constructors and accessors which they find overbearing. I studied computer science when I was an undergraduate but my colleagues are statisticians. In the design of the new Bioconductor classification framework, how could it be designed to appeal to statisticians?
+
+**Dror Berel** (23:46:04):
+> To me, the main benefit of using specialized packages from other domain, is that I don't need to reinvent the wheel. For example, it first drove me crazy that no place across the entire rich package of mlr, p-values are never mentioned. Not even in a simple use of linear regression. However, I would still use it for it's rich use of sampling (e.g. cross validation) and other solutions. To me, the fun part is merging such domain specialized packages together, and knitting them together
+
+**Dror Berel** (23:48:04):
+> By the way, mlr is about to be deprecated, refactored into mlr3
+
+
+## 2019-12-01
+
+**Aaron Lun** (00:29:22):
+> @Dario StrbenacI find it helpful to have the same functions be applicable on both base R objects and S4 equivalents. For example, many of my single-cell packages can accept a SingleCellExperiment or a base matrix, so people are never forced to use the former if they just want to get a job done. It is often the case that some extra stuff can be done with the richer object, so I also provide functionality for that, but people can just use the basics if they like.
+
+**Dario Strbenac** (01:30:07):
+> I like to do the same. The`matrix`variety transposes the matrix (so the variables are in columns) and casts it to`DataFrame`. The`MultiAssayExperiment`uses`wideFormat`to convert the input data into a`DataFrame`. The`DataFrame`variety is the only variety which does the computations. Do the statisticians in your workplace use any meta-classification package such as mlr and how do they find the user experience?
+
+**Aaron Lun** (01:48:26):
+> hold on, so why are they complaining about constructors, then?
+
+
+## 2019-12-02
+
+**Dario Strbenac** (15:00:08):
+> Object-oriented programming isn't covered in a statistical degree, I think.
+
+**Aaron Lun** (15:02:20):
+> Well, I would imagine that they wouldn’t even be able to care about those objects if the methods support direct use of base R things.
+
+**Dario Strbenac** (18:00:10):
+> I found that they baulked at the complexity / size of the parameter list of the function which runs the cross-validation and the number and diversity of slots of the classification result object. One idea I had was to put a Shiny front-end over it, but I never had the time to implement it. Event-driven programming adds a lot to a software's development time (particularly if you don't practise it regularly) and no reward from academic employment.
+
+
+## 2019-12-03
+
+**Alan O'C** (04:52:43):
+> I think that's a valid thing to baulk at; common convention is that > 8 or so parameters is too many for end users and designers alike. Also given that R is functional, users probably shouldn't have to dig into slots too often
+
+
+## 2019-12-04
+
+*22:23:12 - @Mikhael Manurung has joined the channel*
+
+## 2019-12-08
+
+**Dror Berel** (11:05:44):
+> Just completed my first draft of a blog post about the softwares design differences between mlr3 and tidymodels. Hope you will enjoy reading this less-academic light post, and please feel free to share your thoughts about it[https://medium.com/@drorberel/meta-machine-learning-aggregator-packages-in-r-round-ii-71ee1ff68642](https://medium.com/@drorberel/meta-machine-learning-aggregator-packages-in-r-round-ii-71ee1ff68642)
+  - Attachment (Medium): [Meta Machine Learning aggregator  packages in R: Round II](https://medium.com/@drorberel/meta-machine-learning-aggregator-packages-in-r-round-ii-71ee1ff68642)
+    > written on January, 2020.
+
+**Dario Strbenac** (21:00:03):
+> It's interesting to know about what is coming soon. Those projects seem to have a lot of people involved and will have lots of complex features.
+
+
+## 2019-12-09
+
+**Alan O'C** (05:46:38):
+> Not sure I agree that mlr3 will be a more restrictive framework. In my experience tidyverse packages are more than happy to tell you to jog on if you try to do something they didn't exactly prescribe:slightly_smiling_face:
+
+
+## 2019-12-10
+
+*12:07:15 - @Sebastian Gibb has joined the channel*
+
+## 2019-12-11
+
+*06:09:27 - @Elisabetta Mereu has joined the channel*
+
+## 2019-12-17
+
+*02:39:48 - @Jean Yang has joined the channel*
+
+## 2019-12-31
+
+*18:20:11 - @Leopoldo Valiente has joined the channel*
+
+## 2020-02-08
+
+*16:39:55 - @Thanh Le Viet has joined the channel*
+
+## 2020-02-13
+
+*00:21:07 - @Noor Pratap Singh has joined the channel*
+
+## 2020-02-14
+
+*05:07:04 - @Andrew Skelton has joined the channel*
+
+## 2020-02-22
+
+*07:42:43 - @Aedin Culhane has joined the channel*
+
+## 2020-02-26
+
+*15:46:25 - @Jamie Burke has joined the channel*
+
+## 2020-03-10
+
+**Aaron Lun** (02:58:59):
+> @Vince Carey***basilisk***lives! Ready for`Biocsklearn`migration. Note that if you only depend on scikit-learn, you don't even have to set up your own conda environments; just set`NULL`in`basiliskStart`to use the base environment that gets installed with***basilisk***.
+
+
+## 2020-03-19
+
+*12:31:35 - @Daniela Cassol has joined the channel*
+
+## 2020-03-25
+
+**Aaron Lun** (23:45:18):
+> @Vince CareyDo you think you can flip Biocsklearn to basilisk before the release? I'd like to get a few clients to test it out "in the wild".
+
+
+## 2020-03-26
+
+**Vince Carey** (07:43:42):
+> i want to@Aaron Lun...let me try this morning.
+
+**Vince Carey** (08:05:07):
+> ```
+> # The return value MUST be a pure R object, i.e., no reticulate
+>         # Python objects, no pointers to shared memory.
+> ```
+> I take it from this that it defeats the purpose of basilisk entirely if I want the user to be able to manipulate python references after running BiocSklearn code.
+
+**Aaron Lun** (11:53:49):
+> You can continue to do so but only via basiliskRun.
+
+**Aaron Lun** (12:34:40):
+> So for example, you can create a persistent variable that holds a python reference and just use it in another basiliskRun call to the same`proc`. See`?basiliskStart`and`findPersistentEnv`for more details.
+
+**Aaron Lun** (12:39:46):
+> I’m not entirely happy with how I’m passing down the persistent envs, so I may fiddle with this to make it easier to use.
+
+
+## 2020-03-31
+
+**Aaron Lun** (02:09:38):
+> @Vince Careylooks like we're halfway there. Windows failing again, what a surprise.
+
+**Aaron Lun** (02:16:57):
+> Also, the`op <<-`is not advisable. If you want to persist something across functions, you would have to hold onto`proc`;`op`is not guaranteed to exist once`proc`is stopped.
+
+**Aaron Lun** (02:27:46):
+> The nature of the failure provides little insight, I'm afraid. It would seem that (i) somehow Python was already loaded into the R session when the vignette compiles, causing basilisk to create a new process on a separate node; and (ii) the new process fails when it loads the wrong conda installation, heaven knows why.
+
+**Aaron Lun** (02:29:12):
+> If you have access to a Windows machine to debug, I would be very interested to know the cause of this.
+
+**Vince Carey** (08:25:44):
+> i should have some time today to look at this.  i have windows running under virtualbox on a mac.
+
+*11:44:52 - @kipper fletez-brant has joined the channel*
+
+## 2020-04-02
+
+**Aaron Lun** (03:53:59):
+> @Vince CareyIf you find anything, let me know. The windows build failures have infected***basilisk***itself, with the standard level of unbelievability.
+
+**Vince Carey** (06:50:22):
+> OK -- too many calls today but it is high on the list
+
+**Vince Carey** (21:39:41) (in thread):
+> @Aaron Lunwe'll have to discuss this more .. I think if I get it right, the whole BiocSklearn API can be preserved (I won't have to rewrite vignette) but the persistent env to support reuse of python objects has to be done correctly and durably.  These objects give us access to python help via py_help and I think that is useful.
+
+**Aaron Lun** (21:51:54) (in thread):
+> How one would theoretically do this is to pass the`proc`around as the input/output of the various functions. This is potentially nasty to the user as***basilisk***will clear`PYTHONPATH`in between`basiliskStart`and`basiliskEnd`. (It has to do so, otherwise Python wanders off and fetches the wrong versions of packages.) As a result, if you have a function that calls`basiliskStart`but does not call`basiliskEnd`, the R session is left in a state of not playing nice with user’s Python code. Which isn’t a big deal to me, but might be frustrating to some people.
+> 
+> In package development contexts, any other developer calling your functions needs to know that they have to also call`basiliskEnd`(or a wrapper around such a function) to terminate the process. Otherwise you get a bunch of errors in`R CMD check`when it detects open processes in Examples.
+> 
+> There is some room for writing functions that return a live***basilisk***process, but those functions should be limited to “advanced use”, given the caveats mentioned above. For general purpose use, it would be best to avoid exposing the process to the R session, and I think your functions are self-contained enough that their Python nature can be abstracted away like C(++).
+> 
+> It is probably possible to fetch Python help pages in a safer way, if that is all that is required.
+
+
+## 2020-04-03
+
+**Vince Carey** (07:15:19) (in thread):
+> Yes, that safer way, probably through reticulate, sounds good.  I think this version of BiocSklearn will be pretty conservative and always call basiliskEnd.  Thanks for clarifying.
+
+
+## 2020-05-02
+
+*15:47:17 - @Andrew Jaffe has joined the channel*
+
+## 2020-05-04
+
+*06:27:37 - @Nitin Sharma has joined the channel*
+
+## 2020-06-06
+
+*19:57:29 - @Olagunju Abdulrahman has joined the channel*
+
+## 2020-06-26
+
+*15:58:18 - @Jenny Smith has joined the channel*
+
+## 2020-07-07
+
+*02:56:35 - @Vivek Das has joined the channel*
+
+## 2020-07-09
+
+*04:24:48 - @David Zhang has joined the channel*
+
+## 2020-07-15
+
+*09:21:14 - @wmuehlhaeuser has joined the channel*
+
+## 2020-07-24
+
+*07:48:44 - @Isha Goel has joined the channel*
+
+## 2020-07-29
+
+*17:37:45 - @Riyue Sunny Bao has joined the channel*
+
+## 2020-07-30
+
+*12:43:34 - @Ayush Raman has joined the channel*
+
+## 2020-07-31
+
+*03:15:46 - @Saulius Lukauskas has joined the channel*
+*13:06:08 - @bogdan tanasa has joined the channel*
+*13:15:47 - @Hector Climente has joined the channel*
+
+## 2020-08-05
+
+*13:45:41 - @shr19818 has joined the channel*
+
+## 2020-08-06
+
+*13:01:06 - @Laurent Gatto has joined the channel*
+
+## 2020-08-17
+
+*02:09:54 - @Roye Rozov has joined the channel*
+
+## 2020-08-18
+
+*09:09:12 - @Will Macnair has joined the channel*
+*09:13:30 - @Daniel Baker has joined the channel*
+
+## 2020-09-04
+
+*08:24:26 - @Goutham Atla has joined the channel*
+
+## 2020-09-06
+
+*08:36:04 - @Bob Policastro has joined the channel*
+*08:36:43 - @Bob Policastro has left the channel*
+
+## 2020-10-19
+
+*23:30:17 - @Chris Chiu has joined the channel*
+
+## 2020-10-23
+
+*08:17:18 - @Rebecca Howard has joined the channel*
+*11:43:29 - @ImranF has joined the channel*
+
+## 2020-10-26
+
+*14:03:51 - @Jeffrey O'Brien has joined the channel*
+*14:03:56 - @Jeffrey O'Brien has left the channel*
+
+## 2020-11-04
+
+*11:59:28 - @Krutika has joined the channel*
+
+## 2020-11-28
+
+*12:38:13 - @Rory Stark has joined the channel*
+
+## 2020-12-02
+
+*05:43:27 - @Konstantinos Geles (Constantinos Yeles) has joined the channel*
+
+## 2020-12-04
+
+*12:45:55 - @Arvind Mer has joined the channel*
+
+## 2020-12-07
+
+*21:19:37 - @Aoi Senju has joined the channel*
+
+## 2020-12-12
+
+*00:39:47 - @Huipeng Li has joined the channel*
+
+## 2020-12-14
+
+*08:56:03 - @Thomas Naake has joined the channel*
+
+## 2020-12-24
+
+*16:38:29 - @Jose Marie Antonio Miñoza has joined the channel*
+
+## 2021-01-01
+
+*14:05:40 - @Bernd has joined the channel*
+
+## 2021-01-22
+
+*15:44:21 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-02-07
+
+*11:09:44 - @Mikhael Manurung has left the channel*
+
+## 2021-02-15
+
+*17:32:43 - @Stefania Oliveto has joined the channel*
+
+## 2021-02-23
+
+*10:32:43 - @Wynn Cheung has joined the channel*
+
+## 2021-02-24
+
+*11:40:43 - @Kyle Alford has joined the channel*
+
+## 2021-02-26
+
+**Dario Strbenac** (21:00:08):
+> The random forest classifier was developed on small-dimensional, non-omics data sets in 2001.
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F01PKS0P6JW/image.png)
+
+**Dario Strbenac** (21:00:13):
+> Many bioinformatics journal articles and textbooks promote the`sqrt(p)`value for the number of variables to try at each split, often referred to as`mtry`. Say you have a gene expression dataset of 20000 genes and you filter lowly expressed genes and have 10000 genes remaining for classification.`sqrt(p)`is`100`. So, at each split, 9900 out of 10000 genes (99%) are ignored. It's quite a different scenario to`mtry`being equal to 4 when the data set only has 16 variables, for example. What default value or range of trialled values do you use?
+
+**Aaron Lun** (21:04:53):
+> Yes, I really struggled with random forests not picking the right features for cell type classification. Ended up having to tighten the search by giving it marker genes.
+
+**Dario Strbenac** (21:15:04):
+> It's interestnig you had to pre-select the features. Frank Harrell is[against it](https://stats.stackexchange.com/a/200959)because the classifier tends to find highly non-linear decision rules which no comparable feature selection algorithm would identify.
+
+
+## 2021-03-03
+
+**Aedin Culhane** (09:54:15):
+> Random forests (old style at least) used to hate too many features.   For most other approaches SVM/NN you can get away without pre-select, though many do
+
+**Alan O'C** (10:07:04):
+> Is this the case with regularised RFs?
+
+**Alan O'C** (10:08:05):
+> Coincidentally just had an interesting journal club on DART, which seems a nice alternative esp for high-d data, if without the computational niceness of RF
+
+**Dario Strbenac** (19:00:24) (in thread):
+> Did you adjust`mtry`from its default value which is`sqrt(p)`by default and insuitable if`p`is in the order of 20000.
+
+
+## 2021-03-12
+
+*14:51:33 - @Julia Romanowska has joined the channel*
+
+## 2021-03-19
+
+**Aedin Culhane** (14:16:55):
+> @Alan O'CCan you send reference to DART or link to video if the  presentation was recorded?>
+
+**Alan O'C** (14:17:12):
+> It was not recorded
+
+
+## 2021-03-23
+
+*23:05:21 - @Lambda Moses has joined the channel*
+
+## 2021-04-05
+
+*11:24:07 - @Maya Reed McDaniel has joined the channel*
+
+## 2021-04-21
+
+*13:56:08 - @Aishwarya Mandava has joined the channel*
+
+## 2021-04-28
+
+*17:57:12 - @Mateusz Staniak has joined the channel*
+
+## 2021-05-01
+
+*21:43:09 - @Arjun Krishnan has joined the channel*
+
+## 2021-05-10
+
+*20:21:32 - @Jason Prasad has joined the channel*
+
+## 2021-05-11
+
+*16:44:18 - @Megha Lal has joined the channel*
+
+## 2021-05-22
+
+*16:01:25 - @Moritz E. Beber has joined the channel*
+
+## 2021-05-25
+
+*12:19:12 - @Quang Nguyen has joined the channel*
+
+## 2021-05-26
+
+*03:02:51 - @Federico Marini has joined the channel*
+
+## 2021-06-04
+
+*05:51:53 - @Flavio Lombardo has joined the channel*
+
+## 2021-06-21
+
+*03:22:38 - @Andrea Gobbini has joined the channel*
+
+## 2021-06-24
+
+*08:31:29 - @Ilaria Billato has joined the channel*
+
+## 2021-07-16
+
+*10:44:42 - @Nitesh Turaga has joined the channel*
+
+## 2021-07-19
+
+*17:01:39 - @Leo Lahti has joined the channel*
+
+## 2021-07-23
+
+*15:53:09 - @Batool Almarzouq has joined the channel*
+
+## 2021-07-26
+
+*20:18:02 - @Frank has joined the channel*
+
+## 2021-07-29
+
+*01:03:11 - @Gurpreet Kaur has joined the channel*
+
+## 2021-08-04
+
+*12:16:27 - @TimNieuwenhuis has joined the channel*
+
+## 2021-08-06
+
+*20:01:47 - @ChiaSin has joined the channel*
+
+## 2021-08-10
+
+*08:18:02 - @Woo has joined the channel*
+
+## 2021-08-19
+
+*11:33:30 - @Ava Hoffman (she/her) has joined the channel*
+
+## 2021-09-01
+
+*14:43:12 - @Katie Saund has joined the channel*
+
+## 2021-09-06
+
+*08:22:54 - @Eddie has joined the channel*
+*09:09:06 - @Eddie has left the channel*
+
+## 2021-09-08
+
+*06:10:36 - @Espen Riskedal has joined the channel*
+
+## 2021-09-16
+
+*18:36:01 - @Henry Miller has joined the channel*
+
+## 2021-09-25
+
+*19:05:27 - @Mikey C has joined the channel*
+
+## 2021-10-27
+
+*11:02:18 - @Nicholas Cooley has joined the channel*
+
+## 2021-11-08
+
+*03:28:31 - @Paula Nieto García has joined the channel*
+
+## 2022-01-03
+
+*17:04:39 - @Kurt Showmaker has joined the channel*
+
+## 2022-02-15
+
+*12:00:51 - @Gene Cutler has joined the channel*
+
+## 2022-02-23
+
+*10:45:42 - @Paulina Paiz has joined the channel*
+*12:08:26 - @Susanna has joined the channel*
+
+## 2022-03-05
+
+*20:26:40 - @Anshul Kundaje has joined the channel*
+
+## 2022-03-15
+
+*12:04:10 - @Jeanette Johnson has joined the channel*
+
+## 2022-03-20
+
+*21:41:46 - @Sarvesh Nikumbh has joined the channel*
+
+## 2022-03-21
+
+*05:01:37 - @Pedro Sanchez has joined the channel*
+
+## 2022-04-12
+
+*13:59:31 - @Vivian Chu has joined the channel*
+
+## 2022-05-03
+
+*06:56:00 - @Ray Su has joined the channel*
+
+## 2022-05-20
+
+*03:16:06 - @Simon Pearce has joined the channel*
+
+## 2022-06-09
+
+*09:08:18 - @John Hutchinson has joined the channel*
+
+## 2022-06-12
+
+*12:37:27 - @Karat Sidhu has joined the channel*
+
+## 2022-07-13
+
+*21:27:47 - @Indrik Wijaya has joined the channel*
+
+## 2022-07-15
+
+*15:23:52 - @Ashley Robbins has joined the channel*
+
+## 2022-07-18
+
+*09:32:53 - @Filip Stachura has joined the channel*
+
+## 2022-07-28
+
+*13:52:38 - @Krithika Bhuvanesh has joined the channel*
+
+## 2022-08-11
+
+*17:15:27 - @Rene Welch has joined the channel*
+
+## 2022-08-30
+
+*07:20:49 - @Lisa Breckels has joined the channel*
+
+## 2022-09-27
+
+*16:15:18 - @Jennifer Holmes has joined the channel*
+
+## 2022-10-06
+
+*05:37:20 - @Devika Agarwal has joined the channel*
+
+## 2022-10-10
+
+*13:56:11 - @Mercilena Benjamin has joined the channel*
+
+## 2022-10-31
+
+*10:05:04 - @Chenyue Lu has joined the channel*
+
+## 2022-11-06
+
+*11:20:53 - @Sherine Khalafalla Saber has joined the channel*
+
+## 2022-12-01
+
+*05:23:51 - @Chris Chiu has left the channel*
+
+## 2022-12-02
+
+*15:59:33 - @Atuhurira Kirabo Kakopo has joined the channel*
+
+## 2022-12-12
+
+*04:53:33 - @Zainab Ashimiyu-Abdusalam has joined the channel*
+*17:58:57 - @Lexi Bounds has joined the channel*
+
+## 2022-12-13
+
+*09:00:18 - @Ana Cristina Guerra de Souza has joined the channel*
+*18:32:11 - @Xiangnan Xu has joined the channel*
+*21:53:53 - @Helen Fu has joined the channel*
+
+## 2022-12-14
+
+*19:38:56 - @Lijia Yu has joined the channel*
+
+## 2022-12-20
+
+*13:24:45 - @Krithika Bhuvanesh has left the channel*
+
+## 2023-01-10
+
+*10:49:31 - @Vince Carey has left the channel*
+
+## 2023-01-21
+
+*16:02:53 - @Hien has joined the channel*
+
+## 2023-01-31
+
+*09:10:16 - @Ahmad Al Ajami has joined the channel*
+*09:10:19 - @Ahmad Al Ajami has left the channel*
+
+## 2023-02-09
+
+*22:03:47 - @Wes W has joined the channel*
+
+## 2023-02-22
+
+*01:50:55 - @michaelkleymn has joined the channel*
+
+## 2023-02-28
+
+*15:31:18 - @Ramin has joined the channel*
+*16:53:49 - @Krithika Bhuvanesh has joined the channel*
+
+## 2023-03-01
+
+*12:13:02 - @jeremymchacón has joined the channel*
+
+## 2023-03-07
+
+*08:35:33 - @Thomas Klammsteiner has joined the channel*
+
+## 2023-03-10
+
+*15:35:51 - @Joaquin Reyna has joined the channel*
+
+## 2023-03-22
+
+*08:08:32 - @Keerthana has joined the channel*
+
+## 2023-05-04
+
+*16:27:17 - @Leopoldo Valiente has joined the channel*
+
+## 2023-05-17
+
+*12:17:40 - @Hassan Kehinde Ajulo has joined the channel*
+
+## 2023-05-18
+
+*05:54:44 - @Oluwafemi Oyedele has joined the channel*
+
+## 2023-05-31
+
+*14:15:25 - @Alyssa Obermayer has joined the channel*
+
+## 2023-06-07
+
+*18:29:53 - @Alyssa Obermayer has joined the channel*
+
+## 2023-06-19
+
+*05:11:24 - @Pierre-Paul Axisa has joined the channel*
+
+## 2023-07-13
+
+*07:02:26 - @Brian Schilder has joined the channel*
+
+## 2023-07-28
+
+*15:57:51 - @Benjamin Yang has joined the channel*
+
+## 2023-08-02
+
+*08:20:54 - @Beth Cimini has joined the channel*
+
+## 2023-08-03
+
+*15:58:23 - @Ritika Giri has joined the channel*
+
+## 2023-08-04
+
+*09:35:41 - @Trisha Timpug has joined the channel*
+
+## 2023-08-18
+
+*12:35:57 - @Victor Yuan has joined the channel*
+
+## 2023-08-20
+
+*10:38:40 - @Jacques SERIZAY has joined the channel*
+
+## 2023-09-03
+
+*09:51:45 - @Lea Seep has joined the channel*
+
+## 2023-09-15
+
+*04:55:17 - @Leo Lahti has joined the channel*
+
+## 2023-10-11
+
+*13:59:37 - @Nikhil Mane has joined the channel*
+
+## 2023-11-16
+
+*10:00:19 - @Sue McClatchy has joined the channel*
+
+## 2023-11-18
+
+*22:33:22 - @karisssq has joined the channel*
+
+## 2023-11-21
+
+*05:46:46 - @Konstantinos Geles (Constantinos Yeles) has left the channel*
+
+## 2023-12-01
+
+*10:16:58 - @Tram Nguyen has joined the channel*
+
+## 2023-12-04
+
+*12:08:55 - @Ajda Pristavec has joined the channel*
+
+## 2024-01-11
+
+*12:01:45 - @Nilesh Kumar has joined the channel*
+
+## 2024-01-26
+
+**Brian Schilder** (09:32:08):
+> For those who are interested in making ML model with`pytorch`, but want to stay within the R ecosystem, I highly recommend the[torch](https://github.com/mlverse/torch)package! They provide an excellent tutorial that explains principles of torch and ML more generally in a very accessible way:[https://skeydan.github.io/Deep-Learning-and-Scientific-Computing-with-R-torch/](https://skeydan.github.io/Deep-Learning-and-Scientific-Computing-with-R-torch/)
+
+
+## 2024-01-27
+
+*04:52:51 - @atongsa miyamoto has joined the channel*
+
+## 2024-02-16
+
+*03:00:24 - @Jovana Maksimovic has joined the channel*
+*06:40:09 - @Vince Carey has joined the channel*
+**Vince Carey** (06:52:49):
+> Thanks to support from NHGRI, Bioconductor now has an NVIDIA L40S GPU to use for development and testing.  A basic objective is to add regular checking and evaluation of Bioc packages that have code that can take advantage of GPU availability.  It would be great to develop some documentation on effective practices for doing modern machine learning in genomics.  For instance, there are various "ways in" to using torch in R: torch, luz, brulee, ...  How does one navigate in this area?
+
+**Vince Carey** (06:54:34):
+> We'd also like to improve concepts of instrumentation in this area -- how do you measure efficiency of use of GPU and CPU and how can we code to ensure we hit reasonable efficiency objectives?
+
+*09:05:53 - @Maria Doyle has joined the channel*
+*09:32:35 - @Dirk Eddelbuettel has joined the channel*
+*10:50:50 - @António Domingues has joined the channel*
+*11:53:35 - @Hervé Pagès has joined the channel*
+*12:24:38 - @jim rothstein has joined the channel*
+
+## 2024-02-19
+
+*17:24:42 - @Alex Bott has joined the channel*
+
+## 2024-02-28
+
+*10:48:02 - @Louise Morlot has joined the channel*
+
+## 2024-03-10
+
+*19:57:48 - @Cherishma Subhasa has joined the channel*
+
+## 2024-03-27
+
+*05:45:19 - @abhich has joined the channel*
+
+## 2024-04-04
+
+*09:37:11 - @Alexandru Mizeranschi has joined the channel*
+*23:39:07 - @Tung Trinh has joined the channel*
+
+## 2024-04-18
+
+*03:02:21 - @Philipp Sergeev has joined the channel*
+*18:28:52 - @Jianhai Zhang has joined the channel*
+
+## 2024-04-28
+
+*08:32:38 - @Danielle Callan has joined the channel*
+
+## 2024-05-05
+
+**Aedin Culhane** (03:35:58):
+> Should this be relabelled AI-ML??? Just a thought.
+
+**Aedin Culhane** (03:36:01):
+> CZI Open Science, in collaboration with Sloan Foundation, has opened an RFI focused on AI-enabled tools for scientific research.
+> 
+> “Are you developing tools for  #AI enabled research practices that also promote open research? We want to hear from you! Submit your ideas to our RFI so we can build a more effective scientific community together.[https://bit.ly/49ZUR26](https://bit.ly/49ZUR26)”
+  - Attachment (Medium): [Request for Information: Pathways to AI-enabled research](https://bit.ly/49ZUR26)
+    > Transforming scientific work with tools and technology
+
+
+## 2024-05-06
+
+*11:57:14 - @Michal Kolář has joined the channel*
+
+## 2024-05-11
+
+*04:11:24 - @Aleru Divine has joined the channel*
+
+## 2024-05-14
+
+*11:48:30 - @Claire Seibold has joined the channel*
+
+## 2024-06-11
+
+*04:37:04 - @Ziru Chen has joined the channel*
+
+## 2024-07-02
+
+*10:59:59 - @Diána Pejtsik has joined the channel*
+
+## 2024-07-05
+
+*04:37:56 - @Antonin Thiébaut has joined the channel*
+
+## 2024-07-11
+
+*07:20:54 - @Hothri Moka has joined the channel*
+
+## 2024-07-15
+
+*16:20:05 - @Erick Navarro has joined the channel*
+
+## 2024-07-26
+
+*19:51:40 - @Qiwen Octavia Huang has joined the channel*
+
+## 2024-07-29
+
+*17:09:16 - @JP Flores has joined the channel*
+
+## 2024-07-31
+
+*17:24:29 - @Zahraa W Alsafwani has joined the channel*
+
+## 2024-08-04
+
+*14:58:27 - @sunnyday has joined the channel*
+
+## 2024-08-19
+
+*09:41:52 - @Rema Gesaka has joined the channel*
+
+## 2024-09-10
+
+*03:49:20 - @Alex Qin has joined the channel*
+
+## 2024-10-01
+
+*04:10:02 - @Caroline Schreiber has joined the channel*
+
+## 2024-10-12
+
+*00:50:35 - @Francisco Ignacio Oñate Vidal has joined the channel*
+
+## 2024-10-23
+
+*11:49:20 - @Sounkou Mahamane Toure has joined the channel*
+
+## 2024-11-11
+
+*12:42:30 - @Josh Steier has joined the channel*
+**Josh Steier** (13:03:45):
+> Hi everyone,
+> I have a background in computational biology(MS applied math and stats degree from Stony Brook University), and a strong background in machine learning, where I currently work as a machine learning engineer.
+> I've been working in machine learning for roughly 3-4 years, including my educational background, and programming in Python since I was younger.
+> I'm eager to contribute to Bioconductor and don't know where to start, can someone help me with that?
+> Thank you!
+
+*13:06:50 - @Mikhail Dozmorov has joined the channel*
+
+## 2024-11-12
+
+*09:21:30 - @Kylie Bemis has joined the channel*
+*22:33:59 - @Marouen Ben Guebila has joined the channel*
+
+## 2024-11-21
+
+*04:12:33 - @Nesrine Gharbi has joined the channel*
+
+## 2025-03-18
+
+*14:27:59 - @Andres Wokaty has joined the channel*
+*15:00:27 - @Nicolo has joined the channel*
+
+## 2025-04-14
+
+*07:09:41 - @Saad Farooq has joined the channel*
+
+## 2025-04-15
+
+*07:08:27 - @Rasmus Hindström has joined the channel*
+
+## 2025-04-17
+
+*16:17:42 - @dhvani solanki has joined the channel*
+
+## 2025-04-18
+
+*04:43:15 - @Juan Henao has joined the channel*

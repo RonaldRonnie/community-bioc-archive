@@ -1,0 +1,151 @@
+---
+title: "#rowdatafix"
+format: gfm
+---
+
+
+## 2018-07-25
+
+*16:03:54 - @Michael Love has joined the channel*
+*16:04:34 - @C. Mirzayi (please do not tag this account) has joined the channel*
+*16:04:34 - @Michael Steinbaugh has joined the channel*
+*16:04:35 - @Aedin Culhane has joined the channel*
+**Aedin Culhane** (16:04:38):
+> [https://community-bioc.slack.com/archives/C6KJHH0M9/p1532123093000148](https://community-bioc.slack.com/archives/C6KJHH0M9/p1532123093000148)
+
+*16:04:41 - @Ben Johnson has joined the channel*
+*16:04:43 - @Matthew McCall has joined the channel*
+**Aedin Culhane** (16:06:22):
+> Aaron made this comment but I didn't fully understand -See my previous comments about S4vectors DataFrame name handling changes, and the new`use.names=TRUE`default[https://community-bioc.slack.com/archives/C6KJHH0M9/p1532123159000214](https://community-bioc.slack.com/archives/C6KJHH0M9/p1532123159000214)
+
+**Michael Love** (16:08:13):
+> [https://github.com/Bioconductor/SummarizedExperiment/blob/master/inst/unitTests/test_SummarizedExperiment-class.R](https://github.com/Bioconductor/SummarizedExperiment/blob/master/inst/unitTests/test_SummarizedExperiment-class.R)
+  - Attachment (GitHub): [Bioconductor/SummarizedExperiment](https://github.com/Bioconductor/SummarizedExperiment/blob/master/inst/unitTests/test_SummarizedExperiment-class.R)
+    > SummarizedExperiment container
+
+**Michael Steinbaugh** (16:09:21):
+> Okay here’s another SE bug that I came across a while ago and forgot to file
+
+**Matthew McCall** (16:09:21):
+> [https://github.com/Bioconductor/SummarizedExperiment/blob/9e00e22b5b4456bf2887bbb85daef17bb61f4143/inst/unitTests/test_SummarizedExperiment-class.R#L37](https://github.com/Bioconductor/SummarizedExperiment/blob/9e00e22b5b4456bf2887bbb85daef17bb61f4143/inst/unitTests/test_SummarizedExperiment-class.R#L37)
+  - Attachment (GitHub): [Bioconductor/SummarizedExperiment](https://github.com/Bioconductor/SummarizedExperiment/blob/9e00e22b5b4456bf2887bbb85daef17bb61f4143/inst/unitTests/test_SummarizedExperiment-class.R#L37)
+    > SummarizedExperiment container
+
+**Michael Steinbaugh** (16:09:29):
+> Here’s an example SCE dataset:[https://www.dropbox.com/s/eq9g2cjwd5p96mn/sce.rds?dl=1](https://www.dropbox.com/s/eq9g2cjwd5p96mn/sce.rds?dl=1)
+
+**Michael Steinbaugh** (16:10:03):
+> This is another issue I came across that I’ll try to file on GitHub.
+> Using an SCE named`sce`that has`rowRanges`defined:
+> ```
+> rse <- as(sce, "RangedSummarizedExperiment")
+> se_has_rowdata <- as(rse, "SummarizedExperiment")
+> se_null_rowdata <- as(sce, "SummarizedExperiment")
+> ```
+
+*16:10:14 - @Simon Coetzee has joined the channel*
+**Michael Steinbaugh** (16:10:24):
+> `SingleCellExperiment`or other classes that extend`RangedSumarizedExperiment`will drop`rowData`when coerced directly to`SummarizedExperiment`
+
+**Michael Steinbaugh** (16:10:39):
+> If you go SCE to RSE to SE it works
+
+**Michael Love** (16:13:15):
+> `rowData(se)`vs`rowData(se, use.names=TRUE)`
+
+**Simon Coetzee** (16:18:42):
+> [https://github.com/Bioconductor/SummarizedExperiment/commit/4b4f03cd353414bc8a3a76cee150eae8562da9d2](https://github.com/Bioconductor/SummarizedExperiment/commit/4b4f03cd353414bc8a3a76cee150eae8562da9d2)
+  - Attachment (GitHub): [feature: rowData() gets use.names = TRUE · Bioconductor/SummarizedExperiment@4b4f03c](https://github.com/Bioconductor/SummarizedExperiment/commit/4b4f03cd353414bc8a3a76cee150eae8562da9d2)
+    > - satisfies common use case - changes default behavior - closes #2 ; see also drisso/SingleCellExperiment#16
+
+**Aedin Culhane** (16:21:14):
+> > mat <- matrix(rnorm(30), ncol=3)
+> rownames(mat) = paste0("G", 1:10)
+> rowdata = DataFrame(ID = paste0("G", 1:10))
+> 
+> sce = SingleCellExperiment(assays=list(counts=mat), rowData = rowdata)
+> rowData(sce) ## note no rownames
+> DataFrame with 10 rows and 1 column
+>             ID
+>    <character>
+> 1           G1
+> 2           G2
+> 3           G3
+> 4           G4
+> 5           G5
+> 6           G6
+> 7           G7
+> 8           G8
+> 9           G9
+> 10         G10
+> > se = SummarizedExperiment(assays=list(counts=mat), rowData = rowdata)
+> rowData(se) ## note rownames
+> DataFrame with 10 rows and 1 column
+>              ID
+>     <character>
+> G1           G1
+> G2           G2
+> G3           G3
+> G4           G4
+> G5           G5
+> G6           G6
+> G7           G7
+> G8           G8
+> G9           G9
+> G10         G10
+> ```
+
+**C. Mirzayi (please do not tag this account)** (16:22:11):
+> I am very new to Bioconductor and so sorry that I am not contributing much but they appear to be discussing the issue here if that's helpful:[https://github.com/Bioconductor/SummarizedExperiment/issues/2](https://github.com/Bioconductor/SummarizedExperiment/issues/2)
+  - Attachment (GitHub): [rowData does not contain the rownames · Issue #2 · Bioconductor/SummarizedExperiment](https://github.com/Bioconductor/SummarizedExperiment/issues/2)
+    > library(SummarizedExperiment) example(SummarizedExperiment) rownames(se) <- paste0(&quot;Gene&quot;, seq_len(nrow(se))) rownames(se)[1:10] ## [1] &quot;Gene1&quot; &quot;Gene2&quot; &quot;Gene3&...
+
+**Michael Love** (16:30:07):
+> [https://github.com/Bioconductor/SummarizedExperiment/blob/1cf9771ecdacecbedd250fda9606b1809e40c329/R/RangedSummarizedExperiment-class.R#L139-L140](https://github.com/Bioconductor/SummarizedExperiment/blob/1cf9771ecdacecbedd250fda9606b1809e40c329/R/RangedSummarizedExperiment-class.R#L139-L140)
+  - Attachment (GitHub): [Bioconductor/SummarizedExperiment](https://github.com/Bioconductor/SummarizedExperiment/blob/1cf9771ecdacecbedd250fda9606b1809e40c329/R/RangedSummarizedExperiment-class.R#L139-L140)
+    > SummarizedExperiment container
+
+**Michael Steinbaugh** (16:31:56):
+> Here’s the assignment method source code:[https://github.com/Bioconductor/SummarizedExperiment/blob/1cf9771ecdacecbedd250fda9606b1809e40c329/R/RangedSummarizedExperiment-class.R#L237](https://github.com/Bioconductor/SummarizedExperiment/blob/1cf9771ecdacecbedd250fda9606b1809e40c329/R/RangedSummarizedExperiment-class.R#L237)
+  - Attachment (GitHub): [Bioconductor/SummarizedExperiment](https://github.com/Bioconductor/SummarizedExperiment/blob/1cf9771ecdacecbedd250fda9606b1809e40c329/R/RangedSummarizedExperiment-class.R#L237)
+    > SummarizedExperiment container
+
+**Michael Steinbaugh** (16:32:07):
+> See`setReplaceMethod`
+
+**Aedin Culhane** (16:32:13):
+> [https://github.com/Bioconductor/SummarizedExperiment/blob/1cf9771ecdacecbedd250fda9606b1809e40c329/R/RangedSummarizedExperiment-class.R#L113-L126](https://github.com/Bioconductor/SummarizedExperiment/blob/1cf9771ecdacecbedd250fda9606b1809e40c329/R/RangedSummarizedExperiment-class.R#L113-L126)
+  - Attachment (GitHub): [Bioconductor/SummarizedExperiment](https://github.com/Bioconductor/SummarizedExperiment/blob/1cf9771ecdacecbedd250fda9606b1809e40c329/R/RangedSummarizedExperiment-class.R#L113-L126)
+    > SummarizedExperiment container
+
+**Michael Love** (16:40:03):
+> [https://gist.github.com/mikelove/8fb94c610b588d4a6a64848d3fcbdf76](https://gist.github.com/mikelove/8fb94c610b588d4a6a64848d3fcbdf76)
+
+**Michael Love** (16:40:20):
+> this is a reproducing example
+
+
+## 2018-11-19
+
+*19:36:41 - @Michael Love has left the channel*
+
+## 2019-12-04
+
+*17:40:58 - @Jonathan Carroll has joined the channel*
+
+## 2021-01-22
+
+*15:46:19 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-05-11
+
+*16:45:34 - @Megha Lal has joined the channel*
+
+## 2022-01-28
+
+*11:14:26 - @Megha Lal has left the channel*
+
+## 2024-05-14
+
+**Lori Shepherd** (10:13:03):
+> archived the channel

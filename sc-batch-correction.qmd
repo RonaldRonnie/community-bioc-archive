@@ -1,0 +1,1718 @@
+---
+title: "#sc-batch-correction"
+format: gfm
+---
+
+
+## 2018-11-05
+
+*08:45:47 - @Aaron Lun has joined the channel*
+**Aaron Lun** (08:45:48):
+> set the channel description: A package for single-cell batch correction methods
+
+**Aaron Lun** (08:46:58):
+> Working name: scratch
+
+*08:58:51 - @Anthony has joined the channel*
+**Aaron Lun** (09:06:29):
+> Initial design draft:[https://docs.google.com/document/d/1LBACQKz1xUfFD69ZeaZEE9rQ4eblesxeDPxfxHAPa2k/edit?usp=sharing](https://docs.google.com/document/d/1LBACQKz1xUfFD69ZeaZEE9rQ4eblesxeDPxfxHAPa2k/edit?usp=sharing)
+
+*09:10:33 - @Stephanie Hicks has joined the channel*
+**Stephanie Hicks** (09:19:41):
+> @Aaron Lunand I started a list of questions for the package in the google doc
+
+**Stephanie Hicks** (09:19:59):
+> but we’re moving here now since back and forth on a google doc isn’t ideal
+
+**Stephanie Hicks** (09:21:52):
+> so@Aaron Lunhow would you like us to help?
+
+**Aaron Lun** (09:21:55):
+> Preliminary GH repo:[https://github.com/LTLA/Scratch](https://github.com/LTLA/Scratch). Warning: it does not build.
+  - Attachment (GitHub): [LTLA/Scratch](https://github.com/LTLA/Scratch)
+    > A to-be-Bioconductor package containing a collection of single-cell batch correction methods. - LTLA/Scratch
+
+**Aaron Lun** (09:22:13):
+> Contributors fall into three classes:
+
+**Aaron Lun** (09:23:08):
+> - New method developers, who develop new methods for batch correction (or for assessing the results of batch correction). This would require a technical report describing the method; a demonstration on a few data sets that it works as expected; and the code itself. Probably the highest burden of proof, effectively a piece of work in its own right.
+
+**Aaron Lun** (09:23:47):
+> - Re-implementation of published methods, which just needs the code (provided the method is demonstrated to work).
+
+**Aaron Lun** (09:24:11):
+> - Testers, to test the various methods on real data and provide some indication of the relative performance of each.
+
+**Aaron Lun** (09:25:26):
+> I guess most people here would fall under (2), and the rest of the community would fall under (3). People doing (1) would probably prefer to publish their own packages around which we can wrap, which is also fine if their dependencies are not too onerous.
+
+**Aaron Lun** (09:45:40):
+> The MNN migration will probably take the entire week, I will work on-and-off on it.
+
+*10:28:10 - @Kevin Rue-Albrecht has joined the channel*
+**Kevin Rue-Albrecht** (10:29:00):
+> Interested in the effort, but I can’t make any promise yet about availability to contribute.
+
+**Aaron Lun** (10:30:26):
+> Hmm, you should stop wasting your time with all this "iSEE" nonsense.
+
+**Aaron Lun** (10:30:52):
+> And especially that useless collaborator you have in Cambridge
+
+**Aaron Lun** (10:30:57):
+> but I hear he's very handsome.
+
+**Aaron Lun** (10:31:10):
+> if nothing else.
+
+**Kevin Rue-Albrecht** (10:32:48):
+> Ahahah Well mostly I was trying to iron out the last few glitches in iSEE, but it’s true that I need to move on to other stuff, first of all locally (O-place), but indeed also think about other new efforts that I can get involved with.
+
+**Kevin Rue-Albrecht** (10:33:05):
+> bioc being my favourite place for that
+
+**Kevin Rue-Albrecht** (10:34:09):
+> Was “<sc>ratch”  picked for its <s>ingle <c>ell connotation?:wink:
+
+**Aaron Lun** (10:34:43):
+> ¯\*(ツ)*/¯
+
+**Aaron Lun** (10:34:46):
+> single-cell batch
+
+**Aaron Lun** (10:34:49):
+> => scratch
+
+**Aaron Lun** (10:35:05):
+> but I don't really like the name because it sounds too close to actual compsci terminology
+
+**Aaron Lun** (10:35:09):
+> e.g., scratch space and the like.
+
+**Kevin Rue-Albrecht** (10:35:15):
+> yep.. i literally just picked up the “atch” part as I started reading the design doc
+
+**Aaron Lun** (10:39:21):
+> GH builds but the only working function is`multiBatchPCA`for the time being.
+
+*11:12:20 - @Davide Risso has joined the channel*
+**Aaron Lun** (11:32:35):
+> I'd like a better name before we move on. It's going to be a hassle to change the name later, there's a lot of inbuilt constants scattered throughout the place.
+
+**Kevin Rue-Albrecht** (11:34:39):
+> > “Help is one click away”
+> Kind of a catch phrase, if you ask me
+  - File (PNG): [Pasted image at 2018-11-05, 5:34 PM](https://community-bioc.slack.com/files/U34P8RS3B/FDW8BDGHK/image.png)
+
+**Aaron Lun** (11:36:43):
+> I think... no.
+
+**Aaron Lun** (11:36:50):
+> No one is going to get that.
+
+**Aaron Lun** (11:36:52):
+> At ALL.
+
+**Aaron Lun** (11:37:01):
+> For me, denzel is "man on fire".
+
+**Kevin Rue-Albrecht** (11:37:31):
+> Stickers are getting old school, packages should have movie posters now:stuck_out_tongue:Bottom line:
+> > In Bioconductor April 4th in RELEASE
+
+**Kevin Rue-Albrecht** (11:38:36):
+> Batch-“elor” ?
+
+**Kevin Rue-Albrecht** (11:38:54):
+> :joy:
+
+**Aaron Lun** (11:38:55):
+> oh hey, that's good.
+
+**Aaron Lun** (11:39:00):
+> batchelor.
+
+**Aaron Lun** (11:39:02):
+> hm.
+
+**Aaron Lun** (11:39:11):
+> much like the show.
+
+**Aaron Lun** (11:39:29):
+> One can only hope that the merging has a higher success rate.
+
+**Kevin Rue-Albrecht** (11:41:35):
+> Plus, that can probably easily lead to a sticker, although I personally don’t have anything specific to … “propose”… ahem
+
+**Aaron Lun** (11:42:26):
+> Looks like it'll have to be a portrait of... myself.
+
+**Aaron Lun** (11:42:52):
+> Due to you guys~~~betraying me~~~getting married.
+
+*11:56:25 - @Rob Amezquita has joined the channel*
+*12:47:00 - @Kasper D. Hansen has joined the channel*
+**Rob Amezquita** (12:49:14):
+> hi all, batch correction has become something of a personal need for the data that is incoming, im happy to help with 2/3 in whatever way you guys think is best. this seems like a cool way to get more involved in the Bioc-verse:smile:
+
+**Rob Amezquita** (12:50:17):
+> (just in case you dont know me, im a PD in the Gottardo lab studying immunotherapy and the like, and while im a huge fan of the tidyverse, i could be convinced of S4's utility)
+
+**Aaron Lun** (13:02:27):
+> Great.
+
+*13:30:22 - @Peter Hickey has joined the channel*
+*14:57:21 - @Sean Davis has joined the channel*
+**Aaron Lun** (14:58:24):
+> The`fastMNN`interface on GH is what I would expect to see for the different methods. Note the options: namely,`...`takes a variety of different inputs,`pc.input=`and`use.dimred=`allow use of PC or other reduced dimension inputs. The output format is not yet fixed but refer to the google docs for that.
+
+**Aaron Lun** (15:00:24):
+> Also, I renamed it to`batchelor`, which was pretty funny.[https://github.com/LTLA/batchelor](https://github.com/LTLA/batchelor)builds and runs though there are CHECK fails across the board.
+  - Attachment (GitHub): [LTLA/batchelor](https://github.com/LTLA/batchelor)
+    > A to-be-Bioconductor package containing a collection of single-cell batch correction methods. - LTLA/batchelor
+
+*15:35:02 - @Charlotte Soneson has joined the channel*
+*15:39:55 - @Michael Love has joined the channel*
+*16:11:42 - @Koen Van den Berge has joined the channel*
+*18:20:07 - @Shian Su has joined the channel*
+*21:18:27 - @Federico Marini has joined the channel*
+*23:46:03 - @Vince Carey has joined the channel*
+
+## 2018-11-06
+
+**Kevin Rue-Albrecht** (03:32:43):
+> Potential contributor?[https://www.biorxiv.org/content/early/2018/11/04/461954](https://www.biorxiv.org/content/early/2018/11/04/461954)
+  - Attachment (bioRxiv): [Fast, sensitive, and flexible integration of single cell data with Harmony](https://www.biorxiv.org/content/early/2018/11/04/461954)
+    > The rapidly emerging diversity of single cell RNAseq datasets allows us to characterize the transcriptional behavior of cell types across a wide variety of biological and clinical conditions. With this comprehensive breadth comes a major analytical challenge. The same cell type across tissues, from different donors, or in different disease states, may appear to express different genes. A joint analysis of multiple datasets requires the integration of cells across diverse conditions. This is particularly challenging when datasets are assayed with different technologies in which real biological differences are interspersed with technical differences. We present Harmony, an algorithm that projects cells into a shared embedding in which cells group by cell type rather than dataset-specific conditions. Unlike available single-cell integration methods, Harmony can simultaneously account for multiple experimental and biological factors. We develop objective metrics to evaluate the quality of data integration. In four separate analyses, we demonstrate the superior performance of Harmony to four single-cell-specific integration algorithms. Moreover, we show that Harmony requires dramatically fewer computational resources. It is the only available algorithm that makes the integration of ~106 cells feasible on a personal computer. We demonstrate that Harmony identifies both broad populations and fine-grained subpopulations of PBMCs from datasets with large experimental differences. In a meta-analysis of 14,746 cells from 5 studies of human pancreatic islet cells, Harmony accounts for variation among technologies and donors to successfully align several rare subpopulations. In the resulting integrated embedding, we identify a previously unidentified population of potentially dysfunctional alpha islet cells, enriched for genes active in the Endoplasmic Reticulum (ER) stress response. The abundance of these alpha cells correlates across donors with the proportion of dysfunctional beta cells also enriched in ER stress response genes. Harmony is a fast and flexible general purpose integration algorithm that enables the identification of shared fine-grained subpopulations across a variety of experimental and biological conditions.
+
+**Aaron Lun** (04:33:46):
+> god, these algorithms are popping up like mushrooms.
+
+**Shian Su** (06:07:04):
+> I think if mushrooms grew as quickly as single cell methods then there’d be no world hunger.
+
+**Aaron Lun** (06:07:57):
+> Same nutrient base for some of them as well.
+
+**Sean Davis** (07:18:44):
+> Uses multiplying parrot….
+
+*09:41:30 - @Jenny Drnevich has joined the channel*
+**Aaron Lun** (10:09:21):
+> <!channel>batchelor builds and checks (mostly, with a warning I haven't gotten around to dealing with yet). So we're open for business; for those of you planning PRs, please read the design google docs above.
+
+**Kevin Rue-Albrecht** (10:09:58):
+> (i.e. pinned item)
+
+**Aaron Lun** (10:10:07):
+> `mnnCorrect`provides an example of a function that returns corrected gene expression values, while`fastMNN`provides an example of a function that returns corrected log-dimensional coordinates across cells.
+
+**Aaron Lun** (10:10:55):
+> To incentivise PRs, I've put together a series of gift packs that I'll give to whoever gets in a complete PR (see the docs for what I mean).
+
+**Aaron Lun** (10:11:02):
+> Hold on, let me take some photos.
+
+**Kevin Rue-Albrecht** (10:13:44):
+> would have been a great topic for the Hacktoberfest ([https://hacktoberfest.digitalocean.com](https://hacktoberfest.digitalocean.com))
+  - Attachment (DigitalOcean): [Hacktoberfest 2018 - DigitalOcean](https://hacktoberfest.digitalocean.com)
+    > Hacktoberfest is a month-long celebration of open source software.
+
+**Aaron Lun** (10:17:16):
+> Ah, forgot my phone ran out of battery.
+
+**Aaron Lun** (10:17:28):
+> Well, you'll have to wait until my phone recharges to see the prizes.
+
+**Kevin Rue-Albrecht** (10:17:55):
+> webcam + mirror?:stuck_out_tongue_winking_eye:
+
+**Aaron Lun** (10:18:00):
+> Don't have webcam.
+
+**Aaron Lun** (10:18:13):
+> Don't have anything, really.
+
+*11:07:42 - @Davis McCarthy has joined the channel*
+**Davis McCarthy** (11:09:02):
+> nice work Aaron and co - I’m interested in contributing and after I start my new job in Melbourne in December I should have some bandwidth to do so! (Have to move across the globe between now and then, so…yeah….)
+
+**Aaron Lun** (11:27:13):
+> Third place prize gets some dropletUtils stickers and some salt packets from Burger King.
+  - File (JPEG): [20181106_162333.jpg](https://community-bioc.slack.com/files/U34P8RS3B/FDX7979GD/20181106_162333.jpg)
+
+**Michael Love** (11:27:54):
+> burger king: official sponser of dropletUtils
+
+**Aaron Lun** (11:28:02):
+> Second place prize gets some 20% used instant coffee and a 50% used hot chocolate thing.
+  - File (JPEG): [20181106_162445.jpg](https://community-bioc.slack.com/files/U34P8RS3B/FDYD68JDC/20181106_162445.jpg)
+
+**Stephanie Hicks** (11:28:16):
+> #burgerkingbiocstickers
+
+**Aaron Lun** (11:28:39):
+> First place prize gets some t-shirts from 10X and eLife. Note that they're both small, so probably good for kids.
+  - File (JPEG): [20181106_162524.jpg](https://community-bioc.slack.com/files/U34P8RS3B/FDYD6TFN2/20181106_162524.jpg)
+
+**Aaron Lun** (11:29:17):
+> Okay, that should be incentive enough, so let the PRs begin.
+
+**Charlotte Soneson** (11:36:24):
+> are you spring cleaning Aaron?
+
+**Sean Davis** (11:57:44):
+> We should keep going on the prizes, Aaron. I’m interested to see what 12th prize might be, for example.
+
+*13:33:47 - @David Jenkins has joined the channel*
+**Stephanie Hicks** (13:44:21) (in thread):
+> :rolling_on_the_floor_laughing:
+
+*15:11:27 - @Frederick Tan has joined the channel*
+
+## 2018-11-07
+
+*11:07:34 - @Tim Triche has joined the channel*
+*11:37:33 - @Valentin Voillet has joined the channel*
+**Aaron Lun** (13:00:31):
+> Prize for the first fork goes to@Shian Su, who wins this limited edition set of highlighters.
+  - File (JPEG): [20181107_175844.jpg](https://community-bioc.slack.com/files/U34P8RS3B/FDXTW2WCU/20181107_175844.jpg)
+
+**Kasper D. Hansen** (13:04:44):
+> Wait a minut, is the prize for forking or for getting a PR accepted?
+
+**Aaron Lun** (13:04:49):
+> forking.
+
+**Aaron Lun** (13:04:55):
+> The PR accepted prizes are much better.
+
+**Kasper D. Hansen** (13:04:56):
+> Damn
+
+**Aaron Lun** (13:05:12):
+> I mean, check out those t-shirts.
+
+**Kasper D. Hansen** (13:05:15):
+> I should have read the stuff written in small
+
+**Stephanie Hicks** (15:00:39):
+> Are you giving away any winter wear@Aaron Lun? It’s getting rather cold here in this part of the world.:snowman:
+
+**Aaron Lun** (15:01:25):
+> I do have some trousers that I don't wear anymore, on account of having holes in them. But you could probably reuse the fabric to make a blanket of some sort.
+
+**Stephanie Hicks** (15:05:02):
+> I think the trousers should be reserved for the first person to resolve a merge conflict in git
+
+**Federico Marini** (15:07:22):
+> wait a minute, we got all the`iSEE`thing running, and we did not even get a lousy t-shirt:man-facepalming:
+
+**Aaron Lun** (15:12:59):
+> Well, Fed, do you want my trousers?
+
+**Aaron Lun** (15:13:08):
+> I can drop them off the next time I see you.
+
+**Aaron Lun** (15:13:16):
+> I'll even throw in some socks.
+
+**Aaron Lun** (15:13:32):
+> If my clothes were houses, they would be called a "renovator's delight".
+
+**Federico Marini** (15:16:47):
+> My kingdom for a pair of trousers:smile:
+
+**Vince Carey** (16:11:58):
+> Does batchelor really require R 3.6?  There has been some discussion on the importance of specifying R version, i think on bioc-devel?  My weak recollection is that it might be OK to omit that aspect of dependency unless package will definitely fail with earlier version.
+
+**Aaron Lun** (17:45:17):
+> Force of habit. ¯\*(ツ)*/¯
+
+**Aaron Lun** (17:45:31):
+> Well, namely because BiocCheck nags me to do it.
+
+
+## 2018-11-08
+
+*06:55:58 - @Vladimir Kiselev has joined the channel*
+**Vladimir Kiselev** (06:57:24):
+> I think bbknn won’t work for batch correction, it works on distance matrix and does not touch the expression matrix
+
+**Aaron Lun** (07:58:33):
+> Damn, that screws up my signatures.
+
+**Aaron Lun** (07:58:50):
+> The same could also be said of conos.
+
+**Vladimir Kiselev** (12:25:54):
+> Harmony was out a couple of days ago
+
+**Vladimir Kiselev** (12:26:05):
+> Looks promising
+
+**Aaron Lun** (12:45:37):
+> Are you volunteering a PR?
+
+
+## 2018-11-09
+
+**Vince Carey** (05:38:59):
+> @Aaron Lun, just tried out mnnCorrect with seemingly pleasing results.  However, I am wondering why, with SCE input, the function returns an SE, from which colnames and colData are absent.  Is there any reason such metadata are not propagated?
+
+**Aaron Lun** (05:54:23):
+> This stems from the original use case where multiple matrices are supplied as inputs. The SE was just a useful way of storing the corrected values along with some correction-specific metadata. I wouldn't necessarily even have a single SCE input from which to coordinate coldata in the output.
+
+**Aaron Lun** (05:55:22):
+> If you used`batch=`with an SCE input, you could argue that the function  should also return a SCE output with an extra assay holding corrected values. But I didn't do so for simplicity and for consistency with other modes of running the function.
+
+**Aaron Lun** (05:56:26):
+> The column names should be the same though. You can put a PR to enforce that if you like, though this might be tricky if some input matrices have column names and others do not.
+
+**Vince Carey** (05:57:19):
+> Sounds good.  It is easy to do the necessary updates to the output; I will see if I can make a suitable PR.
+
+**Aaron Lun** (05:59:02):
+> Great. For the time being, though, I would leave it as an SE output, until I get a better idea of what the other batch correction methods will be returning as output.
+
+**Aaron Lun** (05:59:17):
+> For example, a method that returns both corrected expression values and a corrected low-dimensional representation would require an SCE output.
+
+**Aaron Lun** (06:01:13):
+> Oh, and`subset.row`means that the output may not be the same dimensionality as the input.
+
+**Aaron Lun** (09:16:14):
+> Just added`rescaleBatches`, which does the simplest and most obvious approach of scaling the counts (i.e., centering the batches in log-expression space). Somewhat more sophisticated to preserve sparsity and all that, but otherwise the same as using`removeBatchEffect`or other linear regression based methods of batch correction.
+
+**Aaron Lun** (09:16:28):
+> So, no one gets a prize for just throwing a wrapper around`removeBatchEffect`any more.
+
+**Davide Risso** (12:18:41):
+> But there’s still ComBat available, right?
+
+**Aaron Lun** (14:38:18):
+> I would prefer PRs covering other parts of the method space.
+
+**Aaron Lun** (14:43:47):
+> Oh. And whatever you write should be compatible with all matrix types.
+
+
+## 2018-11-10
+
+**Aaron Lun** (08:59:49):
+> If anyone has time to burn, there's probably some ideas that can be stolen from image registration for batch alignment, e.g., applying SIFT on "hypervoxels" where intensity is defined as the number of contained cells.
+
+**Kevin Rue-Albrecht** (09:53:07):
+> just wondering: do you have favorite/specific datasets/metrics to benchmark/compare/judge the various methods?
+
+**Aaron Lun** (09:57:42):
+> I have three in[https://github.com/MarioniLab/FurtherMNN2018](https://github.com/MarioniLab/FurtherMNN2018). But feel free to use your own.
+
+**Kevin Rue-Albrecht** (10:08:42):
+> Cool. Yeah I have some data on our cluster, I can probably grab the .mtx files (tens of MB is fine) to play on the laptop
+
+**Davide Risso** (10:35:33):
+> @Matt Ritchiehas some cool datasets w/ ground truth for this kind of comparisons
+
+**Davide Risso** (10:36:10):
+> Forgot the repo's name...
+
+**Kevin Rue-Albrecht** (10:38:00):
+> Thanks! I'm heading out now, but that information should be enough for me to Google around and browse GitHub repos.:slightly_smiling_face:
+
+**Kevin Rue-Albrecht** (10:39:04):
+> (sounds like`mritchie/CellBench_data`)
+
+**Kevin Rue-Albrecht** (10:40:20):
+> oh right i'm stupid we had the " scRNA-seq mixology" preprint as a journal club recently
+
+**Davide Risso** (10:41:23):
+> That's it!
+
+
+## 2018-11-11
+
+**Shian Su** (23:35:29):
+> I snuck my name into that preprint so I guess I should also provide some technical support if you guys have trouble with it. Do note that Matt’s repo is a fork of Luyi’s repo where the up-to-date version of the repo sits.
+
+**Shian Su** (23:35:55):
+> Also going to shamelessly advertise my WIP package CellBench:[https://github.com/shians/cellbench](https://github.com/shians/cellbench)for a lightweight benchmarking framework.
+  - Attachment (GitHub): [Shians/CellBench](https://github.com/shians/cellbench)
+    > Contribute to Shians/CellBench development by creating an account on GitHub.
+
+
+## 2018-11-12
+
+**Kevin Rue-Albrecht** (05:04:49) (in thread):
+> Indeed I noticed the fork, and i should have pointed out. Thanks!
+> I have a few things to clear from my to-do list, but I’ll be in touch if I face any difficulty
+
+
+## 2018-12-07
+
+*03:02:56 - @Mark Robinson has joined the channel*
+
+## 2018-12-10
+
+*11:44:43 - @Ben Johnson has joined the channel*
+
+## 2019-01-24
+
+*13:56:42 - @Steve Lianoglou has joined the channel*
+
+## 2019-02-01
+
+**Aaron Lun** (10:02:25):
+> Huh. Looks like my prizes got erased.
+
+**Aaron Lun** (10:02:41):
+> Well, the draw's still open for a PR into`batchelor`.
+
+**Aaron Lun** (10:03:00):
+> Prize 3 was some packets of salt plus a bunch of BioC stickers.
+
+**Aaron Lun** (10:03:07):
+> Prize 2 was an elife + 10X genomics t-shirt.
+
+**Aaron Lun** (10:03:12):
+> Prize 1 was my headphones plus a 2/3-full jar of instant coffee.
+
+
+## 2019-02-07
+
+**Rob Amezquita** (11:12:21):
+> what kind of headphones are we talking here? hopefully not the in-ear kind..
+
+**Aaron Lun** (12:03:49):
+> No, they're the professional looking kind.
+
+**Aaron Lun** (12:04:05):
+> The headband is broken, though, so I keep it tied to my head with rope.
+
+
+## 2019-02-11
+
+**Aaron Lun** (13:37:58):
+> <!channel>If you're making a batch correction package, you might consider extend**batchelor**'s S4 generic`batchCorrect`, which aims to provide a unified interface for different methods. Read the`extension.Rmd`vignette in the repo.
+
+
+## 2019-02-14
+
+**Aaron Lun** (11:39:06):
+> <!channel>**batchelor**is done and ready to submit once**BiocSingular**gets in. Took a while to add support for the`restrict=`option to all currently available methods, but now it's done.
+
+**Aaron Lun** (11:44:48):
+> For those who are interested,`restrict=`is - in theory - pretty useful, as it restricts the definition of the correction to a subset of cells in each batch but "extrapolates" the correction to all other cells in the batch. One could consider designing an experiment involving a constant cell control in each batch and then perform batch correection with`restrict=`, thereby weakening or avoiding the assumptions that are otherwise necessary for batch correction methods to work.
+
+**Aaron Lun** (11:45:07):
+> In practice, this is not so useful because most people don't do experimental design for scRNA-seq studies.
+
+**Kevin Rue-Albrecht** (11:57:58):
+> Cool concept though.
+
+**Kevin Rue-Albrecht** (11:59:13):
+> I’m curious how those “spike-in cells” would be generated. Droplets pre-loaded with fixed RNA content? (Is that even possible?)
+
+**Tim Triche** (12:01:01):
+> why not? put a bunch of sequins on a bead maybe?
+
+**Kevin Rue-Albrecht** (12:14:56):
+> true, I was just a bit slow to picture the experimental procedure, but sequins are nice:slightly_smiling_face:
+
+**Aaron Lun** (12:16:34):
+> You'd multiplex with a control sample.
+
+**Aaron Lun** (12:16:46):
+> Same as is done for mass cyt.
+
+
+## 2019-02-15
+
+**Aaron Lun** (12:51:16):
+> Interesting:`scAlign`in the Bioconductor submission queue. Too bad it relies on having a parallel Python installation in shape.
+
+
+## 2019-02-18
+
+*06:23:09 - @Lukas Weber has joined the channel*
+
+## 2019-03-05
+
+**Aaron Lun** (18:57:37):
+> submitted
+
+
+## 2019-03-08
+
+**Aaron Lun** (01:18:13):
+> @Stephanie Hicks@Rob AmezquitaThat reminds me. You should probably make a PR on FurtherMNN2018 with your PBMC example, just to give me another dataset that I can use to verify the performance of`fastMNN`. I run through these every time I make a change to the function to ensure that it does the same thing as it did before, so the more tests the better.
+
+**Stephanie Hicks** (07:47:47):
+> @Aaron Lungreat suggestion!  it will have to be next week though. I’m traveling today and@Rob Amezquitaand I are prioritizing getting the paper submitted first. but happy to submit a PR:slightly_smiling_face:
+
+**Rob Amezquita** (10:50:30):
+> will definitely add to the to do list. yeah the PBMC example should be fairly nice to test because it aligns pretty well even sans`fastMNN`, so it would serve as a nice sanity check for sure
+
+**Federico Marini** (10:57:38):
+> I’d have a general question when combining more datasets, as you do also in the OSCA-bookdown:
+
+**Federico Marini** (10:57:50):
+> namely, normalization
+
+**Federico Marini** (10:58:29):
+> this is done before merging, also because we want to compare cells of that set
+
+**Federico Marini** (10:58:58):
+> Probably I’m missing something, but shouldn’t that be done post merging “as well”?
+
+**Rob Amezquita** (11:25:44):
+> i guess the normalization could be adjusted since with the integration you would be able to identify similar cells more readily, so you could calculate the size factors for example with respect to the clusters derived from the integration and redo the normalization using that info..
+
+**Rob Amezquita** (11:26:42):
+> its not something ive explored though myself
+
+**Federico Marini** (12:54:17):
+> I’ll dig more into the`compareSingleCell`workflow pkg from Aaron as well:wink:
+
+**Rob Amezquita** (14:33:54):
+> yeah, let me know what you think would be ideal. i think also i need to run the integration chapter on a harder dataset at least with different platforms to really showcase the method
+
+**Aaron Lun** (22:43:26):
+> no point doing it after integration, they're not counts anymore.
+
+
+## 2019-03-15
+
+**Sean Davis** (11:01:11):
+> New funding opportunity:[https://www.i2cell.science/the-award/](https://www.i2cell.science/the-award/)
+> > The Fourmentin-Guilbert Scientific Foundation is inviting applicants to submit proposals to the  I2CELL Seed Award. It is intended to support a 3 years experimental project in biology to encourage experimental approaches that explore the algorithmic processing of information in biological systems. The experimental dimension of a research proposal is of major importance as well as the biological question which is addressed.
+
+
+## 2019-04-26
+
+*09:43:08 - @Almut has joined the channel*
+
+## 2019-05-12
+
+**Aaron Lun** (00:02:33):
+> It's quiet around here.
+
+**Aaron Lun** (00:02:35):
+> Too quiet.
+
+**Aaron Lun** (00:02:42):
+> And why yes, I am bored.
+
+**Aaron Lun** (00:03:02):
+> Spent an evening entertaining an old colleague.
+
+**Aaron Lun** (00:03:05):
+> Blew through $40.
+
+**Aaron Lun** (00:03:10):
+> That's two weeks worth of food!
+
+**Aaron Lun** (00:03:31):
+> I can't afford that
+
+**Aaron Lun** (00:03:34):
+> oh wait, I can.
+
+
+## 2019-05-20
+
+**Sean Davis** (20:54:01):
+> Don’t want@Aaron Lunto be bored.[https://www.biorxiv.org/content/10.1101/642595v1](https://www.biorxiv.org/content/10.1101/642595v1)
+
+**Sean Davis** (20:55:04):
+> > Principal component analysis (PCA) is an essential method for analyzing single-cell RNA-seq (scRNA-seq) dataset but for large-scale scRNA-seq datasets, the computation consumes a long time and large memory space. In this work, we review the existing fast and memory-efficient PCA algorithms and implementations and evaluate their practical application to large-scale scRNA-seq dataset. Our benchmark showed that some PCA algorithms based on Krylov subspace and randomized singular value decomposition are fast, memory-efficient, and accurate than the other algorithms. Considering the difference of computational environment of users and developers, we also developed the guideline to select the appropriate PCA implementations.
+
+**Aaron Lun** (20:59:52):
+> ha, pretty obvious where they want to submit it.
+
+**Aaron Lun** (21:01:42):
+> And really? A 4 MB manuscript? Why do they even need figures?
+
+**Sean Davis** (21:06:25):
+> ***Fourteen***multi-panel figures included….
+
+*23:02:08 - @Sridhar N has joined the channel*
+**Aaron Lun** (23:48:56):
+> A quick scan suggests that... no action is required?
+
+**Aaron Lun** (23:49:13):
+> Perhaps we could speed up irlba a bit, but otherwise it seems that the recommendation is to stick with IRLBA or RSVD.
+
+**Aaron Lun** (23:52:25):
+> Possibly could ask the rsvd maintainer to implement algorithm971.
+
+
+## 2019-05-21
+
+*07:38:58 - @Lorena Pantano has joined the channel*
+**Kasper D. Hansen** (09:28:38):
+> Im reading it carefully, to see if there is something we didn’t know. On one hand it was a ton of work, on the other hand I think it only touches lightly on important aspects. They note - as we have seen - that out-of-core performance depends**critically**on I/O. They also discuss sparsity and see the same things we have talked about. At the end of the day, what I think our current understanding is, is that speed depends quite a lot on having a performant out-of-core matrix multiplication coupled with how often the data are visited. For out-of-memory, this cost may dominate relative to the speed of the algorithm. And I wish they had spend more time delimiting the situation with in-memory vs. out-of-memory for the different algorithms.
+
+**Kasper D. Hansen** (09:28:44):
+> But Im still reading it.
+
+**Kasper D. Hansen** (10:22:36):
+> The consistent trashing of downsampling is comforting. Clearly it doesn’t provide good results. But it also reveals weird things like Table 1 under scalability it says “bad” which makes no sense. I mean, it may suck in providing the right answers, but clearly downsampling is extremely scalable.
+
+
+## 2019-05-22
+
+*15:48:37 - @Brendan Innes has joined the channel*
+
+## 2019-06-23
+
+*22:10:26 - @Ameya Kulkarni has joined the channel*
+
+## 2019-06-25
+
+*13:50:11 - @Andrew McDavid has joined the channel*
+
+## 2019-06-26
+
+*13:29:30 - @Junhao Li has joined the channel*
+
+## 2019-07-17
+
+*14:33:29 - @John Hutchinson has joined the channel*
+
+## 2019-08-03
+
+*13:55:10 - @Mikhael Manurung has joined the channel*
+
+## 2019-08-14
+
+*14:41:37 - @Aedin Culhane has joined the channel*
+
+## 2019-08-16
+
+**Aaron Lun** (00:16:44):
+> @Kevin WangYou should consider using**BiocSingular**rather than maintaining separate calls to**irlba**and**rsvd**.
+
+*00:19:05 - @Kevin Wang has joined the channel*
+**Kevin Wang** (00:24:15) (in thread):
+> Thanks@Aaron Lun, I am aware of BiocSingular, and I have plans to adapt the codes of scMerge. ([https://github.com/SydneyBioX/scMerge/issues/8](https://github.com/SydneyBioX/scMerge/issues/8))
+> 
+> One thing that prevents me from fully converting is: there is an opinion in my research group that wants the figures that scMerge produce to always be consistent with the original publication. I will try to reach a compromise at some point:slightly_smiling_face:
+
+**Aaron Lun** (00:29:46) (in thread):
+> HA! That's the funniest thing I've heard all day.
+
+**Aaron Lun** (00:30:07) (in thread):
+> Well, that'll go out the window after you find the first bug.
+
+**Aaron Lun** (00:31:10) (in thread):
+> God knows how many bugs I've had to kill after publication.**beachmat**'s plots lasted three months and then HDF5 changed their algorithms and now I can never reproduce those plots.
+
+**Aaron Lun** (00:31:30) (in thread):
+> You should tell your people: DON'T SWEAT IT.
+
+**Aaron Lun** (00:31:50) (in thread):
+> Or if they really want to sweat it, whip up a docker container and stick everything in there.
+
+**Kevin Wang** (00:33:06) (in thread):
+> Yep… I agree. Given that there is a GitHub, there is always a chance to roll back to previous install. I am with you on that one
+
+**Aaron Lun** (00:33:12):
+> In any case, I need a short linear describing how scMerge works, to be used as a section header, but that is not just "scMerge".
+
+**Aaron Lun** (00:33:46) (in thread):
+> scater and scran, for example, have no resemblence to their publications.
+
+**Aaron Lun** (00:33:58) (in thread):
+> Just like I don't look like my WEHI photo anymore. That's just life.
+
+**Aaron Lun** (00:35:27):
+> My current one is`# Complicated math stuff`.
+
+**Kevin Wang** (00:36:28) (in thread):
+> If only I am not a PhD student and can make actual decisions:man-shrugging:
+
+**Aaron Lun** (00:38:40) (in thread):
+> But that's the best part. When you're a student, you can just do stuff and ask for forgiveness later. I get paid silly money so I don't have that excuse anymore.
+
+**Kevin Wang** (00:40:48) (in thread):
+> I guess to what level of audience am I communicating to. If for general people, I would go
+> ```
+> scMerge uses clustering algorithms to group similar cells between multiple datasets to define the noise structure within a cell type across different data batches. This noise is then removed from these datasets using factor analysis to produce a merged data suitable for other downstream scRNA-Seq data analysis.
+> ```
+
+**Aaron Lun** (00:57:34) (in thread):
+> I was hoping literally for <10 words describing how it does it.
+
+**Aaron Lun** (00:57:44) (in thread):
+> Like`# Using mutual nearest neighbors`, is what I have for`fastMNN`'s section.
+
+**Kevin Wang** (01:00:41) (in thread):
+> `scMerge uses stably expressed genes and factor analysis to remove noise in scRNA-Seq data. `That is 14 words. If that is too long,`scMerge uses factor analysis to remove noise in scRNA-Seq data. `That is 10 words.
+
+**Aaron Lun** (01:01:14) (in thread):
+> I'm going to get condensed down to`Factor analysis`. Our nav bar isn't big enough for all that.
+
+**Kevin Wang** (01:01:19) (in thread):
+> Out of the three main techniques in scMerge, factor analysis is probably the main statistical tool.
+
+**Kevin Wang** (01:01:56) (in thread):
+> Yes, that is probably the most fair and concise representation
+
+**Aaron Lun** (01:03:10):
+> There arne't nay instructions to obtain the SEG list denovo.
+
+**Kevin Wang** (01:07:06) (in thread):
+> There is a pre-computed list in the package based on the works here:[https://www.biorxiv.org/node/142523.full](https://www.biorxiv.org/node/142523.full). The package also has a function that lets you compute the list based on your own data[https://sydneybiox.github.io/scMerge/reference/scSEGIndex.html](https://sydneybiox.github.io/scMerge/reference/scSEGIndex.html).
+  - Attachment (sydneybiox.github.io): [scSEGIndex — scSEGIndex](https://sydneybiox.github.io/scMerge/reference/scSEGIndex.html)
+    > Calculate single-cell Stably Expressed Gene (scSEG) index from Lin. et. al. (2018).
+
+**Kevin Wang** (01:07:32) (in thread):
+> That is as far as the extent I know since I didn’t work on that paper
+
+**Aaron Lun** (01:11:21):
+> @Shila Ghazanfar! What's this camelCase and snake_case mixture rubbish?
+> ```
+> scSEGIndex(exprsMat, cell_type = NULL, ncore = 1)
+> ```
+
+**Kevin Wang** (01:13:50) (in thread):
+> Shila is in trouble~~
+
+**Aaron Lun** (01:14:02) (in thread):
+> Damn straight she is!
+
+**Aaron Lun** (02:12:00):
+> > Step 2: Performing RUV normalisation. This will take minutes to hours.
+> Oh yeah, that's real informative.
+
+**Kevin Wang** (02:14:01):
+> People might need a prompt so they can feel free grab a beer in the arvo without guilt
+
+*05:18:11 - @Shila Ghazanfar has joined the channel*
+**Shila Ghazanfar** (05:20:00) (in thread):
+> :shrug::shrug::shrug::shrug::shrug::shrug::shrug::shrug:
+
+**Kasper D. Hansen** (14:59:01):
+> With all due respect I think it is very worthwhile to at least thing about when the output (pictures) of a published algorithm changes and note this in NEWS and/or a section in the vignette
+
+**Kasper D. Hansen** (14:59:18):
+> Sometimes even to provide backwards compability through an argument
+
+**Kasper D. Hansen** (14:59:57):
+> I do think people should fix bugs and make things faster but you should also be aware when things change and check that they don’t change in an “important” way.
+
+**Kasper D. Hansen** (15:00:38):
+> I get that current single cell is moving extremely rapid and the only way we can deal with the big amounts of data is by tuning the algorithm (= change) and optimize backends etc etc.
+
+**Kasper D. Hansen** (15:00:59):
+> But I do think it is a dangerous (and not user friendly) to not at least provide some notes on this
+
+**Aaron Lun** (16:06:25):
+> I don’t mind putting stuff into NEWS.
+
+**Aaron Lun** (16:06:38):
+> But it’s not possible to provide sensible backwards compatibility in many cases.
+
+**Aaron Lun** (16:07:22):
+> e.g.,`emptyDrops`has changed its PRNG twice at the C++ level, and there’s no way to get the old results.
+
+**Aaron Lun** (16:09:21):
+> But this is a digression, because**BiocSingular**wraps**irlba**and**rsvd**without any actual modification.
+
+**Aaron Lun** (16:10:43):
+> Having said that - I spent last night kicking the tires for**scMerge**, and there’s a few obvious issues with getting it to work for the OSCA book.
+
+**Aaron Lun** (16:12:43):
+> - no direct support for non-ordinary matrices;
+> - requires column names when that doesn’t seem necessary;
+> - returns a dense matrix and blows up my memory;
+> - takes a while, even with`fast_svd=TRUE`.
+> 
+> This is only ~8k cells, and it needs to scale up 10 fold.
+
+**Aaron Lun** (16:15:55):
+> “Takes a while” being “started it running, began watching an episode, and it still wasn’t finished at the eyecatch”. So about 10 minutes.
+
+**Kasper D. Hansen** (17:25:15):
+> Sure, sometimes backwards breaks
+
+**Kasper D. Hansen** (17:25:56):
+> I still think having a changelog when major algorithms change (and whether you can get the old result) should be done
+
+**Kevin Wang** (23:52:42):
+> I understand there are many ways that scMerge can be improved and I do appreciate the time that Aaron has already invested in looking at the package.
+> 
+> I must admit that a non-trivial part of the package was written by Yingxin, the first author in that paper. A good portion of the codes were written during method development and the manuscript drafting process. So there were issues with how robust/general some of the functions are (e.g. the inconsistent snake case vs camel case, the necessity of colnames, etc).
+> 
+> I am in the final stretch of my PhD and so I have plans to devote some time to refine the package after my submission.
+
+**Aaron Lun** (23:53:28):
+> Well, I didn't spend that long. It was mostly just waiting for it to run, and I was just watching anime during that time.
+
+**Aaron Lun** (23:53:47):
+> But prepping it up was pretty annoying, so I'll make an issue about it later.
+
+**Kevin Wang** (23:54:59):
+> As for the dense/sparse matrix issue, it is a bit of a tough one. By the very nature of the factor analysis we used, an output dense matrix seems unavoidable. I had some experiments allowing for sparse matrix and DelayedArray, and that is on my agenda list once time opens up in the next month or so.[https://github.com/SydneyBioX/scMerge/issues/9](https://github.com/SydneyBioX/scMerge/issues/9)
+
+**Kevin Wang** (23:55:41):
+> Great, that’d be much appreciated, the last thing that we want is to have a package that only us know how to run.
+
+
+## 2019-08-17
+
+**Kevin Wang** (01:37:00):
+> I see your issue now, thanks Aaron. Most of the problems raised seem workable. Cheers
+
+**Aaron Lun** (21:25:08):
+> aw geez refactoring`fastMNN`is a real pain.
+
+
+## 2019-08-18
+
+**Aaron Lun** (00:34:41):
+> man, this hurts. I've been sitting around for 3 hours and I've written 10 lines of code.
+
+
+## 2019-08-19
+
+**Shila Ghazanfar** (04:04:21) (in thread):
+> Yes but those 10 lines would be a masterpiece, like these chips[https://www.youtube.com/watch?v=Hu5J0zANXGY](https://www.youtube.com/watch?v=Hu5J0zANXGY)
+  - Attachment (YouTube): [Kettle Chips - Spitting Chips](https://www.youtube.com/watch?v=Hu5J0zANXGY)
+
+*17:52:52 - @Kin Lau has joined the channel*
+
+## 2019-08-20
+
+**Kevin Rue-Albrecht** (08:45:08):
+> [https://github.com/quon-titative-biology/scAlign](https://github.com/quon-titative-biology/scAlign)
+
+**Aaron Lun** (11:17:03):
+> oh man, another tensorflow pakcage
+
+
+## 2019-08-23
+
+*06:12:54 - @Boris Hejblum has joined the channel*
+
+## 2019-09-16
+
+*11:30:02 - @Jared Andrews has joined the channel*
+*11:31:07 - @Joan has joined the channel*
+**Joan** (12:03:49):
+> hi all, i am an informatics analyst with computer science background, and I am very new to sc rna-seq data analysis. I have a question about what method we should use for batch effect removal on ADT data? i see Aaron has a very nice batch effect remove pipeline ([https://bioconductor.org/packages/release/workflows/vignettes/simpleSingleCell/inst/doc/batch.html#2_processing_the_different_datasets](https://bioconductor.org/packages/release/workflows/vignettes/simpleSingleCell/inst/doc/batch.html#2_processing_the_different_datasets)), is it ok we can apply this pipeline for ADT data? or, does any one has   suggestions on what methods we should use for ADT data batch effect remove?
+
+**Joan** (12:13:09):
+> thanks for your help:slightly_smiling_face:
+
+**Tim Triche** (12:21:29):
+> you used cell hashing?
+
+**Joan** (12:27:06):
+> no, i didn’t. so cell hashing is feasible for y situation? let me take a look. thanks Tim!
+
+**Tim Triche** (12:30:12):
+> if the cells were hashed, this would presumably have been mentioned
+
+*13:05:51 - @Friederike Dündar has joined the channel*
+**Joan** (15:09:20):
+> my data is CITE-seq data, not cell hashing.@Aaron Lunis that theoretically feasible to implement your RNA pipeline pf batch effect remove to the protein data from CITE-seq? sorry if my question was too naive ~ many thanks to you all
+
+**Aaron Lun** (16:43:31):
+> In theory, yes. I do recall someone using MNN for mass cytometry data, and they were pretty happy with it.
+
+**Aaron Lun** (16:44:04):
+> In practice, the suitability of this approach depends on having sufficient markers to satisfy the orthogonality assumption.
+
+**Aaron Lun** (16:47:25):
+> You can diagnose this based on the variance lost; if the orthogonalization is removing more than 5% variance at any step, I’d be concerned.
+
+**Joan** (17:14:04):
+> Aaron, thanks very much for your input, i will implement my ADT data with the RNA pipeline and pay attention on the variance lost.
+
+**Peter Hickey** (19:40:39):
+> any pointers on what do if 10-20+% of variance is being removed? give up? cry in the corner? harsher QC?
+
+**Aaron Lun** (19:50:33):
+> I recommend pacing around your office and screaming.
+
+**Aaron Lun** (19:50:41):
+> works for me.
+
+**Peter Hickey** (19:52:28):
+> bloody neutrophils
+
+**Tim Triche** (19:57:07):
+> FICOLL 'em
+
+**Tim Triche** (19:57:16):
+> solves that problem:wink:
+
+**Joan** (20:48:12):
+> :joy:
+
+
+## 2019-09-17
+
+*04:43:37 - @Laurent Gatto has joined the channel*
+*12:15:37 - @Kellie Kravarik has joined the channel*
+
+## 2019-09-18
+
+*09:08:29 - @Michael Steinbaugh has joined the channel*
+
+## 2019-09-27
+
+*04:33:24 - @Oriol Pavón has joined the channel*
+*09:24:51 - @Elana Fertig has joined the channel*
+
+## 2019-10-14
+
+*15:33:33 - @Kathy Sivils has joined the channel*
+
+## 2019-10-31
+
+*11:13:13 - @Ambrose Carr has joined the channel*
+
+## 2019-11-20
+
+**Peter Hickey** (05:41:12):
+> Routine use of MNN (or other data integration method): yay or nay?
+> 
+> I've a dataset of human memory CD4+ T-cells in a humanized mouse model.
+> There are 3 infected and 3 uninfected samples, collaborator wants to look for genes changing due by infection.
+> All 6 samples were run in a single 10x run using hashtags to label samples with around ~2000 cells / sample
+> So there's no batch effect in the standard sense (e.g., samples on different 10x runs).
+
+**Peter Hickey** (05:41:16):
+> Looking at the t-SNE, it's clear that the infected cells are quite different to the uninfected cells (yay!)
+
+**Peter Hickey** (05:41:55):
+> t-SNE (without correction)
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/FQRD1D2R2/image.png)
+
+**Peter Hickey** (05:42:29):
+> But that can make it trickier to annotate the subsequent clustering.
+> It also means many of the clusters are infection-specific, so I can't really do a differential expression analysis within those clusters (although I can of course do a differential abundance of the clusters themselves).
+
+**Peter Hickey** (05:42:35):
+> So I thought, perhaps run MNN to remove any sample-specific/infection-specific differences with the aim of getting more 'cell-type'-like clusters, and then doing the differential analyses within these clusters.
+
+**Peter Hickey** (05:43:10):
+> t-SNE (after MNN)
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/FQRSMPL4Q/image.png)
+
+**Peter Hickey** (05:48:58):
+> Visually, the MNN-corrected t-SNE seems likely to simplify the downstream clustering and annotation steps (and some preliminary analysis backs this up).
+> I guess I'm generally interested in hearing thoughts on applying data integration methods to 'remove' experimental effects (as opposed to batch effects) prior to clustering with the aim of getting more 'cell-type' like clusters and then using those clusters to test the experimental effect in differential expression/abundance analyses
+
+**Jared Andrews** (09:48:16):
+> I'd worry that you might lose some real biological changes and would have to increase and finagle your clustering resolution/complexity to re-capture them within your "cell-type" clusters. Can you elaborate on how this simplifies your downstream steps? I'm sure Aaron will have a stronger opinion on this.
+
+**Aaron Lun** (11:34:11):
+> I’ll presume you’ve read[https://osca.bioconductor.org/integrating-datasets.html#using-corrected-values](https://osca.bioconductor.org/integrating-datasets.html#using-corrected-values)
+  - Attachment (osca.bioconductor.org): [Chapter 13 Integrating Datasets | Orchestrating Single-Cell Analysis with Bioconductor](https://osca.bioconductor.org/integrating-datasets.html#using-corrected-values)
+    > Online companion to ‘Orchestrating Single-Cell Analysis with Bioconductor’ manuscript by the Bioconductor team.
+
+**Aaron Lun** (11:35:23):
+> I should add some comments about the multi-sample case here.
+
+**Aaron Lun** (11:52:23):
+> Tl;dr it is fine and removal of biological differences is to be expected.
+
+**Aaron Lun** (11:58:36):
+> I would like a better example in Chapter 14, though.
+
+**Peter Hickey** (14:42:54) (in thread):
+> FWIW the MNN diagnostics show <5%`lost.var`for all merging steps.
+
+**Peter Hickey** (14:45:37) (in thread):
+> For downstream, I'm thinking that without MNN there might be two clusters, A_I and A_U, that are both 'cell type' A but separated by Infected and Uninfected status. I would then need to:
+> 
+> 1. Come up with labels/annotations for A_I and A_U
+> 2. Use differential abundance to say A_I and A_U are found at different frequencies due to infection
+> 3. Find the corresponding marker genes between A_I and A_U to say what's different between these.
+
+**Peter Hickey** (14:46:14) (in thread):
+> With MNN, I'd hope these would be merged into a single 'cell type' A. I would then do
+> 1. Come up with labels/annotations for A
+> 2. Use DE within A to identify genes changed by infection.
+
+**Jared Andrews** (14:47:13) (in thread):
+> Yeah, #2 there is what I'd be worried about, though if you have relatively minor variance loss then:man-shrugging:
+
+**Peter Hickey** (14:47:15) (in thread):
+> My experience is that the biologists I'm working with tend to think in terms of the 2-step or find it easier to reason about than than the 3-step process
+
+**Peter Hickey** (14:47:36) (in thread):
+> whether that's a good enough reason to do that:man-shrugging:
+
+**Peter Hickey** (14:48:04) (in thread):
+> Yep, read. I'd be using the original counts for DE/DA
+
+**Peter Hickey** (14:48:20) (in thread):
+> I'd certainly find that useful
+
+**Jared Andrews** (14:52:52) (in thread):
+> I'd maybe do both, then choose a set of cells that are the same "type" and see if the marker genes from DE due to infected/uninfected are similar with both approaches. Presumably if they are the same type, the marker genes used to define the two groups shouldn't dominate. Just looking at your post-correction plots makes it seem like you're going to get more noise for step 2, but what do I really know.
+
+**Peter Hickey** (15:03:24) (in thread):
+> Thanks Jared!
+
+
+## 2019-11-21
+
+**Aaron Lun** (00:29:07):
+> I don't know when the book will rebuild again (tomorrow? maybe next week? who knows) so you can just read the markdown at[https://github.com/Bioconductor/OSCABase/blob/584dae1c69cfb26ea304388e31cc30a57d453de7/analysis/sample-comparisons.Rmd#L492-L512](https://github.com/Bioconductor/OSCABase/blob/584dae1c69cfb26ea304388e31cc30a57d453de7/analysis/sample-comparisons.Rmd#L492-L512)
+
+**Peter Hickey** (00:42:45) (in thread):
+> Thanks for the treatise!
+
+*10:42:08 - @Stephany Orjuela has joined the channel*
+
+## 2019-12-10
+
+*05:41:05 - @Robert Ivánek has joined the channel*
+*09:33:37 - @Chris Vanderaa has joined the channel*
+
+## 2020-02-07
+
+*04:28:20 - @Nitin Sharma has joined the channel*
+
+## 2020-02-14
+
+*05:09:53 - @Andrew Skelton has joined the channel*
+
+## 2020-02-26
+
+**Peter Hickey** (01:17:19):
+> anyone with experience using MNN (e.g.,`batchelor::fastMNN()`) for CyTOF data?
+
+**Aaron Lun** (01:19:02):
+> I've had anecdotal reports that, oddly enough,`mnnCorrect`was better. I wasn't really convinced, but whatever, it made them happy.
+
+**Aaron Lun** (01:20:06):
+> From a theoretical perspective, you need enough dimensions for the orthogonality assumption to be reasonable. Or at least not obviously wrong.
+
+**Aaron Lun** (01:20:37):
+> hard to say what "enough" is in practice, but I guess you'll know if you get completely different cells types being mushed together.
+
+**Peter Hickey** (04:31:46):
+> thanks, Aaron
+
+
+## 2020-02-28
+
+**Tim Triche** (10:39:49):
+> maybe also a good question for@Helena L. Crowell
+
+*10:39:53 - @Helena L. Crowell has joined the channel*
+**Tim Triche** (10:40:26):
+> regarding@Peter Hickey’s question about fastMNN/mnnCorrect and CyTOF batch correction
+
+
+## 2020-03-01
+
+**Peter Hickey** (17:35:18):
+> thanks, tim. i've discussed with helena
+
+
+## 2020-03-04
+
+*12:58:40 - @Alan O'C has joined the channel*
+*15:29:51 - @Lauren Hsu has joined the channel*
+
+## 2020-03-19
+
+*13:28:52 - @Somesh has joined the channel*
+
+## 2020-03-21
+
+**Mikhael Manurung** (06:04:53):
+> Hello, I would like to ask a question about CyTOF. I have a set of files from multiple acquisition periods of the same pool of barcoded samples (14 clinical samples and 1 reference samples). We couldn't measure everything in one go because of, well, clogging and stuffs. Here is the ridgeline plot of CD3 expression distribution across acquisitions. I do not think there's a significant variation of distribution. What do you think? Would it be acceptable to just concatenate all samples and then debarcode?
+> 
+> I am asking here instead of at the forum because I do not think this is a question specific to any Bioconductor package.
+  - File (PNG): [sample1_qcCD3_170Er.png](https://community-bioc.slack.com/files/U34P8RS3B/F010GKWHYNL/sample1_qccd3_170er.png)
+
+**Vince Carey** (06:36:33):
+> You might get lucky but it could be much better to ask at[support.bioconductor.org](http://support.bioconductor.org)
+
+**Mikhael Manurung** (06:38:01):
+> Sure! I was unsure to ask there because I'm not asking about a specific package. Thanks for your suggestion:slightly_smiling_face:
+
+**Elana Fertig** (20:49:53):
+> Rafael Gottardo has written on this somewhat but I think what you’re asking is still an open question with cytof.
+
+**Elana Fertig** (20:51:14):
+> Also this recent one[https://onlinelibrary.wiley.com/doi/full/10.1002/cyto.a.23904](https://onlinelibrary.wiley.com/doi/full/10.1002/cyto.a.23904)
+
+**Aaron Lun** (21:03:06):
+> The use of controls has been around for some time:[https://www.frontiersin.org/articles/10.3389/fimmu.2019.02367/full](https://www.frontiersin.org/articles/10.3389/fimmu.2019.02367/full)[https://www.ncbi.nlm.nih.gov/pubmed/27575385](https://www.ncbi.nlm.nih.gov/pubmed/27575385)
+  - Attachment (Frontiers): [Minimizing Batch Effects in Mass Cytometry Data](https://www.frontiersin.org/articles/10.3389/fimmu.2019.02367/full)
+    > Cytometry by Time-Of-Flight (CyTOF) uses antibodies conjugated to isotopically pure metals to identify and quantify a large number of cellular features with single-cell resolution. A barcoding approach allows for 20 unique samples to be pooled and processed together in one tube, reducing the intra-barcode technical variability. However, with only 20 samples per barcode, multiple barcode sets (batches) are required to address questions in robustly powered study designs. A batch adjustment procedure is required to reduce variability across batches and to facilitate direct comparison of runs performed across multiple barcodes run over weeks, months, or years. We describe a method using technical replicates that are included in each run to determine and apply an appropriate adjustment per batch without manual intervention. The use of technical replicate samples (i.e., anchors or reference samples) avoids assumptions of sample homogeneity among batches, and allows direct estimation of batch effects and appropriate adjustment parameters applicable to all samples within a batch. Quantification of cell subpopulations and mean signal intensity pre- and post-adjustment using both manual gating and unsupervised clustering demonstrate substantial mitigation of batch effects in the anchor samples used for this adjustment calculation, and in a second validation set of technical replicates.
+  - Attachment (ncbi.nlm.nih.gov): [Standardization and quality control for high-dimensional mass cytometry studies of human samples.  - PubMed - NCBI](https://www.ncbi.nlm.nih.gov/pubmed/27575385)
+    > Cytometry A. 2016 Oct;89(10):903-913. doi: 10.1002/cyto.a.22935. Epub 2016 Aug 30. Research Support, N.I.H., Extramural; Research Support, Non-U.S. Gov't
+
+**Aaron Lun** (21:03:59):
+> Never worked much for me, but good luck, I guess.
+
+
+## 2020-03-23
+
+*10:35:00 - @Edgar has joined the channel*
+
+## 2020-03-29
+
+*23:53:46 - @Giuseppe D'Agostino has joined the channel*
+
+## 2020-05-03
+
+**Nitin Sharma** (12:18:14):
+> Hello everyone, I  have created a channel#singlecell-queriesfor more general queries regarding single-cell analysis.
+
+*12:36:29 - @Nils Eling has joined the channel*
+
+## 2020-05-05
+
+*04:55:14 - @Zhiyuan Hu has joined the channel*
+*09:57:03 - @Devika Agarwal has joined the channel*
+
+## 2020-05-07
+
+*11:16:23 - @Ben Story has joined the channel*
+
+## 2020-05-17
+
+*19:08:40 - @Goutham Atla has joined the channel*
+
+## 2020-05-18
+
+*09:04:16 - @Alexander Toenges has joined the channel*
+
+## 2020-05-22
+
+**Alexander Toenges** (07:53:37):
+> Not sure if this merits a post in the forum, therefore quickly asking here. Defaults are to give 50 PCs to fastMNN. Still from processing the four 10x samples I aim to intgrate separately I know already that after about the first 10 PCs the elbow point for each sample is reached and additional PCs do not add any meaningful information. Should one also reduce the PCs for fastMNN in this case to like 10, or is there a dedicated diagnostic tailored for fastMNN towards choice of the number of PCs? Thanks!
+
+**Aaron Lun** (11:52:21):
+> Cutting PCs during batch correction is pretty tricky, because when you throw multiple batches together, some of the earlier PCs will divert themselves to being driven by the batch effect. So you can’t necessarily say that the first 10 PCs will still capture all the biology in the combined dataset. If you’re lucky, maybe the first 10 + number of batches PCs would be sufficient (assuming that the batch effect is of constant direction for all cells in each batch, and that the 10 PCs in each batch are the same). It’s hard to tell.
+> 
+> There are also considerations of what happens when you cut away too many PCs; this compromises the validity of the MNN algorithm itself. There are some comments on this in[https://marionilab.github.io/FurtherMNN2018/theory/description.html#considerations-of-orthogonality](https://marionilab.github.io/FurtherMNN2018/theory/description.html#considerations-of-orthogonality), where we rely on “enough” PCs being retained so that the batch vector is still orthogonal to the biology after dimensionality reduction. Again, hard to say what “enough” is, but 50 is probably erring on the side of caution.
+> 
+> In the past, I did, in fact, think that I wanted to get a better estimate of the number of PCs from`fastMNN`. This was the motivation behind reporting the percentage of variance explained by`multiBatchPCA()`and adding a`denoisePCANumber()`function to***scran***. But IIRC it cut away too many PCs and was enriching for the batch effect, so I just let it go.
+
+**Aedin Culhane** (12:38:24):
+> With mogsa package (not optimized for sc data. But migrating function to corral package ) we have permutation approaches to select PCA in  multi  dataset integration
+
+**Alexander Toenges** (13:22:21):
+> Wow, thanks for the extensive answer Aaron!
+
+
+## 2020-05-29
+
+*08:44:32 - @Shuyu Zheng has joined the channel*
+
+## 2020-06-03
+
+*04:58:20 - @Chris Vanderaa has left the channel*
+
+## 2020-06-10
+
+*05:49:54 - @Jonathan Griffiths has joined the channel*
+
+## 2020-06-13
+
+*05:38:42 - @Shian Su has left the channel*
+
+## 2020-06-24
+
+*14:57:44 - @Stephanie Hicks has left the channel*
+
+## 2020-06-25
+
+*15:58:57 - @CristinaChe has joined the channel*
+
+## 2020-07-06
+
+**Tim Triche** (15:23:21):
+> question regarding`sctransform`vs (say) size factors: have people compared these extensively, and if so, does sctransform do a better job than straight size factors?
+
+**Tim Triche** (15:23:36):
+> * on your data
+
+**Aaron Lun** (15:25:55):
+> You can see my thoughts on the theoretical side of things:
+> * [https://ltla.github.io/SingleCellThoughts/general/transformation.html](https://ltla.github.io/SingleCellThoughts/general/transformation.html)
+> * [https://github.com/LTLA/SingleR/issues/98#issuecomment-593761263](https://github.com/LTLA/SingleR/issues/98#issuecomment-593761263)
+> * [https://github.com/MarioniLab/DropletUtils/issues/24#issuecomment-543286981](https://github.com/MarioniLab/DropletUtils/issues/24#issuecomment-543286981)
+
+**Tim Triche** (15:27:54):
+> these are very helpful, thanks for the pointers.
+
+**Alan O'C** (16:03:17):
+> Really nice demonstrations. Am I right in thinking (it matches what you're showing there) that the recommended Seurat workflow applies sctransform across cell types?
+
+**Aaron Lun** (16:04:19):
+> I think so, because they do it right at the start. If you knew all the factors of variation, why bother doing the rest of the analysis?
+
+**Aaron Lun** (16:04:55):
+> The plot actually thickens because I think they only use it to detect HVGs, it’s still log-transformation for the rest of the pipeline.
+
+**Aaron Lun** (16:05:48):
+> I only heard that secondhand so take it with a grain of salt, but if that’s true, it’s a lot of effort for not much reward.
+
+**Alan O'C** (16:54:52):
+> Likewise, I've skimmed some of the vignettes and they seem to apply it first - I just find it hard to believe they're not doing some sort of`quickCluster`type approach first. Have seen some applied results that show it drastically reducing the distance between clusters - basically smearing the data
+
+**Alan O'C** (16:55:43):
+> I tried to figure out from the code and examples whether they use sctransform as normalisation proper, but I think I've just given myself a headache. They're really not fond of making vignettes/examples easy to run, and the code is... interesting to decipher
+
+**Alan O'C** (16:56:27):
+> Their cell paper on integration does imply that they use log-normalised values in the main though, which as you say is a lot of effort for not much payoff
+
+**Alan O'C** (16:57:56):
+> As always there may be some differences in how it's used in the wild versus the "intended" workflows though
+
+
+## 2020-07-11
+
+**Ben Johnson** (09:49:09):
+> Very naive question: Has anyone explored a semi-supervised mutual nearest neighbor approach for batch correction? We have replicates across batches, but different library prep (polyA vs total). Is this even a thing? Other thoughts?
+
+**Ben Johnson** (09:52:08):
+> I guess that's kind of no different than having anchor points known a priori
+
+
+## 2020-07-12
+
+**Shila Ghazanfar** (06:56:14) (in thread):
+> it might be worth checking out scMerge in semi-supervised mode? hopefully that’s useful for you[https://www.pnas.org/content/116/20/9775](https://www.pnas.org/content/116/20/9775)[https://sydneybiox.github.io/scMerge/articles/scMerge.html#semi-supervised-scmerge-i-1](https://sydneybiox.github.io/scMerge/articles/scMerge.html#semi-supervised-scmerge-i-1)
+  - Attachment (PNAS): [scMerge leverages factor analysis, stable expression, and pseudoreplication to merge multiple single-cell RNA-seq datasets](https://www.pnas.org/content/116/20/9775)
+    > Single-cell RNA-sequencing (scRNA-seq) profiling has exploded in recent years and enabled new biological knowledge to be discovered at the single-cell level. Successful and flexible integration of scRNA-Seq datasets from multiple sources promises to be an effective avenue to obtain further biological insights. This study presents a comprehensive approach to integration for scRNA-seq data analysis. It addresses the challenges involved in successful integration of scRNA-seq datasets by using the knowledge of genes that appear not to change across all samples and a robust algorithm to infer pseudoreplicates between datasets. This information is then consolidated into a single-factor model that enables tailored incorporation of prior knowledge. The effectiveness of scMerge is demonstrated by extensive comparison with other approaches.
+  - Attachment (sydneybiox.github.io): [An introduction to the scMerge package](https://sydneybiox.github.io/scMerge/articles/scMerge.html#semi-supervised-scmerge-i-1)
+    > scMerge
+
+
+## 2020-07-14
+
+**Aaron Lun** (12:10:35):
+> Just saw this@Ben Johnson.`fastMNN`will support the concept of a hierarchical merge where you can merge batches within technologies first and then across technologies. Sometimes this helps, sometimes it doesn’t.
+> 
+> If you have a known control population that matches up between batches, you can specify`restrict=`to restrict the MNN search to those cells. I have to say, though, that this is rarely available and also rarely helpful.
+> 
+> I don’t have anything for the general case where you already know all the populations and how they are meant to match up, because if you already know that, there’s really no point doing any batch correction. You might as well go straight to characterizing the populations.
+
+
+## 2020-07-15
+
+**Ben Johnson** (11:15:29) (in thread):
+> this is super useful! thank you!
+
+**Ben Johnson** (11:19:10):
+> thanks@Aaron LunI really appreciate it! I will definitely give fastMNN a shot with the added`restrict=my_batch_control_samples`to see what happens.
+
+
+## 2020-07-20
+
+*12:47:44 - @Monika Krzak has joined the channel*
+
+## 2020-07-25
+
+*16:29:53 - @Dr Awala Fortune O. has joined the channel*
+
+## 2020-07-29
+
+*11:30:36 - @Arun Chavan has joined the channel*
+
+## 2020-07-30
+
+*12:44:05 - @Ayush Raman has joined the channel*
+*18:43:47 - @Hyun-Hwan Jeong has joined the channel*
+
+## 2020-07-31
+
+*13:58:06 - @bogdan tanasa has joined the channel*
+
+## 2020-08-05
+
+**Ben Johnson** (13:22:37):
+> Another naive question: how do people handle batch correction of spliced/unspliced counts for RNA velocity?
+
+**Ben Johnson** (13:28:50):
+> @Shila Ghazanfaror@Aaron Lunis this something that's already solved?
+
+**Aaron Lun** (13:30:58):
+> I guess you can use batch-corrected reduced dims in scvelo along with the original uncorrected counts to compute the low-dimensional velocity vectors.
+
+**Aaron Lun** (13:32:05):
+> Dunno whether that makes sense.
+
+**Ben Johnson** (13:32:30):
+> I also fully recognize that RNA velocity is it's own can of worms
+
+**Ben Johnson** (13:33:19):
+> so feed it the original uncorrected counts and have the (for instance) harmony PCA embedding in the reduced dim slot?
+
+**Ben Johnson** (13:34:31):
+> deriving the highly variable features from the harmony loadings?
+
+**Aaron Lun** (13:36:21):
+> If I had to, I would run the velocity calculations on each batch separately + the corresponding subset of the merged reduced dims. This avoids any batch effects in the former while ensuring that the vectors are on the same space in the latter.
+
+**Aaron Lun** (13:37:43):
+> Or really, just run it on each batch separately and make sure the embedding of the vectors is done on the merged reduced dims.
+
+**Charlotte Soneson** (13:38:44):
+> @Ben Johnsonthere was a related question here:[https://community-bioc.slack.com/archives/C012YR6J2CS/p1592300654264300](https://community-bioc.slack.com/archives/C012YR6J2CS/p1592300654264300)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C012YR6J2CS/p1592300654264300)
+    > @Charlotte Soneson Quick question if I may towards velocity, especially your Alevin/scvelo tutorial: Do you know if it is appropriate to run velocity on integrated data? I have two genotypes with n=2 each, basically followed OSCA, integrated and clustered them, and now aim to run velocity analysis. Any assumption of either scvelo of velocyto that forbids to use the integrated PCA (so the "corrected" reducedDim)? Since some clusters are unique for one condition I would run velocity separately on each condition but using the integrated reducedDims, is that possible?
+
+**Ben Johnson** (13:44:07):
+> thank you@Aaron Lunand@Charlotte Sonesonfor your time! makes sense and will go see how things shake out.
+
+*13:46:27 - @shr19818 has joined the channel*
+**Aaron Lun** (14:11:38):
+> In fact, I wonder whether you could do something like this:
+> 1. Compute velocities on each batch separately with***velociraptor***
+> 2. `cbind`all the resulting SCE’s together.
+> 3. Run`embedVelocity`with the cbind’d SCE and the batch-corrrected reduced dims you got earlier.
+
+**Aaron Lun** (14:12:10):
+> Then you would avoid any batch effect in the velocity calculation AND you would get consistent embeddings in the same space.
+
+**Aaron Lun** (14:12:50):
+> I suspect that the NN graphs might need to be recalculated for that to work, but that’s the general idea.
+
+**Ben Johnson** (14:26:19):
+> I'll try and rig that up and report back!
+
+
+## 2020-08-06
+
+**Edgar** (15:25:19):
+> Hey everyone. I've encounter a sc 10x dataset with a coverage of 100 features per cell, is it worth analyzing?
+
+**Aaron Lun** (15:26:04):
+> guess it depends on how many cells you have
+
+**Aaron Lun** (15:26:54):
+> you could probably tell some things apart if they’re, e.g., pumping out Ig’s or such.
+
+
+## 2020-08-14
+
+*04:44:08 - @Roye Rozov has joined the channel*
+*11:07:48 - @Shijie C. Zheng has joined the channel*
+
+## 2020-08-18
+
+*09:08:45 - @Will Macnair has joined the channel*
+**Kasper D. Hansen** (15:55:25):
+> Here  is our thoughts on batch correcting scRNA velocity:[https://www.hansenlab.org/velocity_batch](https://www.hansenlab.org/velocity_batch)
+
+**Kasper D. Hansen** (15:55:43):
+> @Ben Johnson,@Alexander Toenges
+
+**Aaron Lun** (16:01:05):
+> there wouldn’t be any guarantee that Mb remains non-negative after correction.
+
+**Shijie C. Zheng** (17:24:21):
+> True. We need to force thosenegative values to be 0 after correction
+
+
+## 2020-08-19
+
+*12:25:29 - @Yi Wang has joined the channel*
+
+## 2020-08-24
+
+*07:56:23 - @Jose Alquicira has joined the channel*
+
+## 2020-11-19
+
+*08:28:18 - @Kevin Blighe has joined the channel*
+
+## 2020-12-12
+
+*00:38:38 - @Huipeng Li has joined the channel*
+
+## 2020-12-13
+
+*13:42:05 - @Kelly Eckenrode has joined the channel*
+
+## 2020-12-21
+
+*04:11:12 - @Harithaa Anand has joined the channel*
+
+## 2021-01-01
+
+*14:06:30 - @Bernd has joined the channel*
+
+## 2021-01-22
+
+*15:46:23 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-05-03
+
+*07:51:10 - @Stephen Chen has joined the channel*
+*07:51:11 - @Stephen Chen has left the channel*
+
+## 2021-05-11
+
+*16:45:37 - @Megha Lal has joined the channel*
+
+## 2021-06-04
+
+*05:52:26 - @Flavio Lombardo has joined the channel*
+
+## 2021-07-26
+
+*08:55:57 - @Wes W has joined the channel*
+
+## 2021-09-06
+
+*08:23:27 - @Eddie has joined the channel*
+*09:10:17 - @Eddie has left the channel*
+
+## 2021-09-07
+
+*14:51:53 - @Andrew Jaffe has joined the channel*
+
+## 2021-09-09
+
+*01:59:15 - @Julien Roux has joined the channel*
+
+## 2021-10-29
+
+*13:22:14 - @Enrico Ferrero has joined the channel*
+
+## 2021-11-08
+
+*03:29:27 - @Paula Nieto García has joined the channel*
+
+## 2022-01-19
+
+*10:10:08 - @Stephany Orjuela has left the channel*
+
+## 2022-01-28
+
+*11:14:31 - @Megha Lal has left the channel*
+
+## 2022-02-03
+
+**Julien Roux** (14:46:50):
+> Hi! Which approach would you recommend to identify genes most associated to the cell cycle signal in an scRNA-seq dataset? Instead of using the cell cycle phase assignment as variable, I was thinking I could use the S or G2/M scores (or both). Do you know any method allowing the use of such a continuous variable across cells?
+
+**Kasper D. Hansen** (21:46:55):
+> I am not 100% sure what you’re asking about, but if you want to estimate a continuous cell cycle for each cell, you can do so using the tricycle package. Our paper on this just got out in Genome Biology. We’re quite confident that this (always) work because we have some tools for evaluating this for each dataset and we have successfully applied this to 50-100 datasets.
+
+**Kasper D. Hansen** (21:47:20):
+> If you’re asking how to use this for batch correction, that’s a different question which I am not sure about.
+
+
+## 2022-02-04
+
+**Julien Roux** (01:50:56):
+> Thanks Kasper! I would simply like to identify the genes most associated to the cell cycle signal. Thanks to the pointer to`tricycle`, I see that I could use the`fit_periodic_loess()`for that purpose!
+
+**Kasper D. Hansen** (08:41:57):
+> What do you mean by “most associated with cell cycle”? We know that tons of genes are associated and indeed - I would say - I would expect most genes to show some difference, even if it is just caused by a decrease in expression following physical division where the RNA is split between the two daughter cells.
+
+**Kasper D. Hansen** (09:03:23):
+> But anyway, what I think you might want to do is to fit some kind of periodic spline function instead of loess that we do. Such a periodic spline function would allow you to perform the test`periodic_spline(time)`->`constant`which would be a standard linear model because you're using a periodic spline. I think that's the cleanest approach (with continuous time) to assess "associated with cell cycle:
+
+**Kasper D. Hansen** (09:05:11):
+> To do so, you need to figure how to parametrize a periodic spline function. Splines are easy, it's the peeriodicity that's "hard" ("hard" as in "I don't know how to do it right this second"). Googling might tell find work on this; there is a whole literature about periodic data and there are some R packages and I think you might be lucky and find an implementation
+
+**Kasper D. Hansen** (09:05:43):
+> I don't have time to look today myself
+
+
+## 2022-02-08
+
+**Julien Roux** (03:10:19):
+> Thanks Kasper! That’s a good idea indeed, I will look into it!
+
+**Julien Roux** (03:28:03):
+> Side note: I find it difficult to disentangle the mixed signals of “cell cycle” and “proliferation” (entry/exit of G0 phase; well illustrated in Figure 5 of this preprint:[https://www.biorxiv.org/content/10.1101/2021.03.17.435887v1](https://www.biorxiv.org/content/10.1101/2021.03.17.435887v1)). The latter seems to have a huge effect on many scRNA-seq datasets I analyzed, although the G1/G0 transition is typically ignore by most of the cell cycle inference methods
+  - Attachment (bioRxiv): [Cell cycle gene regulation dynamics revealed by RNA velocity and deep-learning](https://www.biorxiv.org/content/10.1101/2021.03.17.435887v1)
+    > The cell cycle is a fundamental process of life, however, a quantitative understanding of gene regulation dynamics in the context of the cell cycle is still far from complete. Single-cell RNA-sequencing (scRNA-seq) technology gives access to its dynamics without externally perturbing the cell. Here, we build a high-resolution map of the cell cycle transcriptome based on scRNA-seq and deep-learning. By generating scRNA-seq libraries with high depth, in mouse embryonic stem cells and human fibroblasts, we are able to observe cycling patterns in the unspliced-spliced RNA space for single genes. Since existing methods in scRNA-seq are not efficient to measure cycling gene dynamics, we propose a deep learning approach to fit these cycling patterns sorting single cells across the cell cycle. We characterize the cell cycle in asynchronous pluripotent and differentiated cells identifying major waves of transcription during the G1 phase and systematically study the G1-G0 transition where the cells exit the cycle. Our work presents to the scientific community a broader understanding of RNA velocity and cell cycle maps, that we applied to pluripotency and differentiation. Our approach will facilitate the study of the cell cycle in multiple cellular models and different biological contexts, such as cancer and development. ### Competing Interest Statement The authors have declared no competing interest.
+
+**Julien Roux** (03:29:30):
+> How do people typically deal with this? I see many papers mostly focusing on the quiescent cells
+
+**Kasper D. Hansen** (08:58:39):
+> We’re interested in this, but the main issue is that we have some idea of what the signal looks like for cells that are actively cycling, but G0/G1 is just essentially “absence of cell cycle signal”. To my knowledge there is currently no way to robustly identify whether a cell is in G0 or G1.
+
+**Kasper D. Hansen** (09:04:09):
+> I should read this preprint carefully, but a rapid skimming suggests to me that their approach is partly based on luck: having the UMAP represent this transition. I’ll take luck, especially for something we don’t know too much about, but it is not clear to me at all that you can take a new dataset and do the same thing. That’s at least our experience with cell cycle: unsupervised methods***sometimes***pick up cell cycle really well, but it only works***sometimes.***To advertise for our stuff, a main contribution is that tricycle always works (at least to some extent).
+
+**Kasper D. Hansen** (09:04:38):
+> The Q about cell cycle and proliferation is a big one though.
+
+
+## 2022-02-15
+
+*12:01:24 - @Gene Cutler has joined the channel*
+
+## 2022-03-21
+
+*05:02:31 - @Pedro Sanchez has joined the channel*
+
+## 2022-05-20
+
+*03:16:40 - @Simon Pearce has joined the channel*
+
+## 2022-06-09
+
+*09:08:28 - @John Hutchinson has left the channel*
+
+## 2022-07-07
+
+*14:28:15 - @Clara Pereira has joined the channel*
+
+## 2022-07-13
+
+*14:59:03 - @Alan Aw has joined the channel*
+
+## 2022-07-15
+
+*15:18:28 - @Ashley Robbins has joined the channel*
+
+## 2022-07-28
+
+*17:20:52 - @Mervin Fansler has joined the channel*
+
+## 2022-08-15
+
+*13:15:38 - @Michael Kaufman has joined the channel*
+
+## 2022-10-06
+
+*05:39:53 - @Devika Agarwal has joined the channel*
+
+## 2022-10-20
+
+*01:24:50 - @Connie Li Wai Suen has joined the channel*
+
+## 2022-11-06
+
+*11:21:13 - @Sherine Khalafalla Saber has joined the channel*
+
+## 2022-12-13
+
+*09:01:08 - @Ana Cristina Guerra de Souza has joined the channel*
+*18:32:46 - @Xiangnan Xu has joined the channel*
+
+## 2022-12-14
+
+*19:41:27 - @Lijia Yu has joined the channel*
+
+## 2022-12-15
+
+*09:39:24 - @Mercilena Benjamin has joined the channel*
+
+## 2022-12-20
+
+*10:41:21 - @Jennifer Foltz has joined the channel*
+
+## 2023-01-10
+
+*10:47:24 - @Vince Carey has left the channel*
+
+## 2023-01-26
+
+*12:32:48 - @Yu Zhang has joined the channel*
+
+## 2023-02-22
+
+*01:51:04 - @michaelkleymn has joined the channel*
+
+## 2023-03-01
+
+*12:13:57 - @jeremymchacón has joined the channel*
+
+## 2023-03-17
+
+*00:48:56 - @Michael Milton has joined the channel*
+
+## 2023-05-02
+
+*05:20:13 - @Helena L. Crowell has left the channel*
+
+## 2023-05-12
+
+*13:33:14 - @Aaron Lun has left the channel*
+
+## 2023-05-18
+
+*05:54:30 - @Oluwafemi Oyedele has joined the channel*
+
+## 2023-06-19
+
+*05:12:12 - @Pierre-Paul Axisa has joined the channel*
+
+## 2023-07-12
+
+*19:33:37 - @Axel Klenk has joined the channel*
+
+## 2023-07-28
+
+*13:47:46 - @Konstantinos Daniilidis has joined the channel*
+*15:58:38 - @Benjamin Yang has joined the channel*
+
+## 2023-07-31
+
+*17:51:05 - @Chenyue Lu has joined the channel*
+
+## 2023-08-02
+
+*14:44:05 - @Jamin Liu has joined the channel*
+
+## 2023-08-03
+
+*15:59:27 - @Ritika Giri has joined the channel*
+
+## 2023-08-04
+
+*10:48:19 - @Ray Su has joined the channel*
+
+## 2023-09-13
+
+*17:04:57 - @Christopher Chin has joined the channel*
+
+## 2023-11-18
+
+*09:18:16 - @Michael Love has left the channel*
+
+## 2023-12-27
+
+*14:37:11 - @Cindy Reichel has joined the channel*
+
+## 2024-01-10
+
+*15:04:20 - @Bernie Mulvey has joined the channel*
+
+## 2024-03-27
+
+*05:46:35 - @abhich has joined the channel*
+
+## 2024-04-18
+
+*03:02:41 - @Philipp Sergeev has joined the channel*
+*15:54:06 - @Weston Elison has joined the channel*
+
+## 2024-04-25
+
+*05:02:30 - @Mercedes Guerrero has joined the channel*
+
+## 2024-05-06
+
+*11:57:52 - @Michal Kolář has joined the channel*
+
+## 2024-05-14
+
+**Lori Shepherd** (10:45:39):
+> archived the channel

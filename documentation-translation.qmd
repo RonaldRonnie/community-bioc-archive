@@ -1,0 +1,1184 @@
+---
+title: "#documentation-translation"
+format: gfm
+---
+
+
+## 2021-06-16
+
+*06:32:44 - @Martin Morgan has joined the channel*
+**Martin Morgan** (06:32:45):
+> set the channel description: Discuss topics related to translating package documentation
+
+**Martin Morgan** (06:41:30):
+> I have some thoughts about documentation translation and want to coordinate the discussion somewhere. Some initial comments / things I don’t know about.@JiefeiWangI think the appropriate language identifier is`zh_CN`Chinese (Simplified) or`zh_TW`Chinese (Traditional)@Robert CasteloI don’t know how file encoding works or the subtleties of how R handles encoding. The DESCRIPTION file advertises ‘UTF-8’ and the other translations use or at least advertise in the header) UTF-8. Do you know whether it is necessary, or whether it matters, that R-es.po advertises ISO-8859-1?@Marcel Ramos Pérez@Dario Righelli@Davide Risso@Federico Mariniplease feel free to discuss the Italian translation here.@Kozo Nishidathanks for the Japanese translation!
+
+*06:42:19 - @JiefeiWang has joined the channel*
+*06:42:19 - @Robert Castelo has joined the channel*
+*06:42:19 - @Marcel Ramos Pérez has joined the channel*
+*06:42:19 - @Dario Righelli has joined the channel*
+*06:42:20 - @Davide Risso has joined the channel*
+*06:42:20 - @Federico Marini has joined the channel*
+*06:42:20 - @Kozo Nishida has joined the channel*
+**Martin Morgan** (06:44:48):
+> I’ll do a presentation at the developer forum on Thursday about translation; it would be great if you’re able to attend. Especially it would be useful to discuss issues like those at[https://github.com/Bioconductor/BiocManager/blob/po-translations/README-Translation.md#concerns--next-steps](https://github.com/Bioconductor/BiocManager/blob/po-translations/README-Translation.md#concerns--next-steps).
+
+**Martin Morgan** (06:45:57):
+> Also I think it would be helpful to better understand the tools available in R (and in the[potools](https://github.com/MichaelChirico/potools)package) for supporting translation. Some parts of the work flow seem quite cumbersome at the moment.
+
+**Martin Morgan** (06:52:00) (in thread):
+> * `tools::update_pkg_po()`seems like it is meant to manage all stages of creating translations, but I can’t get it to work easily, and it seems like it might over-write the hand-curated BiocManager.pot.
+
+**Robert Castelo** (09:33:11) (in thread):
+> I decided to use that encoding b/c this is what it seems to work with the R translation:
+> ```
+> $ file R-4.1.0/src/library/base/po/es.po 
+> R-4.1.0/src/library/base/po/es.po: GNU gettext message catalogue, ISO-8859 text
+> ```
+> and seems to be used in a bunch of other languages:
+> ```
+> $ file R-4.1.0/src/library/base/po/*.po | grep -v UTF-8
+> R-4.1.0/src/library/base/po/en_GB.po:      GNU gettext message catalogue, ASCII text
+> R-4.1.0/src/library/base/po/en.po:         GNU gettext message catalogue, ASCII text
+> R-4.1.0/src/library/base/po/es.po:         GNU gettext message catalogue, ISO-8859 text
+> R-4.1.0/src/library/base/po/RGui-de.po:    GNU gettext message catalogue, ISO-8859 text
+> R-4.1.0/src/library/base/po/RGui-es.po:    GNU gettext message catalogue, ISO-8859 text
+> R-4.1.0/src/library/base/po/RGui-it.po:    GNU gettext message catalogue, ISO-8859 text
+> R-4.1.0/src/library/base/po/RGui-lt.po:    GNU gettext message catalogue, Non-ISO extended-ASCII text
+> R-4.1.0/src/library/base/po/RGui-pt_BR.po: GNU gettext message catalogue, ISO-8859 text
+> R-4.1.0/src/library/base/po/RGui-ru.po:    GNU gettext message catalogue, ISO-8859 text
+> R-4.1.0/src/library/base/po/RGui-zh_CN.po: GNU gettext message catalogue, ISO-8859 text
+> R-4.1.0/src/library/base/po/RGui-zh_TW.po: GNU gettext message catalogue, ISO-8859 text
+> R-4.1.0/src/library/base/po/R-ru.po:       GNU gettext message catalogue, ISO-8859 text
+> ```
+> but I work on a US-configured systems, including an US keyboard b/c I find it better suited for programming, so I have no much experience with file encodings and so on.
+
+**Martin Morgan** (10:06:04) (in thread):
+> OK thanks, this is something we can try to explore…
+
+**Martin Morgan** (10:07:59):
+> For what it’s worth, here[https://docs.google.com/spreadsheets/d/1z8fLyCvwwSuRbiQ5KKE2gh_En-IH27j2xvoNNYDjjC8/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1z8fLyCvwwSuRbiQ5KKE2gh_En-IH27j2xvoNNYDjjC8/edit?usp=sharing)are the languages people’s browsers advertise when they visit[bioconductor.org](http://bioconductor.org), over the last month
+
+
+## 2021-06-17
+
+**Federico Marini** (12:09:37):
+> Martin’s presentation from today’s forum -[https://docs.google.com/presentation/d/1PcIeimzoNZwvxWGWsgFoB5rZcKgptmZmMhaLnrLG-o4/edit?usp=sharing](https://docs.google.com/presentation/d/1PcIeimzoNZwvxWGWsgFoB5rZcKgptmZmMhaLnrLG-o4/edit?usp=sharing)
+
+**Davide Risso** (14:37:51):
+> I didn’t have the chance to say it on the call because we reached the end of the hour, but as someone involved with the italian translation of the BiocManager messages it is extremely useful to have a first draft of the translation to improve upon. So answering@Vince Carey‘s question, I think a first rough translation by google translate would be a good starting point and likely to encourage help from a native speaker to improve it. Perhaps making an open call here on slack.
+
+*14:37:55 - @Vince Carey has joined the channel*
+
+## 2021-06-18
+
+**Robert Castelo** (04:32:43):
+> BiocManager has not that many messages, I think I spent more time wrestling with the file encoding and how to enter the accents and ñ’s from my US-configured laptop than thinking on the translations. That said, I tried to make a translation that -I thought- would read ok and be understandable in Latin America and hopefully didn’t use anything that may read offensive, but I’m sure it can be improved. I wonder about what’s the easiest way to collaborate on`.po`files, pull requests on the GitHub repo?
+
+
+## 2021-06-21
+
+**Federico Marini** (12:51:42):
+> Cross posting here:[https://community-bioc.slack.com/archives/CLUJWDQF4/p1624286018044500](https://community-bioc.slack.com/archives/CLUJWDQF4/p1624286018044500)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CLUJWDQF4/p1624286018044500)
+    > Last week’s developer forum on translating help messages is at [https://youtu.be/M8Fyj2HMYVw](https://youtu.be/M8Fyj2HMYVw); if you’re interested in further discussion, visit the #documentation-translation channel
+
+*15:08:01 - @Michael Lawrence has joined the channel*
+**Michael Lawrence** (15:16:28):
+> Some comments I had from Martin’s talk at the dev forum: it’s really important that we clean up the english error messages, vignettes, or any other source material before translating them. For example, I noticed in the example in the talk that the English message lacked a verb “argument <whatever> not valid”, while the French translation included “est”, which would translate back to “argument <whatever>***is***not valid”. This cleanup would be both to improve overall quality and make the messages easier to translate. That cleanup could be made easier by centralizing the generation of messages that fit a pattern. Like there could be a`msgInvalidArg()`function that would translate the string “Argument %s is not valid”. Finally, another benefit of translation is that the translators become contributors to the project, which will increase the size and likely diversity of the community.
+
+*17:48:50 - @Peter Hickey has joined the channel*
+**Martin Morgan** (19:01:38):
+> Thanks@Michael Lawrencefor your comments.
+
+**Martin Morgan** (19:01:48):
+> After the presentation I read the gettext documentation (for instance at[https://www.gnu.org/software/gettext/manual/gettext.html#Preparing-Strings](https://www.gnu.org/software/gettext/manual/gettext.html#Preparing-Strings)), which had a number of helpful suggestions like ‘write complete sentences’. It also provided some useful insight into locale names and environment variables ([https://www.gnu.org/software/gettext/manual/gettext.html#Setting-the-POSIX-Locale](https://www.gnu.org/software/gettext/manual/gettext.html#Setting-the-POSIX-Locale)) and specifying a hierarchy of languages ([https://www.gnu.org/software/gettext/manual/gettext.html#The-LANGUAGE-variable](https://www.gnu.org/software/gettext/manual/gettext.html#The-LANGUAGE-variable)).
+  - Attachment (gnu.org): [GNU gettext utilities](https://www.gnu.org/software/gettext/manual/gettext.html#Preparing-Strings)
+    > GNU gettext utilities
+  - Attachment (gnu.org): [GNU gettext utilities](https://www.gnu.org/software/gettext/manual/gettext.html#Setting-the-POSIX-Locale)
+    > GNU gettext utilities
+  - Attachment (gnu.org): [GNU gettext utilities](https://www.gnu.org/software/gettext/manual/gettext.html#The-LANGUAGE-variable)
+    > GNU gettext utilities
+
+**Martin Morgan** (19:01:56):
+> Also, as Michael Chirico said, the`.pot`file is really just a template for the`.po`files, so it was just ‘wishful thinking’ to suppose that the`msgid`could be used as an error key ‘ERR001’ to a universal`msgstr`. But on the other hand I guess that is exactly what`msgid`is — a unique key that happens to be the untranslated message string. Maybe in the context of condition handling, this just points to the convention that the ‘class’ is just the untranslated message string. This would also make it easy to print out the original and translated message at the time of error.
+> ```
+> msgid = "foo bar '%s'"
+> msgvalue = sprintf(msgid, "value")
+> msgstr = gettextf(msgid, "value")
+> err = errorCondition(msgstr, class = c(msgvalue, msgid))
+> 
+> stop(err)
+> 
+> tryCatch({
+>     stop(err)
+> }, `foo bar 'value'` = function(e) {
+>     message("caught an error of class `foo bar 'value'`: ")
+>     stop(e)
+> }, `foo bar '%s'` = function(e) {
+>     message("caught an error of class `foo bar '%s'`: ")
+>     stop(e)
+> })
+> ```
+
+**Martin Morgan** (19:01:57):
+> My next steps over the next day or two are to re-factor the code to make more direct calls to gettextf / stop / etc., and to try to write better error messages. It’ll then be time to try figure out how to update existing translations without too much work.
+
+
+## 2021-06-22
+
+**Federico Marini** (08:21:00):
+> To keep us up to date with the Italian translation effort ->[https://docs.google.com/document/d/1KcA-4DE3lCqtsUMZw_EWRTZFaE0yRt68diGvN5Wn4hY/edit](https://docs.google.com/document/d/1KcA-4DE3lCqtsUMZw_EWRTZFaE0yRt68diGvN5Wn4hY/edit)
+
+**Martin Morgan** (10:58:53) (in thread):
+> This is actually quite help in light of Michael Lawrence’s comment, to compare the original version of the message with the Italian translation and note the grammatical differences…
+
+**Federico Marini** (11:22:13) (in thread):
+> Strongly agree!
+> The document was already born in this format, but it is fairly easy to spot out the locations where an automated translator might find it hard (verbs are missing - as they are “subconsciously there”)
+
+
+## 2021-06-24
+
+**Marcel Ramos Pérez** (00:15:23):
+> I wrote an R script for taking a po file and showing the side-by-side translation as HTML[https://gist.github.com/LiNk-NY/c1438cf40d0602e0990dd815d98b212a](https://gist.github.com/LiNk-NY/c1438cf40d0602e0990dd815d98b212a)it might be more useful to output text for pasting into a GDoc:thinking_face:
+
+
+## 2021-06-25
+
+**Martin Morgan** (11:59:40):
+> Thanks@Marcel Ramos Pérezet al. for the updated Italian translation.
+> 
+> I’ve pushed an update to the po-translations branch.
+> 
+> It has some rearrangements in the R code (so that strings always use`gettext()`/`gettextf()`, with values then passed to helper functions like`.stop()`) that allow use of`potools::translate_package()`([https://github.com/Bioconductor/BiocManager/commit/01643a37bae00ecea81860f4992ee5559083bb4b](https://github.com/Bioconductor/BiocManager/commit/01643a37bae00ecea81860f4992ee5559083bb4b)).
+> 
+> It also has some refactoring of error messages so that they are: (a) sentences; (b) more modular so sentences can be re-used. I have re-structured things so that libraries, repositories, or packages being referenced have their own translation string, like`Libraries: '%s'`. I have also tried to be consistent, e.g., always enclosing user-supplied values in single quotes`'foo '`so that whitespace issues (like the trailing space in the example) are visible. See[https://github.com/Bioconductor/BiocManager/commit/2b9ca033d9d709929f6e6c39cad72c6c49ef8db1](https://github.com/Bioconductor/BiocManager/commit/2b9ca033d9d709929f6e6c39cad72c6c49ef8db1).
+> 
+> At this stage, I think it would be valuable to scrutinize `po/R-BiocManager.pot’ for grammatical improvements that would help either user or translator. Some time next week, we can move to doing an updated translation.
+> 
+> If you’re interested in peaking ahead, you can look at the language translation files, e.g.,`po/R-es.po`and see that there are basically three types of messages: consistent with the original translation;`fuzzy`matches that are sort-of close to the original, but likely need to be tweaked; and untranslated (an empty`msgstr`field). Only the non-fuzzy, non-empy fields will be presented to the user. So once the`.pot`file messages are standardized, the task will be to re-translate the fuzzy matches, and provide new translations for the new strings.
+> 
+> I’ll update the README-Translations.Rmd file to describe a little more about the mechanics of everything over the next couple of days.
+> 
+> This has been a great learning experience for me, and I hope for you too! I think we can arrive at some pretty good practices for making translations robust and minimally demanding on the developer.
+> 
+> A major item still on the horizon is the googleability of the translated error messages. I don’t really have good ideas for that…
+
+
+## 2021-07-05
+
+**Martin Morgan** (11:37:32):
+> On the[po-translations-hash](https://github.com/Bioconductor/BiocManager/tree/po-translations-hash)branch I’ve made it so that each  message is (optionally at the code [not user] level) preceded by a unique hash (well, there could be collisions, but that’s very unlikely)
+> ```
+> > BiocManager::install(repos = "fooo")
+> Error: [id:38f57dcc] Using 'repos' as an argument to 'install()' is not allowed.
+> ```
+> The id should be independent of the the translation.  I was thinking this would improve googlability, (googling`Error: [id:38f57dcc]`would find matches even if the remainder of the string were translated).
+> 
+> It seemed like a better solution than providing the original (English) error message as well (because then the output could become quite complicated, perhaps interleaving English and translated messages). It also seemed like a better solution than providing the user with some way to translate the message back to the default (because the user would have to learn about doing reverse translation) or to re-run the code without translation (but the code could be difficult to re-run, and the user would have to learn how to do that, too).
+> 
+> Comments welcome. I’m actually not sure that the hash makes the error googleable. Also, I’ve now made so many changes to the error messages that there are no non-fuzzy matches to the original translations —  all translations need to be reviewed! But let’s hold off on that for just a bit longer…
+
+
+## 2021-07-09
+
+**Martin Morgan** (11:03:26):
+  - Attachment (twitter): [Attachment](https://twitter.com/tatsuya_amano/status/1413369391194902528)
+    > #languagebarriers have multiple major consequences for scientists, the advance of science, and its impact on societies. We need a concerted effort from all – both non-native & native speakers. Here we've listed ten things you can start doing today.
+    > [https://rdcu.be/cnZQf](https://rdcu.be/cnZQf) [https://pbs.twimg.com/media/E51LyBrVcAsHpUu.jpg](https://pbs.twimg.com/media/E51LyBrVcAsHpUu.jpg)
+
+**Martin Morgan** (13:57:10):
+> Here’s what the po-translations-hash branch produces
+> ```
+> > BiocManager::install("potools")
+> [id:029e6b] Bioconductor version 3.14 (BiocManager 1.30.16.2), R version 4.1.0
+>   beta (2021-05-06 r80268)
+> [id:00f6b7] Out-of-date packages: 'vroom'.
+> [id:026a61] Update all [a], some [s], or none [n] of the out-of-date packages? [a/s/n] a
+> trying URL '[https://cloud.r-project.org/src/contrib/vroom_1.5.2.tar.gz](https://cloud.r-project.org/src/contrib/vroom_1.5.2.tar.gz)'
+> Content type 'application/x-gzip' length 721111 bytes (704 KB)
+> ...
+> The downloaded source packages are in
+> 	'/private/var/folders/yn/gmsh_22s2c55v816r6d51fx1tnyl61/T/RtmpiXPgvm/downloaded_packages'
+> Warning message:
+> [id:01f2f4] Use `force = TRUE` to re-install packages whose available version
+>   is the same as the installed version. Packages: 'potools'.
+> > BiocManager::install("potools", force = TRUE)
+> [id:029e6b] Bioconductor version 3.14 (BiocManager 1.30.16.2), R version 4.1.0
+>   beta (2021-05-06 r80268)
+> [id:02fd9e] Installing package(s) 'potools'.
+> trying URL '[https://cloud.r-project.org/src/contrib/potools_0.2.0.tar.gz](https://cloud.r-project.org/src/contrib/potools_0.2.0.tar.gz)'
+> ...
+> * DONE (potools)
+> 
+> The downloaded source packages are in
+> 	'/private/var/folders/yn/gmsh_22s2c55v816r6d51fx1tnyl61/T/RtmpiXPgvm/downloaded_packages'
+> >
+> ```
+> the hashes don’t seem too intrusive?
+
+**Vince Carey** (16:11:22):
+> Well, you asked.... I think it would make sense to allow suppression of hashes with an option, if this is possible.
+
+**Martin Morgan** (17:13:10):
+> Ok…
+> ```
+> > BiocManager::install(repos = "foo")
+> Error: [id:01a164] Using 'repos' as an argument to 'install()' is not allowed.
+> > options(BiocManager.add_translation_digest = FALSE); BiocManager::install(repos = "foo")
+> Error: Using 'repos' as an argument to 'install()' is not allowed.
+> ```
+> and we even get to translate another string
+> ```
+> > options(BiocManager.add_translation_digest = "foo"); BiocManager::install(repos = "foo")
+> Error: The value of 'getOption("BiocManager.add_translation_digest")' could not be
+>   coerced to `TRUE` or `FALSE`. See the help page `?BiocManager` for
+>   more information. The value of the option was: 'foo'.
+> ```
+
+
+## 2021-07-23
+
+*15:52:46 - @Batool Almarzouq has joined the channel*
+
+## 2021-08-06
+
+*17:22:23 - @Daniela Cassol has joined the channel*
+*17:22:46 - @Leonardo Collado Torres has joined the channel*
+**Leonardo Collado Torres** (17:23:06):
+> hi!
+
+**Daniela Cassol** (17:23:27):
+> Hello everyone!
+> As I mentioned on the CAB meeting, I can translate the code of conduct to Brazilian Portuguese
+
+**Kozo Nishida** (18:17:36):
+> Thanks@Daniela Cassol.
+> If you translated it, can you send a pull request to[https://github.com/BioconductorBoards/CABWorkingGroups](https://github.com/BioconductorBoards/CABWorkingGroups)?
+> However, this is a temporary management location.
+> It seems that[https://github.com/Bioconductor](https://github.com/Bioconductor)will have a CoC repository in the near future.
+> If it has the repo, your translation will be transferred there.
+
+**Daniela Cassol** (18:20:47):
+> Thank you,@Kozo Nishida!
+
+
+## 2021-08-11
+
+**Kozo Nishida** (00:04:16) (in thread):
+> @Daniela CassolAbout CoC translation. I would like to use a service called Crowdin instead of GitHub. Can I ask you to sign up[https://crowdin.com/](https://crowdin.com/)?
+> Let me know the username when you finished the sign up.
+> I would like to invite you to this public project.[https://crowdin.com/project/bioconductor-code-of-conduct/](https://crowdin.com/project/bioconductor-code-of-conduct/)
+
+**Kozo Nishida** (00:07:55):
+> If anyone knows a good translation support tool other than Crowdin, please let us know.
+
+**Daniela Cassol** (13:49:17):
+> Hi@Kozo NishidaMy username is danicassol
+
+**Kozo Nishida** (17:46:18) (in thread):
+> @Daniela CassolIt seems that@Kevin Rue-Albrecht, not me, has already added you as a translator member of the project. Thank you@Kevin Rue-Albrecht.
+
+*17:46:27 - @Kevin Rue-Albrecht has joined the channel*
+**Kozo Nishida** (17:48:51) (in thread):
+> @Daniela CassolI can see that you have already translated about 23%. Thank you.
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F02B44ZTM8U/image.png)
+
+
+## 2021-08-12
+
+**Kevin Rue-Albrecht** (09:09:27) (in thread):
+> whaaat - i didn't add anyone to the bioc CoC project - i never tried to do that
+
+**Kevin Rue-Albrecht** (09:09:53) (in thread):
+> plus i initially only had the translator role, and only recently i noticed that Kozo bumped me up to manager
+
+**Kozo Nishida** (09:15:52) (in thread):
+> I'm sorry I bumped up to manger without your permission. I reverted you to the original translator role.
+
+**Kevin Rue-Albrecht** (09:16:33) (in thread):
+> well that's not an issue, i just wanted to point out that I haven't invited anyone to the project, I don't know how Daniela got added
+
+**Kozo Nishida** (09:20:47) (in thread):
+> Certainly. Perhaps I was adding daniela without realizing it. I will try to find out if I can trace the history of membership.
+
+**Daniela Cassol** (10:00:24) (in thread):
+> Humm... not sure. I clicked on this[link](https://crowdin.com/project/bioconductor-code-of-conduct/)and started the translation... I didn't receive any notification that I was added to the project.
+  - Attachment (Crowdin): [Bioconductor Code of Conduct — Translation Project on Crowdin](https://crowdin.com/project/bioconductor-code-of-conduct/)
+    > Help us translate Bioconductor Code of Conduct and bring it to the world!
+
+
+## 2021-08-20
+
+*05:23:42 - @Xueyi Dong has joined the channel*
+
+## 2021-09-06
+
+**Peter Hickey** (22:45:44):
+> Someone looking to translate OSCA into Chinese:[https://github.com/Bioconductor/OrchestratingSingleCellAnalysis/issues/61](https://github.com/Bioconductor/OrchestratingSingleCellAnalysis/issues/61)
+
+**Kozo Nishida** (23:18:09):
+> I suggested using crowdin above, but recently I changed my mind.
+> Now I think it's better to use gettext (po file) to manage translations on GitHub.
+> I think it is appropriate to use gettext not only for CoC but also for projects that translate OSCA.
+
+**Kozo Nishida** (23:18:36):
+> I'll give you an example in a hurry.
+
+
+## 2021-09-13
+
+**Kozo Nishida** (19:08:38):
+> Does anyone know something like the Rmd version of this software?[https://github.com/devrt/nbtranslate](https://github.com/devrt/nbtranslate)I would like to run this workflow with Rmd instead of ipynb.
+> ```{usage}
+> Extract text to translate from the jupyter notebook:
+> 
+> $ nbtranslate --pot en.pot notebook_en.ipynb
+> Translate en.pot using your favorite gettext translation tool (I recommend poedit or google translator toolkit).
+> 
+> Save the translated result to entoja.po and then apply the translation:
+> 
+> $ nbtranslate --po entoja.po notebook_en.ipynb > notebook_ja.ipynb
+> ```
+
+
+## 2021-09-29
+
+**Kozo Nishida** (14:22:25):
+> I have sent a pull-request for an internationalization prototype of pkgrevdocs.[https://github.com/Bioconductor/pkgrevdocs/pull/21](https://github.com/Bioconductor/pkgrevdocs/pull/21)If you have any ideas, I'd like to discuss them.
+
+**Kozo Nishida** (14:33:36):
+> I previously suggested to use Crowdin for translating CoC, but now I changed the idea.
+> Now I've come to think that it's better to translate using translate toolkit, poedit and github.
+> I exported@Kevin Rue-Albrechtand@Daniela Cassol’s Crowdin data[https://crowdin.com/project/bioconductor-code-of-conduct](https://crowdin.com/project/bioconductor-code-of-conduct)to xliff and po and pushed it to[https://github.com/BioconductorBoards/CABWorkingGroups/tree/main/coc](https://github.com/BioconductorBoards/CABWorkingGroups/tree/main/coc)
+  - Attachment (Crowdin): [Bioconductor Code of Conduct — Translation Project on Crowdin](https://crowdin.com/project/bioconductor-code-of-conduct)
+    > Help us translate Bioconductor Code of Conduct and bring it to the world!
+
+**Kozo Nishida** (14:38:39):
+> Although I said I exported, the original English sentence (break)s (and the Markdown notation) in the po file created by translate toolkit is different from those by Crowdin, so I need to ask Kevin and Daniela to do some tweaking again (when migrating to use translate toolkit). Sorry...
+
+**Kozo Nishida** (14:40:11):
+> The conceptual diagram of the translation workflow looks like this.
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F02GTHH2RB2/image.png)
+
+**Kozo Nishida** (14:40:52):
+> I wrote CoC on the slide, but I don't think this is limited to CoC. (See[https://github.com/Bioconductor/pkgrevdocs/pull/21](https://github.com/Bioconductor/pkgrevdocs/pull/21))
+
+**Kozo Nishida** (14:42:03):
+> I don't know what kind of tool can be used to realize the ??? part of the slide.
+> If anyone knows, please let me know.
+
+**Kozo Nishida** (21:36:34) (in thread):
+> By the way,@Kevin Rue-Albrechtasked the following questions on this slide.
+> I think it's possible, but I don't know the exact workflow for it.
+> If you have any ideas, please share them.
+> ```
+> Kevin: I have a question: are translators notified if and when there is an update in the main (i.e., English) version of the CoC? E.g. a "diff" of the update. It would speed up the update of all translations.
+> ```
+
+
+## 2021-11-08
+
+*03:26:51 - @Paula Nieto García has joined the channel*
+
+## 2022-06-09
+
+*09:08:01 - @John Hutchinson has joined the channel*
+*09:08:38 - @John Hutchinson has left the channel*
+
+## 2022-07-09
+
+**Kozo Nishida** (07:28:06):
+> I will be holding this document translation event two and a half hours from now.
+> If you like, please feel free to join us.
+> The introduction slide is[https://docs.google.com/presentation/d/1yvC6ylG2eK6qnwv9MRPrRUJ0pfYc-7H4zbkhSWnlEos/edit?usp=sharing](https://docs.google.com/presentation/d/1yvC6ylG2eK6qnwv9MRPrRUJ0pfYc-7H4zbkhSWnlEos/edit?usp=sharing).
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C010R4JC2TB/p1656714332682559?thread_ts=1656701547533089&cid=C010R4JC2TB)
+    > I haven't posted the event to the chat yet.
+    > 
+    > [https://www.meetup.com/boston-r-bioconductor-for-genomics/events/286908674/](https://www.meetup.com/boston-r-bioconductor-for-genomics/events/286908674/) is the event page!
+    > If there's anything you are unclear on, please let me know!
+  - File (Google Slides): [Bioconductor Translation-a-thon intro](https://community-bioc.slack.com/files/U34P8RS3B/F03NQAZ6L1L/bioconductor_translation_virtual_sprint__9_july_2022)
+
+*09:56:30 - @Lluís Revilla has joined the channel*
+*12:01:33 - @Clara Pereira has joined the channel*
+
+## 2022-08-20
+
+**Kozo Nishida** (18:13:23):
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C010R4JC2TB/p1661033574304389)
+    > Does anyone know of any local Bioconductor groups other than those listed below?
+    > • [https://www.meetup.com/boston-r-bioconductor-for-genomics/](https://www.meetup.com/boston-r-bioconductor-for-genomics/)
+    > • [https://www.meetup.com/biocnyc/events/287804371/](https://www.meetup.com/biocnyc/events/287804371/)
+    > I would like to invite Bioconductor groups around the world to this Translation-a-thon.
+    > [https://www.meetup.com/boston-r-bioconductor-for-genomics/events/287802282/](https://www.meetup.com/boston-r-bioconductor-for-genomics/events/287802282/)
+
+
+## 2022-08-27
+
+**Kozo Nishida** (09:56:14):
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C010R4JC2TB/p1661608398545279)
+    > The Bioconductor Translation-a-thon will start in about 8 minutes.
+    > [https://www.meetup.com/boston-r-bioconductor-for-genomics/events/287802282/](https://www.meetup.com/boston-r-bioconductor-for-genomics/events/287802282/)
+    > Sorry, I forgot to advertise it on this channel and add it to Bioconductor's calendar....
+
+**Kozo Nishida** (09:56:26):
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C010R4JC2TB/p1661608532864549)
+    > The translation can be started by accessing [https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/) without participating in the Translation-a-thon.
+    > But I think it would be better if we do the translation together!
+
+**Clara Pereira** (11:56:33):
+> Thank you so much Kozo and everyone! It was a great session!
+
+**Kozo Nishida** (12:10:23) (in thread):
+> Thank you, too. Clara!
+> I will try to let more people know about the Translation-a-thon.
+> Next time I will ask the community about a convenient date and time before holding it.
+> I'd like to introduce an overview of the event on[https://bioconductor.github.io/biocblog](https://bioconductor.github.io/biocblog)before it is held again.
+
+
+## 2022-11-30
+
+*23:10:35 - @Shixiang Wang has joined the channel*
+
+## 2022-12-12
+
+*10:45:39 - @irem Kahveci has joined the channel*
+
+## 2023-01-12
+
+**Kozo Nishida** (13:59:04):
+> I am interested in the workflow described in[https://ropensci.org/blog/2023/01/12/multilingual-publishing-en/](https://ropensci.org/blog/2023/01/12/multilingual-publishing-en/).
+> I will share it with the Bioconductor community.
+  - Attachment (ropensci.org): [Expanding our Community through Multilingual Publishing](https://ropensci.org/blog/2023/01/12/multilingual-publishing-en/)
+    > We are translating rOpenSci's materials on best practices for software development, code review, and contribution to open source projects into Spanish! We are also developing guidelines and tools for translating open source resources to reach a wider audience. Learn about the project in this blog post.
+
+
+## 2023-01-19
+
+*23:19:49 - @Nick R. has joined the channel*
+
+## 2023-01-21
+
+*16:02:10 - @Hien has joined the channel*
+
+## 2023-04-26
+
+*13:44:20 - @Alex Mahmoud has joined the channel*
+
+## 2023-08-02
+
+*08:20:30 - @Beth Cimini has joined the channel*
+
+## 2023-08-03
+
+*17:15:47 - @Abiud Cantu has joined the channel*
+
+## 2023-08-04
+
+*10:49:52 - @Ray Su has joined the channel*
+
+## 2023-09-04
+
+**Kozo Nishida** (13:09:56):
+> For those of you in the Asian time zone and in non-English-speaking regions,
+> I'm considering holding a (Carpentries) community session to translate[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)into your native languages starting at 13:00 Japan time on the Sep 13th.
+> Is anyone interested?
+> I would like to know how many people are interested and whether it might be necessary to reschedule
+
+**Shixiang Wang** (22:29:42) (in thread):
+> For now, seems no bioc materials included
+
+**Kozo Nishida** (22:40:52) (in thread):
+> Thanks for the message. Indeed, bioc-intro has very little bioc material. (Although there is a section on SummarizedExperiment towards the end.)
+
+**Kozo Nishida** (22:44:13) (in thread):
+> I'm thinking of adding two other courses besides bioc-intro for translation. Thank you for the message!
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F05RM1XU15E/image.png)
+
+**Kozo Nishida** (22:47:16) (in thread):
+> However, it's important to note that unlike bioc-intro, those other courses are still in pre-alpha and their content may still change. Therefore, I should mention that I may prioritize establishing the translation system for bioc-intro first.
+
+
+## 2023-09-09
+
+**Kozo Nishida** (04:59:47) (in thread):
+> > For those of you in the Asian time zone and in non-English-speaking regions,
+> I'm considering holding a (Carpentries) community session to translate[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)into your native languages starting at 13:00 Japan time on the Sep 13th.
+> Is anyone interested?
+> I have decided to postpone this event. (I'm sorry:pray:)
+> 
+> However, the system to support translation (Crowdin+DeepL+GitHub) is almost fully set up,
+> * [https://bioconductor.crowdin.com/bioc-intro](https://bioconductor.crowdin.com/bioc-intro)
+> * [https://github.com/bioconductor-translations/bioc-intro-translation/blob/main/crowdin.yml](https://github.com/bioconductor-translations/bioc-intro-translation/blob/main/crowdin.yml)
+> * [https://github.com/bioconductor-translations/bioc-intro-translation/tree/l10n_main](https://github.com/bioconductor-translations/bioc-intro-translation/tree/l10n_main)
+> and all that's left is to automate the building website (from the translated text).
+> 
+> If anyone is interested in or wants to try out this translation system, please feel free to reach out to me.
+
+
+## 2023-09-11
+
+**Kozo Nishida** (09:34:44):
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CUKAPEE1Y/p1694437833239669?thread_ts=1694437833.239669&cid=CUKAPEE1Y)
+    > I have set up bioc-intro translation system below,
+    > [https://bioconductor.crowdin.com/bioc-intro](https://bioconductor.crowdin.com/bioc-intro) (You can use DeepL translation assist in this project.)
+    > [https://github.com/bioconductor-translations/bioc-intro-translation](https://github.com/bioconductor-translations/bioc-intro-translation)
+    > but I cannot attend the bioc-teaching meeting. If anyone has any thoughts or concerns, please let me know in this channel.
+
+**Kozo Nishida** (09:35:02):
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CUKAPEE1Y/p1694439027719699?thread_ts=1694437833.239669&cid=CUKAPEE1Y)
+    > If anyone would prefer to set up Crowdin for [https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro) instead of [https://github.com/bioconductor-translations/bioc-intro-translation](https://github.com/bioconductor-translations/bioc-intro-translation), please let me know.
+    > 
+    > Also, if anyone wishes to become the manager of [https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/), please let me know.
+
+
+## 2023-10-26
+
+*07:37:53 - @Maria Doyle has joined the channel*
+
+## 2023-12-28
+
+**Kozo Nishida** (17:32:18):
+> Hi all, I will start a Carpentries collaboration session for translating
+> * [https://carpentries-incubator.github.io/bioc-intro/](https://carpentries-incubator.github.io/bioc-intro/)
+> * [https://carpentries-incubator.github.io/bioc-rnaseq/](https://carpentries-incubator.github.io/bioc-rnaseq/)
+> * [https://swcarpentry.github.io/git-novice/](https://swcarpentry.github.io/git-novice/)
+> 1.5 hours from now.
+> You can sign up to attend on the[Community Sessions Etherpad](https://pad.carpentries.org/community-sessions-2023).
+> In the session, I will share how to use AI (DeepL / Google Translation / ChatGPT) to make translation easier.[https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/)[https://hackmd.io/@joelnitta/SkCSC6ZNT](https://hackmd.io/@joelnitta/SkCSC6ZNT)
+  - Attachment (HackMD): [Carpentries translation guide - HackMD](https://hackmd.io/@joelnitta/SkCSC6ZNT)
+    > Joel H. Nitta
+
+**Kozo Nishida** (20:09:06):
+> The[crowdin.com](http://crowdin.com)and[bioconductor.crowdin.com](http://bioconductor.crowdin.com)accounts appear to be different.
+> If you have trouble signing in[http://bioconductor.crowdin.com/](http://bioconductor.crowdin.com/), please let me know.
+
+**Kozo Nishida** (20:12:35):
+> And languages for translation can only be added by admin user.
+> If you cannot find the language you want to translate into, please contact me.
+
+**Kozo Nishida** (20:37:54):
+> I also found that DeepL and Google Translation API are available to everyone in[https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/), but ChatGPT API may not be set up in such a way that everyone can use it.
+> I will check with Crowdin about that.
+
+
+## 2024-01-02
+
+*10:08:50 - @Javier Carpinteyro Ponce has joined the channel*
+
+## 2024-05-27
+
+*21:16:04 - @Aedin Culhane has joined the channel*
+
+## 2024-07-02
+
+*10:28:23 - @Charlotte Soneson has joined the channel*
+*10:28:29 - @Laurent Gatto has joined the channel*
+*10:30:32 - @David Shih has joined the channel*
+**David Shih** (10:31:18):
+> I'd love to get my students involved in this. We can help translate into Chinese.
+
+
+## 2024-07-08
+
+**Laurent Gatto** (05:32:45):
+> Hi<!channel>- following a discussion (pining@Maria Doyleand@Aedin Culhane) related to outreach and teaching in Africa, we thought it was probably a good idea to create a more formal translation[working group](https://github.com/Bioconductor/BiocWorkingGroups/tree/devel). I plan to send an pull request to create the WG, and add several co-leaders for different languages.@Robert Castelo, ok if I add you for Spanish? All, please add a:+1:if you would like to be named as a WG participant.
+
+**Laurent Gatto** (05:35:15) (in thread):
+> In addition to a:+1:, do add you names and languages here, so we can already identify possible language sub-groups.
+
+**Robert Castelo** (05:37:02) (in thread):
+> Robert Castelo: Spanish and Catalan
+
+**Dario Righelli** (05:37:15) (in thread):
+> What’s the main idea behind this WG?
+
+**Laurent Gatto** (05:38:14) (in thread):
+> > What’s the main idea behind this WG?
+> 
+> 1. have a better visibility of the translation effort
+> 2. help participants to get credit for their involvement
+> 3. help recruiting more translators
+
+**Dario Righelli** (05:39:17) (in thread):
+> oh ok, thanks! I’m already involved in the CoC translation group, I can also help with the translation of other documents in Italian.
+
+**Dario Righelli** (05:39:33) (in thread):
+> Dario Righelli: Italian
+
+**Dario Righelli** (05:48:37) (in thread):
+> I don’t know how much this WG overlaps with the existing  multilingual one, just reporting it[https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html#multilingual](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html#multilingual)
+  - Attachment (workinggroups.bioconductor.org): [Chapter 2 Currently Active Working Groups / Committees | Bioconductor Working Groups: Guidelines and activities](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html#multilingual)
+    > The following describe currently active working groups listed in alphabetical order. If you are interested in becoming involved with one of these groups please contact the group leader(s). 2.1...
+
+**Laurent Gatto** (06:24:00) (in thread):
+> Thank you for pointing this one out, Dario.@Kozo Nishida@Maria Doyle@Aedin Culhane, what do you think? Do we need a more focused WG for our carpentries material (and link back to that one), or should we add details/members to this one?
+
+*09:25:18 - @Susan Holmes has joined the channel*
+**Maria Doyle** (10:23:12) (in thread):
+> How about we list the new language translation efforts as subgroups under the existing multilingual WG? This way we could keep things unified while still focusing on each language. For example:
+> > Subgroups:***French Translation Subgroup***Description: Focused on translating Bioconductor Carpentries lessons into French.
+> Leads: 
+> Current Members:
+> Slack:  #translation-fr***Spanish Translation Subgroup***Description: Focused on translating Bioconductor Carpentries lessons into Spanish.
+> Leads: 
+> Current Members: 
+> Slack:  #translation-es
+
+**Laurent Gatto** (10:25:07) (in thread):
+> Yes, that seems to be the best approach. Will prepare a PR.
+
+**Maria Doyle** (10:34:29) (in thread):
+> Great, could you also add the name of this Slack channel (#documentation-translation) in the PR as it’s not listed on that page?
+
+
+## 2024-07-09
+
+**Javier Carpinteyro Ponce** (15:57:17) (in thread):
+> Javier Carpinteyro-Ponce: Spanish
+
+
+## 2024-07-12
+
+**Laurent Gatto** (09:56:31) (in thread):
+> [Pull request](https://github.com/Bioconductor/BiocWorkingGroups/pull/44)with the different translation sub-working groups created.
+  - Attachment: [#44 Create documentation translation sub-working groups](https://github.com/Bioconductor/BiocWorkingGroups/pull/44)
+    > See discussion here for details and backgroup ([https://community-bioc.slack.com/archives/C024SNHU8A3/p1720431165227479](https://community-bioc.slack.com/archives/C024SNHU8A3/p1720431165227479)).
+
+**Laurent Gatto** (09:58:22) (in thread):
+> I'm missing@David Shihas a member, as I didn't know where to add you in terms of language. Currently we have French and Spanish groups, and a general CoC translation group. Let me know and/or send a PR once this one is merged.
+
+
+## 2024-07-15
+
+*07:18:26 - @Lori Shepherd has joined the channel*
+**Michael Lawrence** (10:23:52):
+> Btw, there is an ongoing effort in the general R community towards enabling translation packages, which distribute translated Rd files for a particular package. I'll keep you up to date as that work evolves.
+
+
+## 2024-07-29
+
+**Maria Doyle** (11:26:11):
+> Hi everyone,
+> I wanted to let you know about a solution I implemented for today’s multilingual Bioconductor blog post. I posted the details on GitHub. You can check it out here:[https://github.com/Bioconductor/biocblog/pull/69#issuecomment-2256226868](https://github.com/Bioconductor/biocblog/pull/69#issuecomment-2256226868)If you have any suggestions for better alternative solutions, please let me know!
+
+
+## 2024-07-31
+
+**Kozo Nishida** (10:18:21) (in thread):
+> Hi@David ShihSorry for the late reply.
+> I applied Google Translate machine translation to`Chinese simplified`.
+> Could you check[https://bioconductor.crowdin.com/u/projects/11/l/zh-CN](https://bioconductor.crowdin.com/u/projects/11/l/zh-CN)?
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07EG5UQGDV/image.png)
+
+**Kozo Nishida** (10:21:31):
+> By the way, DeepL Machine Translation could not be applied to Chinese and French.
+> It was applicable to Japanese, Spanish, and Portuguese.
+> So I applied Google Translation to Chinese simplified.
+
+**Kozo Nishida** (10:25:02):
+> @Laurent GattoI applied Google Translation API machine translation to the bioc-intro French translation.
+> I would appreciate it if you could check if the translation is OK.
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07EWL8KX9R/image.png)
+
+
+## 2024-08-05
+
+**Laurent Gatto** (13:36:41) (in thread):
+> I'm just back from holidays, will look at it asap.
+
+
+## 2024-08-18
+
+**Kozo Nishida** (23:21:20):
+> I am trying to build[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)locally with`sandpaper::serve()`.
+> And I got the following error.
+> ```
+> 31/131
+> 32/131 [unnamed-chunk-15]
+> 33/131
+> 34/131 [unnamed-chunk-16]
+> 35/131
+> 36/131 [unnamed-chunk-17]
+> 37/131
+> 38/131 [unnamed-chunk-18]
+> 39/131
+> 40/131 [unnamed-chunk-19]
+> 41/131
+> -
+> Quitting from lines 347-353 (/home/kozo2/bioc-intro/episodes/30-dplyr.Rmd)
+> Error:
+> ! in callr subprocess.
+> Caused by error in `eval(parse_only(code), envir = envir)`:
+> ! object 'rna' not found
+> ℹ See `$stdout` and `$stderr` for standard output and error.
+> Type .Last.error to see the more details.
+> >
+> ```
+> Does anyone know how to resolve this error?
+> Actually, I want to build the translation, not the original version in English.
+> But I am getting this error in the translation as well(, so I would like to resolve it in the English version first).
+
+
+## 2024-08-19
+
+**Maria Doyle** (03:48:11) (in thread):
+> I’m not getting that error. What version of bioc-intro are you using? I tested with the latest:
+> ```
+> $ git log
+> commit 2782bb20ad72099690f8a619ba23eb84aeae4e72 (HEAD -> main, origin/main, origin/HEAD)
+> Merge: e1989d3a 9eeb4071
+> Author: Laurent Gatto <laurent.gatto@uclouvain.be>
+> Date:   Sat Jun 29 18:58:44 2024 +0200
+> 
+>     Merge pull request #129 from carpentries-incubator/update/workflows
+>     
+>     Update Workflows to Version 0.16.5
+> ```
+
+**Maria Doyle** (03:48:16) (in thread):
+> Could it have been a temporary issue when downloading the RNA file from[https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv](https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv)
+
+**Kozo Nishida** (03:54:06) (in thread):
+> > What version of bioc-intro are you using?
+> I'm using the latest version.
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07HUEQBTUH/image.png)
+
+**Maria Doyle** (03:57:02) (in thread):
+> Ok, if you’re still having trouble with that error, you can download the file manually and place it in the`data`directory, see here:
+> ```
+> if (!file.exists("data/rnaseq.csv"))
+> download.file(url = "[https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv](https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv)",
+>               destfile = "data/rnaseq.csv")
+> ```
+
+**Maria Doyle** (04:02:06) (in thread):
+> once you have it in the`data`directory, running the script should automatically create the`rna`object. That should resolve the`object 'rna' not found`error that you’re seeing.
+
+**Laurent Gatto** (09:32:28) (in thread):
+> Hi@Kozo Nishida- during the bioc-teaching meeting, we discussed possible changes to the current lessons, and whether any changes would automatically be transferred to the translation in crowdin.
+
+**Kozo Nishida** (10:03:07) (in thread):
+> Hi@Laurent Gatto,
+> We don't need to worry about that.
+> The English lesson changes on[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)can automatically be transferred to the translation in crowdin.
+
+
+## 2024-08-20
+
+**Kozo Nishida** (02:56:00) (in thread):
+> Thanks@Maria DoyleI will try it.
+
+**Kozo Nishida** (02:56:14):
+> By the way, I can't`git clone `[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)like
+> ```
+> kozo2@DESKTOP-9IIOJ7B:~$ git clone[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)Cloning into 'bioc-intro'...
+> remote: Enumerating objects: 23297, done.
+> remote: Counting objects: 100% (655/655), done.
+> remote: Compressing objects: 100% (62/62), done.
+> fatal: early EOFs:   7% (1709/23297), 14.11 MiB | 95.00 KiB/s
+> fatal: fetch-pack: invalid index-pack output
+> 
+> kozo2@DESKTOP-9IIOJ7B:~$ git clone[https://github.com/swcarpentry-ja/bioc-intro](https://github.com/swcarpentry-ja/bioc-intro)Cloning into 'bioc-intro'...
+> remote: Enumerating objects: 2861, done.
+> remote: Counting objects: 100% (781/781), done.
+> remote: Compressing objects: 100% (215/215), done.
+> remote: Total 2861 (delta 662), reused 566 (delta 566), pack-reused 2080 (from 1)
+> Receiving objects: 100% (2861/2861), 10.13 MiB | 2.08 MiB/s, done.
+> Resolving deltas: 100% (1744/1744), done.
+> kozo2@DESKTOP-9IIOJ7B:~$
+> ```
+> Does anyone know about the`fatal: fetch-pack: invalid index-pack output`?
+
+**Kozo Nishida** (03:26:12) (in thread):
+> I did that, but still got error`! object 'rna' not found`
+> ```
+> 4/131 [loaddata_dplyr]
+> 5/131
+> 6/131 [unnamed-chunk-2]
+> 7/131
+> 8/131 [unnamed-chunk-3]
+> 9/131
+> 10/131 [unnamed-chunk-4]
+> 11/131
+> 12/131 [unnamed-chunk-5]
+> 13/131
+> 14/131 [unnamed-chunk-6]
+> 15/131
+> 16/131 [unnamed-chunk-7]
+> 17/131
+> 18/131 [unnamed-chunk-8]
+> 19/131
+> 20/131 [unnamed-chunk-9]
+> 21/131
+> 22/131 [unnamed-chunk-10]
+> 23/131
+> 24/131 [unnamed-chunk-11]
+> 25/131
+> 26/131 [unnamed-chunk-12]
+> 27/131
+> 28/131 [unnamed-chunk-13]
+> 29/131
+> 30/131 [unnamed-chunk-14]
+> 31/131
+> 32/131 [unnamed-chunk-15]
+> 33/131
+> 34/131 [unnamed-chunk-16]
+> 35/131
+> 36/131 [unnamed-chunk-17]
+> 37/131
+> 38/131 [unnamed-chunk-18]
+> 39/131
+> 40/131 [unnamed-chunk-19]
+> 41/131
+> |                                                                                                                                                                                                                Quitting from lines 347-353 (/home/kozo2/bioc-intro/episodes/30-dplyr.Rmd)
+> Error:
+> ! in callr subprocess.
+> Caused by error in `eval(parse_only(code), envir = envir)`:
+> ! object 'rna' not found
+> ℹ See `$stdout` and `$stderr` for standard output and error.
+> Type .Last.error to see the more details.
+> > dir("data")
+> [1] "rnaseq.csv"
+> >
+> ```
+
+**Marcel Ramos Pérez** (09:44:29) (in thread):
+> Perhaps it was due to a connection issue? I just tried both ssh and https protocols and it worked
+
+**Kozo Nishida** (10:28:54) (in thread):
+> Sorry + Thanks@Marcel Ramos Pérez,
+> The message did not appear when I re-cloned in a stable connection environment.
+> ```
+> kozo2@DESKTOP-QOMOGPS:~/tmp$ git clone[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)Cloning into 'bioc-intro'...
+> remote: Enumerating objects: 23297, done.
+> remote: Counting objects: 100% (655/655), done.
+> remote: Compressing objects: 100% (62/62), done.
+> remote: Total 23297 (delta 619), reused 593 (delta 593), pack-reused 22642 (from 1)
+> Receiving objects: 100% (23297/23297), 740.79 MiB | 6.78 MiB/s, done.
+> Resolving deltas: 100% (12227/12227), done.
+> kozo2@DESKTOP-QOMOGPS:~/tmp$
+> ```
+
+**Kozo Nishida** (10:33:13) (in thread):
+> But even if I use`carpentries-incubator/bioc-intro`and download`data/rnaseq.csv`before running`sandpaper::build_lesson()`, it failed like
+> ```
+> 32/131 [unnamed-chunk-15]
+> 33/131
+> 34/131 [unnamed-chunk-16]
+> 35/131
+> 36/131 [unnamed-chunk-17]
+> 37/131
+> 38/131 [unnamed-chunk-18]
+> 39/131
+> 40/131 [unnamed-chunk-19]
+> 41/131
+> -
+> Quitting from lines 347-353 (/home/kozo2/tmp/bioc-intro/episodes/30-dplyr.Rmd)
+> Error:
+> ! in callr subprocess.
+> Caused by error in `eval(parse_only(code), envir = envir)`:
+> ! object 'rna' not found
+> ℹ See `$stdout` and `$stderr` for standard output and error.
+> Type .Last.error to see the more details.
+> > dir("data")
+> [1] "rnaseq.csv"
+> > head(read.csv("data/rnaseq.csv"))
+>      gene     sample expression     organism age    sex  infection  strain time
+> 1     Asl GSM2545336       1170 Mus musculus   8 Female InfluenzaA C57BL/6    8
+> 2    Apod GSM2545336      36194 Mus musculus   8 Female InfluenzaA C57BL/6    8
+> 3 Cyp2d22 GSM2545336       4060 Mus musculus   8 Female InfluenzaA C57BL/6    8
+> 4    Klk6 GSM2545336        287 Mus musculus   8 Female InfluenzaA C57BL/6    8
+> 5   Fcrls GSM2545336         85 Mus musculus   8 Female InfluenzaA C57BL/6    8
+> 6  Slc2a4 GSM2545336        782 Mus musculus   8 Female InfluenzaA C57BL/6    8
+>       tissue mouse ENTREZID
+> 1 Cerebellum    14   109900
+> 2 Cerebellum    14    11815
+> 3 Cerebellum    14    56448
+> 4 Cerebellum    14    19144
+> 5 Cerebellum    14    80891
+> 6 Cerebellum    14    20528
+>                                                                        product
+> 1                               argininosuccinate lyase, transcript variant X1
+> 2                                       apolipoprotein D, transcript variant 3
+> 3 cytochrome P450, family 2, subfamily d, polypeptide 22, transcript variant 2
+> 4                         kallikrein related-peptidase 6, transcript variant 2
+> 5                Fc receptor-like S, scavenger receptor, transcript variant X1
+> 6          solute carrier family 2 (facilitated glucose transporter), member 4
+>      ensembl_gene_id external_synonym chromosome_name   gene_biotype
+> 1 ENSMUSG00000025533    2510006M18Rik               5 protein_coding
+> 2 ENSMUSG00000022548             <NA>              16 protein_coding
+> 3 ENSMUSG00000061740             2D22              15 protein_coding
+> 4 ENSMUSG00000050063             Bssp               7 protein_coding
+> 5 ENSMUSG00000015852    2810439C17Rik               3 protein_coding
+> 6 ENSMUSG00000018566           Glut-4              11 protein_coding
+>                             phenotype_description
+> 1           abnormal circulating amino acid level
+> 2                      abnormal lipid homeostasis
+> 3                        abnormal skin morphology
+> 4                         abnormal cytokine level
+> 5 decreased CD8-positive alpha-beta T cell number
+> 6              abnormal circulating glucose level
+>   hsapiens_homolog_associated_gene_name
+> 1                                   ASL
+> 2                                  APOD
+> 3                                CYP2D6
+> 4                                  KLK6
+> 5                                 FCRL2
+> 6                                SLC2A4
+> >
+> ```
+> Let me know if anyone has any ideas about`! object 'rna' not found`.
+
+**Maria Doyle** (17:38:53) (in thread):
+> `sandpaper::build_lesson()`runs fine for me so not sure what the issue could be. Have you tried running all the code in that`30-dplyr.Rmd`directly in RStudio to check if that works?
+
+**Marcel Ramos Pérez** (18:16:18) (in thread):
+> I ran into this issue but after several attempts it found the`rna`object. Sorry I don't have a reproducible answer
+
+
+## 2024-08-21
+
+**Kozo Nishida** (10:31:01) (in thread):
+> Thanks@Maria Doyle@Marcel Ramos Pérez,
+> After running
+> ```
+> if (!require("BiocManager", quietly = TRUE))
+>     install.packages("BiocManager")
+> BiocManager::install(version = "3.19")
+> BiocManager::install("tidyverse")
+> ```
+> in my R console,`sandpaper::build_lesson()`ran fine.
+> 
+> By the way, in[github.com/carpentries-incubator/bioc-intro](http://github.com/carpentries-incubator/bioc-intro),  is the`sandpaper::build_lesson()`automated with GitHub Actions ?
+
+**Maria Doyle** (10:42:58) (in thread):
+> The docs here[https://github.com/carpentries-incubator/bioc-intro/tree/main/.github/workflows](https://github.com/carpentries-incubator/bioc-intro/tree/main/.github/workflows)say the lesson is built with`sandpaper:::ci_deploy()`
+
+**Kozo Nishida** (11:21:49) (in thread):
+> That GitHub Actions has been failing for 3 months.[https://github.com/carpentries-incubator/bioc-intro/actions/workflows/sandpaper-main.yaml](https://github.com/carpentries-incubator/bioc-intro/actions/workflows/sandpaper-main.yaml)I would like to do a repair of that Actions.
+> Because the failure also affects the translated version of Actions.
+
+**Maria Doyle** (11:29:25) (in thread):
+> That would be great if you could fix it. I suggest giving Robert Davey ([https://github.com/froggleston](https://github.com/froggleston)), who is looking after the Carpentries infrastructure, a heads up so he’s aware of the changes.
+
+**Kozo Nishida** (12:06:55) (in thread):
+> We are failing to compile S4Vectors (in bioc-intro GitHub Actions),[https://github.com/carpentries-incubator/bioc-intro/actions/runs/10463180742/job/28974769280#step:6:1448](https://github.com/carpentries-incubator/bioc-intro/actions/runs/10463180742/job/28974769280#step:6:1448)So I would like to ask for help from someone who is familiar with it.
+> Does anyone know someone who know well about S4Vectors compile?
+
+**Marcel Ramos Pérez** (14:02:23) (in thread):
+> It looks like whatever is installing packages (`renv`?) in the action is pulling the wrong version of`S4Vectors`leading to a regression and an error:
+> ```
+> Bioconductor 3.19 -> *; ver: 0.42.1 -> 0.38.2
+> ```
+
+
+## 2024-08-22
+
+**Kozo Nishida** (09:37:45) (in thread):
+> @Maria Doyle@Marcel Ramos PérezSorry, I still couldn't find out how to resolve the error myself, so I asked Robert.[https://github.com/carpentries-incubator/bioc-intro/issues/132](https://github.com/carpentries-incubator/bioc-intro/issues/132)
+
+
+## 2024-09-09
+
+**Kozo Nishida** (02:31:53):
+> I have built a Japanese version of`bioc-intro`website and made it available at[https://swcarpentry-ja.github.io/bioc-intro/10-data-organisation.html](https://swcarpentry-ja.github.io/bioc-intro/10-data-organisation.html).
+> Most of the translations on this website are due to the use of the DeepL API in[https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/).
+> (I will review and improve that machine-translation.)
+> 
+> If anyone wants to publish your language website (as well as Japanese), please reply.
+
+
+## 2024-09-10
+
+*03:46:12 - @Alex Qin has joined the channel*
+
+## 2024-09-11
+
+**Kozo Nishida** (13:06:48):
+> [https://bioconductor-translations.github.io/bioc-intro/](https://bioconductor-translations.github.io/bioc-intro/)is French website (by Google Translate).
+> I'll let you all know the details later.
+
+
+## 2024-10-22
+
+*14:25:55 - @Leonardo Collado Torres has left the channel*
+
+## 2024-11-08
+
+*00:37:53 - @Michael Nakai has joined the channel*
+
+## 2024-11-20
+
+*05:06:59 - @Sergius Nyah has joined the channel*
+
+## 2024-12-18
+
+*07:20:58 - @Yanina Bellini Saibene has joined the channel*
+**Yanina Bellini Saibene** (07:21:28):
+> Sharing here too:slightly_smiling_face:
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C34NC134G/p1734523581796159?thread_ts=1734523581.796159&cid=C34NC134G)
+    > Nice to close the year accomplishing objectives :-) :sunglasses::grin:
+    > 
+    > Very proud of this guide that we generated in rOpenSci: everything we developed and learned during the translations and localizations of our content is detailed in this book: the processes, the roles, and the technical tools.
+    > 
+    > We hope it will be helpful to other groups and communities!
+    > 
+    > :writing_hand: Blog post By [Yanina Bellini Saibene](https://ropensci.org/author/yanina-bellini-saibene/), [Maëlle Salmon](https://ropensci.org/author/ma%C3%ABlle-salmon/), [Pao Corrales](https://ropensci.org/author/pao-corrales/), [Elio Campitelli](https://ropensci.org/author/elio-campitelli/) – Edited by [Steffi LaZerte](https://ropensci.org/author/steffi-lazerte/):  [https://ropensci.org/blog/2024/12/17/localization-guide/](https://ropensci.org/blog/2024/12/17/localization-guide/)
+    > 
+    > :toolbox: rOpenSci Localization and Translation Guidelines. Why and how we localize and translate our resources: [https://translationguide.ropensci.org](https://translationguide.ropensci.org)
+    > 
+    > Both content are in English and Spanish.  Feedback is appreciated. :slightly_smiling_face:
+
+
+## 2024-12-19
+
+*10:57:35 - @Ouma Ronald has joined the channel*
+
+## 2025-01-15
+
+*05:05:00 - @Claire Rioualen has joined the channel*
+**Claire Rioualen** (05:08:27):
+> Hi there:wave:French native here, also fluent in English and Spanish, in case I can help with something:blush:
+
+
+## 2025-02-13
+
+*13:54:20 - @JP Flores has joined the channel*
+
+## 2025-02-21
+
+*08:14:14 - @rodrigo arcoverde has joined the channel*
+**rodrigo arcoverde** (08:16:50):
+> Hi@Kozo Nishida, I was talking to@Izabela Mamedeabout the translation she made for biocrna-seq workshop but she mentioned that there is no option for her to input all the files at once crowdin, she has to copy and paste each line. Could she just send the translated files to you and you could add those as the default for portuguese translation for the biocrna-seq course? I don't know if thats even possible though.
+
+
+## 2025-02-25
+
+**Kozo Nishida** (09:27:31) (in thread):
+> Hi@rodrigo arcoverdeIt might be possible to input all the files at once. However, we need the corresponding information for the English and Portuguese texts. Can you create a file with a table that has the correspondences in two columns?
+
+
+## 2025-02-26
+
+**Kozo Nishida** (22:08:09) (in thread):
+> I think you did the batch translation using an LLM (sorry if I'm wrong). Since current LLMs can handle a large number of input tokens and provide high translation accuracy, I think this strategy is good for generating a draft translation. However, without mapping information between the original English text and the translated text, it cannot be loaded into Crowdin to curate the draft translations. I will also take steps on my end to address this issue. Please give me some more time.
+
+
+## 2025-03-03
+
+**Kozo Nishida** (15:47:47) (in thread):
+> Hi@rodrigo arcoverdeand@Izabela Mamede,
+> Let me correct my previous message.
+> It seems that when using[https://store.crowdin.com/aligner](https://store.crowdin.com/aligner),
+> even if you upload only the translated text without a corresponding original English text, Crowdin automatically aligns the English and translated text.
+> I have installed the`aligner`for all of[https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/)projects.
+> Could you try using it? ([https://support.crowdin.com/uploading-translations/](https://support.crowdin.com/uploading-translations/))
+> If you have any trouble accessing the feature, please feel free to let me know.
+  - Attachment (store.crowdin.com): [Document Aligner for Crowdin](https://store.crowdin.com/aligner)
+    > Create Translation Memories in XLSX file format from the translated documents. Translation alignment is often used to upload existing translations of non-key-value documents to Crowdin.
+  - Attachment (bioconductor.crowdin.com): [Crowdin Enterprise](https://bioconductor.crowdin.com/)
+    > Use Crowdin Enterprise for localization of your projects. Register now and join the global translation community.
+  - Attachment (Crowdin Docs): [Uploading Existing Translations](https://support.crowdin.com/uploading-translations/)
+    > Learn how to upload existing translations to your project
+
+*15:59:30 - @Izabela Mamede has joined the channel*
+
+## 2025-03-05
+
+**rodrigo arcoverde** (04:28:16) (in thread):
+> Thank you,@Kozo Nishida! I will talk to Izabela about it.
+
+**Izabela Mamede** (07:13:35):
+> Thanks@Kozo Nishida! I will take some time to go through everything you sent =D
+
+
+## 2025-03-31
+
+**Laurent Gatto** (08:34:51):
+> Hi@Kozo Nishida- does the English lesson template update when we push changes to the original github repo? If not, do we have any plans on how to manage changes?
+
+**Ouma Ronald** (12:18:52):
+> Hi<!channel>. Hope you had a lovely day,  I would like to know how I can start with contributing to the`documentation-translation`.   I appreciate any steps or guidance:pray:.@Maria Doyle,@Marcel Ramos Pérez,@Izabela Mamede
+
+**Laurent Gatto** (13:04:54) (in thread):
+> Hi@Ouma Ronald- what languages could you help with? We have a couple of dedicated working groups that work on different languages (see[https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html)).
+  - Attachment (workinggroups.bioconductor.org): [Chapter 2 Currently Active Working Groups / Committees | Bioconductor Working Groups: Guidelines and activities](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html)
+    > The following describe currently active working groups listed in alphabetical order. If you are interested in becoming involved with one of these groups please contact the group leader(s). 2.1...
+
+**Kozo Nishida** (14:50:43) (in thread):
+> Hi@Laurent GattoYes, the English lesson template will be updated when we push changes to the original GitHub repository.
+> However, currently the original GitHub repository is connected to[https://github.com/swcarpentry-ja/bioc-intro](https://github.com/swcarpentry-ja/bioc-intro), not[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro).
+> This is because I don't have sufficient permissions for[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro).
+> If you'd like to connect the[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)to[https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/), either I need to be granted higher permissions for[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro), or you (you are a admin user of[https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/)) will need to change the GitHub integration settings in Crowdin.
+
+**Kozo Nishida** (15:04:16):
+> By the way, with the rapid advancement of LLMs, some people might prefer to speed up translations using ChatGPT or Gemini instead of DeepL or Google Translate.
+> There might also be preferences for managing translations with GitHub and gettext rather than using Crowdin.
+> If anyone has any ideas, please feel free to share them in this channel.
+
+
+## 2025-04-01
+
+**Laurent Gatto** (06:58:32) (in thread):
+> Thanks. Could you confirm that you are kozo2 on github.
+
+**Kozo Nishida** (07:04:58) (in thread):
+> [https://github.com/kozo2](https://github.com/kozo2)is me.
+> It still appears that my permission for[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)is insufficient to allow synchronization with[https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/).
+  - Attachment (bioconductor.crowdin.com): [Crowdin Enterprise](https://bioconductor.crowdin.com/)
+    > Use Crowdin Enterprise for localization of your projects. Register now and join the global translation community.
+
+**Laurent Gatto** (07:58:40) (in thread):
+> I added you just now as a maintainer - could you try again.
+
+**Kozo Nishida** (09:17:30) (in thread):
+> It seems that being a maintainer doesn’t provide sufficient permissions to perform the integration.
+> It looks like higher-level permissions are required, as shown by the settings on the right side of the screen.
+> Would it be possible to grant me permissions higher than maintainer?
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F08LB0NGEG4/image.png)
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F08LAHNGVM0/image.png)
+
+**Laurent Gatto** (12:33:31) (in thread):
+> Could you try again.
+
+**Laurent Gatto** (12:33:38) (in thread):
+> I gave you admin rights.
+
+**Kozo Nishida** (12:39:12) (in thread):
+> Thank you. Now I can see carpentries-incubator/bioc-intro from[bioconductor.crowdin.com](http://bioconductor.crowdin.com)github integration.
+> For the purpose of integration, I will add a YAML file identical to[https://github.com/swcarpentry-ja/bioc-intro/blob/main/crowdin.yml](https://github.com/swcarpentry-ja/bioc-intro/blob/main/crowdin.yml)to the main branch of[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro). I hope that's alright with you.
+
+**Laurent Gatto** (12:40:48) (in thread):
+> Thanks. Could you send a PR with that yaml file and tag me and@Charlotte Soneson, so that we see it and can also report back in the teaching meetings.
+
+**Kozo Nishida** (12:41:02) (in thread):
+> OK. I will send a PR.
+
+**Kozo Nishida** (12:52:51) (in thread):
+> I sent the PR[https://github.com/carpentries-incubator/bioc-intro/pull/144](https://github.com/carpentries-incubator/bioc-intro/pull/144)
+
+
+## 2025-04-02
+
+**Kozo Nishida** (04:40:16) (in thread):
+> Hi@Laurent GattoI added[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)`main`branch to[bioconductor.crowdin.com](http://bioconductor.crowdin.com)to sync with the Crowdin English source text.
+> I believe the latest commit on GitHub is now synced with Crowdin. If it's not, please let me know.
+> The synchronization is set to occur every hour.
+> And, translations are pushed to the`l10n_main`branch, not the`main`branch.
+> (For example,[https://github.com/carpentries-incubator/bioc-intro/tree/l10n_main/locale/fr](https://github.com/carpentries-incubator/bioc-intro/tree/l10n_main/locale/fr)is the link for French.)
+
+
+## 2025-04-23
+
+*08:38:24 - @Silvia González has joined the channel*
+
+## 2025-04-30
+
+**Kozo Nishida** (07:50:04):
+> <!channel>I would like to create a Bioconductor version of[https://scientific-python-translations.github.io/](https://scientific-python-translations.github.io/).
+> If anyone is available to help with that, please reply.
+> I feel that I haven't been able to clearly communicate how Crowdin and GitHub are used in the Bioconductor translation project. If you have any questions, please don’t hesitate to ask.
+  - Attachment (scientific-python-translations.github.io): [Scientific Python Translations -](https://scientific-python-translations.github.io/)
+    > Documentation & FAQ for Scientific Python Translations project.

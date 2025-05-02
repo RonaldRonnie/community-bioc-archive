@@ -1,0 +1,1070 @@
+---
+title: "#easylift"
+format: gfm
+---
+
+
+## 2023-07-26
+
+*09:15:55 - @Michael Love has joined the channel*
+*09:16:02 - @Abdullah Al Nahid has joined the channel*
+**Michael Love** (09:18:01):
+> hi@Abdullah Al Nahidhappy to work with you on this, here are my recommended steps for writing your first package:
+
+**Michael Love** (09:21:13):
+> * I usually start with just an R script and a data object, and I try to write the function i’m interested in working on, in this case the object could be GRanges in hg19 and the goal is to write a function`easylift`that moves the coordinates into some other build, e.g. hg38
+> * once you have a working function, you can use`biocthis`to build a package skeleton
+> * i then usually will write some tests that i can use to keep doing development, those have a particular structure and live in`/tests/testthat`
+> * the function then moves into an R script in`/R`subdirectory
+> * then you can start using`devtools`to iterative build <---> test your function
+> * finally when it looks good, you can use`pkgdown`to build a website, and submit to Bioconductor
+
+**Abdullah Al Nahid** (09:22:54):
+> Thank you so much, Professor!
+
+**Abdullah Al Nahid** (09:23:35):
+> are we going to allow liftOver from hg19 to something else only or any to any?
+
+**Abdullah Al Nahid** (09:24:08):
+> from hg19 to hg38 and vice versa?
+
+**Abdullah Al Nahid** (09:24:32):
+> I am going to start with hg19 first
+
+**Michael Love** (09:25:21):
+> Proposal for the function usage:
+> ```
+> new_gr <- easylift(gr, to="hg38", chain="...")
+> ```
+> It would expect that`genome(gr)`is provided, e.g. in this case maybe it is`"hg19"`.
+
+**Michael Love** (09:25:42):
+> I would recommend to lift from`genome(gr)`to whatever the user specifies
+
+**Michael Love** (09:26:06):
+> [https://hgdownload.soe.ucsc.edu/gbdb/hg19/liftOver/](https://hgdownload.soe.ucsc.edu/gbdb/hg19/liftOver/)
+
+**Abdullah Al Nahid** (09:26:19):
+> awesome! thank you!
+
+**Michael Love** (09:27:15):
+> one note: the user will have to download the`hg19ToHg38.over.chain.gz`file themselves, we can’t distribute these files because of the license
+
+**Abdullah Al Nahid** (09:27:31):
+> got it, thanks!
+
+**Abdullah Al Nahid** (09:28:01):
+> is it necessary to have the "to" when they already specify the chain file path?
+
+**Michael Love** (09:28:33):
+> yes, so i have a reason for this part … but i have to run to a meeting, can i reply back in 30 min?
+
+**Abdullah Al Nahid** (09:28:49):
+> Professor, you can reply to me whenever you want to
+
+**Abdullah Al Nahid** (09:29:01):
+> Thanks again
+
+**Michael Love** (09:29:28):
+> you are in Bangladesh time zone?
+
+**Michael Love** (09:29:55):
+> just checking, as i guess it will be easiest for us to work asynchronously
+
+**Abdullah Al Nahid** (09:29:57):
+> Yes Professor
+
+**Michael Love** (09:30:02):
+> :ok_hand:
+
+**Michael Love** (09:30:10):
+> feel free to just call me Mike:slightly_smiling_face:
+
+**Abdullah Al Nahid** (09:30:53):
+> I will. Thanks
+
+**Michael Love** (10:15:01):
+> i’d recommend the user specify either`to`or`chain`or both:
+> * just`to`- we can load the correct chain file from BiocFileCache
+> * just`chain`- as you say we can infer`to`from the filename
+> * both, we can confirm that`to`is correct wrt the filename
+
+**Abdullah Al Nahid** (11:58:36):
+> I am going with the third option
+
+**Abdullah Al Nahid** (12:00:07):
+> `rtracklayer`,`GenomicRanges`,`BSgenome`
+
+**Abdullah Al Nahid** (12:00:13):
+> using these 3 packages for now
+
+**Abdullah Al Nahid** (13:46:45):
+> ```
+> library(rtracklayer)
+> library(GenomicRanges)
+> 
+> easylift <- function(gr, to, chain) {
+>   # Check if genome(gr) is provided
+>   if (is.null(genome(gr))) {
+>     stop("The source genome is not specified in the 'gr' object.")
+>   }
+>   
+>   # Get the source genome from gr
+>   from_genome <- genome(gr)
+>   
+>   # Load the chain data using rtracklayer
+>   chain_data <- import.chain(chain)
+>   
+>   # Perform liftOver operation from the source genome to the target genome
+>   converted_range <- liftOver(gr, chain_data)
+>   
+>   # Get the target genome's seqinfo using getChromInfoFromUCSC
+>   to_seqinfo <- getChromInfoFromUCSC(to, assembled.molecules.only=TRUE, as.Seqinfo=TRUE)
+>   
+>   # Unlist the seqlengths to access individual sequence lengths
+>   to_seqlengths <- unlist(seqlengths(to_seqinfo))
+>   
+>   # Remove duplicated seqlevels from converted_range
+>   converted_range <- unique(converted_range)
+>   
+>   # Update the Seqinfo and seqlengths for the converted_range
+>   for (chr in seqlevels(converted_range)) {
+>     new_seqlength <- to_seqlengths[as.character(chr)]
+>     seqlengths(converted_range)[seqnames(converted_range) == chr] <- new_seqlength
+>     seqlevels(converted_range)[seqnames(converted_range) == chr] <- chr
+>   }
+>   
+>   seqinfo(converted_range) <- to_seqinfo
+>   return(converted_range)
+> }
+> 
+> gr <- GRanges("chr1", IRanges(100, 300), genome = "hg19")
+> to <- "hg38"
+> chain <- "hg19ToHg38.over.chain"
+> 
+> print(easylift(gr, to = to, chain = chain))
+> ```
+
+**Abdullah Al Nahid** (13:46:58):
+> Mike, does it work for you? Can you kindly test if possible?
+
+**Abdullah Al Nahid** (13:47:39):
+> Please kindly let me know if there's an error
+
+**Abdullah Al Nahid** (13:48:04):
+> ```
+> GRangesList object of length 1:
+> [[1]]
+> GRanges object with 0 ranges and 1 metadata column:
+>    seqnames    ranges strand |      genome
+>       <Rle> <IRanges>  <Rle> | <character>
+>   -------
+>   seqinfo: 25 sequences (1 circular) from hg38 genome
+> ```
+> This is what I got as output
+
+**Abdullah Al Nahid** (13:50:14):
+> I don't think it's correct
+
+**Abdullah Al Nahid** (13:50:39):
+> If you have a sample input and sample output, then I could test
+
+**Abdullah Al Nahid** (14:00:36):
+> yes, it's wrong
+
+**Abdullah Al Nahid** (14:00:38):
+> my apologies
+
+**Michael Love** (14:05:25):
+> i’ve got to go offline for 2 days, but I’d recommend to make a GitHub repo called`easylift`and you can start with just this one R script — i’ll be able to check it in a few days and give feedback
+
+**Abdullah Al Nahid** (14:06:12):
+> Thank you, Mike. I will do that
+
+**Abdullah Al Nahid** (15:43:00):
+> [https://github.com/nahid18/easylift](https://github.com/nahid18/easylift)
+
+**Abdullah Al Nahid** (16:00:24):
+> Mike, the name is used by another package
+
+**Abdullah Al Nahid** (16:00:26):
+> [https://github.com/caleblareau/easyLift](https://github.com/caleblareau/easyLift)
+
+**Abdullah Al Nahid** (16:00:34):
+> and it does the liftOver as well
+
+**Abdullah Al Nahid** (16:00:45):
+> doesn't use the chain file I think
+
+
+## 2023-07-30
+
+**Abdullah Al Nahid** (07:04:51):
+> I pushed a minor update with some error handling
+
+**Abdullah Al Nahid** (07:05:42):
+> if the script works as intended, then I will work on it to make it dynamic and extensible
+
+
+## 2023-07-31
+
+**Michael Love** (01:08:24):
+> thanks! I’ve got free time today to review
+
+**Michael Love** (01:08:35):
+> i’m flying 8 hours:slightly_smiling_face:i will check out now and put up notes
+
+**Michael Love** (01:08:59):
+> i’ve got these commits locally now
+> ```
+> * 71044ff (HEAD -> main, origin/main, origin/HEAD) feat: error handling
+> * 97f4dc9 feat: update readme
+> * 24b4894 feat: variable name fix
+> * ab721b4 feat: init
+> ```
+
+**Abdullah Al Nahid** (07:18:07):
+> thank you so much!
+
+**Abdullah Al Nahid** (07:18:38):
+> Wishing you a smooth journey. Best of luck
+
+
+## 2023-08-04
+
+**Abdullah Al Nahid** (09:56:57):
+> Thank you for the recommended change@Michael Love! I will now work on it to make it a package
+
+**Abdullah Al Nahid** (14:25:06):
+> [https://github.com/nahid18/easylift](https://github.com/nahid18/easylift)
+
+**Abdullah Al Nahid** (14:25:21):
+> package developed and the build is working as intented@Michael Love
+
+**Abdullah Al Nahid** (14:25:44):
+> ```
+> BiocManager::install("nahid18/easylift")
+> BiocManager::install("GenomicRanges")
+> 
+> library("easylift")
+> library("GenomicRanges")
+> 
+> gr <- GenomicRanges::GRanges(seqname = Rle(paste("chr", 1, sep = "")),
+>               ranges = IRanges(start = 1, end = 200000))
+> genome(gr) <- "hg19"
+> to <- "hg38"
+> chain <- "hg19ToHg38.over.chain.gz"
+> 
+> lifted <- easylift(gr, to, chain)
+> 
+> seqinfo(gr)
+> seqinfo(lifted)
+> ```
+> tested this code and it worked
+
+**Abdullah Al Nahid** (14:26:03):
+> Also, deleted`main`branch and the only branch is`devel`branch
+
+**Abdullah Al Nahid** (14:26:38):
+> Thank you so much,@Michael Love!
+
+**Abdullah Al Nahid** (14:28:20):
+> Didn't add any kind of tests inside the package though
+
+**Abdullah Al Nahid** (14:36:07):
+> `devtools::check()`returned 0 issues, 0 warnings, 0 notes
+
+
+## 2023-08-05
+
+**Michael Love** (16:17:58):
+> Heading home this weekend but can check out on Monday, thanks Abdullah
+
+
+## 2023-08-06
+
+**Abdullah Al Nahid** (00:23:24):
+> Wishing you a smooth journey again. Best of luck. Thank you so much!
+
+
+## 2023-08-07
+
+**Michael Love** (17:06:04):
+> instead of`library`at the top of your R script, you should use roxygen tags to specify which packages your depends on
+
+**Michael Love** (17:10:12):
+> [https://r-pkgs.org/dependencies-in-practice.html#sec-dependencies-NAMESPACE-workflow](https://r-pkgs.org/dependencies-in-practice.html#sec-dependencies-NAMESPACE-workflow)
+  - Attachment (r-pkgs.org): [R Packages (2e) - 11  Dependencies: In Practice](https://r-pkgs.org/dependencies-in-practice.html#sec-dependencies-NAMESPACE-workflow)
+    > Learn how to create a package, the fundamental unit of shareable, reusable, and reproducible R code.
+
+**Abdullah Al Nahid** (22:52:43):
+> done and code pushed to github
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F05LNHY6R1T/image.png)
+
+
+## 2023-08-08
+
+**Michael Love** (08:07:43):
+> nice, i'll take a look today
+> 
+> another thing you can do, good for visibility of your work is pkgdown
+
+**Michael Love** (08:08:21):
+> it is minimal extra work, mostly writing this config file:[https://github.com/mikelove/mrlocus/blob/master/_pkgdown.yml](https://github.com/mikelove/mrlocus/blob/master/_pkgdown.yml)
+
+**Michael Love** (08:08:46):
+> then you get a nicely rendered website from your[github.io](http://github.io)
+
+**Michael Love** (08:09:42):
+> there are some options whether pkgdown should render to a gh-pages branch or within your main branch. I think you'd want to go for gh-pages branch
+
+**Abdullah Al Nahid** (08:47:31):
+> thanks, will work on that
+
+**Abdullah Al Nahid** (11:30:39):
+> this is some kind of magic
+
+**Abdullah Al Nahid** (11:30:43):
+> pkgdown
+
+**Abdullah Al Nahid** (11:30:45):
+> woah
+
+**Abdullah Al Nahid** (11:53:57):
+> @Michael Love, I have pushed the pkgdown code to github
+
+**Abdullah Al Nahid** (11:54:02):
+> here's the website:[https://nahid18.github.io/easylift](https://nahid18.github.io/easylift)
+  - Attachment (nahid18.github.io): [An R package to perform genomic liftOver](https://nahid18.github.io/easylift)
+    > The package performs genomic liftover given genomicRanges and chain file.
+
+**Michael Love** (12:22:44):
+> nice!
+
+**Abdullah Al Nahid** (12:23:01):
+> Thank you so much!
+
+**Michael Love** (12:23:37):
+> ok so i will now start to look into the cache thing and give some pointers
+
+**Abdullah Al Nahid** (12:24:15):
+> Okay. I'll try my best to implement that as well according to your instructions
+
+**Michael Love** (12:28:36):
+> it may take me a few days bc i’ve got some todays this week that i put off while I was at BioC, but i’ll try to get back to you by Monday
+
+**Abdullah Al Nahid** (12:30:15):
+> No problem at all. Thank you so much!
+
+**Abdullah Al Nahid** (12:31:26):
+> Professor Mike, are you hiring PhD students for Fall '24? I apologize for asking irrelevant question here
+
+**Michael Love** (12:34:01):
+> no worries — so at UNC you first enter a PhD program and then later join a lab (in BCB you join one year after entering, in Biostat you join 2 years after entering)
+
+**Michael Love** (12:34:25):
+> so if you are considering UNC, you can apply to the BCB program or to Biostat directly
+
+**Abdullah Al Nahid** (12:34:41):
+> Thank you so much!
+
+
+## 2023-08-11
+
+**Michael Love** (15:45:10):
+> you’ll need to put this README in the`extdata`dir:[https://hgdownload.cse.ucsc.edu/goldenpath/hg19/liftOver/](https://hgdownload.cse.ucsc.edu/goldenpath/hg19/liftOver/)
+
+**Michael Love** (15:45:31):
+> ```
+> redistribution of UCSC Chain
+> Files by you must include this README file with these license restrictions, in
+> the same archive or directory with the chain files.
+> ```
+> 
+> >
+
+**Michael Love** (15:46:04):
+> It would be good to add at a few tests[https://r-pkgs.org/testing-basics.html](https://r-pkgs.org/testing-basics.html)
+  - Attachment (r-pkgs.org): [R Packages (2e) - 13  Testing basics](https://r-pkgs.org/testing-basics.html)
+    > Learn how to create a package, the fundamental unit of shareable, reusable, and reproducible R code.
+
+
+## 2023-08-12
+
+**Abdullah Al Nahid** (02:23:37) (in thread):
+> on it
+
+**Abdullah Al Nahid** (02:24:06) (in thread):
+> ok, I will take a look into this
+
+
+## 2023-08-15
+
+**Abdullah Al Nahid** (17:09:21):
+> @Michael Love, I am building my personal site for PhD application. Is it okay if I do this about the tidyomics challenge paper?
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F05N0JYSEJG/image.png)
+
+**Abdullah Al Nahid** (17:09:40):
+> Please feel free to suggest any change
+
+**Abdullah Al Nahid** (17:11:08):
+> I apologize in advance for any mistake
+
+**Michael Love** (17:18:33):
+> Sure, no problem. Maybe put, project lead: Stefano Mangiola and Michael Love, instead of “advisor”
+
+**Abdullah Al Nahid** (17:20:14):
+> Thanks. Will change that
+
+
+## 2023-08-23
+
+**Abdullah Al Nahid** (05:25:45):
+> @Michael Love, I have tried this code:
+> ```
+> gr |> easylift(to, chain) |>
+>   group_by(id) |>
+>   mutate(left = min(start), right = max(end)) |>
+>   ungroup()
+> ```
+> It prints out
+> ```
+> GRanges object with 5 ranges and 3 metadata columns:
+>       seqnames          ranges strand |        id      left     right
+>          <Rle>       <IRanges>  <Rle> | <integer> <integer> <integer>
+>   [1]     chr5  999885-1785328      * |         1    999885   1999886
+>   [2]     chr5 1785330-1999886      * |         1    999885   1999886
+>   [3]     chr7  960364-1941276      * |         2    960364   1960365
+>   [4]     chr7 1941278-1960365      * |         2    960364   1960365
+>   [5]     chr9 1000000-2000000      * |         3   1000000   2000000
+>   -------
+>   seqinfo: 25 sequences (1 circular) from hg38 genome
+> ```
+> Does this look okay?
+
+**Abdullah Al Nahid** (05:28:20):
+> How can I do this:***filling gaps in output, as non-default behavior***?
+> Should the easylift source code be changed in any way? or, should I just provide the code above in the vignette?
+
+**Michael Love** (08:12:47):
+> So after I made that issue I realized it’s harder than I thought, there is no facility in plyranges to do what I want, so it’s a separate issue. I’m going to drop the issue and move it to plyranges
+
+**Michael Love** (08:17:31):
+> I’d say what’s left is to submit to Bioc:slightly_smiling_face:you’ll need a minimal vignette
+
+**Michael Love** (08:17:45):
+> [https://contributions.bioconductor.org/](https://contributions.bioconductor.org/)
+  - Attachment (contributions.bioconductor.org): [Welcome | Bioconductor Packages: Development, Maintenance, and Peer Review](https://contributions.bioconductor.org/)
+    > This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.
+
+**Abdullah Al Nahid** (08:48:02):
+> I'll add at least a test case, and a minimal vignette
+
+**Abdullah Al Nahid** (08:48:08):
+> Thank you so much!
+
+
+## 2023-08-24
+
+**Abdullah Al Nahid** (17:25:37) (in thread):
+> ```
+> The data files ("UCSC Chain Files") in this directory are property of The
+> Regents of the University of California, and made available free for
+> non-commercial use by Independent Researchers and Nonprofit Organizations. Any
+> other use of UCSC Chain Files requires a commercial license, for which users
+> should contact genomebrowser@ucsc.edu. As used herein, "Independent
+> Researcher" means an individual who is autonomous with respect to the
+> research activities for which he or she uses the UCSC Chain Files (note: such
+> use does not extend to any use of the UCSC Chain Files at the direction and/or
+> for the benefit of a for-profit organization); and "Nonprofit
+> Organization" means a university or other institution of higher education,
+> or a not-for-profit organization officially recognized or qualified under the
+> laws of the country in which it is organized or located, or any nonprofit
+> scientific or educational organization qualified under a federal, state or local
+> jurisdiction's nonprofit organization statute. Downloading or using UCSC Chain
+> Files indicates your acceptance of the End User License Agreement (EULA) posted
+> at "[https://genome.ucsc.edu/license/EULA.pdf](https://genome.ucsc.edu/license/EULA.pdf)"; redistribution of UCSC Chain
+> Files by you must include this README file with these license restrictions, in
+> the same archive or directory with the chain files.
+> 
+> This directory contains the data files required as input to the
+> liftOver utility. This tool -- which requires a Linux platform --
+> allows the mass conversion of coordinates from one assembly to
+> another. The executable file for the utility can be downloaded from[http://hgdownload.soe.ucsc.edu/admin/exe/liftOver.gz](http://hgdownload.soe.ucsc.edu/admin/exe/liftOver.gz).
+> 
+> The file names reflect the assembly conversion data contained within
+> in the format <db1>To<Db2>.over.chain.gz. For example, a file named
+> hg15ToHg16.over.chain.gz file contains the liftOver data needed to
+> convert hg15 (Human Build 33) coordinates to hg16 (Human Build 34).
+> If no file is available for the assembly in which you're interested,
+> please send a request to the genome mailing list
+> (genome@soe.ucsc.edu) and we will attempt to provide you with one.
+> 
+> To download a large file or multiple files from this directory,
+> we recommend that you use ftp rather than downloading the files via our
+> website. To do so, ftp to hgdownload.soe.ucsc.edu (user: anonymous),
+> then cd to goldenPath/hg19/liftOver.  To download multiple files,
+> use the "mget" command:
+> 
+>     mget <filename1> <filename2> ...
+>     - or -
+>     mget -a (to download all the files in the directory)
+> 
+> -------------------------------------------------------
+> Please refer to the credits page
+> ([http://genome.ucsc.edu/goldenPath/credits.html](http://genome.ucsc.edu/goldenPath/credits.html)) for guidelines and
+> restrictions regarding data use for these assemblies.
+> -------------------------------------------------------
+> Alternate methods to ftp access.
+> 
+> Using an rsync command to download the entire directory:
+>     rsync -avzP[rsync://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/](rsync://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/).
+> For a single file, e.g. hg19ToHg18.over.chain.gz
+>     rsync -avzP[rsync://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg18.over.chain.gz](rsync://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg18.over.chain.gz).
+>     (Hg18 is merely an example here, not necessarily existing.)
+> 
+> Or with wget, all files:
+>     wget --timestamping 
+>         '[ftp://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/*](ftp://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/*)'
+> With wget, a single file:
+>     wget --timestamping 
+>         '[ftp://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg18.over.chain.gz](ftp://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg18.over.chain.gz)'  
+>         -O hg19ToHg18.over.chain.gz
+> 
+> To uncompress the *.chain.gz files:
+>     gunzip <file>.chain.gz 
+> The liftOver utility can read the files in their .gz format,
+> it is not necessary to uncompress them to use with the liftOver command.
+> ```
+> Added this whole text as`README.md`to`extdata`dir
+
+
+## 2023-08-25
+
+**Abdullah Al Nahid** (04:11:48):
+> @Michael Loveadded 6 tests and pushed to github
+
+**Abdullah Al Nahid** (07:34:30):
+> @Michael Loveadded a vignette (.Rmd + .html)
+
+**Michael Love** (08:06:58):
+> will look over today
+
+**Abdullah Al Nahid** (08:46:25):
+> Thank you so much!
+
+**Michael Love** (16:47:03):
+> looks great
+
+**Michael Love** (16:47:07):
+> i made a small change just now
+
+**Michael Love** (16:47:26):
+> if you’re passing`R CMD check`and BiocCheck you can then submit to Bioc:slightly_smiling_face:
+
+
+## 2023-08-26
+
+**Abdullah Al Nahid** (11:28:16):
+> On it
+
+**Abdullah Al Nahid** (13:11:41):
+> rcmdcheck("easylift_0.0.4.tar.gz") result
+  - File (PNG): [Screenshot from 2023-08-26 23-09-25.png](https://community-bioc.slack.com/files/U34P8RS3B/F05PPACR16W/screenshot_from_2023-08-26_23-09-25.png)
+
+**Abdullah Al Nahid** (15:01:04):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F05QD5CS56C/image.png)
+
+**Abdullah Al Nahid** (15:14:31):
+> @Michael Love, Submitted the package to Bioconductor:[https://github.com/Bioconductor/Contributions/issues/3122](https://github.com/Bioconductor/Contributions/issues/3122)
+  - Attachment: [#3122 easylift](https://github.com/Bioconductor/Contributions/issues/3122)
+    > Update the following URL to point to the GitHub repository of  
+    > the package you wish to submit to *Bioconductor*
+    > 
+    > • Repository: [https://github.com/nahid18/easylift](https://github.com/nahid18/easylift)
+    > 
+    > Confirm the following by editing each check box to '[x]'
+    > 
+    > I understand that by submitting my package to *Bioconductor*,  
+    >     the package source and all review commentary are visible to the  
+    >     general public.
+    > I have read the *Bioconductor* [Package Submission](https://bioconductor.org/developers/package-submission/)  
+    >     instructions. My package is consistent with the *Bioconductor*  
+    >     [Package Guidelines](https://contributions.bioconductor.org/).
+    > I understand Bioconductor <https://bioconductor.org/developers/package-submission/#naming|Package Naming Policy> and acknowledge  
+    >     Bioconductor may retain use of package name.
+    > I understand that a minimum requirement for package acceptance  
+    >     is to pass R CMD check and R CMD BiocCheck with no ERROR or WARNINGS.  
+    >     Passing these checks does not result in automatic acceptance. The  
+    >     package will then undergo a formal review and recommendations for  
+    >     acceptance regarding other Bioconductor standards will be addressed.
+    > My package addresses statistical or bioinformatic issues related  
+    >     to the analysis and comprehension of high throughput genomic data.
+    > I am committed to the long-term maintenance of my package. This  
+    >     includes monitoring the [support site](https://support.bioconductor.org) for issues that users may  
+    >     have, subscribing to the [bioc-devel](https://stat.ethz.ch/mailman/listinfo/bioc-devel) mailing list to stay aware  
+    >     of developments in the *Bioconductor* community, responding promptly  
+    >     to requests for updates from the Core team in response to changes in  
+    >     *R* or underlying software.
+    > I am familiar with the [Bioconductor code of conduct](https://bioconductor.org/about/code-of-conduct/) and  
+    >     agree to abide by it.
+    > 
+    > I am familiar with the essential aspects of *Bioconductor* software  
+    > management, including:
+    > 
+    > ☑︎ The 'devel' branch for new packages and features.
+    > ☑︎ The stable 'release' branch, made available every six  
+    >     months, for bug fixes.
+    > ☑︎ *Bioconductor* version control using [Git](http://bioconductor.org/developers/how-to/git/)  
+    >     (optionally [via GitHub](http://bioconductor.org/developers/how-to/git/sync-existing-repositories/)).
+    > 
+    > For questions/help about the submission process, including questions about  
+    > the output of the automatic reports generated by the SPB (Single Package  
+    > Builder), please use the #package-submission channel of our Community Slack.  
+    > Follow the link on the home page of the [Bioconductor website](https://bioconductor.org/) to sign up.
+
+
+## 2023-08-28
+
+**Abdullah Al Nahid** (14:58:54):
+> @Michael Love, I can work on this project:[https://github.com/tidyomics/genomics-todos/issues/5](https://github.com/tidyomics/genomics-todos/issues/5)
+  - Attachment: [#5 New package idea, facilitate easily: genomic ranges |> filter_by_overlaps(window) |> plotgardener or Gviz](https://github.com/tidyomics/genomics-todos/issues/5)
+    > See here for an example of plotgardener for ranges:
+    > 
+    > [https://tidybiology.github.io/tidy-ranges-tutorial/gene-plots.html](https://tidybiology.github.io/tidy-ranges-tutorial/gene-plots.html)
+    > 
+    > It would be nice to hide away some of the layout code in a function, so this could be more a part of an EDA workflow.
+
+**Abdullah Al Nahid** (14:59:03):
+> at least will try my best
+
+**Abdullah Al Nahid** (14:59:17):
+> can you kindly provide the pointers?
+
+**Abdullah Al Nahid** (14:59:22):
+> thank you so much!
+
+**Abdullah Al Nahid** (15:00:49):
+> if I do work on this, can you kindly suggest a package name that you see fit?
+
+
+## 2023-08-29
+
+**Michael Love** (09:13:17):
+> let’s either make a new channel or we can swap over to the GH issues page? just in case others want to contribute
+
+**Michael Love** (09:13:43):
+> **easyplot**?
+
+**Abdullah Al Nahid** (11:27:03):
+> ok sure
+
+**Abdullah Al Nahid** (11:27:11):
+> you can provide the pointers in the GH issue page
+
+**Abdullah Al Nahid** (11:27:13):
+> no problem
+
+**Abdullah Al Nahid** (11:27:28):
+> ok I will go with the******easyplot******then
+
+**Michael Love** (11:45:16):
+> nice. a whole easy ecosystem:slightly_smiling_face:
+
+**Abdullah Al Nahid** (11:46:39):
+> haha
+
+**Michael Love** (11:47:10):
+> no such package on CRAN so i think you’re good
+
+**Abdullah Al Nahid** (11:47:46):
+> Thank you so much!
+
+
+## 2023-09-13
+
+**Abdullah Al Nahid** (15:46:09):
+> I am currently working on addressing the review comments by the bioconductor team for the`easylift`package
+
+**Michael Love** (15:48:03):
+> nice
+
+
+## 2023-09-24
+
+**Abdullah Al Nahid** (19:36:44):
+> @Michael Love, I have resolved all the comments made by the bioconductor team
+
+**Abdullah Al Nahid** (19:37:45):
+> ```
+> easylift <- function(x, to, chain) {
+>   # Check if genome(x) has multiple unique values
+>   unique_genomes <- unique(GenomeInfoDb::genome(x))
+>   if (length(unique_genomes) > 1) {
+>     stop("The 'GRanges' object 'x' contains genomic coordinates from multiple genomes. ",
+>          "Please provide 'x' with coordinates from a single genome assembly.")
+>   }
+> ```
+> Added this bit to check if genome(x) has more than one genome
+
+**Abdullah Al Nahid** (19:38:12):
+> Added 3 new unit tests to cover`BiocFileCache`
+
+**Abdullah Al Nahid** (19:38:35):
+> [https://github.com/Bioconductor/Contributions/issues/3122#issuecomment-1732698406](https://github.com/Bioconductor/Contributions/issues/3122#issuecomment-1732698406)
+
+**Abdullah Al Nahid** (19:39:01):
+> ^ the updates have been pushed to biocondutor as well
+
+**Abdullah Al Nahid** (19:39:42):
+> overall changes: 11 changed files with 208 additions and 52 deletions.
+
+**Abdullah Al Nahid** (19:40:20):
+> added documentation for`BiocFileCache`everywhere as well
+
+
+## 2023-09-25
+
+**Michael Love** (10:18:01):
+> i made a few tweaks and pushed just now
+
+**Abdullah Al Nahid** (11:22:04):
+> Thank you so much!
+
+**Abdullah Al Nahid** (11:22:33):
+> I will push your changes to bioconductor
+
+**Abdullah Al Nahid** (11:37:10):
+> done
+
+**Abdullah Al Nahid** (11:52:25):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F05TW387AE8/image.png)
+
+
+## 2023-09-27
+
+**Abdullah Al Nahid** (15:06:53):
+> @Michael Love, if a user provides inputs like this
+> 
+> easylift(gr, "hg38", BiocFileCache())  aka messing up the positional arguments
+> 
+> should we stop the function and show error message or should we assign the variable properly internally?
+
+**Michael Love** (15:10:46):
+> yeah i guess that’s easiest — TBH i haven’t full parsed what’s going on with this error
+
+**Abdullah Al Nahid** (15:11:30):
+> we have positional arguements like this
+> 
+> easylift ( x = GRanges, to = target genome character, chain = chain file path character, bfc = BiocFileCache object)
+
+**Abdullah Al Nahid** (15:11:39):
+> here x and to are required
+
+**Abdullah Al Nahid** (15:11:43):
+> chain and bfc are optional
+
+**Abdullah Al Nahid** (15:12:01):
+> someone could technically skip chain and pass bfc in 3rd position
+
+**Michael Love** (15:12:18):
+> ahhh i see
+
+**Michael Love** (15:12:46):
+> i would say that, since this is a rare side case, we should just error this case
+
+**Michael Love** (15:12:56):
+> if someone provides an unnamed arg with BFC
+
+**Michael Love** (15:13:06):
+> it’s rare that someone wouldn’t use the default BFC
+
+**Abdullah Al Nahid** (15:13:30):
+> which would be not passing anything (resulting in default BFC location), yes
+
+**Abdullah Al Nahid** (15:13:43):
+> although rare, coding practices demand us to put a sanity check
+
+**Abdullah Al Nahid** (15:13:48):
+> so I am going to stop the func
+
+**Abdullah Al Nahid** (15:13:51):
+> and show an error
+
+**Abdullah Al Nahid** (15:13:53):
+> thank you
+
+**Michael Love** (15:18:17):
+> I was thinking to ask Herve if he is willing to be listed as a package contributor, as he has helped so much. sound ok?
+
+**Abdullah Al Nahid** (15:23:12):
+> I am totally fine with it
+
+**Abdullah Al Nahid** (15:23:27):
+> That would be great
+
+
+## 2023-09-29
+
+**Abdullah Al Nahid** (09:54:23):
+> @Michael Loveeasylift has been accepted to Bioconductor.
+> 
+> Thank you so much for your patience and kind support
+
+**Michael Love** (10:04:37):
+> congrats, you should promote online (maybe wait until Monday bc more people looking)
+
+**Michael Love** (10:04:49):
+> Twitter / Mastodon or Bluesky:slightly_smiling_face:
+
+**Abdullah Al Nahid** (10:05:29):
+> Yes, I will. Thank you Professor
+
+
+## 2023-10-12
+
+**Abdullah Al Nahid** (11:51:38):
+> `easylift`Bioconductor page is live:[https://bioconductor.org/packages/devel/bioc/html/easylift.html](https://bioconductor.org/packages/devel/bioc/html/easylift.html)But few tests were failing.
+> I fixed the issues and pushed.
+> Hopefully the errors will go away in 24-48 hours.
+  - Attachment (Bioconductor): [easylift (development version)](https://bioconductor.org/packages/devel/bioc/html/easylift.html)
+    > The easylift package provides a convenient tool for genomic liftover operations between different genome assemblies. It seamlessly works with Bioconductor's GRanges objects and chain files from the UCSC Genome Browser, allowing for straightforward handling of genomic ranges across various genome versions. One noteworthy feature of easylift is its integration with the BiocFileCache package. This integration automates the management and caching of chain files necessary for liftover operations. Users no longer need to manually specify chain file paths in their function calls, reducing the complexity of the liftover process.
+
+**Michael Love** (11:57:40):
+> :raised_hands:exciting!
+
+
+## 2023-10-16
+
+**Abdullah Al Nahid** (16:16:34):
+> Finally,
+> All tests have passed.
+> And, all the build statuses have turned green
+
+
+## 2023-10-25
+
+**Abdullah Al Nahid** (19:23:21):
+> Version 1.0.0 released[https://bioconductor.org/packages/release/bioc/html/easylift.html](https://bioconductor.org/packages/release/bioc/html/easylift.html)
+
+
+## 2024-02-06
+
+*11:25:38 - @Alan Aw has joined the channel*
+**Alan Aw** (11:41:28):
+> Hi<!channel>, sorry for joining without an invitation. I was using`easylift`for a project, and ran into two issues with a particular use case. Thought I should share it, both for my own learning and for potential issue fixing.
+> 
+> My use case is as follows. I have a list of coordinates that I’d like to lift from hg19 to hg38. For concreteness, this list looks like the following. (Chromosome is 22, object below is a data.frame)
+> ```
+> START     STOP
+> 1 16050408 17674295
+> 2 17675014 18296088
+> 3 18488219 19595292
+> 4 19912358 20948839
+> 5 22357325 22877795
+> 6 23712647 23717905
+> ```
+> I wrote a function that converts the dataframe to a GRanges, and applied easylift. (Chain file downloaded from UCSC Browser.)
+> ```
+> liftOver_hg19_to_hg38 <- function(input_df,chr) {
+>   # Define chain file for hg19 to hg38 liftover
+>   chain_path <- "/Users/alanaw/Documents/admix_prs/results/020124/hg19ToHg38.over_tabs.chain"
+>   
+>   # Convert to GRanges
+>   gr <- GRanges(seqnames = paste0("chr",chr),
+>                 ranges = IRanges(start = input_df$START, end = input_df$STOP))
+>   
+>   # Specify genome build of input gr
+>   genome(gr) <- "hg19"
+>   
+>   # Liftover
+>   lo <- easylift(gr, "hg38", chain_path)
+>   
+>   # Return the lifted over positions
+>   return(lo)
+> }
+> ```
+> Here are the issues.
+> 1. ***Longer output than input.***The actual input dataframe has 24 lines, so converting into GRanges should yield 24 ranges. But the output looks like it has 878 ranges. I was expecting 24 ranges, where each genomic position is simply converted from hg19 to hg38. Why does the observed not match my expectation?
+> 2. ***Discrepancy (possible error?) in lifting.***I  manually checked the lift-over coordinate for the first genomic position in hg19 --- chr22:16050408. Pasting this into the Broad's online[liftOver webpage](https://liftover.broadinstitute.org/#input=22%3A16050408&hg=hg19-to-hg38), I see that the output is chr22:15927609. I have no idea whether Broad is right or wrong, but the discrepancy is worrying me.
+
+**Alan Aw** (11:43:03) (in thread):
+> Happy to share my R code, source file and output screen if it helps clarify the issues I've raised!
+
+
+## 2024-02-07
+
+**Abdullah Al Nahid** (10:27:15) (in thread):
+> Hi, thank you for sharing the issues. Especially the discrepancy is worrying. Kindly share your R code and if possible input outputs, so that I can reproduce the issues.
+
+**Abdullah Al Nahid** (10:37:17) (in thread):
+> About 1, I think the intention was to return the complete conversion output rather than returning selectively based on the input.
+
+**Abdullah Al Nahid** (10:43:29) (in thread):
+> @Alan Aw, is it possible for you to run this tool and see how the outputs look like?[https://genome.ucsc.edu/cgi-bin/hgLiftOver](https://genome.ucsc.edu/cgi-bin/hgLiftOver)
+
+**Alan Aw** (13:07:26):
+> Thank you for writing back, Abdullah. Here is the R code.
+> ```
+> ## Load required libraries
+> library(easylift)
+> 
+> ## Helper function --------------
+> liftOver_hg19_to_hg38 <- function(input_df,chr) {
+>   # Define chain file for hg19 to hg38 liftover
+>   chain_path <- "/Users/alanaw/Documents/admix_prs/results/020124/hg19ToHg38.over_tabs.chain"
+>   
+>   # Convert to GRanges
+>   gr <- GRanges(seqnames = paste0("chr",chr),
+>                 ranges = IRanges(start = input_df$START, end = input_df$STOP))
+>   
+>   # Specify genome build of input gr
+>   genome(gr) <- "hg19"
+>   
+>   # Liftover
+>   lo <- easylift(gr, "hg38", chain_path)
+>   
+>   # Return the lifted over positions
+>   return(lo)
+> }
+> 
+> ## Read File --------------------
+> input_df <- as.data.frame(readr::read_csv("chr22_test_file.csv"))
+> 
+> ## Run easylift -----------------
+> foo <- liftOver_hg19_to_hg38(input_df,chr=22)
+> ```
+> I have also attached the input file.
+  - File (CSV): [chr22_test_file.csv](https://community-bioc.slack.com/files/U34P8RS3B/F06JD2MMJSU/chr22_test_file.csv)
+
+**Alan Aw** (13:09:18):
+> Here is the output object as shown in R:
+> ```
+> > liftOver_hg19_to_hg38(input_df,chr=22)
+> GRangesList object of length 24:
+> [[1]]
+> GRanges object with 100 ranges and 0 metadata columns:
+>         seqnames            ranges strand
+>            <Rle>         <IRanges>  <Rle>
+>     [1]    chr22 16367189-16386925      *
+>     [2]    chr22 16386926-16386968      *
+>     [3]    chr22 16386970-16387016      *
+>     [4]    chr22 16387017-16387112      *
+>     [5]    chr22 16387128-16395489      *
+>     ...      ...               ...    ...
+>    [96]    chr22 15908187-15910237      *
+>    [97]    chr22 15907962-15908172      *
+>    [98]    chr22 15906030-15907960      *
+>    [99]    chr22 15281640-15906029      *
+>   [100]    chr22 15280114-15281637      *
+>   -------
+>   seqinfo: 5 sequences from an unspecified genome; no seqlengths
+> 
+> ...
+> <23 more elements>
+> ```
+> 
+> ```
+> > str(liftOver_hg19_to_hg38(input_df,chr=22))
+> Formal class 'CompressedGRangesList' [package "GenomicRanges"] with 5 slots
+>   ..@ unlistData     :Formal class 'GRanges' [package "GenomicRanges"] with 7 slots
+>   .. .. ..@ seqnames       :Formal class 'Rle' [package "S4Vectors"] with 4 slots
+>   .. .. .. .. ..@ values         : Factor w/ 5 levels "chr22","chr10",..: 1 2 3 4 5 1
+>   .. .. .. .. ..@ lengths        : int [1:6] 211 2 1 1 2 661
+>   .. .. .. .. ..@ elementMetadata: NULL
+>   .. .. .. .. ..@ metadata       : list()
+>   .. .. ..@ ranges         :Formal class 'IRanges' [package "IRanges"] with 6 slots
+>   .. .. .. .. ..@ start          : int [1:878] 16367189 16386926 16386970 16387017 16387128 16395491 16395528 16395841 16395860 16395956 ...
+>   .. .. .. .. ..@ width          : int [1:878] 19737 43 47 96 8362 36 312 18 95 33 ...
+>   .. .. .. .. ..@ NAMES          : NULL
+>   .. .. .. .. ..@ elementType    : chr "ANY"
+>   .. .. .. .. ..@ elementMetadata: NULL
+>   .. .. .. .. ..@ metadata       : list()
+>   .. .. ..@ strand         :Formal class 'Rle' [package "S4Vectors"] with 4 slots
+>   .. .. .. .. ..@ values         : Factor w/ 3 levels "+","-","*": 3
+>   .. .. .. .. ..@ lengths        : int 878
+>   .. .. .. .. ..@ elementMetadata: NULL
+>   .. .. .. .. ..@ metadata       : list()
+>   .. .. ..@ seqinfo        :Formal class 'Seqinfo' [package "GenomeInfoDb"] with 4 slots
+>   .. .. .. .. ..@ seqnames   : chr [1:5] "chr22" "chr10" "chr4" "chr16" ...
+>   .. .. .. .. ..@ seqlengths : int [1:5] NA NA NA NA NA
+>   .. .. .. .. ..@ is_circular: logi [1:5] NA NA NA NA NA
+>   .. .. .. .. ..@ genome     : chr [1:5] NA NA NA NA ...
+>   .. .. ..@ elementMetadata:Formal class 'DFrame' [package "S4Vectors"] with 6 slots
+>   .. .. .. .. ..@ rownames       : NULL
+>   .. .. .. .. ..@ nrows          : int 878
+>   .. .. .. .. ..@ elementType    : chr "ANY"
+>   .. .. .. .. ..@ elementMetadata: NULL
+>   .. .. .. .. ..@ metadata       : list()
+>   .. .. .. .. ..@ listData       : Named list()
+>   .. .. ..@ elementType    : chr "ANY"
+>   .. .. ..@ metadata       : list()
+>   ..@ elementMetadata:Formal class 'DFrame' [package "S4Vectors"] with 6 slots
+>   .. .. ..@ rownames       : NULL
+>   .. .. ..@ nrows          : int 24
+>   .. .. ..@ elementType    : chr "ANY"
+>   .. .. ..@ elementMetadata: NULL
+>   .. .. ..@ metadata       : list()
+>   .. .. ..@ listData       : Named list()
+>   ..@ elementType    : chr "GRanges"
+>   ..@ metadata       : list()
+>   ..@ partitioning   :Formal class 'PartitioningByEnd' [package "IRanges"] with 5 slots
+>   .. .. ..@ end            : int [1:24] 100 217 232 334 696 697 699 703 746 752 ...
+>   .. .. ..@ NAMES          : NULL
+>   .. .. ..@ elementType    : chr "ANY"
+>   .. .. ..@ elementMetadata: NULL
+>   .. .. ..@ metadata       : list()
+> ```
+
+**Alan Aw** (13:12:47) (in thread):
+> Sure, I just ran the first row, and it seems like when unchecking "Allow multiple output regions" there is an error message:
+> ```
+> #Split in new
+> chr22:16050408-17674295
+> ```
+  - File (PNG): [Screenshot 2024-02-07 at 1.11.26 PM.png](https://community-bioc.slack.com/files/U34P8RS3B/F06H9NW4S0P/screenshot_2024-02-07_at_1.11.26_pm.png)
+
+**Alan Aw** (13:16:59) (in thread):
+> I believe this error message is returned because the sequence I provided insufficiently intersects multiple chains in the chain file. Here is where the sequence is approximately located (seems near the centromere):
+  - File (PNG): [Screenshot 2024-02-07 at 1.14.50 PM.png](https://community-bioc.slack.com/files/U34P8RS3B/F06HHMF4LR4/screenshot_2024-02-07_at_1.14.50_pm.png)
+
+
+## 2024-02-09
+
+**Alan Aw** (10:07:25):
+> When I ran liftOver on the command line, the outputs were
+> 
+> (1) hg38 coordinates of segments that could be lifted over;
+> (2) the segments that failed to be lifted over
+> 
+> As a user, I feel like this should be the output of a liftOver function for segments (but that is just my personal feedback...)
+
+**Abdullah Al Nahid** (16:49:06) (in thread):
+> The easylift package is basically a wrapper using rtracklayer package underneath. It allows integrating chain file within biocfilecache as well as simplifying multiple commands in one-line. 
+> 
+> Based on your experience with different outputs from multiple tools for the same function, I think it needs a deeper exploration and perhaps a new research into finding these edge cases and comparing. 
+> 
+> I will try my best to help but if you find a solution, feel free to contribute to easylift's github repo. 
+> 
+> Thanks a lot!
+
+
+## 2024-02-16
+
+**Abdullah Al Nahid** (11:38:00) (in thread):
+> @Alan Awcan you try this and see the outputs look like?
+
+**Abdullah Al Nahid** (11:38:03) (in thread):
+> [https://academic.oup.com/bioinformatics/article/40/2/btae038/7585532](https://academic.oup.com/bioinformatics/article/40/2/btae038/7585532)
+
+
+## 2024-02-20
+
+**Alan Aw** (08:39:09) (in thread):
+> Sure, will do at some point.
+
+
+## 2024-05-14
+
+**Lori Shepherd** (10:03:19):
+> archived the channel

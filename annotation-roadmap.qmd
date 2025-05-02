@@ -1,0 +1,252 @@
+---
+title: "#annotation-roadmap"
+format: gfm
+---
+
+
+## 2022-02-06
+
+*06:38:29 - @Vince Carey has joined the channel*
+**Vince Carey** (06:38:29):
+> set the channel description: Bioc annotation resources are a central source of project value.  How should this component evolve?
+
+*06:39:16 - @Kasper D. Hansen has joined the channel*
+*06:39:16 - @Johannes Rainer has joined the channel*
+*06:39:16 - @James MacDonald has joined the channel*
+*06:39:16 - @Charlotte Soneson has joined the channel*
+*06:39:16 - @Michael Love has joined the channel*
+*06:39:17 - @Lori Shepherd has joined the channel*
+*06:39:17 - @Martin Morgan has joined the channel*
+**Vince Carey** (06:42:24):
+> Our recent TAB meeting included discussion of issues related to TxDb and GENCODE.
+> ```
+> Annotations - incomplete and sometimes inconsistent sets of BSgenome and TxDb packages, alt loci in BSgenomes, TxDbs and EnsDbs not fully interchangeable, GENCODE.
+> ```
+> In this channel I would propose that we have an open discussion of shortcomings and solutions.
+
+*06:42:42 - @Levi Waldron has joined the channel*
+*06:42:43 - @Ludwig Geistlinger has joined the channel*
+**Vince Carey** (10:21:52):
+> One basic observation: makeOrgPackageFromNCBI is producing a 26GB+ sqlite database
+>  on my laptop.  How can we centralize the metadata needed for this process.  (I am doing this with the example in[http://127.0.0.1:22562/library/AnnotationForge/doc/MakingNewOrganismPackages.html](http://127.0.0.1:22562/library/AnnotationForge/doc/MakingNewOrganismPackages.html)).
+
+*10:28:03 - @Aedin Culhane has joined the channel*
+**Lori Shepherd** (10:33:36):
+> @Vince CareyDon't forget many of those are already available through annotation hub and what we provide at release time
+
+**Vince Carey** (10:39:31):
+> Thanks for the reminder.  I was trying to understand[https://github.com/Bioconductor/AnnotationForge/issues/25](https://github.com/Bioconductor/AnnotationForge/issues/25)and did not think to query AH.  We might want to enhance documentation of AnnotationForge and put a message in the make* functions to remind users of this.
+
+**Michael Love** (12:05:03):
+> For GENCODE, the following releases are on AHub:
+> ```
+> !> query(ah, c("GENCODE","TxDb"))
+> ...
+>              title                                                                                                     
+>    AH75134 | TxDb for Gencode v23 on hg19 coordinates                                                                  
+>    AH75137 | TxDb for Gencode v23 on hg38 coordinates                                                                  
+>    AH75140 | TxDb for Gencode v24 on hg19 coordinates                                                                  
+>    AH75143 | TxDb for Gencode v24 on hg38 coordinates                                                                  
+>    AH75146 | TxDb for Gencode v25 on hg19 coordinates                                                                  
+>    ...       ...                                                                                                       
+>    AH75179 | TxDb for Gencode v30 on hg38 coordinates                                                                  
+>    AH75182 | TxDb for Gencode v31 on hg19 coordinates                                                                  
+>    AH75185 | TxDb for Gencode v31 on hg38 coordinates                                                                  
+>    AH75188 | TxDb for Gencode v32 on hg19 coordinates                                                                  
+>    AH75191 | TxDb for Gencode v32 on hg38 coordinates
+> ```
+> I believe Leo uploaded these, but human genes for release 33-39 are not on AHub. Also we are missing all the mouse GENCODE TxDb.
+> ```
+> !> ah["AH75191"]                                                                                                       
+>  AnnotationHub with 1 record                                                                                           
+>  # snapshotDate(): 2021-10-20                                                                                          
+>  # names(): AH75191                                                                                                    
+>  # $dataprovider: GENCODE                                                                                              
+>  # $species: Homo sapiens                                                                                              
+>  # $rdataclass: TxDb                                                                                                   
+>  # $rdatadateadded: 2019-10-22                                                                                         
+>  # $title: TxDb for Gencode v32 on hg38 coordinates                                                                    
+>  # $description: Gencode v32 TxDb object on hg38 coordinates. This is useful ...                                       
+>  # $taxonomyid: 9606                                                                                                   
+>  # $genome: GRCh38                                                                                                     
+>  # $sourcetype: GTF                                                                                                    
+>  # $sourceurl:[ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/releas](ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/releas)...                                       
+>  # $sourcesize: NA                                                                                                     
+>  # $tags: c("Gencode", "GenomicState", "hg38", "v32")                                                                  
+>  # retrieve record with 'object[["AH75191"]]'
+> ```
+> I'm interested to help with this, but want to move away from manual processes. I already manually hash GENCODE and Ensembl transcripts as part of my work on tximeta (but this will be phased out with new sequence collection APIs from GA4GH). It would be nice to automate the addition of these to AHub
+
+
+## 2022-02-07
+
+**Johannes Rainer** (02:03:47):
+> For the`EnsDb`s I’m using a semi-automated process to create them for each Ensembl release. It uses perl scripts to directly extract the annotations from Ensembl MySQL databases using the Ensembl Perl API. I found that much more convenient and stable than importing from GFF/GTF because their format used to change.@Michael Love, is GENCODE somehow linked to Ensembl releases and annotations?
+
+*02:07:01 - @Michael Stadler has joined the channel*
+*03:13:27 - @Dania Machlab has joined the channel*
+**Michael Love** (06:34:56) (in thread):
+> it is linked, but I think they only provide the GTF. I'm willing to automate the process, but would like to also automate the push to Ahub, how does that look on your end?
+
+**Michael Love** (06:35:59) (in thread):
+> they don't mention any SQL access for the GENCODE set:[https://www.gencodegenes.org/pages/data_access.html](https://www.gencodegenes.org/pages/data_access.html)
+
+**Lori Shepherd** (07:31:41) (in thread):
+> I think early states might have been uploaded by the core through Marc Carlson. the core stopped providing these resources by default because of time, expertise, and wanted to get away from having to be the default generators/providers .  There is some code for access/generation of resources in AnnotationHubData/R/ makeGencodeFasta.R and makeGencodeGFF.R --  --- Yes Leo provided the newer ones that were added and the package/preparerclass mentioned is GenomicState so that might be a good place to look and do a pull request or ask Leo for updates    --   again this goes back to the core doesn't want to be responsible for all annotations and wants to rely on the community  and start handing things off to more experts in the field that could take over/modify/enhance recipes from the past --- but the draw back of that is if the community doesn't provide updated data than its not available --
+
+**Kasper D. Hansen** (13:26:58) (in thread):
+> They are somehow linked because GENCODE uses Ensembl identifiers throughout. I am not sure how we can see which version of Ensembl though and I would not be surprised if there is some expectation that they use permanent identifiers
+
+
+## 2022-02-09
+
+**Johannes Rainer** (02:06:32) (in thread):
+> @Michael Loveregarding “push to Ahub”: it’s a fully manual step from my side (the uploading). Metadata is created with an R function that extracts the required info from the`EnsDb`databases.
+
+**Michael Love** (08:13:26) (in thread):
+> thanks Jo. I’ll have to think about what I can do…
+
+
+## 2022-02-14
+
+*07:46:47 - @Hans-Rudolf Hotz has joined the channel*
+
+## 2022-02-15
+
+*11:59:33 - @Gene Cutler has joined the channel*
+
+## 2022-03-03
+
+**Charlotte Soneson** (13:58:07):
+> Following up from the discussion today, in case it's useful here's a template of the code that we have recently used to build`BSgenome`and`TxDb`packages for the latest GENCODE releases (e.g.[https://www.gencodegenes.org/human/](https://www.gencodegenes.org/human/)) locally:[https://gist.github.com/csoneson/803aa2b98eb6391a40f5ced535347824](https://gist.github.com/csoneson/803aa2b98eb6391a40f5ced535347824). I'm sure there are ways to improve and make it more general...for example, we need to have the same set of circular sequences in both packages to use them together, but it wasn't obvious to us where to retrieve that information automatically (from what we could see, other packages do it by matching names to`GenomeInfoDb:::DEFAULT_CIRC_SEQS`). Moreover, for our setup we built a dedicated`BSgenome`for a specific GENCODE release, but that's not really necessary; the same build will be used for many releases. For our purposes, we built the`BSgenome`package using the primary assembly only.
+
+**Kasper D. Hansen** (16:12:22):
+> For the GENCODE files it is also pretty important to separate out all the repetitive elements somehow I think; I have seen many students caught by this
+
+**Kasper D. Hansen** (16:12:31):
+> That may already happen in the scripts here
+
+**Michael Love** (17:03:40):
+> oh so you are both thinking beyond what I am doing which is just GTF -> TxDb -> local BiocFileCache
+
+**Michael Love** (17:04:13):
+> re: BSgenome, I think the solution is sequence hashing, and a standard + API is coming along (all though I've been saying this for years now)
+
+**Michael Love** (17:05:16):
+> Nathan Sheffield (who is in#biochubsbut not here) has been spearheading the effort to build the sequence collection hash and it has lots of nice generalization properties
+
+
+## 2022-03-21
+
+*09:02:45 - @Pedro Sanchez has joined the channel*
+**Pedro Sanchez** (10:30:32):
+> Hello everyone!
+> I want to reanalyse a published dataset but have some doubts.
+> To put into context, the data correspond to a single-cell transcriptomics experiment done by smart-seq2 (non-UMI method). The authors aligned the read to mm9 UCSC transcriptome, so I don’t know which AnnotationData to use for obtaining the gene length and GC content from counts. Does the next line of code work or should I use`TxDb.Mmusculus.UCSC.mm9.knownGene`in some way?
+> ```
+> as.data.frame(EDASeq::getGeneLengthAndGCContent(rownames(sce),"mm9","org.db"))
+> ```
+> Thanks:smiley:
+
+**Ludwig Geistlinger** (10:42:06) (in thread):
+> Hi Pedro, if you use`EDASeq::getGeneLengthAndGCContent`in an interactive session, you will be prompted for selecting a TxDB package of your choice and`TxDb.Mmusculus.UCSC.mm9.knownGene`should be among the options to choose. That means`EDASeq::getGeneLengthAndGCContent`will be based on`TxDb.Mmusculus.UCSC.mm9.knownGene`if executed accordingly.
+
+**Pedro Sanchez** (10:49:44) (in thread):
+> Hi Ludwig, I don’t completely catch you. What do you mean by interactive session? How is it executed?
+
+**Ludwig Geistlinger** (10:59:52) (in thread):
+> Ah I see that you are providing the assembly (`mm9`) instead of the organism three letter-code (`mmu`). I was referring to executing the command either in your RStudio Console or starting an (interactive) session directly in a terminal:
+> ```
+> > res <- EDASeq::getGeneLengthAndGCContent(rownames(sce), "mmu", "org.db")
+> Found several genome assemblies
+> 1: TxDb.Mmusculus.UCSC.mm10.ensGene
+> 2: TxDb.Mmusculus.UCSC.mm10.knownGene
+> 3: TxDb.Mmusculus.UCSC.mm9.knownGene
+> Choose assembly (1-3) :
+> ```
+> When providing the organism three-letter code (`mmu`) you would then be prompted to select the corresponding assembly / TxDB package. But when providing`mm9`this should be done automatically, ie you will be ending up using`TxDb.Mmusculus.UCSC.mm9.knownGene`under the hood.
+
+**Pedro Sanchez** (11:01:32) (in thread):
+> Ahh now I understand it.  Thanks for the clear explanation:smile:
+
+
+## 2022-04-12
+
+*13:58:48 - @Vivian Chu has joined the channel*
+
+## 2022-04-17
+
+*11:15:48 - @Arun Karnani Khemlani has joined the channel*
+
+## 2022-05-12
+
+*05:45:15 - @Helen Lindsay has joined the channel*
+*05:47:19 - @Helen Lindsay has left the channel*
+
+## 2022-05-17
+
+*16:45:05 - @Isaac Virshup has joined the channel*
+
+## 2022-06-09
+
+*09:07:26 - @John Hutchinson has joined the channel*
+
+## 2022-06-17
+
+*17:23:41 - @George Odette has joined the channel*
+
+## 2022-12-13
+
+*18:31:40 - @Xiangnan Xu has joined the channel*
+
+## 2023-02-03
+
+*07:01:51 - @Ciro Ramírez-Suástegui has joined the channel*
+
+## 2023-03-10
+
+*15:22:07 - @Edel Aron has joined the channel*
+
+## 2023-06-19
+
+*05:08:29 - @Pierre-Paul Axisa has joined the channel*
+
+## 2023-08-04
+
+*10:49:54 - @Ray Su has joined the channel*
+
+## 2023-08-28
+
+*15:05:43 - @Abdullah Al Nahid has joined the channel*
+
+## 2023-09-13
+
+*17:02:59 - @Christopher Chin has joined the channel*
+
+## 2023-11-11
+
+*16:35:14 - @António Domingues has joined the channel*
+
+## 2024-07-11
+
+*06:22:13 - @Sathish Kumar has joined the channel*
+
+## 2024-10-25
+
+*14:53:52 - @Sounkou Mahamane Toure has joined the channel*
+
+## 2025-02-13
+
+*13:54:57 - @JP Flores has joined the channel*
+
+## 2025-03-17
+
+*09:26:06 - @Sunil Nahata has joined the channel*
+
+## 2025-03-18
+
+*14:26:06 - @Andres Wokaty has joined the channel*
+
+## 2025-03-28
+
+*07:27:10 - @Khadija Juma has joined the channel*

@@ -1,0 +1,668 @@
+---
+title: "#hca_clustering"
+format: gfm
+---
+
+
+## 2018-04-18
+
+*11:32:27 - @Stephanie Hicks has joined the channel*
+**Stephanie Hicks** (11:32:27):
+> set the channel description: Discussion on clustering implementations for the CZI-HCA Bioconductor award
+
+*11:32:27 - @Davide Risso has joined the channel*
+*11:32:27 - @Elizabeth Purdom has joined the channel*
+*11:44:39 - @Peter Hickey has joined the channel*
+**Davide Risso** (12:02:13):
+> So, let me inaugurate the channel by posing this question. Let’s say we want to start with k-means. Do we want a`kmeans`S4 method so that we have the same name as`stats::kmeans`or is it better to have a different name (e.g.,`k_means`)?
+
+**Peter Hickey** (12:04:13):
+> i think it should only have the same name if it supports the same arguments (and possibly adds`...`argument)
+
+**Elizabeth Purdom** (12:50:17):
+> I agree use same kmeans name.
+
+**Stephanie Hicks** (13:11:40):
+> +1 to same name
+
+*13:17:46 - @Martin Morgan has joined the channel*
+*18:55:15 - @Aedin Culhane has joined the channel*
+
+## 2018-05-03
+
+*13:50:52 - @Loyal has joined the channel*
+
+## 2018-06-26
+
+*08:37:11 - @Elana Fertig has joined the channel*
+
+## 2018-07-19
+
+*14:17:08 - @Brendan Innes has joined the channel*
+
+## 2018-07-25
+
+*09:08:55 - @Kasper D. Hansen has joined the channel*
+*09:32:33 - @Neke Ibeh has joined the channel*
+
+## 2018-08-16
+
+*17:00:46 - @Marcus Kinsella has joined the channel*
+
+## 2018-10-04
+
+*12:56:46 - @Levi Waldron has joined the channel*
+
+## 2018-12-17
+
+*06:57:00 - @Vladimir Kiselev has joined the channel*
+
+## 2019-01-24
+
+*19:41:01 - @Ming Tang has joined the channel*
+
+## 2019-03-24
+
+*22:25:07 - @Aaron Lun has joined the channel*
+**Aaron Lun** (22:25:23):
+> scran's`buildSNNGraph`and`buildKNNGraph`are probably looking for better homes.
+
+
+## 2019-04-11
+
+**Stephanie Hicks** (15:04:13):
+> tagging@Ruoxi Liu
+
+*15:04:16 - @Ruoxi Liu has joined the channel*
+**Stephanie Hicks** (15:08:46):
+> [https://github.com/drisso/mbkmeans](https://github.com/drisso/mbkmeans)
+
+
+## 2019-05-05
+
+*11:02:58 - @Firas has joined the channel*
+
+## 2019-06-26
+
+*13:28:11 - @Junhao Li has joined the channel*
+
+## 2020-02-13
+
+**Aaron Lun** (18:36:02):
+> This seems like a dead channel, but I’m thinking about cutting out the clustering functions from scran into a new package.
+
+**Aaron Lun** (18:36:43):
+> It’s going to be called`sclust7`.
+
+**Stephanie Hicks** (18:49:35):
+> why the 7?
+
+**Aaron Lun** (18:50:51):
+> you don’t get it, then.
+
+**Aaron Lun** (18:52:17):
+> There ain’t no clustering like an sclust clustering.
+
+**Aaron Lun** (18:52:40):
+> put your hands in the air… like you just don’t care
+
+**Kasper D. Hansen** (20:35:01):
+> People are too young these days ...[https://en.wikipedia.org/wiki/S_Club_7](https://en.wikipedia.org/wiki/S_Club_7)
+  - Attachment: [S Club 7](https://en.wikipedia.org/wiki/S_Club_7)
+    > S Club 7 were an English pop group from London created by former Spice Girls manager Simon Fuller consisting of members Bradley McIntosh, Hannah Spearritt, Jo O'Meara, Jon Lee, Paul Cattermole, Rachel Stevens and Tina Barrett. The group was formed in 1998 and quickly rose to fame by starring in their own BBC television series, Miami 7. In their five years together, S Club 7 had four UK number-one singles, one UK number-one album, and a string of hits throughout Europe as well as a Top 10 hit on the US Hot 100, with their 2000 single "Never Had a Dream Come True". They recorded four studio albums, released 11 singles and went on to sell over 10 million albums worldwide.The concept of the group was created by Simon Fuller who signed them to Polydor Records. Their show lasted four series and saw the group travel across the US, eventually ending up in Barcelona. It became popular in 100 countries where the show was watched by over 90 million viewers. The show, a children's sitcom, often mirrored real-life events which had occurred in S Club, like the relationship of Spearritt and Cattermole, and Cattermole's departure from the group. S Club 7 won two BRIT Awards—in 2000 for British breakthrough act and in 2002, for best British single. In 2001 the group earned the Record of the Year award. Cattermole departed in 2002, citing "creative differences", and the group name dropped the "7". Their penultimate single reached number five in the UK charts and their final album failed to make the top ten. Following Cattermole's departure, the group fought many rumours presuming that they were about to split. However, on 21 April 2003, during a live onstage performance, S Club announced that they were to [disband.In](http://disband.In) October 2014, it was confirmed that the original lineup would reunite for the first time in over a decade for BBC Children in Need, later announcing a UK reunion tour for 2015.
+
+**Stephanie Hicks** (22:40:41):
+> Lol
+
+
+## 2020-02-14
+
+*05:06:49 - @Andrew Skelton has joined the channel*
+
+## 2020-02-21
+
+**Aaron Lun** (00:31:22):
+> Seriously though. I need to move my many clustering functions out of***scran***, the package is getting too big again.
+
+
+## 2020-07-08
+
+**Aaron Lun** (11:39:28):
+> @Davide RissoI do need to move some clustering packages out of***scran***. There's about 10 functions and they need a home. But clusterExperiment is just so bloated.
+
+**Davide Risso** (12:28:15):
+> Yeah I think clusterExperiment is already overcrowded...
+
+**Aaron Lun** (12:30:37):
+> I just want a package that has no graphics and just compares clusters. That's literally its only job - to compare clusters.
+
+**Davide Risso** (12:56:53):
+> I mean, Dune could be a better candidate for that. It provides ways to ‘optimally’ merge clusters but in order to do that you have to compare them...
+
+**Aaron Lun** (12:58:09):
+> I suppose so, but I’m not sure I like all this:
+  - File (PNG): [Screen Shot 2020-07-08 at 9.57.43 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/F017FMD543A/screen_shot_2020-07-08_at_9.57.43_am.png)
+
+**Davide Risso** (13:06:45):
+> Mmm I see...
+
+**Aaron Lun** (13:07:01):
+> i mean, look at those bad words
+
+**Aaron Lun** (13:07:16):
+> ****`magrittr`****. Hm.
+
+*15:09:29 - @Charlotte Soneson has joined the channel*
+**Aaron Lun** (17:50:17):
+> IS THERE NO HERO?
+
+**Aaron Lun** (18:07:39):
+> sounds like@Davide Rissoyou should have told them to centralize the “cluster comparison” functions into a separate package.
+
+**Stephanie Hicks** (18:14:50):
+> I like your idea of a central package for clustering functions. What about creating a new package called something like ‘BiocClusters’? (similar to BiocNeighbors)?
+
+**Aaron Lun** (18:57:41):
+> One could imagine that, yes.
+
+**Stephanie Hicks** (19:25:11):
+> Haha fair enough. I’m guessing you are looking for a maintainer for such hypothetical package? I’m not sure I’m the best person for such a job, but I’m happy to try
+
+**Aaron Lun** (19:26:28):
+> I am not disinclined to do it myself but I would need buy-in from other package maintainers.
+
+*20:50:42 - @Giuseppe D'Agostino has joined the channel*
+**Stephanie Hicks** (22:23:37):
+> what all would be needed for such buy-in? Just making sure I understand?
+
+**Aaron Lun** (23:33:15):
+> There are two levels of buy-in. The first is from consumers of the cluster API, i.e., packages that just want to "do clustering". This level also includes end-users. The second level of buy-in is from developers implementing their own clustering method, which should extend the S4 dispatch mechanism; see***BiocSingular***'s framework for an example of what I intend to do.
+
+
+## 2020-07-09
+
+**Davide Risso** (04:00:29):
+> I’m happy to buy in. If I understand correctly we could provide a mechanism through which run e.g., mbkmeans via the BiocClusters package? Something like what happens with e.g. irlba for BiocSingular?
+
+**Davide Risso** (04:01:35):
+> What about BiocNeighbors? You have already a bunch of distances and ways to create networks that can be used for clustering via igraph, right? What is the relation between this and the new BiocClusters?
+
+**Stephanie Hicks** (06:12:43):
+> Similar to Davide, I’m happy to buy in too
+
+**Aaron Lun** (11:24:23) (in thread):
+> Yes.
+
+**Aaron Lun** (11:24:46) (in thread):
+> BiocClusters will probably call BiocNeighbors to provide a default graph-based clustering method.
+
+
+## 2020-07-16
+
+**Aaron Lun** (02:37:32):
+> It has begun.[https://github.com/LTLA/bluster](https://github.com/LTLA/bluster)
+
+
+## 2020-07-19
+
+**Aaron Lun** (06:51:56):
+> Signed, sealed and delivered.[https://github.com/Bioconductor/Contributions/issues/1564](https://github.com/Bioconductor/Contributions/issues/1564)
+
+**Aaron Lun** (06:52:22):
+> I did my bit. Now it's your turn.
+
+
+## 2020-07-20
+
+**Aaron Lun** (13:30:57):
+> No response, huh. Well, fine.
+
+**Stephanie Hicks** (15:47:30):
+> I’m talking with@Davide Rissoon Wednesday about this topic
+
+
+## 2020-07-23
+
+**Aaron Lun** (20:36:12):
+> WELL?
+
+**Stephanie Hicks** (22:02:46):
+> ha turns out I had to bail on my meeting with@Davide Risso:grimacing:that was totally my fault.
+
+**Stephanie Hicks** (22:03:29):
+> i’m in the final stages of helping to write a fellowship grant with a student. Also need to prepare for Bioc next week and JSM the following. it’s madness….
+
+**Stephanie Hicks** (22:04:08):
+> BUT I’m still totally committed. Just slightly delayed…
+
+
+## 2020-07-30
+
+*12:41:43 - @Ayush Raman has joined the channel*
+
+## 2020-07-31
+
+*16:23:11 - @Dr Awala Fortune O. has joined the channel*
+
+## 2020-08-18
+
+*09:13:38 - @Daniel Baker has joined the channel*
+
+## 2020-09-02
+
+**Aaron Lun** (00:06:28):
+> @Luke Zappiay'know, if not given explicit resolutions, clustree could learn the most appropriate orderings based on the ARIs, if it doesn't already.
+
+**Aaron Lun** (13:09:13):
+> @Stephanie Hickswhat is your plan for***bluster***?
+
+**Stephanie Hicks** (13:23:21):
+> hey! actually I talked with@Davide Rissothis morning and we tasked it to me to submit a pull request to bluster. I forked it a few minutes ago and reading through the`KmeansParam()`to see if I can easily add a`MbkmeansParam()`
+
+**Aaron Lun** (13:31:21):
+> Right - that’s the thing, it would be best if mbkmeans would depend on bluster and create its own MkbmeansParam() in that package; then bluster remains relatively lightweight and does not depend on mkbmeans, but users can plug in mkbmeans at any bluster-compatible function.
+
+**Stephanie Hicks** (13:35:32):
+> OOOh
+
+**Stephanie Hicks** (13:35:47):
+> I totally misunderstood. I thought you wanted it the other way around
+
+**Stephanie Hicks** (13:37:02):
+> so for clarification, you prefer developers of clustering methods to put these in their own package moving forward
+
+**Aaron Lun** (13:38:03):
+> yes, using the power of S4.
+
+**Aaron Lun** (13:38:23):
+> You could even have a “blusterplus” package that adds on extra clustering methods.
+
+**Aaron Lun** (13:43:30):
+> if you don’t want to add a dependency to bluster itself.
+
+
+## 2020-09-03
+
+**Stephanie Hicks** (22:28:36):
+> @Aaron Lunok I got`MbkmeansParam`inside of`clusterRows`working (only for in-memory data). Can you take a look?[https://github.com/drisso/mbkmeans/commit/de568d13448937fb3b1d799440af12e04960b244](https://github.com/drisso/mbkmeans/commit/de568d13448937fb3b1d799440af12e04960b244). Unsure if I extended everything the way you were envisioning it though and I’d welcome feedback.
+
+**Aaron Lun** (22:29:27):
+> You could just derive from`KmeansParam`and get the slots for free.
+
+**Aaron Lun** (22:29:50):
+> and also the`show`for free.
+
+**Aaron Lun** (22:30:11):
+> and you misspelt your name in the vignette.
+
+**Stephanie Hicks** (22:30:16):
+> lol
+
+**Stephanie Hicks** (22:30:25):
+> ok, i’ll work on those
+
+**Aaron Lun** (22:31:02):
+> there's also no reason to limit yourself to in-memory data for`clusterRows`, though the pipelines that are using it will almost be certainly passing in an ordinary matrix.
+
+**Stephanie Hicks** (22:33:42):
+> ah fair point.
+
+
+## 2020-09-07
+
+*05:50:59 - @Luke Zappia has joined the channel*
+**Luke Zappia** (05:53:15) (in thread):
+> Hmmm...Not sure I follow what you mean. Wouldn't you need some "real" labels to calculate ARI? Or do you mean ARI between each pair of resolutions?
+
+**Aaron Lun** (13:19:45) (in thread):
+> yeah, between each pair.
+
+**Aaron Lun** (13:43:04) (in thread):
+> or you could just pick one clustering (e.g., with the highest number of clusters) as the starting point and then greedily pick the next remaining clustering for which it has the highest ARI.
+
+
+## 2020-09-08
+
+**Luke Zappia** (03:09:49) (in thread):
+> :+1:Would be interesting to see how it works in practice but probably not too hard to do.
+
+
+## 2020-09-14
+
+**Stephanie Hicks** (15:30:40):
+> @Aaron Lunalright.`MbkmeansParam`is now being derived from`KmeansParam`, removed extra`show`code, and fixed my name in vignette[https://github.com/drisso/mbkmeans/commit/dd2b87ecadc479156aecdbb9c594b2f3c6014375](https://github.com/drisso/mbkmeans/commit/dd2b87ecadc479156aecdbb9c594b2f3c6014375)
+
+**Stephanie Hicks** (15:30:51):
+> feedback is welcomed.
+
+**Aaron Lun** (15:32:21):
+> you could get rid of the`as.matrix`call if it handles anything
+
+**Stephanie Hicks** (16:01:45):
+> ah right! I forgot to remove that. And I’ll add an example to vignette
+
+**Stephanie Hicks** (16:28:21):
+> fixed[https://github.com/drisso/mbkmeans/commit/5746345e1ada96b47530a6608fa2474aff3e0f43](https://github.com/drisso/mbkmeans/commit/5746345e1ada96b47530a6608fa2474aff3e0f43)
+
+**Stephanie Hicks** (16:29:21):
+> If there are no other comments,@Davide Rissocould you review the changes in the branch and merge after you’re good with the changes?
+
+**Aaron Lun** (17:46:46):
+> @Charlotte Sonesonmight also be interested in writign a flowSOM adapter.
+
+**Aaron Lun** (17:46:53):
+> Probably in a separate package, though.
+
+**Stephanie Hicks** (19:17:07):
+> Thanks for the code review@Aaron Lun!
+
+
+## 2020-09-25
+
+**Davide Risso** (09:19:30):
+> Version 1.5.2 of mbkmeans submitted to bioc devel with Stephanie's changes!
+
+**Stephanie Hicks** (09:33:30):
+> thank you@Davide Risso!
+
+
+## 2020-12-12
+
+*00:40:07 - @Huipeng Li has joined the channel*
+*13:06:22 - @Levi Waldron has left the channel*
+
+## 2021-01-05
+
+**Aaron Lun** (02:27:09):
+> @Davide Risso@Stephanie HicksAfter some deep reflection, I ended up deciding that it would make more sense for the`MbkmeansParam`class and constructor to live in ****bluster****. So I've just taken the code that's currently in ****mbkmeans**** and transplanted it into ****bluster**** as a`Suggests:`. This should give you more visibility, as people may happily stumble upon it rather than knowing that they need to load another package.
+> 
+> tl;dr recommend that you deprecate your constructor and have it just call the bluster equivalent via a Suggests. Then we can phase it out in the next release. Basically we're just flipping the direction of the dependency.
+
+**Aaron Lun** (02:27:49):
+> @Charlotte SonesonI would also be curious to seeing a FlowSOMParam, if you are interested. Can't remember where we left off with that method, it was a few years ago IIRC.
+
+**Davide Risso** (04:50:47):
+> Thanks@Aaron Lunthis is great! I will make the changes in the next couple of days, I will probably ping you here before merging to bioc devel
+
+**Stephanie Hicks** (07:28:55):
+> Sounds good. Thanks Davide!
+
+
+## 2021-01-06
+
+**Aaron Lun** (01:41:29):
+> But before I do that, your package is giving memory errors:
+> ```
+> ==19263== Conditional jump or move depends on uninitialised value(s)
+> ==19263==    at 0x2CEAC527: arma::Mat<double>::init_cold() (Mat_meat.hpp:214)
+> ==19263==    by 0x47E5F77B: Mat (Mat_meat.hpp:168)
+> ==19263==    by 0x47E5F77B: Row<arma::fill::fill_zeros> (Row_meat.hpp:83)
+> ==19263==    by 0x47E5F77B: mini_batch(SEXPREC*, int, int, int, int, double, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, bool, bool, int, bool, Rcpp::Nullable
+> <Rcpp::Matrix<14, Rcpp::PreserveStorage> >, double) (mini_batch.cpp:426)
+> ==19263==    by 0x47E556A8: _mbkmeans_mini_batch (RcppExports.cpp:53)
+> ==19263==    by 0x1FE1AB: R_doDotCall (dotcode.c:657)
+> ==19263==    by 0x23DB4A: bcEval (eval.c:7671)
+> ==19263==    by 0x2478CF: Rf_eval (eval.c:727)
+> ==19263==    by 0x24956E: R_execClosure (eval.c:1897)
+> ==19263==    by 0x24A274: Rf_applyClosure (eval.c:1823)
+> ==19263==    by 0x247A5E: Rf_eval (eval.c:850)
+> ==19263==    by 0x24C782: do_set (eval.c:2969)
+> ==19263==    by 0x247C55: Rf_eval (eval.c:802)
+> ==19263==    by 0x24B02D: do_begin (eval.c:2517)
+> ```
+
+**Aaron Lun** (01:41:44):
+> that's the valgrind trace coming out of some of your functions.
+
+**Aaron Lun** (01:41:59):
+> Culminating in:
+> ```
+> error: arma::memory::acquire(): out of memory
+> ==19263== Invalid write of size 8
+> ==19263==    at 0x4C38684: memset (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+> ==19263==    by 0x47E5F79B: memset (string_fortified.h:71)
+> ==19263==    by 0x47E5F79B: fill_zeros<double> (arrayops_meat.hpp:88)
+> ==19263==    by 0x47E5F79B: zeros (Mat_meat.hpp:6951)
+> ==19263==    by 0x47E5F79B: fill<arma::fill::fill_zeros> (Mat_meat.hpp:6933)
+> ==19263==    by 0x47E5F79B: Row<arma::fill::fill_zeros> (Row_meat.hpp:87)
+> ==19263==    by 0x47E5F79B: mini_batch(SEXPREC*, int, int, int, int, double, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, bool, bool, int, bool, Rcpp::Nullable
+> <Rcpp::Matrix<14, Rcpp::PreserveStorage> >, double) (mini_batch.cpp:426)
+> ==19263==    by 0x47E556A8: _mbkmeans_mini_batch (RcppExports.cpp:53)
+> ==19263==    by 0x1FE1AB: R_doDotCall (dotcode.c:657)
+> ==19263==    by 0x23DB4A: bcEval (eval.c:7671)
+> ==19263==    by 0x2478CF: Rf_eval (eval.c:727)
+> ==19263==    by 0x24956E: R_execClosure (eval.c:1897)
+> ==19263==    by 0x24A274: Rf_applyClosure (eval.c:1823)
+> ==19263==    by 0x247A5E: Rf_eval (eval.c:850)
+> ==19263==    by 0x24C782: do_set (eval.c:2969)
+> ==19263==    by 0x247C55: Rf_eval (eval.c:802)
+> ==19263==    by 0x24B02D: do_begin (eval.c:2517)
+> ==19263==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+> ==19263==
+> ```
+
+**Aaron Lun** (01:42:32):
+> Repro'able by running the`testthat.R`script in the`flowsom`branch of***bluster***.
+
+**Aaron Lun** (02:29:12):
+> AFTER MUCH SUFFERING, I have distilled it down to this:
+> ```
+> > library(cytolib)
+> > library(mbkmeans)
+> > set.seed(1000)
+> > x <- matrix(runif(10000), ncol=10)
+> > out <- mbkmeans(t(x), 20)
+> 
+> error: arma::memory::acquire(): out of memory
+> Error in mini_batch(data = t(x), clusters = clusters, batch_size = batch_size,  : 
+>   std::bad_alloc
+> ```
+> The key to reproducing the error is that cytolib is loaded before mbkmeans.
+
+**Aaron Lun** (02:30:57):
+> @Mike Jiangwhat is the reason for all of[https://github.com/RGLab/cytolib/blob/master/R/hooks.R](https://github.com/RGLab/cytolib/blob/master/R/hooks.R)? In particular, the`local=FALSE`is causing problems; setting it back to the default`local=TRUE`allows the code above to proceed without error.
+
+**Charlotte Soneson** (04:50:08):
+> @Aaron LunIIRC we left off (must be 3-4 years ago by now…) by concluding that FlowSOM was indeed able to cluster the 1.3M cell brain data set - I have to look into exactly what you’d need here, let me take a closer look at***bluster***.
+
+
+## 2021-01-07
+
+**Aaron Lun** (01:48:50):
+> Well. Due to the problems above, and the fact that the FlowSOM maintainers aren't particularly responsive, I just migrated the FlowSOM C and R code directly into bluster. Probably needs a few checks to make sure we get the same result.
+
+
+## 2021-01-08
+
+**Aaron Lun** (02:28:39):
+> This is turning into a nightmare.
+
+
+## 2021-01-09
+
+**Aaron Lun** (03:10:26):
+> @Davide Risso@Stephanie Hicksbluster with MbkmeansParam is now on Bioc-devel, you'll want to do the switch
+
+**Aaron Lun** (03:10:48):
+> @Charlotte Sonesonended up switching back to kohonen; can you see if SOMParam works for some large datasets?
+
+**Davide Risso** (11:19:17):
+> Hi@Aaron Lunthanks, I will try to work on this asap... just fyi the above code works for me without errors in R 4.0.3 and Mac
+
+**Stephanie Hicks** (11:48:41):
+> thanks@Davide Risso@Aaron Lun!
+
+**Charlotte Soneson** (12:08:35):
+> @Aaron Lun`bluster`with`SOMParam`runs fine on this CYTOF data set with >170,000 cells (and 35 markers)
+> ```
+> > library(HDCytoData)
+> > se <- Bodenmiller_BCR_XL_SE()
+> snapshotDate(): 2021-01-07
+> see ?HDCytoData and browseVignettes('HDCytoData') for documentation
+> loading from cache
+> > mat <- assay(se, "exprs")
+> > dim(mat)
+> [1] 172791     35
+> > library(bluster)
+> > system.time({out <- clusterRows(mat, SOMParam(centers = 100))})
+>    user  system elapsed
+>  88.851   0.245  89.317
+> > length(out)
+> [1] 172791
+> ```
+> Still runs fine after`rbind`ing it with itself a few times
+> ```
+> > system.time({out <- clusterRows(rbind(mat, mat, mat, mat, mat), SOMParam(centers = 100))})
+>    user  system elapsed
+> 445.284   2.169 448.521
+> > length(out)
+> [1] 863955
+> ```
+
+**Aaron Lun** (15:23:41):
+> great, thanks. Do the results look okay?
+
+**Charlotte Soneson** (15:55:07):
+> Yeah, I think so. Some more preprocessing and comparison with provided labels looks reasonable
+> ```
+> library(HDCytoData)
+> library(bluster)
+> library(BiocSingular)
+> library(pheatmap)
+> se <- Bodenmiller_BCR_XL_SE()
+> mat <- assay(se[, colData(se)$marker_class == "type"])
+> population <- rowData(se)$population_id
+> mat <- asinh(mat/5)
+> out <- clusterRows(mat, SOMParam(centers = 50))
+> pheatmap(table(out, population), cluster_cols = FALSE)
+> ```
+  - File (PNG): [Screenshot 2021-01-09 at 21.53.32.png](https://community-bioc.slack.com/files/U34P8RS3B/F01HXDCCB55/screenshot_2021-01-09_at_21.53.32.png)
+
+**Aaron Lun** (16:00:52):
+> excellent, excellent
+
+**Aaron Lun** (16:16:20) (in thread):
+> see[https://github.com/RGLab/cytolib/issues/45](https://github.com/RGLab/cytolib/issues/45)for links to related issues
+
+
+## 2021-01-22
+
+*15:44:10 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-05-11
+
+*16:45:01 - @Megha Lal has joined the channel*
+
+## 2021-09-13
+
+**Charlotte Soneson** (11:00:48):
+> :wave:@Aaron Lun,@Davide Risso,@Stephanie Hicks- a small question about`mbkmeans`or the integration with`bluster`(apologies in advance if I’m missing something obvious): I’m seeing big differences in the results of`bluster::clusterRows(…, BLUSPARAM = MbkmeansParam(centers = 10))`between Bioc 3.12 (`mbkmeans`1.6.1,`bluster`1.0.0) and 3.13 (`mbkmeans`1.8.0,`bluster`1.2.1). Is this something you have seen as well and maybe have an explanation for? For example:
+> ```
+> set.seed(123)
+> x <- matrix(rnorm(10000 * 50), nrow = 10000)
+> v <- do.call(rbind, lapply(1:50, function(i) {
+>   cls <- bluster::clusterRows(x, BLUSPARAM = mbkmeans::MbkmeansParam(centers = 10))
+>   data.frame(min.size = min(table(cls)),
+>              max.size = max(table(cls)))
+> }))
+> summary(v$min.size)
+> ```
+> gives me
+> ```
+> > summary(v$min.size)
+>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+>   913.0   932.2   949.5   946.3   960.0   970.0
+> ```
+> in Bioc 3.12 and
+> ```
+> > summary(v$min.size)
+>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+>     1.0     1.0   782.5   456.8   859.8   924.0
+> ```
+> in Bioc 3.13. I see similar differences for actual (non-random) data. I’m aware that`mbkmeans::MbkmeansParam()`is deprecated in Bioc 3.13, but I get the same results also with`bluster::MbkmeansParam()`. I didn’t really see anything in the documentation that would explain such a big change, and the default argument values of`mbkmeans`also look identical, so I’m at a bit of a loss here and was wondering if anyone else may have any insights… If I use a different`BLUSPARAM`(e.g.`bluster::KmeansParam()`) I get seemingly identical results between the two Bioc releases (moreover, they coincide with the`mbkmeans`results from Bioc 3.12 above).
+
+**Aaron Lun** (11:31:18):
+> i just call mkbmeans, I don't think I changed anything between 3.12 and 3.13.
+
+**Charlotte Soneson** (11:37:51):
+> Ok. Actually calling`mbkmeans::mbkmeans()`directly does seem to give me the same results in 3.12 and 3.13, but in this case they agree with the`bluster`results from 3.13:thinking_face:
+> ```
+> set.seed(123)
+> x <- matrix(rnorm(10000 * 50), nrow = 10000)
+> v <- do.call(rbind, lapply(1:50, function(i) {
+>   cls <- mbkmeans::mbkmeans(t(x), clusters = 10)
+>   data.frame(min.size = min(table(cls$Clusters)),
+>              max.size = max(table(cls$Clusters)))
+> }))
+> summary(v$min.size)
+> ## Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+> ## 1.0     1.0   782.5   456.8   859.8   924.0
+> ```
+
+**Aaron Lun** (11:41:16):
+> might be worth having a look at what`mbkmeans::MbkmeansParam`is doing then
+
+
+## 2021-09-14
+
+**Stephanie Hicks** (12:13:47):
+> hi@Charlotte Soneson— this is indeed strange! Hmm
+
+**Stephanie Hicks** (12:14:35):
+> @Davide Risso— are you aware of changes between the two releases?
+
+**Davide Risso** (14:58:37):
+> Mmm… not really. But if mbkmeans and bluster::MbkmeansParam give consistent results I bet the problem is indeed with mbkmeans::MbkmeansParam
+
+**Davide Risso** (15:00:50):
+> @Charlotte Sonesonif you are willing to share a reproducible example I’m happy to look into it.
+
+**Charlotte Soneson** (15:31:35):
+> Thank you! I think the example above should contain everything required to reproduce the issue - happy to provide more information or try other stuff if something comes to mind!
+
+**Davide Risso** (16:27:25):
+> Oh right... sorry, It's late here and I was reading on my phone, didn't look at the code above... will have a look, but probably not before Friday (sorry!)
+
+
+## 2021-09-26
+
+**Charlotte Soneson** (12:40:12) (in thread):
+> @Davide RissoA couple of further experiments: I tested with a smaller example as well (nrows below the default batch size), and I see the same issue (the results do change if I modify the batch size in`bluster::MbkmeansParam`though). I also tried changing the initializer in`MbkmeansParam`(thinking that maybe that was the reason for the lack of agreement between`mbkmeans`and`kmeans`in 3.13) - I do get different clusters, but there’s still one cluster containing a single element (which I don’t see with`KmeansParam`, nor in 3.12).
+
+
+## 2021-11-08
+
+*03:27:35 - @Paula Nieto García has joined the channel*
+
+## 2022-01-28
+
+*11:12:52 - @Megha Lal has left the channel*
+
+## 2022-02-01
+
+*20:25:42 - @Stephanie Hicks has left the channel*
+
+## 2022-03-21
+
+*05:01:28 - @Pedro Sanchez has joined the channel*
+
+## 2022-05-10
+
+*23:00:12 - @michaelkleymn has joined the channel*
+
+## 2022-10-10
+
+*13:56:02 - @Mercilena Benjamin has joined the channel*
+
+## 2023-01-21
+
+*16:02:39 - @Hien has joined the channel*
+
+## 2023-03-01
+
+*12:12:49 - @jeremymchacón has joined the channel*
+
+## 2024-05-14
+
+**Lori Shepherd** (10:40:07):
+> archived the channel

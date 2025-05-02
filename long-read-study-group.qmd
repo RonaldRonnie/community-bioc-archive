@@ -1,0 +1,700 @@
+---
+title: "#long-read-study-group"
+format: gfm
+---
+
+
+## 2024-04-12
+
+*08:32:49 - @Michael Love has joined the channel*
+*08:32:59 - @Stephanie Hicks has joined the channel*
+**Michael Love** (08:33:45):
+> set the channel description: informal group across UNC, JHU, and beyond, for reading up on methods for downstream multi-sample analysis of long read data
+
+
+## 2024-04-18
+
+*08:27:52 - @Sowmya Parthiban has joined the channel*
+**Stephanie Hicks** (11:25:56):
+> hi everyone and thank you@Michael Lovefor starting this channel! I'm excited to start this study group
+
+**Stephanie Hicks** (11:26:44):
+> maybe it would be good to schedule a zoom meeting with all us to talk about shared interests / goals that we can work towards?
+
+**Stephanie Hicks** (11:27:06):
+> If there are better / worse weeks for folks, let me know and i'm happy to coordinate a when2meet
+
+**Michael Love** (11:36:00):
+> Justin**just**joined the lab but has some things coming up as the last rotations end, and then some first year group things in the next weeks. Maybe May would be good
+
+**Michael Love** (11:36:38):
+> also:tada:for Justin joining the lab and diving into long read methods
+
+**Michael Love** (11:37:43):
+> Monday/Tuesday are generally most free for me
+
+**Sowmya Parthiban** (15:34:39):
+> Thanks@Michael Loveand@Stephanie Hicksfor organizing this group! Mondays/Tuesdays starting May works for me!
+
+
+## 2024-05-06
+
+**Stephanie Hicks** (09:44:40):
+> hi! just bumping this.@Michael Loveare you interested in scheduling a meeting sometime over the next few weeks?
+
+**Michael Love** (09:45:49):
+> yes! Justin is taking his exams this week so maybe the following week? 5/13 or 14?
+
+**Sowmya Parthiban** (09:46:53):
+> that sounds good to me!
+
+**Michael Love** (09:51:03):
+> I’m free Mon morning and Tue after 11
+
+
+## 2024-05-07
+
+**Stephanie Hicks** (08:12:09):
+> hey! i'm sosrry for my slow response
+
+**Stephanie Hicks** (08:12:16):
+> what about Tues 1:30-2:30pm?
+
+**Michael Love** (08:32:07):
+> i’ll send out an invite and we can reschedule if it doesn’t work for anyone
+
+**Michael Love** (08:32:45):
+> oh I see I have a 1-2
+
+**Michael Love** (08:33:04):
+> i could do 1:45-2:30
+
+**Sowmya Parthiban** (10:15:53):
+> Would sometime after 2:50 work by any chance, I have a class then but if not I can meet at 1:45 - 2:30 and watch the lecture recording later. Thanks!
+
+**Michael Love** (11:39:09):
+> i’m free after 2pm
+
+**Stephanie Hicks** (13:25:58):
+> how about 4-4:30pm?
+
+**Sowmya Parthiban** (13:28:56):
+> yes, I can do then! thank you!
+
+**Michael Love** (14:04:49):
+> i can send an event
+
+**Sowmya Parthiban** (15:30:26):
+> thanks@Michael Love!
+
+
+## 2024-05-14
+
+**Michael Love** (16:36:30):
+> some leftover thoughts: I think having a quarto or bookdown type repo is nice, and maybe we can avoid the:exploding_head:of the OSCA situation
+> 
+> i maintain a couple things like this:[https://tidyomics.github.io/tidy-ranges-tutorial/](https://tidyomics.github.io/tidy-ranges-tutorial/)and it’s not a big maintenance lift (i also don’t sync this with Bioc)
+
+**Michael Love** (16:43:45):
+> I’m all for:
+> * this group collaborating!
+> * focusing on the simple cases, cover 90% of users first and early, show the cake (esp for multi-sample analysis). I think that means ONT, human or mouse, not cancer, something with some interesting splicing story
+> * writing the “why this?” paragraphs. agree with Stephanie that these are the true value of OSCA
+> * allow asynchronous work (we can contribute chapters) and then figure out tie-ins across chapters
+> * find a great common dataset that works for many chapter (this is hard, esp for DE with biological reps, and worth thinking and debating pros/cons)
+> * if we include minimap2 -> salmon quant among the choices, it allows us to bring in Rob’s group as needed. this may be useful downstream if/as we develop methods and want to fold them in. Also i’ve heard and seen in benchmarks, it’s a decent baseline for quant, and they are actively improving bias and coverage models (e.g. oarfish and ongoing work)
+
+
+## 2024-05-15
+
+**Stephanie Hicks** (20:31:49):
+> ah thank you for writing up the notes@Michael Love!
+
+**Stephanie Hicks** (20:32:22):
+> @Sowmya Parthibanmaybe as a next step, you can drop links here to existing benchmark data that might be useful for us to consider?
+
+
+## 2024-05-16
+
+**Michael Love** (07:42:43):
+> oh and we should also do audience analysis (which depends on who we each think are the audience!)
+> 
+> i’m imagining the audience is someone with a set of samples, maybe in multiple groups, maybe across multiple cell types, and they want to compare groups of samples, maybe stratified by cell type or tissue. i’m assuming there is moderate replication, e.g. 3-5 biological replicates per group. they want to do gene level and isoform level analysis, starting with QC and EDA and then testing for differences
+> 
+> again this is what i have in mind, but others may have different or additional ideas
+
+**Sowmya Parthiban** (12:53:37):
+> Sure@Stephanie Hicks, I think the main section in this paper gives a good overview of all the benchmarking datasets out there at present.[https://www.nature.com/articles/s41592-023-02026-3](https://www.nature.com/articles/s41592-023-02026-3)I’ll create a set of corresponding links
+
+**Sowmya Parthiban** (12:54:49) (in thread):
+> were you imagining bulk or single-cell@Michael Love?
+
+**Stephanie Hicks** (12:57:35):
+> thank you@Sowmya Parthiban!
+
+**Stephanie Hicks** (12:58:37):
+> also, I was wondering what folks thought about creating a new github org for this collaboration? My thinking here is that it's helpful to have a new space that is collaborative for all. I know Mike you've done this in the past for other projects that had mulitple groups of people (e.g.[https://github.com/nullranges](https://github.com/nullranges)), right?
+
+**Michael Love** (13:19:22):
+> yes, I like this way to go, to solve the software landing page issue for multi-lab work
+
+**Michael Love** (13:20:54):
+> so it could be <our group name>.github.io/<project name>and then probably we want a short catchy thing for <our group name> as its the root of the url
+> 
+> <project name> could be something involving words like “intro” or “explore” or “exploration” or “guide”?
+
+**Michael Love** (13:22:04) (in thread):
+> I think there will be plenty of both, that could be a fork in the workflow perhaps?
+
+**Michael Love** (13:22:31) (in thread):
+> some people will just have bulk and go one way, whereas plenty of people will want to do the per cell type analyses you were describing yesterday
+
+**Michael Love** (13:23:08) (in thread):
+> maybe there is some shared content, e.g. QC and basic EDA, and then a branch point, like indicated with different sections on the left sidebar?
+
+**Michael Love** (13:23:51) (in thread):
+  - File (PNG): [Screenshot 2024-05-16 at 1.23.41 PM.png](https://community-bioc.slack.com/files/U34P8RS3B/F073D4F0Z3R/screenshot_2024-05-16_at_1.23.41___pm.png)
+
+**Michael Love** (13:31:08):
+> group name ideas, please suggest your own!
+> * `lorem`= LOng REad Methods
+> * `lrr`= long reads in R
+> * `lrb`= long reads in Bioconductor
+> * `iir`= isoforms in R
+> * `isir`= isoform sequencing in R
+> * `tasir`= TrAnscript sequencing in R
+> * `tapir`= transcript analysis pipeline in R
+
+**Michael Love** (13:35:04):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F073W7F4RMJ/image.png)
+
+**Sowmya Parthiban** (13:54:17) (in thread):
+> yeah sounds good! I think there will be branches at multiple steps - for e.g. in QC, barcode extraction and correction is single-cell specific
+
+**Sowmya Parthiban** (13:55:44) (in thread):
+> and I’m imagining isoform quantification too - a lot of tools haven’t been tested on single cell data
+
+**Sowmya Parthiban** (13:58:58):
+> do we want to our focus to be on R-based software? or command line tools too?
+
+**Michael Love** (14:06:39):
+> i’m open to either. in rnaseqGene and rnaseqDTU (published workflows), we start with command line but then get into R pretty quickly, as the “cake” for those was multi-sample EDA and analysis
+
+**Michael Love** (14:07:29):
+> e.g. 4.2 is where we load data into R in rnaseqDTU (which is a workflow for bulk rna-seq differential txp usage)
+  - File (PNG): [Screenshot 2024-05-16 at 2.07.03 PM.png](https://community-bioc.slack.com/files/U34P8RS3B/F0746JVPZ2M/screenshot_2024-05-16_at_2.07.03___pm.png)
+
+
+## 2024-05-17
+
+**Sowmya Parthiban** (14:50:54):
+> [Here’s a spreadsheet of all the](https://docs.google.com/spreadsheets/d/15fWT5EpDs27jF4PbKkPnQW-Uc-a7nKjHlohKUI1MAbw/edit?usp=sharing)available datasets afaik. Let me know if you’d like me to add anything to the spreadsheet
+
+**Sowmya Parthiban** (14:52:02):
+> None of them are single-cell though, so I’ll look for that too
+
+**Stephanie Hicks** (23:02:16):
+> I like the idea of both command line and R/Bioc
+
+
+## 2024-05-22
+
+**Michael Love** (12:29:23):
+> any preference/opinion on name of the GH organization?
+
+**Michael Love** (12:43:18):
+> ugh every time i go looking for reads on SRA or ENA i’m so sad about the state of metadata… project description “ONT reads”:white_frowning_face:
+
+**Michael Love** (15:05:43):
+> Another org name idea, transcript analysis in R:`TXPR`
+
+
+## 2024-05-23
+
+**Sowmya Parthiban** (12:28:49):
+> @Michael Lovethank you for coming up with the names!`tapir`is a thumbs up for@Stephanie Hicksand I haha. We like that it has the work “transcript” in it suggesting RNA-seq analysis as opposed to DNA.
+  - File (JPEG): [IMG_2315.jpeg](https://community-bioc.slack.com/files/U34P8RS3B/F0757PJCFFB/img_2315.jpeg)
+
+**Sowmya Parthiban** (12:29:54) (in thread):
+> was there a specific dataset that you were having issues with?
+
+**Michael Love** (15:20:35):
+> I was trying to search for new ONT datasets with biological motivation (eg not designed for benchmarking but for biological Q)
+> 
+> It's very hard to search for these data :(
+
+**Michael Love** (15:20:52) (in thread):
+> @Justin Landisworks for you?
+
+**Stephanie Hicks** (21:20:20):
+> Hi there! i sincerely apologize for my delayed response. Yes, echoing@Sowmya ParthibanI love`tapir`.:smile:
+
+**Stephanie Hicks** (21:20:34):
+> In terms of ONT datasets, we are happy to help with the searching too
+
+**Sowmya Parthiban** (22:49:55):
+> I will look if there are datasets related to the long read workshop talks!
+
+
+## 2024-05-24
+
+**Michael Love** (21:45:48):
+> oh bummer it's taken[https://github.com/tapir](https://github.com/tapir)
+
+**Michael Love** (21:49:51):
+> [https://github.com/](https://github.com/)****`txomics`****is free
+
+
+## 2024-05-26
+
+**Michael Love** (09:11:48):
+> Bookmarking[https://www.biorxiv.org/content/10.1101/2024.05.24.595768v1](https://www.biorxiv.org/content/10.1101/2024.05.24.595768v1)
+  - Attachment (bioRxiv): [An atlas of expressed transcripts in the prenatal and postnatal human cortex](https://www.biorxiv.org/content/10.1101/2024.05.24.595768v1)
+    > Alternative splicing is a post-transcriptional mechanism that increases the diversity of expressed transcripts and plays an important role in regulating gene expression in the developing central nervous system. We used long-read transcriptome sequencing to characterise the structure and abundance of full-length transcripts in the human cortex from donors aged 6 weeks post-conception to 83 years old. We identified thousands of novel transcripts, with dramatic differences in the diversity of expressed transcripts between prenatal and postnatal cortex. A large proportion of these previously uncharacterised transcripts have high coding potential, with corresponding peptides detected in proteomic data. Novel putative coding sequences are highly conserved and overlap de novo mutations in genes linked with neurodevelopmental disorders in individuals with relevant clinical phenotypes. Our findings underscore the potential of novel coding sequences to harbor clinically relevant variants, offering new insights into the genetic architecture of human disease. Our cortical transcript annotations are available as a resource to the research community via an online database.
+    > 
+    > ### Competing Interest Statement
+    > 
+    > The authors have declared no competing interest.
+
+
+## 2024-05-29
+
+**Sowmya Parthiban** (10:40:09):
+> this was published a few days ago[https://link.springer.com/article/10.1007/s00439-024-02678-x](https://link.springer.com/article/10.1007/s00439-024-02678-x)
+  - Attachment (SpringerLink): [Advances in long-read single-cell transcriptomics](https://link.springer.com/article/10.1007/s00439-024-02678-x)
+    > Human Genetics - Long-read single-cell transcriptomics (scRNA-Seq) is revolutionizing the way we profile heterogeneity in disease. Traditional short-read scRNA-Seq methods are limited in their...
+
+**Michael Love** (10:48:31):
+> i might create the org`txomics`today for us to use collectively and make a repo`tapir`that we can start working on
+
+**Michael Love** (10:48:39):
+> we can change either later
+
+**Sowmya Parthiban** (11:12:30):
+> that works! thank you!
+
+**Stephanie Hicks** (20:04:14):
+> i like that, thank you@Michael Love@Sowmya Parthiban!
+
+**Stephanie Hicks** (20:07:35):
+> and just in case anyone here needs a boost of confidence in why what they are doing is important, the nytimes has delivered:joy:[https://www.nytimes.com/2024/05/29/opinion/dna-rna-modern-science.html](https://www.nytimes.com/2024/05/29/opinion/dna-rna-modern-science.html)
+  - Attachment (The New York Times): [Opinion | The Long-Overlooked Molecule That Will Define a Generation of Science](https://www.nytimes.com/2024/05/29/opinion/dna-rna-modern-science.html)
+    > These tiny biological powerhouses can help us cure deadly diseases, and tell us how life itself started.
+
+**Michael Love** (20:17:12):
+> nice
+
+**Michael Love** (20:22:41):
+> I just got this going[https://github.com/txomics/tapir](https://github.com/txomics/tapir)for me, having a playground really gets the juices flowing, so have at it! i like that we can work asynchronously to some degree and figure out where things flow as we go. i think having one or more common datasets will really help
+> 
+> i’d like to suggest we use google drive or dropbox to share datasets for now, just to make that part painless. we can each have them locally and use gitignore to avoid adding them to the repo. thoughts?
+
+
+## 2024-05-30
+
+**Stephanie Hicks** (06:03:59):
+> yay! that's great. Thank you@Michael Love
+
+**Stephanie Hicks** (06:17:54):
+> in terms of datasets, not sure how we feel about this one, but I've been reading one of the new PEC papers ([https://www.science.org/doi/10.1126/science.adh7688](https://www.science.org/doi/10.1126/science.adh7688)). They took tissue from**N**=3 donors (15-17 PCW) and microdissected the tissue into sub regions and generated bulk Iso-Seq from PacBio (they also generated single-cell Iso-seq). They used TALON for identifying known and novel genes/isoforms along with SQANTI. DGEs between the two subregions (GZ and CP) with N=3 was with`DESeq2`and DTUs were found with`DEXSeq`. (Screenshot if Fig 1 as I think it's somewhat helpful to understanding the design of the experiment)
+> 
+> Fwiw, it did include a mix of known isoforms -- specifically Universal Human Reference RNA (Agilent) + SIRV Isoform Mix E0 (Lexogen) ([https://github.com/PacificBiosciences/DevNet/wiki/Sequel-II-System-Data-Release:-Universal-Human-Reference-(UHR)-Iso-Seq](https://github.com/PacificBiosciences/DevNet/wiki/Sequel-II-System-Data-Release:-Universal-Human-Reference-(UHR)-Iso-Seq))
+  - File (PDF): [science.adh7688_sm.pdf](https://community-bioc.slack.com/files/U34P8RS3B/F075C4NTNB1/science.adh7688_sm.pdf)
+  - File (PDF): [science.adh7688.pdf](https://community-bioc.slack.com/files/U34P8RS3B/F075V5P8Y76/science.adh7688.pdf)
+  - File (PNG): [Screenshot 2024-05-30 at 6.15.47 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/F075L3Y6BQE/screenshot_2024-05-30_at_6.15.47___am.png)
+
+**Stephanie Hicks** (06:20:50):
+> i guess the main problem here is the data is under controlled access  ([https://assets.nemoarchive.org/dat-rhocguc](https://assets.nemoarchive.org/dat-rhocguc))
+
+**Stephanie Hicks** (06:21:57):
+> i just think experimental design is clean and would serve our purpose
+
+**Michael Love** (06:25:59):
+> oh nice. so we can’t get the raw reads but we can get the quantified data?
+
+**Stephanie Hicks** (06:30:01):
+> i think yes
+
+**Stephanie Hicks** (06:33:11):
+> or we could request the raw reads and process ourselves to create counts
+
+**Stephanie Hicks** (06:33:53):
+> the quantified data isn't super well documented ([https://github.com/gandallab/Dev_Brain_IsoSeq/tree/main/data](https://github.com/gandallab/Dev_Brain_IsoSeq/tree/main/data))
+
+**Stephanie Hicks** (06:34:31):
+> lol i love the folder titled`/working`. if only we all had a`/working`folder:joy:
+
+**Michael Love** (08:31:33):
+> haha
+> 
+> well i guess for workflow, we do want some data (def including ONT) that users could process from reads to counts, but we don’t need every dataset to satisfy this.
+> 
+> so this could be one of the “pre-baked” datasets, where we show the downstream EDA, testing, viz etc
+
+**Michael Love** (12:44:51):
+> I know Mike Gandal — I can ask him if they have count data for that paper
+
+**Michael Love** (15:32:53):
+> counts![https://txomics.github.io/tapir/eda.html](https://txomics.github.io/tapir/eda.html)
+
+
+## 2024-05-31
+
+**Stephanie Hicks** (09:48:05):
+> oh thank you!!
+
+**Stephanie Hicks** (09:54:05):
+> ok so I see the`_CP`and`_VZ`columns (referring to the two different brain regions. And I believe the numbers`209`,`334`, and`336`referring to the three donors. Does anyone know what the`1`,`2`,`3`,`4`refer to in the middle?
+
+**Michael Love** (10:02:50):
+> batch
+
+**Michael Love** (10:02:59):
+> This explains a lot:[https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure1_BulkTxomeAnalysis.html](https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure1_BulkTxomeAnalysis.html)
+
+**Michael Love** (10:04:21):
+> this notebook is great, super readable.
+> 
+> it even uses GRanges (but they didn’t know about plyranges)
+
+**Stephanie Hicks** (10:05:48):
+> oh wow! this amazing
+
+
+## 2024-06-01
+
+**Stephanie Hicks** (08:01:57):
+> hey, i tried to make a push to`tapir`this morning, but i don't think i have push access.@Michael Lovecan you help?:slightly_smiling_face:
+
+**Stephanie Hicks** (08:02:52):
+> also, any objections to using github actions to render the book on the web rather than rendering to`/docs`? I'm happy to set that up
+
+**Michael Love** (08:06:14) (in thread):
+> fixed for txomics.
+
+**Michael Love** (08:06:26) (in thread):
+> the base level was defaulted to read, but i changed to write
+
+**Michael Love** (08:06:39) (in thread):
+  - File (PNG): [Screenshot from 2024-06-01 08-05-35.png](https://community-bioc.slack.com/files/U34P8RS3B/F076GTC1L0H/screenshot_from_2024-06-01_08-05-35.png)
+
+**Michael Love** (08:10:33):
+> i'm good with GHA instead of people rendering individual chapters locally. if we keep the chapters not too compute heavy, you can see changes reflected relatively quickly
+> 
+> in my mind:
+> * local render and`/docs`= fast updates to website but puts rendering on the developers
+> * GHA = slower updates but you don't have to render HTML locally, so you can make quick fixes straight to source without having to worry about rendering
+
+
+## 2024-06-10
+
+*13:15:50 - @Justin Landis has joined the channel*
+
+## 2024-06-27
+
+**Sowmya Parthiban** (11:49:15):
+> Apologies for the delay in getting started on this. I’ve gone through`tapir`and the code associated with the dev_brain paper.
+> 
+> For the`eda`section of tapir, I’m thinking these are some things I can focus on:
+> 1. Filtering
+> 
+>   1. convert to`tpm`and figure out a threshold that an isoform is above in atleast on e of the samples.
+>   2. for PCA, we’d have to remove rows that show zero variance across samples.
+> 
+> 1. Visualizing per gene
+> 
+>   1. could make switch plots for multiexon transcripts per gene. Could viz based on transcript biotype and SQANTI category. (ggtranscripts is a useful package for the same)
+> 
+> 1. Across multiple genes
+> 
+>   1. DTU volcano plots, DGE volcano plots, isoform switch vs. DGE volcano plots
+>   2. isoform expression heatmaps
+> These are some ideas I had, please let me know if you have any suggestions@Michael Loveand@Justin Landis
+
+**Stephanie Hicks** (20:29:48):
+> Thank you@Sowmya Parthiban! That sounds good to me. I vote we start small with solid tangible steps (and those sound tangible) and build out from there. I agree tho on welcoming ideas/feedback from@Justin Landis@Michael Love:slightly_smiling_face:
+
+
+## 2024-06-28
+
+**Michael Love** (03:12:13):
+> sounds great to me
+
+**Michael Love** (03:19:34):
+> i’m interested in comparing DEXSeq with limma/edgeR diffSplice, satuRn, saseR* mostly from a qualitative point of view
+> 
+> *[https://www.biorxiv.org/content/10.1101/2023.06.29.547014v1](https://www.biorxiv.org/content/10.1101/2023.06.29.547014v1)
+
+**Michael Love** (03:19:49):
+> i may poke around with that next week
+
+
+## 2024-06-29
+
+**Michael Love** (14:36:54):
+> I started some code to do filtering and testing, in`testing.qmd`. Includes building the colData from the colnames if that's useful elsewhere
+
+**Michael Love** (14:37:41):
+> Just simple stuff from the DTU workflow, I think we could have a whole chapter exploring filtering choices
+
+
+## 2024-06-30
+
+**Michael Love** (05:02:27):
+  - File (Binary): [dxd.rda](https://community-bioc.slack.com/files/U34P8RS3B/F07ADH6QQBD/dxd.rda)
+
+**Michael Love** (05:03:32):
+> DEXSeq takes 70 seconds on the whole (filtered) dataset, maybe we can go with a faster tool like satuRn, saseR or limma. I like it when rendering the whole thing doesn’t take so long
+
+**Michael Love** (05:03:55):
+> but im interested in qualitatively comparing all these diff usage tools on long read datasets
+
+**Sowmya Parthiban** (13:22:50):
+> thanks Michael! I’m working on applying IsoformSwitchAnalyzer to the data which can use DEXSeq or satuRn under the hood. I also noticed that in the original code, they summed all the[technical replicates into one column](https://github.com/gandallab/Dev_Brain_IsoSeq/blob/934d23cf3ecd0a412359d02578a668a3d439ba2f/analysis/Figure1_BulkTxomeAnalysis.qmd#L72-L77).
+> Do you have a preference?
+
+**Michael Love** (14:58:23):
+> That's a good catch... we should do that too. I can fix my code tomorrow AM
+
+**Michael Love** (14:58:36):
+> I'll try satuRn sometime this week
+
+**Michael Love** (14:58:57):
+> DEXSeq is good but I prefer faster
+
+
+## 2024-07-03
+
+**Sowmya Parthiban** (16:41:06):
+> In this section,  they are trying to keep only genes that show  DTU/DTE or DGE, but what’s unclear to me is why their filtering criteria for`DTU is dIF > 0.1`and not`abs(dIF) > 0.1`[https://github.com/gandallab/Dev_Brain_IsoSeq/blob/934d23cf3ecd0a412359d02578a668a3d439ba2f/analysis/Figure3_IsoformSwitchAnalyzeR.qmd#L248-L253](https://github.com/gandallab/Dev_Brain_IsoSeq/blob/934d23cf3ecd0a412359d02578a668a3d439ba2f/analysis/Figure3_IsoformSwitchAnalyzeR.qmd#L248-L253)
+
+**Sowmya Parthiban** (17:37:08):
+> It looks like this may be a typo since the rest of the code uses`abs(dIF)`
+
+
+## 2024-07-08
+
+**Michael Love** (10:06:48):
+> Catching up this week (was out last week)
+> 
+> I'm officially back in office 7/15 and want to devote lots of time to EDA. I've been thinking of looking at a paired Illumina and ONT sample, maybe the Singapore data in Bioc 
+> 
+> Also -- I helped some students from CSAMA process the new GTEx data -- it's another good one for EDA, I'll work on including it here as an SE
+
+
+## 2024-07-09
+
+**Michael Love** (03:09:02) (in thread):
+> agree!
+
+
+## 2024-07-12
+
+**Michael Love** (04:43:09):
+> The GTEx data set:[https://www.nature.com/articles/s41586-022-05035-y](https://www.nature.com/articles/s41586-022-05035-y)
+  - Attachment (Nature): [Transcriptome variation in human tissues revealed by long-read sequencing](https://www.nature.com/articles/s41586-022-05035-y)
+    > Nature - To understand the contribution of variants to transcript expression regulation, long-read transcriptome data are generated from the GTEx resource, and a new software package to perform...
+
+**Michael Love** (04:47:15):
+  - File (PNG): [Screenshot 2024-07-12 at 04.47.10.png](https://community-bioc.slack.com/files/U34P8RS3B/F07BZ0RFSDC/screenshot_2024-07-12_at_04.47.10.png)
+
+**Michael Love** (04:48:11):
+> [https://gtexportal.org/home/downloads/adult-gtex/long_read_data](https://gtexportal.org/home/downloads/adult-gtex/long_read_data)
+  - Attachment (gtexportal.org): [GTEx Portal](https://gtexportal.org/home/downloads/adult-gtex/long_read_data)
+    > The Genotype-Tissue Expression (GTEx) project is an ongoing effort to build a comprehensive public resource to study tissue-specific gene expression and regulation. Samples were collected from 53 non-diseased tissue sites across nearly 1000 individuals, primarily for molecular assays including WGS, WES and RNA-seq. Remaining samples are stored in the GTEx Biobank. The GTEx Portal provides open access to data including gene expression, QTLs, and histology images.
+
+
+## 2024-07-17
+
+**Michael Love** (12:00:14):
+> Made a GDrive for us to store raw data for now[https://drive.google.com/drive/folders/19-4-U7I2I1YtK7G2jdryrkm25GWnz8ml?usp=sharing](https://drive.google.com/drive/folders/19-4-U7I2I1YtK7G2jdryrkm25GWnz8ml?usp=sharing)
+
+**Michael Love** (12:00:25):
+> If you have emails, I can give you edit access
+
+**Michael Love** (12:01:05):
+> I plan to write`qmd`files that turn these datasets into nicely formatted SummarizedExperiments so we can use them in tutorials
+
+**Michael Love** (12:02:41):
+> I may rework`testing.qmd`into a script that just processes the raw table and makes an SE, and then do the same for SG-NEx and the GTEx dataset. would it make sense to call these`process-dev-brain.qmd`,`process-sg-nex.qmd`,`process-gtex-kd.qmd`etc.
+> 
+> then i can store a reduced size SE as a serialized`.rds`somewhere, eventually those could go to EHub
+
+**Michael Love** (12:03:16):
+> and for now I’m just going to work with the count tables provided with the papers, we can think later if we want to also demo read processing on some or all of these
+
+
+## 2024-08-07
+
+**Stephanie Hicks** (17:36:33):
+  - File (PNG): [IMG_2531](https://community-bioc.slack.com/files/U34P8RS3B/F07FZN3S4GJ/img_2531.png)
+
+
+## 2024-08-08
+
+**Michael Love** (17:30:10):
+> hi all, so Matt is also interested in working on a LR workflow, he seemed amenable to joining forces. We talked about how we also want to avoid the headaches with “one big book” but are both excited about having a small group to share with, having some overlapping datasets, and having each other as “first readers” of our content
+
+**Michael Love** (17:30:31):
+> Matt brings loads of expertise and experience, plus also a broad audience of LR users
+
+
+## 2024-08-09
+
+**Stephanie Hicks** (12:25:14):
+> That would be awesome!
+
+**Michael Love** (12:27:58):
+> so i can just add him here then?
+
+**Stephanie Hicks** (13:41:06):
+> that works for me
+
+
+## 2024-08-15
+
+**Michael Love** (10:50:40):
+> @Matt Ritchie:wave:hi Matt, it was great to see you in JSM. We’ve been chatting in this group about making a series of chapters that would explore long read using Bioconductor. I think our unifying interest is in showing and explaining the choices in processing, modeling, analysis, QC etc. Should we join forces?:handshake:
+
+*10:50:43 - @Matt Ritchie has joined the channel*
+**Stephanie Hicks** (20:24:58):
+> Welcome@Matt Ritchie! Great to have you here!
+
+**Matt Ritchie** (21:00:09):
+> Thanks@Michael Loveand@Stephanie Hicks! I think a book promoting the analysis of third-generation sequencing data with Bioconductor would be great resource. Our first contribution here focuses on[DNA-seq methylation analysis](https://shians.github.io/differential_methylation_workshop/articles/workflow.html). Shian recently presented this at BioC 2024 and we are formatting an article for F1000Research at present, but definitely could modify the material /use slightly different data for a book chapter
+
+**Matt Ritchie** (22:29:48):
+> A second workflow (an idea, not started yet) was to take the learnings from our[bulk RNA-seq benchmarking](https://t.co/MtvyswZkHD)work and devise a long-read`RNAseq123`style[workflow](https://f1000research.com/articles/5-1408/v3)for transcript-level DE analysis. There are a few nice multi-group datasets with replicates that could lend themselves to such a workflow. If any of this is useful, let me know
+  - Attachment (f1000research.com): [F1000Research Article: RNA-seq analysis is easy as 1-2-3 with limma, Glimma and edgeR.](https://f1000research.com/articles/5-1408/v3)
+    > Read the latest article version by Charity W. Law, Monther Alhamdoosh, Shian Su, Xueyi Dong, Luyi Tian, Gordon K. Smyth, Matthew E. Ritchie, at F1000Research.
+
+
+## 2024-08-16
+
+**Michael Love** (07:31:41):
+> oh yeah i didn’t mention, we’ve kind of been focused on transcripts (RNA and cDNA seq). so i think the latter would be a great space for collaboration
+
+**Michael Love** (07:35:13):
+> i’ve got a few datasets i’ve been collecting, let me spend a few days to get things up on our shared space and then you can suggest any others. maybe find a time to meet end of the month? also if there are others from your side, happy to have this as an open channel / project.
+> 
+> Stephanie and I created this open organization (in the spirit of tidyomics) so we could collaborate on chapters without it being assigned to someone’s lab github account:[https://github.com/txomics](https://github.com/txomics)[https://txomics.github.io/tapir/](https://txomics.github.io/tapir/)<-- we had this as a starting point for transcript analysis chapters, just a place to put things for now while we figure out scope and content
+
+
+## 2024-10-07
+
+**Michael Love** (16:05:42):
+> chatting with@Pedro Baldoniabout long read datasets as well…
+
+**Sowmya Parthiban** (21:02:08):
+> the latest OARFISH version has data provided in the supplementary section[https://github.com/COMBINE-lab/lr_quant_benchmarks](https://github.com/COMBINE-lab/lr_quant_benchmarks)
+
+
+## 2024-10-08
+
+*08:03:13 - @Pedro Baldoni has joined the channel*
+
+## 2024-10-18
+
+**Matt Ritchie** (03:22:30):
+> As mentioned earlier, here is our long-read nanopore methylation analysis workflow (Shian Su presented this at BioC 2024 in Grand Rapids) online at F1000Research[https://f1000research.com/articles/13-1243/v1](https://f1000research.com/articles/13-1243/v1)To tie in with the RNA-seq flavor of your book, perhaps we could consider adapting to look at RNA mods from direct RNA-seq data
+  - Attachment (f1000research.com): [F1000Research Article: A streamlined workflow for long-read DNA methylation analysis with NanoMethViz and Bioconductor.](https://f1000research.com/articles/13-1243/v1)
+    > Read the latest article version by Shian Su, Lucinda Xiao, James Lancaster, Tamara Cameron, Kelsey Breslin, Peter F. Hickey, Marnie E. Blewitt, Quentin Gouil, Matthew E. Ritchie, at F1000Research.
+
+**Michael Love** (09:33:50):
+> Absolutely 
+> 
+> Can't leave that information on the table!
+
+**Michael Love** (09:34:33):
+> Sorry I've been out of loop for a few months. Justin and I have been focused on a tidyomics package he wrote this summer and trying to get it into this release. I plan to jump back in soon
+> 
+> Btw anyone going to ASHG?
+
+
+## 2024-10-21
+
+**Stephanie Hicks** (15:56:40):
+> i am not, but i know many folks are!:slightly_smiling_face:
+
+*15:57:14 - @Christine Hou has joined the channel*
+**Stephanie Hicks** (16:00:05):
+> Hi folks, I apologize for also being out of the loop for the last few months. I've had revisions to papers  and prepping for teaching that has kept me busy:upside_down_face:. BUT, i'm really excited to@Christine Houhere who is a ScM student in my group who will start working on long-read RNA stuff.
+> 
+> I think it would be great if she could contribute here by converting some of the vignettes from the gandall paper ([https://gandallab.github.io/Dev_Brain_IsoSeq](https://gandallab.github.io/Dev_Brain_IsoSeq)) to the`tapir`book as a way to get started working with this data.
+
+**Stephanie Hicks** (16:00:48):
+> I know@Michael Loveyou kindly put a bunch of datasets on Gdrive too ([https://community-bioc.slack.com/archives/C06TMB1HWMD/p1721232014574469](https://community-bioc.slack.com/archives/C06TMB1HWMD/p1721232014574469)).
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C06TMB1HWMD/p1721232014574469)
+    > Made a GDrive for us to store raw data for now
+    > [https://drive.google.com/drive/folders/19-4-U7I2I1YtK7G2jdryrkm25GWnz8ml?usp=sharing](https://drive.google.com/drive/folders/19-4-U7I2I1YtK7G2jdryrkm25GWnz8ml?usp=sharing)
+
+**Stephanie Hicks** (16:01:07):
+> we'll start digging into all this, but wanted to introduce her here! Welcome@Christine Hou!
+
+**Michael Love** (17:25:18):
+> Welcome!
+
+
+## 2024-11-06
+
+**Michael Love** (10:45:18) (in thread):
+> i was thinking to start an EHub package that would wrap up a bunch of long read RNA-Seq SummarizedExperiments, constructed from the processed data from these papers. i’ve done this before, so it’s maybe easiest for me to take it on.
+
+**Stephanie Hicks** (10:54:29):
+> totally, I will say@Christine Houjust did an amazing job wrapping up some single-cell and spatial transcriptomics data into an EHub package (currently under review[https://github.com/Bioconductor/Contributions/issues/3605](https://github.com/Bioconductor/Contributions/issues/3605)). I'm sure she would be excited to help do the same with a bit of guidance as she is still learning the long-read side of things ([https://christinehou11.github.io/humanHippocampus2024/articles/humanHippocampus2024.html](https://christinehou11.github.io/humanHippocampus2024/articles/humanHippocampus2024.html))
+
+**Stephanie Hicks** (10:56:57):
+> Maybe@Christine Houcan give a short update on what she's been up to with respect to the reading and re-running code from ([https://gandallab.github.io/Dev_Brain_IsoSeq](https://gandallab.github.io/Dev_Brain_IsoSeq))?
+
+**Christine Hou** (11:06:30):
+> Of course! I was busy with working on the presentation and some error check for another package since last Friday, so I may pause a little bit about reading long read studies. But before that, I finished reading and reviewing the paper, and started to run the codes for figure 1 and 2 sections. I am planning to start figure 3 and more since tomorrow after I finish my personal website development.:slightly_smiling_face:
+
+**Christine Hou** (11:08:04):
+> I know it is a little bit slow reading, and thanks for the patience and understanding@Stephanie Hicks. The materials are somewhat challenging but exciting to me so I may take more time to re-run something and know things as much as I can.
+
+**Christine Hou** (11:10:37):
+> Regarding to the EHub package, I am so happy to help! If there is anything I can do, please let me know:slightly_smiling_face:
+
+**Michael Love** (11:19:59):
+> for the EHub is everyone ok with me using the preprocessed quantification data for now? we can go back and re-quantify some day but it’s maybe better to just start with the count and TPM data from the authors of the respective papers
+
+**Stephanie Hicks** (11:41:43):
+> yes that works fo rme
+
+
+## 2024-11-21
+
+**Sowmya Parthiban** (12:57:46):
+> hi@Michael LoveI saw that you are one of the corresponding authors on the[SG-Nex project](https://www.biorxiv.org/content/10.1101/2021.04.21.440736v1), also given you have worked with spike-in data such as on Alpine, I was wondering if you could help interpret the spike-in ratio in some of these[samples](https://github.com/GoekeLab/sg-nex-data/blob/340ed4b79b867a1bedcbe18a9b76691e9a27f212/docs/samples.tsv#L88)on the SG-Nex repo. So for example, this sample`SGNex_MCF7_directcDNA_replicate4_run2`has`1% RNA sequin Mix A v1.0 @3ng`spike-in ratio.
+> 
+> My interpretation so far is that 3ng of RNA sequin mix is equal to 1% of the final sample library in terms of weight. I am confused as to how that is associated with the number of sequin reads expected in the FASTQ/ BAM files.
+> 
+> I did find this[file with the known sequin concentration](https://github.com/GoekeLab/sg-nex-data/blob/master/docs/RNAsequins_MixA.xlsx), but the units are missing, so it’s hard to interpret how that is related to the read count  found in the FASTQ file. I have posted an issue on the github repo as well, but unclear when I’ll get a response. Let me know if you need more information. Thank you!
+
+**Michael Love** (13:07:08):
+> i think spike ins were used for these types of evaluations:
+  - File (PNG): [Screenshot 2024-11-21 at 1.06.56 PM.png](https://community-bioc.slack.com/files/U34P8RS3B/F082AKS3JJV/screenshot_2024-11-21_at_1.06.56___pm.png)
+
+**Michael Love** (13:07:21):
+> where all the points are sequin spike-ins
+
+**Michael Love** (13:10:30):
+> i think there are 100-200 of them
+
+**Michael Love** (13:13:51):
+> something like this from the spreadsheet:
+  - File (PNG): [Screenshot 2024-11-21 at 1.13.38 PM.png](https://community-bioc.slack.com/files/U34P8RS3B/F081Y0MPB7U/screenshot_2024-11-21_at_1.13.38___pm.png)
+
+**Michael Love** (13:16:05):
+> the range is roughly 5 orders of magnitude in the spreadsheet, the plot from the paper has 0 to 10 on the log2 scale, so roughly the same?
+
+**Sowmya Parthiban** (17:19:38):
+> Thank you for your quick response! I’ll reach out to Chen Ying to see if the expected CPM values for the other spike-ins and plotting code is publicly available.
+
+
+## 2024-12-04
+
+**Stephanie Hicks** (11:47:58):
+> long-read special issue in Genome Research just dropped[https://genome.cshlp.org/content/current](https://genome.cshlp.org/content/current)
+  - Attachment (genome.cshlp.org): [Table of Contents — November 2024, 34 (11)](https://genome.cshlp.org/content/current)
+    > An international, peer-reviewed genome sciences journal featuring outstanding original research that offers novel insights into the biology of all organisms

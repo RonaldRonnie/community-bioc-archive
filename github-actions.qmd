@@ -1,0 +1,769 @@
+---
+title: "#github-actions"
+format: gfm
+---
+
+
+## 2021-08-31
+
+*07:29:19 - @Kevin Rue-Albrecht has joined the channel*
+**Kevin Rue-Albrecht** (07:29:19):
+> set the channel description: Questions and advice for running GitHub actions for Bioconductor packages
+
+**Kevin Rue-Albrecht** (07:29:47):
+> Anyone else recently ran into this one?
+> ```
+> Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+>   there is no package called 'SummarizedExperiment'
+> Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+> ERROR: lazy loading failed for package 'rtracklayer'
+> Execution halted
+> * removing '/__w/_temp/Library/rtracklayer'
+> ERROR: dependency 'MatrixGenerics' is not available for package 'SummarizedExperiment'
+> * removing '/__w/_temp/Library/SummarizedExperiment'
+> ERROR: dependency 'rtracklayer' is not available for package 'GenomicFeatures'
+> * removing '/__w/_temp/Library/GenomicFeatures'
+> ERROR: dependencies 'GenomicFeatures', 'rtracklayer' are not available for package 'ensembldb'
+> * removing '/__w/_temp/Library/ensembldb'
+> ```
+> ->[https://github.com/kevinrue/TVTB/runs/3471391489?check_suite_focus=true#step:17:155](https://github.com/kevinrue/TVTB/runs/3471391489?check_suite_focus=true#step:17:155)
+
+**Kevin Rue-Albrecht** (07:31:04):
+> I remember running into errors like
+> ```
+> ERROR: dependency 'MatrixGenerics' is not available for package 'SummarizedExperiment'
+> ```
+> a while back, I just can't remember what the fix was
+
+**Kevin Rue-Albrecht** (07:31:23):
+> it seems that the earliest error in that particular workflow is
+> ```
+> Warning: dependency 'matrixStats (>= 0.60.1)' is not available
+> ```
+
+**Kevin Rue-Albrecht** (07:32:01):
+> Though it looks like that is a version recently released on CRAN (2021-08-23):[https://cran.rstudio.com/web/packages/matrixStats/index.html](https://cran.rstudio.com/web/packages/matrixStats/index.html)
+  - Attachment (cran.rstudio.com): [matrixStats: Functions that Apply to Rows and Columns of Matrices (and to Vectors)](https://cran.rstudio.com/web/packages/matrixStats/index.html)
+    > High-performing functions operating on rows and columns of matrices, e.g. col / rowMedians(), col / rowRanks(), and col / rowSds(). Functions optimized per data type and for subsetted calculations such that both memory usage and processing time is minimized. There are also optimized vector-based methods, e.g. binMeans(), madDiff() and weightedMedian().
+
+*07:39:35 - @Charlotte Soneson has joined the channel*
+**Charlotte Soneson** (07:41:14):
+> It may be that it’s trying to pick up`matrixStats`from the RStudio package manager, where it seems that only 0.60.0 is available at the moment (we’re running into exactly this issue in a course at this very moment - specifying that`matrixStats`should be installed from`repos = "`[https://cloud.r-project.org](https://cloud.r-project.org)`"`worked there).
+
+*07:49:11 - @Luke Zappia has joined the channel*
+**Charlotte Soneson** (08:01:40) (in thread):
+> The snapshot is from Aug 9, before the new`matrixStats`package was released:[https://github.com/kevinrue/TVTB/runs/3471391489?check_suite_focus=true#step:17:26](https://github.com/kevinrue/TVTB/runs/3471391489?check_suite_focus=true#step:17:26)
+
+*08:32:44 - @Alan O'C has joined the channel*
+*09:16:46 - @Marcel Ramos Pérez has joined the channel*
+*09:47:03 - @Spencer Nystrom has joined the channel*
+*10:00:25 - @Pablo Rodriguez has joined the channel*
+*10:12:27 - @David Zhang has joined the channel*
+*10:43:37 - @Lukas Weber has joined the channel*
+**Lukas Weber** (10:45:34):
+> I have had this issue in the last week too - thanks@Charlotte Soneson@Kevin Rue-Albrecht
+
+**Lukas Weber** (10:46:39):
+> I thought it might also be because the Bioconductor docker build hasn't been updated in the last 1-2 weeks, which I think my GHA workflow was using:[https://github.com/Bioconductor/bioconductor_docker](https://github.com/Bioconductor/bioconductor_docker)
+
+**Lukas Weber** (10:47:13):
+> So this also still has the older version of`matrixStats`
+
+**Kevin Rue-Albrecht** (10:55:06):
+> Brilliant. Thanks@Charlotte Soneson!
+> I was going a bit nuts trying to understand it, and haven't got used to checking the source repositories.
+> I can see now that Mac is having a better time picking a repository:
+> ```
+> replacement repositories:
+>     CRAN:[https://cloud.r-project.org](https://cloud.r-project.org)
+> ```
+
+*12:27:41 - @Federico Marini has joined the channel*
+*12:46:40 - @Daniela Cassol has joined the channel*
+**Lukas Weber** (15:16:39):
+> Thanks@Charlotte Soneson! I have added`options(repos = c(CRAN = "`[https://cloud.r-project.org](https://cloud.r-project.org)`"))`in my GHA workflow now and seems to be working:tada:
+
+*19:30:57 - @Peter Hickey has joined the channel*
+
+## 2021-09-01
+
+*00:11:17 - @Laurent Gatto has joined the channel*
+*05:07:05 - @Milan Malfait has joined the channel*
+*07:02:34 - @Sean Davis has joined the channel*
+
+## 2021-09-07
+
+*06:27:17 - @Chris Vanderaa has joined the channel*
+*08:17:33 - @Mike Smith has joined the channel*
+
+## 2021-09-09
+
+*08:36:15 - @Davide Corso has joined the channel*
+
+## 2021-10-08
+
+*11:59:53 - @Tim Triche has joined the channel*
+
+## 2021-11-25
+
+*11:18:49 - @Quang Nguyen has joined the channel*
+
+## 2021-11-26
+
+*06:46:09 - @Francesc Català has joined the channel*
+
+## 2022-01-03
+
+*17:04:01 - @Kurt Showmaker has joined the channel*
+
+## 2022-02-25
+
+**Mike Smith** (11:29:14):
+> Resurrecting a long dormant channel!  I got fed up trying to remember to increment the versions of R in my various workflows after each Bioconductor release, so I tried to develop my own action that would do it for me if I specify I want to use Bioconductor "devel" or "release".  I thought it might be useful to others who are using Github Actions to test packages, so you can find it at[https://github.com/grimbough/bioc-actions](https://github.com/grimbough/bioc-actions)I'd welcome feedback if anyone does try it out.
+
+**Alan O'C** (11:45:43) (in thread):
+> Huge thanks, I have sighed at my github actions a few times and thought "I should really just do this"
+
+
+## 2022-02-27
+
+**Charlotte Soneson** (13:14:55) (in thread):
+> @Mike Smiththis is great, thanks for putting it together!:slightly_smiling_face:May I ask whether you have tried it out also in the Bioc docker containers? I got an error that seems to happen during the tex installation/update, not sure whether it's something transient so I just wanted to check (see[https://github.com/csoneson/alevinQC/runs/5351147958?check_suite_focus=true](https://github.com/csoneson/alevinQC/runs/5351147958?check_suite_focus=true)).
+
+
+## 2022-02-28
+
+**Mike Smith** (04:10:27) (in thread):
+> No, I've not tried using the docker containers.  Personally, while I think the Docker images are great for getting things done, when it comes to checking code I actually like to have a record of the required system packages etc so I can help users with installation problems.  Hence no docker testing yet.
+> 
+> Looking at that log, it seems my use of Powershell to run the`tlmgr`fails as Powershell isn't available in the container.  That step is probably only required on Windows, and definitely not in the container, so I'll try to make it conditional.
+
+
+## 2022-03-01
+
+**Mike Smith** (03:52:09) (in thread):
+> ~~~I think I've got it working with Docker now.  I've got a small example workflow now at ~~~[https://github.com/grimbough/biocActionsExamples/runs/5372075755?check_suite_focus=true](https://github.com/grimbough/biocActionsExamples/runs/5372075755?check_suite_focus=true)~~~~ which seems to be passing.  I don't think it's perfect, but it's working for now. ~~~~Thanks for the feedback.
+> 
+> Scratch that.  I made an assumption that`$R_USER_LIBS`would be defined, but it isn't.  I don't understand why I get a green tick even though`R CMD check`fails, but will investigate.
+
+**Charlotte Soneson** (04:20:55) (in thread):
+> Thanks! Just tried it in my repo as well and I get the same warning in the check (but a green checkmark)
+
+**Mike Smith** (11:50:04) (in thread):
+> Well I still don't understand why it gave a green tick, I guess`R CMD check`still gives an exit code`0`:shrug:Either way, I think I've sorted the library path when working inside a container, so feel free to give it another try.
+
+**Charlotte Soneson** (12:25:09) (in thread):
+> Confirmed, no more warning:tada:Thanks!
+
+
+## 2022-03-15
+
+*12:03:52 - @Jeanette Johnson has joined the channel*
+
+## 2022-03-18
+
+*10:00:28 - @Andres Wokaty has joined the channel*
+
+## 2022-03-25
+
+**Charlotte Soneson** (04:17:40):
+> Looks like we're at this time of the year again...[https://community-bioc.slack.com/archives/CLUJWDQF4/p1619684796117500](https://community-bioc.slack.com/archives/CLUJWDQF4/p1619684796117500).@Mike Smith- I recall you put something together with a`prerelease`last year; do you think that's something that could be baked into your bioc-actions?
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CLUJWDQF4/p1619684796117500)
+    > Question for those that use GitHub actions.  We've entered the weird limbo period prior to an R release, where R-devel is now R-4.2, but R-release is still 4.0.  This breaks all my GH action workflows with `Bioconductor version '3.13' requires R version '4.1'; R version is too new;` errors.  What're peoples strategies for handling this?
+
+**Mike Smith** (05:45:46) (in thread):
+> It's tricky.  Last time I made a copy of the`r-lib/setup-r`action but that's not something I really want to maintain.  My actions sit on top of that and pass the R version argument, but I don't think they provide an option to install the pre-release versions.  From what I remember the names of the install binaries change really frequently at this time (and might be inconsistent across platforms?) so it's a nightmare to stay ontop of without something automated to find the names.
+> 
+> I'll have a think about what might work.
+
+
+## 2022-03-28
+
+*10:42:54 - @Sarvesh Nikumbh has joined the channel*
+
+## 2022-03-29
+
+*09:05:41 - @Dania Machlab has joined the channel*
+
+## 2022-04-22
+
+**Charlotte Soneson** (08:44:44) (in thread):
+> I just noticed that[https://github.com/r-lib/actions/tree/v2-branch/setup-r](https://github.com/r-lib/actions/tree/v2-branch/setup-r)(v2) now has the option to specify the`next`R version (which should give you the alpha/prerelease etc during the release process, and the patched version otherwise). It will still take some fiddling with the logic to figure out which version we need, but at least now it seems possible to get it.
+
+**Mike Smith** (08:47:46) (in thread):
+> Awesome. I'm on leave at the moment, but I'll take a look when I'm back. Could you open an issue on my GitHub repo so I remember to do this when I'm back?
+
+**Charlotte Soneson** (08:48:00) (in thread):
+> Will do!
+
+
+## 2022-04-25
+
+**Laurent Gatto** (10:49:13):
+> Hello - I have very recently been hit by the following issue on two different repos, claiming that the repo is owned by someone else. The error happens in the pkgdown deployment on the gh-pages branch:
+> ```
+> Run git config --local user.email "action@github.com"
+> 
+> fatal: --local can only be used inside a git repository
+> fatal: --local can only be used inside a git repository
+> 
+> Error: <system_command_status_error in callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status ...:
+>  System command 'git' failed, exit status: 128, stderr:
+> 
+> E> fatal: unsafe repository ('/__w/PSMatch/PSMatch' is owned by someone else)
+> E> To add an exception for this directory, call:
+> E> 
+> E> 	git config --global --add safe.directory /__w/PSMatch/PSMatch>
+> 
+> Stack trace:
+>  1. pkgdown::deploy_to_branch(new_process = FALSE)
+>  2. pkgdown:::git_current_branch()
+>  3. pkgdown:::git("rev-parse", "--abbrev-ref", "HEAD", echo = FALSE,  ...
+>  4. callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status ...
+>  5. throw(new_process_error(res, call = sys.call(), echo = echo,  ...
+> 
+>  x System command 'git' failed, exit status: 128, stderr:
+> E> fatal: unsafe repository ('/__w/PSMatch/PSMatch' is owned by someone else)
+> E> To add an exception for this directory, call:
+> E> 
+> E> 	git config --global --add safe.directory /__w/PSMatch/PSMatch 
+> Execution halted
+> Error: Process completed with exit code 1.
+> ```
+> Any idea?
+
+**Laurent Gatto** (10:49:35) (in thread):
+> Here's an example[https://github.com/rformassspectrometry/PSMatch/runs/6159341714?check_suite_focus=true](https://github.com/rformassspectrometry/PSMatch/runs/6159341714?check_suite_focus=true)
+
+**Charlotte Soneson** (11:05:35) (in thread):
+> Just a thought, but I wonder if it would help to update the workflow - the current version of`biocthis`is using different git configuration values (see change here:[https://github.com/lcolladotor/biocthis/commit/c06e66d60bd864ef67dffb09f1efb2d5179c62de](https://github.com/lcolladotor/biocthis/commit/c06e66d60bd864ef67dffb09f1efb2d5179c62de)). Not sure if this is the reason -`velociraptor`uses the new values and deployed ok last time it was run, but it seems that yours did too until recently so I'm not sure...
+
+**Laurent Gatto** (11:10:29) (in thread):
+> Indeed, it used to work:cry:.
+> 
+> I'm now testing[this one](https://github.com/rformassspectrometry/PSMatch/blob/main/.github/workflows/check-bioc.yml)(taken from another package that seems to deploy properly). Will try the latest`biocthis`version next. Thanks!
+
+**Marcel Ramos Pérez** (12:57:47) (in thread):
+> Why not use[https://github.com/JamesIves/github-pages-deploy-action](https://github.com/JamesIves/github-pages-deploy-action)?
+
+**Laurent Gatto** (13:28:31) (in thread):
+> Mainly because I have been using gha for a long time and have been keeping the same ones as long as they worked. But I'll looked into that one, thanks.
+
+**Marcel Ramos Pérez** (13:30:14) (in thread):
+> See the template here:[https://github.com/seandavi/BuildABiocWorkshop/blob/master/.github/workflows/basic_checks.yaml](https://github.com/seandavi/BuildABiocWorkshop/blob/master/.github/workflows/basic_checks.yaml)
+
+
+## 2022-05-09
+
+*06:21:48 - @Vince Carey has joined the channel*
+**Vince Carey** (06:24:37):
+> If we are going to be using github actions more systemically, it seems to make sense that BiocCheck examine the actions and warn about aspects of workflows that could be stale or improper.  Do we have/want project-endorsed actions with versions and their own testing processes?
+
+**Vince Carey** (06:38:58):
+> @Marcel Ramos Pérezthoughts about BiocCheck looking at .github/workflows ?
+
+**Vince Carey** (06:48:02):
+> @Mike SmithI know you have defined some actions for use in workflows ... would we want to have a versioning discipline for these, linked to a container linked to a Bioconductor version?  And some kind of routine testing discipline with reporting to action maintainer?
+
+*10:15:24 - @Lori Shepherd has joined the channel*
+**Marcel Ramos Pérez** (18:55:28) (in thread):
+> I don't think the actions are in the scope of`BiocCheck`. GA validation could be part of the`biocthis`package.
+
+**Vince Carey** (18:56:19) (in thread):
+> OK
+
+
+## 2022-05-10
+
+**Mike Smith** (06:06:36) (in thread):
+> Personally I see the actions I've developed as developer tools that aid with package development and robustness, rather than providing environments for package users to do something with the package itself.
+> 
+> Others can chime in if I'm wrong, but I think the most common use case for GH workflows is for the package developer to run`R CMD check`on all three platforms and get feedback faster than waiting for the Bioc build system to process everything.  Similarly, getting things like code coverage reports are neat, but generally focused on feedback to the package developer (perhaps with the side effect of publicly advertising some level of quality via a badge/report).  These are all tasks someone could run on their own hardware and Bioconductor would be none-the-wiser, but GH workflows are a nice way to automate and use hardware for free.  I'm not sure it's the place of BiocCheck or the like to actually care what the workflows are doing.  Are they even distributed with a source package?  I guess we encourage unit tests, which probably fall into a similar category, but we don't enforce their use nor check how comprehensive or appropriate any existing tests are and***testthat***tests are not distributed to the end user by default.
+> 
+> I've deliberately tried to make my actions work outside of the Bioconductor versioning, precisely because it was a pain as a developer to go through all of my`R CMD check`workflows (one per package) and update the versions on R and Bioconductor after each release.  Generally I want to setup a workflow that says "this should always use the devel version of Bioconductor" and then let the action make the correct choices about versions for that moment in time, that same as when I submit to the Bioc git repo and assume that the build system will use the appropriate versions for each branch.  The action should certainly be versioned, in case I choose to make a design decision that breaks the workflows of others, but I'm not sure it's directly related to Bioconductor's versioning.
+
+
+## 2022-06-07
+
+*09:28:04 - @Simon Pearce has joined the channel*
+
+## 2022-07-08
+
+*12:00:51 - @Athena Chen has joined the channel*
+
+## 2022-07-13
+
+**Simon Pearce** (12:00:01):
+> Is it possible to have a github action that pushes a container containing the package + all dependencies onto DockerHub?
+
+**Kevin Rue-Albrecht** (13:14:01) (in thread):
+> have you checked`biocthis`and more specifically that part of the template?[https://github.com/lcolladotor/biocthis/blob/master/inst/templates/check-bioc.yml#L303](https://github.com/lcolladotor/biocthis/blob/master/inst/templates/check-bioc.yml#L303)
+
+**Sean Davis** (13:36:11) (in thread):
+> I've converted[https://github.com/seandavi/BuildABiocWorkshop](https://github.com/seandavi/BuildABiocWorkshop)to use GitHub container registry instead of DockerHub, but the actions in the repo do what you want. It is a template that you can use directly and has instructions for use.
+
+**Simon Pearce** (14:32:50) (in thread):
+> I am using`biocthis`yes, which is built on top of***BuildABiocWorkshop ***from what I can tell.
+> I didn’t have a Dockerfile apparently, just added that in from***BuildABiocWorkshop***.
+> The run of the action is now building the object, just failed to actually push it to Dockerhub.
+> ```
+> denied: requested access to the resource is denied
+> Error: exit status 1
+> Usage:
+> exit status 1
+>   github-actions build-push [flags]
+> Flags:
+>   -h, --help   help for build-push
+> ```
+> I don’t really care where the container goes, just that I can get at it! So GitHub container registry sounds fine too. Let me take a further look at***BuildABiocWorkshop.***
+
+**Simon Pearce** (14:41:58) (in thread):
+> Ok, trying the action block for the GitHub container registry that you have in BuildABiocWorkshop now.
+
+
+## 2022-07-14
+
+**Simon Pearce** (04:24:16) (in thread):
+> Thank you, that seems to have worked, I now have a container on the github container registry. Just need to figure out how to change the permissions on that to be able to download it…
+
+
+## 2022-07-21
+
+*15:53:59 - @Nitesh Turaga has joined the channel*
+
+## 2022-07-28
+
+*17:19:54 - @Mervin Fansler has joined the channel*
+
+## 2022-08-01
+
+*12:13:52 - @Garth Kong has joined the channel*
+
+## 2022-09-26
+
+*18:24:48 - @Martin Morgan has joined the channel*
+**Martin Morgan** (18:31:19):
+> I've been working on a 'recreational' package[hcaCaseStudies](https://github.com/mtmorgan/hcaCaseStudies)that has some relatively expensive file download and computation steps in the vignettes, and I've been using BiocFileCache to save both the files and the computations. This means that the vignettes build build quickly on my local machine, where the files and results are cached.
+> 
+> I'd like to use pkgdown and github workflows to build a github pages site, and would like to take the same approach -- caching the expensive download and computation steps for use across workflow runs.
+> 
+> Is that possible? Can I somehow re-use renv in a straight-forward way, like telling BiocFileCache to save files in a particular directory? Other not-too-complicated solutions?
+
+**Spencer Nystrom** (18:41:06) (in thread):
+> Hey Martin. I think the magic bullet here is github's`actions/cache`(details here:[https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows)). I haven't done this for R, but you should be able to configure your renv / BiocFileCache setup into a script to write into your actions cache, then run subsequent builds using the cached env.
+
+**Spencer Nystrom** (18:42:14) (in thread):
+> Here is the relevant docs section for using renv for this task:[https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows)
+
+**Martin Morgan** (18:48:23) (in thread):
+> Thanks@Spencer Nystromthe second link posted is the same as the first?
+
+**Spencer Nystrom** (18:50:13) (in thread):
+> ~~~No, the first links to a page from github action docs describing a bit of detail about how the cache action works. The second is a link to a subheading in the cache action repo README with an example implementation for using renv in the caching action~~~.
+
+**Spencer Nystrom** (18:50:22) (in thread):
+> Oh weird.
+
+**Spencer Nystrom** (18:50:36) (in thread):
+> My bad. Clipboard did something silly. 1 sec.
+
+**Spencer Nystrom** (18:51:51) (in thread):
+> [https://github.com/actions/cache/blob/main/examples.md#r---renv](https://github.com/actions/cache/blob/main/examples.md#r---renv)
+
+**Spencer Nystrom** (18:51:54) (in thread):
+> Here we go.
+
+**Spencer Nystrom** (18:52:06) (in thread):
+> That's what I get for replying hastily on the phone!
+
+
+## 2022-09-27
+
+**Vince Carey** (07:30:30) (in thread):
+> Just noting
+> ```
+> GitHub will remove any cache entries that have not been accessed in over 7 days. There is no limit on the number of caches you can store, but the total size of all caches in a repository is limited to 10 GB.
+> ```
+> from[https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows)
+
+
+## 2022-10-11
+
+**Nitesh Turaga** (16:10:37):
+> Anyone know how to pass a GITHUB_PAT to a docker build github action?
+
+**Nitesh Turaga** (16:11:03):
+> My solution looks like this, but it doesn't seem to work[https://github.com/r-lib/actions/issues/199](https://github.com/r-lib/actions/issues/199)
+
+**Andres Wokaty** (16:23:06) (in thread):
+> Looking at that, I wonder if it exposes the PAT in the output? If it's defined as an environment use`${{ env.GITHUB_PAT }}`or directly with`${{ secrets.GITHUB_PAT }}`, at least that's how I've used it. I don't think`GPAT=${GITHUB_PAT}`would work.
+
+
+## 2022-10-12
+
+**Nitesh Turaga** (08:09:57) (in thread):
+> Thanks@Andres Wokaty! It seems to be completely "masking" the PAT.
+> 
+> Within the container when I try to look up GITHUB_PAT, its just an empty string`""`. I must be doing something wrong.
+
+**Nitesh Turaga** (09:40:07) (in thread):
+> Went back to the tried and tested[https://github.com/marketplace/actions/build-and-push-docker-images](https://github.com/marketplace/actions/build-and-push-docker-images)action.
+> 
+> Allows build args to be taken in easily.
+> 
+> This works well.
+
+
+## 2023-01-12
+
+*13:06:08 - @Martin Grigorov has joined the channel*
+
+## 2023-01-21
+
+*16:02:25 - @Hien has joined the channel*
+
+## 2023-02-06
+
+*21:37:53 - @Ying Chen has joined the channel*
+
+## 2023-02-14
+
+*04:12:11 - @Jeroen Gilis has joined the channel*
+
+## 2023-03-09
+
+*10:50:48 - @Eunice Miriti has joined the channel*
+*19:10:20 - @Leo Lahti has joined the channel*
+**Leo Lahti** (19:12:20):
+> I encountered a strange issue where the PR passed our GHA checks perfectly, after that failed when building a gitbook:[https://github.com/microbiome/OMA/actions/runs/4378436099/jobs/7663176368](https://github.com/microbiome/OMA/actions/runs/4378436099/jobs/7663176368)Does this look familiar:
+> ```
+> error: RPC failed; curl 55 Failed sending HTTP2 data
+> ```
+
+**Leo Lahti** (19:12:44):
+> ```
+> fatal: the remote end hung up unexpectedly
+> fatal: the remote end hung up unexpectedly
+> Everything up-to-dateError: Process completed with exit code 1.
+> ```
+
+**Leo Lahti** (19:13:06):
+> ```
+> Error: Process completed with exit code 1.
+> ```
+
+**Leo Lahti** (19:13:59):
+> I have not been able to troubleshoot this successfully so far.
+
+
+## 2023-03-10
+
+**Vince Carey** (11:02:22):
+> Are all your secrets up to date?  I ran into something like this when my PAT was invalid.
+
+
+## 2023-03-21
+
+*20:10:23 - @Y-h. Taguchi has joined the channel*
+
+## 2023-03-22
+
+*04:41:11 - @Marc Elosua has joined the channel*
+*05:47:27 - @Mike Morgan has joined the channel*
+*13:18:58 - @Michael Lynch has joined the channel*
+
+## 2023-03-29
+
+**Mike Smith** (08:54:01):
+> I don't know about anyone else, but I've had a few mentions from@Martin Grigorovwho's leading a project to build Bioconductor packages on ARM64.  However, if he encounters a problem, it's actually pretty hard for a package maintainer to try and debug it unless they also happe to have access to ARM64 hardware. It feels like a some way of emulating a ARM64 environment might be a useful addition to the suite of Github actions.  Does anyone have experience trying this with something like Qemu and the Docker images for alternative architectures?
+
+**Martin Grigorov** (09:07:32) (in thread):
+> since I've been mentioned ... :-)
+
+**Martin Grigorov** (09:08:07) (in thread):
+> I have few articles explaining how to do this with QEMU or VM
+
+**Martin Grigorov** (09:08:49) (in thread):
+> QEMU & Docker:[https://martin-grigorov.medium.com/building-linux-packages-for-different-cpu-architectures-with-docker-and-qemu-d29e4ebc9fa5](https://martin-grigorov.medium.com/building-linux-packages-for-different-cpu-architectures-with-docker-and-qemu-d29e4ebc9fa5)
+
+**Martin Grigorov** (09:09:29) (in thread):
+> free VM from Oracle Cloud:[https://martin-grigorov.medium.com/github-actions-arm64-runner-on-oracle-cloud-a77cdf7a325a](https://martin-grigorov.medium.com/github-actions-arm64-runner-on-oracle-cloud-a77cdf7a325a)you can ignore the Github Actions part
+
+**Martin Grigorov** (09:10:17) (in thread):
+> the "problem" with Oracle Cloud (and any other cloud provider) is that they ask for Credit Card details even if you use just their Free Tiers
+
+**Martin Grigorov** (09:11:26) (in thread):
+> if you use Github Actions then[https://github.com/uraimo/run-on-arch-action/](https://github.com/uraimo/run-on-arch-action/)is really handy to run your builds and tests on several CPU architectures. But it uses QEMU so it is a bit slow !
+
+**Mike Smith** (09:18:39) (in thread):
+> Awesome, thanks for the rundown.  I'll take a look at them.
+
+**Martin Grigorov** (09:20:48) (in thread):
+> One more: CircleCI (a competitor of Github Actions) provides Linux ARM64 (and MacOS ARM64) runners for free too. What I like there is that it is possible to connect via SSH to their VMs and debug a failure
+
+*10:43:07 - @Janani Ravi has joined the channel*
+*16:56:35 - @Himel Mallick has joined the channel*
+
+## 2023-03-30
+
+*10:35:54 - @Henrik Bengtsson has joined the channel*
+**Henrik Bengtsson** (10:38:19) (in thread):
+> Not CI, but it might be useful to mention the M1 mac-builder service[https://mac.r-project.org/macbuilder/submit.html](https://mac.r-project.org/macbuilder/submit.html)
+
+*11:42:35 - @Yikun Jiang has joined the channel*
+**Yikun Jiang** (11:47:00) (in thread):
+> Another tips, if you are using apple M1, you can also test the Linux aarch64 with docker:`docker run -ti ubuntu bash`
+
+
+## 2023-04-03
+
+*20:45:18 - @Mengbo Li has joined the channel*
+
+## 2023-04-04
+
+*05:02:34 - @Jacques SERIZAY has joined the channel*
+
+## 2023-04-05
+
+*20:59:45 - @Josué Curto Navarro has joined the channel*
+
+## 2023-04-12
+
+*11:19:08 - @Nils Hoffmann has joined the channel*
+
+## 2023-04-21
+
+**Mike Smith** (04:33:02):
+> Is anyone else getting problems with the compbo of R-4.3, pak (or r-lib/setup-r-dependencies) and Mac OS?  For many of my packages it looks like the workflow fails to find some Mac binary, then claims to install from source but really installs a Linux binary and falls over e.g.[https://github.com/grimbough/rhdf5/actions/runs/4721626812/jobs/8465141595#step:29:147](https://github.com/grimbough/rhdf5/actions/runs/4721626812/jobs/8465141595#step:29:147)However I don't see any issues on the pak or r-lib actions repositories, so I'm wondering if it's just me.
+
+**Mike Smith** (07:08:37) (in thread):
+> Update: pak 0.5.0 was released today and seems to have fixed the issue:tada:
+
+
+## 2023-05-25
+
+*17:13:39 - @Jacob Krol has joined the channel*
+
+## 2023-07-01
+
+*13:05:39 - @Ludwig Geistlinger has joined the channel*
+
+## 2023-07-13
+
+*07:02:15 - @Brian Schilder has joined the channel*
+
+## 2023-07-18
+
+*12:48:55 - @Leonardo Collado Torres has joined the channel*
+
+## 2023-08-03
+
+*10:53:09 - @Tyrone Lee has joined the channel*
+*15:57:51 - @Ritika Giri has joined the channel*
+
+## 2023-08-04
+
+*13:46:46 - @Francesc Català-Moll has joined the channel*
+
+## 2023-08-07
+
+*11:21:24 - @Jiaji George Chen has joined the channel*
+
+## 2023-12-28
+
+*09:25:31 - @David Rach has joined the channel*
+
+## 2024-02-06
+
+**Mike Smith** (06:04:55):
+> Exciting news for those of use who struggle to get things working on Mac ARM64 architecture.  GitHub have made M1 runners available on the free tier for GitHub actions:[https://github.blog/changelog/2024-01-30-github-actions-introducing-the-new-m1-macos-runner-available-to-open-source/](https://github.blog/changelog/2024-01-30-github-actions-introducing-the-new-m1-macos-runner-available-to-open-source/)
+  - Attachment (The GitHub Blog): [GitHub Actions: Introducing the new M1 macOS runner available to open source!](https://github.blog/changelog/2024-01-30-github-actions-introducing-the-new-m1-macos-runner-available-to-open-source/)
+    > GitHub Actions: Introducing the new M1 macOS runner available to open source!
+
+
+## 2024-02-07
+
+*14:25:16 - @Alex Mahmoud has joined the channel*
+
+## 2024-03-05
+
+*02:08:47 - @Vamika Mendiratta has joined the channel*
+*15:20:42 - @Semango Nicholas has joined the channel*
+
+## 2024-03-06
+
+*03:04:15 - @Benedicta Imelda has joined the channel*
+
+## 2024-03-12
+
+**Simon Pearce** (10:56:48):
+> The[package submission guidelines](https://github.com/Bioconductor/Contributions)say:
+> 1. Create your own GitHub repository, containing source code structured as an**R**package. The source code must be in the default branch of your GitHub repository. You cannot specify any alternative branches; the default branch is utilized. The default branch must contain only package code. Any files or directories for other applications (Github Actions, devtool, etc) should be in a different branch.
+> But I see github workflow files in package repositories, such as[seurat](https://github.com/satijalab/seurat/blob/master/.github/workflows/R_CMD_check.yaml)or[plyranges](https://github.com/sa-lee/plyranges/blob/master/.github/workflows/check-bioc.yml).
+> Am I missing something here? How do I properly test a repository?
+
+**Marcel Ramos Pérez** (11:58:42):
+> They**should**be in a different branch but in practice nowadays the`.github`GHA folder can be included in`devel`branch. Seurat is probably not a good example as it is a CRAN package but many Bioconductor packages use GHA for testing. We will look at updating the instructions. Thanks!
+
+**Lori Shepherd** (12:24:10):
+> Please make sure if anything like this is included that they are listed in a `.Rbuildignore` file
+
+**Simon Pearce** (16:32:06):
+> Thanks.
+> Ah, didn't notice Seurat is a CRAN package:wink:, I just assumed it was Bioconductor due to the content.
+
+
+## 2024-03-18
+
+**Simon Pearce** (10:49:07):
+> Not entirely a github actions question, but not sure where else to ask.
+> I have a function that retrieves annotation from`biomaRt`.
+> This sometimes fails (particularly on github it seems), and I need to catch this properly, so not to fail the tests.
+> Does anyone have an example of how to do this (I'm using`testthat`)?
+
+**Marcel Ramos Pérez** (12:11:26) (in thread):
+> Create a helper function that tests the connection to`biomaRt`and skip the test if unreachable. See[https://code.bioconductor.org/search/search?q=skip_if_not](https://code.bioconductor.org/search/search?q=skip_if_not).@Mike Smithmay have specific recommendations.
+
+
+## 2024-03-19
+
+**Mike Smith** (05:42:38) (in thread):
+> Depending on what exactly you're testing you can use mocking, maybe via packages like {mockery} or {httptest2}.  When I've used these, I used {mockery} to 'mock' the {biomaRt} function, which will bypass actually calling it and just give you something that looks like the expected output.  That's useful if you're testing your code that processes the function output, but won't necessarily tell you if {biomaRt} changes what it's returning.  {httptest2} will intercept the actual call to the website and return some content from disk that you store in the package.  You can see this in {biomaRt} itself at[https://github.com/grimbough/biomaRt/tree/devel/tests/testthat](https://github.com/grimbough/biomaRt/tree/devel/tests/testthat)That might be more robust if I were to change the {biomaRt} output format from whatever function you're using.
+> 
+> In reality both the BioMart server and {biomaRt} are very stable and I don't expect the structure of the returned values to change at any point, so you're probably safe  picking either of those options.  I choose this approach rather than skipping tests if the connection wasn't available because even when the connection works it can be very slow to talk to the Ensembl server, so if you have many tests running them all can be really frustrating.  The mocked versions are basically instananeous once you've figured out how to write them.
+
+
+## 2024-03-28
+
+*14:21:32 - @Jonas Schuck has joined the channel*
+
+## 2024-04-23
+
+**Laurent Gatto** (09:52:02):
+> I came across [act]([https://nektosact.com/introduction.html](https://nektosact.com/introduction.html)) to run github actions locally. This looks quite interesting to test them and any changes locally first, and reduce the long change-push-wait dev cycle. Just trying/acting on two random local`check-bioc.yml`fails (probably for good reasons). Has anyone any experience with this?
+
+
+## 2024-04-24
+
+**Alan O'C** (04:26:55) (in thread):
+> I have tried it, but found that sometimes it doesn't work immediately and I've not been bothered to figure out why over just resorting back to the change-push-wait cycle
+
+
+## 2024-08-19
+
+*09:40:54 - @Rema Gesaka has joined the channel*
+
+## 2024-10-02
+
+*19:06:42 - @Eva Hamrud has joined the channel*
+
+## 2024-10-12
+
+**Vince Carey** (21:15:04):
+> Here's a macos action failing on a libz reference, passing on linux and windows:[https://github.com/vjcitn/ontoProc/actions/runs/11274358609/job/31353335313](https://github.com/vjcitn/ontoProc/actions/runs/11274358609/job/31353335313)
+
+
+## 2024-10-22
+
+**Leonardo Collado Torres** (14:12:11) (in thread):
+> Nice, thanks for sharing Mike!
+
+
+## 2024-10-31
+
+**Mike Smith** (08:41:05):
+> Is anyone else having issues with the`r-lib/actions/setup-r-dependencies@v2`action?  I keep getting failures in the package installation step using***pak***but I can't figure out why.  I don't see any reports on the GitHub issues relating to this, hence asking here first.  For me it seems to fail with different packages, R version, Bioconductor version, OS etc and also sometimes succeeds fine.  There error message always seems to be something like:
+> ```
+> Error: 
+>   ! error in pak subprocess
+>   Caused by error: 
+>   ! `path` must exist
+>   ---
+>   Backtrace:
+>   1. pak::lockfile_install(".github/pkg.lock")
+>   2. pak:::remote(function(...) { …
+>   3. err$throw(res$error)
+> ```
+> Here's a run with many examples:[https://github.com/grimbough/biocActionsExamples/actions/runs/11610124522/job/32328800099](https://github.com/grimbough/biocActionsExamples/actions/runs/11610124522/job/32328800099)
+
+**Mike Smith** (10:23:17) (in thread):
+> Answering my own question, it seems setting`Ncpus: 1`stops this behaviour.  I guess there's some race condition that deletes a directory being used by another installation thread when using more cores.
+
+
+## 2024-11-08
+
+**Federico Marini** (10:57:08):
+> [https://github.com/actions/runner-images/issues/10636](https://github.com/actions/runner-images/issues/10636)
+
+**Federico Marini** (10:57:19):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F080FP8PJ2D/image.png)
+
+**Federico Marini** (10:57:29):
+> might affect our GHA workflows, in some manners
+
+
+## 2024-11-09
+
+**Tim Triche** (00:06:45):
+> Oh ffs Microsoft
+
+**Mike Smith** (01:26:07):
+> Have people been using the pre-installed R version in their actions? I think I've always relied on either[r-lib/setup-r](https://github.com/r-lib/actions/tree/v2/setup-r)or[bioc-actions/setup-bioc](https://github.com/grimbough/bioc-actions/tree/v1-branch/setup-bioc)to install a specific version.
+
+
+## 2024-11-12
+
+**Alex Mahmoud** (16:53:02) (in thread):
+> AFAIK this is true in all GHA workflows widely used, so the only people affected would be folks having done manual setup
+
+
+## 2024-11-21
+
+**Leonardo Collado Torres** (14:28:16) (in thread):
+> aye, I use r-lib/setup-r
+
+
+## 2024-12-12
+
+*09:44:30 - @Hiru has joined the channel*
+
+## 2024-12-28
+
+*07:56:17 - @Pascal-Onaho has joined the channel*
+
+## 2025-01-10
+
+**Federico Marini** (07:04:46) (in thread):
+> [https://bsky.app/profile/gaborcsardi.org/post/3lfeu6tzr5c2l](https://bsky.app/profile/gaborcsardi.org/post/3lfeu6tzr5c2l)
+
+**Federico Marini** (07:05:09):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F088T142EV6/image.png)
+
+**Alex Mahmoud** (10:57:59) (in thread):
+> We've discussed this a bit over the past few weeks since the announcement, and as far as we could tell, all widely used Bioconductor actions are either using  Bioconductor containers, or already using r-lib actions to setup R, and we don't seem to rely on pre-existing R in any of our action templates that we could find. If you find an issue with a Bioconductor GHA workflow, please let us know so we update it asap!!
+
+**Federico Marini** (10:58:40) (in thread):
+> I did have an issue on a package whose name was different than the repo itself
+
+**Federico Marini** (10:59:13) (in thread):
+> that was because the build command gave me something that was not expected to be, and found no archive and failed.
+
+**Federico Marini** (10:59:40) (in thread):
+> i solved it by going with a mixture of the biocthis way and something we had in another package
+
+**Federico Marini** (11:00:08) (in thread):
+> Thanks for being on top of this!
+> Probably not everyone uses the Bioc-styled actions but more vanilla ones..
+
+
+## 2025-01-14
+
+*10:36:58 - @neslihan oztas has joined the channel*
+
+## 2025-02-13
+
+*13:54:06 - @JP Flores has joined the channel*
+
+## 2025-03-29
+
+*13:12:03 - @Bridget Imarhia has joined the channel*

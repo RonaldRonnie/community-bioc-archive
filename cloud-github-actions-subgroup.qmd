@@ -1,0 +1,121 @@
+---
+title: "#cloud-github-actions-subgroup"
+format: gfm
+---
+
+
+## 2023-07-31
+
+*08:19:44 - @Brian Schilder has joined the channel*
+*08:20:43 - @Marcel Ramos Pérez has joined the channel*
+*08:20:43 - @Leonardo Collado Torres has joined the channel*
+*08:20:43 - @Alex Mahmoud has joined the channel*
+*08:20:43 - @Mike Smith has joined the channel*
+*08:20:43 - @Andres Wokaty has joined the channel*
+**Brian Schilder** (08:21:32):
+> set the channel description: Channel for the GitHub Actions Subgroup (part of the Cloud Methods Working Group).
+
+*08:22:08 - @Vince Carey has joined the channel*
+**Brian Schilder** (08:22:55):
+> Hi everyone, finally kicking off the GitHub Actions Subgroup (part of the Cloud Methods Working Group). Let me know if I missed anyone who was interested in joining!
+
+**Brian Schilder** (08:32:30):
+> One thought that came to mind the other day@Leonardo Collado Torres, would you be amenable to adding an option to biocthis to call the rworkflows action from a short workflow script? this might be a nice way to consolidate our efforts and jointly maintain the rworkflows action rather than working in parallel, without having to merge our packages entirely. This approach could extend to usethis as well, which would be great if we could get the R core team to buy into the idea so that we could benefit from their expertise in maintaining the rworkflows GH action.
+
+**Mike Smith** (10:03:55):
+> Thanks@Brian Schilderfor creating the channel and the invite.  I've not been very active in the main working group, sorry about that, but hopefully I'll have time to contribute something to this sub-topic.  By way of introduction, I maintain a small set of actions at[https://github.com/grimbough/bioc-actions](https://github.com/grimbough/bioc-actions)which are specifically targeted at Bioconductor package developers.  There's 4 actions in that repository, 2 of which I think are quite useful and 2 of which perhaps less so.  The two useful ones are:
+> * [setup-bioc](https://github.com/grimbough/bioc-actions/tree/v1/setup-bioc)- I maintain a few different Bioc packages each with their own CI workflows, and I got tired of having to update all of them to keep in sync the various R/Bioc versions after each release.  This action let's you just specify a BioC version ("release", "devel", "3.18") as an argument, and it will take care of installing the correct R version, and setting up BiocManager.  That way I can just leave my package workflows on "devel" and everything gets handled by the action. It also lets you specify a mirror to install dependencies from, and providing an default alternative might be useful if one were trying to reduce the volume of data transfer between the Bioc servers and GHA runners.
+> * [build-install-check](https://github.com/grimbough/bioc-actions/tree/v1/build-install-check)- This tries to emulate the Bioc Build System as closely as possible for building & testing packages.  The BBS has a few idiosyncrasies which can make it behave differently to naively running`R CMD check`etc e.g. a specific .Renviron, or reusing the output of`R CMD INSTALL`in`R CMD check`.  It's not a perfect recreation of the BBS, but it's allowed me to reproduce and fix errors that I didn't see when testing locally.  It also makes the various outputs available e.g. package tarball, package binary, check results so they can be downloaded.  I've used this to make Mac Binaries available to colleagues, even though I don't have the hardware available myself.
+> They're most wrappers around other actions, with specific options picked by me, to create simpler workflow files for the end user.  There's ~50 repositories that use the actions, so they're moderately tested, but I'm sure there's tonnes of places they could be refined.  In the simplest case, if they seem useful they might be considered as drop-in replacements for some of the steps in the workflows produced by`biocthis`, again with the intention of producing shorter and less complex yaml files.  Alternatively, I'm not sure what the intention of this group is, but I guess I've always thought these might form the basis of some sort of "official" Bioconductor actions.  I'd be very happy for that to be the case if that's a direction we're thinking of moving in.
+
+**Alex Mahmoud** (10:14:41):
+> There is discussion among the core about how and what to encourage as actions, and whether we want an “official” Bioconductor-maintained workflow or just establishing and encouraging possible best practices. I think in either case the approach will likely involve a cooperative effort between core and community to maintain something long term. Your actions are definitely helpful and will likely be a base for the Bioconductor layer on top of general R actions
+
+**Leonardo Collado Torres** (15:35:57):
+> Just an idea, but maybe what we need is to write a little bioc workflow package with a vignette documenting all available options, with pros and cons for each
+
+**Leonardo Collado Torres** (15:38:16):
+> I might need a bit more time to think about it, but it does look like`biocthis`could use[https://github.com/grimbough/bioc-actions/tree/v1/setup-bioc](https://github.com/grimbough/bioc-actions/tree/v1/setup-bioc)to indeed shorten the yml file. It’s not super clear to me now if I can really plug it in and replace a few lines or the yml or if it’d be more complicated than that
+
+**Leonardo Collado Torres** (15:58:50):
+> going back to the bioc workflow package[http://bioconductor.org/packages/release/BiocViews.html#___Workflow](http://bioconductor.org/packages/release/BiocViews.html#___Workflow)idea, it’d be one way of saying to the public: these are tools you think you’d might be interested in that we**approve**of
+
+**Leonardo Collado Torres** (15:59:29):
+> maybe**approve**can be changed for another word(s) such as “are aware”
+
+**Leonardo Collado Torres** (16:00:05):
+> and also a bit like OSCA where we can centralize a bit the location of the documentation and make it easier for new people to get started
+
+
+## 2023-08-01
+
+*09:12:34 - @Nikhil Mane has joined the channel*
+**Brian Schilder** (10:28:14) (in thread):
+> this is the approach that we take with rworkflows, using that very action!
+
+**Brian Schilder** (10:31:49) (in thread):
+> amazing, thanks for the detailed description of these@Mike Smith! ive been using your`setup-bioc`action as part of rworkflows, but wasnt aware of the`build-install-check`one. emulating BBS as close as possible is definitely a highly desirable feature i'd to integrate into rworkflows, at least as an option
+
+**Brian Schilder** (18:39:55) (in thread):
+> This is a bit what i had in mind when i updated the docs here:[https://neurogenomics.github.io/bioc_mentorship_docs/bioc-package](https://neurogenomics.github.io/bioc_mentorship_docs/bioc-package)
+  - Attachment (neurogenomics.github.io): [Chapter 6 Making a Bioconductor package | Bioconductor Guidelines for Mentors and Mentees](https://neurogenomics.github.io/bioc_mentorship_docs/bioc-package)
+    > This chapter demonstrates how to make a Bioconductor package using a workflow that utilises the following R packages: rworkflows (CRAN) usethis (CRAN) biocthis (Bioconductor) This is just one...
+
+
+## 2023-08-03
+
+*10:50:32 - @Jill Lundell has joined the channel*
+*10:53:20 - @Tyrone Lee has joined the channel*
+*10:57:14 - @Ahmad Alkhan has joined the channel*
+*10:57:39 - @Joost Groot has joined the channel*
+*11:04:38 - @Ludwig Geistlinger has joined the channel*
+*11:37:22 - @Francesc Català-Moll has joined the channel*
+*13:39:46 - @Charlotte Soneson has joined the channel*
+
+## 2023-08-04
+
+**Francesc Català-Moll** (14:44:38):
+> I hope you’re all doing well! I’ve been exploring GitHub Actions in the context of biocthis, and I wanted to raise a specific point.
+> 1/ It appears that by default, the biocthis action uses`covr::codecov()`without including the example code or vignette code in the coverage computation. I’m curious about the reasoning behind this approach. In my opinion, incorporating the example and vignette code using`covr::codecov(coverage = covr::package_coverage(type = "all"))`could potentially provide a more comprehensive and realistic coverage report. What are your thoughts on this?
+> 2/ On a related note, I’ve been pondering how to test example codes that intentionally return errors. Has anyone found an effective approach to accomplish this?
+> 3/ Lastly, I’d like to hear your thoughts on the possibility of including the runforesight/workflow-telemetry-action@v1 action by default (mendioned by Alexandru Mahmoud during bioc2023)
+
+**Leonardo Collado Torres** (16:39:12):
+> 1) Sure, that sounds like a good change
+
+**Leonardo Collado Torres** (16:39:43):
+> Wanna submit a PR to`biocthis`? Or would you prefer that I code it myself?
+
+**Leonardo Collado Torres** (16:40:54):
+> 3) I don’t know if this is a`biocthis`question or not. Like where would you like to include that action by default?
+> 
+> Also, what does that action do?
+
+**Leonardo Collado Torres** (16:42:09):
+> 2) Are you using`testthat::expect_error()`?
+
+
+## 2023-08-06
+
+**Francesc Català-Moll** (21:21:08):
+> 1/ I’ve already opened an issue in the biocthis repository, and in a few days, I’ll submit the pull request (PR). I’ve been visiting Boston for a few days, and during the flight back to Spain, I’ll have plenty of time to work on the code.
+> 
+> 2/ Currently, I use `dontrun {}`, but it has the problem of not being evaluated by codecov. I will try your suggestion to use `testthat::expect_error()` and see if it resolves the issue.
+> 
+> 3/ I tested the runforesight/workflow-telemetry-action@v1 in one of my repositories ([https://github.com/MicrobialGenomics-IrsicaixaOrg/dar/actions/runs/5765040211](https://github.com/MicrobialGenomics-IrsicaixaOrg/dar/actions/runs/5765040211)), as you can see, it provides information about CPU and memory usage for all the steps in the GitHub Action. However, I’m not entirely sure how relevant this information is for the package itself, so nevermind.
+
+
+## 2023-12-28
+
+*09:00:39 - @David Rach has joined the channel*
+
+## 2024-10-02
+
+*19:04:53 - @Eva Hamrud has joined the channel*
+
+## 2025-01-13
+
+**Tyrone Lee** (19:45:56):
+> git operations are down as of Jan 13, 2025 - 23:44 UTC[https://www.githubstatus.com/incidents/qd96yfgvmcf9](https://www.githubstatus.com/incidents/qd96yfgvmcf9)
+  - Attachment (githubstatus.com): [Incident with Git Operations](https://www.githubstatus.com/incidents/qd96yfgvmcf9)
+    > GitHub's Status Page - Incident with Git Operations.

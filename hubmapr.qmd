@@ -1,0 +1,1284 @@
+---
+title: "#hubmapr"
+format: gfm
+---
+
+
+## 2024-04-12
+
+*11:46:03 - @Stephanie Hicks has joined the channel*
+*11:46:19 - @Christine Hou has joined the channel*
+**Stephanie Hicks** (11:47:45):
+> set the channel description: Informal research group working towards creating a Bioconductor API to access HuBMAP data
+
+*11:47:52 - @Federico Marini has joined the channel*
+*11:47:57 - @Martin Morgan has joined the channel*
+*11:48:01 - @Shila Ghazanfar has joined the channel*
+**Stephanie Hicks** (11:49:22):
+> hi folks! I wanted to connect us all together in a channel to start conversations about working towards creating a Bioconductor API to access HuBMAP data.
+
+**Stephanie Hicks** (11:50:48):
+> @Christine Houis a master's student working in my group who joined a few months back, but has been doing some self-reading the last few months about the`hca`and`cellxgenedp`packages until I get more bandwidth to meet regularly. I'm happy to say that we just started to meet regularly!
+
+**Stephanie Hicks** (11:52:48):
+> I shared with Christine how@Federico Marini@Shila Ghazanfar@Martin Morganhad thought about this idea previously with`HuBMAPR`and she has been tinkering with these ideas the last few weeks while also focused on understanding how the previous packages worked.
+
+**Stephanie Hicks** (11:53:20):
+> @Christine Houplease feel free to introduce yourself and thank you for joining this project!
+
+**Christine Hou** (11:54:35):
+> @Stephanie HicksThanks for the introduction and creating the slack channel for us! It is my pleasure to work on this project:slightly_smiling_face:!
+> 
+> Hi! I am Christine Hou, 1st year graduate student in Biostatistics ScM program from JHU Bloomberg School of Public Health. Nice to see you all here!`hca`and`cellxgenedp`packages are really impressive, and I learned a lot from these two packages!
+
+**Stephanie Hicks** (13:46:36):
+> Thanks! also, I just want to add the I've asked Christine to create a branch in`HuBMAPR`to start pushing code as she works on the project. Let me know if anyone has concerns with that.
+
+
+## 2024-04-15
+
+**Federico Marini** (14:57:05):
+> Hi:slightly_smiling_face:Here’s Federico, long time user, slightly less long time developer, head of a Bioinformatics group that cannot let go the hands on development:slightly_smiling_face:
+
+
+## 2024-05-27
+
+*21:16:16 - @Aedin Culhane has joined the channel*
+
+## 2024-06-23
+
+**Christine Hou** (15:19:03):
+> Hi! I am Christine.
+> I am here to ask a question regarding to HuBMAP API. Currently I am exploring some APIs available to use, and very confused about[HuBMAP Ingest API](https://smart-api.info/ui/1607c43d6b0f22cc2ba5599c7f1e5219). I followed the instructions and tried some link, but I obtained
+> ```
+> Error in curl::curl_fetch_memory(url, handle = handle) : 
+>   SSL peer certificate or SSH remote key was not OK: [uuid.hubmapconsortium.org] SSL: no alternative certificate subject name matches target host name 'uuid.hubmapconsortium.org'
+> ```
+> I am totally new to this error, so I wondered anyone met similar error message before. Any hint/instruction to help solve will be greatly appreciated. Thanks!:slightly_smiling_face:
+  - Attachment (smart-api.info): [SmartAPI](https://smart-api.info/ui/1607c43d6b0f22cc2ba5599c7f1e5219)
+    > The SmartAPI project aims to maximize the FAIRness (Findability, Accessibility, Interoperability, and Reusability) of web-based Application Programming Interfaces (APIs)
+
+
+## 2024-08-09
+
+**Christine Hou** (14:35:30):
+> <!channel>Hi all! I want to share good news here that I almost finish writing HuBMAPR package. I created a new repo in my GitHub to push new codes, and just invited@Federico Marini@Shila Ghazanfarvia GitHub. Can you accept the invitations:slightly_smiling_face:? If I miss someone, please tell me.
+> 
+> I really hope to hear some feedback from all of you to build a better package. You can comment via issues to offer any suggestion/comment. Looking forward to reading them! Thanks.
+
+**Shila Ghazanfar** (22:30:58) (in thread):
+> wonderful Christine, thanks for doing so, will do
+
+
+## 2024-08-11
+
+**Federico Marini** (09:09:50) (in thread):
+> Done!
+
+**Federico Marini** (09:10:12) (in thread):
+> Brief response since I am on holiday but will look into it as soon as i am back!
+> Thanks for inviting us!
+
+
+## 2024-08-12
+
+**Shila Ghazanfar** (00:58:11) (in thread):
+> @Christine Houi just posted an issue finding a bug with a particular dataset UUID... i can push the necessary change to the function and namespace if you like.. take a look and let me know thanks!
+
+**Christine Hou** (08:43:55) (in thread):
+> @Shila GhazanfarThank you so much on checking the errors. I had not even noticed this kind of small details. Just pushed the new codes!
+
+**Shila Ghazanfar** (19:54:01) (in thread):
+> All good christine, ill flag anything else i see
+
+
+## 2024-08-14
+
+**Martin Morgan** (15:42:16):
+> For what it's worth I spent a bit of time developing[rglobus](https://mtmorgan.github.io/rglobus/articles/a_get_started.html)for interacting with Globus. Once you've used Christine's amazing package to get a HuBMAP dataset id, you could use rglobus to download some or all of the data from within R, without using a browser, so your workflow would be fully scripted / reproducible.
+
+**Christine Hou** (15:59:24) (in thread):
+> I just read through this package! Thank you so much to develop such amazing package to transfer the Globus files to local computer. I am not sure whether it is a better idea to combine both packages together which is to replace[files.R](https://github.com/christinehou11/HuBMAPR/blob/main/R/files.R)by your R scripts. But i am totally fine with separate packages working on different aspects.:slightly_smiling_face:
+
+**Martin Morgan** (16:17:43) (in thread):
+> I started the package as a function in HuBMAPR but it got too complicated! And I thought about my colleagues who use Globus but not HuBMAP, so I think it's better as a stand-alone package.
+> 
+> Probably there are light-weight convenience functions that could go in HuBMAPR so that the user doesn't need to know details (e.g., about how to discover the HuBMAP Public collection).
+
+**Christine Hou** (16:25:11) (in thread):
+> I agree! I think it would be much better to keep them separate to avoid over-complication. What's more, files.R can also be kept in HuBMAPR package to let the users know whether the dataset is open-accessed via Globus or restricted.
+> 
+> We can update vignettes in HuBMAPR to let users know  that the rglobus package can help to download files within R. How do you think about this?
+
+**Martin Morgan** (16:37:15) (in thread):
+> yes updating the vignette sounds like a good solution.
+
+
+## 2024-09-15
+
+**Stephanie Hicks** (06:14:30):
+> hi folks! I hope your september is going well. Christine has been hard at work ont his package and I wanted to mention it is now under review in the contributions queue ([https://github.com/Bioconductor/Contributions/issues/3532](https://github.com/Bioconductor/Contributions/issues/3532))
+  - Attachment: [#3532 HuBMAPR](https://github.com/Bioconductor/Contributions/issues/3532)
+    > Update the following URL to point to the GitHub repository of  
+    > the package you wish to submit to *Bioconductor*
+    > 
+    > • Repository: [https://github.com/christinehou11/HuBMAPR](https://github.com/christinehou11/HuBMAPR)
+    > 
+    > Confirm the following by editing each check box to '[x]'
+    > 
+    > • I understand that by submitting my package to *Bioconductor*,  
+    > the package source and all review commentary are visible to the  
+    > general public.
+    > • I have read the *Bioconductor* [Package Submission](https://bioconductor.org/developers/package-submission/)  
+    > instructions. My package is consistent with the *Bioconductor*  
+    > [Package Guidelines](https://contributions.bioconductor.org/).
+    > • I understand Bioconductor <https://bioconductor.org/developers/package-submission/#naming|Package Naming Policy> and acknowledge  
+    > Bioconductor may retain use of package name.
+    > • I understand that a minimum requirement for package acceptance  
+    > is to pass R CMD check and R CMD BiocCheck with no ERROR or WARNINGS.  
+    > Passing these checks does not result in automatic acceptance. The  
+    > package will then undergo a formal review and recommendations for  
+    > acceptance regarding other Bioconductor standards will be addressed.
+    > • My package addresses statistical or bioinformatic issues related  
+    > to the analysis and comprehension of high throughput genomic data.
+    > • I am committed to the long-term maintenance of my package. This  
+    > includes monitoring the [support site](https://support.bioconductor.org) for issues that users may  
+    > have, subscribing to the [bioc-devel](https://stat.ethz.ch/mailman/listinfo/bioc-devel) mailing list to stay aware  
+    > of developments in the *Bioconductor* community, responding promptly  
+    > to requests for updates from the Core team in response to changes in  
+    > *R* or underlying software.
+    > • I am familiar with the [Bioconductor code of conduct](https://bioconductor.org/about/code-of-conduct/) and  
+    > agree to abide by it.
+    > 
+    > I am familiar with the essential aspects of *Bioconductor* software  
+    > management, including:
+    > 
+    > • The 'devel' branch for new packages and features.
+    > • The stable 'release' branch, made available every six  
+    > months, for bug fixes.
+    > • *Bioconductor* version control using [Git](http://bioconductor.org/developers/how-to/git/)  
+    > (optionally [via GitHub](http://bioconductor.org/developers/how-to/git/sync-existing-repositories/)).
+    > 
+    > For questions/help about the submission process, including questions about  
+    > the output of the automatic reports generated by the SPB (Single Package  
+    > Builder), please use the #package-submission channel of our Community Slack.  
+    > Follow the link on the home page of the [Bioconductor website](https://bioconductor.org/) to sign up.
+
+**Stephanie Hicks** (06:18:35):
+> There is also a`pkgdown`website helping to describe the package ([https://christinehou11.github.io/HuBMAPR/](https://christinehou11.github.io/HuBMAPR/)).
+  - Attachment (christinehou11.github.io): [Interface to HuBMAP](https://christinehou11.github.io/HuBMAPR/)
+    > HuBMAP provides an open, global bio-molecular atlas of the human body at the cellular level. The `datasets()`, `samples()`, `donors()`, `publications()`, and `collections()` functions retrieves the information for each of these entity types. `*_details()` are available for individual entries of each entity type. `*_derived()` are available for retrieving derived datasets or samples for individual entries of each entity type. Data files can be accessed using `files_globus_url()`.
+
+**Stephanie Hicks** (06:19:44):
+> On a related note, we are almost through drafting a manuscript to submit to**Bioinformatics Applications Note**(2-3 pages, 1 figure). I've taken a close pass through it, but would like Christine's help with a few small things. Once that is complete, we anticipate sending you all manuscript on Overleaf. I want to put this on your radar as I assume it will happen in the next week.
+
+**Stephanie Hicks** (06:20:28):
+> Feedback is welcome on the package and will loop back here soon to ask for your edits/suggestions/comments on the manuscript. Thank you all!
+
+**Christine Hou** (12:49:56):
+> Thanks for your help@Stephanie Hicks! Really appreciate your review and comments for the manuscript.
+> I just complete revising some details, and I think the manuscript is almost ready to be shared with all of you!
+> It will be really grateful for you all to take a quick look and give some feedback. If@Martin Morgancan help on the details in Method session, it will be perfect.
+> Thanks for the time!
+
+
+## 2024-09-16
+
+**Martin Morgan** (07:19:49) (in thread):
+> happy to provide feedback when I have access to the manuscript; I might not be very responsive over the next week or so.
+
+**Stephanie Hicks** (17:47:49):
+> hi all! Apologies on my slow response. Here is the manuscript ([https://www.overleaf.com/6137149132fcnwrchqwqbw#06488b](https://www.overleaf.com/6137149132fcnwrchqwqbw#06488b)) and I've put it in the`HuBMAPR`folder at the top of this channel
+  - Attachment (overleaf.com): [Overleaf, Online LaTeX Editor](https://www.overleaf.com/6137149132fcnwrchqwqbw#06488b)
+    > An online LaTeX editor that’s easy to use. No installation, real-time collaboration, version control, hundreds of LaTeX templates, and more.
+
+**Stephanie Hicks** (17:47:58) (in thread):
+> done!:slightly_smiling_face:
+
+
+## 2024-09-18
+
+**Federico Marini** (04:34:47):
+> sorry for the silence here on my end.
+> Fantastic work@Christine Houfor wrapping it up! I will go in with a full round of review “parallel” to the official bioc one in case I spot something
+
+**Shila Ghazanfar** (07:37:12):
+> Just read through the MS, excellent work@Christine Hou! made some small edits, overall is reading nicely -- you may be asked about how the data gets downloaded and how to arrange especially with many files, whether it caches, etc.. i think this all goes to`rglobus`but may be worth addressing more head-on in the text
+
+
+## 2024-09-19
+
+**Federico Marini** (10:03:00):
+> I did a full run on my machine and did find a test not passing, don’t know if this is expected. After all, it does build on the BBS, so I can’t judge too much on the reasons.
+> Maybe it is worth setting up a full spectrum of CI/CD for testing on all main types of OSs? Happy to share a good yml that we are currently using for all our latest packages
+
+**Federico Marini** (10:05:43):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07N7UJJ08L/image.png)
+
+**Federico Marini** (10:06:13):
+> (which is fixed by setting the expected value to 0, but maybe we can simply use another uuid? -Also the one from the example has 0 rows returned in my instance)
+
+**Christine Hou** (10:51:39) (in thread):
+> It looks really wired because the package should pass all tests at the time I submitted the Bioconductor for review otherwise the package were not able to continue to the peer review step. I will double check later.
+
+**Federico Marini** (10:52:15) (in thread):
+> I could not agree more with that, which is why I was very surprised it gave an error on my machine
+
+**Federico Marini** (10:52:45):
+> meanwhile: GHA for check+bioccheck are all set and running
+
+**Federico Marini** (10:52:55):
+> and they recently gave this error ->[https://github.com/christinehou11/HuBMAPR/actions/runs/10943280275/job/30382302613](https://github.com/christinehou11/HuBMAPR/actions/runs/10943280275/job/30382302613)
+
+**Federico Marini** (10:53:18):
+> which is something that can happen probably randomly if the API are not responding correctly/in time
+
+**Federico Marini** (10:53:37):
+> I am sure it will go away if I re-run this
+
+**Federico Marini** (10:54:56):
+> we can also probably add a few biocViews more to reflect the size/scope of what we are fetching?
+
+**Christine Hou** (10:54:57):
+> The API does not work very well sometimes even when I try to retrieve something else outside the package
+
+**Christine Hou** (10:55:38) (in thread):
+> Do you have any idea? Feel free to add if you have some:slightly_smiling_face:
+
+**Federico Marini** (10:55:51):
+> yeah, I had that fear as well. Don’t know if it is worth adding some kind of fallback mechanisms that do not trigger the “hard error” that would then lead to have the package fail in building/checking
+
+**Federico Marini** (11:00:11) (in thread):
+> DataImport, ThirdPartyClient, Spatial, Infrastructure would be my first best guesses
+
+**Federico Marini** (11:00:39) (in thread):
+> it is not a mandatory thing but it would help others see this “passively” when they search for those views
+
+**Federico Marini** (11:00:47) (in thread):
+> and add accordingly into the vignette, I guess
+
+**Federico Marini** (11:08:03) (in thread):
+> (I mean, hubmap is so vast one cannot catch them all. or it could, but then it is more like a “fake information” if we tick all boxes)
+
+**Federico Marini** (11:15:33) (in thread):
+> aaaand it is gone, all:white_check_mark:
+
+**Christine Hou** (11:36:00):
+> I edited the query language, and all tests passed! I also edited the DESCRIPTION file to include more in biocViews.
+  - File (PNG): [Screenshot 2024-09-19 at 11.35.35.png](https://community-bioc.slack.com/files/U34P8RS3B/F07MRG3SV71/screenshot_2024-09-19_at_11.35.35.png)
+
+**Christine Hou** (11:36:36):
+> Thanks for pointing out the error!@Federico MariniVery helpful!
+
+**Federico Marini** (11:37:13) (in thread):
+> might be there could be one or two conflicts in the PR that can come in from my branch
+
+**Federico Marini** (11:37:18) (in thread):
+> I’ll fix that beforehand!
+
+**Christine Hou** (11:38:10) (in thread):
+> I will first push the changes to the GitHub!
+
+**Christine Hou** (11:38:23) (in thread):
+> Then you can have more checks based on the new version
+
+**Federico Marini** (11:38:30) (in thread):
+> k, just ping me once it is there
+
+**Federico Marini** (11:38:50) (in thread):
+> I will solve the conflicts after dinner, and then move on to the manuscript
+
+**Christine Hou** (11:38:59) (in thread):
+> After you finish the checks, I will push to bioconductor remote
+
+**Federico Marini** (11:39:09) (in thread):
+> Ok, will give you a greenlight
+
+**Federico Marini** (11:39:55):
+> One thought on a thing I probably would like to see in the vignette somewhere - what format is the data that one would download via globus?
+
+**Federico Marini** (11:40:06):
+> i.e. “how Bioc-ready” would that be?
+
+**Federico Marini** (11:40:44):
+> Given the broad spectrum of data types it includes, it might be hard to make a clear statement, but probably worth doing a mention somewhere
+
+**Federico Marini** (11:41:22):
+> (biased view: If it would be all SE-like, it would be half-a-breeze to set up a full instance of iSEEindex to have it browsable in iSEE, yummy yummy.:smile:)
+
+**Federico Marini** (11:41:54):
+> ((this with a new feature we have currently coming up in devel where we can use a call to an r function to have an object loaded/loadable))
+
+**Christine Hou** (12:01:27):
+> The data types are broad, and Globus folder for each dataset uuid does not include only raw data, but some reports, analysis, images, or even some unrecognized data type (naming like 0 1 2 3 ...). That's why I mentioned in manuscript that Globus online
+> website helps user to "preview and download raw data products, downstream
+> analysis reports, metadata files, and visualizations." i think i can added this sentence in vignettes. I think it is enough to give a shot near the end because each uuid dataset has totally different components of files.
+
+**Christine Hou** (12:22:49):
+> @Federico Marinijust pushed the new codes!
+
+**Federico Marini** (16:17:40) (in thread):
+> agree on the line you propose.
+
+**Federico Marini** (16:18:02) (in thread):
+> which is a bit of a pity, because this makes it “diverge” a bit from e.g. the cellxgenedp package
+
+**Christine Hou** (16:39:30) (in thread):
+> Feel free to have more checks! Just message me once you finish and I will give a bump up and push new codes to bioconductor repo! Thanks for your help!
+
+**Federico Marini** (18:14:26) (in thread):
+> Ok, I did solve the conflict
+
+**Federico Marini** (18:14:41) (in thread):
+> and while at it, I took some time to extend even more the test coverage:wink:
+
+**Federico Marini** (18:19:47) (in thread):
+> all ready for you@Christine Hou[https://github.com/christinehou11/HuBMAPR/pull/14](https://github.com/christinehou11/HuBMAPR/pull/14)
+  - Attachment: [#14 Testfix gha](https://github.com/christinehou11/HuBMAPR/pull/14)
+    > • Fixing the tests
+    > • setting up Github actions for full check
+    > • extra biocViews
+    > • news slightly tweaked (got a note in BiocCheck..)
+
+**Federico Marini** (18:19:55) (in thread):
+> (version’s bumped too)
+
+**Federico Marini** (18:20:13) (in thread):
+> merge that one in and push upstream anytime
+
+**Christine Hou** (18:54:55) (in thread):
+> Successfully merged! Thanks for your help! The Bioconductor check also passed and our package is able to wait for review.
+
+**Stephanie Hicks** (21:25:44):
+> Thank you both so much@Federico Marini@Christine Houfor making these changes today!
+
+
+## 2024-09-20
+
+**Federico Marini** (10:26:27):
+> YVW:slightly_smiling_face:Sorry for having you wait a bit on my round of feedback, was away+sick afterwards
+
+
+## 2024-09-21
+
+**Federico Marini** (11:41:52):
+> I am done with my pass on the manuscript. Most comments are in and I see@Christine Houis already on it:slightly_smiling_face:
+
+**Federico Marini** (11:42:22):
+> it is very well written already, so I could focus on the tiny details where devils might hide
+
+**Federico Marini** (11:42:40):
+> but overall: It reads very well and captures nicely the work you did!
+
+**Christine Hou** (11:44:27):
+> @Federico MariniThanks for your time and efforts! Really appreciate your work on both manuscript and package development!
+
+**Federico Marini** (11:45:32):
+> my pleasure:slightly_smiling_face:thank you for acknowledging this, you did really most of it AND beautifully
+
+**Federico Marini** (11:45:49):
+> (I, for my side, am very annoyed i cannot fix the hyperref conflict:grimacing:)
+
+**Christine Hou** (11:47:39):
+> Do you have anything specific to add such that the conflict came out?
+
+**Federico Marini** (11:54:05):
+> nah, it is more like, we load it, but the document class does that too
+
+**Christine Hou** (11:55:53):
+> Not sure from my side. I am also a started in Overleaf loll
+
+**Christine Hou** (11:57:03):
+> Can you clarify the "license" you commented in data availability section? Not sure what it is. That's perfect if you can give an example
+
+**Federico Marini** (12:02:48):
+> we have Artistic 2-0
+
+**Federico Marini** (12:02:52):
+> we can simply say that
+
+**Federico Marini** (12:03:06):
+> like literally the software license we are using for the pkg
+
+**Christine Hou** (12:03:28):
+> oh i misunderstood. That is clear for me now.
+
+
+## 2024-09-22
+
+**Federico Marini** (05:06:56):
+> re: latex -> I call it the sunday morning win
+
+**Federico Marini** (05:06:59):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07NKAPQ6G4/image.png)
+
+**Federico Marini** (05:07:10):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07NGRMJRPU/image.png)
+
+**Federico Marini** (05:07:11):
+> :tada:
+
+**Federico Marini** (05:09:09):
+> (source of the solution:[https://stackoverflow.com/questions/71263063/latex-error-option-clash-for-package-hyperref](https://stackoverflow.com/questions/71263063/latex-error-option-clash-for-package-hyperref))
+  - Attachment (Stack Overflow): [LaTeX Error: Option clash for package hyperref](https://stackoverflow.com/questions/71263063/latex-error-option-clash-for-package-hyperref)
+    > \documentclass[11pt,a4paper,sans]{moderncv} 
+    > \moderncvstyle{banking} 
+    > \moderncvcolor{blue}
+    > \usepackage[utf8]{inputenc}
+    > \usepackage[scale=0.75]{geometry}
+    > 
+    > \usepackage{graphicx}
+    > \usepackage{float}
+    > 
+    > \
+
+**Stephanie Hicks** (18:38:59):
+> oh wow thank you so much@Federico Marini!!
+
+
+## 2024-09-23
+
+**Federico Marini** (11:30:20):
+> that’s the least I could do to top your work already done:slightly_smiling_face:
+
+**Stephanie Hicks** (19:20:47):
+> ok, i'm going to send out a formal email to folks here (i.e. all the co-authors) asking for feedback and an email response confirming authorship. Apologies for the formality, but it's the best way I know how to handle authorship confirmations.
+
+**Stephanie Hicks** (19:21:50):
+> In the mean time, please do feel free to add your comments to the manuscript and/or package. Hoping to submit this in early October, if possible
+
+**Stephanie Hicks** (19:35:24):
+> email sent
+
+**Stephanie Hicks** (19:53:00):
+> @Christine HouI've added the supplemental text part
+
+**Stephanie Hicks** (19:53:12):
+> can you tell me where you want to cite Figure S1?
+
+**Stephanie Hicks** (19:56:29):
+> ok i put it at the end of the first paragraph, but feel free to move it if there is a better spot for it
+
+**Stephanie Hicks** (20:12:42):
+> also, could folks please check the funding and add relevant funding sources? thanks!
+
+**Christine Hou** (20:19:06):
+> @Stephanie HicksThanks for adding the supplementary materials. I changed the citation to the second paragraph after we mentioned a couple of assay type names.
+
+**Christine Hou** (20:20:24):
+> I am not quite sure how to edit the reference to short version.@Federico MariniIf you can help with this, that would be grateful!
+
+**Stephanie Hicks** (20:50:38):
+> yeah, i tried to search how to do it with`natbib`but i am unable to figure it out. i'm guessing it requires editing the`.cls`file?
+
+**Stephanie Hicks** (20:51:15):
+> i believe with`bibtex`it is more straightforward with`maxnames=5`etc, but i see the`.cls`file uses`natbib`.:confused:
+
+
+## 2024-09-25
+
+**Federico Marini** (07:12:21) (in thread):
+> on it!
+> I think it can involve us chopping a bit the bibtex entry in an artificial (but effective) manner
+
+**Federico Marini** (07:13:03) (in thread):
+> I am trying to see if this works with adding a duplicate entry in the bibtex file so that we can do some harmless edits
+
+**Federico Marini** (07:50:33) (in thread):
+> I’ll try to mirror this
+
+**Federico Marini** (07:50:36) (in thread):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07NWDXGR2R/image.png)
+
+**Federico Marini** (07:57:30) (in thread):
+> did a bit of fiddling to obtain this
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07NSMX4YHL/image.png)
+
+**Federico Marini** (07:58:28):
+> since the 2023 paper had an explicit list, I went with first author et al, with a bit of a trick to have it displayed “correctly”
+
+**Martin Morgan** (11:25:14):
+> I made some mostly minor text edits, with a couple of comments where I wasn't totally sure of what to say. This looks really great@Christine Hou! Sorry for my slow response.
+
+**Christine Hou** (12:03:28):
+> Thanks for your comments!@Martin Morgan
+
+
+## 2024-09-26
+
+**Stephanie Hicks** (07:26:53):
+> Thank you very much@Federico Marini@Martin Morgan! We really appreciate the feedback and latex help:upside_down_face:
+
+**Stephanie Hicks** (07:27:45):
+> @Christine Houcan you take a pass through the comments?
+
+**Stephanie Hicks** (07:27:55):
+> i can make the cover letter (sorry i forgot about it and should have done it earlier) and will drop it here for everyone's feedback.
+
+**Stephanie Hicks** (07:43:50):
+> ah! i spoke too soon. christine has already resolved the comments:tada:
+
+**Stephanie Hicks** (07:44:08):
+> I did make a cover letter just now though ([https://docs.google.com/document/d/1PFhwUs_71ww8HOqkJd2xyd7LAelRtT2M3n8-YHNKAGQ/edit?usp=sharing](https://docs.google.com/document/d/1PFhwUs_71ww8HOqkJd2xyd7LAelRtT2M3n8-YHNKAGQ/edit?usp=sharing))
+
+**Stephanie Hicks** (07:44:19):
+> it's also added to the Folder pinned at the top
+
+**Stephanie Hicks** (07:45:21):
+> @Martin Morganwhenever you get a chance, can you review and add your affiliations?
+
+**Stephanie Hicks** (07:45:51):
+> in the mean time, i'll get this submitted to bioRxiv today
+
+**Christine Hou** (07:48:27):
+> Thanks for the cover letter and submission of our manuscript@Stephanie Hicks! Also thanks for all efforts and time to help review the package and manuscript@Martin Morgan@Federico Marini@Shila Ghazanfar!
+
+**Martin Morgan** (08:06:54):
+> I didn't pay attention to the title, but I think it should NOT say 'API', because we use an API but do not provide one. Maybe just 'HuBMAPR: an R Client for the HuBMAP Data Portal'. This would be reflected in the paper title and in two places in the cover letter. I'll review the cover letter more fully later this morning.
+
+**Shila Ghazanfar** (08:09:24) (in thread):
+> Typo in the cover letter 'biomelecular' otherwise is reading well!
+
+**Christine Hou** (08:19:26):
+> Just edit it. Sorry that I forgot to change the name yesterday.
+
+**Stephanie Hicks** (09:42:49) (in thread):
+> thank you for that catch!
+
+**Stephanie Hicks** (09:54:12):
+> that is a great point. thank you@Martin Morgan! it's been changed in both places
+
+**Federico Marini** (12:37:33) (in thread):
+> good catch, I think we “simply” are a (freaking well done) client
+
+**Federico Marini** (12:50:08):
+> I’ll have a look at the cover letter later tonight
+
+
+## 2024-10-02
+
+**Federico Marini** (16:03:32):
+> mau, bioinfo bounced us back
+
+**Stephanie Hicks** (21:56:20):
+> hey! yeah, I am just catching up with my email after a travel day to Boston. I was sad to see that too, but they are offering to transfer us to Bioinformatics Advances. I ran the idea by@Christine Houand she was supportive of the idea. Any objections?
+
+
+## 2024-10-03
+
+**Stephanie Hicks** (17:39:31):
+> thanks everyone! I have transferred the manuscript to Bioinformatics Advances. Will loop back here as soon I hear anything.
+
+
+## 2024-10-12
+
+**Christine Hou** (20:27:29):
+> <!channel>Good news! Our package is done with first round of review! I updated the vignette based on the given required comment to add one code chunk with installation from Bioconductor.
+> 
+> Another suggestion (option but highly recommend to update) is:
+> 
+> SUGGESTION: No Bioconductor dependencies detected. Note that some infrustructure packages may not have Bioconductor dependencies. For more information, reach out to the Bioconductor community and/or consider a CRAN submission.
+> 
+> I am not sure about this part. Any thought?
+
+
+## 2024-10-14
+
+**Federico Marini** (15:57:43):
+> Hm. Cannot really say what the best action is in this case.- There is no real “need” of adding something “purely from Bioc”.
+> This is an automated note one gets from BiocCheck. And given it is an infrastructure-like package, we can probably skip this
+
+**Federico Marini** (15:58:01):
+> @Martin Morganmight have a way to get our angle through in a convincing manner?
+
+**Federico Marini** (15:59:25):
+> As indicated by the status from Kayla, it is only a suggestion.
+> IIRC errors lead to “must do”, warnings lead to “should do”, and notes accordingly to “could do/consider”
+
+**Federico Marini** (16:00:39):
+> then; there are notes and notes, some of them that I personally feel are more relevant (using properly a vapply instead of sapply) than others (say, 2spaces vs 4spaces of functions)
+
+**Christine Hou** (16:30:11):
+> Yes I agree with you. So I just revised the instruction part and committed again. Waiting for the second round of review.
+
+
+## 2024-10-22
+
+**Federico Marini** (09:58:37):
+> Our issue has been silent, but I think it is normal pre-deadlines and all.
+
+**Federico Marini** (09:58:47):
+> i.e. “nothing to feel worried about” so far
+
+**Federico Marini** (09:59:21):
+> I’ll try to reserve some time specifically for this in case anything urgent pops up
+
+**Federico Marini** (10:39:48):
+> bringing this up only because of the pending-->
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07T01GM7HQ/image.png)
+
+**Martin Morgan** (11:12:03):
+> I know it is aggressive but I would suggest asking on bioc-devel about the status of the review (link to the issue), given the deadline tomorrow <[https://stat.ethz.ch/mailman/listinfo/bioc-devel](https://stat.ethz.ch/mailman/listinfo/bioc-devel)>
+
+
+## 2024-10-24
+
+**Federico Marini** (06:20:44):
+> was there any news on this? I think we are really not far at all from the acceptance
+
+**Federico Marini** (06:21:08):
+> still, i don’t know how “hard” the deadline about the manifest is
+
+**Federico Marini** (06:21:24):
+> guess it is always like this at this time of the season
+
+**Stephanie Hicks** (12:27:53):
+> hi, i'm just seeing your messages from tuesday:confused:
+
+**Stephanie Hicks** (12:28:07):
+> sorry, teaching starts today and i'm on study section this week. It's madness for me
+
+**Stephanie Hicks** (12:28:31):
+> We can ask on the issue what the status is.@Christine Houwould you be willing to do that?
+
+**Christine Hou** (12:34:22):
+> I replied to the issue that we are ready for the next re-review. But there is no response back to us by today.
+
+**Federico Marini** (12:35:08):
+> I am on the sure end of the spectrum that this is acceptance ready, tbh
+
+**Christine Hou** (12:35:21):
+> I replied to her just a couple of days after I saw the comment back to us.
+
+**Federico Marini** (12:35:35):
+> and it would be a pity to not get in for this round:disappointed:
+
+**Christine Hou** (12:35:44):
+> So probably she is still doing deeper review?
+
+**Christine Hou** (12:44:03):
+> I asked Kayla for the status in the issue, and hope to hear something back to us soon!
+
+**Federico Marini** (14:15:29):
+> I don’T think that is the case. the “deepest level” is normally done i n the first round.
+> This, unless something major comes up during the round1, so to say
+
+**Federico Marini** (14:15:37):
+> at least this was my experience so fa
+
+**Federico Marini** (14:15:38):
+> r
+
+**Christine Hou** (14:23:24):
+> Hope Kayla can see the message and give some status updates ASAP.
+
+**Christine Hou** (14:23:47):
+> It has been over one week (almost two weeks) that I have not seen any response back.
+
+**Christine Hou** (14:24:18):
+> Probably due to the large amount? not pretty sure
+
+**Martin Morgan** (14:41:19):
+> Probably we would like the package to be included in the 'release' announcement, which goes out on October 30 <[https://bioconductor.org/developers/release-schedule/](https://bioconductor.org/developers/release-schedule/)>. The announcement is probably written starting on Monday, so you'd really like the package to be accepted / added to the manifest by then. But Monday is after Friday, which is when the package would likely be added. And Friday is after today. You should try to 'escalate' this, either by emailing the bioc-devel mailing list ('we are concerned that our package will not be included in the release. It was submitted before the September 20 deadline...' without pointing fingers or anything) or tagging`@lshep`on the GitHub issue you just wrote (or`@lshep ^^`in a new issue, if that is what will get Lori's attention).
+  - Attachment (bioconductor.org): [Bioconductor - Release: Schedule](https://bioconductor.org/developers/release-schedule/)
+    > The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.
+
+**Christine Hou** (14:51:27):
+> Thanks@Martin Morgan. I just tagged`@lshep`in the issue and hope to hear something back.[https://github.com/Bioconductor/Contributions/issues/3532](https://github.com/Bioconductor/Contributions/issues/3532)
+  - Attachment: [#3532 HuBMAPR](https://github.com/Bioconductor/Contributions/issues/3532)
+    > Update the following URL to point to the GitHub repository of  
+    > the package you wish to submit to *Bioconductor*
+    > 
+    > • Repository: [https://github.com/christinehou11/HuBMAPR](https://github.com/christinehou11/HuBMAPR)
+    > 
+    > Confirm the following by editing each check box to '[x]'
+    > 
+    > • I understand that by submitting my package to *Bioconductor*,  
+    > the package source and all review commentary are visible to the  
+    > general public.
+    > • I have read the *Bioconductor* [Package Submission](https://bioconductor.org/developers/package-submission/)  
+    > instructions. My package is consistent with the *Bioconductor*  
+    > [Package Guidelines](https://contributions.bioconductor.org/).
+    > • I understand Bioconductor <https://bioconductor.org/developers/package-submission/#naming|Package Naming Policy> and acknowledge  
+    > Bioconductor may retain use of package name.
+    > • I understand that a minimum requirement for package acceptance  
+    > is to pass R CMD check and R CMD BiocCheck with no ERROR or WARNINGS.  
+    > Passing these checks does not result in automatic acceptance. The  
+    > package will then undergo a formal review and recommendations for  
+    > acceptance regarding other Bioconductor standards will be addressed.
+    > • My package addresses statistical or bioinformatic issues related  
+    > to the analysis and comprehension of high throughput genomic data.
+    > • I am committed to the long-term maintenance of my package. This  
+    > includes monitoring the [support site](https://support.bioconductor.org) for issues that users may  
+    > have, subscribing to the [bioc-devel](https://stat.ethz.ch/mailman/listinfo/bioc-devel) mailing list to stay aware  
+    > of developments in the *Bioconductor* community, responding promptly  
+    > to requests for updates from the Core team in response to changes in  
+    > *R* or underlying software.
+    > • I am familiar with the [Bioconductor code of conduct](https://bioconductor.org/about/code-of-conduct/) and  
+    > agree to abide by it.
+    > 
+    > I am familiar with the essential aspects of *Bioconductor* software  
+    > management, including:
+    > 
+    > • The 'devel' branch for new packages and features.
+    > • The stable 'release' branch, made available every six  
+    > months, for bug fixes.
+    > • *Bioconductor* version control using [Git](http://bioconductor.org/developers/how-to/git/)  
+    > (optionally [via GitHub](http://bioconductor.org/developers/how-to/git/sync-existing-repositories/)).
+    > 
+    > For questions/help about the submission process, including questions about  
+    > the output of the automatic reports generated by the SPB (Single Package  
+    > Builder), please use the #package-submission channel of our Community Slack.  
+    > Follow the link on the home page of the [Bioconductor website](https://bioconductor.org/) to sign up.
+
+**Christine Hou** (18:46:05):
+> <!channel>Our package was just accepted! Thanks for all efforts![https://github.com/Bioconductor/Contributions/issues/3532](https://github.com/Bioconductor/Contributions/issues/3532)
+  - Attachment: [#3532 HuBMAPR](https://github.com/Bioconductor/Contributions/issues/3532)
+    > Update the following URL to point to the GitHub repository of  
+    > the package you wish to submit to *Bioconductor*
+    > 
+    > • Repository: [https://github.com/christinehou11/HuBMAPR](https://github.com/christinehou11/HuBMAPR)
+    > 
+    > Confirm the following by editing each check box to '[x]'
+    > 
+    > • I understand that by submitting my package to *Bioconductor*,  
+    > the package source and all review commentary are visible to the  
+    > general public.
+    > • I have read the *Bioconductor* [Package Submission](https://bioconductor.org/developers/package-submission/)  
+    > instructions. My package is consistent with the *Bioconductor*  
+    > [Package Guidelines](https://contributions.bioconductor.org/).
+    > • I understand Bioconductor <https://bioconductor.org/developers/package-submission/#naming|Package Naming Policy> and acknowledge  
+    > Bioconductor may retain use of package name.
+    > • I understand that a minimum requirement for package acceptance  
+    > is to pass R CMD check and R CMD BiocCheck with no ERROR or WARNINGS.  
+    > Passing these checks does not result in automatic acceptance. The  
+    > package will then undergo a formal review and recommendations for  
+    > acceptance regarding other Bioconductor standards will be addressed.
+    > • My package addresses statistical or bioinformatic issues related  
+    > to the analysis and comprehension of high throughput genomic data.
+    > • I am committed to the long-term maintenance of my package. This  
+    > includes monitoring the [support site](https://support.bioconductor.org) for issues that users may  
+    > have, subscribing to the [bioc-devel](https://stat.ethz.ch/mailman/listinfo/bioc-devel) mailing list to stay aware  
+    > of developments in the *Bioconductor* community, responding promptly  
+    > to requests for updates from the Core team in response to changes in  
+    > *R* or underlying software.
+    > • I am familiar with the [Bioconductor code of conduct](https://bioconductor.org/about/code-of-conduct/) and  
+    > agree to abide by it.
+    > 
+    > I am familiar with the essential aspects of *Bioconductor* software  
+    > management, including:
+    > 
+    > • The 'devel' branch for new packages and features.
+    > • The stable 'release' branch, made available every six  
+    > months, for bug fixes.
+    > • *Bioconductor* version control using [Git](http://bioconductor.org/developers/how-to/git/)  
+    > (optionally [via GitHub](http://bioconductor.org/developers/how-to/git/sync-existing-repositories/)).
+    > 
+    > For questions/help about the submission process, including questions about  
+    > the output of the automatic reports generated by the SPB (Single Package  
+    > Builder), please use the #package-submission channel of our Community Slack.  
+    > Follow the link on the home page of the [Bioconductor website](https://bioconductor.org/) to sign up.
+
+
+## 2024-10-25
+
+**Federico Marini** (02:19:56):
+> good job in following up!
+> I know it was a bit pushy, kind of always tricky when release time is coming up
+
+**Christine Hou** (05:59:48):
+> All good! I am also concerned about the process so thanks for the reminder!
+
+**Stephanie Hicks** (07:48:43):
+> Oh that’s fantastic to hear!! Congratulations all!
+
+**Christine Hou** (09:27:43):
+> Not familiar with the tag. If our issue is closed, does it mean we don’t need to do anything else and just to wait for the public availability?[https://github.com/Bioconductor/Contributions/issues/3532](https://github.com/Bioconductor/Contributions/issues/3532)If so, congratulations!!!!!:tada:
+  - Attachment: [#3532 HuBMAPR](https://github.com/Bioconductor/Contributions/issues/3532)
+    > Update the following URL to point to the GitHub repository of  
+    > the package you wish to submit to *Bioconductor*
+    > 
+    > • Repository: [https://github.com/christinehou11/HuBMAPR](https://github.com/christinehou11/HuBMAPR)
+    > 
+    > Confirm the following by editing each check box to '[x]'
+    > 
+    > • I understand that by submitting my package to *Bioconductor*,  
+    > the package source and all review commentary are visible to the  
+    > general public.
+    > • I have read the *Bioconductor* [Package Submission](https://bioconductor.org/developers/package-submission/)  
+    > instructions. My package is consistent with the *Bioconductor*  
+    > [Package Guidelines](https://contributions.bioconductor.org/).
+    > • I understand Bioconductor <https://bioconductor.org/developers/package-submission/#naming|Package Naming Policy> and acknowledge  
+    > Bioconductor may retain use of package name.
+    > • I understand that a minimum requirement for package acceptance  
+    > is to pass R CMD check and R CMD BiocCheck with no ERROR or WARNINGS.  
+    > Passing these checks does not result in automatic acceptance. The  
+    > package will then undergo a formal review and recommendations for  
+    > acceptance regarding other Bioconductor standards will be addressed.
+    > • My package addresses statistical or bioinformatic issues related  
+    > to the analysis and comprehension of high throughput genomic data.
+    > • I am committed to the long-term maintenance of my package. This  
+    > includes monitoring the [support site](https://support.bioconductor.org) for issues that users may  
+    > have, subscribing to the [bioc-devel](https://stat.ethz.ch/mailman/listinfo/bioc-devel) mailing list to stay aware  
+    > of developments in the *Bioconductor* community, responding promptly  
+    > to requests for updates from the Core team in response to changes in  
+    > *R* or underlying software.
+    > • I am familiar with the [Bioconductor code of conduct](https://bioconductor.org/about/code-of-conduct/) and  
+    > agree to abide by it.
+    > 
+    > I am familiar with the essential aspects of *Bioconductor* software  
+    > management, including:
+    > 
+    > • The 'devel' branch for new packages and features.
+    > • The stable 'release' branch, made available every six  
+    > months, for bug fixes.
+    > • *Bioconductor* version control using [Git](http://bioconductor.org/developers/how-to/git/)  
+    > (optionally [via GitHub](http://bioconductor.org/developers/how-to/git/sync-existing-repositories/)).
+    > 
+    > For questions/help about the submission process, including questions about  
+    > the output of the automatic reports generated by the SPB (Single Package  
+    > Builder), please use the #package-submission channel of our Community Slack.  
+    > Follow the link on the home page of the [Bioconductor website](https://bioconductor.org/) to sign up.
+
+**Martin Morgan** (10:26:52):
+> Yes there is nothing more to do. Actually the manifest is available at`git clone `[https://git.bioconductor.org/admin/manifest](https://git.bioconductor.org/admin/manifest)and then you can see
+> ```
+> commit 96de343dbcfcc7fa6dc4d2377eba28c26082438e
+> Author: lshep <lori.shepherd@roswellpark.org>
+> Date:   Fri Oct 25 09:22:16 2024 -0400
+> 
+>     Add package HuBMAPR
+> ```
+> it should be included in the build that starts today at around 2 and reported tomorrow some time after noon on Saturday <[https://bioconductor.org/checkResults/devel/bioc-LATEST/](https://bioconductor.org/checkResults/devel/bioc-LATEST/)>.
+
+
+## 2024-10-26
+
+**Stephanie Hicks** (05:29:29):
+> also, Christine can you add a link to the bioRxiv preprint in the README of the GitHub repo? Thanks!
+
+**Christine Hou** (07:22:42):
+> Yes! I will add it later!
+
+
+## 2024-10-28
+
+**Federico Marini** (09:11:41):
+> [https://bioconductor.org/packages/HuBMAPR](https://bioconductor.org/packages/HuBMAPR)this one works perfectly fine now!
+  - Attachment (Bioconductor): [HuBMAPR (development version)](https://bioconductor.org/packages/HuBMAPR)
+    > 'HuBMAP' provides an open, global bio-molecular atlas of the human body at the cellular level. The `datasets()`, `samples()`, `donors()`, `publications()`, and `collections()` functions retrieves the information for each of these entity types. `*_details()` are available for individual entries of each entity type. `*_derived()` are available for retrieving derived datasets or samples for individual entries of each entity type. Data files can be accessed using `files_globus_url()`.
+
+**Federico Marini** (09:12:00):
+> (and is actually the link to put in, even if (for now) it only points to the`devel`version)
+
+**Federico Marini** (09:12:20):
+> ((once released in the 3.20, the redirection will go to the release version))
+
+**Christine Hou** (10:23:26):
+> OMG!! Thanks for sharing this! I am so happy to see the release!
+
+**Stephanie Hicks** (23:37:33):
+> oh that's wonderful news!! thank you@Federico Marinifor sharing!
+
+
+## 2024-10-29
+
+**Federico Marini** (07:10:13):
+> any update while we are at it from our friends at Bioinfo advances?
+
+**Federico Marini** (07:12:05):
+> I am reading from their decision email that bit
+
+**Federico Marini** (07:12:07):
+> > Bioinformatics Advances aims to provide a decision on transferred manuscript that have already been reviewed within three working days, and the journal’s average time to first decision is 27 days.
+
+**Federico Marini** (07:12:43):
+> so, the three days was optimistic, 27 days are thru today - but they are not yet 27 working days:stuck_out_tongue:
+
+
+## 2024-10-31
+
+**Christine Hou** (13:31:06):
+> <!channel>hey! I was receiving the message that we have some error check for hubmapr package, but I figured them out and pushed to the GitHub/Bioconductor again.
+> 
+> But now the github action cannot pass showing error in the screenshot. I don't know how to solve this. Is there anyone can help with that?
+  - File (PNG): [Screenshot 2024-10-31 at 13.30.30.png](https://community-bioc.slack.com/files/U34P8RS3B/F07URC7AQF3/screenshot_2024-10-31_at_13.30.30.png)
+
+**Christine Hou** (13:31:46):
+> The error appeared for macOS-latest and windows-latest, but pass for ubuntu-latest. Not sure why that happened.
+
+
+## 2024-11-01
+
+**Federico Marini** (05:30:09):
+> sometimes, especially close to release of new versions, something can change on the “side out of our control”
+
+**Federico Marini** (05:30:34):
+> be that a conflict in versions of Bioc/R/some other packages not building on some machines
+
+**Federico Marini** (05:30:49):
+> sometimes, it is also a very erratic thing, i.e. rerun the check and all is fine
+
+**Federico Marini** (05:31:45):
+> As long as it builds on the bioc machines, all is fine. You can always check that here:[https://bioconductor.org/checkResults/release/bioc-LATEST/HuBMAPR/teran2-checksrc.html](https://bioconductor.org/checkResults/release/bioc-LATEST/HuBMAPR/teran2-checksrc.html)
+
+**Federico Marini** (05:32:09):
+> Interesting, that IS now failing but in a spot we can track down, which is a failed test.
+
+**Federico Marini** (05:32:25):
+> my guess: something changed on the hubmap side
+
+**Federico Marini** (05:32:56):
+> while I like tests to be as “laserprecise” as we can, maybe we can relax a bit this one which is failing?
+
+
+## 2024-11-03
+
+**Federico Marini** (07:34:12):
+> I see it was fixed on devel in a timely manner, well done!
+
+**Federico Marini** (07:34:17):
+> I just noticed tho this:[https://bioconductor.org/checkResults/release/bioc-LATEST/HuBMAPR/teran2-checksrc.html](https://bioconductor.org/checkResults/release/bioc-LATEST/HuBMAPR/teran2-checksrc.html)
+
+**Federico Marini** (07:34:35):
+> it is still failing - you might want to cherry pick the commit and fix this in release as well
+
+**Christine Hou** (08:24:54):
+> Can I ask about how to do this on? Do I first have to build a new release branch in GitHub repo? I tried to push version 1.1.0 to git.Bioconductor but it seemed no response.
+
+**Christine Hou** (08:53:16):
+> Not sure what it is. But I checked on this page and saw that the package passed with new version of 1.1.3 on 3.21 Bioconductor.[https://bioconductor.org/checkResults/3.21/bioc-LATEST/HuBMAPR/](https://bioconductor.org/checkResults/3.21/bioc-LATEST/HuBMAPR/)
+
+**Christine Hou** (11:21:41):
+> Tried my best. hope that can work!
+  - File (PNG): [Screenshot 2024-11-03 at 11.21.29.png](https://community-bioc.slack.com/files/U34P8RS3B/F07V14GCZMX/screenshot_2024-11-03_at_11.21.29.png)
+
+**Federico Marini** (14:48:35):
+> I think you did it right
+
+**Federico Marini** (14:48:54):
+> basically, in the release branch, bring in (only) the changes related to this hotfix
+
+**Federico Marini** (14:49:20):
+> you can nicely do with a round of combined use of`git reflog`and`git cherry-pick`
+
+**Federico Marini** (14:49:38):
+> reflog gives you the hash id of the commits you can git cherrypick
+
+**Federico Marini** (14:49:54):
+> and it works better than git log as it shows all commits to all branches
+
+**Federico Marini** (14:50:10):
+> (unless there’s a better way and I am eager to extend my git-fu)
+
+**Stephanie Hicks** (20:01:54):
+> hey! just catching up here. That's great to hear@Christine Hou@Federico Marini!
+
+
+## 2024-11-05
+
+**Christine Hou** (14:41:23):
+> Short update. Our package passed all checks!
+  - File (PNG): [Screenshot 2024-11-05 at 14.41.05.png](https://community-bioc.slack.com/files/U34P8RS3B/F07V29JC0MS/screenshot_2024-11-05_at_14.41.05.png)
+
+
+## 2024-11-22
+
+**Federico Marini** (15:32:13):
+> ICYMI,[https://bioconductor.org/checkResults/release/bioc-LATEST/HuBMAPR/palomino8-buildsrc.html](https://bioconductor.org/checkResults/release/bioc-LATEST/HuBMAPR/palomino8-buildsrc.html)
+
+**Federico Marini** (15:32:25):
+> dunno why they seem to change SO OFTEN the underlying things
+
+**Federico Marini** (15:32:36):
+> I don’t think it is because we are too rigid
+
+**Federico Marini** (15:33:00):
+> but they simply seem to not have tooooo stable ways of doing things?
+
+**Christine Hou** (17:41:42):
+> They have changed a lot and since we heavily depend on APIso we have to update our codes. But I realized this error yesterday and just pushed 1.0.4 to the release branch and it seemed that the page does not update the newest version.
+
+**Federico Marini** (17:42:11):
+> thing is, I was not expecting the API to vary so wildly
+
+**Christine Hou** (17:42:20):
+> Probably give the bioconductor end to build the page.
+
+**Federico Marini** (17:42:20):
+> (sorry for the mis-pasted post)
+
+**Christine Hou** (17:42:42):
+> Should be updated very soon:slightly_smiling_face:
+
+**Christine Hou** (17:42:58):
+> I am surprised about they changed the information all the time
+
+**Christine Hou** (17:44:17):
+> I am pretty sure the body mass index was the issue i spent most of the time to figure out. I am glad they solve the capital letter and small letter problem from their end and it makes things much easier. We just need to delete something in our codes to avoid the errors
+
+
+## 2024-11-23
+
+**Stephanie Hicks** (09:20:22):
+> comments from Reviewer 1
+  - File (PDF): [Paper_review_Bioinformatics_HUBMAPR-1.pdf](https://community-bioc.slack.com/files/U34P8RS3B/F08296V8MBN/paper_review_bioinformatics_hubmapr-1.pdf)
+
+**Christine Hou** (19:37:25):
+> <!channel>Hey! This is a shared document with all comments from the reviewers of our manuscript.[https://docs.google.com/document/d/1krsFTaCuequSemhk8QpfvWHBzLCJ7S7Wi4-3F9lwvaA/edit?usp=sharing](https://docs.google.com/document/d/1krsFTaCuequSemhk8QpfvWHBzLCJ7S7Wi4-3F9lwvaA/edit?usp=sharing)Before December 2nd, I have to prioritize something else so I may start the revision process after that. If anyone has difficulty opening this document, please let me know. I will update revision process as I start:slightly_smiling_face:
+
+
+## 2024-11-24
+
+**Federico Marini** (04:41:00):
+> hello Rev 1, eaten heavy for breakfast?:stuck_out_tongue:
+
+
+## 2024-12-14
+
+**Federico Marini** (16:01:13):
+> hey there:slightly_smiling_face:wanted to just check in, with full awareness that these days might be crazy busy and stressy
+
+**Federico Marini** (16:01:48):
+> did they mention a deadline in the reviews/editor assessment?
+
+**Christine Hou** (23:27:03):
+> The deadline should be Jan 25th 2025
+
+
+## 2024-12-15
+
+**Federico Marini** (08:55:29):
+> ok, so quite generous
+
+**Federico Marini** (08:55:38):
+> but we can probably be faster than that?
+
+**Christine Hou** (10:03:28):
+> Yes I agree! I will start to revise the manuscript very soon!
+
+**Stephanie Hicks** (22:08:33):
+> hi! just seeing your message@Federico Marini. yes, I agree we should definitely submit sooner.@Christine Houis on a well-deserved holiday break (through the end of 2024) after making a big push this fall on a bunch of research projects and submitting PhD applications. I assume by the end of the 1st week or so in Jan, we will have a better idea just how long the revisions will take. From what I gather, they mostly want expanded documentation, etc. all reasonable asks.
+
+
+## 2024-12-16
+
+**Federico Marini** (04:58:26):
+> yep, indeed. shall we comment in the gdoc you sent us to suggest ourselves what we could actionably do?
+
+**Federico Marini** (05:00:31):
+> most comments are indeed really feasible, but some are just a bit… “meh”?
+
+**Federico Marini** (05:01:37):
+> All things I am seeing in there now are actually their comments. Shall we use a blue font to stand out and make it surely recognizable it is “something we wrote”?
+
+**Federico Marini** (05:02:11):
+> (sorry if it comes in as bad timing, I am just trying to squeeze in all important things and time is not really on my side either these days)
+
+**Stephanie Hicks** (06:58:50):
+> sure! feel free to add / edit anytime! I'm happy with the blue font:slightly_smiling_face:
+
+**Federico Marini** (07:25:50):
+> bluefont it is:smile:
+
+
+## 2024-12-18
+
+**Federico Marini** (13:54:23):
+> meanwhile, the hunt of the missing columns can continue:stuck_out_tongue:[https://bioconductor.org/checkResults/devel/bioc-LATEST/HuBMAPR/lconway-buildsrc.html](https://bioconductor.org/checkResults/devel/bioc-LATEST/HuBMAPR/lconway-buildsrc.html)
+
+
+## 2024-12-22
+
+**Federico Marini** (10:22:49):
+> so, took a tad longer, but I managed to enter a draft thought for all points. With this, I will officially disappear in holiday mode:slightly_smiling_face:will read here but will be probably busy in kids biz and cooking:santa:
+
+**Federico Marini** (10:23:16):
+> as a tiny present for us, here’s a snippet I built:smile:
+
+**Federico Marini** (10:23:19):
+> ```
+> library("plotly")
+> 
+> p <- plot_ly(
+>   type = 'sankey',
+>   orientation = "v",
+>   node = list(
+>     label =  rep("", 11),
+>     color =  c("gold",
+>                "forestgreen",
+>                "darkgreen",
+>                "forestgreen",
+>                "darkgreen", "forestgreen",
+>                "darkgreen","forestgreen","darkgreen","forestgreen"),
+>     thickness = 60,
+>     pad = 15,
+>     line = list(
+>       color = scales::alpha("firebrick", alpha = 0.6),
+>       width = 5
+>     )
+>   ),
+>   link = list(
+>     source =  c(0, 
+>                 1,1,
+>                 2,
+>                 3,3,
+>                 4,4,4,5,5,5),
+>     target =  c(1, 
+>                 2,2,
+>                 3,4,
+>                 5,6,7,9,7,8)
+>     ,
+>     color = c("gold", rep(c("forestgreen","darkgreen"), 5)),
+>     value =  c(6,10,5, 20,30,10,40,4,4,8,8,16,16))
+> )
+> 
+> p
+> ```
+
+
+## 2025-01-02
+
+**Stephanie Hicks** (13:01:03):
+> Happy New Year all! Just wanted to give a brief update.@Christine Houis traveling through Jan 13th and we will have a better idea of the revision timeline (Jan 25th) after the 13th. Part of the challenge is she is traveling internationally with limited access to a VPN. Apologies for the delay, but will keep everyone posted!
+
+**Christine Hou** (23:01:01):
+> @Stephanie Hicksthanks for the update! Sorry about my VPN issue which brought the biggest challenge to the revision process. 
+> 
+> I am responding to the reviewer’ comments in our shared docs and make my responses bold to be different from@Federico Marini’s previous comments. Thanks for your helpful comments@Federico Marini! 
+> 
+> I am also updating the vignette documentation based on thereviewers’ comments but unfortunately I cannot push them to GitHub before Jan 13th due to my VPN issue. I was trying to push something last week but the chrome did not work and nothing reflected in my GitHub page. To avoid additional technical problems, I decided to edit everything locally and push them one time later. There will be some info gaps before Jan 13th. I will update everything as I come back to Baltimore and let you all know! 
+> 
+> Sorry about the inconvenience I brought and thanks for the understanding!Happy new year all!
+
+
+## 2025-01-03
+
+**Federico Marini** (03:30:44):
+> no prob,. happy to help with microcommits if needed once you manage to push
+
+**Federico Marini** (03:30:58):
+> Happy new year to the whole tribe in here:heart:
+
+
+## 2025-01-16
+
+**Christine Hou** (18:38:45):
+> Hi! I am almost finishing up the revision on the manuscript:tada:only a few left. I am here to ask for help about one comment (below). I am not pretty sure about what the reviewer meant to (very confused).@Federico MariniYou replied to this comment. Do you have any great idea? Any help will be appreciated:slightly_smiling_face:
+> ```
+> 2.  It is recommended that the authors provide guidance on extending or customizing the HuBMAPR package to accommodate potential future changes in data structure, enhancing the package's long-term utility.
+> 
+> [TODO our reply]
+> Good point, maybe we can give a bit of info on this in a dedicated vignette section? [FM]
+> ```
+
+**Martin Morgan** (20:33:44):
+> Maybe add a brief section 'Implementation notes' to the vignette (and say that you did  this in the response to the reviewer) that outlines the basics of the principles & approach to package design -- (1) identify an API end point; (2) provide an R interface to translate R data structures to the arguments and parameters required by the API; (3) handle the response in a consistent way with respect to argument and response validation; (4) format the return value as a 'tibble' to minimize cognitive demands on the user for interpreting the result, and to facilitate incorporation into general R workflows.
+
+
+## 2025-01-17
+
+**Federico Marini** (07:23:11):
+> … what Martin just said is just what a less confused version of my thoughts could look like.
+> Go for it, it is an excellent way - it will persist, and it is nicely not too much cluttering the ms/distracting by giving too much detail
+
+**Christine Hou** (08:50:38):
+> ```
+> - Adding more plotting and summary functions to visually describe retrieved information would enhance the user experience when navigating HuBMAP content programmatically.
+> 
+> [TODO our reply]
+> See as above - "focus", "scope": yeah it is cool to have some functions for that, but at the same time we want to be parsimonious on the deps side. @Martin, do you have a good formulation for this? I know you have been (correctly) careful about this [FM]
+> 
+> - Including a function to detect synergies between different datasets, such as image-based and RNA-seq studies with compatible metadata, would be highly valuable for users seeking integrated data. This feature could enhance the ability to cross-analyze diverse data types, offering new insights for complex research questions.
+> 
+> [TODO our reply]
+> Oh well, hätte hätte Fahrradkette. I agree this can be helpful, but a bit at the margin of the scope - still, it is worth keeping it as a thought on "what people really want" in the case of such clients. and given we are in R where viz is "strong anyway", I can at least understand their wish.
+> Maybe some form of textual summary to describe that? I am just trying to at least conceptually stay away from all things that would include some extra graphics dependencies..[FM]
+> ```
+> There are two additional reviewer's comments I would like to hear some feedbacks. They are minor comments.
+> I hold my position to not add more functions in`HuBMAPR`package. The reviewer mentioned to add synergy function and plot functions. I agreed that this is out of the scope of the package.
+
+**Christine Hou** (09:08:13):
+> <!channel>I am almost done to revise the manuscript. Please feel free to review the manuscript[https://www.overleaf.com/project/66ab99cf61bdfff56ea40efd](https://www.overleaf.com/project/66ab99cf61bdfff56ea40efd)and provide any feedback. I used \fixme{} to highlight my edits (in red words) to the manuscript.
+> 
+> The shared document with reviewers' comments are here[https://docs.google.com/document/d/1krsFTaCuequSemhk8QpfvWHBzLCJ7S7Wi4-3F9lwvaA/edit?usp=sharing](https://docs.google.com/document/d/1krsFTaCuequSemhk8QpfvWHBzLCJ7S7Wi4-3F9lwvaA/edit?usp=sharing). My comments are in bold blue. Please feel free to read the response and provide any feedback!
+> 
+> Thanks for the efforts and time.
+
+**Federico Marini** (10:24:49) (in thread):
+> pretty much stating my point as above: out of scope. Like, yeah, useful.
+> But one cannot (and***should not ***aim to do everything in one package). If we would do, the dependency burden might increase so much.
+> one thing we could do to address that***without***increasing that burden would be to publish some pseudo-vignette (i.e. outside the package, basically) to accompany the ms and be for example some supplemental material. Maybe a companion repo where we show some use cases, “fully fledged”?
+
+**Federico Marini** (11:12:02):
+> done with my pass on the revision
+
+**Federico Marini** (11:12:22):
+> mainly fixed a few typos and re-stated the comment on the possibility to do a use case focused repo
+
+**Federico Marini** (11:12:46):
+> “Rmd-only”, let it be clear. So that we basically have the chance to not increase the dependency load
+
+**Federico Marini** (11:13:20):
+> (yeah, Rmd + rendered html, with the possibility to have it deployed, if we want to excel at our homework..?)
+
+**Christine Hou** (11:21:29):
+> Since we still have something undetermined, I have not pushed the edited package to GitHub. But I am considering to push it later today since we are going to have review process.
+> 
+> For the rglobus package, I am thinking to put the vignette in rmd as the supplementary material since the rglobus vignette indeed provides very great instructions of transfer data from HuBMAP data portal.One reviewer wants us to include HuBMAPR vignette as one of the supplementary materials also, and I think rmd file also works.
+> 
+> Any thought?
+
+**Federico Marini** (12:25:15):
+> rather have the rendered vignette?
+
+**Christine Hou** (12:27:07):
+> I can handle with`HuBMAPR`rendered vignette.@Martin Morgancould you please render`rglobus`vignette for us?
+
+**Federico Marini** (13:18:50):
+> I just gave an extra full pass onto the manuscript file, and did correct/suggest in a few spots:wink:
+
+**Federico Marini** (13:19:03):
+> Well done, I think we will soon be very ready to submit!
+
+**Christine Hou** (13:23:55):
+> I pushed my updates to`HuBMAPR`package in GitHub. Feel free to check!
+
+**Christine Hou** (13:23:56):
+> [https://christinehou11.github.io/HuBMAPR/articles/hubmapr_vignettes.html](https://christinehou11.github.io/HuBMAPR/articles/hubmapr_vignettes.html)
+
+**Stephanie Hicks** (16:26:20):
+> looks good@Christine Hou!
+
+**Christine Hou** (18:16:10) (in thread):
+> I agree. In my opinion, our package mainly focuses to "reflect" the data information on the portal, but these two comments are more likely to let us "analyze" the interaction/relationship/similarity between records. Therefore, i prefer to not include out-of-scope.
+
+
+## 2025-01-19
+
+**Martin Morgan** (17:59:33) (in thread):
+> I see that there's an rglobus.pdf in the manuscript supplement material now, great!
+
+**Christine Hou** (20:05:19) (in thread):
+> I rendered the html file from chrome page, and I not sure whether it looks proper to be the supplementary material. If everyone passes the pdf, I am fine with that!
+
+**Shila Ghazanfar** (21:19:36):
+> thanks for all your work@Christine Hou! i read through the revised text and the response, it's looking good
+
+
+## 2025-01-20
+
+**Christine Hou** (15:58:25) (in thread):
+> @Martin MorganPlease review the manuscript and provide any feedback if you have time! Thanks for your time:slightly_smiling_face:
+
+
+## 2025-01-22
+
+**Martin Morgan** (12:51:17) (in thread):
+> HI@Christine HouI've taken a look at the revisions and they look good to me!
+
+
+## 2025-01-24
+
+**Stephanie Hicks** (14:36:39):
+> hi all, I wanted to share that we have resubmitted the revised manuscript today. Thank you all for your help!

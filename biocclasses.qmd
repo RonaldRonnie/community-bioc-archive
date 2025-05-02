@@ -1,0 +1,1713 @@
+---
+title: "#biocclasses"
+format: gfm
+---
+
+
+## 2023-02-10
+
+*09:13:03 - @Laurent Gatto has joined the channel*
+**Laurent Gatto** (09:13:04):
+> set the channel description: Bioconductor Classes Working Group
+
+**Laurent Gatto** (09:15:36):
+> WG channel created: ping@Lori Shepherd@Dario Righelli@Malte Thodberg@Johannes Rainer@Marcel Ramos Pérez@Lluís Revilla
+
+*09:15:59 - @Lori Shepherd has joined the channel*
+*09:16:01 - @Lluís Revilla has joined the channel*
+*09:24:34 - @Marcel Ramos Pérez has joined the channel*
+*09:25:30 - @Malte Thodberg has joined the channel*
+**Laurent Gatto** (10:42:00):
+> Hi@Hervé Pagès- what
+
+**Laurent Gatto** (10:43:57):
+> Hi@Hervé Pagès- I'm following up from our meeting today. What's your take using R6 and S4 reference classes in general, and Bioconductor packages in particular. What would you say to someone that wants to use these in their package.
+
+**Laurent Gatto** (10:44:22):
+> For reference: notes of today's WG meeting[https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/3](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/3)
+  - Attachment: [#3 WG meeting 2023-02-10](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/3)
+    > Where: [https://meet.jit.si/BiocClasses](https://meet.jit.si/BiocClasses)  
+    > Time: 2 pm (CET)
+    > 
+    > On the agenda:
+    > 
+    > • What are the 'official' classes? Any difference between common and promoted classes (from [#1](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/1)). What about low level classes (see [#2](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/2))?
+    > • What is the procedure to establish a new 'official' class?
+    > • To what extent should these be enforced during package review?
+    > 
+    > > In general, a package will not be accepted if it does not show interoperability with the current Bioconductor ecosystem.
+    > 
+    > • If not strictly enforced, should we at least require a wrapper function to convert to these? TAB: classes shouldn't strictly enforced.
+    > • Instead of enforcing, we should convince. What are the advantages of re-using existing (core) classes? Any volunteers to initiate a short document that could be added to the contributions guide and/or a blog post? See also [#1](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/1)
+    > • What improvements to S4 class development do we need (see [#2](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/2))? Possibly with a focus on Bioconductor needs?
+
+*10:57:13 - @Dario Righelli has joined the channel*
+
+## 2023-02-13
+
+*03:19:33 - @Johannes Rainer has joined the channel*
+
+## 2023-02-14
+
+*18:10:26 - @Hervé Pagès has joined the channel*
+**Hervé Pagès** (18:19:14):
+> Unless you have a really really good reason to use a reference class (but I've never seen one), you should stay away from them. In general, in R, you wouldn't expect that`y <- foo(x)`will modify`x`but that could actually happen if`x`is a reference object. Even worse, you wouldn't expect that`x0 <- x; y <- foo(x)`will modify`x0`but it could! Your attempt at protecting`x0`from the change didn't work! You would need to do something like`x0 <- clone(x)`for this to work. This is really bad. There's a reason R uses a pass-by-value semantic. That's the paradygm we are used to. Reference classes break this paradygm.
+
+
+## 2023-02-16
+
+**Hervé Pagès** (10:28:34):
+> To nuance this a little. I think we should avoid exposing a pass-by-reference semantic to the user. That being said, you could imagine that a package uses reference classes/objects internally, for its own internal business only, but that the end-user never sees them or needs to interact with them directly. So that's a situation where use of these classes/objects is probably ok. Note that this is analog to what we say about data.table objects: you can use them in your package for internal business but your functions should not return them or return objects that contain them (see[https://github.com/Bioconductor/Contributions/issues/2332#issuecomment-943539782](https://github.com/Bioconductor/Contributions/issues/2332#issuecomment-943539782)).
+
+
+## 2023-02-17
+
+**Laurent Gatto** (02:30:12):
+> Thank you very much!
+
+
+## 2023-02-18
+
+**Laurent Gatto** (08:46:40):
+> Following up from our S4 and Reference classes discussions, and how S4 is central to Bioconductor and how to promote it, the OOP-WG presents... S7, a new OOP system designed to be a successor to S3 and S4.
+
+**Laurent Gatto** (08:46:43):
+> [https://stat.ethz.ch/pipermail/r-devel/2023-February/082352.html](https://stat.ethz.ch/pipermail/r-devel/2023-February/082352.html)
+
+
+## 2023-02-25
+
+*06:18:11 - @Ludwig Geistlinger has joined the channel*
+*06:55:34 - @Stephanie Hicks has joined the channel*
+
+## 2023-02-26
+
+*15:40:58 - @Peter Hickey has joined the channel*
+
+## 2023-02-28
+
+*03:19:26 - @Vince Carey has joined the channel*
+*04:16:39 - @Federico Marini has joined the channel*
+
+## 2023-03-02
+
+*10:47:37 - @Davide Risso has joined the channel*
+
+## 2023-03-12
+
+*11:02:22 - @Charlotte Soneson has joined the channel*
+
+## 2023-05-18
+
+*05:54:21 - @Oluwafemi Oyedele has joined the channel*
+
+## 2023-06-09
+
+*17:25:00 - @Aedin Culhane has joined the channel*
+
+## 2023-06-16
+
+**Dario Righelli** (03:31:31):
+> Hi everyone<!here>, any news on this WG? Do we want to come up with a BoF during next EuroBioc23 (or extend a possible BoF in case this will take place at Bioc23) ?
+> (just an idea)
+
+**Lluís Revilla** (03:44:14) (in thread):
+> I haven't seen any activity in github and I haven't done anything myself:confused:but I was thinking about it recently.
+
+**Laurent Gatto** (04:41:15) (in thread):
+> My bad, sorry. But yes, good idea.
+
+**Malte Thodberg** (08:11:05) (in thread):
+> I’m still very interested in discussing!
+
+**Lluís Revilla** (08:16:03) (in thread):
+> Maybe we can keep the discussions asynchronous and meet when we hit a difficult/heated point
+
+
+## 2023-06-19
+
+*05:09:30 - @Pierre-Paul Axisa has joined the channel*
+
+## 2023-06-27
+
+*13:20:08 - @Louis Le Nézet has joined the channel*
+**Louis Le Nézet** (13:26:17):
+> Hi everyone,
+> I'm working on a pedigree package and the creator of the package was working with a S4 (i think) pedigree objects.
+> Those objects contain dataframe and a relation matrix. Some method was also added for plotting, printing, trimming, and converting to dataframe.
+> Is it recommended to continue to use those custom classes ?
+> Thanks !
+
+**Vince Carey** (13:47:28):
+> Sounds reasonable to me.  To minimize reinvention or friction it would be good to be aware of related software tools in R.  A google search of "pedigree data on CRAN" shows a number of packages, some on CRAN, addressing pedigree representation.  Developing with an eye to interoperating with working and widely used components in other packages would be worthwhile.
+
+**Hervé Pagès** (13:47:32) (in thread):
+> I'm not sure there's a broad consensus about what "pedigree" class should be used in Bioconductor. What "pedigree" S4 class are you referring to? I only see one defined in the***MinimumDistance***package. If it provides the functionalities that you need for your pedigree analysis, there's no reason to not reuse it. Unless you have concerns about stability or long term maintenance of this package? Be aware that implementing your own S4 class from scratch will require a substantial amount of work.
+
+**Louis Le Nézet** (16:15:01):
+> There is effectively different packages using pedigree data but there doesn't seems to be a unanimous class for them.
+> The class available are the one from MinimumDistance, pedigreemm and GeneticsPed but the relationship matrix is missing (for twins and spouses without children) and they aren't compatible.
+> Maybe creating a standard would be nice !
+> 
+> On the otherhand some package in bioconductor`FamAgg`and in CRAN`pedigreetools`use the package that I'm working on Kinship2.
+> As the previous owner of kinship2, doesn't have anymore the time to maintain the package I'm working on improving it and make it more versatile.
+> What would you recommend me to do ?
+
+**Lluís Revilla** (17:30:09):
+> I don't know the history of the package, but taking over the maintenance of package is much harder than just creating a new class. You will need to support to some extend the package that depend in yours. It also depends on how much familiar are you with the package or how much you use the package.
+> If you plan to move the package from CRAN to Bioconductor I would first make a release without any new classes and then in next release make a new class. This will give you time (~ 6months) to find what works well for the class and which methods might be needed and coordinate with those that depend in the package. Although you could also try to do both at the same time (a new release in Bioconductor and with a new class).
+> 
+> If you want your class to be reusable it would be nice to think in what methods are needed before starting doing anything. Assuming there isn't any class for this that you might inherit from (to reuse something of it). I would recommend to implement the basic methods if they make sense`c`,`rbind``cbind``[`,`[[`,`[<-`and`[[<-`(I learned this the hard way with a new class I created, which later I realized it would benefit from these methods).  Boxplots don't seem a high priority method for a pedigree class, but a plotting method will be (implement an`autoplot`method so that`plot(class)`works).  I would also try to make it compatible with other classes or convert them to other widely used classes (`setAs`methods).
+
+
+## 2023-06-28
+
+**Louis Le Nézet** (04:41:14):
+> For the moment the previous owner was using S3 class.
+> I already have a dedicated plotting function. It's the main function of this package.
+> The Pedigree class would look like the following:
+> ```
+> library(S4Vectors)
+> .pedigree <- setClass("pedigree",
+>     contains = "DataFrame",
+>     slots = c(
+>         "ped_df" = "data.frame",
+>         "rel_mat" = "data.frame"
+>     )
+> )
+> .validity_pedigree <- function(object){
+>     if (!"id" %in% colnames(object@ped_df)) {
+>         stop("No Id found in the pedigree")
+>     }
+>     if (!"id1" %in% colnames(object@rel_mat)) {
+>         stop("No id1 found in the pedigree")
+>     }
+> }
+> setValidity("pedigree", .validity_pedigree)
+> 
+> pedigree <- function(
+>     ped_df = data.frame(
+>         id = character(),
+>         dadid = character(),
+>         momid = character(),
+>         sex = numeric()),
+>     rel_mat = data.frame(
+>         id1 = character(),
+>         id2 = character()),
+>         code = numeric()) {
+>     .pedigree(
+>         ped_df = ped_df,
+>         rel_mat = rel_mat
+>     )
+> }
+> 
+> setMethod("show", "pedigree", function(object) {
+>     print(dim(object@ped_df))
+>     print(dim(object@rel_mat))
+> })
+> 
+> print.pedigree <- function(x, ...) {
+>     print(x@ped_df)
+> }
+> 
+> setMethod("[", c(x = "pedigree", i = "ANY", j = "missing"),
+>     function(x, i, j, ..., drop = TRUE) {
+>         pedigree(ped_df = x@ped_df[i,])
+> })
+> 
+> 
+> df <- data.frame(id = 1:10, dadid = 11:20, momid = 21:30)
+> a <- pedigree(df)
+> a
+> print(a)
+> print(a[1])
+> ```
+> The data manipulation methods to implement would work on the`ped_df`as a regular dataframe, the plot function is already available.
+> I think it shouldn't be too complicated to set it to other pedigree class already available.
+> What do you think of this draft ?
+
+**Hervé Pagès** (14:28:45) (in thread):
+> About the validity method: Why isn't the validity method checking that**all**the expected columns are present in`ped_df`and`rel_mat`, instead of checking for the presence of`id`and`id1`only? Shouldn't it also make sure that the`id`column contains non-NA distinct values? (primary key). If`rel_mat`describes relations between the rows in`ped_def`, shouldn't the validity method also make sure that`id1`and`id2`contain "valid" ids i.e. ids that belong to`id`? What will happen to`rel_mat`if subsetting the object drops ids that are represented in`id1`or`id2`?
+> 
+> About naming: S4 classes in Bioconductor must start with an upper case, so`Pedigree`instead of`pedigree`. Why`rel_mat`if this is not a matrix?
+> 
+> About inheritance: Inheriting from DataFrame means that your objects are data-frame-like objects and that they will support all data-frame-like operations. However some fundamental data-frame-like operations wouldn't make sense for a`Pedigree`object e.g. 2D-style subsetting or`cbind()`. This is a clue that they should not be considered data-frame-like objects and that they shouldn't even be considered 2D objects. They are 1D objects (i.e. vector-like) with a length (the number of rows in`ped_df`) and no dimensions (i.e.`dim(<Pedigree>)`is NULL). This means that you should replace`contains="DataFrame"`with`contains="Vector"`.
+
+**Louis Le Nézet** (15:30:48) (in thread):
+> Sorry for the misunderstanding.
+> It was just a draft, I'm currently working on a more detailed version with everything correctly checked.
+> I will send it when done.
+
+**Louis Le Nézet** (16:04:13) (in thread):
+> Considering the type of the object, most of the operation will be on the first slot dataframe.
+> It is the one containing the majority of the information, the relationship dataframe (not a matrix in the end) just give some sporadic detailed infos.
+> So I was thinking on making all the data-frame-like operation work on the 1st dataframe.
+> 
+> Also I could check for missing Ids beetween the rel_df and the ped_df, but I'm not sure if it's necessary.
+> 
+> Here is a more detailed version:
+> ```
+> library(S4Vectors)
+> .Pedigree <- setClass("Pedigree",
+>     contains = "Vector",
+>     slots = c(
+>         "ped_df" = "data.frame",
+>         "rel_df" = "data.frame"
+>     )
+> )
+> .validity_pedigree <- function(object) {
+>     col_needed <- c("id", "momid", "dadid", "sex")
+>     col_missing <- col_needed[!col_needed %in% colnames(object@ped_df)]
+>     if (length(col_missing) > 0) {
+>         stop(paste("Column(s):", col_missing, "missing in the pedigree"))
+>     }
+>     if (dim(object@rel_df)[1] > 0) {
+>         col_needed <- c("id1", "id2", "code")
+>         col_missing <- col_needed[!col_needed %in% colnames(object@rel_df)]
+>         if (length(col_missing) > 0) {
+>             stop(paste("Column(s):", col_missing, "missing in the pedigree"))
+>         }
+>     }
+> }
+> 
+> setValidity("Pedigree", .validity_pedigree)
+> 
+> pedigree <- function(
+>     ped_df = data.frame(
+>         id = character(),
+>         dadid = character(),
+>         momid = character(),
+>         sex = numeric()),
+>     rel_df = data.frame(
+>         id1 = character(),
+>         id2 = character(),
+>         code = numeric())) {
+>     .Pedigree(
+>         ped_df = ped_df,
+>         rel_df = rel_df
+>     )
+> }
+> 
+> setMethod("show", "Pedigree", function(object) {
+>     print("Pedigree")
+>     print(object@ped_df)
+>     print("Relationship matrix")
+>     print(object@rel_df)
+> })
+> 
+> print.Pedigree <- function(x, ...) {
+>     print("Pedigree")
+>     print(x@ped_df)
+>     print("Relationship matrix")
+>     print(x@rel_df)
+> }
+> 
+> setMethod("[", c(x = "Pedigree", i = "ANY", j = "missing"),
+>     function(x, i, j, ..., drop = TRUE) {
+>         pedigree(ped_df = x@ped_df[i, ], rel_df = x@rel_df)
+> })
+> 
+> setMethod("[", c(x = "Pedigree", i = "ANY", j = "ANY"),
+>     function(x, i, j, ..., drop = TRUE) {
+>         x@ped_df[i, j]
+> })
+> 
+> setMethod("[[", c(x = "Pedigree", i = "ANY", j = "missing"),
+>     function(x, i, j, ..., drop = TRUE) {
+>         x@ped_df[[i]]
+> })
+> 
+> setMethod("[[", c(x = "Pedigree", i = "ANY", j = "ANY"),
+>     function(x, i, j, ..., drop = TRUE) {
+>         x@ped_df[[i]][[j]]
+> })
+> 
+> setMethod("[<-", c(x = "Pedigree", i = "ANY", j = "missing", value = "ANY"),
+>     function(x, i, j, ..., value) {
+>         x@ped_df[i, ] <- value
+>         x
+> })
+> 
+> setMethod("[<-", c(x = "Pedigree", i = "ANY", j = "ANY", value = "ANY"),
+>     function(x, i, j, ..., value) {
+>         x@ped_df[i, j] <- value
+>         x
+> })
+> 
+> setMethod("nrow", c(x = "Pedigree"),
+>     function(x) {
+>         nrow(x@ped_df)
+> })
+> 
+> setMethod("colnames", c(x = "Pedigree"),
+>     function(x) {
+>         colnames(x@ped_df)
+> })
+> 
+> setAs("Pedigree", "data.frame",
+>     function(from) {
+>         from@ped_df
+> })
+> 
+> setAs("Pedigree", "DataFrame",
+>     function(from) {
+>         DataFrame(from@ped_df)
+> })
+> 
+> df <- data.frame(id = 1:10, dadid = 11:20, momid = 21:30, sex = 1:10)
+> rel <- data.frame(id1 = 1:5, id2 = 5:9, code = 1:5)
+> a <- pedigree(df, rel)
+> a
+> print(a)
+> a[1]
+> a[[1]]
+> a[3, "dadid"]
+> a$id
+> a[1] <- c(100, 200, 300, 4)
+> a[c(1, 4), "momid"] <- "A"
+> a
+> as.data.frame(a)
+> as(a, "data.frame")
+> as(a, "DataFrame")
+> nrow(a)
+> colnames(a)
+> ```
+> What do you think ?
+
+
+## 2023-06-29
+
+**Hervé Pagès** (13:59:21) (in thread):
+> The reason I'm bringing the 1D vs 2D discussion early is because this is one of the most important decisions you need to make about the semantics of your objects. If you go for the 1D semantics, your objects need to have a`length()`. If you go for the 2D semantics, they need to have a`dim()`, in addition to the`length()`, and you need to decide if the length goes along the 1st dim (e.g. SummarizedExperiment) or the 2nd dim (e.g. data.frame) or something else (e.g. matrix). This is really important because these choices will dictate the behavior of core operations like`[`and`c()`.
+> 
+> Another important discussion is whether you want to have the`id`,`momid`,`dadid`, and`sex`vectors in a data.frame or in individual slots. The latter is generally more appropriate for mandatory components with a predefined type. So something like this:
+> ```
+> setClass("Pedigree",
+>     contains="Vector",
+>     slots=c(
+>         id="character",
+>         momid="character",
+>         dadid="character",
+>         sex="factor"
+>     )
+> )
+> ```
+> Then you don't need to check for the presence of these slots in your validity method since your objects are guaranteed to have them.
+> 
+> The S4Vectors framework lets you specify that the 4 slots must have the same length by defining a`parallel_slot_names()`method:
+> ```
+> setMethod("parallel_slot_names", "Pedigree",
+>     function(x) c("id", "momid", "dadid", "sex", callNextMethod())
+> )
+> ```
+> Then:
+> ```
+> ## User-facing constructor function:
+> Pedigree <- function(id, momid, dadid, sex)
+> {
+>     new("Pedigree", id=id, momid=momid, dadid=dadid, sex=sex)
+> }
+> 
+> Pedigree(id=c("ID1", "ID2"),
+>          momid=c("ID3", "ID4"),
+>          dadid=c("ID5", "ID6", "ID7"),
+>          sex=factor(c("F", "M")))
+> # Error in validObject(.Object) : invalid class "Pedigree" object: 
+> #     'x@dadid' is not parallel to 'x'
+> ```
+> Note that defining the`parallel_slot_names()`method gives you`length()`,`[`(1D form), and`c()`for free:
+> ```
+> p <- Pedigree(id=c("ID1", "ID2"),
+>               momid=c("ID3", "ID4"),
+>               dadid=c("ID5", "ID6"),
+>               sex=factor(c("F", "M")))
+> length(p)  # 2
+> p[2:1]
+> c(p, p)
+> ```
+> Finally by deriving from the Vector class you also inherit the`elementMetadata`and`metadata`slots, with corresponding accessors`mcols()`and`metadata()`. The metadata columns (`mcols()`) would be the natural place for storing additional, non-essential, columns in your objects.
+> 
+> There's a lot to cover, and Slack might not be the best venue to discuss this. I encourage you to take a look at the implementation of other Vector derivatives like Hits or IRanges to familiazrize yourself with this topic. Also it's important to have a set of solid use cases that you want to support. The more clearly articulated they are, the more useful they will be to drive these developments in the right direction.
+
+**Lluís Revilla** (19:28:50) (in thread):
+> First time hearing about`parallel_slot_names`, is this documented somewhere? I couldn't find it in the manuals or CRAN. I found it in the S4Vectors package, but as an alias to Vector-class with no mention of the generic, and commented in the source:[https://code.bioconductor.org/browse/S4Vectors/blob/devel/R/Vector-class.R](https://code.bioconductor.org/browse/S4Vectors/blob/devel/R/Vector-class.R).
+  - Attachment (code.bioconductor.org): [Bioconductor Code: Browse](https://code.bioconductor.org/browse/S4Vectors/blob/devel/R/Vector-class.R)
+    > Browse the content of Bioconductor software packages.
+
+
+## 2023-06-30
+
+**Louis Le Nézet** (04:17:51) (in thread):
+> The problem I'm facing, is that I need the equivalent of two dataframe inside the object who can have different length.`ped_df`with mandatory columns (id, dadid, momid, sex) + optional columns (status, avail, affected, family) + metadata columns (...)`rel_df`with mandatory columns (id1, id2, code) + 1 optional column (family)
+> In the case where the family is provided the Pedigree class should become a PedigreeList class to be able to separate both ids by family.
+> 
+> Wouldn't it be easier to create a more deep structure with a class containing class ?
+> PedigreeList -> multiple Pedigree -> PedigreeDF + RelationDF classes:
+> ```
+> PedigreeList(
+>    Pedigree(
+>       PedDF(id = "character", ...)
+>       RelDF(id1 = "character", ...)
+>    )
+>    Pedigree(
+>       PedDF(id = "character", ...)
+>       RelDF(id1 = "character", ...)
+>    )
+> )
+> 
+> ped_list <- new("PedigreeList)
+> ped_fam1 <- new("Pedigree", id = 1:10, id1 = 1:5, ...)
+> ped_fam2 <- new("Pedigree", id = 1:10, id1 = 1:5, ...)
+> ped_list["fam1"] <- ped_fam1
+> ped_list["fam2"] <- ped_fam2
+> 
+> ped_list@fam1@PedDF@id # 1:10
+> ped_list@fam1@RelDF@id1 # 1:5
+> ```
+
+
+## 2023-07-07
+
+**Louis Le Nézet** (08:07:39) (in thread):
+> @Hervé Pagèsand@Lluís Revillawhat do you think about a nested structure ?
+
+**Lluís Revilla** (08:30:30) (in thread):
+> 1. The wisdom of Bioconductor is to make independent the implementation from the usage (this leads to more modular code and more flexibility to update and use). The user shouldn't need to know about either of this (except perhaps when creating the new class or such).
+> 2. A bunch of calls to new (... are not recommended. Better to make a creator function`pedigree <- function(id, id1){... new()}`. But you probably already knew that.
+> 3. I created a similar class in the BaseSet package and I decided against a nested structure (this was in discussion also with 2 other packages aiming to store and operate with a particular data type efficiently). I think it works well, and I would advice to keep the simpler the better (less deep and nested). I use three slots: 1 for the information of the elements (each individual in your case), 1 for the information about the sets (Family in your case, or disease, or eye color, ...) and 1 for the relationship between them (In your case parent, children). All these three data.frames can be of different length (Or even empty:  could exists a pedigree of unrelated members?). The TidySet class defined allows for arbitrary additional information.
+> I think thinking about how this class will be used helps thinking about the design. For example, with the nested structure: how would a user filter for individuals of family 1 to 5 with blue eyes?
+
+**Louis Le Nézet** (09:15:40) (in thread):
+> I understand, the fact that multiple family can exist in the same pedigree object with common id make the thing more complicated.
+> The easiest would be to force the use of a unique id across all families.
+> As such it the PedigreeList wouldn't be necessary and the Pedigree class would only need 2 slots : 1 for the information of the elements (id, dadid, momid, sex at least) and 1 for the relationship between them (id1, id2, code for special case).
+
+**Lluís Revilla** (09:23:21) (in thread):
+> Yes, I think this makes more sense
+
+**Louis Le Nézet** (09:35:11) (in thread):
+> I will go for that !
+> Thanks a lot for the help:slightly_smiling_face:
+
+
+## 2023-07-11
+
+**Lluís Revilla** (04:16:32):
+> I've answered the questions in[https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/7](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/7)
+  - Attachment: [#7 Submit a package?](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/7)
+    > • Do I need to write a package? What about a workflow?
+    > • Do I need OO progamming in Bioc packages?
+    > • Do I need methods to use classes?
+
+
+## 2023-07-18
+
+**Hervé Pagès** (17:13:04) (in thread):
+> It's still hard to know (at least for me) how the user is typically going to interact with these objects. I can't emphasize enough the importance of coming up with a set of solid use cases. This should greatly help making important decisions about the internals of the Pedigree/PedigreeList classes.
+
+
+## 2023-07-19
+
+**Louis Le Nézet** (03:28:00) (in thread):
+> Hi,@Hervé Pagèswhen you say "solid use cases", you mean a typical workflow using a sample dataset ?
+> In this case I already have one using the dataset available in the`kinship2`package.
+> The typical workflow would look like this :
+> ```
+> # Charge library and dataset
+> library(kinship2)
+> data(minnbreast)
+> data(rel_minnbreast)
+> 
+> # Create pedigree object
+> ped <- Pedigree(minnbreast, rel_minnbreast,
+>     list("indId" = "id", "fatherId" = "fatherid", "motherId" = "motherid", "gender" = "sex"))
+> 
+> # Create affected status
+> ped_aff <- generate_aff_inds(ped, col_aff = "cancer", threshold = 0, sup_thres_aff = TRUE)
+> 
+> # Filter the pedigree for informative individuals
+> ped_inf <- select_from_inf(ped_aff, inf_inds = "AvAf", kin_max = 3)
+> 
+> # Plot the filtered pedigree for the first family
+> plot(ped_inf[ped_inf$family == 1,])
+> ```
+
+
+## 2023-07-20
+
+**Louis Le Nézet** (10:23:28) (in thread):
+> Hi@Hervé Pagèsand@Lluís Revilla!
+> I've improved the pedigree class following the example of TidySet class.
+> Here is what I went for
+> ```
+> check_colnames_slot <- function(object, slot = NULL, colnames) {
+>   array_names <- colnames(slot(object, slot))
+> 
+>   if (length(array_names) == 0) {
+>     paste0(
+>       "Missing required colnames for ", slot,
+>       ". See pedigree documentation."
+>     )
+>   } else if (any(check_colnames(array_names, colnames))) {
+>     paste0(
+>       paste0(colnames[check_colnames(array_names, colnames)], collapse = ", "),
+>       " column is not present on slot ", slot, ".")
+>   }
+> }
+> 
+> check_colnames <- function(array_names, colnames) {
+>   !colnames %in% array_names
+> }
+> 
+> check_values <- function(object, slot, column, values) {
+>   val <- slot(object, slot)[[column]]
+>   val_abs <- !val %in% values
+>   if (any(val_abs)) {
+>     paste0("Values ", val[val_abs], " in column ", column, " of slot ", slot,
+>       " should be in ", paste0(values, collapse = ", "), ".")
+>   } else {
+>     character()
+>   }
+> }
+> 
+> is_valid <- function(object) {
+>   missid <- "0"
+>   errors <- c()
+> 
+>   #### Check that the slots have the right columns ####
+>   ped_cols <- c("id", "dadid", "momid", "family",
+>     "sex", "steril", "status", "avail")
+>   rel_cols <- c("id1", "id2", "code", "family")
+>   scale_cols <- c("column", "threshold", "aff_sup_threshold", "mods_aff",
+>     "mods_labels", "fill", "border", "density", "angle")
+>   errors <- c(errors, check_colnames_slot(object, "ped", ped_cols))
+>   errors <- c(errors, check_colnames_slot(object, "rel", rel_cols))
+>   errors <- c(errors, check_colnames_slot(object, "scales", scale_cols))
+> 
+>   #### Check for ped$id uniqueness ####
+>   if (any(duplicated(object@ped$id))) {
+>     errors <- c(errors, "Id in ped slot must be unique")
+>   }
+> 
+>   #### Check that the ped columns have the right values ####
+>   errors <- c(errors, check_values(object, "ped", "dadid",
+>     c(object@ped$id, missid)))
+>   errors <- c(errors, check_values(object, "ped", "momid",
+>     c(object@ped$id, missid)))
+>   errors <- c(errors, check_values(object, "ped", "sex",
+>     c(1:4)))
+>   errors <- c(errors, check_values(object, "ped", "steril",
+>     c(0, 1, NA)))
+>   errors <- c(errors, check_values(object, "ped", "status",
+>     c(0, 1, NA)))
+>   errors <- c(errors, check_values(object, "ped", "avail",
+>     c(0, 1, NA)))
+> 
+>   # Check that the rel columns have the right values
+>   errors <- c(errors, check_values(object, "rel", "code",
+>     c("1", "2", "3", "4")))
+>   errors <- c(errors, check_values(object, "rel", "family",
+>     c(object@ped$family, NA)))
+>   errors <- c(errors, check_values(object, "rel", "id1",
+>     object@ped$id))
+>   errors <- c(errors, check_values(object, "rel", "id2",
+>     object@ped$id))
+> 
+> 
+>   # Check that the scales columns have the right values
+>   errors <- c(errors, check_values(object, "scales", "column",
+>     colnames(object@ped)))
+> 
+>   if (length(errors) == 0) {
+>     TRUE
+>   } else {
+>     errors
+>   }
+> }
+> 
+> setClass(
+>     "Pedigree",
+>     slots = c(
+>         ped = "data.frame",
+>         rel = "data.frame",
+>         scales = "data.frame"
+>     )
+> )
+> 
+> setValidity("Pedigree", is_valid)
+> 
+> pedigree <- function(ped_df, rel_df, cols_ren_ped) {
+>     UseMethod("pedigree")
+> }
+> 
+> pedigree.data.frame <- function(ped_df, rel_df, cols_ren_ped, scales) {
+>     ## Rename columns
+>     data.table::setnames(ped_df,
+>         old = as.vector(unlist(cols_ren_ped)),
+>         new = names(cols_ren_ped),
+>         skip_absent = TRUE)
+>     ## Normalise the data before creating the object
+>     ped_df <- norm_ped(ped_df)
+>     rel_df <- norm_rel(rel_df)
+>     ## Create the object
+>     new("Pedigree",
+>             ped = ped_df,
+>             rel = rel_df,
+>             scales = scales
+>         )
+> }
+> ```
+
+**Lluís Revilla** (14:40:02) (in thread):
+> This might be nitpicking, but do you need data.table  to rename a data.frame? Other than that, what kind of feedback are you looking for?
+
+
+## 2023-07-21
+
+**Louis Le Nézet** (03:51:26) (in thread):
+> Not necessarily, it was just convenient this way.
+> It can be done like the following
+> ```
+> old_cols <- as.vector(unlist(cols_ren_ped))
+>     new_cols <- names(cols_ren_ped)
+>     cols_to_ren <- match(old_cols, names(ped_df))
+>     names(ped_df)[
+>         cols_to_ren[!is.na(cols_to_ren)]] <- new_cols[!is.na(cols_to_ren)]
+> ```
+> Concerning the feedback I was wondering if the structure would be something that could be accepted in bioconductor ?
+
+**Lluís Revilla** (04:05:08) (in thread):
+> That would be a question for the reviewers, but I don't see why not. You could depend on BaseSet and reuse the structure internally instead of rolling your own. But only reviewers can answer these questions.
+
+**Louis Le Nézet** (04:06:15) (in thread):
+> Okay I will try and see what they tell me !
+> 
+> Thanks a lot for your help:wave:
+
+
+## 2023-07-26
+
+**Louis Le Nézet** (09:55:45):
+> Hi !
+> 
+> I have a new class that look as follow:
+> ```
+> setClass(
+>     "Pedigree",
+>     slots = c(
+>         ped = "data.frame",
+>         rel = "data.frame",
+>         scales = "data.frame"
+>     )
+> )
+> 
+> setValidity("Pedigree", isValid) # isValid is my function checking for the correctness of the object's informations
+> 
+> setMethod("show", signature(object = "Pedigree"), function(object) {
+>     cat("Pedigree object with", nrow(object@ped), "individuals and",
+>         nrow(object@rel), "special relationships.")
+> })
+> ```
+> The user, mostly need to be able to apply different function to this object and may want to modify somes values inside the slots.
+> Subsetting the object may be complicated to do but I have some function that help the user to do it if necessary.
+> 
+> For the user to modify / access the values inside the slot, I wanted to do the following:
+> ```
+> setMethod("[[", c(x = "Pedigree", i = "ANY", j = "missing"),
+>     function(x, i, j, ..., drop = TRUE) {
+>         slot(x, i)
+> })
+> setMethod("$", c(x = "Pedigree"),
+>     function(x, name) {
+>         slot(x, name)
+> })
+> setMethod("[[<-", c(x = "Pedigree", i = "ANY", j = "missing", value = "ANY"),
+>     function(x, i, j, ..., value) {
+>         slot(x, i) <- value
+> })
+> 
+> ped <- pedigree()
+> ped$ped # should give ped@ped
+> ped[["ped"]] # should give ped@ped
+> ped$ped[1, "id"] <- 42 # should modify inplace
+> ```
+> Is it the right way ?
+> Also would the modification inplace rerun the validity check ? (it doesn't seems so)
+
+
+## 2023-08-04
+
+*09:34:47 - @Trisha Timpug has joined the channel*
+
+## 2023-08-07
+
+*11:19:39 - @Jiaji George Chen has joined the channel*
+
+## 2023-08-16
+
+**Louis Le Nézet** (11:01:33):
+> Hi,
+> 
+> I have some trouble defining generic methods for an S4 class that I created.
+> When`load_all()`or`check()`, I get the following`in method for 'bitSize' with signature 'obj="Pedigree"': no definition for class "Pedigree"`I thought it was due to the R oxygen export not working but I've tried using
+> ```
+> #' @export Pedigree
+> #' @exportClass Pedigree
+> setClass("Pedigree", slots = c(ped = "data.frame")
+> 
+> #' @export bitSize
+> #' @exportMethod bitSize
+> setGeneric("bitSize", function(obj, ...) {
+>     standardGeneric("bitSize")
+> })
+> 
+> setMethod("bitSize", signature(obj = "Pedigree"),
+>     function(obj, missid = "0", ...) {
+>         print("done")
+>     }
+> )
+> ```
+> And none work.
+> Do you know why it happens ?
+
+**Marcel Ramos Pérez** (14:11:44) (in thread):
+> Have you tried to build & check on the terminal? If it fails there then it’s not an issue with devtools..
+
+
+## 2023-08-17
+
+**Louis Le Nézet** (06:31:44) (in thread):
+> Yeah, both fail.
+> I have the error `Error: package or namespace load failed for 'kinship2' in namespaceExport(ns, exports): undefined exports: Pedigree`
+
+**Louis Le Nézet** (06:48:26) (in thread):
+> By modifying`export(Pedigree)`to`exportClasses(Pedigree)`I do not have anymore the error with`R CMD build .`But I get it with`devtools::check()`My NAMESPACE look like:
+> ```
+> exportClasses(Pedigree)
+> exportMethods(kinship)
+> ```
+> But I still get
+> ```
+> in method for 'kinship' with signature '"Pedigree"': no definition for class "Pedigree"
+> ```
+
+**Louis Le Nézet** (08:37:21) (in thread):
+> Also`devtools::load_all(reset=TRUE, export_all=FALSE)`give the same result.
+> The problem doesn't seems therefore to be from the NAMESPACE file ?
+
+**Louis Le Nézet** (08:44:52) (in thread):
+> I've found the problem...
+> As the methods are written in different files than the one with the S4 class, it is necessary to add**`#' @include pedigreeClass.R`**at the top of the script.
+
+
+## 2023-08-19
+
+**Lluís Revilla** (05:46:01) (in thread):
+> Yes, this is a tag that sets the order in the Collate field in the DESCRIPTION file. You can omit it if you set it manually.
+
+
+## 2023-09-22
+
+**Johannes Rainer** (11:34:03):
+> @Louis Le NézetI just stumbled across this now. I'm the maintainer of the FamAgg package. Haven't worked on it for a while, but am happy to join efforts, contribute, join/fuse ...
+
+**Louis Le Nézet** (11:50:07) (in thread):
+> Hi,
+> There is effectively some overlap since you use the kinship package for the plotting.
+> Some of your implementation are quite close to what I've done.
+> It could be nice to jointly work on it:slightly_smiling_face:
+
+**Johannes Rainer** (11:56:08) (in thread):
+> Agree, also, my code is not super clean and nice, so would not hurt to refactor some stuff - or move it over to your package. And having more brains think on some issues/approaches always helps. What is actually your package?
+
+**Louis Le Nézet** (12:20:09) (in thread):
+> It is the original Kinship2 package (the previous maintainer is passing the ownership to me).
+> I've refactored it, to nicely create an S4 object. I've also implemented some customisation logic for the plot (ggplot, color, plotly soon), some auto formatting when using dataframe as input (normalisation of modalities) and some information computation for subselection in huge pedigree.
+
+**Johannes Rainer** (13:18:05) (in thread):
+> what is the github repo for that? just to get a glimpse of it - and eventually do pull request in case I move stuff over to you, if not already implemented:wink:
+
+
+## 2023-09-25
+
+**Louis Le Nézet** (06:20:41) (in thread):
+> The github repository is[https://github.com/LouisLeNezet/kinship2](https://github.com/LouisLeNezet/kinship2)But might change to another name:slightly_smiling_face:
+
+
+## 2023-10-10
+
+**Dario Righelli** (04:11:28):
+> Hi<!here>, I just opened a[new issue](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/12)related to the bioc classes and their interoperability, topic discussed during the interoperability BoF in Ghent at EuroBioc23.
+> I also noticed lots of new issues there,@Laurent Gattodo you think it could be a good idea to arrange a meeting for some discussions?
+  - Attachment: [#12 Bioc Classes external interoperability](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/12)
+    > At EuroBioc23 this year, during the BoF about interoperability between Bioconductor and other external languages.
+    > 
+    > I think this is something we should consider in our discussions, like:
+    > 
+    > • collecting classes that are able to interoperate with external languages/frameworks, (i.e. python with AnnData or within R with Seurat)
+    > • open issues for existing classes in Bioc that still are not able to allow this interoperability (i.e. GenomicRanges ?)
+    > • do the interoperability efforts need to be made from the Bioc people also in other languages?
+
+
+## 2023-10-11
+
+**Lluís Revilla** (03:30:54):
+> Yes, I would like to have a meeting to know what is the plan for the working group
+
+**Vince Carey** (05:55:14):
+> I added some comments to dario's issue, concerning biocpy and artifactdb.  I came across[https://github.com/data-apis/array-api-comparison#array-libraries](https://github.com/data-apis/array-api-comparison#array-libraries)which seems relevant in a couple of respects.  The number of options for array representations and APIs is noteworthy.  One has to learn a lot to make informed decisions about what to use and how to use.  Multiple moving targets is another concern.  I wonder whether we would do well to consider class designs internal to R/Bioc separately from the concern with cross-language functionality?  the alabaster package series gives us an approach to serialization that allows programmers in other languages to program with the relevant information (metadata, data) however they like.
+
+**Vince Carey** (06:01:38):
+> One question that is striking to me is how we decide to place a class definition in its own package.  SummarizedExperiment is the key example.  The number of importing package is very large.  A search for`\ setClass`at[code.bioconductor.org](http://code.bioconductor.org)yields a relatively modest number of hits, which one could comb through to see what developers find valuable in S4 class design and use.
+
+**Lluís Revilla** (06:07:58):
+> That is my primary concern and I think this working group should attempt to provide guidelines to address this: How to define these key classes, where to define them and how to maintain them...
+
+*14:05:03 - @Robert Shear has joined the channel*
+
+## 2023-10-24
+
+**Louis Le Nézet** (07:08:09):
+> Hi,
+> I'm working on the restructuration of my S4 class for pedigrees.
+> The`Pedigree`class needs a slot for the identity of the individuals (ped), another for the special relationship (rel), a slot for the scales (scales) and finally one for hints (hints) used to plot.
+> Here is what I came with:
+> * each slot has its own class
+> * The`ped`and`rel`slots contains`Vectors`and all slots inside them are`parallel_slot_names()`.`ped`slot also has`mcols`
+> * The`Scales`class define two data.frame
+> * The`Hints`class define a numeric vector and a data.frame
+> * each class has its own validity method (check if internally all slots are correct)
+> * The`Pedigree`class validate that the slots use the correct values. Example:`id1`and`id2`use in`rel`are all present in`id`in`ped`.
+> * Each slots has its own accessors with a character value as a second argument to access the data`ped(ped, "id")`is equivalent to`ped@ped@id`.
+> * Subsetting is only possible on 1 dimension along the`ped`slot. If an`ped@id`is dropped or modified then this is reflected on the`rel`slot and on the`ped@omid`and`ped@dadid`slot.
+> What do you think about this design ?
+
+
+## 2023-11-17
+
+*03:20:20 - @Francesc Català-Moll has joined the channel*
+
+## 2023-12-30
+
+**Aedin Culhane** (09:33:20):
+  - Attachment (datascience.cancer.gov): [Sharing Cancer Research Software? NIH Wants to Hear from You! | CBIIT](https://datascience.cancer.gov/news-events/news/sharing-cancer-research-software-nih-wants-hear-you)
+    > Are you working with source codes, algorithms, workflows, and other software in your cancer research? NIH wants to hear from you! Respond today to help NIH develop new best-practice guidelines.
+
+
+## 2024-03-09
+
+*20:38:42 - @Cherishma Subhasa has joined the channel*
+
+## 2024-05-05
+
+*09:38:32 - @Ifra has joined the channel*
+
+## 2024-07-19
+
+*17:23:52 - @Sudipta Hazra has joined the channel*
+
+## 2024-07-29
+
+*17:08:29 - @JP Flores has joined the channel*
+
+## 2024-10-08
+
+**Dario Righelli** (04:22:13):
+> Hi Everyone<!here>,  as discussed with@Laurent Gattoat EuroBioc2024, it would be good to resurrect this working group.
+> Also following up[this discussion on R7](https://community-bioc.slack.com/archives/CLUJWDQF4/p1726075488985569?thread_ts=1723648167.898039&cid=CLUJWDQF4),  it would be good to invite Micheal and Tim to join the group to discuss about possible future synergies.
+> Do we want to arrange a meeting for the end of the month?
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CLUJWDQF4/p1726075488985569?thread_ts=1723648167.898039&amp;cid=CLUJWDQF4)
+    > Anyone know the process for initiating such a group?
+
+*06:42:24 - @Dario Strbenac has joined the channel*
+**Lori Shepherd** (07:09:34):
+> End of this month is the release so I might be tied up depending on the time that is decided but I would be interested in participating in conversations
+
+**Dario Righelli** (08:27:59):
+> We can also decide to do it after the next realease date, I don’t think that waiting a couple of more weeks could be a problem
+
+
+## 2024-10-11
+
+*07:00:10 - @Levi Waldron has joined the channel*
+**Laurent Gatto** (11:26:46):
+> @Dario Righelli- excellent idea, and thank you for following up. Might I suggest that you take the lead at organising the next meeting?
+
+**Dario Righelli** (11:37:13) (in thread):
+> Sure, I can create a when2meet and try to organize the next meeting, maybe for the next month.
+
+
+## 2024-10-14
+
+*10:37:33 - @Tim Triche has joined the channel*
+*10:37:33 - @Michael Lawrence has joined the channel*
+
+## 2024-10-16
+
+**Dario Righelli** (04:14:42):
+> Hi Tim and Michael, I’ve added you here because I’m going to prepare a when2meet to schedule a meeting for the next month.
+> It would be nice if you want to join to discuss about the S7 class and possible future synergies (following[this discussion](https://community-bioc.slack.com/archives/CLUJWDQF4/p1723641985192589)).
+> I’ll share a link next week, I think it would be best if we prioritize the presence of some people around the BiocClasses working group, such as Laurent (as main coordinator), Lori and/or Marcel and/or Hervè (as members of the core), Michael (for R7), maybe Vince ? (someone else?)
+> Additionally, IMHO it would be good if could join Lluis to discuss about the work he made after our last meeting.
+> To anyone else interested, please give me any feedback on your possible thoughts/feedbacks.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CLUJWDQF4/p1723641985192589)
+    > I was just browsing the R source code and discovered that this has been possible since at least 2013:
+    > ```> setClass("Foo", slots = c(foo = "character"))
+    > > `@<-.Foo` <- function(object, name, value) { attr(object, name) <- paste0(value, "."); object }
+    > > foo <- new("Foo")
+    > > foo@foo <- "bar"
+    > > foo@foo
+    > [1] "bar."```
+    > Maybe others new about this? It's interesting in that it allows for some degree of encapsulation of S4 slots. A simple framework could be devised that e.g. allows for per-slot validation, automatic coercion, etc.  `@()` was made generic during the S7 work last year. We made it skip S4 objects though, for obvious reasons.  I didn't realize that `@<-()` was dispatching even on S4 objects. Anyway, people should be migrating to S7 anyway, and it already supports this level of encapsulation.
+
+**Vince Carey** (09:41:36):
+> Sounds good Dario -- keep me posted.
+
+
+## 2024-10-21
+
+**Dario Righelli** (10:44:18):
+> Hi everyone, as a follow-up I’m going to tag the people mentioned in the previous message for prioritizing the S7 discussion between R and Bioconductor (@Vince Carey,@Laurent Gatto,@Michael Lawrence@Lori Shepherd@Marcel Ramos Pérez@Hervé Pagès,@Lluís Revilla)
+> here it is a first when2meet attempt ([https://www.when2meet.com/?27146880-SM2cl](https://www.when2meet.com/?27146880-SM2cl)) for a meeting in November (I’ll be travelling the second week of November, but let’s see how many overlaps we are able to get).
+> Once we pick a date, I think everyone else interested can freely join.
+> (Sorry for the multiple tags, I hope this will not bother anyone)
+
+**Marcel Ramos Pérez** (12:08:04) (in thread):
+> Thanks Dario!
+
+
+## 2024-10-22
+
+*00:11:12 - @Liyang Fei has joined the channel*
+
+## 2024-10-23
+
+*11:48:15 - @Sounkou Mahamane Toure has joined the channel*
+
+## 2024-10-25
+
+**Dario Strbenac** (09:00:08):
+> `MutliAssayExperiment`is for storing multiple experimental assays of tabular data on mostly the same set of biological samples. Is there any plan for a class to store multiple tabular data sets of the same assay on different patient cohorts but the same outcome of interest? For instance, if[curatedOvarianData](https://bioconductor.org/packages/release/data/experiment/html/curatedOvarianData.html)was being built today, would its container class be something other than a list of`ExpressionSet`objects and an ad-hoc filtering script to be sourced from the package installation folder non-interactively? In other words, a container class to streamline tasks such as cross-dataset cross-validation.
+
+**Vince Carey** (11:09:58):
+> @Levi Waldron^^
+
+
+## 2024-10-28
+
+**Dario Righelli** (05:28:44) (in thread):
+> Hi, sorry to go back on this, but it seems we are still missing@Vince Carey,@Laurent Gattoand@Lluís Revillaavailabilities in the when2meet.
+> If you are able to finalize this for the end of this week, at the moment we seem to have an opening for Nov 8th.
+> Thanks!
+
+**Lluís Revilla** (05:47:05) (in thread):
+> Sorry, forgot to add myself as Nov 8th was good for me
+
+**Vince Carey** (09:06:11) (in thread):
+> nov 8 is ok
+
+**Laurent Gatto** (09:57:14) (in thread):
+> Sorry for the delay. I can't on 8 Nov, I'm teaching until 6 pm. I filling up when2meet, but if nothing else works, don't postpone because of me.
+
+**Dario Righelli** (12:20:00):
+> We have another opening for the 20th 5-6/6-7pm (UTC+1) 11-12/12-1am (EDT), if@Vince Careyis available we can pick this one:slightly_smiling_face:
+
+**Vince Carey** (13:31:47):
+> yes i can do the 20th ... but i guess it is 1200-1300 edt, right, not 1am?
+
+**Dario Righelli** (15:11:37) (in thread):
+> oooops, yes sorry! :)
+
+
+## 2024-11-04
+
+**Dario Righelli** (09:42:00) (in thread):
+> Following on this thread, we fixed a call for the***20th of November***at***17-18 (UTC+1)/11-12 (EDT).***I’m sending a gcalendar invite to everyone by using the email addresses that I found here on slack.
+> If someone is not receiving it, or needs to receive it on another account, please send me a message.
+> Also, I created a zoom call, let me know if you prefer to use another platform.
+
+**Marcel Ramos Pérez** (17:19:08) (in thread):
+> We are in***EST***now. Does this time zone look ok?[https://everytimezone.com/s/ad875eb6](https://everytimezone.com/s/ad875eb6)
+
+
+## 2024-11-05
+
+**Dario Righelli** (04:02:15) (in thread):
+> Thanks@Marcel Ramos Pérez, if this doesn’t work we can try to re-schedule an hour later. From the when2meet everyone seemed available…
+
+**Marcel Ramos Pérez** (10:57:12) (in thread):
+> That works for me. Thanks for setting it up!
+
+
+## 2024-11-15
+
+**Lluís Revilla** (06:28:56):
+> Yesterday at the CAB meeting there was a comment about helping (new) people understand the importance of classes on Bioconductor. Related to S7 system we could write some guidelines or tutorial material about when to use each system or which classes are worth checking before starting from scratch.
+
+
+## 2024-11-16
+
+**Tim Triche** (09:23:43):
+> [https://contributions.bioconductor.org/important-bioconductor-package-development-features.html#reusebioc](https://contributions.bioconductor.org/important-bioconductor-package-development-features.html#reusebioc)
+  - Attachment (contributions.bioconductor.org): [Chapter 4 Important Bioconductor Package Development Features | Bioconductor Packages: Development, Maintenance, and Peer Review](https://contributions.bioconductor.org/important-bioconductor-package-development-features.html#reusebioc)
+    > 4.1 biocViews Packages added to the Bioconductor Project require a biocViews: field in their DESCRIPTION file. The field name “biocViews” is case-sensitive and must begin with a lower-case ‘b’....
+
+**Tim Triche** (09:24:05):
+> there's a slug in the contributions guidebook for just such occasions
+
+**Tim Triche** (09:24:41):
+> (thanks@Lori Shepherdfor making me read the whole thing... 13 years after my first package...:wink:)
+
+**Tim Triche** (09:25:50):
+> it's possible that it could be more prominent and/or have pictures.  I made a pull request the other day.  Maybe I'll make another after the manuscript and grant edits due today are in.  (maybe not...:grimacing:)
+
+
+## 2024-11-20
+
+**Tim Triche** (10:04:45):
+> also the thought occurs that this is Yet Another Example:tm:of where having something interactive for users to play with, but not requiring installation, might help.  I've been toying with turning an old homework solution into a webR example along these lines (thanks to Alex's repo):[https://trichelab.github.io/lab_use_content/project2_chunks/project2_tim.html](https://trichelab.github.io/lab_use_content/project2_chunks/project2_tim.html)
+
+**Tim Triche** (10:06:24):
+> our pictures of SingleCellExperiment innards, for example, are kind of yuck. It's hard to impress upon people that "having the computer keep track of which specimens correspond to which assay results is a good idea" since they will often respond with "yes, but if you put enough effort into it you can screw that up too, so you should never attempt to do things right, also a seatbelt could keep you from being thrown clear of the wreckage".  it's... tiring.
+
+**Lori Shepherd** (10:16:29) (in thread):
+> I believe... way back when we original thought of the idea of this working group was to revamp, reevaluate, and build this section out a bit more to fill in the gaps for the other forms of data .... but it never really happened.   would love it if someone filled this in more as I/we/core team may not have the background in all areas to know what to recommend to people or when a new class structure is 'winning' over another
+
+**Malte Thodberg** (10:27:18) (in thread):
+> Is it possible to listen in on this zoom today ?
+
+**Laurent Gatto** (10:37:27):
+> Here's the link:[https://unipd.zoom.us/j/86400269814?pwd=WR8kDpREFG8C3hXU5WTxnkMDumc1YM.1](https://unipd.zoom.us/j/86400269814?pwd=WR8kDpREFG8C3hXU5WTxnkMDumc1YM.1)
+
+**Dario Righelli** (10:37:49) (in thread):
+> thanks Laurent!:slightly_smiling_face:
+
+**Vince Carey** (10:52:04) (in thread):
+> I won't be able to join until the 30 minute point (assuming that would be 1130 EST)
+
+
+## 2024-11-21
+
+**Lori Shepherd** (08:18:07):
+> [Agenda For Meetings](https://docs.google.com/document/d/1NFw33lJeYoPu2P8o0_SiHu3p3BIaokwbUk5MGMGcxNk/edit?usp=sharing)[GitHub for Collaboration](https://github.com/Bioconductor/BiocClassesWorkingGroup)
+
+**Laurent Gatto** (10:53:42):
+> What about Wed 4 Dec, 5 - 6 pm (UTC +1) for our next meeting?
+
+**Lori Shepherd** (12:28:45) (in thread):
+> Im good with this if others are.
+
+**Dario Righelli** (16:22:14) (in thread):
+> I can, but most likely I have to leave at 5:30 that day
+
+
+## 2024-11-27
+
+**Dario Righelli** (12:00:51) (in thread):
+> Are we up for the next 4th Dec? Do you want me to send a message to the interested people?
+
+**Lori Shepherd** (13:26:10):
+> @Ludwig Geistlinger/@Laurent Gatto/ or anyone?  Is there a Bioconductor class for  or that should be used for  "mass cytometry" -- they say very specifically that its "mass cytometry" not mass spectromety? and I think there is a difference between flow cytometry vs mass cytometry on quick search but wasn't search if they were related enough?
+
+**Laurent Gatto** (13:38:37):
+> Yes, the there's a different in flow and mass cytometry, but the stucture of the data is the same - 10s (flow) - 100s (mass) of markers in many 1e5 - 1e6 cells. I am not sure if raw mass cytometry data is also stored is FCS files (I'll check), but the quantitative data are equivalent, and can be stored in standard Bioconductor containers. The[HDCytoData](https://www.bioconductor.org/packages/release/data/experiment/html/HDCytoData.html)is a good example of such data.
+  - Attachment (Bioconductor): [HDCytoData](https://www.bioconductor.org/packages/release/data/experiment/html/HDCytoData.html)
+    > Data package containing a set of publicly available high-dimensional cytometry benchmark datasets, formatted into SummarizedExperiment and flowSet Bioconductor object formats, including all required metadata. Row metadata includes sample IDs, group IDs, patient IDs, reference cell population or cluster labels (where available), and labels identifying 'spiked in' cells (where available). Column metadata includes channel names, protein marker names, and protein marker classes (cell type or cell state).
+
+**Laurent Gatto** (13:43:27):
+> From the HDCytoData vignette:
+> > The`HDCytoData`package is an extensible resource containing a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) benchmark datasets, which have been formatted into`SummarizedExperiment`and`flowSet`Bioconductor object formats.
+
+**Lori Shepherd** (13:45:15):
+> Thank you!
+
+**Lluís Revilla** (16:17:22) (in thread):
+> Sorry, I'll be traveling at that time and without reliable internet connection.
+
+
+## 2024-11-28
+
+**Dario Righelli** (03:38:10):
+> Hi Everyone, we (Me,@Lori Shepherdand@Laurent Gatto) are attempting to have a meeting next December 4th 5-6pm (CET) / 11-12am (EST).
+> Following[last meeting](https://community-bioc.slack.com/archives/C04NVE8GARL/p1732195087906019)we were interested to understand who would be able to join to fix it or reschedule it.@Michael Lawrence@Vince Carey@Lluís Revilla@Marcel Ramos Pérez@Tim Triche@Malte ThodbergThanks everyone.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C04NVE8GARL/p1732195087906019)
+    > [Agenda For Meetings](https://docs.google.com/document/d/1NFw33lJeYoPu2P8o0_SiHu3p3BIaokwbUk5MGMGcxNk/edit?usp=sharing)
+    > [GitHub for Collaboration](https://github.com/Bioconductor/BiocClassesWorkingGroup)
+
+**Lluís Revilla** (03:55:21) (in thread):
+> If we can schedule it one day sooner or later I will be able to join
+
+**Laurent Gatto** (07:12:59) (in thread):
+> I could do Tue 3rd either 30 min later (or I join later), or earlier in the afternoon.
+
+**Lluís Revilla** (08:19:39) (in thread):
+> :thumbsup:both options work well (but if there is more consensus on December 4th go ahead)
+
+**Tim Triche** (08:56:55) (in thread):
+> I’llbe on a plane on Dec 4th but I can call in anyways (ask the education working group if you think this is an idle threat).December 3rd I will be nearer sea level
+
+**Laurent Gatto** (10:48:39) (in thread):
+> Confirming that mass and flow cytometry data both come in fcs files.
+
+
+## 2024-12-02
+
+**Michael Lawrence** (18:17:52) (in thread):
+> Looks like there is no agenda. The last meeting had action items around documentation and a PoC of S7. The documentation would probably take priority. How can we get some movement on that?
+
+
+## 2024-12-03
+
+**Dario Righelli** (04:39:20) (in thread):
+> Following up, it seems we have. no agreement for tomorrow.
+> Is today still on the table?
+
+**Laurent Gatto** (04:58:48) (in thread):
+> I confirm my availability for tomorrow.
+
+**Dario Righelli** (05:18:39) (in thread):
+> I’m available too, but I have to leave at 5:30
+
+**Laurent Gatto** (05:43:50) (in thread):
+> I am also available to start earlier than 5:00  CET.
+
+**Dario Righelli** (06:00:25) (in thread):
+> works for me
+
+**Malte Thodberg** (06:12:14):
+> Just added to this to the Github to spark discussion:[https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/15#issue-2714711164](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/15#issue-2714711164)^ This is the style of documentation I think would be really helpful in getting more people to take advantage of the S4 system.
+
+
+## 2024-12-04
+
+**Dario Righelli** (05:40:54) (in thread):
+> Sorry, it’s not clear to me if we are going to have the meeting today.
+> It seems only me and Laurent are available at 5ish for the meeting.
+
+**Malte Thodberg** (05:44:18) (in thread):
+> I have sick child and will not be able to join unfortunately
+
+**Tim Triche** (06:03:52) (in thread):
+> What time is available on the 5th? I can probably make it work
+
+**Laurent Gatto** (06:25:01) (in thread):
+> I don't think a time was set of the 5th Dec (I didn't suggest one, as I'm at a conference).@Dario Righelli- if that works for more people, maybe that's a better day.
+
+**Dario Righelli** (08:35:18) (in thread):
+> I’m really not sure who is going to join a meeting this week.
+> Maybe it would be better to have a poll like a when2meet to have a better scheduled meeting
+
+**Tim Triche** (08:36:04) (in thread):
+> I’mslammed with ASH and trainee fellowship applications (HHMI) this week soI’dwelcome that idea
+
+**Tim Triche** (08:36:40) (in thread):
+> I may have some time to work on an S3/S4/S7 PoC this weekend or next week too
+
+**Dario Righelli** (10:08:37) (in thread):
+> I will create a when2meet later starting from the next week til the week before christmas in order to have a meeting before then.
+
+
+## 2024-12-09
+
+**Dario Righelli** (05:00:37):
+> Dear all, here is a when2meet for this and next week[https://www.when2meet.com/?27931682-NT2ej](https://www.when2meet.com/?27931682-NT2ej)Please add your availabilities, so we understand if we are able to schedule it before Christmas.
+> Thanks
+
+
+## 2024-12-10
+
+**Dario Righelli** (12:53:55) (in thread):
+> @Laurent Gatto@Michael Lawrence@Vince Carey@Tim Triche
+
+
+## 2024-12-11
+
+**Laurent Gatto** (10:10:01) (in thread):
+> Sorry, these last weeks of the term are already full. Choose what works for others, and I'll see if I can move other meetings around.
+
+
+## 2024-12-12
+
+**Dario Righelli** (05:33:25) (in thread):
+> It seems we have only two possibilities, tomorrow (Fri Dec 13) at 4:00-5:00 CET (without Lluis and Tim) or Dec 18th same time (without me and Lluis). (sorry for the wrong time showing in the screenshots)@Laurent Gattoyou pick:slightly_smiling_face:
+  - File (PNG): [Screenshot 2024-12-12 at 11.27.35.png](https://community-bioc.slack.com/files/U34P8RS3B/F0856B2PQ9X/screenshot_2024-12-12_at_11.27.35.png)
+  - File (PNG): [Screenshot 2024-12-12 at 11.27.38.png](https://community-bioc.slack.com/files/U34P8RS3B/F084THP7C8K/screenshot_2024-12-12_at_11.27.38.png)
+
+**Laurent Gatto** (06:13:53):
+> None will work for me, unfortunately: I teach tomorrow from 2 - 6 pm, and I already have a meeting scheduled next Wed at at 4 pm, sorry.
+
+**Dario Righelli** (08:33:53):
+> @Malte Thodbergare you interested in joining the meeting? maybe your vote could help in picking a date:joy:
+
+**Laurent Gatto** (10:08:03) (in thread):
+> And I of course meant that I can't join either of those times, and you should meet without me.
+
+
+## 2024-12-13
+
+**Dario Righelli** (08:40:09):
+> I guess the only available date is next Dec 18th
+
+**Dario Righelli** (08:41:08):
+> I can do an invite, but because I cannot be able to attend, maybe someone else can create the link
+
+
+## 2024-12-16
+
+**Dario Righelli** (05:40:32):
+> I got an opening for this wednesday, I’ll send the invite and the link!
+
+**Dario Righelli** (05:44:35) (in thread):
+> invitation sent, here is the link:[https://unipd.zoom.us/j/85044517814?pwd=n987qekQNzGya9Sp7Jgds8yzudboTr.1](https://unipd.zoom.us/j/85044517814?pwd=n987qekQNzGya9Sp7Jgds8yzudboTr.1)
+
+**Dario Strbenac** (07:00:07):
+> Are there any creative ways to vary the name of the first parameter of an S4 Generic?
+> ```
+> setGeneric("summarise", function(result, ...) standardGeneric("summarise"))
+> setMethod("summarise", "DataFrame", function(result, performanceType = c("accuracy", "error"))
+> ```
+> If I want to create a`summarise`method that takes in a`list`of result objects and have the first parameter be named`results`for that method (to intuitively indicate to the user that it accepts more than one item), can it be done?
+> ```
+> setMethod("summarise", "list", function(results, performanceType = c("accuracy", "error")) # lapply over the list and call summarise.
+> ```
+
+
+## 2024-12-17
+
+**Lluís Revilla** (09:10:59) (in thread):
+> You can check with the maintainer that defined the generic and see if they are open to add a new generic for the plural. Usually, extending S4 classes with new methods is not easy when one doesn't control the class and generics definition.
+
+**Marcel Ramos Pérez** (12:06:54) (in thread):
+> It sounds like that should be a separate generic / function because the output would be a list version of`summarise`IIUC
+
+**Dario Strbenac** (18:00:03) (in thread):
+> Oh, actually I wrote both in my own package. I didn't realise it was possible to have two generics with the same name.
+
+**Marcel Ramos Pérez** (18:02:44) (in thread):
+> I meant that both generics should have different names, e.g.,`summarise`and`summaryList`
+
+
+## 2024-12-18
+
+**Marcel Ramos Pérez** (10:06:22):
+> set the channel topic: [https://docs.google.com/document/d/1NFw33lJeYoPu2P8o0_SiHu3p3BIaokwbUk5MGMGcxNk/edit?usp=sharing](https://docs.google.com/document/d/1NFw33lJeYoPu2P8o0_SiHu3p3BIaokwbUk5MGMGcxNk/edit?usp=sharing)
+
+**Malte Thodberg** (10:59:40) (in thread):
+> Ah, had put the meeting down for 17:00 instead of 16:30:face_with_peeking_eye:
+
+**Dario Righelli** (11:01:22) (in thread):
+> sorry, I’ll add you to the calendar invitation list
+
+
+## 2024-12-19
+
+**Hervé Pagès** (13:54:01) (in thread):
+> Also I don't necessarily see the need to make`summaryList()`a generic function if it's intended to work only on a list unless I'm missing something.
+
+**Dario Strbenac** (16:00:02) (in thread):
+> Because if it's a S4 method, it automatically checks the input type without manually having to write`is(variable, "class")`inside the function?
+> > The`setMethod`function takes three arguments: the name of the generic function, the signature to match for this method and a function to compute the result.
+> What is the most sound solution for my scenario?
+
+**Hervé Pagès** (16:05:22) (in thread):
+> > Because if it's a S4 method, it automatically checks the input type without manually having to write is(variable, "class") inside the function?
+> Oh my! So you're taking the`setGeneric`/`setMethod`route only to avoid having to add`stopifnot(is.list(results))`to your code ?:face_with_spiral_eyes:
+
+**Dario Strbenac** (16:30:09) (in thread):
+> That and some functions in the package have three or four input types which have somewhat different processing needed. Each one is shorter than having one function containing four chunks of code within`if`statements.
+
+**Hervé Pagès** (17:14:37) (in thread):
+> Well you said you wanted to implement a function that summarizes a`list`hence the`summarizeList()`suggestion from Marcel. But now it seems that the input of`summarizeList()`will not necessarily be a list and that the function needs to do different things depending on the type of the input? Do I get that right? Hard to give advice without knowing the real story.
+
+**Dario Strbenac** (17:20:10) (in thread):
+> Sorry for the confusion. I meant that I used S4 methods in my package mostly because I have calculation functions that operate on multiple data types (e.g.`matrix`,`DataFrame`,`MultiAssayExperiment`) but then I also realised S4 methods could be useful for type checking so I also decided to use the S4 methods for two functions that have a`list`of Result input and a single`Result`input.
+
+
+## 2024-12-29
+
+*12:19:41 - @Andrew Su has joined the channel*
+
+## 2025-01-02
+
+**Lori Shepherd** (12:43:14):
+> did we get a poll started on a recurring meeting for the month?  Also on track for@Michael Lawrencedemo on S7 during the decided meeting time?
+
+**Dario Righelli** (17:16:24) (in thread):
+> No sorry, I’ll do it tomorrow, thanks for the reminder!
+
+
+## 2025-01-03
+
+**Dario Righelli** (12:02:36):
+> Here it is the when2meet link for the January meeting. If I remember correctly,@Michael Lawrencehad a preference for the last two weeks of January, but I put also the next one for completeness. Michael, feel free to skip the next one, if you prefer so.[https://www.when2meet.com/?28156727-6xjmT](https://www.when2meet.com/?28156727-6xjmT)
+
+**Lori Shepherd** (12:05:36):
+> we wanted to set up a recurring meeting tho -- so are we going to use this to mark off the recurring date based on this months results?
+
+
+## 2025-01-09
+
+**Lluís Revilla** (01:46:45):
+> Is someone able to help this question from the mailing list?[https://stat.ethz.ch/pipermail/bioc-devel/2025-January/020788.html](https://stat.ethz.ch/pipermail/bioc-devel/2025-January/020788.html)
+
+**Vince Carey** (14:39:36):
+> It looks like a possible bug in methods package?  I will ask Mike Lawrence to take a look.  For now the known subclasses could be added to the class union as a workaround?
+
+**Vince Carey** (14:40:57):
+> and@Hervé Pagèshas already answered on the list.
+
+**Vince Carey** (14:41:27):
+> the bug report approach that Herve mentions should be used
+
+**Dario Righelli** (16:29:19):
+> Hi@Michael Lawrence, sorry for the tag, this wants to be a simple reminder for the when2meet for this month.
+> The result of this poll will be used as a recurring monthly meeting.:slightly_smiling_face:[https://community-bioc.slack.com/archives/C04NVE8GARL/p1735923756957279](https://community-bioc.slack.com/archives/C04NVE8GARL/p1735923756957279)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C04NVE8GARL/p1735923756957279)
+    > Here it is the when2meet link for the January meeting. If I remember correctly, @Michael Lawrence had a preference for the last two weeks of January, but I put also the next one for completeness. Michael, feel free to skip the next one, if you prefer so.
+    > [https://www.when2meet.com/?28156727-6xjmT](https://www.when2meet.com/?28156727-6xjmT)
+
+**Michael Lawrence** (18:12:10) (in thread):
+> I filled out the survey. Next week might be a little soon if I need to prepare a talk as we had discussed.
+
+
+## 2025-01-10
+
+**Dario Righelli** (03:41:33) (in thread):
+> 21th (17-18CET, 11-12EST, 8-9amPST) seems to be the only available time frame.
+> We’ll also pick this as a monthly recurring meeting, so I’d say, every third Tuesday of the month, same time.
+
+
+## 2025-01-13
+
+**Michael Lawrence** (16:19:49) (in thread):
+> Thanks for organizing. I assume the calendar invite is forthcoming?
+
+
+## 2025-01-14
+
+**Dario Righelli** (05:04:14) (in thread):
+> you all got a calendar invite, please share the[zoom link](https://unipd.zoom.us/j/85389549981?pwd=WOz8G0F03iy3yd4A0pw6JKn38fZhHp.1)with everyone who could be interested.
+
+
+## 2025-01-15
+
+*06:00:36 - @Stevie Pederson has joined the channel*
+**Malte Thodberg** (07:37:39) (in thread):
+> Added one more example for SimpleList:[https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/15#issuecomment-2592715458](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/15#issuecomment-2592715458)
+
+
+## 2025-01-28
+
+*12:51:41 - @Axel Klenk has joined the channel*
+*13:39:50 - @Lambda Moses has joined the channel*
+*13:43:42 - @Tuomas Borman has joined the channel*
+*13:54:57 - @Ilaria Billato has joined the channel*
+
+## 2025-01-30
+
+*16:33:08 - @Maria Doyle has joined the channel*
+
+## 2025-02-05
+
+*12:02:20 - @Tobi Ogunbowale has joined the channel*
+
+## 2025-02-10
+
+**Dario Righelli** (09:12:19):
+> Hi everyone, are we having the meeting this month? the 18th?
+> In any case, I don’t have access to zoom anymore, so we need to find someone else hosting the meeting on it or switching to another platform.
+
+**Laurent Gatto** (10:12:12):
+> I thought we would be meeting on Tuesday's,~~~which would be 20/02~~~.
+
+**Laurent Gatto** (10:14:01):
+> I do not have a zoom licence. We use jitsi for the BiocTeaching meetings, which works well. I don't know/think we can record a session though.
+
+**Marcel Ramos Pérez** (10:14:43):
+> I have a calendar event for 2025-02-18[https://everytimezone.com/s/a7271b7d](https://everytimezone.com/s/a7271b7d)
+
+**Laurent Gatto** (10:15:17) (in thread):
+> ok, thanks. So is it always on Tuesdays then?
+
+**Laurent Gatto** (10:16:00) (in thread):
+> I probably got it wrong
+
+
+## 2025-02-17
+
+**Dario Righelli** (09:41:21):
+> Hi everyone<!here>, just to keep-up about the tomorrow’s meeting at 5:00 pm CET / 8:00 am PST / 11:00 am EST.
+> We still need a link for it, I can create one with Microsoft Teams, but if jitsi seems a better solution@Laurent Gattocould you please create a link ? Thanks!
+
+
+## 2025-02-18
+
+**Laurent Gatto** (00:37:22):
+> We can use[https://meet.jit.si/BioconductorClasses](https://meet.jit.si/BioconductorClasses)- it's open to anyone who has the link. It might be possible to create a room with recording enables, but I'll have to test this. Let me know if this is needed.
+  - Attachment (meet.jit.si): [Jitsi Meet](https://meet.jit.si/BioconductorClasses)
+    > Join a WebRTC video conference powered by the Jitsi Videobridge
+
+**Lluís Revilla** (03:32:29) (in thread):
+> Sorry I have a conflicting meeting at work. I have started asking around the CAB about what we could do to ease developers usage of Bioconductor classes. They also suggesting contacting with the reviewer team and the education team. I'll follow up with those two groups. Good luck
+
+**Dario Righelli** (06:33:46):
+> I don’t know if@Michael Lawrencewill have a demo for S7 class usage.
+> It would be good to have a ready to record room in my opinion, but I really don’t know if we are going to use it.:slightly_smiling_face:Thanks@Laurent Gattofor the link!:slightly_smiling_face:
+
+**Vince Carey** (09:20:41):
+> i will be late
+
+**Laurent Gatto** (10:25:43) (in thread):
+> It is possible to record on Jitsi, but it might require a paid plan - I can't find how to do it.
+
+**Lori Shepherd** (11:01:21):
+> I'll also be late
+
+**Dario Righelli** (11:52:46):
+> Sorry guys, I recorded the screen,  but by default Quicktime is with no audio, so it’s not really useful:cry:
+
+**Dario Righelli** (12:23:32):
+> Hey<!channel>it is finally out on youtube the recording of@Michael Lawrence’s presentation about S7 class introduction.
+> Enjoy:[https://www.youtube.com/watch?v=CxiBwiga_1A](https://www.youtube.com/watch?v=CxiBwiga_1A)
+  - Attachment (YouTube): [R S7 Class Introduction](https://www.youtube.com/watch?v=CxiBwiga_1A)
+
+
+## 2025-03-09
+
+*13:32:39 - @Benjamin Yang has joined the channel*
+
+## 2025-03-10
+
+**Malte Thodberg** (09:50:53):
+> @Dario Righelliand@Marcel Ramos Pérez: Suggestion for some new text on S4 in Bioconductor based on the current github text:
+  - File (HTML): [bioc-classes-methods.html](https://community-bioc.slack.com/files/U34P8RS3B/F08H3LC28MS/bioc-classes-methods.html)
+
+**Malte Thodberg** (09:51:31) (in thread):
+> ```
+> # Common Bioconductor Methods and Classes {#reusebioc}
+> 
+> ## Leveraging the S4 infrastrucutre of Bioconductor
+> 
+> Bioconductor is a large and diverse project with many packages that provide functionality for a wide range of biological data types and statistical methods.
+> 
+> A key foundation of Bioconductor is that it relies on *_S4-classes_* rather than the more commonly used *_S3-classes_* (that is extensively used by the tidyverse collection of packages). S4 is more structured, rigorous and verbose compared to S3, given S4 an initial steeper learning curve than S3. However, this rigourness makes it possible to much more efficiently share and reuse code between hundreds of R/Bioconductor packages. 
+> 
+> Using S4 in your Bioconductor packages gives the following advantages:
+> 
+> - Easily reuse highly optimized and stable code from hundreds of Bioconductor other packages.
+> - Central data representations in the form of S4-classes make allow users to readily integrate
+> analysis workflows across multiple Bioconductor packages.
+> - Reusing familar interfaces makes it easier for new users to start using your package.
+> 
+> The easiest way to find out if there is already an existing S4-class for your data type is to search the Bioconductor package index for your data type. If you are in doubt, you can always ask on the on main Bioconductor communication
+> channels such as the [bioc-devel][bioc-devel-mail] mailing list, or the
+> Bioconductor slack.
+> 
+> Below we provide some pointers to the most central S4-classes of the Bioconductor project.
+> 
+> ## Bioconductor core packages and S4-classes
+> 
+> Bioconductor core packages are maintained centrally by the Bioconductor team itself. As they are some of the most optimized and stable parts of Bioconductor (some packages are more than a decade old!), they are the best starting point for reusing classes.
+> 
+> The `r BiocStyle::Biocpkg("S4Vectors")` and `r BiocStyle::Biocpkg("IRanges")` package contain low-level S4-classes for simple types of data:
+> 
+> - `DFrame`: Improved version of the base R `data.frame`, where columns can be any type and can have meta data attached.
+> - `List` and friends: Improved version of the base R `list`, where each element has to be the same type (`CharacterList`, `IntegerList`, `NumericList`, etc.)
+> - `Factor`: Improved version of the base R factor, where levels can be any type.
+> - `Rle`: Efficient Long vectors with many repeated values (e.g. coverage calculated across a whole genome)
+> - `Hits`: Storing "hits" or "overlaps" between two sets, e.g. overlap between two sets of genomic intervals
+> - `Views`: Accessing smaller parts of a large object, like a genome, without copying the large object itself. Many specialized classes for different use cases (`RleViews`, `XStringViews`, etc.)
+> 
+> The `r BiocStyle::Biocpkg("GenomicRanges")`, `r BiocStyle::Biocpkg("GenomeInfoDb")`, `r BiocStyle::Biocpkg("rtracklayer")` package contains S4-Classes for genomic intervals (as seen in BED, GTF or BigWig files):
+> 
+> - `GRanges`: Genomic ranges with start and end coordinates. Also keeps information 
+> - `GRangesList`: Sets of `GRanges`.
+> - `Seqinfo`: Chromosome names and lengths for a genome/assembly.
+> - `GPos`: Single base pair genomic intervals.
+> - Import with `rtracklayer::import()`
+> 
+> `r BiocStyle::Biocpkg("SummarizedExperiment")` contains S4-Classes for count/expression matrices and associated meta data.
+> 
+> - `SummarizedExperiment`: Store on or more expression matrix with meta data for both columns and rows.
+> - `RangedSummarizedExp`eriment`: `SummarizedExperiment` with an attached `GRanges`.
+> - Many packages reuse `SummarizedExperiment` for more specialized cases, see for example `r BiocStyle::Biocpkg("RaggedExperiment")`. 
+> 
+> The `r BiocStyle::Biocpkg("Biostrings")` package contains S4-classes for biological strings (e.g. from FASTQ files):
+> 
+> - `DNAString`: DNA sequences
+> - `AAString`: Amino acid sequences
+> - `DNAStringSet`/`AAStringSet` and `DNAStringSetList`/`AAStringSetList`: Sets of sequences
+> - Import with `readDNAStringSet()` and `readAAStringSet()`
+> 
+> The `r BiocStyle::Biocpkg("GenomicAlignment")` and `r BiocStyle::Biocpkg("Rsamtools")` packages contains S4-classes for aligned reads (e.g. BAM-files)
+> 
+> - `GAlignments`: Alignments of shorts reads to a reference genome.
+> - Large BAM-files can be imported with `scanBam()` or `readGAlignments`
+> 
+> `r BiocStyle::Biocpkg("VariantAnnotation")` package contains S4-classes for genetic variants:
+> 
+> - `VCF`: Genotypes across individuals and associated meta data.
+> - `VRanges`: Location of genetic variants
+> - Import with `readVcf()`
+> 
+> `r BiocStyle::Biocpkg("BiocSets")` and `r BiocStyle::Biocpkg("GSEABase")` contains S4-classes for gene sets, e.g. Gene Ontology (GO)-terms and similar:
+> 
+> - `GeneSet`: Gene set identifiers and metadata.
+> - `GeneSetCollection`: Sets of `GeneSet`
+> 
+> `r BiocStyle::Biocpkg("DelayedArray")` contains S4-classes for analyzing matrices that are too large to fit into memory:
+> 
+> - `DelayedArray`: Wrapper around data stored either in a highly efficent format (e.g. sparse) or on disk.
+> - Several specialized subclasses, including `RleMatrix` , `ConstantArray`, `r BiocStyle::Biocpkg("SparseArray")`, `r BiocStyle::Biocpkg("HDF5Array")`, `r BiocStyle::Biocpkg("ConstantArray")` and `r BiocStyle::Biocpkg("ScaledMatrix")`
+> 
+> ## Widely used Bioconductor S4-classes.
+> 
+> Some Bioconductor package have implemented S4-Classes that have been widely adopted:
+> 
+> `r BiocStyle::Biocpkg("SingleCellExperiment")` for single cell datasets (e.g. scRNA-Seq), including single cell multi-omics (e.g. CITE-Seq).
+> 
+> `r BiocStyle::Biocpkg("SpatialExperiment")` for spatial -omics.
+> 
+> `r BiocStyle::Biocpkg("MultiAssayExperiment")` for complex multi-omics datasets with arbitrary patterns of mixing data.
+> 
+> `r BiocStyle::Biocpkg("Spectral")` for mass spec data
+> 
+> `r BiocStyle::Biocpkg("TBFSTools")` for analyzing transcription factor binding sites with Position Frequency Matrices (PFMs) and similar.
+> 
+> `r BiocStyle::Biocpkg("limma")`, `r BiocStyle::Biocpkg("edgeR")` and `r BiocStyle::Biocpkg("DESeq2")` for differential expression (DE) analysis
+> 
+> ## Extending Bioconductor S4-classes
+> 
+> We are generally recommending that developers simply reuse existing classes: This saves time on the developers part and makes it easier for end-users to switch between packages.
+> 
+> Some advanced developers might find the need to formally extend existing S4-classes with new subclasses. This requires more knowledge of how S4 inheritance works and how the different Bioconductor packages build on each other.
+> 
+> We are currently developing new documentation on this topic. For now, we refer to some general background on S4 from the Advanced R book ([https://adv-r.hadley.nz/s4.html](https://adv-r.hadley.nz/s4.html)) and the vignettes from the `S4Vectors`, `SummarizedExperiment`, `SingleCellExperiment` and `DelayedArray` packages which contains concrete examples of extending existing S4-Classes
+> ```
+
+**Malte Thodberg** (09:51:39) (in thread):
+> ^ markdown code
+
+**Marcel Ramos Pérez** (09:52:46) (in thread):
+> Hi@Malte Thodbergcan you create a PR at[https://github.com/Bioconductor/pkgrevdocs](https://github.com/Bioconductor/pkgrevdocs)?
+
+
+## 2025-03-11
+
+**Lluís Revilla** (03:58:40):
+> FYI: Martin Maechler posted on R-devel about some changes on S4 showMethods output. He is looking for feedback from Bioconductor developers:[https://stat.ethz.ch/pipermail/r-devel/2025-March/083881.html](https://stat.ethz.ch/pipermail/r-devel/2025-March/083881.html)
+
+**Vince Carey** (09:18:06):
+> Without drilling further, I saw that[https://code.bioconductor.org/search/search?q=selectMethod](https://code.bioconductor.org/search/search?q=selectMethod)shows that selectMethod occurs fairly often and there are a couple of important packages that might be tested in the light of the proposed change, which I would expect to be innocuous.  [I understand (I think) that the issue pertains to a show method but the effects were presented in the context of selectMethod and I would not want to try an analysis of "show".]
+  - Attachment (code.bioconductor.org): [Bioconductor Code: Search](https://code.bioconductor.org/search/search?q=selectMethod)
+    > Search source code across all Bioconductor packages
+
+
+## 2025-03-12
+
+*09:53:31 - @Mike Smith has joined the channel*
+
+## 2025-03-14
+
+*11:57:42 - @Pariksheet Nanda has joined the channel*
+
+## 2025-03-15
+
+*10:17:45 - @Lucio Queiroz has joined the channel*
+
+## 2025-03-18
+
+**Laurent Gatto** (02:51:02):
+> Hi all. I think there's a working group meeting planned for today at 5 pm CET. I am busy teaching, so won't be able to join this month.
+
+**Dario Righelli** (05:18:17):
+> Thanks for letting us know Laurent, yes, we have a meeting scheduled at 5pm CET. We are going to show some little implementations we made with S7.
+
+**Lori Shepherd** (07:11:58) (in thread):
+> FWIW I'll make this meeting but I do have a recurring conflict -- if there is a way to move it up or down an hour I wouldn't necessarily be opposed either.
+
+**Laurent Gatto** (07:20:00) (in thread):
+> I wouldn't mind moving it 1 hour earlier.
+
+**Vince Carey** (11:48:02):
+> I will be about 30 min late, sorry but i have a conflict.
+
+*14:26:26 - @Andres Wokaty has joined the channel*
+
+## 2025-04-14
+
+**Dario Righelli** (04:02:04):
+> Hi<!here>, we have a scheduled meeting for tomorrow, but I was wondering if we have any update to discuss.
+> Unfortunately, I don’t have any.
+> In case no one else has something to discuss, maybe it could be a good idea to reschedule it in a week or so, or even skip this month,
+> Any feedbacks?
+
+**Malte Thodberg** (07:45:11):
+> I won't be ableto join tomorrow, due to Easter holiday here:hatching_chick:
+
+**Lori Shepherd** (07:48:02):
+> I likely will not be able to attend because of the Bioconductor release tasks
+
+**Dario Righelli** (11:51:34):
+> I’d say, maybe it’s better to skip this month and meet on May.
+
+**Laurent Gatto** (14:54:41):
+> Yes, agree, unless others have some concrete plans. I will have a conflict for our next meeting in May.
+
+
+## 2025-04-15
+
+**Dario Righelli** (05:06:05):
+> ok, so let’s skip this month.
+
+**Dario Righelli** (05:06:33) (in thread):
+> Do you want me to try to find a better date for the meeting in May?
+
+**Laurent Gatto** (06:18:13) (in thread):
+> Thank you for suggesting. I have another (non-recurrent) meeting I can't skip/change that also starts at 5 pm. I could the Monday 11/05 at the same time, but I don't think the meeting should be changed because of me if it is a convenient time for others.
+
+**Pariksheet Nanda** (12:13:25) (in thread):
+> Would it be possible to be a fly on the wall and listen into the next discussion to better appreciate nuances and considerations for developing Bioconductor's system of classes? Are the call details listed anywhere or is it through Spack's huddle or something else?
+
+
+## 2025-04-16
+
+**Dario Righelli** (04:08:37) (in thread):
+> yes, absolutely, we have a recurring meeting each third Tuesday of the month. We have a jitsi meeting link here:[https://meet.jit.si/BioconductorClasses](https://meet.jit.si/BioconductorClasses)
+  - Attachment (meet.jit.si): [Jitsi Meet](https://meet.jit.si/BioconductorClasses)
+    > Join a WebRTC video conference powered by the Jitsi Videobridge
+
+**Dario Righelli** (04:09:39) (in thread):
+> Sorry Laurent but the 11/05 it’s a Sunday!:slightly_smiling_face:Do you mean Monday 12/05? I can try to reach out the others and see if it can work.
+
+**Laurent Gatto** (04:41:49) (in thread):
+> Yes, I meant Monday 12/05. Thanks.
+
+**Dario Righelli** (04:50:13) (in thread):
+> I sent an email
+
+**Pariksheet Nanda** (18:48:15) (in thread):
+> At what time is the meeting typically held?
+
+
+## 2025-04-17
+
+**Dario Righelli** (02:54:25) (in thread):
+> ops, you’re right! 15:00 UTC
+> Anyway you can stay up to date by following discussions on this channel:slightly_smiling_face:
+
+*16:19:15 - @dhvani solanki has joined the channel*
+
+## 2025-04-27
+
+**Vince Carey** (13:50:00):
+> Is the listing of leads at[https://github.com/Bioconductor/BiocClassesWorkingGroup](https://github.com/Bioconductor/BiocClassesWorkingGroup)accurate?
+
+
+## 2025-04-28
+
+**Laurent Gatto** (05:01:19):
+> @Dario Righellihas been most active lately with the organisation. I think he should be added to the list.
+
+**Dario Righelli** (05:08:37) (in thread):
+> thanks!

@@ -1,0 +1,545 @@
+---
+title: "#alpha-missense"
+format: gfm
+---
+
+
+## 2023-09-20
+
+*10:46:42 - @Vince Carey has joined the channel*
+*10:47:56 - @Alan Murphy has joined the channel*
+*10:47:57 - @RGentleman has joined the channel*
+*10:47:57 - @Robert Castelo has joined the channel*
+*10:47:57 - @Ludwig Geistlinger has joined the channel*
+*10:47:57 - @Hervé Pagès has joined the channel*
+**Vince Carey** (10:49:09):
+> This channel is created to coordinate production of Bioconductor resources related to alpha missense[https://www.science.org/doi/epdf/10.1126/science.adg7492](https://www.science.org/doi/epdf/10.1126/science.adg7492)
+
+*10:49:40 - @Sean Davis has joined the channel*
+**Vince Carey** (10:52:58):
+> Public resources are in[google cloud storage](https://console.cloud.google.com/storage/browser/dm_alphamissense;tab=objects?prefix=&forceOnObjectsSortingFiltering=false)
+  - Attachment (accounts.google.com): [Google Cloud Platform](https://console.cloud.google.com/storage/browser/dm_alphamissense;tab=objects?prefix=&amp;forceOnObjectsSortingFiltering=false)
+    > Google Cloud Platform lets you build, deploy, and scale applications, websites, and services on the same infrastructure as Google.
+
+
+## 2023-09-21
+
+**Vince Carey** (22:16:51):
+> [https://vjcitn.github.io/BiocAlphaMis/articles/BiocAlphaMis.html](https://vjcitn.github.io/BiocAlphaMis/articles/BiocAlphaMis.html)
+  - Attachment (vjcitn.github.io): [BiocAlphaMis: Bioconductor interfaces to AlphaMissense pathogenicity findings](https://vjcitn.github.io/BiocAlphaMis/articles/BiocAlphaMis.html)
+    > BiocAlphaMis
+
+
+## 2023-09-22
+
+**Sean Davis** (12:16:20):
+> Sweet,@Vince Carey! It's really amazing what is already available in bioconductor!
+
+**Ludwig Geistlinger** (12:19:13):
+> I would however spell out the tool name completely in the package name: BiocAlphaMissense
+
+**Ludwig Geistlinger** (12:24:00):
+> Also given that these are individual loci (ie genomic intervals of size 1), would the`GenomicRanges::GPos`class provide for a more efficient representation?
+
+**Vince Carey** (12:53:52):
+> Yes, you are right about GPos
+
+**Vince Carey** (12:54:21):
+> I guess I can change the package name
+
+**Vince Carey** (12:55:13):
+> For GPos, I'd welcome a PR ... we are in early stages of course.  There are gene level summaries and some other artifacts, any priorities among them?
+
+**Vince Carey** (13:13:40) (in thread):
+> So at present there is an equivalent package with the long name.  The other one has a message in .onLoad indicating its impending demise.
+
+**Ludwig Geistlinger** (13:21:59):
+> I don't have a good sense of the various possible use cases just yet, so I think it makes sense to provide access to all of those files at one point. But starting with the individual SN variants in hg38 (AlphaMissense_hg38.tsv.gz) and the gene-level averages in hg38 (AlphaMissense_gene_hg38.tsv.gz) is likely a good idea.
+
+
+## 2023-09-23
+
+**RGentleman** (10:07:40):
+> agree with Ludwig
+
+
+## 2023-09-24
+
+**Sean Davis** (06:12:14) (in thread):
+> What is the biological use case? Cancer-focused? Variant annotation project? Clinical/translational application or more basic research? I'm asking to try to expand the scope a bit. There are dozens of variant annotation resources can be indexed by chromosome location. I don't want to overly complicate things, but it would be nice to kill as many birds with one development stone as possible.
+
+**Sean Davis** (06:15:09) (in thread):
+> Here is a nice(ish) list:[https://varsome.com/datasources/](https://varsome.com/datasources/)
+
+**Vince Carey** (10:13:04):
+> new material on gene level averages (which are in /data) now in place[https://vjcitn.github.io/BiocAlphaMissense/articles/BiocAlphaMissense.html](https://vjcitn.github.io/BiocAlphaMissense/articles/BiocAlphaMissense.html)
+  - Attachment (vjcitn.github.io): [BiocAlphaMissense: Bioconductor interfaces to AlphaMissense pathogenicity findings](https://vjcitn.github.io/BiocAlphaMissense/articles/BiocAlphaMissense.html)
+    > BiocAlphaMissense
+
+**Ludwig Geistlinger** (12:02:52):
+> It is interesting that there seems to be an enrichment of high pathogenicity scores for variants in intron-retaining transcripts. This is likely something known.
+
+**Ludwig Geistlinger** (12:17:25) (in thread):
+> Right nowit’sprimarily about providing the alphamissense scores as a resource that people can incorporate into their Bioc workflows. Butit’sa great idea to broaden the scope into something like a VariantHub?
+
+**Vince Carey** (12:42:34) (in thread):
+> thanks for varsome link@Sean Davis... how does this compare to[opencravat.org](http://opencravat.org)?
+
+**Sean Davis** (16:16:49) (in thread):
+> Similar data sources.
+
+**Sean Davis** (16:24:42) (in thread):
+> @Ludwig Geistlingerand@RGentleman, how far does your use case diverge from the usual: SEQUENCE --> ALIGN --> VARIANT CALL --> INTERPRET workflow? The sort of default approach to that problem is to apply VCF annotation tools to generate a VCF file (or equivalently, BCF) that ca then be used for downstream analysis. In this paradigm, one would simply annotate a VCF file using something like vcfanno ([https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0973-5](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0973-5)), opencravat, snpeff, or a bunch of others. The result is a VCF file that can be filtered or otherwise processed using VariantAnnotation or VariantFiltering, etc.
+  - Attachment (BioMed Central): [Vcfanno: fast, flexible annotation of genetic variants - Genome Biology](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0973-5)
+    > The integration of genome annotations is critical to the identification of genetic variants that are relevant to studies of disease or other traits. However, comprehensive variant annotation with diverse file formats is difficult with existing methods. Here we describe vcfanno, which flexibly extracts and summarizes attributes from multiple annotation files and integrates the annotations within the INFO column of the original VCF file. By leveraging a parallel “chromosome sweeping” algorithm, we demonstrate substantial performance gains by annotating ~85,000 variants per second with 50 attributes from 17 commonly used genome annotation resources. Vcfanno is available at [https://github.com/brentp/vcfanno](https://github.com/brentp/vcfanno) under the MIT license.
+
+
+## 2023-09-26
+
+**Ludwig Geistlinger** (17:19:41) (in thread):
+> Hi@Sean Davissorry for the delay + thanks for pointing out these tools! In the outlined SEQUENCE --> ALIGN --> VARIANT CALL --> INTERPRET workflow, AlphaMissense seems especially useful at the variant annotation / interpretation step. We would not necessarily be interested in variant calling + annotation for individual studies (others might), but we are rather interested in marrying the AlphaMissense predictions with large variant collections such as the GWAS catalog.
+
+
+## 2023-09-27
+
+**Sean Davis** (09:17:07) (in thread):
+> Gotcha. So, is Martin's suggestion of simply using DuckDB do do your joins "good enough"?
+
+**Ludwig Geistlinger** (12:27:10) (in thread):
+> I would say yes, although some of your remarks re: row vs column indexing made me pause. We had some success with hive partitioning of parquet files lately though:[https://duckdb.org/docs/data/partitioning/hive_partitioning.html](https://duckdb.org/docs/data/partitioning/hive_partitioning.html)
+  - Attachment (DuckDB): [Hive Partitioning](https://duckdb.org/docs/data/partitioning/hive_partitioning.html)
+    > DuckDB is an in-process database management system focused on analytical query processing. It is designed to be easy to install and easy to use. DuckDB has no external dependencies. DuckDB has bindings for C/C++, Python and R.
+
+**Sean Davis** (12:30:20) (in thread):
+> These files are VERY small by "Big Data" standards, so I wouldn't bother with partitioning. Partitioning can be useful for parallelization, data management, and limiting the need to read all data, but DuckDB already parallelizes over parquet even without explicit partitioning. The most common use case for partitioning is for time/date data where one wants to partition to 1) be able to query only recent data 2) tier storage so recent data is fast (but expensive) and other is slower and 3) to automate data archive/deletion by dropping partitions.
+
+**Sean Davis** (12:33:18) (in thread):
+> It is quite possible that partitioning the data in such small datasets would result in slower queries when the queries run over all records.
+
+**Sean Davis** (12:35:07) (in thread):
+> To sort this stuff out would require benchmarking, but for queries that are only going to run once or twice, a few tens of seconds is probably "good enough".
+
+**Ludwig Geistlinger** (12:48:11) (in thread):
+> Sounds good for the AlphaMissense data. We had applied partitioning in the context of large molecule data frames from MERFISH data (~200 million rows) where we wanted to pull out molecule coordinates by sample_ID and gene_ID. That was very fast in a local setting, but ended up taking too long in a cloud-based setting (AWS). We do have a shiny viewer on top that allows a user to select sample and gene ID of choice, partitioning the data by sample ID gave us faster reponse times, but maybe this is just the result of sending less data over the internet.
+
+**Sean Davis** (12:59:11) (in thread):
+> I see. That makes sense.
+
+**Sean Davis** (13:20:19) (in thread):
+> If you have a need for a client-server architecture, you can consider Clickhouse as an alternative to DuckDB.
+
+**Ludwig Geistlinger** (13:34:20) (in thread):
+> Cool, we try that out.
+
+**Sean Davis** (13:35:34) (in thread):
+> Start with cloud:[https://clickhouse.com/cloud](https://clickhouse.com/cloud)30 day free trial.
+  - Attachment (ClickHouse): [ClickHouse Cloud | Cloud Based DBMS | ClickHouse](https://clickhouse.com/cloud)
+    > ClickHouse Cloud offers a serverless hosted DBMS solution. Automatic scaling and no infrastructure to manage at consumption-based pricing. Try for free today.
+
+**Sean Davis** (13:38:50) (in thread):
+> That said, clickhouse runs fine on a laptop. And here is a nice little (somewhat dated) discussion of clickhouse-local and duckdb.[https://www.vantage.sh/blog/clickhouse-local-vs-duckdb](https://www.vantage.sh/blog/clickhouse-local-vs-duckdb)
+  - Attachment (vantage.sh): [clickhouse-local vs DuckDB on Two Billion Rows of Costs](https://www.vantage.sh/blog/clickhouse-local-vs-duckdb)
+    > clickhouse-local was faster than DuckDB for building the Q1 2023 Cloud Cost Report, but its UX left something to be desired.
+
+**Sean Davis** (13:43:41) (in thread):
+> Note that clickhouse has the concept of an index (actually, it is just ordering with "chunk" metadata), so your MERFISH dataset may be a good fit for that use case.
+
+**Ludwig Geistlinger** (13:44:12) (in thread):
+> would be kind of nice if clickhouse would also have an R and Python API
+
+**Sean Davis** (13:45:06) (in thread):
+> Clickhouse has an http api, so you can issue queries directly against the endoint.
+
+**Sean Davis** (13:46:15) (in thread):
+> That said, there is an R client and several python clients.
+
+**Sean Davis** (13:46:47) (in thread):
+> Finally, clickhouse supports the postgresql wire protocol, so you can connect to it using postgresql clients.
+
+**Ludwig Geistlinger** (13:47:02) (in thread):
+> Ah I see one here:[https://github.com/hannes/clickhouse-r](https://github.com/hannes/clickhouse-r)
+
+**Sean Davis** (13:48:11) (in thread):
+> And[https://github.com/IMSMWU/RClickhouse](https://github.com/IMSMWU/RClickhouse).
+
+**Sean Davis** (13:48:36) (in thread):
+> And[https://github.com/patzaw/ClickHouseHTTP](https://github.com/patzaw/ClickHouseHTTP)
+
+**Ludwig Geistlinger** (13:49:36) (in thread):
+> And you pay for it eventually? Or are these packages using a free and open version of clickhouse?
+
+**Sean Davis** (13:50:18) (in thread):
+> Clickhouse is open source. You can set it up yourself. Clickhouse cloud is just clickhouse, but no server maintenance.
+
+**Ludwig Geistlinger** (13:51:09) (in thread):
+> I see, that sounds good
+
+**Sean Davis** (13:51:09) (in thread):
+> Setting it up yourself is pretty simple.[https://github.com/ClickHouse/homebrew-clickhouse](https://github.com/ClickHouse/homebrew-clickhouse)
+
+**Sean Davis** (13:51:26) (in thread):
+> If you want to run on kubernetes, there is a helm chart.
+
+**Sean Davis** (13:52:27) (in thread):
+> Clickhouse CAN run as multiple nodes, but don't do that. Just make the primary node bigger if needed. That said, 32GB of RAM with 4 cores is a BIG machine for the kinds of datasets we work with.
+
+**Sean Davis** (13:54:27) (in thread):
+> If you do deploy to kubernetes, it is kinda cool. You can keep the instance small most of the time and when you need to do some heavy lifting, just bump the image size for a few hours, then resize when you are done. Can save a lot of $$$.
+
+**Ludwig Geistlinger** (15:06:51) (in thread):
+> Thanks for all these pointers + advice, Sean. Super helpful!
+
+
+## 2023-10-05
+
+**Robert Castelo** (14:18:27):
+> Sorry for being late to the party, and thanks Vince for inviting me:fiesta_parrot:I’ve seen that@Martin Morganalready built a package to access the original AlphaMissense data, and I was then almost done with what I’m describing here. I think the AlphaMissense data is also well suited to be lossy compressed (down to about 80Mb), by reducing its precision to two decimal digits (after all, the cutoffs for likely benign, etc, use only two decimal digits), and then accessed through the[GenomicScores](https://bioconductor.org/packages/GenomicScores)package. I built an annotation package for these scores through this route, you can find it[here](https://github.com/rcastelo/AlphaMissense.GDM2023.hg38). In essence, you access the data through a`GRanges`object:
+> ```
+> remotes::install_github("rcastelo/AlphaMissense.GDM2023.hg38")
+> library(AlphaMissense.GDM2023.hg38)
+> am23 <- AlphaMissense.GDM2023.hg38
+> am23
+> GScores object 
+> # organism: Homo sapiens (UCSC, hg38)
+> # provider: Google DeepMind
+> # provider version: GDM2023
+> # download date: Oct 05, 2023
+> # loaded sequences: AMSCORE
+> # default scores population: AMSCORE
+> # number of sites: 71 millions
+> # maximum abs. error (def. pop.): 0.005
+> # use 'citation()' to cite these data in publications
+> 
+> gscores(am23, GRanges("chr7:44145576"), ref="C", alt="T")
+> GRanges object with 1 range and 1 metadata column:
+>       seqnames    ranges strand |   AMSCORE
+>          <Rle> <IRanges>  <Rle> | <numeric>
+>   [1]     chr7  44145576      * |      0.87
+>   -------
+>   seqinfo: 25 sequences (1 circular) from hg38 genome
+> ```
+> I’ve also included a vignette that partly reproduces Figure 5B from the AlphaMissense paper, using variants of the GWAS catalog, accessed through the`gwascat`package, and gnomAD MAF values through the`MafH5.gnomAD.v3.1.2.GRCh38`package. Let me know if you think this is something to be included as annotation package in the next release of Bioconductor, alternatively we could also add these as AnnotationHub resources to be retrieved through`GenomicScores::getGScores()`.
+
+*16:53:17 - @Martin Morgan has joined the channel*
+**Martin Morgan** (17:08:23):
+> I was not aware of this channel. My package is at[https://mtmorgan.github.io/AlphaMissense](https://mtmorgan.github.io/AlphaMissense). The user can download individual datasets from zenodo and stick them in DuckDB. The data isn't really large enough to need to do anything fancy; I like as a workflow database work to reduce to relevant variants then import into R. One thing in the package is`db_range_join()`which wraps[DuckDB range-based queries](https://duckdb.org/2022/05/27/iejoin.html)that seem moderately performant -- 71M variants against 1000 ranges in about 20s. If@Robert Castelohas a better use case then perhaps development should be through his package?
+  - Attachment (DuckDB): [Range Joins in DuckDB](https://duckdb.org/2022/05/27/iejoin.html)
+    > TL;DR: DuckDB has fully parallelised range joins that can efficiently join millions of range predicates. Range intersection joins are an important operation in areas such as temporal analytics, and occur when two inequality conditions are present in a join predicate. Database implementations often rely on slow O(N^2) algorithms that compare every pair of rows for these operations. Instead, DuckDB leverages its fast sorting logic to implement two highly optimized parallel join operators for these kinds of range predicates, resulting in 20-30x faster queries. With these operators, DuckDB can be used effectively in more time-series-oriented use cases.
+
+**Hervé Pagès** (22:02:57):
+> Not outrageously slow and in the same order of magnitude as`subsetByOverlaps()`'s performance:
+> ```
+> library(GenomicRanges)
+> 
+> randomGenomicPositions <- function(seqinfo, n, replace=FALSE)
+> {
+>     breakpoints <- cumsum(as.numeric(seqlengths(seqinfo)))
+>     abs_pos <- sample(breakpoints[[length(breakpoints)]], n, replace=replace)
+>     seqids <- findInterval(abs_pos - 1, breakpoints) + 1L
+>     pos <- abs_pos - c(0, breakpoints)[seqids]
+>     GPos(seqlevels(seqinfo)[seqids], pos, seqinfo=seqinfo)
+> }
+> 
+> randomFixedWidthGenomicRanges <- function(seqinfo, n, width=1e5, replace=FALSE)
+> {
+>     seqlengths0 <- seqlengths(seqinfo)
+>     seqlengths(seqinfo) <- pmax(seqlengths0 - width + 1L, 1L)
+>     gpos <- randomGenomicPositions(seqinfo, n, replace=replace)
+>     seqlengths(gpos) <- seqlengths0
+>     ans <- as(gpos, "GRanges")
+>     suppressWarnings(width(ans) <- width)  # suppress out-of-bound warning
+>     trim(ans)
+> }
+> 
+> hg38si <- Seqinfo(genome="hg38")
+> 
+> fake_snps <- randomGenomicPositions(hg38si, 71e6)
+> mcols(fake_snps)$rsid <- sprintf("rs%08d", seq_along(fake_snps))
+> 
+> my_roi <- randomFixedWidthGenomicRanges(hg38si, 1000)
+> 
+> system.time(my_snps <- subsetByOverlaps(fake_snps, my_roi))
+> #    user  system elapsed 
+> #  11.566   2.319  13.885
+> ```
+
+
+## 2023-10-06
+
+**Robert Castelo** (09:14:29):
+> Thanks@Martin MorganI think these are two different use cases. Your package, and generally all these performant range-based database engines, allow one to access the full data, while GenomicScores trades off precision for compression, giving access to the (quantized) scores only. If you know what positions you want to query and quantized scores are good enough for your question at hand, then GenomicScores are a fast and easy option. If you want to explore and access the full data, then you need something else, such as the package you developed. To avoid confusing the user, I think it would make sense that your package is available as a software package in Bioconductor, while I submit these quantized scores as AnnotationHub resources, removing the package I developed from GitHub and moving its vignette to the GenomicScores package. What do you think?
+> 
+> By the way,  querying directly on`Rle`vectors, GenomicScores takes about 4.5 seconds in my laptop (Macbook Pro Intel 2020) the first time to query 254,984 variants (position + ref allele + alt allele) on the 71M AlphaMissense scores:
+> ```
+> library(AlphaMissense.GDM2023.hg38)
+> library(BSgenome.Hsapiens.UCSC.hg38)
+> 
+> am23 <- AlphaMissense.GDM2023.hg38
+> 
+> gwcatgr <- readRDS(url("[https://github.com/rcastelo/AlphaMissense.GDM2023.hg38/raw/main/inst/extdata/gwcatgr051023.rds](https://github.com/rcastelo/AlphaMissense.GDM2023.hg38/raw/main/inst/extdata/gwcatgr051023.rds)"))
+> 
+> ref <- as.character(getSeq(Hsapiens, gwcatgr))
+> alt <- gsub("rs[0-9]+-", "", gwcatgr$RISK_ALLELE)
+> 
+> mask <- (ref %in% c("A", "C", "G", "T")) & 
+>         (alt %in% c("A", "C", "G", "T")) &
+>         nchar(alt) == 1 & ref != alt
+> gwcatgr <- gwcatgr[mask]
+> ref <- ref[mask]
+> alt <- alt[mask]
+> 
+> length(gwcatgr)
+> [1] 254984
+> 
+> system.time(amsco <- gscores(am23, gwcatgr, ref=ref, alt=alt))
+>    user  system elapsed
+>   4.092   0.181   4.400
+> ```
+> The second time, once the scores are already loaded into main memory, takes only slightly over a second:
+> ```
+> system.time(amsco <- gscores(am23, gwcatgr, ref=ref, alt=alt))
+>    user  system elapsed
+>   1.040   0.048   1.102
+> ```
+> Loading these 71M scores into main memory consumes about 250Mb of RAM, so not a great compression ratio taking into account that the original full compressed data is about 600Mb:
+> ```
+> print(object.size(get("AlphaMissense.GDM2023.hg38", env=am23@.data_cache)), units="Mb")
+> 250.1 Mb
+> ```
+> Going down to one decimal place would probably reduce this to < 20Mb.
+
+**Martin Morgan** (19:00:01) (in thread):
+> impressive speed!
+
+**Martin Morgan** (19:06:36):
+> I want to make sure not to make any coordinate system mistakes. The[Zenodo page](https://zenodo.org/record/8360242)describes the POS column as
+> > Genome position (1-based).
+> and the files uses`chr1`(for instance) and`hg38`as the CHROM and genome columns.  Are these consistent? I though chr1 / hg38 were used by UCSC with 0-based coordinate systems? I use 'hg38' to populate the seqinfo of`GPos`; do I get the right chromosome bounds?
+  - Attachment (Zenodo): [Predictions for AlphaMissense](https://zenodo.org/record/8360242)
+    > This repository provide AlphaMissense predictions. Please see the README for more details. For questions about AlphaMissense or the prediction Database please email <mailto:alphamissense@google.com|alphamissense@google.com>.
+
+**Martin Morgan** (19:43:44) (in thread):
+> I think this is a 'join' rather than a ranged join. To approximate, I did
+> ```
+> library(dplyr)
+> gwcat_tbl <-
+>     gwcatgr |>
+>     as_tibble()
+> ```
+> to get`gwcatgr`into a tibble, then added as a temporary table to the database and did the join (I***think***the temporary table is necessary so dplyr can do the join, but there might be something a little more clever in DuckDB)
+> ```
+> system.time({
+>     AlphaMissense::db_connect() |>
+>         AlphaMissense::db_temporary_table(gwcat_tbl, "gwcat") |>
+>         left_join(am_data("hg38"), by = c(seqnames = "#CHROM", start = "POS")) |>
+>         collect()
+> })
+> ##   user  system elapsed 
+> ##  4.593   0.055   1.405
+> ```
+> (I like how DuckDB is parallelizing under the hood -- 'user' is 3x 'elapsed')
+
+**Hervé Pagès** (20:05:47) (in thread):
+> If they say the POS column is 1-based then everything is fine. This is the convention used in GTF/GFF3 and by GRanges/GPos objects.
+> AFAIK UCSC uses both conventions: they report 1-based positions to the user e.g. ENST00000456328.2 is reported to be at chr1:11869-14409:[https://genome.ucsc.edu/cgi-bin/hgSearch?search=ENST00000456328&db=hg38](https://genome.ucsc.edu/cgi-bin/hgSearch?search=ENST00000456328&db=hg38)But they use 0-based start positions and 1-based end positions internally in their databases e.g. txStart/txEnd for ENST00000456328.2 are 11868 and 14409 in the knownGene table of the hg38 db:[https://genome.ucsc.edu/cgi-bin/hgTables?db=hg38&hgta_table=knownGene&hgta_doSchema=describe+table+schema](https://genome.ucsc.edu/cgi-bin/hgTables?db=hg38&hgta_table=knownGene&hgta_doSchema=describe+table+schema)Main advantage of the "0-based start/1-based end" convention is that width = end - start, and 0-width ranges don't need to have an end that is equal to start - 1. But besides that, it just confuses the average bioinformatician.
+> Note that PyRanges objects in Python also use the "0-based start/1-based end" convention, unfortunately.
+
+**Hervé Pagès** (21:14:38) (in thread):
+> A good sanity check is to compare the nucleotides found in the hg38 assembly at the 71M positions with the REF nucleotides reported in the Zenodo file:
+> ```
+> library(AlphaMissense)
+> snps <- to_GPos(am_data("hg38"))
+> 
+> library(BSgenome.Hsapiens.UCSC.hg38)
+> genome <- BSgenome.Hsapiens.UCSC.hg38
+> 
+> ## Visually: The 'dna' col matches the 'REF' col:
+> BSgenomeViews(genome, snps)
+> # BSgenomeViews object with 71697556 views and 7 metadata columns:
+> #              seqnames    ranges strand            dna |         REF         ALT
+> #                 <Rle> <IRanges>  <Rle> <DNAStringSet> | <character> <character>
+> #          [1]     chr1     69094      *            [G] |           G           T
+> #          [2]     chr1     69094      *            [G] |           G           C
+> #          [3]     chr1     69094      *            [G] |           G           A
+> #          [4]     chr1     69095      *            [T] |           T           C
+> #          [5]     chr1     69095      *            [T] |           T           A
+> #          ...      ...       ...    ...            ... .         ...         ...
+> #   [71697552]     chrY  57196925      *            [T] |           T           G
+> #   [71697553]     chrY  57196925      *            [T] |           T           C
+> #   [71697554]     chrY  57196925      *            [T] |           T           A
+> #   [71697555]     chrY  57196926      *            [C] |           C           G
+> #   [71697556]     chrY  57196926      *            [C] |           C           A
+> 
+> ## Programmatically:
+> dna <- getSeq(genome, snps)  # slow!
+> REF <- as(snps$REF, "DNAStringSet")
+> all(dna == REF)
+> # [1] TRUE
+> ```
+
+*22:13:21 - @Marcel Ramos Pérez has joined the channel*
+**Martin Morgan** (22:29:44) (in thread):
+> Thanks, as ever for the precise explanation!
+
+
+## 2023-10-08
+
+*17:47:19 - @Peter Hickey has joined the channel*
+
+## 2023-10-09
+
+*15:45:48 - @Tim Triche has joined the channel*
+
+## 2023-10-20
+
+**RGentleman** (16:54:34):
+> sadly they have relicensed their variants to non-commercial use - so the package license will need to change….scroll way down on their github page
+
+
+## 2023-10-21
+
+**Martin Morgan** (11:01:15) (in thread):
+> My[AlphaMissenseR](https://mtmorgan.github.io/AlphaMissenseR)package provides facilities for downloading the data, but does not actually include the data, so I'm licensing it as Artistic-2.0. When the data is downloaded (from Zenodo) the software parses the license and there's a message about it.
+> ```
+> * [10:58:11][info] data licensed under 'CC-BY-NC-SA-4.0'
+> ```
+> Maybe it should be more prominent, or require active consent?
+> 
+> I'm not sure about@Robert Castelo’s AnnotationHub resources, and in general about how licensing issues are handled in AnnotationHub@Lori Shepherd
+
+
+## 2023-10-22
+
+**Robert Castelo** (14:08:40) (in thread):
+> Hi, I can update the AH resources (I host them in my own server) to include the licensing information in their metadata and display it through the`show()`method. I can also make the function`GenomicScores::getGScores()`, which is the one that downloads them and bundles them into a**GScores**object, to ask for consent if necessary. Of course, right now somebody could download directly the resources with the AH API. By the way, the resources store the scores rounded to two decimal digits in**Rle**vectors, so they do not correspond to the original files, not even the original data, the rounding error is displayed in the object (right now in devel):
+> ```
+> library(GenomicScores)
+> 
+> am23 <- getGScores("AlphaMissense.v2023.hg38")
+> am23
+> GScores object 
+> # organism: Homo sapiens (UCSC, hg38)
+> # provider: Google DeepMind
+> # provider version: v2023
+> # download date: Oct 10, 2023
+> # loaded sequences: chr1
+> # maximum abs. error: 0.005
+> # use 'citation()' to cite these data in publications
+> ```
+
+**Robert Castelo** (14:47:36) (in thread):
+> How about this?
+> ```
+> library(GenomicScores)
+> 
+> am23 <- getGScores("AlphaMissense.v2023.hg38")
+> am23
+> GScores object 
+> # organism: Homo sapiens (UCSC, hg38)
+> # provider: Google DeepMind
+> # provider version: v2023
+> # download date: Oct 10, 2023
+> # loaded sequences: chr1
+> # maximum abs. error: 0.005
+> # license: CC BY-NC-SA 4.0, see[https://creativecommons.org/licenses/by-nc-sa/4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)# use 'citation()' to cite these data in publications
+> ```
+
+
+## 2023-10-23
+
+**Martin Morgan** (10:06:08) (in thread):
+> I opened an[issue on AnnotationHub](https://github.com/Bioconductor/AnnotationHub/issues/45)for a more general solutoin
+  - Attachment: [#45 Require explict consent when accessing data with restrictive licenses](https://github.com/Bioconductor/AnnotationHub/issues/45)
+    > For instance, AlphaMissense data is licensed with `CC BY-NC-SA 4.0`, so users should be made aware of this when using the data (or derived from it).
+    > 
+    > One solution would be to add a table to the schema, with fields 'hub id' and 'license`, and introduce code into AnnotationHub (and ExperimentHub?) that prompted the user to accept the license before downloading to the local cache.
+    > 
+    > It might be useful to provide some way to accept the license in a non-interactive way, e.g., an environment variable `ANNOTATION_HUB_ACCEPT_<license>` where `<license>` might be `CC_BY_NC_SA_4.0`
+
+**Robert Castelo** (14:20:51) (in thread):
+> This sounds great, I've signed up for updates on that issue. I've just pushed changes that allow GenomicScores to parse licensing metadata. This behaves as follows:
+> ```
+> library(GenomicScores)
+> 
+> ## here is going to detect the license, ask for consent,
+> ## but I'll answer 'no' and this will prompt an error
+> am23 <- getGScores("AlphaMissense.v2023.hg38")
+> /home/rcastelo/.cache/R/AnnotationHub
+>   does not exist, create directory? (yes/no): yes
+>   |======================================================================| 100%
+> 
+> snapshotDate(): 2023-10-19
+> download 25 resources? [y/n] y
+>   |======================================================================| 100%
+> [... download the 25 resources ...]
+> loading from cache
+> These data is shared under the license CC BY-NC-SA 4.0 (see[https://creativecommons.org/licenses/by-nc-sa/4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)), do you accept it? [y/n]: n
+> Error in getGScores("AlphaMissense.v2023.hg38") :
+>   Data will not be made available as a 'GScores' object unless you agree to the terms of its license.
+> 
+> ## we try again, this time answering 'yes'
+> am23 <- getGScores("AlphaMissense.v2023.hg38")
+> snapshotDate(): 2023-10-19
+> loading from cache
+> These data is shared under the license CC BY-NC-SA 4.0 (see[https://creativecommons.org/licenses/by-nc-sa/4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)), do you accept it? [y/n]: y
+> am23
+> GScores object
+> # organism: Homo sapiens (UCSC, hg38)
+> # provider: Google DeepMind
+> # provider version: v2023
+> # download date: Oct 10, 2023
+> # loaded sequences: chr1
+> # maximum abs. error: 0.005
+> # license: CC BY-NC-SA 4.0, see[https://creativecommons.org/licenses/by-nc-sa/4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)# use 'citation()' to cite these data in publications
+> 
+> ## we try again, this time using the non-interactive
+> ## option of setting the argument 'accept.license=TRUE'
+> am23 <- getGScores("AlphaMissense.v2023.hg38", accept.license=TRUE)
+> snapshotDate(): 2023-10-19
+> loading from cache
+> Using these data you are accepting the license CC BY-NC-SA 4.0 (see[https://creativecommons.org/licenses/by-nc-sa/4.0](https://creativecommons.org/licenses/by-nc-sa/4.0))
+> am23
+> GScores object
+> # organism: Homo sapiens (UCSC, hg38)
+> # provider: Google DeepMind
+> # provider version: v2023
+> # download date: Oct 10, 2023
+> # loaded sequences: chr1
+> # maximum abs. error: 0.005
+> # license: CC BY-NC-SA 4.0, see[https://creativecommons.org/licenses/by-nc-sa/4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)# use 'citation()' to cite these data in publications
+> ```
+> When the`getGScores()`call is not interactive, it will fall back to the value of the`accept.license`parameter, which as you can see, it can be also used interactively. The only caveat right now is that to figure out whether the data is licensed, it should download it first, but hopefully there will be a way in AH to get that info before attempting to download the resources.
+
+
+## 2024-02-12
+
+*10:08:21 - @Sunil Poudel has joined the channel*
+**Sunil Poudel** (10:09:25):
+> We are excited to announce our upcoming town hall on***AI applications for protein structure prediction***. Join us March 05, 10 AM - 1 PM ET, for talks and discussions with leading experts from academia and industry!
+  - File (PDF): [AI_Protein_Structure_Town_Hall_March_2024.pdf](https://community-bioc.slack.com/files/U34P8RS3B/F06JCHX1NCA/ai_protein_structure_town_hall_march_2024.pdf)
+
+
+## 2024-03-27
+
+*17:15:48 - @Hervé Pagès has left the channel*
+
+## 2024-04-02
+
+*11:46:48 - @Tram Nguyen has joined the channel*
+*11:53:29 - @Nitesh Turaga has joined the channel*
+
+## 2024-04-16
+
+*13:29:50 - @Arshi Arora has joined the channel*
+
+## 2024-05-21
+
+**Ludwig Geistlinger** (10:25:57):
+> [https://www.ebi.ac.uk/about/news/technology-and-innovation/alphamissense-data-integration/](https://www.ebi.ac.uk/about/news/technology-and-innovation/alphamissense-data-integration/)
+  - Attachment (ebi.ac.uk): [AlphaMissense data integrated into Ensembl, UniProt and AlphaFold DB](https://www.ebi.ac.uk/about/news/technology-and-innovation/alphamissense-data-integration/)
+    > The integration enables researchers to easily access AI-generated scores estimating how likely genetic variants are to be pathogenic
+
+
+## 2024-10-23
+
+*11:47:43 - @Sounkou Mahamane Toure has joined the channel*

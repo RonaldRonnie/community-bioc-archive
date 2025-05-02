@@ -1,0 +1,556 @@
+---
+title: "#sc-velocity"
+format: gfm
+---
+
+
+## 2020-09-05
+
+*07:09:57 - @Kevin Rue-Albrecht has joined the channel*
+**Kevin Rue-Albrecht** (07:09:57):
+> set the channel description: Discussions about the analysis of expression dynamics in single cell RNA seq data
+
+*07:10:07 - @Aaron Lun has joined the channel*
+
+## 2020-09-14
+
+**Aaron Lun** (18:33:47):
+> PAARRTYY
+
+**Aaron Lun** (18:34:11):
+> ooh wait, the partey started last week.
+
+**Aaron Lun** (18:35:13):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F01BCQ5T7CY/image.png)
+
+
+## 2020-09-17
+
+*04:49:40 - @Charlotte Soneson has joined the channel*
+
+## 2020-09-28
+
+**Kevin Rue-Albrecht** (11:23:44):
+> trying`autoscale=False`now
+
+**Kevin Rue-Albrecht** (11:32:50):
+> looks good! thanks!
+
+**Charlotte Soneson** (11:34:25):
+> :tada:
+
+**Kevin Rue-Albrecht** (11:55:01):
+> I'm still intrigued by the warning
+> ```
+> Warning: file 'velociraptor/configure' did not have execute permissions: corrected
+> ```
+> But on my Mac it says:
+> ```
+> -rwxr-xr-x   1 kevin  staff    71B  7 Jun 08:06 configure
+> -rwxr-xr-x   1 kevin  staff    87B  7 Jun 08:06 configure.win
+> ```
+
+**Kevin Rue-Albrecht** (11:55:32):
+> (figuring out how to check file permission on Windows)
+
+**Kevin Rue-Albrecht** (11:59:12):
+> looks executable there too
+
+
+## 2020-10-04
+
+**Kevin Rue-Albrecht** (09:32:32):
+> [https://github.com/Bioconductor/Contributions/issues/1632#issuecomment-703177829](https://github.com/Bioconductor/Contributions/issues/1632#issuecomment-703177829)woohoo:party_parrot::bioc-load:
+
+
+## 2020-10-10
+
+**Aaron Lun** (13:07:06):
+> if you subset to the HVGs to be used with`subset.row=`in`scvelo()`, you shouldn't need to subset the cells.
+
+**Aaron Lun** (13:22:53):
+> oh wait, we do that already.
+
+**Aaron Lun** (13:23:37):
+> vignette should say "we assume that quality control, normalization and feature selection have already been eprformed"
+
+**Aaron Lun** (13:38:45):
+> @Charlotte Sonesoncan you cast your eye over[https://github.com/Bioconductor/OrchestratingSingleCellAnalysis/pull/44](https://github.com/Bioconductor/OrchestratingSingleCellAnalysis/pull/44)
+
+**Aaron Lun** (13:39:03):
+> mostly the text in that section
+
+**Charlotte Soneson** (13:58:24):
+> yes, will do
+
+**Aaron Lun** (14:02:07):
+> Thanks, You might want to just pull the branch and look at the entire section, the PR doesn't actually cover all of it
+
+
+## 2020-10-11
+
+**Charlotte Soneson** (08:34:27):
+> Ok, checked and PR’ed to the`velocity`branch
+
+**Aaron Lun** (13:49:54):
+> ooops, i forgot to push my latest changes before you looked at it
+
+**Aaron Lun** (13:50:15):
+> well, I just merged your PR, but you can give a final look at my PR before I merge it
+
+**Aaron Lun** (13:54:54):
+> @Kevin Rue-Albrechtalso have some changes in velociraptor
+
+**Aaron Lun** (14:22:16):
+> Anyway, I can't say I really understand the difference between the velocity pseudotime and the latent time.
+
+**Aaron Lun** (14:28:08):
+> reading the corresponding section of the biorxiv ms is completely cryptic to me.
+
+**Kevin Rue-Albrecht** (14:29:09):
+> i pushed velociraptor (and iSEE) upstream
+
+
+## 2020-10-12
+
+**Aaron Lun** (20:10:54):
+> I’m going to assume that the chapter was all good.
+
+
+## 2020-10-13
+
+**Charlotte Soneson** (02:35:12):
+> Oops, sorry, thought I had replied; yes, looked good.
+
+
+## 2020-11-19
+
+*08:32:55 - @David Dittmar has joined the channel*
+**Aaron Lun** (19:29:56):
+> I’m still a little nervous about how we’re plugging into scvelo, e.g., feeding it normalized expression values and precomputed PCs. Can someone reassure me that we’re doing the right thing? It would be nice if we could show that we get “close enough” results to the same analysis run purely with the Python sequence of calls.
+
+
+## 2020-11-20
+
+**Charlotte Soneson** (03:14:40) (in thread):
+> I’ll look into this and make a direct comparison.
+
+**Aaron Lun** (03:26:55) (in thread):
+> thanks. If you come up with a few succinct scripts, we can stick them into`inst/`so that we can re-run them in future builds.
+
+
+## 2020-11-23
+
+**Charlotte Soneson** (13:38:54) (in thread):
+> A bit bare-bones, but something like this?
+  - File (HTML): [compare_velociraptor_runs.html](https://community-bioc.slack.com/files/U34P8RS3B/F01G2DKST5W/compare_velociraptor_runs.html)
+
+**Aaron Lun** (13:40:15) (in thread):
+> oh yeah
+
+**Aaron Lun** (13:40:38) (in thread):
+> probably throw down some silent `stopifnot`s so that I pay attention when it breaks
+
+**Charlotte Soneson** (13:44:38) (in thread):
+> Right. Format would be ok like this - just an Rmd that runs stuff and makes some plots?
+
+**Charlotte Soneson** (13:51:32) (in thread):
+> And is there a safe way to get the path to the environment that`velociraptor`is using? Right now I’m providing it manually to`reticulate::use_virtualenv()`(in a hidden chunk) so that I can compare to running the commands directly in python chunks. Otherwise I guess I’ll just leave those comparisons out, I just wanted to make sure we get the same things with the wrapper.
+
+**Aaron Lun** (14:11:05) (in thread):
+> Yeah, Rmarkdown is fine.
+
+**Aaron Lun** (14:11:38) (in thread):
+> Path to environment - should be possible with something from***basilisk.utils***
+
+**Aaron Lun** (14:13:57) (in thread):
+> Well, not pretty but it should work robustly:
+> ```
+> basilisk:::.obtainEnvironmentPath(velociraptor:::velo.env)
+> ```
+
+**Aaron Lun** (14:14:31) (in thread):
+> Maybe I should export that.
+
+**Charlotte Soneson** (14:15:33) (in thread):
+> It’s doing the right thing in this case at least:slightly_smiling_face:
+
+
+## 2020-11-24
+
+**Charlotte Soneson** (03:00:03) (in thread):
+> Ok, PR here:[https://github.com/kevinrue/velociraptor/pull/27](https://github.com/kevinrue/velociraptor/pull/27). I tried just swapping the HVGs from scran to those from scVelo, and the results were even more similar, so I guess that’s where the biggest difference comes from.
+
+**Aaron Lun** (03:07:49) (in thread):
+> great, thanks. will try to look at it in a few dayas
+
+
+## 2020-12-01
+
+**Charlotte Soneson** (03:43:05):
+> Any idea what may be going on here (it’s been failing for several builds):[http://bioconductor.org/checkResults/3.13/bioc-LATEST/velociraptor/riesling1-buildsrc.html](http://bioconductor.org/checkResults/3.13/bioc-LATEST/velociraptor/riesling1-buildsrc.html)?`zellkonverter`and`basilisk`are fine here, so it doesn’t seem to be a general conda issue.
+
+**Aaron Lun** (11:17:20):
+> it’s probably a sporadic windows error, where the conda environment installation fails but is still cached (so it won’t clear up in subsequent builds). I protect the main conda installation from mysterious windows install failures but it occurs to me that the same is not done for conda environments. It might help to bump the version.
+
+
+## 2020-12-05
+
+*17:34:42 - @Alexander Toenges has joined the channel*
+
+## 2020-12-12
+
+*00:38:25 - @Huipeng Li has joined the channel*
+
+## 2020-12-13
+
+*13:42:11 - @Kelly Eckenrode has joined the channel*
+
+## 2021-01-01
+
+*14:06:44 - @Bernd has joined the channel*
+
+## 2021-01-22
+
+*15:45:28 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-02-12
+
+**Alexander Toenges** (14:56:40):
+> [https://twitter.com/volkerbergen/status/1360309761628139525?s=21](https://twitter.com/volkerbergen/status/1360309761628139525?s=21)
+  - Attachment (twitter): [Attachment](https://twitter.com/volkerbergen/status/1360309761628139525?s=21)
+    > scVelo goes multi-core, with another 10fold speed up on my instance. Thanks M Klein, P Weiler, Y Schaelte for this terrific work! [http://scvelo.org](http://scvelo.org)
+
+**Aaron Lun** (15:03:38):
+> hmm. Troublesome.@Kevin Rue-Albrechtwe'll have to make sure we clamp down on unintended parallel processing.
+
+**Kevin Rue-Albrecht** (15:07:14) (in thread):
+> I may be able to find some time next week to look at things. Got a week gap in my teaching.
+
+**Aaron Lun** (15:07:55) (in thread):
+> note, this is for the next version, so it's not entirely relevant to the current version.
+
+**Aaron Lun** (15:08:33):
+> Need to avoid noisy neighbor issues when packages parallelize by default. Hopefully the default is still to use a single core.
+
+**Kevin Rue-Albrecht** (15:18:38) (in thread):
+> ah right
+
+
+## 2021-02-13
+
+**Aaron Lun** (19:16:34) (in thread):
+> you should probably get Mike Stadler's PR in.
+
+
+## 2021-02-19
+
+**Aaron Lun** (00:14:26):
+> God, that was cray cray
+
+**Aaron Lun** (00:14:30):
+> [https://community-bioc.slack.com/archives/CEQ04GKEC/p1613262381158600?thread_ts=1612926724.147400&cid=CEQ04GKEC](https://community-bioc.slack.com/archives/CEQ04GKEC/p1613262381158600?thread_ts=1612926724.147400&cid=CEQ04GKEC)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CEQ04GKEC/p1613262381158600?thread_ts=1612926724.147400&amp;cid=CEQ04GKEC)
+    > @Hervé Pagès was able to reproduce the timeout, and apparently the fix is:
+    > 
+    > ```export KMP_DEVICE_THREAD_LIMIT=2
+    > export KMP_TEAMS_THREAD_LIMIT=2```
+    > I have ABSOLUTELY NO IDEA why this works.
+
+
+## 2021-02-22
+
+**Aaron Lun** (19:44:52):
+> @Kevin Rue-Albrechtwhy is the docker push at the same location as the build?
+
+**Aaron Lun** (19:45:06):
+> Shouldn't it be a scheduled job so as to ensure dependencies are always up to date?
+
+
+## 2021-02-23
+
+**Kevin Rue-Albrecht** (11:39:56):
+> the build isn't working anyway, as the dockerhub instance runs out of memory[https://hub.docker.com/repository/registry-1.docker.io/kevinrue/velociraptor/builds/475f52eb-d5b1-4755-aeac-c8a99f03036e](https://hub.docker.com/repository/registry-1.docker.io/kevinrue/velociraptor/builds/475f52eb-d5b1-4755-aeac-c8a99f03036e)also, GHA runs into[https://github.com/kevinrue/velociraptor/runs/1960479532#step:28:318](https://github.com/kevinrue/velociraptor/runs/1960479532#step:28:318)
+> ```
+> one node produced an error: could not find function "activateEnvironment"
+> ```
+
+**Aaron Lun** (11:41:07):
+> Should be there in`basilisk.utils`.
+
+**Kevin Rue-Albrecht** (11:41:25):
+> it only fails on ubuntu it seems
+
+**Kevin Rue-Albrecht** (11:44:15):
+> there's this weird thing too[https://github.com/kevinrue/velociraptor/runs/1960479532#step:28:270](https://github.com/kevinrue/velociraptor/runs/1960479532#step:28:270)
+> ```
+> -- RMarkdown error -------------------------------------------------------------
+> /bin/bash: /github/home/.cache/basilisk/1.3.6/velociraptor-1.1.5/env/lib/libtinfo.so.6: no version information available (required by /bin/bash)
+> /bin/bash: /github/home/.cache/basilisk/1.3.6/velociraptor-1.1.5/env/lib/libtinfo.so.6: no version information available (required by /bin/bash)
+> ```
+
+**Kevin Rue-Albrecht** (11:44:34):
+> it's all happening during`pkgdown::build_site()`it seems
+
+**Kevin Rue-Albrecht** (11:47:07):
+> also
+> ```
+> Quitting from lines 57-66 (compare_velociraptor_runs.Rmd)
+> ```
+> points to the chunk that includes
+> ```
+> zellkonverter::writeH5AD(sce, X_name = "counts", 
+>                          file=file.path(tmpdir, "anndata.h5ad"))
+> ```
+
+**Aaron Lun** (11:47:50):
+> is this the same problem, or a bunch of different problems?
+
+**Kevin Rue-Albrecht** (11:55:36):
+> they're all problems in the same build, maybe related maybe not
+
+
+## 2021-04-18
+
+*17:36:03 - @Aedin Culhane has joined the channel*
+
+## 2021-05-11
+
+*16:45:50 - @Megha Lal has joined the channel*
+
+## 2021-05-20
+
+**Aaron Lun** (13:27:22):
+> @Charlotte SonesonI'm re-reading your velocity preprocessing paper again; with bussparse set to separate, how exactly are reads assigned to introns vs exons? are they double counted?
+
+**Charlotte Soneson** (14:19:56):
+> Yes, in the ‘include’ approach they are captured for both the intronic and exonic counting.
+
+**Aaron Lun** (14:22:08):
+> hm. that sounds kinda bad. or is there some EM magic that decides whether a read is assigned to one (spliced/unspliced) transcript over another (spliced/unspliced) transcript?
+
+**Charlotte Soneson** (14:27:25):
+> There are different ways of counting ([https://bustools.github.io/manual](https://bustools.github.io/manual)), including an EM algorithm, but as far as I understand the read (or BUS entry) is still included in both the intronic and exonic capture (which are counted separately).
+
+
+## 2021-06-30
+
+*05:43:46 - @Somesh has joined the channel*
+
+## 2021-07-26
+
+*08:56:02 - @Wes W has joined the channel*
+
+## 2021-08-04
+
+*13:58:35 - @shristi shrestha has joined the channel*
+
+## 2021-09-06
+
+*08:23:32 - @Eddie has joined the channel*
+*09:10:42 - @Eddie has left the channel*
+
+## 2021-09-09
+
+*01:59:31 - @Julien Roux has joined the channel*
+
+## 2021-10-18
+
+*19:35:07 - @Qirong Lin has joined the channel*
+
+## 2021-10-19
+
+*09:19:04 - @Michael Love has joined the channel*
+**Michael Love** (09:33:27):
+> question for velocity folks: if we have an SCE with spliced (S), unspliced (U) and ambiguous (A) read counts, do you see any problem with passing a cell along with zero counts for U and/or A? To me, this shouldn’t pose a problem for downstream applications, but just want to check CC@Wes W
+
+**Wes W** (09:50:37):
+> @Charlotte Sonesoncan correct me if I am wrong but my understanding is that if there is a non-positive value in there then`velociraptor`on defaults will throw a hissy fit at the on normalization through`scuttle`. However if you pass`use.theirs=TRUE`then there is no problems and let scVelo use its own normalization and feature selection.  At first glance throwing out an entire cell with no Unspliced seems... not great... but I dont know scVelo's source well enough to know if its doing that already and a ratio of X:0 is a deal breaker for it.
+
+**Charlotte Soneson** (12:10:55):
+> I think`scVelo`will get around it here:[https://github.com/theislab/scvelo/blob/1805ab4a72d3f34496f0ef246500a159f619d3a2/scvelo/preprocessing/utils.py#L622-L623](https://github.com/theislab/scvelo/blob/1805ab4a72d3f34496f0ef246500a159f619d3a2/scvelo/preprocessing/utils.py#L622-L623)(basically, don’t allow 0 column sums; and yes, I guess that should be fine downstream). By default, they won’t do any filtering (with`use.theirs=TRUE`, the size of the output from`velociraptor::scvelo()`is the same as that of the input), and the normalization is done separately for the two matrices. Note that you can define size factors for spliced and unspliced matrices manually with`scvelo`(so you can set the size factors for the unspliced matrix to be the same as those for the spliced one).
+
+**Michael Love** (12:13:39):
+> I don’t really get why someone would want different size factors for the same cell, but is that the default for some pipeline?
+
+**Michael Love** (12:14:48):
+> I agree with this:
+> > so you can set the size factors for the unspliced matrix to be the same as those for the spliced one)
+> and hence I don’t think someone should throw out a cell just bc it may have no unspliced or ambiguous counts
+
+**Michael Love** (12:15:27):
+> this may not be a big deal, maybe the counts for S and U or A are comparable so there aren’t many cells to worry about
+
+**Charlotte Soneson** (12:25:05):
+> > this may not be a big deal, maybe the counts for S and U or A are comparable so there aren’t many cells to worry about
+> I’d say the ratio of S to U is perhaps in the range of 4-15 or so in typical data sets (you have to put the A in the S and U bins somehow before running`scvelo`). As far as I know,`scVelo`will normalize the matrices separately by default.
+
+**Michael Love** (12:43:05):
+> huh. it (norm separately) seems strange to me bc it’s just a technical artifact (seq depth) that should be the same across each assay
+
+**Michael Love** (12:43:41):
+> I guess if you have a cell with a count of 20 and then it has a 0 for U it’s really not a big deal to toss that cell
+
+**Michael Love** (12:44:03):
+> ok thanks, i think it’s not something we have to worry about — people can toss these cells if they want:slightly_smiling_face:
+
+*17:24:36 - @Peter Hickey has joined the channel*
+
+## 2021-10-20
+
+**Michael Love** (10:40:16):
+> ok and just an advert,@Dongze He@Wes Wand@Steve Lianoglouhave worked on`loadFry()`in**fishpond**package which will be in upcoming release, it outputs a SCE
+
+*10:40:24 - @Dongze He has joined the channel*
+*10:40:24 - @Steve Lianoglou has joined the channel*
+
+## 2021-10-28
+
+**Julien Roux** (05:16:34):
+> Hi everyone! I am running`velociraptor`to run`scvelo`on a dataset and understand better how different parameters and setups could affect the velocity results (last time I tried that I used`reticulate`to run`scvelo`functions directly).
+> If I’m not mistaken there is no wrapper for the`scv.tl.rank_velocity_genes`function which aims at extracting the genes contributing most the velocity signal across clusters. Looking at their help page ([https://scvelo.readthedocs.io/scvelo.tl.rank_velocity_genes/](https://scvelo.readthedocs.io/scvelo.tl.rank_velocity_genes/)) it says:
+> > This applies a differential expression test (Welch t-test with overestimated variance to be conservative) on velocity expression, to find genes in a cluster that show dynamics that is transcriptionally regulated differently compared to all other clusters (e.g. induction in that cluster and homeostasis in remaining population).
+> So if I understand well to perform a similar task I could simply run the`findMarkers`function on the`velocity`assays of the`scvelo()`output, providing my cluster assignments as argument. Do you think this makes sense?
+
+**Kevin Rue-Albrecht** (06:32:58):
+> Hi@Julien RouxThanks for using`velociraptor`!
+> From a brief look at the python function, your reasoning sounds right:[https://github.com/theislab/scvelo/blob/master/scvelo/tools/rank_velocity_genes.py#L194](https://github.com/theislab/scvelo/blob/master/scvelo/tools/rank_velocity_genes.py#L194)L323, the velocity layer is extracted
+> L340, the means and variances are compared
+> I'd certainly be interested to hear whether the results that you get out of findMarkers are similar enough to the original python output.
+
+
+## 2021-10-29
+
+**Julien Roux** (08:32:29):
+> I am using the argument`top.genes`in the`scvelo()`function but in the slot`rowData(velo.out)$velocity_genes`not all values are`TRUE`. I guess not all genes given as input are used for the fitting…
+
+**Julien Roux** (08:33:30):
+> Do you know how these velocity genes are selected?
+
+**Julien Roux** (08:34:54):
+> My best guess is that in this function:[https://scvelo.readthedocs.io/scvelo.tl.recover_dynamics/](https://scvelo.readthedocs.io/scvelo.tl.recover_dynamics/)the parameter****`var_names`******** ****interferes with the selection of genes (it operates a selection among the HVGs I give as input), maybe I should control that with the`scvelo.params`argument of`scvelo()`? I could force scvelo to use all genes given as input the function
+
+**Julien Roux** (08:36:05):
+> Did anyone look into this before?
+
+**Charlotte Soneson** (08:55:04):
+> Velocity genes are defined here:[https://github.com/theislab/scvelo/blob/1805ab4a72d3f34496f0ef246500a159f619d3a2/scvelo/tools/velocity.py#L92-L98](https://github.com/theislab/scvelo/blob/1805ab4a72d3f34496f0ef246500a159f619d3a2/scvelo/tools/velocity.py#L92-L98)- basically, they need to have at least a certain R2 (I think 0.01 by default)
+
+**Julien Roux** (10:32:08) (in thread):
+> Thanks Charlotte! It’s funny how changes in parameters can actually change the velocity genes!
+
+
+## 2021-11-08
+
+*03:29:33 - @Paula Nieto García has joined the channel*
+
+## 2022-01-14
+
+**Michael Love** (08:52:23):
+> glad to see this acknowledged by the larger community:
+> > Besides this inherent noise, preprocessing decisions in the alignment of spliced and unspliced reads impact the final velocity estimate [Soneson 2021].
+
+**Michael Love** (08:52:48):
+> [https://doi.org/10.1038/s41592-021-01346-6](https://doi.org/10.1038/s41592-021-01346-6)
+  - Attachment (Nature): [CellRank for directed single-cell fate mapping](https://doi.org/10.1038/s41592-021-01346-6)
+    > Nature Methods - CellRank infers directed cell state transitions and cell fates incorporating RNA velocity information into a graph based Markov process.
+
+
+## 2022-01-28
+
+*11:14:41 - @Megha Lal has left the channel*
+
+## 2022-02-15
+
+*12:01:33 - @Gene Cutler has joined the channel*
+
+## 2022-03-08
+
+*13:56:51 - @Andrew McDavid has joined the channel*
+
+## 2022-03-21
+
+*05:02:37 - @Pedro Sanchez has joined the channel*
+
+## 2022-04-28
+
+*17:34:39 - @Jared Andrews has joined the channel*
+
+## 2022-07-15
+
+*15:18:29 - @Ashley Robbins has joined the channel*
+
+## 2022-08-11
+
+*17:16:16 - @Rene Welch has joined the channel*
+
+## 2022-08-15
+
+*13:13:48 - @Michael Kaufman has joined the channel*
+
+## 2022-11-06
+
+*11:21:23 - @Sherine Khalafalla Saber has joined the channel*
+
+## 2022-12-12
+
+*18:58:09 - @Carlos José Ferreira da Silva has joined the channel*
+*18:58:13 - @Carlos José Ferreira da Silva has left the channel*
+
+## 2022-12-20
+
+*10:41:29 - @Jennifer Foltz has joined the channel*
+
+## 2023-05-12
+
+*13:33:17 - @Aaron Lun has left the channel*
+
+## 2023-06-19
+
+*05:12:21 - @Pierre-Paul Axisa has joined the channel*
+
+## 2023-07-12
+
+*19:33:47 - @Axel Klenk has joined the channel*
+
+## 2023-07-28
+
+*15:58:56 - @Benjamin Yang has joined the channel*
+
+## 2023-07-31
+
+*17:51:16 - @Chenyue Lu has joined the channel*
+
+## 2023-09-13
+
+*17:05:03 - @Christopher Chin has joined the channel*
+
+## 2023-09-20
+
+*04:51:16 - @Alik Huseynov has joined the channel*
+
+## 2023-11-18
+
+*09:18:12 - @Michael Love has left the channel*
+
+## 2024-04-24
+
+*14:11:14 - @Vince Carey has joined the channel*
+**Vince Carey** (14:21:23):
+> @Rob PatroI would like to simplify use of splici indices which can be time-consuming to build.  Are the instructions at[https://combine-lab.github.io/alevin-fry-tutorials/2021/alevin-fry-velocity/](https://combine-lab.github.io/alevin-fry-tutorials/2021/alevin-fry-velocity/)up to date?  I think I would start by building the indices for mm10 and GRCh38 and putting them in compressed tars in open storage buckets.  Then add a Bioconductor package that knows how to find and cache them for downstream use.  Are the same indices used for piscem?
+  - Attachment (combine-lab.github.io): [An introduction to RNA-velocity using alevin-fry](https://combine-lab.github.io/alevin-fry-tutorials/2021/alevin-fry-velocity/)
+    > Recently, RNA-velocity estimation has becomes increasingly popular tool in single-cell RNA seq analysis. In this post, we will discuss an additional advantage brought by the Unspliced-Spliced-Ambiguous (USA) mode introduced in alevin-fry 0.3.0 and later. That is, the solution presented in that approach for controlling the spurious mapping to spliced transcripts of sequenced fragments arising from introns (in the absence of full decoy) basically gives us the preprocessing results we need to perform an RNA-velocity analysis “for free”. Here we provide an end-to-end tutorial describing how to perform an RNA-velocity analysis for a 10x Chromium dataset. In this tutorial, we will show the whole analysis pipeline, starting from the raw FASTQ files to the gorgeous velocity plots (generated by scVelo) that you may like to include in your next analysis or paper.
+
+*14:21:26 - @Rob Patro has joined the channel*
+*20:48:46 - @stefano mangiola has joined the channel*
+
+## 2024-08-27
+
+**Rob Patro** (10:07:47):
+> Hi@Vince Carey--- sorry that I seem to have completely missed this call out!  So the overall strategy is the same, yes, but it’s way easier now that we recommend`simpleaf`as the way to run alevin-fry.
+
+*11:37:24 - @NILESH KUMAR has joined the channel*
+
+## 2025-01-09
+
+*11:40:36 - @Ammar Sabir Cheema has joined the channel*

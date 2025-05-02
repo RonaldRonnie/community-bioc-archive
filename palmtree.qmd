@@ -1,0 +1,604 @@
+---
+title: "#palmtree"
+format: gfm
+---
+
+
+## 2018-07-26
+
+*16:06:19 - @hcorrada has joined the channel*
+*16:06:41 - @Davide Risso has joined the channel*
+*16:06:55 - @Stephanie Hicks has joined the channel*
+*16:07:18 - @Jayaram Kancherla has joined the channel*
+
+## 2018-07-27
+
+**Stephanie Hicks** (08:48:47):
+> :palm_tree:
+
+**Davide Risso** (08:50:48):
+> did we create a github repo?
+
+**Stephanie Hicks** (08:51:09):
+> This the 68K PBMC dataset in txt file format ([https://support.10xgenomics.com/single-cell-gene-expression/datasets/1.1.0/fresh_68k_pbmc_donor_a](https://support.10xgenomics.com/single-cell-gene-expression/datasets/1.1.0/fresh_68k_pbmc_donor_a)), but if I remember@Davide Rissosays he has the object in SCE object
+
+**Stephanie Hicks** (08:52:04) (in thread):
+> not that I know of, but@Hervé Pagèsmight not have gotten to it yet.
+
+**Davide Risso** (09:22:28):
+> I have the data as a SCE object: in dense matrix format is 11GB, sparse format 460MB
+
+**Davide Risso** (09:22:42):
+> I’m currently saving it in hdf5
+
+**Davide Risso** (09:23:07):
+> do we want all three?
+
+**Stephanie Hicks** (09:25:11):
+> didn’t aaron say that saving a sparse hdf5 was a bad idea?
+
+**Stephanie Hicks** (09:25:19):
+> (just trying to remember)
+
+**Davide Risso** (09:26:18):
+> yes, I’m saving the dense matrix into a hdf5 file
+
+**Davide Risso** (09:26:35):
+> all three I meant: dense in memory, sparse in memory, dense on disk
+
+**Stephanie Hicks** (09:27:16):
+> I think it would be good for testing purposes while building the heatmap infrastructure
+
+**Stephanie Hicks** (09:28:13):
+> If I remember what@hcorradasaid, the case for dense in memory is easy because that’s similar to the metagenome data (just transposed). I’m less clear on the other two cases
+
+**hcorrada** (09:31:57):
+> We haven't touched hdf5 yet so all formats are equivalent at this point. Ie I'll take as many as you have
+
+**Davide Risso** (09:32:05):
+> Mmm.. I just noted that all my matrices are stored as`double`
+
+**hcorrada** (09:32:10):
+> [https://obj.umiacs.umd.edu/obj/bucket/palmtree/edit/](https://obj.umiacs.umd.edu/obj/bucket/palmtree/edit/)
+
+**Davide Risso** (09:32:14):
+> turning them to integers might save a lot of space
+
+**hcorrada** (09:32:24):
+> We can share data there
+
+**Davide Risso** (09:32:54):
+> BTW these are raw data, we probably want some filtering + normalization before visualization?
+
+**hcorrada** (09:32:55):
+> @jkanche can you give Davide and Stephanie write permission?
+
+**hcorrada** (09:33:13) (in thread):
+> @Jayaram Kancherla
+
+**hcorrada** (09:33:54) (in thread):
+> Definitely. Point me to your preferred protocol
+
+**Davide Risso** (09:39:35) (in thread):
+> Not necessarily my favorite, but one option is described here:[https://bioconductor.org/packages/release/bioc/vignettes/scran/inst/doc/scran.html](https://bioconductor.org/packages/release/bioc/vignettes/scran/inst/doc/scran.html)
+
+**hcorrada** (09:42:17) (in thread):
+> Got it
+
+**Jayaram Kancherla** (09:42:43) (in thread):
+> @hcorradai don't have permission to access that bucket either.
+
+**hcorrada** (09:43:45) (in thread):
+> Oops. Now you do
+
+**Davide Risso** (09:43:48):
+> If it’s easier than transferring data, here’s the code that I used to download the data and create the objects
+  - File (R): [pbmc_createSCE.R](https://community-bioc.slack.com/files/U34P8RS3B/FBXFB2VA4/pbmc_createsce.r)
+
+**Jayaram Kancherla** (09:57:35) (in thread):
+> Hi@Davide Risso&@Stephanie Hicks, I requested a umiacs collaborator account to access the object store. Can you please send me your umiacs id after you create an account. Thank you!
+
+**Davide Risso** (10:06:26) (in thread):
+> My id is drisso
+
+**Jayaram Kancherla** (10:24:42) (in thread):
+> @Davide Rissoyou should now have access to the object store. let me know if you don't
+
+**Stephanie Hicks** (10:24:59) (in thread):
+> my id is shicks
+
+**Jayaram Kancherla** (10:27:12) (in thread):
+> @Stephanie Hicksadded you to the store. let me know if you can't access the obj store.
+
+**Stephanie Hicks** (10:48:53):
+> @Stephanie Hicks pinned a message to this channel.
+
+**Jayaram Kancherla** (11:56:15):
+> I ran this script on our cluster and copied over the files to the object box
+
+**Davide Risso** (12:01:26):
+> Awesome! Thanks!!
+
+**Davide Risso** (12:02:49):
+> @Jayaram Kancherlahow do I access the object box?
+
+**Jayaram Kancherla** (12:05:31):
+> [https://obj.umiacs.umd.edu/obj/bucket/palmtree/view/](https://obj.umiacs.umd.edu/obj/bucket/palmtree/view/)
+
+**Jayaram Kancherla** (12:05:50):
+> you might have to login to see the files
+
+**Davide Risso** (12:06:44):
+> Oh ok, sorry I completely forgot about the previous link!
+
+**Davide Risso** (12:06:56):
+> Thanks!
+
+**Stephanie Hicks** (12:07:23):
+> @Stephanie Hicks pinned a message to this channel.
+
+**Stephanie Hicks** (12:07:29):
+> I’ve pinned the link
+
+**Davide Risso** (14:10:43):
+> @Jayaram Kancherlasorry would it be possible to re-run this new version of the script?
+
+**Davide Risso** (14:11:02):
+  - File (R): [pbmc_createSCE.R](https://community-bioc.slack.com/files/U34P8RS3B/FBYGWLKGD/pbmc_createsce.r)
+
+**Davide Risso** (14:11:21):
+> I forgot to save the in-memory versions of the singlecellexperiment object
+
+**Davide Risso** (14:11:44):
+> now this should save two additional rds files (one for sparse and one for dense)
+
+
+## 2018-08-03
+
+**Davide Risso** (14:11:24):
+> @hcorradaif you send me your github id I can add you as collaborator on the github repo that I just created
+
+**Davide Risso** (14:11:55):
+> also@Jayaram Kancherla
+
+**Jayaram Kancherla** (16:14:45):
+> my github id is`jkanche`
+
+**hcorrada** (17:31:53):
+> Great! hcorrada
+
+**Davide Risso** (17:55:50):
+> Invited you both!
+
+
+## 2018-10-04
+
+**Stephanie Hicks** (20:41:53):
+> hi@Davide Risso@hcorrada, it’s been a while since we talked at BioC and wanted to check in if we wanted to set up a time to discuss this project? It’s something I was really excited about at bioc 2018 and would be very much interested in helping it progress in any way I can.
+
+
+## 2018-10-05
+
+**hcorrada** (13:13:29):
+> Hi@Stephanie Hickssorry we haven’t updated. Things are going a little slower than expected. 1) We are using Oshlack’s clusTree package to get hierarchy of cell clusters from seurat output (this is described in her paper).@Jayaram Kancherlahas done that successfully now. So, in that sense we have all the data and data structures we need to implement the hierarchical navigation idea. 2) We need to rewrite a little bit of how we use our FacetZoom navigation tool. So far we use it to navigate over a feature (gene) hierarchy, in this case we need to navigate a sample (cell) hierarchy. We have done this in the past in ad-hoc manner, we need to make it a bit more robust. It shouldn’t take much time. 3) I have a PhD student rotating into my group who will be working on this. She’s starting in the 15th and we want to have the pieces ready for her so she can finish putting our first cut implementation in place. So, I suggest we meet once she is up to speed and we have something to show which I estimate will be the last week of october.
+
+**hcorrada** (13:13:31):
+> Thoughts?
+
+**Stephanie Hicks** (14:28:27):
+> That all sounds great@hcorrada! I’m happy to talk at the end of Oct. If there’s anything I can help with between now and then, please reach out
+
+**Davide Risso** (14:33:10):
+> Happy to talk as well!
+
+
+## 2018-10-24
+
+**Jayaram Kancherla** (08:27:13):
+> Hello<!channel>, an update on our progress, We are reusing our Graph class from the`metavizr`package that manages feature hierarchy for metagenomic datasets. Given a tree level and node selections, the graph class groups nodes and their indices to aggregate the counts. Our plan is to create a new class that extends`SummarizedExperiment`where rowData and colData slots are the Graph class objects. This supports datasets that have rows as hierarchy (metagenomics) or columns as hierarchy (single cell) or both. This is kind of similar to what we tried to do with`MicrobiomeExperiment`class with@Levi WaldronAny thoughts on what we should name our new class that extends`SummarizedExperiment`?@Martin Morgan
+
+*08:30:39 - @Martin Morgan has joined the channel*
+**Martin Morgan** (08:33:04):
+> It would be interesting to see the functionality demonstrated somewhere? Was also wondering whether the lesson from the`assay()`part of SummarizedExperiment -- that there's a huge value to 'duck-typing' (if it looks like a duck and quacks like a duck... anything with 2-D`[`,`dim()`, and`dimnames()`can be an assay, including a SummarizedExperiment) -- could be applied here, i.e., could your graph representations just be used in place of colData / rowData ? Probably some revision of SummarizedExperiment would be required...
+
+*08:48:41 - @Levi Waldron has joined the channel*
+**Levi Waldron** (08:50:30):
+> Where does the name palmtree come from? :D
+
+**Levi Waldron** (08:59:24) (in thread):
+> Interesting idea. Without any change to`SummarizedExperiment, the `Graph` vector could go in the rowData of the`rowData`and`colData``DataFrame`objects, maybe using an extension of`DataFrame`. But this sounds a little over-complicated if you don’t intend to use the`DataFrame`, and you would have a simpler design if you could just put any 2-D object in the rowData and colData.
+
+**Davide Risso** (10:30:53):
+> @Stephanie Hicksand I are running with the beach theme started by@Aaron Lunwith beachmat
+
+**Davide Risso** (10:31:13):
+> we had a beachball project that we sadly had to rename
+
+**Levi Waldron** (10:31:23):
+> hehe nice
+
+**Davide Risso** (10:31:26):
+> and now since hierarchies are trees -> palmtree:smile:
+
+**Levi Waldron** (10:31:46):
+> How about a`PalmtreeExperiment`?
+
+**Levi Waldron** (10:32:03):
+> of course you know that palms aren’t real trees though right?
+
+**Levi Waldron** (10:32:11):
+> they’re monocots -> grasses
+
+**Levi Waldron** (10:32:29):
+> you’re speaking to a forestry PhD here
+
+**Davide Risso** (10:32:46):
+> :beach_with_umbrella::palm_tree:
+
+**Davide Risso** (10:33:40):
+> can they be found on beaches at least?
+
+**Davide Risso** (10:34:00):
+> otherwise the whole thing is falling apart:sob:
+
+**Davide Risso** (10:34:21):
+> MonocotExperiment doesn’t sound right…
+
+**Davide Risso** (12:05:37):
+> @Martin Morganis there a potential overlap with / reuse of the`LoomExperiment`class for this?
+
+**Davide Risso** (12:05:57):
+> I vaguely remember it’s essentially a`SummarizedExperiment`with graphs
+
+**hcorrada** (12:38:22) (in thread):
+> This is what I was trying to remember… How mature/stable/in-use is LoomExperiment?
+
+**Martin Morgan** (12:39:42) (in thread):
+> It's just going through final stages of review, for this release@Daniel Van Twisk[https://github.com/Bioconductor/Contributions/issues/791](https://github.com/Bioconductor/Contributions/issues/791)It implements graphs via S4Vectors::Hits-class
+  - Attachment (GitHub): [LoomExperiment · Issue #791 · Bioconductor/Contributions](https://github.com/Bioconductor/Contributions/issues/791)
+    > Update the following URL to point to the GitHub repository of the package you wish to submit to Bioconductor Repository: [https://github.com/Bioconductor/LoomExperiment](https://github.com/Bioconductor/LoomExperiment) Confirm the following by edit...
+
+**hcorrada** (12:41:33) (in thread):
+> Cool! Will take a look!
+
+
+## 2018-10-29
+
+**Stephanie Hicks** (20:28:58):
+> hi@hcorrada, just wanted to ping you to see if you are still interested in talking this week with@Davide Risso?
+
+**hcorrada** (20:46:55):
+> Hi, we are cleaning up a couple of things here (e.g., see discussion above) would you mind if we set something up for early next week?
+
+**hcorrada** (20:47:04):
+> Thanks for following up!
+
+**Stephanie Hicks** (21:41:08):
+> sure thing!
+
+**Stephanie Hicks** (21:42:25):
+> btw, for the#hca_rfa, I added some text that@Davide Rissowrote in our initial proposal last year for interactive graphics. I wasn’t sure if you were still interested in the project so I will gladly defer the interactive graphics proposal to you if you are still interested in applying with us?
+
+**Stephanie Hicks** (21:42:53):
+> I mentioned to@Davide Rissoearlier today that we could easily shift some of the things he wrote to be something I can work on instead
+
+
+## 2018-10-31
+
+*04:38:47 - @Ruizhu HUANG has joined the channel*
+*06:27:44 - @Charlotte Soneson has joined the channel*
+**Charlotte Soneson** (06:40:00):
+> Hi! I just saw this channel (is it related somehow to#tree-like-se?), and I don't know if I have fully grasped what the capabilities of`palmtree`will be, but it seems related to what@Ruizhu HUANGhas been working on recently for her`treeAGG`package ([https://github.com/markrobinsonuzh/treeAGG](https://github.com/markrobinsonuzh/treeAGG), under review for Bioc). Basically, part of what she does there is to implement a framework for representing, aggregating and analyzing data with a hierarchical structure (e.g., OTUs, hierarchically clustered single cell types). If this seems like something that's overlapping what you are doing here, it might be useful to exchange ideas and experiences to avoid duplicating work and/or classes and to end up with the best broadly applicable solution. Fiona can explain more about her approach if you want (see summary below), and we'd also be interested in hearing more about your ideas:slightly_smiling_face:
+  - File (PNG): [Screen Shot 2018-10-31 at 11.20.11.png](https://community-bioc.slack.com/files/U34P8RS3B/FDTSM3UA2/screen_shot_2018-10-31_at_11.20.11.png)
+
+**hcorrada** (07:44:20):
+> Very much related thanks for the pointer…. Also related to what we have done in metavizr package and what we are looking to do here. This is extremely helpful. We are in the middle of doing something like tree-like-se, except we are allowing trees for either (or both) rows or columns data
+
+**hcorrada** (07:49:08):
+> The implementation of aggregation over tree we did for metavizr is based on data.table package which (we think) can help with efficiency (since we are using this to support interactive visualziation). It would be very useful to have a discussion so we can combine efforts.
+
+**hcorrada** (07:50:18):
+> In general I think something like tree-like-se should be available in a standalone package.
+
+**hcorrada** (07:58:47):
+> Would be people be available for a chat this Friday?
+
+**Levi Waldron** (08:44:17):
+> This week is bad for me but I'd try to join whenever you are meeting. Next week is better.
+
+**Martin Morgan** (09:22:15):
+> I'd like to join to if possible; next week also works for me; it might be good to have short presentations of everyone's approach to help those of us with limited reading comprehension:wink:
+
+**Charlotte Soneson** (09:28:43):
+> Sounds great! At least someone from our side should be able to join for a call next week (I'm guessing this will be late-ish afternoon/early evening European time).
+
+**hcorrada** (09:39:13):
+> [https://www.when2meet.com/?7255023-8qYQc](https://www.when2meet.com/?7255023-8qYQc)I list times in the afternoon EST but please ignore as appropriate@Charlotte Soneson
+
+*10:27:54 - @Daniel Van Twisk has joined the channel*
+**Davide Risso** (11:02:23):
+> I’ll try to join as well!
+
+**Stephanie Hicks** (13:20:38):
+> me too!
+
+**Daniel Van Twisk** (16:07:27):
+> Just a quick sales pitch.
+> The`LoomExperiment`package is available on the most recent Biocondcutor release. It facilitates importing and exporting files in the Loom File Format to`LoomExperiment`family of classes. These classes extend the functionality of the`SummarziedExperiment`family of classes.`LoomExperiment`objects contain row and column graphs as well.
+
+**Jayaram Kancherla** (16:16:10):
+> also another correction, when i say graphs in my original post, its a tree structure stored as data tables to make aggregations at different levels.
+
+
+## 2018-11-01
+
+**Stephanie Hicks** (08:28:47):
+> Looks like 11am EST on Tues or Wed works? Shall we select a time?
+
+**Charlotte Soneson** (13:44:57):
+> Yes! Both are equally doable for me, so if anyone has a preference I’m fine with that.
+
+**hcorrada** (13:54:05):
+> Ok ;et
+
+**hcorrada** (13:54:15):
+> let’s set 11EST on Tuesday
+
+**hcorrada** (13:58:34):
+> [https://umd.webex.com/umd/j.php?MTID=m45dc437b062f982c977c49bb9a209fe5](https://umd.webex.com/umd/j.php?MTID=m45dc437b062f982c977c49bb9a209fe5)
+  - Attachment (Cisco Webex Site): [Cisco Webex Meetings](https://umd.webex.com/umd/j.php?MTID=m45dc437b062f982c977c49bb9a209fe5)
+    > Simple, modern video meetings for the global workforce. Join from anywhere, including your desktop, browser, mobile device, or video room device.
+
+
+## 2018-11-04
+
+**Levi Waldron** (19:04:13):
+> I’ll be there!@C. Mirzayi (please do not tag this account)@Lucas Schiffer@Marcel Ramos Pérezfyi.
+
+*19:04:26 - @C. Mirzayi (please do not tag this account) has joined the channel*
+*19:04:26 - @Lucas Schiffer has joined the channel*
+*19:04:26 - @Marcel Ramos Pérez has joined the channel*
+
+## 2018-11-05
+
+*08:14:48 - @Federico Marini has joined the channel*
+**Federico Marini** (08:15:02):
+> Hi channel:wave:
+
+**Federico Marini** (08:15:43):
+> I figured out thanks to@Davide Rissothe upcoming conference call was a nice spot to briefly bring the point of interactive graphics for the upcoming HCA call
+
+**Federico Marini** (08:16:03):
+> So, I’ll be honored and happy to join the conversation
+
+**Levi Waldron** (08:17:01):
+> Hi Frederico! Looking forward to the discussion.
+
+**Federico Marini** (08:18:00):
+> with the tl;dr message of “we have`iSEE`as a basis for exploring anything which is in SummarizedExperiment objects; no need to reinvent a wheel that can be nicely spinning; we can accommodate an instance of iSEE for the preview hca data”
+
+**Federico Marini** (08:19:22):
+> (for the ones new to the tool, here’s a preview in action:[https://marionilab.cruk.cam.ac.uk/iSEE_pbmc4k/](https://marionilab.cruk.cam.ac.uk/iSEE_pbmc4k/))
+
+**Levi Waldron** (08:21:12):
+> I like iSEE a lot. Have you thought about extending to MultiAssayExperiment?
+
+**Levi Waldron** (08:22:54):
+> I suppose it might just be a switcher to run iSEE for any contained SummarizedExperiment, but there is also the overall colData and map
+
+**Federico Marini** (08:25:39):
+> Did think already, did not implement it yet. But it seems a nice natural development step
+
+**Federico Marini** (08:26:19):
+> probably worth a separate package, but it might be because I am not so close to MAE as a class
+
+**Federico Marini** (08:26:43):
+> Yet, I might be using it soon for storing, for the same dataset: gene level info, tx level, exon level, …
+
+**Levi Waldron** (08:27:11):
+> Yes It would probably be scope creep
+
+**Jayaram Kancherla** (14:40:02):
+> Proposed Agenda for tomorrows meeting at 11:00 AM EST. Please feel free to add to this document.[https://docs.google.com/document/d/1iIetcYJXnwwMLpKZwQOIl_7wmJsDKdcRd2D4AFqLqpw/edit?usp=sharing](https://docs.google.com/document/d/1iIetcYJXnwwMLpKZwQOIl_7wmJsDKdcRd2D4AFqLqpw/edit?usp=sharing)
+
+
+## 2018-11-06
+
+*04:18:45 - @Kevin Rue-Albrecht has joined the channel*
+**Kevin Rue-Albrecht** (10:53:00):
+> what the strategy for the conference call? Hangout?
+
+**Charlotte Soneson** (10:53:29):
+> There’s a Webex link a bit up in the channel
+
+**Federico Marini** (10:53:40):
+> [https://umd.webex.com/umd/j.php?MTID=m45dc437b062f982c977c49bb9a209fe5](https://umd.webex.com/umd/j.php?MTID=m45dc437b062f982c977c49bb9a209fe5)
+  - Attachment (Cisco Webex Site): [Cisco Webex Meetings](https://umd.webex.com/umd/j.php?MTID=m45dc437b062f982c977c49bb9a209fe5)
+    > Simple, modern video meetings for the global workforce. Join from anywhere, including your desktop, browser, mobile device, or video room device.
+
+**Federico Marini** (10:54:07):
+> Do we need any installing or does it work also outside slack?
+
+**Charlotte Soneson** (10:55:36):
+> I’m able to join right now without problems
+
+**Ruizhu HUANG** (10:56:53):
+> I see Charlotte now.
+
+**Kevin Rue-Albrecht** (10:57:01):
+> what do you call "join"? I can get to the page, but the "Join meeting" button is greyed out
+
+**Kevin Rue-Albrecht** (10:57:08):
+> oh wait, a couple of fields showed up
+
+**Charlotte Soneson** (10:57:22):
+> You have to fill your name and email, then the Join meeting becomes green
+
+**Kevin Rue-Albrecht** (10:57:38):
+> Yep. Now it looks good. Ok hang on a minute, I'll find a quiet spot
+
+**Jayaram Kancherla** (11:01:23):
+> Hector just got back from his class and well be there in a min.
+
+**Federico Marini** (11:01:53):
+> I should be in
+
+**Stephanie Hicks** (11:02:02):
+> is there supposed to be video?
+
+**Federico Marini** (11:02:43):
+> Probably? If so, I had a small screencast I can do live
+
+**Kevin Rue-Albrecht** (11:03:28):
+> There should definitely be some video, I got the popup “allow to use camera”
+
+**Federico Marini** (11:05:08):
+> I see something but hear nothing (yet)
+
+**Kevin Rue-Albrecht** (11:06:40):
+> I had to “allow microphone” to hear anything
+
+**Kevin Rue-Albrecht** (11:06:45):
+> sure you didn’t miss a popup?
+
+**Federico Marini** (11:06:56):
+> switching browser
+
+**Stephanie Hicks** (11:07:05):
+> yeah, switching browsers worked for me:slightly_smiling_face:
+
+**Federico Marini** (11:07:39):
+> I’m on firefox now - was safari
+
+**Charlotte Soneson** (11:07:49):
+> Chrome works
+
+**Kevin Rue-Albrecht** (11:07:53):
+> safari’s good for me:stuck_out_tongue:
+
+**Federico Marini** (11:08:38):
+> I’ve got a loading spinner for audio & video
+
+**Federico Marini** (11:08:52):
+> but not much progress from there
+
+**Stephanie Hicks** (11:08:54):
+> Chrome worked for me
+
+**Federico Marini** (11:11:34):
+> same also for chrome:disappointed:
+
+**Marcel Ramos Pérez** (11:12:55):
+> Firefox worked for me
+
+**Federico Marini** (11:13:41):
+> Trying to switch pc, sorry for the noise
+
+**Kevin Rue-Albrecht** (11:14:19):
+> try restarting the first pc in the meantime:slightly_smiling_face:
+
+**Federico Marini** (11:17:34):
+> I had an instance of iSEE running, bummer
+
+**Kevin Rue-Albrecht** (11:28:01):
+> how you doing@Federico Marini?
+
+**Federico Marini** (11:28:26):
+> I keep on sucking - even after restart
+
+**Federico Marini** (11:49:00):
+> I see a perennial “connecting to audio”
+
+**Federico Marini** (11:49:16):
+> might be due to some firewall setting here, being a uni medical center?
+
+**Federico Marini** (11:49:26):
+> Our IT is not in house now
+
+**Stephanie Hicks** (11:49:41):
+> treeSE slides[https://docs.google.com/presentation/d/16lLpiQL4ulMRjSr0nVRVcVpGBUTog41O0yLQq_uY2Gg/edit?usp=sharing](https://docs.google.com/presentation/d/16lLpiQL4ulMRjSr0nVRVcVpGBUTog41O0yLQq_uY2Gg/edit?usp=sharing)
+
+**Federico Marini** (11:49:57):
+> thanks stephanie
+
+**Federico Marini** (11:50:16):
+> I see the screencast, but do not hear. nor I can connect the audio
+
+**Davide Risso** (12:22:30):
+> Sorry I had to leave, but I’ll check this channel for next steps!
+
+**Marcel Ramos Pérez** (12:29:32):
+> set the channel topic: Visualization
+
+
+## 2018-11-10
+
+**Levi Waldron** (08:20:14) (in thread):
+> Does this pinning prevent the message from being hidden when there are 10k newer ones?
+
+**Stephanie Hicks** (08:28:31) (in thread):
+> I believe so, but could be wrong
+
+**Kevin Rue-Albrecht** (12:19:56) (in thread):
+> I’m pretty sure it does. I recently cleared pinned messages on the iSEE channel that dated from the start of 2018
+
+**Levi Waldron** (12:24:51) (in thread):
+> Oh that's nice, thanks both of you!
+
+
+## 2018-12-10
+
+*11:25:35 - @Mark Robinson has joined the channel*
+
+## 2019-02-12
+
+**Davide Risso** (05:01:47):
+> Interactive heatmap based on 1d tsne projection:[https://github.com/KlugerLab/t-SNE-Heatmaps](https://github.com/KlugerLab/t-SNE-Heatmaps)
+
+
+## 2019-02-17
+
+*20:30:36 - @Domenick Braccia has joined the channel*
+
+## 2019-06-20
+
+*17:38:53 - @Sanjeev Sariya has joined the channel*
+
+## 2019-11-28
+
+*07:18:37 - @Kevin Rue-Albrecht has left the channel*
+
+## 2020-01-08
+
+*12:09:03 - @Stephanie Hicks has left the channel*
+
+## 2020-01-23
+
+*04:09:15 - @Charlotte Soneson has left the channel*
+
+## 2020-12-12
+
+*00:39:18 - @Huipeng Li has joined the channel*
+
+## 2021-01-22
+
+*15:44:59 - @Annajiat Alim Rasel has joined the channel*
+*15:45:02 - @Annajiat Alim Rasel has left the channel*
+*15:46:59 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-05-11
+
+*16:45:23 - @Megha Lal has joined the channel*
+
+## 2022-01-28
+
+*11:14:05 - @Megha Lal has left the channel*
+
+## 2022-05-05
+
+*12:22:51 - @Aedin Culhane has joined the channel*
+
+## 2024-02-09
+
+**Marcel Ramos Pérez** (10:18:54):
+> archived the channel

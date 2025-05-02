@@ -1,0 +1,105 @@
+---
+title: "#genai-bioc"
+format: gfm
+---
+
+
+## 2025-02-10
+
+*10:12:09 - @Vince Carey has joined the channel*
+*10:12:21 - @Sebastian Lobentanzer has joined the channel*
+*10:12:21 - @Tyrone Lee has joined the channel*
+**Vince Carey** (10:15:04):
+> The purpose of this channel is to improve understanding of the relationship between genomic data science as practiced with Bioconductor and analytic resources rooted in generative AI.  References of interest include[https://doi.org/10.1016/j.cell.2024.07.035](https://doi.org/10.1016/j.cell.2024.07.035), feel free to add more.
+
+**Sebastian Lobentanzer** (10:18:29) (in thread):
+> Incredibly timely topic, but also fast-moving goalposts at the moment. A channel to keep up with that is a good idea.
+
+**Sebastian Lobentanzer** (10:19:29) (in thread):
+> FWIW, I don’t think we are close to foundational in any of the relevant issues; my general opinion is that the data are just not there yet (if we exclude protein structure prediction). Some general observations and references in our recent perspective:[https://www.embopress.org/doi/full/10.1038/s44320-024-00041-w](https://www.embopress.org/doi/full/10.1038/s44320-024-00041-w)
+
+
+## 2025-02-11
+
+**Vince Carey** (14:10:37):
+> I don't like being a cry-baby, but on trying the README.md example for GEARS, I seem to have hit the event in this***closed***issue:[https://github.com/snap-stanford/GEARS/issues/90](https://github.com/snap-stanford/GEARS/issues/90)... requiring downgrading of scipy.  Maybe if I install GEARS from source I will have better luck.  This sort of thing is generally avoided through Bioconductor's commitment to tested coherent release behavior.  One reason for establishing this channel is to try to get a footing on how coherence and reliability of tools could be improved in the fast-paced world of genAI for genomics.
+  - Attachment: [#90 Compatibility issue with SciPy 1.15.1](https://github.com/snap-stanford/GEARS/issues/90)
+    > Hello!  
+    > The recently released SciPy 1.15.1 (and I believe 1.15.0) triggers an error when trying to create a model using GEARS.  
+    > Downgrading SciPy to **1.14.1** fixes the issue.
+    > 
+    > This is the full traceback shown when carrying out the demo for the model:
+    > 
+    > ```
+    > Traceback (most recent call last):
+    >   File "/wdir/codes/model_tutorial.py", line 13, in <module>
+    >     gears_model = GEARS(pert_data, device = 'cuda:0', 
+    >                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    >   File "/opt/conda/lib/python3.11/site-packages/gears/gears.py", line 87, in *_init_*
+    >     np.mean(self.adata.X[self.adata.obs.condition == 'ctrl'],
+    >             ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    >   File "/opt/conda/lib/python3.11/site-packages/scipy/sparse/*index.py", line 30, in __getitem_*
+    >     index, new_shape = self._validate_indices(key)
+    >                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    >   File "/opt/conda/lib/python3.11/site-packages/scipy/sparse/_index.py", line 269, in _validate_indices
+    >     index.extend(ix.nonzero())
+    >                  ^^^^^^^^^^
+    >   File "/opt/conda/lib/python3.11/site-packages/pandas/core/generic.py", line 6299, in *_getattr_*
+    >     return object.*_getattribute_*(self, name)
+    >            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    > AttributeError: 'Series' object has no attribute 'nonzero'
+    > 
+    > ```
+    > 
+    > I don't have much programming knowledge to understand or explain further but I it seems that the .nonzero() method behaves differently in the recent versions of SciPy?
+
+*14:11:49 - @Alex Mahmoud has joined the channel*
+*14:11:50 - @Marcel Ramos Pérez has joined the channel*
+*14:11:50 - @Andres Wokaty has joined the channel*
+*14:11:50 - @Sean Davis has joined the channel*
+*14:11:50 - @Levi Waldron has joined the channel*
+*14:11:50 - @Charlotte Soneson has joined the channel*
+*14:11:50 - @Wolfgang Huber has joined the channel*
+**Sebastian Lobentanzer** (15:03:35) (in thread):
+> Not at all cry-baby; the kind of researchers that dedicate all their time to “pushing the boundaries of AI” (can be loosely interpreted as “find the best metric for my task”) don’t have a lot of time for future-proofing or user-friendliness. If you’d like support, I can put you in touch with my MA student who just finished his thesis on GEARS retraining, he should be able to help quickly (been working with it for 6m now). Just let me know.
+
+**Sebastian Lobentanzer** (15:04:32) (in thread):
+> This is a good example and the ultimate reason for my particular flavour of “accessible AI research.”
+
+**Vince Carey** (15:25:58) (in thread):
+> Thanks@Sebastian Lobentanzer-- I have made progress running the example and will get back to you when I have a better handle on the components.
+
+
+## 2025-02-13
+
+*13:54:09 - @JP Flores has joined the channel*
+
+## 2025-02-24
+
+**Tyrone Lee** (12:41:15):
+> Interesting model, note sure how difficult to get it running but their example case usages (fig3, fig6) seem to be things people might use.[https://arcinstitute.org/manuscripts/Evo2](https://arcinstitute.org/manuscripts/Evo2)
+  - Attachment (arcinstitute.org): [Manuscript | Arc Institute](https://arcinstitute.org/manuscripts/Evo2)
+    > Arc Institute is a independent nonprofit research organization headquartered in Palo Alto, California.
+
+**Tyrone Lee** (13:40:07) (in thread):
+> tried the 7b, got some errors in just installing the package
+> didn't push further
+> they said pypi support coming soon, will try again then
+
+**Tyrone Lee** (13:42:00):
+> [https://github.com/dna-llm/BEND](https://github.com/dna-llm/BEND)
+
+
+## 2025-02-25
+
+**Tyrone Lee** (18:30:13):
+> [https://github.com/microsoft/bioemu](https://github.com/microsoft/bioemu)
+
+
+## 2025-02-26
+
+**Vince Carey** (06:42:29) (in thread):
+> Nice find.  Repo lacks an issues tab....
+
+**Tyrone Lee** (10:05:41) (in thread):
+> Oh, this fork is focused on adenovirus datasets. Maybe if you want to put in an issue u would put it in the[main repo](https://github.com/frederikkemarin/BEND).

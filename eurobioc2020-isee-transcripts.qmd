@@ -1,0 +1,363 @@
+---
+title: "#eurobioc2020-isee-transcripts"
+format: gfm
+---
+
+
+## 2020-12-15
+
+*13:50:16 - @Jeroen Gilis has joined the channel*
+**Jeroen Gilis** (13:50:17):
+> set the channel description: Unlock iSee for transcript-level visualizations
+
+*13:50:55 - @Koen Van den Berge has joined the channel*
+*13:50:55 - @Michael Love has joined the channel*
+*13:50:56 - @Federico Marini has joined the channel*
+*13:50:56 - @Kevin Rue-Albrecht has joined the channel*
+*13:50:56 - @Charlotte Soneson has joined the channel*
+**Jeroen Gilis** (13:51:56):
+> Hi everyone, welcome to the bioc slack channel dedicated to the proposed biocChallenge of unlocking iSEE for transcript-level visualization.
+
+**Jeroen Gilis** (13:53:08):
+> We can use this channel for some basic communication, but I will also initiate a GitHub soon for us to collaborate.
+
+**Charlotte Soneson** (14:04:16):
+> :wave:
+
+**Kevin Rue-Albrecht** (14:04:54):
+> Thanks for starting this@Jeroen Gilis!
+
+**Kevin Rue-Albrecht** (14:05:43):
+> Once you've got the github repo, let me know, and we can draft a BiocChallenges vignette to link it from
+
+**Michael Love** (14:08:17):
+> :wave:
+
+**Michael Love** (14:08:27):
+> i took some quick notes today i'll paste here
+
+**Michael Love** (14:08:43):
+  - File (Plain Text): [tx-level-iSEE-2020-12](https://community-bioc.slack.com/files/U34P8RS3B/F01HBT66N3B/tx-level-isee-2020-12)
+
+**Federico Marini** (14:50:26):
+> :wave:
+
+**Federico Marini** (14:50:45):
+> Looks like I missed out a LOT today, but it is great to see us gathered here!
+
+**Michael Love** (14:51:04):
+> this will be a very cool feature
+
+**Michael Love** (14:51:38):
+> i know we talked about holding off on the inference part, but i do think it would be cool to jump up and down from gene to txp level thru a stageR results table
+
+**Michael Love** (14:51:58):
+> it's a natural use case for interactive app
+
+**Jeroen Gilis** (15:22:49):
+> I already generated the backbone for the GitHub repository. You can find it here:[https://github.com/jgilis/iSEEtranscripts](https://github.com/jgilis/iSEEtranscripts). Any comments on the github backbone are of course much appreciated. I will call it a day for now, but I will be elaborating the git tomorrow. Based on the readme I will then write a vignette.Rmd that can be used as a link to@Kevin Rue-Albrecht's biocchallenges.
+
+**Jeroen Gilis** (15:24:02):
+> I also took the liberty to include some plots to the readme in an attempt to make the project visually appealing for other eurobioc2020 attendees that might want to join:wink:
+
+**Jeroen Gilis** (15:25:39):
+> Good night and see you all tomorrow!:zzz:
+
+**Michael Love** (21:52:27):
+> awesome. i threw up a quick DTU analysis of macrophage using DRIMSeq filtering, DEXSeq DTU testing, and stageR error control, PR in your inbox:inbox_tray:
+
+
+## 2020-12-16
+
+**Jeroen Gilis** (02:00:41):
+> Thanks for kick-starting the analysis@Michael Love!
+
+**Jeroen Gilis** (03:53:23):
+> So I added  "iSEEtranscripts.Rmd" to the vignettes in the git which should be in the right format for the BiocChallenges.
+> In addition, I forgot to mention yesterday that the[BiocSpatialChallenges](https://helenalc.github.io/BiocSpatialChallenges//index.html)people also have an iSEE related challenge, i.e. unlocking iSEE for spatial data. I guess this underlines the importance of the discussion we had yesterday on which data type should be put forward as reference data type for iSEE to work with
+
+**Koen Van den Berge** (04:14:50):
+> I agree, if the results tables would then be stored in the object provided to`iSEE`, that would be very cool! I was probably misguided by joining too late, but there I just wanted to say that doing the inference itself on the fly didn’t seem like something`iSEE`should be doing.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C01HBRDBGJV/p1608061898008100)
+    > i know we talked about holding off on the inference part, but i do think it would be cool to jump up and down from gene to txp level thru a stageR results table
+
+**Kevin Rue-Albrecht** (04:17:43):
+> Just to be clear, the`iSEEtranscripts.Rmd`should go in the BiocChallenges repository (under`vignettes/challenges`), not the iSEEtranscripts repository. I may have been a bit confusing when I explained it.
+> iSEEtranscripts <- package code
+> BiocChallenges <- challenge 'vignette'
+
+**Kevin Rue-Albrecht** (04:21:18):
+> And yes, iSEE's philosophy is as to precompute as much as as possible before launching the app. Panels then become simple 'accessors' to that precomputed information.
+> We do have some panels in[iSEEu](https://github.com/iSEE/iSEEu)that perform some live computation (e.g. differential expression between clusters) but you'll see that it can feel a bit slow and clunky at times
+
+**Kevin Rue-Albrecht** (04:23:21):
+> for instance, I also tried to write a`clusterProfiler`panel, but then realised that the computations are independent of whether you want to visualise a table or a plot of pathways results, so that's on the back burner at the moment, until I come up with a clean implementation:sweat_smile:
+
+**Charlotte Soneson** (04:26:50):
+> a couple of quick pointers from my side from the discussion yesterday:
+> * the coverage plot panel we started building can be seen[here](https://pubmed.ncbi.nlm.nih.gov/31088905/#&gid=article-figures&pid=figure-5-uid-4)- the code is[here](https://github.com/csoneson/ARMOR/blob/chiron_realdataworkflow/scripts/custom_iSEE_panels.R). This is, however, using the ‘old’ way of defining custom panels, but just to give an idea.
+> * wrt including results in the object - there are some[panels](http://bioconductor.org/packages/release/bioc/vignettes/iSEEu/inst/doc/universe.html#differential-expression-plots)in iSEEu that make use of specific columns included in the`rowData`, perhaps they can also be used for inspiration.
+
+**Kevin Rue-Albrecht** (04:30:02):
+> Using nested`DataFrame`columns, we could set up a convention whereby panel-specific columns could be stored in a column nested under the package name that defines that panel, to minimise risks of conflicting column names. Clearer illustration:
+> ```
+> rowData(sce)$iSEEtransripts$MyPanelColumn
+> ```
+
+**Jeroen Gilis** (04:33:17) (in thread):
+> My mistake; I sent a PR now
+
+**Kevin Rue-Albrecht** (04:34:26) (in thread):
+> Cool thanks!
+
+**Kevin Rue-Albrecht** (06:53:04):
+> [https://kevinrue.github.io/BiocChallenges/articles/challenges/isee_transcripts.html](https://kevinrue.github.io/BiocChallenges/articles/challenges/isee_transcripts.html)
+  - Attachment (kevinrue.github.io): [Unlocking iSEE for transcript-level visualization](https://kevinrue.github.io/BiocChallenges/articles/challenges/isee_transcripts.html)
+    > BiocChallenges
+
+**Kevin Rue-Albrecht** (06:53:15):
+> alright - off to lunch:slightly_smiling_face:
+
+**Jeroen Gilis** (06:57:23):
+> :tada:Must admit; feeling very excited:smile:
+
+**Federico Marini** (07:40:16):
+> On that same line, I feel just happy to see how this seed is growing
+
+**Federico Marini** (07:40:32):
+> Kudos to the master chef of the challenges@Kevin Rue-Albrecht!
+
+**Jeroen Gilis** (14:28:32):
+> I updated the vignette provided by@Michael Loveto already show some basic code for visualizing DTU. I made some decisions on which input object type to use and how to add results to it; all things that we can revise and discuss later
+
+**Jeroen Gilis** (14:29:06):
+> I didn't put any work in yet on integration with iSEE, but your very nice workshop already gave me some initial ideas!:ok_hand:
+
+**Michael Love** (14:36:48):
+> great!
+
+
+## 2020-12-17
+
+**Jeroen Gilis** (02:02:22):
+> ***Peter Hickey; ***is it possible to visualize values from an**altExp**of a**SingleCellExperiment**in iSEE? E.g., overlaying CITE-seq / FACS data stored in an**altExp**on a UMAP plot or in the Feature assay plot?***Aaron Lun;***latest SCE has an`unsplitAltExps()`function that is probably the way to go here. Easier than modifying the UI to support more possible selections from the altexps.
+
+**Jeroen Gilis** (02:02:29):
+> copy paste from isee slack
+
+**Kevin Rue-Albrecht** (03:48:48):
+> I'll add that I would also wait a bit longer to make sure the altExp functionality fully matures and settles before investing time modifying (and updating) the UI. I also don't regularly use altExpr, so I'm also not first in line to implement 'best practices' for that in iSEE
+
+**Jeroen Gilis** (04:27:40):
+> While way beyond the scope of this project and maybe too early days as suggested by@Kevin Rue-Albrecht, I could image a panel/checkbox at the top of the iSEE interface that selects the experiment of interest using altExp (when we have multimodal data). This as opposed to separating the altexps prior to calling iSEE (making the iSEE call multiple times on separated single modes). Note that I am viewing tx-level counts and gene-level counts as multiple modes.
+> 
+> But again, that's beyond this challenge. I will just focus on the tx-level visualizations and try to keep it flexible for potential future extensions
+
+**Kevin Rue-Albrecht** (04:31:56):
+> Well, while we're on that topic, I would have rather envisioned a selectize**within**each panel, to switch between multiple altExps stored in the same object. In other words, taking a 'Reduced dimension plot' panel for example, you could colour it by feature expression in one experiment, and then switch to another experiment, and colour it by expression of a feature in that other experiment.
+
+**Kevin Rue-Albrecht** (04:32:56):
+> My point is just that before I embark on an interactive UI to do that, I would need to practice more at the console and in scripts.
+
+**Kevin Rue-Albrecht** (04:40:24):
+> One of the challenges as an iSEE developer, is that you 'write code that writes code'. As in, each panel generates, saves, evaluates, and displays the code that needs to be evaluated to reflect the UI choices and produce the UI output. So, to write that 'code that writes code', it is best to be clear from the start what you want the final bit of code to look like. (hence the need to build experience with altExp before teaching iSEE how to write code that manages altExps)
+> I hope that's clear, it's a bit of a multi-level thing to explain
+
+**Jeroen Gilis** (04:52:18):
+> Maybe just a small question (answer with yes/no/it depends) will do; "generates, saves, evaluates, and displays" --> in that order?
+
+**Jeroen Gilis** (04:53:02):
+> Ah displays is referring to displaying the code I guess
+
+**Kevin Rue-Albrecht** (04:53:14):
+> I tried to keep the message brief, so perhaps slightly inaccurate, but conceptually yes, in practice in depends
+
+**Kevin Rue-Albrecht** (05:03:10):
+> Essentially, iSEE has access to the UI inputs and the preprocessed SE object.
+> 
+> It uses all the UI inputs to determine the overall structure of the code that needs to be generated (e.g. switch between scatter, violin, hinton plots), and uses precomputed information about the selected covariates (e.g. discrete, continuous) to fine-tune commands (e.g.`scale_*_continuous`,`scale_*_discrete`)
+> 
+> Often, some commands need to be evaluated in order to determine how downstream commands should behave. E.g. it's handy to evaluate as early as possible the commands that generate the data frame used for plotting, so that we can use that data frame to make decisions when writing the plotting commands themselves.
+> 
+> Then, obviously, we need to remember all of the commands that we want to report in the code tracker, so we carry around a list of commands, which typically splits those commands into those that were already evaluated (e.g. generating the data frame) and those that were not evaluated (e.g., the ggplot2 plotting command typically don't need to be evaluated until the very end)
+> 
+> And then yes, 'display' just meant in the code tracker, which is another reason why we store the commands for each panel, so that they can be re-assembled into a global script when users open that modal
+
+**Jeroen Gilis** (05:49:19):
+> Thanks for the clear explanantion!
+
+**Kevin Rue-Albrecht** (07:04:25):
+> I'm running into an error compiling the vignette because it refers to`library.bib`file that doesn't exist in the repo:[https://github.com/kevinrue/iSEEtranscripts/blob/master/vignettes/transcripts.Rmd#L8](https://github.com/kevinrue/iSEEtranscripts/blob/master/vignettes/transcripts.Rmd#L8)
+
+**Michael Love** (07:09:21):
+> oops
+
+**Michael Love** (07:09:44):
+> PR coming now
+
+**Kevin Rue-Albrecht** (07:09:45):
+> Also, we should avoid using the '@' symbol to tag each other in the vignette, as this also gets picked up as references, e.g. there's an`@Mike`in there:laughing:
+
+**Kevin Rue-Albrecht** (07:09:55):
+> talk about self-citation:stuck_out_tongue:
+
+**Michael Love** (07:10:48):
+> ok PR sent
+
+**Kevin Rue-Albrecht** (07:11:38):
+> sad face
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F01HH9ZUN9F/image.png)
+
+**Michael Love** (07:11:43):
+> Mike was used for various aspects [@Mike] R scripts available on request.
+
+**Jeroen Gilis** (07:14:24):
+> oh god, didnt think of that:man-facepalming:
+
+**Michael Love** (07:14:24):
+> @Jeroen Gilisthe substring call may no longer be necessary -- IIRC it was necessary when the workflow was written bc stageR was using the '.' as delimiter btwn txp and gene ID
+
+**Jeroen Gilis** (07:15:26) (in thread):
+> Can and should I give you write access?
+
+**Kevin Rue-Albrecht** (07:18:03) (in thread):
+> It can make things easier, depending on how often you'll be available to review and merge PRs.
+> I wouldn't ask write access just for me, but for anyone else whom you trust to contribute mindfully to this repo
+
+**Kevin Rue-Albrecht** (07:18:32) (in thread):
+> there may be different levels of write access as well, in the settings
+
+**Jeroen Gilis** (07:19:17):
+> Right so I will just merge Mike's PR which adds lib.
+> Then in the vignettes/transcripts.Rmd I'll remove the @Mike
+> After which I'll grant writing access
+
+**Kevin Rue-Albrecht** (07:19:44) (in thread):
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F01H4TEFSG3/image.png)
+
+**Jeroen Gilis** (07:27:47):
+> step 1 and 2 done, for 3 I guess I must first invite you as collabs
+
+**Jeroen Gilis** (07:34:25):
+> Also did Kevins PR; but you should now also have a collab invite
+
+**Kevin Rue-Albrecht** (10:06:33):
+> I noticed that my 'pkgdown' fix breaks the relative links in the README. In other words, images show well in the pkgdown website, but not in the GitHub repository README.
+
+**Kevin Rue-Albrecht** (10:06:43):
+> [https://github.com/jgilis/iSEEtranscripts/blob/master/README.md](https://github.com/jgilis/iSEEtranscripts/blob/master/README.md)
+
+**Kevin Rue-Albrecht** (10:06:55):
+> I guess it depends how you prefer it
+
+**Jeroen Gilis** (10:09:44):
+> shouldnt that be fixed by changing ![](reference/figures/raw_vis.png) to ![](man/figures/raw_vis.png) in the readme?
+
+**Kevin Rue-Albrecht** (10:10:29):
+> well, that would fix the github repo, and break the pkgdown website
+
+**Kevin Rue-Albrecht** (10:11:14):
+> [https://github.com/r-lib/pkgdown/issues/133#issuecomment-356979383](https://github.com/r-lib/pkgdown/issues/133#issuecomment-356979383)
+> > the images in`man/figures`will get copied to`reference/figures`
+
+**Kevin Rue-Albrecht** (10:11:43):
+> so one path is valid for pkgdown, while a different path is valid for the github repo
+
+**Jeroen Gilis** (10:11:52):
+> "I think for now, you should solve it by linking to the full github url"
+
+**Jeroen Gilis** (10:12:08):
+> Hadleys final response in the issue on pkgdown
+
+**Kevin Rue-Albrecht** (10:16:36):
+> I've seen that too.
+> But it's not his final response: two messages below he came back two years later with the`man/figures`solution.
+> Anyway, it's really a detail, since those screenshots are more of a temporary illustration of the goals.
+> With that in mind, I think I'll revert my 'pkgdown fix' and put those images back where they were, as it is then more logical to have those illustrations easily visible on github, than needing fancy compilation into a pkgdown website
+
+**Kevin Rue-Albrecht** (10:18:03):
+> scratch that
+> I'll use the full URL solution, which seems like the best of both worlds
+
+**Jeroen Gilis** (10:20:59):
+> Agreed. I invited you as a collaborator, which I think is the first step to giving you writer access
+
+**Kevin Rue-Albrecht** (10:52:09):
+> Yes, it gave me the possibility to merge my own PR, which is OK for small stuff. As for the main iSEE repo, I'll ping the channel to encourage review of more substantial PRs
+
+**Kevin Rue-Albrecht** (12:04:34):
+> some in this channel were also part of the discussion about github actions implemented in`biocthis`, note that I'm taking them for a test run here:[https://github.com/jgilis/iSEEtranscripts/compare/master...kevinrue:gha](https://github.com/jgilis/iSEEtranscripts/compare/master...kevinrue:gha)
+
+**Kevin Rue-Albrecht** (12:05:43):
+> I'm humbled by the realisation of how much work has gone into`biocthis::use_bioc_github_action()`
+
+
+## 2020-12-18
+
+**Jeroen Gilis** (02:20:43):
+  - File (PNG): [Screenshot 2020-12-18 at 08.19.34.png](https://community-bioc.slack.com/files/U34P8RS3B/F01HX7FM648/screenshot_2020-12-18_at_08.19.34.png)
+
+**Jeroen Gilis** (02:22:54):
+> Well generating that plot with iSEE was easier than I expected; just a FeatureAssayPlot on the proportions assay:sweat_smile:
+
+**Jeroen Gilis** (02:23:57):
+> So for this one I will generate a new class that inherits from FeatureAssayPlot to add in the specifics to improve the plot
+
+**Jeroen Gilis** (02:25:20):
+> Also,@Kevin Rue-Albrechtset up a pkgdwn for the project: check it out here![https://jgilis.github.io/iSEEtranscripts/](https://jgilis.github.io/iSEEtranscripts/)
+
+**Michael Love** (09:00:42):
+> that's awesome!
+
+**Kevin Rue-Albrecht** (09:03:27):
+> feel free to add your names in DESCRIPTION, so that you can put your preferred email
+
+
+## 2020-12-22
+
+*00:24:51 - @Kozo Nishida has joined the channel*
+
+## 2021-01-22
+
+*15:43:53 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-04-28
+
+*12:26:00 - @Michael Love has left the channel*
+
+## 2021-05-11
+
+*16:44:57 - @Megha Lal has joined the channel*
+
+## 2021-07-14
+
+**Jeroen Gilis** (03:05:41):
+> Hi everyone,
+> 
+> I just wanted to mention that I made a few minor changes to the iSEEtranscripts repo. The first plot we envisioned is now "operational" in a basic form. You can quickly see the results from the pkgdown vignette[https://jgilis.github.io/iSEEtranscripts/articles/transcripts.html](https://jgilis.github.io/iSEEtranscripts/articles/transcripts.html). This plot was very easy to create as I could borrow everything from`FeatureAssayPlot`. I am currently going through the*Extending iSEE *book, which will be useful if we still want to add some specifics to that plot and especially if we want to generate some other tx-level visualizations.
+> 
+> I think that there will be no biocchallenges this bioconductor USA meeting, correct? If not, I would still be very interested in having a short chat, in particular on which concrete visualizations would be most interesting for the iSEEtranscripts initiative.
+> 
+> See you in August!
+
+**Kevin Rue-Albrecht** (04:03:24):
+> Thanks and sorry that we left that hanging. My multitasking capacity unfortunately reached its limit last year. No BiocChallenges this time (I think the format needs revisiting to be more engaging and sustainable), but happy to chat anytime (not necessarily at the conference only).
+
+
+## 2022-01-28
+
+*11:12:37 - @Megha Lal has left the channel*
+
+## 2022-10-10
+
+*13:55:49 - @Mercilena Benjamin has joined the channel*
+
+## 2023-07-28
+
+*15:57:25 - @Benjamin Yang has joined the channel*
+*15:59:27 - @Benjamin Yang has left the channel*
+
+## 2024-05-14
+
+**Lori Shepherd** (10:13:30):
+> archived the channel

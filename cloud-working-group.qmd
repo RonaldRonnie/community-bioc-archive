@@ -1,0 +1,1909 @@
+---
+title: "#cloud-working-group"
+format: gfm
+---
+
+
+## 2023-02-09
+
+*10:58:43 - @Mike Smith has joined the channel*
+*13:06:27 - @Brian Schilder has joined the channel*
+**Brian Schilder** (13:06:52):
+> Thanks for setting this up@Mike Smith, great idea!
+
+*13:14:38 - @Alex Mahmoud has joined the channel*
+*13:20:07 - @Leonardo Collado Torres has joined the channel*
+**Leonardo Collado Torres** (13:20:19):
+> Hi:wave:
+
+
+## 2023-02-16
+
+*11:14:39 - @Erdal Cosgun has joined the channel*
+**Erdal Cosgun** (11:23:33):
+> Hi All, as you know, abstract submission is now open for BioC2023. I think we can start the potential use-cases, stories for the conference abstract.@Alex Mahmoud, do we have any common day/time from the whenisgood responses?
+
+**Alex Mahmoud** (11:52:16):
+> Thanks for the ping, Erdal! After a bit of shuffling, it seems the best time for everyone is 3-4 PM ET on Tuesday the 21st for the first meeting. Expect an invite in your inboxes shortly!
+
+
+## 2023-02-21
+
+**Leonardo Collado Torres** (11:21:49):
+> Sorry,I’llmiss the meeting today.I’mtraveling to Mexico andwon’tbe able to make it
+
+*13:11:16 - @Sridhar N has joined the channel*
+**Alex Mahmoud** (13:12:22):
+> set the channel description: Meeting Feb 21 @ 3 PM ET : [https://meet.google.com/epw-wems-crb](https://meet.google.com/epw-wems-crb)
+
+*13:14:11 - @Frederick Tan has joined the channel*
+*13:18:18 - @Yagoub Ali Ibrahim Adam has joined the channel*
+*13:40:55 - @Roger Giné Bertomeu has joined the channel*
+*14:22:49 - @Maria Doyle has joined the channel*
+*15:03:23 - @Marcel Ramos Pérez has joined the channel*
+**Alex Mahmoud** (15:05:24):
+> <!here>Meeting at[https://meet.google.com/epw-wems-crb](https://meet.google.com/epw-wems-crb)for anyone who wants to join
+  - Attachment (meet.google.com): [Meet](https://meet.google.com/epw-wems-crb)
+    > Real-time meetings by Google. Using your browser, share your video, desktop, and presentations with teammates and customers.
+
+**Alex Mahmoud** (15:52:51):
+> Next meeting will be March 21st at 11 AM ET!
+
+**Alex Mahmoud** (15:53:03):
+> set the channel description: Meeting March 21 @ 11 AM ET : [https://meet.google.com/epw-wems-crb](https://meet.google.com/epw-wems-crb)
+
+*16:01:47 - @Andres Wokaty has joined the channel*
+**Mike Smith** (18:00:25):
+> Sorry I missed the call today, I didn't manage to get my son in bed in time to make it. I hope it was productive.  I'll add some notes on what I've contributed regarding GitHub actions tomorrow and maybe someone can see if they align with whatever was discussed.
+
+*18:16:26 - @Noorul has joined the channel*
+**Alex Mahmoud** (19:20:29):
+> Adding to the doc sounds great! We talked about making a sub working group and meeting separately from the monthly meeting to bring together what each person has worked on, and discuss how we could  encourage the use of actions within Bioconductor to facilitate the life of developers and package reviewers.
+
+*19:30:12 - @Sean Davis has joined the channel*
+*19:51:53 - @Mikhail Dozmorov has joined the channel*
+*20:52:01 - @Ying Chen has joined the channel*
+
+## 2023-02-22
+
+*01:12:12 - @Yikun Jiang has joined the channel*
+*01:21:23 - @Vince Carey has joined the channel*
+*02:59:26 - @Martin Grigorov has joined the channel*
+*03:33:54 - @Nils Eling has joined the channel*
+**Brian Schilder** (06:30:57) (in thread):
+> no worries, Mike. Looking forward to working with you!
+
+**Brian Schilder** (06:34:36):
+> Here’s the document that@Alex Mahmoudcreated to begin sorting out the goals and organisation of the Cloud Working Group. The rest of us have begun to flesh this out a bit, so other please feel free to do the same:[https://docs.google.com/document/d/1IVPUhohCr41LAqjHf91bAw5pcXRWviUl-ye5pT4s5nA/edit#heading=h.fp0asefyf4w2](https://docs.google.com/document/d/1IVPUhohCr41LAqjHf91bAw5pcXRWviUl-ye5pT4s5nA/edit#heading=h.fp0asefyf4w2)
+
+*10:07:28 - @Sehyun Oh has joined the channel*
+**Brian Schilder** (11:02:44):
+> Regarding GitHub Actions, does anyone know of a GH action that installs packages via[AnVIL](https://bioconductor.org/packages/release/bioc/html/AnVIL.html)?[rworkflows](https://github.com/neurogenomics/rworkflows/blob/24ca1e99062b52d03b78bcf2eec869cd7d2e189f/action.yml#L213)currently uses the[r-lib/setup-r-dependencies](https://github.com/r-lib/actions/tree/v2-branch/setup-r-dependencies)action, which in turn uses`pak`to install all deps for a given R package. But it’s a bit slow and I think[AnVIL](https://bioconductor.org/packages/release/bioc/html/AnVIL.html)would be better suited for this.@Leonardo Collado Torres@Marcel Ramos Pérez
+
+**Brian Schilder** (11:04:29):
+> I could write my own sub-action (I started off doing this), but ideally I could take advantage of an existing action that is going to be maintained in the long-run
+
+**Frederick Tan** (11:08:26) (in thread):
+> Could you describe a little more what you mean by “via AnVIL”?  Are you looking to deploy something onto[anvilproject.org](http://anvilproject.org)?
+
+**Alex Mahmoud** (11:42:31) (in thread):
+> I am not entirely sure what you mean, but assuming you are referencing`AnVIL::install`, in which case I think the behavior is now the same as`BiocManager::install`as the binary repository is supported by both. In general, I think the tasks we’re looking to accomplish aren’t very technically complicated and writing the actions for everything we want to do should be relatively trivial (minus the nitty gritty OS-specific things), especially with all the work and experience developing actions from everyone. Imo the bigger point of discussion is going to be deciding on a comprehensive action, figuring out how to have it remain maintained beyond a specific person/project for many years in the future (we probably need to either attach it to release cycle, or have an established plan for each R and Bioc release), and the best way to make it accessible and useful for naive users/developers and how to publicize it to them so it gets more use
+
+**Brian Schilder** (12:15:14) (in thread):
+> sorry, i just mean installing pre-generated R package binaries via`AnVIL::install()`when installing dependencies on a GitHub Actions run. Basically, this reduces the overall time you’re using GitHub’s servers to run tests on your R package.
+
+**Brian Schilder** (12:16:54) (in thread):
+> Ahh, good to know about`BiocManager::install`! For some reason I thought`AnVIL::install`accessed a more comprehensive list of binaries (e.g. not just packages that are on Bioconductor, but also ones on CRAN).
+
+**Brian Schilder** (12:18:37) (in thread):
+> I also thought the dependency installation step would be easy. But in practice I was finding a lot of exceptions that made it difficult to install them all in one function call. So I ended up making three passes at installing the deps, until eventually all of them got installled
+
+**Alex Mahmoud** (12:19:18) (in thread):
+> Afaik the difference was that`AnVIL::install`alone would use the AnVIL GCS binary repo, but now they both do. I do not know of any difference of behavior with CRAN packages, but I  could be forgetting/missing something
+
+**Brian Schilder** (12:21:17) (in thread):
+> > Imo the bigger point of discussion is going to be deciding on a comprehensive action, figuring out how to have it remain maintained beyond a specific person/project for many years in the future (we probably need to either attach it to release cycle, or have an established plan for each R and Bioc release), and the best way to make it accessible and useful for naive users/developers and how to publicize it to them so it gets more use
+> I agree, whatever GHA pipeline we decide on it needs to have a plan in place to maintain it in the long run. Currently it’s just me a couple of early users who are maintaining rworkflows.
+
+**Brian Schilder** (12:24:09) (in thread):
+> Regarding increasing usage, here’s some avenues I’ve brainstormed in regards to rworkflows:[https://github.com/neurogenomics/rworkflows/issues/39](https://github.com/neurogenomics/rworkflows/issues/39)[https://github.com/neurogenomics/rworkflows/issues/23](https://github.com/neurogenomics/rworkflows/issues/23)
+  - Attachment: [#39 Create bot to make PRs or Issues](https://github.com/neurogenomics/rworkflows/issues/39)
+  - Attachment: [#23 Document the existence of rworkflows externally](https://github.com/neurogenomics/rworkflows/issues/23)
+
+**Alex Mahmoud** (12:24:34) (in thread):
+> Interesting re dependencies, might be something to discuss when we meet to know all the edge cases you’ve already encountered. When I made a quick prototype action for building containers a few days after joining Bioconductor team, I used`Rscript -e "BiocManager::install(remotes::local_package_deps(dependencies=TRUE))"`which worked pretty well
+
+**Brian Schilder** (12:28:04) (in thread):
+> in my case, the dependency installation issues came up with echolocatoR, which relies on a suite of subpackages distributed via GitHub. It has a very complicated dependency structure across the subpackages, so the order in which they were installed sometimes caused conflicts (especially when I was constantly making changes to a lot of them at the same time):[https://github.com/RajLabMSSM/echolocatoR](https://github.com/RajLabMSSM/echolocatoR)
+
+**Brian Schilder** (12:28:32) (in thread):
+> Probably not as big of an issue with Bioc packages, since the versions are all coordinated.
+
+**Marcel Ramos Pérez** (12:36:29) (in thread):
+> Usually
+> ```
+> remotes::install_deps(dependencies = TRUE, repos = BiocManager::repositories())
+> BiocManager::install(ask = FALSE, update = TRUE)
+> ```
+> does the trick for me. Also,`biocthis`has a way to installing and double-checking installs in its GHA template (for tough installations)
+
+**Brian Schilder** (13:16:58) (in thread):
+> Thanks@Marcel Ramos Pérez! Indeed, my original method was an extension of the`biocthis `steps, albeit with a third round of installation checks for extra tricky packages.
+
+**Brian Schilder** (13:20:12) (in thread):
+> you can see a copy of this old version here:[https://github.com/neurogenomics/rworkflows/blob/master/install-r/action.yml](https://github.com/neurogenomics/rworkflows/blob/master/install-r/action.yml)
+
+
+## 2023-02-23
+
+*04:07:14 - @Levi Waldron has joined the channel*
+**Martin Grigorov** (06:55:10) (in thread):
+> can't you use Github Actions cache to reuse the installed packages ?
+
+**Marcel Ramos Pérez** (09:13:51) (in thread):
+> `BiocManager`let's you install binaries on AnVIL and it's also a good idea to cache R packages as Martin pointed out
+
+*11:56:58 - @Charlotte Soneson has joined the channel*
+
+## 2023-02-24
+
+*10:05:04 - @Lori Shepherd has joined the channel*
+*10:05:32 - @Robert Shear has joined the channel*
+
+## 2023-02-27
+
+**Andres Wokaty** (12:36:58):
+> I just noticed that the deadline for conference abstracts is 3/19, which is before our next meeting on 3/21. Maybe we can coordinate here to get some ideas and then meet before the deadline?
+
+
+## 2023-02-28
+
+**Brian Schilder** (09:49:03):
+> Good catch,@Andres Wokaty. Maybe we can starting working on one together via Google Docs
+
+**Brian Schilder** (09:51:18):
+> Even though we probably won’t have to submit an abstract through the usual route as everyone else, we still need a version of it written up so we can pitch it to the Bioc conf organizers
+
+**Brian Schilder** (09:54:28):
+> I’ve created a section to start writing up a draft of this here:[https://community-bioc.slack.com/archives/C04NPB74Y78/p1677065676482189](https://community-bioc.slack.com/archives/C04NPB74Y78/p1677065676482189)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C04NPB74Y78/p1677065676482189)
+    > Here’s the document that @Alex Mahmoud created to begin sorting out the goals and organisation of the Cloud Working Group. The rest of us have begun to flesh this out a bit, so other please feel free to do the same:
+    > [https://docs.google.com/document/d/1IVPUhohCr41LAqjHf91bAw5pcXRWviUl-ye5pT4s5nA/edit#heading=h.fp0asefyf4w2](https://docs.google.com/document/d/1IVPUhohCr41LAqjHf91bAw5pcXRWviUl-ye5pT4s5nA/edit#heading=h.fp0asefyf4w2)
+
+
+## 2023-03-01
+
+**Brian Schilder** (06:20:38):
+> <!channel>I’ve created a rough outline of the Bioc conference abstract in the above Google Doc. Please feel free to add to it whenever you have the chance.@Andres Wokatyshall we set a final deadline to submit within the next 2 weeks? (by March 15th, just to be safe)
+
+**Andres Wokaty** (08:51:21) (in thread):
+> Thanks for starting the abstract. A March 15th deadline sounds good. I can submit it.
+
+**Brian Schilder** (09:09:12) (in thread):
+> Awesome, thanks@Andres Wokaty!
+
+
+## 2023-03-02
+
+**Brian Schilder** (07:05:01) (in thread):
+> Just sent a calendar invite to help us keep track of this
+
+
+## 2023-03-03
+
+**Vince Carey** (00:49:05):
+> Wanted to note that Alex found[https://github.com/runforesight/workflow-telemetry-action](https://github.com/runforesight/workflow-telemetry-action)some time ago -- might be of interest to have as an option in rworkflows?
+
+**Brian Schilder** (06:44:48) (in thread):
+> interesting! hadn’t come across this before, will definitely look into adding this as a feature. Thanks@Vince Carey
+
+**Leonardo Collado Torres** (12:38:10):
+> Hi, I tried using`docker/build-push-action@v1`today with[https://github.com/lcolladotor/ExampleBiocWorkshop2023/blob/c61545067b8b3a4c50f2cc7d873a45aa7d1a69b3/.github/workflows/check-bioc.yml#L308-L322](https://github.com/lcolladotor/ExampleBiocWorkshop2023/blob/c61545067b8b3a4c50f2cc7d873a45aa7d1a69b3/.github/workflows/check-bioc.yml#L308-L322)(that’s the same code used in`biocthis`) and from[https://github.com/lcolladotor/ExampleBiocWorkshop2023/actions/runs/4325733703/jobs/7552274759#step:32:1](https://github.com/lcolladotor/ExampleBiocWorkshop2023/actions/runs/4325733703/jobs/7552274759#step:32:1)I see that v1 is now deprecated.
+> 
+> I see that@Sean Davisused an alternative longer version at[https://github.com/seandavi/BuildABiocWorkshop/blob/7e54afb362e05cac3db2d61447a54ba45643156d/.github/workflows/basic_checks.yaml#L72-L142](https://github.com/seandavi/BuildABiocWorkshop/blob/7e54afb362e05cac3db2d61447a54ba45643156d/.github/workflows/basic_checks.yaml#L72-L142)last year. Sean is using the version from this commit[https://github.com/docker/build-push-action/tree/ad44023a93711e3deb337508980b4b5e9bcdc5dc](https://github.com/docker/build-push-action/tree/ad44023a93711e3deb337508980b4b5e9bcdc5dc)which from the README I’m gathering it’s`v2`, which is now also deprecated.
+> 
+> From[https://github.com/docker/build-push-action](https://github.com/docker/build-push-action)it wasn’t super clear to me how to adapt the`v1`code to`v4`. Have any of you run into this already?
+
+**Leonardo Collado Torres** (12:40:00):
+> I think@Brian Schilder’s code on`rworkflows`is also using the deprecated`v1`[https://github.com/neurogenomics/rworkflows/blob/24ca1e99062b52d03b78bcf2eec869cd7d2e189f/build-docker/action.yml#L43](https://github.com/neurogenomics/rworkflows/blob/24ca1e99062b52d03b78bcf2eec869cd7d2e189f/build-docker/action.yml#L43)
+
+**Leonardo Collado Torres** (12:40:45):
+> also at[https://github.com/neurogenomics/rworkflows/blob/24ca1e99062b52d03b78bcf2eec869cd7d2e189f/.github/workflows/rworkflows_static.yml#L294](https://github.com/neurogenomics/rworkflows/blob/24ca1e99062b52d03b78bcf2eec869cd7d2e189f/.github/workflows/rworkflows_static.yml#L294)
+
+**Marcel Ramos Pérez** (13:38:42) (in thread):
+> I've used v3 most recently. v3 and v4 syntax seems to be the same:[https://github.com/waldronlab/cBioPortalData/blob/e0440a4445f0cc731e426363a76faa22ee5e0f9d/.github/workflows/devel_check_dock.yml#L65-L92](https://github.com/waldronlab/cBioPortalData/blob/e0440a4445f0cc731e426363a76faa22ee5e0f9d/.github/workflows/devel_check_dock.yml#L65-L92)
+
+**Leonardo Collado Torres** (19:32:39) (in thread):
+> Thank you@Marcel Ramos Pérez! I just updated`biocthis`after running more tests at[https://github.com/lcolladotor/ExampleBiocWorkshop2023](https://github.com/lcolladotor/ExampleBiocWorkshop2023)
+
+**Leonardo Collado Torres** (21:38:42):
+> Hi! I just read[https://community-bioc.slack.com/archives/C04NPB74Y78/p1677065676482189](https://community-bioc.slack.com/archives/C04NPB74Y78/p1677065676482189). And well, it seems to me that the proposed conference abstract is leaning on the abstract side. Or do you plan to show a bit of code? In particular, if you start from getting all the git setup required for`usethis::use_git()`and`usethis::use_github()`the whole experience can take around 40 min for a quick demo, with say 20 extra min for practice (60 min total).
+> 
+> I think that you are aiming for a Birds of a Feather, right? More than a 30-45 min or 90 min workshop, correct?
+> 
+> At the[LIBD rstats club](https://docs.google.com/spreadsheets/d/1is8dZSd0FZ9Qi1Zvq1uRhm-P1McnJRd_zxdAfCRoMfA/edit?usp=sharing)I’ve used`HubPub`and`biocthis`on 2 recent weeks (today and 2 weeks ago; still gotta upload the videos to YouTube) and well, it can take a while to do a full demo and get a working new package in the end. I also ran into a few new hiccups along the way (still gotta remember / report what I found with`HubPub`; Marcel already fixed a bug I ran into on`BiocCheck`today).
+> 
+> Anyways, if you are aiming for a demo, I’m not sure if you want to show all our tools people in this group have built.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C04NPB74Y78/p1677065676482189)
+    > Here’s the document that @Alex Mahmoud created to begin sorting out the goals and organisation of the Cloud Working Group. The rest of us have begun to flesh this out a bit, so other please feel free to do the same:
+    > [https://docs.google.com/document/d/1IVPUhohCr41LAqjHf91bAw5pcXRWviUl-ye5pT4s5nA/edit#heading=h.fp0asefyf4w2](https://docs.google.com/document/d/1IVPUhohCr41LAqjHf91bAw5pcXRWviUl-ye5pT4s5nA/edit#heading=h.fp0asefyf4w2)
+
+
+## 2023-03-04
+
+**Brian Schilder** (08:18:50) (in thread):
+> THat’s correct! when ive tried upgrading to more recent versions i ran into issues, namely that later versions didnt include some system dependencies and i couldnt figure out how to properly set them up without them being built-in. But it would def be ideal to figure out how to use the upgraded versions (eg v4)
+
+**Brian Schilder** (08:19:57) (in thread):
+> if i remember correctly, the dep in question was`buildx`
+
+**Brian Schilder** (08:23:00) (in thread):
+> Hey@Leonardo Collado Torres, thanks for the input! Indeed, I think we were gearing towards a Birds of a Feather session. Which based on the[description on the conference site](https://bioc2023.bioconductor.org/submissions/), is fairly freeform. So we have some flexibility with how we’d like to run it.
+> > Free-format, organizer-lead interactive discussion session on a topic relevant to the Bioconductor community.
+  - Attachment (bioc2023.bioconductor.org): [Submissions](https://bioc2023.bioconductor.org/submissions/)
+    > Submissions
+
+
+## 2023-03-14
+
+**Alex Mahmoud** (12:57:14) (in thread):
+> Just saw this conversation, this might help:[https://github.com/Bioconductor/bioconductor_docker/blob/RELEASE_3_16/.github/workflows/build_containers.yaml#L28](https://github.com/Bioconductor/bioconductor_docker/blob/RELEASE_3_16/.github/workflows/build_containers.yaml#L28)
+
+**Alex Mahmoud** (12:58:21) (in thread):
+> Didn't realize there is a v4, i've been using v3, but will update that too
+
+**Alex Mahmoud** (13:00:39):
+> <!channel>Invite for the March 21st meeting will be going out today or tomorrow, please add your email to the doc[https://docs.google.com/document/d/1IVPUhohCr41LAqjHf91bAw5pcXRWviUl-ye5pT4s5nA/edit#heading=h.fp0asefyf4w2](https://docs.google.com/document/d/1IVPUhohCr41LAqjHf91bAw5pcXRWviUl-ye5pT4s5nA/edit#heading=h.fp0asefyf4w2)if you haven't already and would like to receive an invite
+
+**Brian Schilder** (13:35:36):
+> Speaking of tomorrow, our internal deadline for putting together the Bioc Birds of a Feather abstract is tomorrow, March 15. Doesn’t look like anything has been updated since my initial outline, so contributions before tomorrow would be most welcome!
+
+**Leonardo Collado Torres** (17:16:08) (in thread):
+> I forget at what time the meeting will be, but well, it’s very likely that I won’t be able to make it. I’ll be attending my brother’s thesis defense that day (starts around 1pm US Eastern)
+
+**Leonardo Collado Torres** (17:16:22) (in thread):
+> sorry about this in advance
+
+**Alex Mahmoud** (17:17:29) (in thread):
+> We are currently scheduled for 11 AM, but no worries at all. I'll also send out an email to find a time for github actions subworking group
+
+**Leonardo Collado Torres** (17:20:17) (in thread):
+> 11 am? ok! then I think that I can make it:smiley:
+
+**Leonardo Collado Torres** (17:20:31) (in thread):
+> or a portion of it at least
+
+
+## 2023-03-15
+
+**Andres Wokaty** (12:36:11):
+> How does this sound for a BoF abstract:
+> 
+> Since the inception of Bioconductor, there has been a massive shift in the number and type of cloud-based resources (e.g compute, storage, workflow architecture) available to the developer community.  To ensure that the Bioconductor ecosystem takes full advantage of these resources, we have formed the Bioconductor Cloud Working Group, which focuses on  deployable containers; cloud storage and compute; and GitHub actions. We invite the community to discuss developing cloud standards and new cloud-based tools.
+
+**Andres Wokaty** (12:39:23):
+> I think we don't have to give too much detail since it's a discussion and I can submit it today if it seems okay
+
+**Leonardo Collado Torres** (12:47:27):
+> that seems ok to me
+
+**Leonardo Collado Torres** (12:47:38):
+> thanks for writing it Jennifer (and Brian for getting it started too)
+
+**Andres Wokaty** (12:48:23):
+> I only wrote the last sentence. It was all@Brian Schilder:slightly_smiling_face:
+
+**Brian Schilder** (12:52:30):
+> I think we’ll want to flesh it out at least a bit more before we submit, as these are the guidlines:
+> > Workshops and BoFs can range from an hour to half day events that will run in parallel tracks. Submissions should be no more than 1 page in length, state the desired length of the workshop, and indicate the estimated number of attendees, and level of participation expected.
+
+**Brian Schilder** (12:55:02):
+> Just throwing out some numbers here***desired length***: 1-3 hours? not sure what’s normal here***number of attendees***: 25+ (not including working grouping members)
+
+**Andres Wokaty** (12:55:05):
+> Where did you see that? I just looked at last year's BoF abstracts:[https://bioc2022.bioconductor.org/tags/birds-of-a-feather/](https://bioc2022.bioconductor.org/tags/birds-of-a-feather/)
+
+**Andres Wokaty** (12:57:25):
+> Looking at the submission form, I don't see where to enter that information. (I've never submitted an abstract to the conference, so I might be missing some details.)
+
+**Brian Schilder** (12:57:49):
+> good question, thought i grabbed it from the website, but maybe from an older version?
+
+**Brian Schilder** (12:58:30) (in thread):
+> i had the impression it would just be included in the abstract itself. but  could be wrong about the criterion
+
+**Andres Wokaty** (12:59:06):
+> I think what might be important is listing who will be involved in leading the discussion. Would anyone else be attending and interested in helping to facilitate whom I could also put on the submission?
+
+**Brian Schilder** (12:59:24):
+> ill definitely be attending, and happy to help lead
+
+**Brian Schilder** (13:00:21):
+> i think there at least several other people who said they would be attending in person, tho i forgot to write down who they were
+
+**Brian Schilder** (13:01:42) (in thread):
+> was there only one BoF session last year? may not be much competition afterall!
+
+**Andres Wokaty** (13:02:20) (in thread):
+> 2 last year, R ladies and Dev Forum. I think we have a good shot.
+
+**Andres Wokaty** (13:03:09):
+> If it is okay, I will aim to submit in a few hours. I am not sure, but I also might be able to add people later in open review. I just want to make sure we don't miss the deadline.
+
+**Brian Schilder** (13:03:24) (in thread):
+> plus we’re also an official Bioc working group, which should make things easier. but didnt want to bank on that since it wasnt a guarantee. but this gives me more assurance
+
+**Andres Wokaty** (13:04:05) (in thread):
+> I asked on the conference channel if we could just reserve a spot, but no one answered me:slightly_smiling_face:
+
+**Andres Wokaty** (13:04:38) (in thread):
+> I think we'll still be successful since this is a hot topic.
+
+**Brian Schilder** (13:05:52) (in thread):
+> :fire::dancer::fire:
+
+**Brian Schilder** (13:09:05):
+> yeah, i agree, the most important thing is to make sure we get it submitted.@Erdal Cosgunis adding some comments rn, but let’s say all edits should be done in the next 2 hours. after than, you can go ahead and submit@Andres Wokaty
+
+**Erdal Cosgun** (13:22:07):
+> @Brian Schilder@Andres Wokaty, I added my comments.
+
+**Alex Mahmoud** (13:29:21):
+> I added a slightly longer version under
+
+**Alex Mahmoud** (13:29:37) (in thread):
+> (i have too much anxiety to write live on the google doc so wrote separately and pasted and didn't want to overwrite:joy:)
+
+**Brian Schilder** (13:30:38) (in thread):
+> awesome, thanks!
+
+**Leonardo Collado Torres** (13:33:24) (in thread):
+> I’ll also be there
+
+**Andres Wokaty** (14:22:53) (in thread):
+> Thanks for this. I just changed the name since we're listed as 'Cloud Methods Working Group' and modified the last sentence to make it clear that this is a discussion.
+
+**Andres Wokaty** (14:24:58) (in thread):
+> I think we should add cloud technology standards as a 4th focus?
+
+**Andres Wokaty** (17:36:01):
+> I've submitted the longer abstract. I've put myself,@Brian Schilder,@Alex Mahmoudon the abstract but I can add anyone else who would like to help facilitate.
+
+**Brian Schilder** (20:13:03) (in thread):
+> thank you so much@Andres Wokaty!! excited to start putting this together as soon as we hear back
+
+
+## 2023-03-16
+
+**Brian Schilder** (06:45:56):
+> Attaching a copy of the final abstract submission here. Thanks to@Andres Wokatyfor getting this to the finish line! And thanks to everyone who contributed their edits.
+  - File (PDF): [Cloud Methods _ OpenReview.pdf](https://community-bioc.slack.com/files/U34P8RS3B/F04U5QMMP6Z/cloud_methods___openreview.pdf)
+
+
+## 2023-03-19
+
+*23:47:14 - @Ying Chen has left the channel*
+
+## 2023-03-21
+
+**Erdal Cosgun** (02:26:28) (in thread):
+> Hi@Alex MahmoudI have not received the invite. Could you re-send it to me please?
+
+**Alex Mahmoud** (10:13:30) (in thread):
+> Hey@Erdal CosgunI sent it to you at the email in the doc. Admittedly, the first time I made the invite last week, I think I screwed up how I created it in the Calendar app cause I don't think it sent an email out (or at least hadn't received any RSVPs so I assumed people didn't get an email), so I remade it last night from[calendar.google.com](http://calendar.google.com)and I believe it sent out properly this time cause a few people RSVPd.
+
+**Alex Mahmoud** (10:14:15):
+> <!channel>Reminder about the meeting starting in ~45 minutes at 11 AM ET!
+
+**Erdal Cosgun** (10:58:43) (in thread):
+> Hi@Alex Mahmoud, thank you. I received the invite this time.
+
+**Andres Wokaty** (11:04:27):
+> We're meeting now:slightly_smiling_face:[https://meet.google.com/epw-wems-crb](https://meet.google.com/epw-wems-crb)
+  - Attachment (meet.google.com): [Meet](https://meet.google.com/epw-wems-crb)
+    > Real-time meetings by Google. Using your browser, share your video, desktop, and presentations with teammates and customers.
+
+
+## 2023-03-29
+
+**Alex Mahmoud** (16:00:53):
+> Pasting question from the core channel to here for wider visibility to get everyone's opinion: While not breaking any backward compatibility, I am proposing we start keeping containers per R version as rocker does, as well as add a new tag for each release which drops the`RELEASE_`which I personally find annoying to type. In concrete terms: the current 3.16 container is on R 4.2.2, and I am about to change it to 4.2.3. The new image would have 3 tags pointing to the same image:`RELEASE_3_16`,`3.16`, and`3.16_R_4.2.3`, and the current image would remain only as tag`3.16_R_4.2.2`and never rebuilt going forward. The change is a very low hanging fruit in that it is relatively trivial and the effort is minimal, so it's more of an aesthetic/administrative than technical decision. Any opinions/objections regarding the new tags? (Tbh I cannot think of a specific usecase, so it is mostly a "why not" which also aligns us more with rocker and figured it's an opportune time to make the quick change now when all the build workflows are still cached in my brain, not necessarily a feature for someone in particular)
+
+
+## 2023-03-30
+
+**Vince Carey** (06:34:14):
+> So a pull would look like`docker pull bioconductor/bioconductor_docker:3.16_R_4.2.3`but all the old patterns would still work.  I think it is a good idea to make the R version explicit in the container tag.
+
+
+## 2023-03-31
+
+*08:33:34 - @Aedin Culhane has joined the channel*
+*08:33:55 - @Monica Valecha has joined the channel*
+
+## 2023-04-08
+
+**Vince Carey** (23:05:10):
+> I hope the group will consider submitting an abstract to eurobioc, deadline apr 14[https://openreview.net/group?id=bioconductor.org/EuroBioC/2023/Conference](https://openreview.net/group?id=bioconductor.org/EuroBioC/2023/Conference)
+  - Attachment (OpenReview): [EuroBioC 2023 Conference](https://openreview.net/group?id=bioconductor.org/EuroBioC/2023/Conference)
+    > Welcome to the OpenReview homepage for EuroBioC 2023 Conference
+
+**Vince Carey** (23:06:19):
+> i'd hope there could be one on github actions, and perhaps one on the galaxy-oriented approach to workshop authoring and deployment
+
+
+## 2023-04-10
+
+**Brian Schilder** (08:20:08) (in thread):
+> i submitted an abstract on rworkflows. if anyone else from this group is going let me know!
+
+
+## 2023-04-14
+
+**Maria Doyle** (14:23:12):
+> :mega:Bioconductor Core Team is hiring a Cloud/DevOps Engineer. Info in the links below. Please spread the word!:pray:Twitter:[https://twitter.com/Bioconductor/status/1646930305524047875](https://twitter.com/Bioconductor/status/1646930305524047875)Mastodon:[https://genomic.social/@bioconductor/110198392782526658](https://genomic.social/@bioconductor/110198392782526658)
+  - Attachment (twitter): [Attachment](https://twitter.com/Bioconductor/status/1646930305524047875)
+    > :star2:#JobAlert: #Bioconductor :dna:is hiring a Cloud/DevOps Engineer! 
+    > 
+    > Passionate about #opensource & have AWS experience? Apply now! 
+    > 
+    > :arrow_right: [https://careers-dfci.icims.com/jobs/33592/cloud-devops-engineer%2c-bioconductor/job?mobile=false&width=888&height=500&bga=true&needsRedirect=false&jan1offset=0&jun1offset=60](https://careers-dfci.icims.com/jobs/33592/cloud-devops-engineer%2c-bioconductor/job?mobile=false&width=888&height=500&bga=true&needsRedirect=false&jan1offset=0&jun1offset=60) 
+    > 
+    > Please RT to help spread the word! :pray:
+    > 
+    > #DevOps #CloudJobs #Bioinformatics #rstats
+  - Attachment (genomic.social): [Bioconductor (@bioconductor@genomic.social)](https://genomic.social/@bioconductor/110198392782526658)
+    > :star2:#JobAlert: #Bioconductor :dna:is hiring a Cloud/DevOps Engineer! 
+    > 
+    > Passionate about #opensource & have AWS experience? Apply now! 
+    > 
+    > :arrow_right: [https://careers-dfci.icims.com/jobs/33592/cloud-devops-engineer%2c-bioconductor/job?mobile=false&width=888&height=500&bga=true&needsRedirect=false&jan1offset=0&jun1offset=60](https://careers-dfci.icims.com/jobs/33592/cloud-devops-engineer%2c-bioconductor/job?mobile=false&width=888&height=500&bga=true&needsRedirect=false&jan1offset=0&jun1offset=60) 
+    > 
+    > Please boost to help spread the word! :pray:
+    > 
+    > #DevOps #CloudJobs #Bioinformatics #rstats
+
+
+## 2023-04-15
+
+**Brian Schilder** (10:13:13):
+> That’s amazing news@Maria Doyle! I’m guessing whoever they hire will end up working closely with our group. Would be a huge boost to have someone working on this fulltime.
+
+
+## 2023-04-17
+
+**Brian Schilder** (07:10:21):
+> In other news, our Birds of a Feather abstract was accepted to Bioc2023 in Boston! thanks again to@Andres Wokatyfor submitting this, and to everyone for their contributions. Looking forward to making this a really great event
+
+
+## 2023-04-18
+
+**Brian Schilder** (10:28:44):
+> relatedly, i also got a slot for a 9min talk about rworkflows at the same conference. depending on the timing, ill make sure to advertise for the BoF as well
+
+**Marcel Ramos Pérez** (12:03:21):
+> Is there a meeting link?
+
+**Andres Wokaty** (12:04:27):
+> [https://meet.google.com/dpa-icph-wri](https://meet.google.com/dpa-icph-wri)
+
+**Andres Wokaty** (12:05:09):
+> We're meeting now if anyone would like to join
+
+
+## 2023-05-05
+
+**Brian Schilder** (12:30:46) (in thread):
+> @Marcel Ramos Pérezjust revisiting this and was wondering if you could help clarify something.
+> 
+> Does BiocManager use Anvil by default? or do i need to specify an additional URL to the`repo`arg? if it’s the latter, it would seem that the[URL used in biocthis](https://github.com/lcolladotor/biocthis/blob/910b96b140505ac9b13cc46a09be4b2d40d2ef75/.github/workflows/check-bioc.yml#L179)isn’t valid anymore:[https://github.com/neurogenomics/rworkflows/issues/58](https://github.com/neurogenomics/rworkflows/issues/58)
+  - Attachment: [#58 Relevance of using AnVIL](https://github.com/neurogenomics/rworkflows/issues/58)
+
+**Marcel Ramos Pérez** (13:37:23) (in thread):
+> Yes, you can install`AnVIL`binaries with`BiocManager`. No additional URL needed. The URL in biocthis shouldn't be used.
+
+**Brian Schilder** (13:38:01) (in thread):
+> got it, thanks for this!
+
+**Leonardo Collado Torres** (23:32:09) (in thread):
+> I’ve updated`biocthis`with this change
+
+
+## 2023-05-09
+
+*04:41:22 - @irem Kahveci has joined the channel*
+
+## 2023-05-11
+
+**Brian Schilder** (13:55:27):
+> Anyone going to the[EurBioc 2023 conference](https://eurobioc2023.bioconductor.org/)? i’ll be giving a workshop on rworkflows there
+
+**Leonardo Collado Torres** (21:20:21):
+> Nice!
+
+**Leonardo Collado Torres** (21:20:41):
+> Iwon’tbe attending this year
+
+**Leonardo Collado Torres** (21:20:49):
+> I’llbe at BioC2023 though
+
+
+## 2023-05-17
+
+**Brian Schilder** (11:51:38):
+> <!channel>Cloud Methods WG meeting in 10m!
+
+**Brian Schilder** (11:52:27):
+> i remembered to put together a[presentation](https://github.com/neurogenomics/rworkflows)on rworkflows today:slightly_smiling_face:
+
+**Andres Wokaty** (11:53:10):
+> Meeting link: RE: Cloud Methods Working Group
+> Wednesday, May 17 · 12:00 – 1:00pm
+> Time zone: America/New_York
+> Google Meet joining info
+> Video call link:[https://meet.google.com/npe-qxgh-qbt](https://meet.google.com/npe-qxgh-qbt)
+
+**Brian Schilder** (12:58:11):
+> As promised, here are my slides from today’s presentation on`rworkflows`. Thanks everyone for the helpful feedback!
+  - File (PowerPoint Presentation): [rworkflows_05_17_23.pptx](https://community-bioc.slack.com/files/U34P8RS3B/F058YHVTEPJ/rworkflows_05_17_23.pptx)
+
+**Sridhar N** (13:05:57):
+> nice work
+
+**Sridhar N** (13:06:40):
+> if you need any help with testing please feel free to send stuff my way. Happy to test and such.
+
+**Brian Schilder** (14:34:23) (in thread):
+> thanks for reminding me about this@Sridhar N! i’ll DM you now
+
+**Vince Carey** (20:43:42):
+> Is this a pathological situation? 2h for apt-get -- and counting.  Is it a problem with a should-be obsolete container?  does my workflow need updating?
+  - File (JPEG): [badact.jpg](https://community-bioc.slack.com/files/U34P8RS3B/F05886VP2KX/badact.jpg)
+
+
+## 2023-05-18
+
+*05:53:23 - @Oluwafemi Oyedele has joined the channel*
+**Leonardo Collado Torres** (07:06:32) (in thread):
+> SorryI’mat a conference this week
+
+**Brian Schilder** (11:54:21) (in thread):
+> no worries@Leonardo Collado Torres, i believe@Alex Mahmoudrecorded the talk in case youd like to check it out later
+
+
+## 2023-06-06
+
+*11:36:16 - @Ahmad Alkhan has joined the channel*
+**Brian Schilder** (11:41:19):
+> Hey@Andres Wokatythanks for sending the invite for the next meeting! unfortunately i wont be able to make it then since my holiday schedule changed since we last talked. ill be away June 21-July 6
+
+**Andres Wokaty** (12:33:00) (in thread):
+> No worries. Have a great holiday!
+
+**Brian Schilder** (13:20:28) (in thread):
+> just let me know if there’s any action items for me to help w after the meeting!
+
+
+## 2023-06-13
+
+*15:17:19 - @António Domingues has joined the channel*
+
+## 2023-06-21
+
+**Andres Wokaty** (12:02:23):
+> Hi, we're meeting now: Cloud Methods Working Group
+> Wednesday, June 21 · 12:00 – 12:45pm
+> Time zone: America/New_York
+> Google Meet joining info
+> Video call link:[https://meet.google.com/yrg-ozqg-zgu](https://meet.google.com/yrg-ozqg-zgu)
+  - Attachment (meet.google.com): [Meet](https://meet.google.com/yrg-ozqg-zgu)
+    > Real-time meetings by Google. Using your browser, share your video, desktop, and presentations with teammates and customers.
+
+
+## 2023-06-22
+
+**Leonardo Collado Torres** (14:48:37):
+> Oops, I forgot about the meeting yesterday
+
+**Leonardo Collado Torres** (14:48:41):
+> my bad!
+
+
+## 2023-06-27
+
+**Mike Smith** (09:17:33):
+> Hi channel, sorry I haven't been very involved in this working group. The meetings somehow always seem to clash with childcare commitments for me.
+> 
+> One thing I have just done is draft a new Bioconductor blog post on using GitHub Actions and emulation to test packages on Linux ARM64.  It'd be great if anyone has any feedback on the piece before it gets publish.   You can find the pull request at[https://github.com/Bioconductor/biocblog/pull/47](https://github.com/Bioconductor/biocblog/pull/47); please feel free to make suggestions.
+  - Attachment: [#47 Testing Packages on Linux ARM64 with GitHub Actions](https://github.com/Bioconductor/biocblog/pull/47)
+    > This post is a follow up to "[Emulated build and test of Bioconductor packages for  
+    > Linux  
+    > ARM64](https://bioconductor.github.io/biocblog/posts/2023-06-09-debug-linux-arm64-on-docker/)" detailing how I use the same techniques to try and automate package tests on Linux ARM64. I thought it might be something useful to share with other package developers if we're planning to support Linux ARM64 more going forward.
+    > 
+    > It would be great to get some feedback on this, particularly from [@martin-g](https://github.com/martin-g) and members of the cloud working group e.g. [@jwokaty](https://github.com/jwokaty)
+    > 
+    > * * *
+    > 
+    > Note: the example workflow mentioned in the post is currently failing due to an issue in the digest package on non x86 architecture ([eddelbuettel/digest#189](https://github.com/eddelbuettel/digest/issues/189)). Hopefully it'll be fixed soon although a broken workflow highlights the usefulness of this approach.
+
+**Martin Grigorov** (10:07:23) (in thread):
+> let me take a look !
+
+
+## 2023-06-28
+
+**Martin Grigorov** (09:08:53) (in thread):
+> @Mike SmithCould you please take a look at[https://cirrus-ci.com/task/6085371633598464?logs=CMD_check#L20](https://cirrus-ci.com/task/6085371633598464?logs=CMD_check#L20)?
+
+**Martin Grigorov** (09:11:06) (in thread):
+> Ha! It fails the same way on Github CI -[https://github.com/martin-g/bioc-testing-with-arm64/actions/runs/5400196099/jobs/9809066944](https://github.com/martin-g/bioc-testing-with-arm64/actions/runs/5400196099/jobs/9809066944)
+
+**Mike Smith** (09:20:50) (in thread):
+> Yes, I think the latest version of the  digest package has some code that is not portable to non x86 architecture. Reading the GitHub issue@Dirk Eddelbuettelhas already got a fix for it.
+
+**Martin Grigorov** (09:21:16) (in thread):
+> I fixed the build by installing`BiocStyle`([https://github.com/martin-g/bioc-testing-with-arm64/pull/2/files#diff-62587956f943bb2503db7bc6dd27d0d888074a1c0ecaab3f570ad611aff0f7bbR21](https://github.com/martin-g/bioc-testing-with-arm64/pull/2/files#diff-62587956f943bb2503db7bc6dd27d0d888074a1c0ecaab3f570ad611aff0f7bbR21)) but I think it should be part of the Docker image ?!
+
+**Martin Grigorov** (09:21:31) (in thread):
+> successful build at CirrusCI:[https://cirrus-ci.com/task/4580454955745280](https://cirrus-ci.com/task/4580454955745280)
+
+**Martin Grigorov** (09:23:40) (in thread):
+> with empty cache it took 6 mins! Github CI is still running -[https://github.com/martin-g/bioc-testing-with-arm64/actions/runs/5401526677](https://github.com/martin-g/bioc-testing-with-arm64/actions/runs/5401526677)
+
+**Martin Grigorov** (09:26:02) (in thread):
+> about`digest`- yes, I also noticed the problem today with another package
+
+**Mike Smith** (09:43:18) (in thread):
+> That successful build still fails to install digest~~~~ and thus BiocStyle~~. It should probably test the return code of the Rscript installation step.
+
+**Mike Smith** (14:28:45) (in thread):
+> ***Correction to my previous post. ***It does install BiocStyle the second time around, but I'm confused as to why given digest still fails.  Maybe digest isn't actually the indirect dependency I thought it was.  Explicitly asking to install BiocStyle doesn't prompt installation of digest, but doing so via`Suggests: BiocStyle`seems to.  Presumably there's a slightly more complicated relationship between the packages than I assumed.  Maybe the container image already has a working version of digest but fails to update it or something:shrug:Anyway, cool to see how much quicker it is running natively; especially since it's actually (failing to) install several of the packages twice in the Cirrus CI workflow.
+
+
+## 2023-07-13
+
+*07:00:51 - @Brian Schilder has joined the channel*
+
+## 2023-07-18
+
+**Andres Wokaty** (12:04:22):
+> We're meeting today:[https://meet.google.com/yrg-ozqg-zgu](https://meet.google.com/yrg-ozqg-zgu)
+  - Attachment (meet.google.com): [Meet](https://meet.google.com/yrg-ozqg-zgu)
+    > Real-time meetings by Google. Using your browser, share your video, desktop, and presentations with teammates and customers.
+
+
+## 2023-07-25
+
+**Andres Wokaty** (11:10:03):
+> Cloud Methods Working Group BoF Preparation
+> Tuesday, July 25 · 12:00 – 12:45pm
+> Time zone: America/New_York
+> Google Meet joining info
+> Video call link:[https://meet.google.com/yrg-ozqg-zgu](https://meet.google.com/yrg-ozqg-zgu)
+  - Attachment (meet.google.com): [Meet](https://meet.google.com/yrg-ozqg-zgu)
+    > Real-time meetings by Google. Using your browser, share your video, desktop, and presentations with teammates and customers.
+
+**Andres Wokaty** (12:20:04):
+> @Alex MahmoudSorry, I keep losing my connection. Could I ask you to help with the slides a bit and a good jumping off point for discussion?
+
+**Andres Wokaty** (15:01:03):
+> Alex and I prepared some initial slides for the BoF at Bioc2023. You're welcome to edit at[https://docs.google.com/presentation/d/1va-hCFFmJ8eRNFo8LxwbfD1Y3oycJq3SktT48C5WzzU/edit?usp=sharing](https://docs.google.com/presentation/d/1va-hCFFmJ8eRNFo8LxwbfD1Y3oycJq3SktT48C5WzzU/edit?usp=sharing). At the BoF we'll give provide background and motivation for the group, what we're currently working on, how to get involved and have a discussion.
+
+
+## 2023-07-28
+
+**Brian Schilder** (08:28:54):
+> Hi all, sorry I missed the BoF prep meeting, I was being a busy bee:bee:at ISMB (conference in Lyon)
+
+**Brian Schilder** (08:29:28):
+> I can help with fleshing out the slides
+
+**Brian Schilder** (08:29:44):
+> let me know if there's anything in particular youd like me to help with
+
+
+## 2023-08-01
+
+*09:12:31 - @Nikhil Mane has joined the channel*
+**Brian Schilder** (10:33:32):
+> Hi<!channel>, I've been working on fleshing out the Birds of a Feather slides for our upcoming presentation. Feel free to makes edits and suggestions!@Andres Wokatycan you remind me how much time we'll have total for the BoF session?[https://docs.google.com/presentation/d/1va-hCFFmJ8eRNFo8LxwbfD1Y3oycJq3SktT48C5WzzU/edit#slide=id.g25da35770a4_0_92](https://docs.google.com/presentation/d/1va-hCFFmJ8eRNFo8LxwbfD1Y3oycJq3SktT48C5WzzU/edit#slide=id.g25da35770a4_0_92)
+
+**Andres Wokaty** (10:35:21) (in thread):
+> We have 45 minutes. I think we should allow time for discussion.
+
+**Brian Schilder** (10:39:24) (in thread):
+> excellent, thanks! if we want to break up the presentation into sections, id be happy to present on the GitHub Actions part
+
+**Andres Wokaty** (11:00:36) (in thread):
+> Ok, great. It might be good to organize who will talk about what. I will look at the slides later today.
+
+**Andres Wokaty** (11:01:43) (in thread):
+> Will you be attending in person or virtually?
+
+**Brian Schilder** (11:01:55) (in thread):
+> in person, actually im here in Boston now! got in early
+
+**Andres Wokaty** (11:02:25) (in thread):
+> nice! it will be good to meet.
+
+**Brian Schilder** (11:05:55) (in thread):
+> yay! absolutely:slightly_smiling_face:
+
+
+## 2023-08-02
+
+**Andres Wokaty** (13:54:49):
+> Would everyone like to meet during the networking session to discuss the BoF?
+
+**Alex Mahmoud** (14:09:11) (in thread):
+> Yes from me!
+
+**Andres Wokaty** (16:08:24) (in thread):
+> @Erdal Cosgunwe will meet in the cafeteria close to the rooms where the keynotes are held to discuss the BoF. If you have time, join us
+
+
+## 2023-08-03
+
+*09:38:22 - @Tyrone Lee has joined the channel*
+*10:50:27 - @Jill Lundell has joined the channel*
+*10:57:37 - @Joost Groot has joined the channel*
+*10:58:03 - @Chenyue Lu has joined the channel*
+*10:58:48 - @Joselyn Chávez has joined the channel*
+*11:04:24 - @Ludwig Geistlinger has joined the channel*
+*11:41:52 - @Francesc Català-Moll has joined the channel*
+*15:57:07 - @Ritika Giri has joined the channel*
+
+## 2023-08-22
+
+**Andres Wokaty** (12:04:59):
+> We're meeting now if anyone would like to join:[https://meet.google.com/yrg-ozqg-zgu](https://meet.google.com/yrg-ozqg-zgu)
+  - Attachment (meet.google.com): [Meet](https://meet.google.com/yrg-ozqg-zgu)
+    > Real-time meetings by Google. Using your browser, share your video, desktop, and presentations with teammates and customers.
+
+
+## 2023-09-22
+
+*12:56:40 - @Sebastian Lobentanzer has joined the channel*
+**Sebastian Lobentanzer** (13:00:40):
+> Regarding the discussion today about the migration to github, I had a thought about the whereabouts of the packages and the github organisation. Instead of "physically" moving the repositories to the bioconductor org (and then having to deal with what to do when they fall out of maintenance and don't pass any more), could the approved packages be forked into the bioconductor org instead? Then you'd only have to remove the fork to revoke approval of a package, and won't have to delete the original repo.@Marcel Ramos Pérez@Mike Smith@Brian Schilder
+
+**Sean Davis** (16:42:09):
+> While on the topic of metrics, do we have metrics on egress volumes and costs? We could consider a trial of this service:[https://www.cloudflare.com/pg-cloudflare-r2-vs-aws-s3/](https://www.cloudflare.com/pg-cloudflare-r2-vs-aws-s3/)
+  - Attachment (Cloudflare): [Cloudflare R2 vs AWS S3 | Review Pricing & Features | Cloudflare](https://www.cloudflare.com/pg-cloudflare-r2-vs-aws-s3/)
+    > With zero egress fees, Cloudflare R2 beats out Amazon S3 as the most cost-effective object storage solution. Compare R2 pricing and features to S3.
+
+**Sean Davis** (16:43:04):
+> I'm happy to do some of the work if we can get an account set up (ie., pay for the service).
+
+
+## 2023-09-23
+
+**Brian Schilder** (07:07:54) (in thread):
+> i think that would make quite a bit of sense. this way the original creator can maintain ownership of the original repo, and make PRs to the Bioconductor fork. only downside i can see is that it might be a bit confusing having multiple repos for the same package
+
+**Brian Schilder** (07:45:21):
+> Hi everyone<!channel>, for those who aren't aware I'll be taking over for@Andres Wokatyas the next Chair of the Cloud Methods Working Group (in accordance with our 6-month cycle). It was excellent seeing many of you at the Bioc2023 and/or EuroBioc2023 conferences! To start, I'd like to build on some of the conversations we had there (eg the possibility of Bioc eventually moving to GitHub entirely). as well as continue ongoing discussions about objectives within the Cloud Methods Working Group (see[here for some notes on this](https://community-bioc.slack.com/archives/C04NPB74Y78/p1677065676482189)).
+> 
+> For the next meeting, I'd like to begin laying out a tentative timeline for these various objectives (subject to change based on feedback and other ideas of course). Once we solidify this, I can start a GitHub Project that breaks down each of these objectives into tasks that can be assigned to specific members. My hope is that this makes is easier for to keep track of what we've accomplished so far, and what the next steps are.
+> 
+> As far as scheduling the meeting, I realize I'm behind on our usual monthly meetings (usually the 3rd week of each month). Apologies for that! As scheduling for next week might be a bit too short notice, I can propose some dates for the first 2 weeks of October via a scheduler (will send this shortly). Hopefully we can find a time that works well for some key members for whom the previous meeting times didn't work so well for.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C04NPB74Y78/p1677065676482189)
+    > Here’s the document that @Alex Mahmoud created to begin sorting out the goals and organisation of the Cloud Working Group. The rest of us have begun to flesh this out a bit, so other please feel free to do the same:
+    > [https://docs.google.com/document/d/1IVPUhohCr41LAqjHf91bAw5pcXRWviUl-ye5pT4s5nA/edit#heading=h.fp0asefyf4w2](https://docs.google.com/document/d/1IVPUhohCr41LAqjHf91bAw5pcXRWviUl-ye5pT4s5nA/edit#heading=h.fp0asefyf4w2)
+
+**Brian Schilder** (09:06:11):
+> <!channel>For scheduling our next meeting, could everyone could please fill out the following scheduler by Friday of next week (September 29th). Thank you![https://www.when2meet.com/?21598813-1Dns5](https://www.when2meet.com/?21598813-1Dns5)
+
+**Alex Mahmoud** (13:28:22) (in thread):
+> Fwiw, we have egress-free buckets from Open Storage Network and Jetstream as well which we've been using for the archive and some dev for a bit
+
+**Sean Davis** (13:41:32) (in thread):
+> We could develop a small comparison between R2, the current solution using s3, and OSN.
+
+
+## 2023-09-25
+
+**Sebastian Lobentanzer** (05:00:07) (in thread):
+> Yeah; we'd have to clearly specify the`bioconductor/`package to be the "approved version" of the current cycle. There can be automated changes to the README for example, adding a header at the top that explains this and links to the original repo.
+
+**Marcel Ramos Pérez** (10:36:03) (in thread):
+> Hi Brian, how does this work? It seems to be a 1 to 1 booking app..
+
+
+## 2023-09-26
+
+**Brian Schilder** (06:01:35) (in thread):
+> I believe[it can do both actually](http://getclockwise.com/blog/google-calendar-find-a-time). Click the days highlighted in blue on the calendar and select the time slots that work for you.
+  - Attachment (getclockwise.com): [How to Use Google Calendar 'Find a Time' Meeting Feature | Clockwise](http://getclockwise.com/blog/google-calendar-find-a-time)
+    > Step-by-step guide for using Google Calendar's 'Find a Time’ feature for scheduling meetings with ease. Read now!
+
+**Sebastian Lobentanzer** (06:40:12) (in thread):
+> Hi@Brian Schilder,
+> I think the functionality you linked in the article only works from the organiser's end. I.e., you would select invitees and, if they are in the same gcal environment as you, you can see their availabilities alongside yours. Then you're able to select a timeslot that suits all.
+> 
+> For me, your link just takes me to 1on1 booking. Do you know[when2meet](https://www.when2meet.com)? That's my go-to.
+  - Attachment (when2meet.com): [When2meet](https://www.when2meet.com)
+    > When2meet helps you find the best time for a group to get together. It is a free survey tool that is quick and easy to use.
+
+**Brian Schilder** (07:12:42) (in thread):
+> ok, might not be an ideal option then. been looking for an alternative to Doodle since they made some of the basic features pay-only. Ill check out when2meet and perhaps update the invite link
+
+**Sebastian Lobentanzer** (08:02:17) (in thread):
+> when2meet is super straightforward and free. can only recommend.
+
+**Marcel Ramos Pérez** (09:08:28) (in thread):
+> Thanks Sebastian, I was looking for that website!
+
+
+## 2023-09-27
+
+**Brian Schilder** (11:45:45) (in thread):
+> giving when2meet a try:[https://www.when2meet.com/?21598813-1Dns5](https://www.when2meet.com/?21598813-1Dns5)
+
+**Brian Schilder** (11:47:50) (in thread):
+> let me know if works ok
+
+**Sebastian Lobentanzer** (11:49:41) (in thread):
+> completed it, you can check if you see mine.
+
+**Brian Schilder** (11:54:30) (in thread):
+> awesome, thank you!
+
+
+## 2023-10-04
+
+**Brian Schilder** (15:57:07):
+> <!channel>Could anyone who hasn't filled out the scheduling poll please fill it out as soon as you can? (looks like only 2 people have so far). I'll finalize the schedule in the next day or so.[https://community-bioc.slack.com/archives/C04NPB74Y78/p1695474371004909](https://community-bioc.slack.com/archives/C04NPB74Y78/p1695474371004909)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C04NPB74Y78/p1695474371004909)
+    > <!channel> For scheduling our next meeting, could everyone could please fill out the following scheduler by Friday of next week (September 29th). Thank you!
+    > [https://www.when2meet.com/?21598813-1Dns5](https://www.when2meet.com/?21598813-1Dns5)
+
+**Erdal Cosgun** (15:59:20) (in thread):
+> Hi@Brian Schilder, I filled out the poll  last week. JFYI
+
+**Sean Davis** (15:59:23):
+> @Brian Schilderlooks like these have been 12-12:45 on Tuesdays for at least the last couple of meetings. Does it make sense to just stick with that?
+
+**Brian Schilder** (16:09:25) (in thread):
+> yes, i saw that@Erdal Cosgun, thank you so much! looking to get a few more
+
+**Brian Schilder** (16:10:14) (in thread):
+> Potentially, though a number of key members haven't been able to attend those times so I thought it would worthwhile getting a sense of when everyone was free
+
+**Brian Schilder** (16:10:50) (in thread):
+> but it might be a good default if there's no overwhelming preference for another time
+
+
+## 2023-10-09
+
+**Brian Schilder** (09:05:08):
+> Hi everyone, you should have all received an email invite for a recurring monthly meeting for the Bioconductor Cloud Methods Working Group. You can also access it via this link:[https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=Mm5nanZxbWRhYjIzMmRtM\[…\]nJvd24uZWR1&tmsrc=brian_schilder%40alumni.brown.edu&scp=ALL](https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=Mm5nanZxbWRhYjIzMmRtMzZwc29xM2JlaDZfMjAyMzEwMTlUMTYwMDAwWiBicmlhbl9zY2hpbGRlckBhbHVtbmkuYnJvd24uZWR1&tmsrc=brian_schilder%40alumni.brown.edu&scp=ALL)The next meeting is scheduled for next Thursday (Oct 19th) from 12-1pm EST (5-6pm BST).
+  - Attachment (Google Workspace): [Google Calendar - Easier Time Management, Appointments & Scheduling](https://calendar.google.com/calendar/event?action=TEMPLATE&amp;tmeid=Mm5nanZxbWRhYjIzMmRtMzZwc29xM2JlaDZfMjAyMzEwMTlUMTYwMDAwWiBicmlhbl9zY2hpbGRlckBhbHVtbmkuYnJvd24uZWR1&amp;tmsrc=brian_schilder%40alumni.brown.edu&amp;scp=ALL)
+    > Learn how Google Calendar helps you stay on top of your plans - at home, at work and everywhere in between.
+
+
+## 2023-10-17
+
+**Erdal Cosgun** (14:11:45):
+> <!channel>Hi everyone, quick note for the meeting on Thursday: I will share the updates about the cloud storage account defender deployment for Bioconductor Hubs. FYI.
+
+
+## 2023-10-18
+
+**Lori Shepherd** (09:11:34):
+> @Erdal Cosgunif this is new it seems to be affecting access to the hubs as we are starting to get`409 Public access is not permitted on this storage account.`when people (including myself) are trying to access resources .  Or there is something else going on that needs immediate attention
+
+**Lori Shepherd** (09:23:48):
+> This is true for experimenthub and annotationhub
+
+**Erdal Cosgun** (11:02:01):
+> Hi@Lori Shepherd, thanks for letting me know. Let me check this issue.
+
+
+## 2023-10-19
+
+**Brian Schilder** (09:07:32) (in thread):
+> perfect, thanks Erdal!
+
+**Brian Schilder** (11:50:29):
+> Hi<!channel>, our Bioc Cloud Methods Working Group meeting will be starting in 10min!
+> Looking forward to seeing many of you there:[https://meet.google.com/tmb-neoz-ssr](https://meet.google.com/tmb-neoz-ssr)tel:+1%20216-930-7803;106670384%23
+  - Attachment (meet.google.com): [Meet](https://meet.google.com/tmb-neoz-ssr)
+    > Real-time meetings by Google. Using your browser, share your video, desktop, and presentations with teammates and customers.
+
+**Erdal Cosgun** (12:27:43):
+> The deck that I shared today.
+  - File (PowerPoint Presentation): [BioCHubs_Storage_Defender.pptx](https://community-bioc.slack.com/files/U34P8RS3B/F061R8BDL3Y/biochubs_storage_defender.pptx)
+
+**Brian Schilder** (12:52:14):
+> Thanks again for all your great work@Erdal Cosgun!
+> Here's some of the resources shared in today's meeting:
+> * [Malware Scanning for cloud storage GA announcement | prevent malicious content distribution](https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/malware-scanning-for-cloud-storage-ga-announcement-prevent/ba-p/3884470)
+> * `oyster`[: Secure your R projects against insecure dependencies using OSS Index](https://github.com/sonatype-nexus-community/oysteR)
+  - Attachment (TECHCOMMUNITY.MICROSOFT.COM): [Malware Scanning for cloud storage GA announcement | prevent malicious content distribution](https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/malware-scanning-for-cloud-storage-ga-announcement-prevent/ba-p/3884470)
+    > How to prevent malicious content distribution from your cloud storage a scalable, built-in, and agentless solution
+
+
+## 2023-10-26
+
+**Brian Schilder** (13:53:19):
+> Hi everyone, I wanted to advertise this post here in order to hopefully solicit the collective brainpower of the group! Any and all ideas/comments are welcome! Some of the ideas that come out of this Discussion may be fodder for future Bioc Cloud Methods WG meetings:[https://community-bioc.slack.com/archives/C35G93GJH/p1698342644647469](https://community-bioc.slack.com/archives/C35G93GJH/p1698342644647469)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C35G93GJH/p1698342644647469)
+    > Hi everyone! I've been trying to brainstorm ways to best sustain open-source projects in the long-run. [specifically ](https://github.com/neurogenomics/rworkflows)`rworkflows`. I think there may be some unique opportunities with foundational projects like `rworkflows` with a potentially wide appeal to the R community. I've kicked things off with several linked issues in the 2nd comment, but any and all ideas/experiences/examples would be most welcome! :sparkles: :pray: :sparkles:
+    > [https://github.com/neurogenomics/rworkflows/discussions/93](https://github.com/neurogenomics/rworkflows/discussions/93)
+
+
+## 2023-11-16
+
+**Brian Schilder** (12:00:34):
+> Hi<!channel>Our monthly Bioc Cloud Methods WG meeting is about to begin![https://meet.google.com/tmb-neoz-ssr](https://meet.google.com/tmb-neoz-ssr)tel:+1%20216-930-7803;106670384%23
+  - Attachment (meet.google.com): [Meet](https://meet.google.com/tmb-neoz-ssr)
+    > Real-time meetings by Google. Using your browser, share your video, desktop, and presentations with teammates and customers.
+
+**Andres Wokaty** (12:01:19) (in thread):
+> will be a bit late from another meeting
+
+
+## 2023-11-30
+
+**Brian Schilder** (06:40:11):
+> Reposting here as it seems relevant to this group:[https://community-bioc.slack.com/archives/C35G93GJH/p1701287587945489](https://community-bioc.slack.com/archives/C35G93GJH/p1701287587945489)
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C35G93GJH/p1701287587945489)
+    > Hey all, I'm taking suggestions for useful services to include in a [status.bioconductor.org](http://status.bioconductor.org) page. Tentative plan is to currently include:
+    > 
+    > Main site: [bioconductor.org](http://bioconductor.org)
+    > Workshop site: [workshop.bioconductor.org](http://workshop.bioconductor.org)
+    > Container availability: checking containers can be pulled and have correct versions for devel/release
+    > Container binary repository: checking whether container binaries properly work in the docker images
+    > 
+    > Are there any relevant Bioconductor services/commands for which people would like to be able to have a status?
+
+*14:42:14 - @Ritika Giri has left the channel*
+
+## 2023-12-21
+
+**Alex Mahmoud** (12:05:35):
+> Are we meeting today? I thought there was a calendar invite, but can't see it anymore
+
+**Brian Schilder** (12:11:20):
+> hey everyone, i canceled the invite today since most people are on holiday. we will reconvene in January! happy holidays!:star:
+
+*14:02:39 - @Hervé Pagès has joined the channel*
+
+## 2023-12-29
+
+*09:59:37 - @Manvi Yaduvanshi has joined the channel*
+
+## 2024-01-01
+
+*02:32:26 - @Sonali Kumari has joined the channel*
+
+## 2024-01-18
+
+**Brian Schilder** (06:32:53):
+> Hi everyone<!channel>, welcome back after the well-deserved holiday break!
+> 
+> Today we'll be resuming our monthly Bioc Cloud Methods Working Group meetings at 5pm GMT (12pm EST). As a continuation of a discussion that arose in the EuroBioc2023 conference, I'll be leading a conversation on current and potential future roles of GitHub as a platform for Bioc.
+> Looking forward to seeing you all there![https://meet.google.com/tmb-neoz-ssr](https://meet.google.com/tmb-neoz-ssr)
+  - Attachment (meet.google.com): [Meet](https://meet.google.com/tmb-neoz-ssr)
+    > Real-time meetings by Google. Using your browser, share your video, desktop, and presentations with teammates and customers.
+
+**Brian Schilder** (06:37:41) (in thread):
+> @Aedin Culhane@Mike Smith@Isaac Virshup@Marcel Ramos Pérezyou might be particularly interested in this as I seem to recall you were part of the convo at EuroBioc this year
+
+*06:37:48 - @Isaac Virshup has joined the channel*
+**Andres Wokaty** (12:05:15) (in thread):
+> I will be a little late
+
+*14:22:09 - @Hervé Pagès has left the channel*
+**Brian Schilder** (14:37:58):
+> Thank you so much to everyone for the engaging discussion on the past, present and future of Bioc on GitHub.
+> * A very kindly "Anonymous Python" has added the notes[here](https://docs.google.com/document/d/1IVPUhohCr41LAqjHf91bAw5pcXRWviUl-ye5pT4s5nA/edit?usp=sharing).
+> * I've added these notes, as well as the video recordings and slideshows from past meetings in a dedicated Bioconductor Clouds Methods WG Google Drive:[https://drive.google.com/drive/folders/1gwVDekQucikpxcXEclIWfwshax4YUYHe](https://drive.google.com/drive/folders/1gwVDekQucikpxcXEclIWfwshax4YUYHe)
+
+**Brian Schilder** (14:40:57):
+> As there was significant interest to keep this conversation going, I'll be sending out a calendar invite for a follow up to this discussion to take place in 2 weeks from now.
+
+**Brian Schilder** (15:06:38):
+> Also, we're due to rotate the next chair of the Bioc Cloud Methods WG at the end of February. If anyone would like to put their hat in the ring, please do speak up or DM me!
+
+
+## 2024-01-21
+
+*14:41:13 - @Saga has joined the channel*
+
+## 2024-01-22
+
+**Sean Davis** (17:19:39):
+> One of the items that came up during our last call was a longitudinal view of Bioc builds. To that end, there is now a little experimental build system database described briefly in this post on the#tech-advisory-boardchannel. Let me know if you have thoughts or suggestions.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CLF37V6C8/p1705961473664969)
+    > After some discussion about wishes for the build system, I took advantage of @Vince Carey's budding historical archive of build reports. FYI, each build report is available for each build as a gzipped tarfile. However, these have not been maintained historically and are replaced with each successive build. The data in each tarfile are the same as those available on the website or via the BiocPkgTools::biocBuildReport. With a collection of a couple of hundred of these, captured historically, I pulled out all the relevant data for each and constructed a couple of parquet (tables) for each. I then loaded those to motherduck (duckdb, but a server).
+    > 
+    > At a higher level, the idea is to be able to track the build processes longitudinally and perform analytics over the builds. To give things a try, using duckdb (whatever flavor you want to use--R, python, CLI), start duckdb and then:
+    > 
+    > ```ATTACH 'md:_share/bioc/b0d67cb0-cbf7-4d24-9f39-2fce1e8ea648';
+    > use bioc;
+    > show tables;
+    > select count(*) from build_reports;
+    > describe build_reports;
+    > select min(started_at),max(ended_at) from build_reports;
+    > select distinct git_branch from build_reports;
+    > describe propagate_statuses;
+    > select array_agg(package) as affected_packages, count(**), propagate from propagate_statuses group by propagate order by count(**) desc;```
+    > Here is what the two tables look like:
+    > ```D show  build_reports;
+    > ┌──────────────────────┬─────────────┬─────────┬─────────┬─────────┬───────┐
+    > │     column_name      │ column_type │  null   │   key   │ default │ extra │
+    > │       varchar        │   varchar   │ varchar │ varchar │ varchar │ int32 │
+    > ├──────────────────────┼─────────────┼─────────┼─────────┼─────────┼───────┤
+    > │ package              │ VARCHAR     │ YES     │         │         │       │
+    > │ version              │ VARCHAR     │ YES     │         │         │       │
+    > │ command              │ VARCHAR     │ YES     │         │         │       │
+    > │ started_at           │ TIMESTAMP   │ YES     │         │         │       │
+    > │ ended_at             │ TIMESTAMP   │ YES     │         │         │       │
+    > │ ellapsed_time        │ VARCHAR     │ YES     │         │         │       │
+    > │ ret_code             │ VARCHAR     │ YES     │         │         │       │
+    > │ status               │ VARCHAR     │ YES     │         │         │       │
+    > │ package_file         │ VARCHAR     │ YES     │         │         │       │
+    > │ package_file_size    │ VARCHAR     │ YES     │         │         │       │
+    > │ machine              │ VARCHAR     │ YES     │         │         │       │
+    > │ process              │ VARCHAR     │ YES     │         │         │       │
+    > │ deploy_dest_dir      │ VARCHAR     │ YES     │         │         │       │
+    > │ warnings             │ VARCHAR     │ YES     │         │         │       │
+    > │ md5                  │ UUID        │ YES     │         │         │       │
+    > │ maintainer           │ VARCHAR     │ YES     │         │         │       │
+    > │ maintainer_email     │ VARCHAR     │ YES     │         │         │       │
+    > │ git_url              │ VARCHAR     │ YES     │         │         │       │
+    > │ git_branch           │ VARCHAR     │ YES     │         │         │       │
+    > │ git_last_commit      │ VARCHAR     │ YES     │         │         │       │
+    > │ git_last_commit_date │ TIMESTAMP   │ YES     │         │         │       │
+    > │ md5_right            │ UUID        │ YES     │         │         │       │
+    > ├──────────────────────┴─────────────┴─────────┴─────────┴─────────┴───────┤
+    > │ 22 rows                                                        6 columns │
+    > 
+    > D show propagate_statuses;
+    > ┌──────────────────────┬─────────────┬─────────┬─────────┬─────────┬───────┐
+    > │     column_name      │ column_type │  null   │   key   │ default │ extra │
+    > │       varchar        │   varchar   │ varchar │ varchar │ varchar │ int32 │
+    > ├──────────────────────┼─────────────┼─────────┼─────────┼─────────┼───────┤
+    > │ package              │ VARCHAR     │ YES     │         │         │       │
+    > │ version              │ VARCHAR     │ YES     │         │         │       │
+    > │ maintainer           │ VARCHAR     │ YES     │         │         │       │
+    > │ maintainer_email     │ VARCHAR     │ YES     │         │         │       │
+    > │ git_url              │ VARCHAR     │ YES     │         │         │       │
+    > │ git_branch           │ VARCHAR     │ YES     │         │         │       │
+    > │ git_last_commit      │ VARCHAR     │ YES     │         │         │       │
+    > │ git_last_commit_date │ TIMESTAMP   │ YES     │         │         │       │
+    > │ md5                  │ VARCHAR     │ YES     │         │         │       │
+    > │ platform             │ VARCHAR     │ YES     │         │         │       │
+    > │ propagate            │ VARCHAR     │ YES     │         │         │       │
+    > ├──────────────────────┴─────────────┴─────────┴─────────┴─────────┴───────┤
+    > │ 11 rows                                                        6 columns │
+    > └──────────────────────────────────────────────────────────────────────────┘```
+
+
+## 2024-01-23
+
+**Sean Davis** (08:36:16):
+> The duckdb sharing mechanism that I posted about earlier is a little flaky. You can temporarily grab the build report database tables as parquet files at these links.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/CLF37V6C8/p1706016079485629?thread_ts=1705961473.664969&cid=CLF37V6C8)
+    > Apologies, Martin. Motherduck is still very much alpha software and that is where the "_share" is coming from. As an alternative, here are a couple of a signed URLs (good through Friday) for parquet files with the same data.
+    > • build_report (about 5.5GB): [https://55bf7202fe14474e57a300f56a652f64.r2.cloudflarestorage.com/bioconductor/build_reports/build_report\[…\]5248894690119416f082c0e4fbb44703e6889a16](https://55bf7202fe14474e57a300f56a652f64.r2.cloudflarestorage.com/bioconductor/build_reports/build_reports.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=89b04bd9337ac0dd7ebb83a2f1defdec%2F20240123%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20240123T131625Z&X-Amz-Expires=345600&X-Amz-SignedHeaders=host&X-Amz-Signature=d1781271b9d1c932be5494f25248894690119416f082c0e4fbb44703e6889a16)
+    > • propagation_statuses (about 11MB): [https://55bf7202fe14474e57a300f56a652f64.r2.cloudflarestorage.com/bioconductor/build_reports/propagate_st\[…\]9e2b7616d2a4fd82359ac3cbe719ee547537b24a](https://55bf7202fe14474e57a300f56a652f64.r2.cloudflarestorage.com/bioconductor/build_reports/propagate_statuses.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=89b04bd9337ac0dd7ebb83a2f1defdec%2F20240123%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20240123T131856Z&X-Amz-Expires=345600&X-Amz-SignedHeaders=host&X-Amz-Signature=17ee7b7e4422babbc1141c3e9e2b7616d2a4fd82359ac3cbe719ee547537b24a)
+    > Download the links. The parquet files are just tabular data. For loading to R, see [https://arrow.apache.org/docs/r/reference/read_parquet.html](https://arrow.apache.org/docs/r/reference/read_parquet.html) or use the duckdb R package.
+
+
+## 2024-02-03
+
+**Sridhar N** (17:17:44):
+> [https://www.nature.com/articles/s41467-023-44484-5](https://www.nature.com/articles/s41467-023-44484-5)kudos@Brian Schilder! et al.
+  - Attachment (Nature): [rworkflows: automating reproducible practices for the R community](https://www.nature.com/articles/s41467-023-44484-5)
+    > Nature Communications - Reproducibility is essential for the progress of research, yet achieving it remains elusive even in computational fields. Here, authors develop the rworkflows suite, making...
+
+
+## 2024-02-04
+
+**Brian Schilder** (06:22:20) (in thread):
+> thanks@Sridhar N! excited to get it out there:slightly_smiling_face:
+
+
+## 2024-02-05
+
+**Brian Schilder** (04:59:22):
+> Hi everyone<!channel>, we'll be having the "Bioconductor + GitHub" discussion Part 2 this Thursday (Feb 8 ) at 4pm GMT (see attached calendar invite). Note we'll be using a Zoom link this time thanks to@Sebastian Lobentanzer
+  - File (Binary): [Bioconductor GitHub discussion follow-up.ics](https://community-bioc.slack.com/files/U34P8RS3B/F06H6JD2YCA/bioconductor_github_discussion_follow-up.ics)
+
+
+## 2024-02-08
+
+**Brian Schilder** (11:03:26):
+> Hi everyone, we're beginning the continuation of the Bioconductor+ GitHub meeting now:[https://us06web.zoom.us/j/84535690223?pwd=e40BbkB9Vb15LqzbJd1TjxjRkUKJb9.1](https://us06web.zoom.us/j/84535690223?pwd=e40BbkB9Vb15LqzbJd1TjxjRkUKJb9.1)
+
+**Brian Schilder** (12:04:11):
+> Actionable items from the meeting today (feel free to add any i missed):
+> * Follow up with GitHub team to arrange a meeting.@Brian Schilder@Aedin Culhane
+> * Follow up with (bio)conda team to arrange a meeting.@Andres Wokaty
+> * Survey the Bioc community asking what requirements (and tools) developers would like to have for GitHub. Could be shared over Slack/bioc-devel mailing list (any volunteers?).
+
+**Andres Wokaty** (12:06:03):
+> The 3rd one is my suggestion, so I will do it. I think more specifically, I was thinking about GitHub actions/workflows since@Levi Waldronmentioned a helpful bot to bump versions.
+
+**Brian Schilder** (12:06:24) (in thread):
+> thank you very much Jen!
+
+**Brian Schilder** (12:06:52):
+> Slides are today's meeting have been linked here:[https://drive.google.com/drive/folders/1U-zg8yrtrtCzMzWa5P6uPX8iM7vGvC3b?usp=drive_link](https://drive.google.com/drive/folders/1U-zg8yrtrtCzMzWa5P6uPX8iM7vGvC3b?usp=drive_link)
+
+**Lori Shepherd** (12:07:45) (in thread):
+> yes a bot to keep updates from the core team (like version bump at release) would I think be really handy for people
+
+**Andres Wokaty** (12:08:56) (in thread):
+> @Lori Shepherdis that a replacement for the bump and branch that we do? (sorry, I just want to make sure I understand.)
+
+**Lori Shepherd** (12:10:03) (in thread):
+> no --  depending on what model we do -- taking the system right now -- we do a bump and branch -- we update our core github repos but all the contributors githubs do not -- so like a PR that has the bump and branch that we do --
+
+**Lori Shepherd** (12:10:33) (in thread):
+> so that their individual github repos are in sync with what we have
+
+**Andres Wokaty** (12:11:30) (in thread):
+> ah, so this would bump the developer's repositories.
+
+**Lori Shepherd** (12:12:30) (in thread):
+> well a PR to keep them in sync on teh developers repo yeah -- I could see that being useful -- for what we do at relase time and the occassional time we fix repos for maintainers for a breaking change we caused ... etc
+
+**Andres Wokaty** (12:12:59) (in thread):
+> I get it now. Thanks for the explanation.
+
+
+## 2024-02-15
+
+**Brian Schilder** (11:58:27):
+> <!channel>we'll be beginning our monthly Cloud Methods WG meeting shortly. See you there![https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1](https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1)
+
+
+## 2024-02-16
+
+**Brian Schilder** (03:57:03):
+> Resources on Strategic Planning shared during yesterday's meeting:
+> * [https://www.forbes.com/sites/davelavinsky/2013/10/18/strategic-plan-template-what-to-include/](https://www.forbes.com/sites/davelavinsky/2013/10/18/strategic-plan-template-what-to-include/)
+> * [https://asana.com/resources/strategic-planning](https://asana.com/resources/strategic-planning)
+> * [https://www.smartsheet.com/how-to-write-strategic-plans](https://www.smartsheet.com/how-to-write-strategic-plans)
+> @Erdal Cosgunand i will work together to formulate an initial draft of Bioc Cloud Methods WG strategic plan and then open it up for edits by the community
+  - Attachment (Forbes): [Strategic Plan Template: What To Include In Yours](https://www.forbes.com/sites/davelavinsky/2013/10/18/strategic-plan-template-what-to-include/)
+    > A strategic plan is a roadmap to grow your business, and these are the 13 sections that will help you identify and achieve your goals.
+  - Attachment (Asana): [What is Strategic Planning? A 5-Step Guide [2024] • Asana](https://asana.com/resources/strategic-planning)
+    > In strategic planning, org leaders define their company's direction and identify company goals and objectives. Master it in 5 steps with our guide.
+  - Attachment (Smartsheet): [Quick Guide: How to Write a Strategic Plan | Smartsheet](https://www.smartsheet.com/how-to-write-strategic-plans)
+    > Writing a strategic plan does not need to be difficult. This guide will take you through the process and help you adapt it to your organization.
+
+
+## 2024-03-05
+
+*02:09:13 - @Vamika Mendiratta has joined the channel*
+
+## 2024-03-12
+
+**Erdal Cosgun** (13:16:19):
+> <!channel>As you know[BioC2024](https://www.bioc2024.bioconductor.org/)conference deadline for the proposal is March 25th! I created a draft for the "Birds-of-a-feather session" proposal. Please feel free to edit/contribute. We can complete the proposal on our next monthly call (March 21st).[https://docs.google.com/document/d/1XcMRE-G4yiHpJ1eljr23thPiHjPsOSZV/edit?usp=drive_link&ouid=104103289516290883773&rtpof=true&sd=true](https://docs.google.com/document/d/1XcMRE-G4yiHpJ1eljr23thPiHjPsOSZV/edit?usp=drive_link&ouid=104103289516290883773&rtpof=true&sd=true)
+
+
+## 2024-03-17
+
+*20:42:50 - @Raihanat Adewuyi has joined the channel*
+
+## 2024-03-21
+
+**Erdal Cosgun** (12:50:49):
+> <!channel>we'll be beginning our monthly Cloud Methods WG meeting shortly. FYI[https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1](https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1)
+
+
+## 2024-03-25
+
+**Erdal Cosgun** (12:18:45):
+> <!channel>Hi everyone, I have submitted our group's "Birds-of-a-feather session" proposal today.  Cheers!
+
+
+## 2024-04-15
+
+**Erdal Cosgun** (18:58:45):
+> Hi<!channel>, here is the draft of our WG's Strategic plan that@Brian Schilderand I created:[https://docs.google.com/document/d/1ZdKEF5Z1i_jx9ep5SI6JQxs_pTsN8epq/edit#heading=h.6f8mn951jsl](https://docs.google.com/document/d/1ZdKEF5Z1i_jx9ep5SI6JQxs_pTsN8epq/edit#heading=h.6f8mn951jsl). We will walk through on this document on our monthly meeting this week. (Thursday, April 18th at 5pm (United Kingdom Time). Please feel free to add your comments/edits to the document.
+
+**Vince Carey** (20:09:15):
+> Very impressive, thank you for doing this.  I look forward to our discussion.
+
+
+## 2024-04-16
+
+**Vince Carey** (06:09:44):
+> Here's a finding related to practices:
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F06UH8NG8CB/image.png)
+
+**Vince Carey** (06:10:20):
+> It's part of the very voluminous output of`docker scout cves rocker/r-ver:4.3.3`
+
+*09:47:17 - @Nitesh Turaga has joined the channel*
+
+## 2024-04-17
+
+**Erdal Cosgun** (12:14:38):
+> Hi<!channel>- our WG's proposal to BioC2024 accepted as a "Birds of a Feather" session. Congrats everyone and cheers!!
+
+**Erdal Cosgun** (19:03:59):
+> <!channel>- We look forward to meet you tomorrow on our WG monthly call. Here is the proposed agenda for tomorrow. Please feel free to add your items as a comment to this message.
+> 1. Updates about BioC2024 session
+> 2. LLMs for Bioconductor: Discussion for starting sub focus group
+> 3. WG Strategic plan draft review:[https://docs.google.com/document/d/1ZdKEF5Z1i_jx9ep5SI6JQxs_pTsN8epq/edit#heading=h.6f8mn951jsl](https://docs.google.com/document/d/1ZdKEF5Z1i_jx9ep5SI6JQxs_pTsN8epq/edit#heading=h.6f8mn951jsl)
+
+**Sean Davis** (20:15:45) (in thread):
+> You might be interested,@Ludwig Geistlinger
+
+**Ludwig Geistlinger** (20:30:33) (in thread):
+> it'll be great if the session could be recorded
+
+**Sean Davis** (21:26:32) (in thread):
+> I know you've done a lot in this space,@Ludwig Geistlinger.@Erdal Cosgun, does it make sense to reserve the LLM topic to next month so that Ludwig can perhaps present the work they have been doing? Of course, if there is already someone presenting about #2, that totally works also.
+
+**Erdal Cosgun** (21:30:55) (in thread):
+> @Sean Davis-sure, that will be great to have@Ludwig Geistlingeron the call. Let’s briefly start the discussion tomorrow and deep dive next month with Ludwig.
+
+**Ludwig Geistlinger** (21:35:21) (in thread):
+> Happy to present the next time. I am also asking an engineer in my group@Tyrone Leeto join tomorrow.
+
+**Erdal Cosgun** (21:36:22) (in thread):
+> Great! I will add your presentation to the next month’s agenda.
+
+
+## 2024-04-18
+
+**Erdal Cosgun** (11:59:11):
+> <!channel>we'll be beginning our monthly Cloud Methods WG meeting shortly. FYI[https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1](https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1)
+
+**Erdal Cosgun** (16:38:14):
+> @Brian Schilder@Alex Mahmoud@Tyrone Leeplease find the draft presentation for the BioC2024 session from this link. Please feel free to add the 1-2 slides about the topics that you would like to discuss.[https://docs.google.com/presentation/d/1e0o2lULxZMnFRxDcOxx_NaV3xZ4RtEXm/edit?usp=drive_link&ouid=104103289516290883773&rtpof=true&sd=true](https://docs.google.com/presentation/d/1e0o2lULxZMnFRxDcOxx_NaV3xZ4RtEXm/edit?usp=drive_link&ouid=104103289516290883773&rtpof=true&sd=true)
+
+**Tyrone Lee** (16:42:03) (in thread):
+> you will need to add my googleaccount to enable me to add my own slides:[tyrone_lee@g.harvard.edu](mailto:tyrone_lee@g.harvard.edu)
+
+**Tyrone Lee** (16:43:01) (in thread):
+> or is the plan for us to submit slide additions to you first?
+
+**Erdal Cosgun** (16:43:06) (in thread):
+> @Tyrone Lee- you should be able to edit now.
+
+**Alex Mahmoud** (16:43:31) (in thread):
+> Me too plz[remah@channing.harvard.edu](mailto:remah@channing.harvard.edu)
+
+**Erdal Cosgun** (16:43:48) (in thread):
+> @Alex Mahmoud- it is editable now.
+
+
+## 2024-05-15
+
+**Erdal Cosgun** (13:01:29):
+> <!channel>- We look forward to meeting you tomorrow on our WG monthly call. Here is the proposed agenda for tomorrow. Please feel free to add your items as a comment to this message.
+> 1. Updates about BioC2024 session presentation deck
+> 2. LLMs for Bioconductor.@Ludwig Geistlingerwill join us and present his recent works.
+
+
+## 2024-05-16
+
+**Erdal Cosgun** (11:50:57):
+> <!channel>we'll be beginning our monthly Cloud Methods WG meeting shortly. FYI[https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1](https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1)
+
+**Ludwig Geistlinger** (14:44:25):
+> A quick follow-up re: Perplexity AI@Alex Mahmoud@Vince Carey. Nitesh and I just played around with it a little bit. It was able to answer questions about packages of the latest 3.19 release, which does seem to address the concern re: general models not having the most-up-to-date information indeed. It still hallucinates in these answers on these newest packages though, something that a customized model such as the one that we are suggesting to build would alleviate through the concepts we covered (prompting, data augmentation, and eventually fine-tuning).
+
+
+## 2024-05-17
+
+**Mike Smith** (05:48:36):
+> set the channel topic: Channel for the Cloud Working Group - meeting announcements, minutes, propsoals, discussion, etc.
+
+**Mike Smith** (05:49:54):
+> set the channel description: Meeting March 21 @ 11 AM ET : [https://meet.google.com/epw-wems-crb](https://meet.google.com/epw-wems-crb)
+> 
+> test
+
+**Mike Smith** (05:49:58):
+> set the channel description: Meeting March 21 @ 11 AM ET : [https://meet.google.com/epw-wems-crb](https://meet.google.com/epw-wems-crb)
+
+
+## 2024-06-04
+
+**Alex Mahmoud** (15:06:46):
+> Could someone please post a link to the recording from last meeting when Ludwig presented the AI work, if available?
+
+*15:22:09 - @Ezekiel Ekanem has joined the channel*
+**Ludwig Geistlinger** (16:38:48) (in thread):
+> Hi Alex I think Erdal has the recording from the last meeting, but here is a recording from a previous meeting where I actually managed to talk through most of the material. Some of the discussion from last meeting might still be a nice addition to that.
+> 
+> Recording:[https://drive.google.com/file/d/1EgWC9jiUmgKWHIshkL0IiSJ7P_Y81cfw/view?usp=sharing](https://drive.google.com/file/d/1EgWC9jiUmgKWHIshkL0IiSJ7P_Y81cfw/view?usp=sharing)Slides:[https://docs.google.com/presentation/d/1r-mF_kC0PoQAm441uIb8DDx8eKHRIU7U/edit?usp=sharing&ouid=114559908277846944324&rtpof=true&sd=true](https://docs.google.com/presentation/d/1r-mF_kC0PoQAm441uIb8DDx8eKHRIU7U/edit?usp=sharing&ouid=114559908277846944324&rtpof=true&sd=true)
+
+**Erdal Cosgun** (16:50:00) (in thread):
+> @Alex Mahmoud- We are creating an env. for the meeting recordings but not available for now Let me share the temporary location with you in DM.
+
+**Alex Mahmoud** (16:50:32) (in thread):
+> Thank you!!
+
+
+## 2024-06-05
+
+*23:55:28 - @贺宇 has joined the channel*
+
+## 2024-06-19
+
+**Erdal Cosgun** (11:37:26):
+> Hi<!channel>. We look forward to meeting you tomorrow on our WG monthly call. Here is the proposed agenda for tomorrow. Please feel free to add your items as a comment to this message.
+> 
+> 1. Review the agenda of BioC2024 session:[https://docs.google.com/presentation/d/1e0o2lULxZMnFRxDcOxx_NaV3xZ4RtEXm/edit?usp=drive_link&ouid=104103289516290883773&rtpof=true&sd=true](https://docs.google.com/presentation/d/1e0o2lULxZMnFRxDcOxx_NaV3xZ4RtEXm/edit?usp=drive_link&ouid=104103289516290883773&rtpof=true&sd=true)2. Updates about custom Co-pilot opportunities. - Erdal
+
+**Vince Carey** (14:06:17):
+> I cannot make the meeting owing to study section, sorry.
+
+
+## 2024-06-20
+
+**Erdal Cosgun** (11:50:20):
+> <!channel>we'll be beginning our monthly Cloud Methods WG meeting shortly-in 10 mins. FYI[https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1](https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1)
+
+
+## 2024-07-15
+
+**Andres Wokaty** (21:07:18):
+> Hi@Erdal Cosgun. I noticed monthly cloud meeting conflicts with the TAB meeting, which got rescheduled to this week. Should it be rescheduled since it's the last meeting before the conference if anyone needs to work on the presentation?
+
+
+## 2024-07-16
+
+**Erdal Cosgun** (13:25:38):
+> Hi@Andres Wokaty- thanks for checking. Let's keep this call because it is not going to be too long. We just quickly walk-through on the deck.
+
+
+## 2024-07-17
+
+**Sebastian Lobentanzer** (02:13:49):
+> Not sure I can join this time due to being in Ukraine (teaching); we have lots of outages.I guess the meeting still works, but I think youwouldn’tbe able to record.
+
+**Vince Carey** (18:45:13):
+> If I understand this it means cloud group will meet and then come to TAB late.  That is fine.  If it is really short business we could listen in at the TAB meeting ... would you prefer that?  We don't have a huge agenda.
+
+**Erdal Cosgun** (19:05:40):
+> Hi Vince, yes, CWG meeting will be short then we can join the TAB meeting quickly for a quick update.
+
+
+## 2024-07-18
+
+**Erdal Cosgun** (11:46:11):
+> <!channel>we'll be beginning our monthly Cloud Methods WG meeting in 15mins. FYI[https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1](https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1)
+
+**Tyrone Lee** (11:49:44):
+> I might be a few min late coming off the nvidia visit to HMS
+
+**Tyrone Lee** (12:11:24):
+> sorry did i miss the meeting?
+
+**Alex Mahmoud** (12:19:48):
+> We switched to TAB after brief overview of slides
+
+
+## 2024-07-26
+
+**Erdal Cosgun** (14:53:59):
+> <!channel>We had a great session at BioC 2024 today. We shared our Strategic plan, GitHub actions progress, Bioconductor Hubs storage account defender work and LLMs for BioC.@Andres Wokaty,@Alex Mahmoudand@Tyrone Leethanks for your contributions. Cheers!!
+
+
+## 2024-08-07
+
+*18:27:24 - @Michael Lawrence has joined the channel*
+**Michael Lawrence** (18:28:29):
+> What is the current status of "LLMs for Bioconductor"? Has anyone tried, for example, to fine tune using[support.bioconductor.org](http://support.bioconductor.org)and similar resources?
+
+**Vince Carey** (19:03:45):
+> yes.@Alex Mahmoud@Ezekiel Ekanem@Ludwig Geistlingercan give details
+
+
+## 2024-08-08
+
+**Michael Lawrence** (13:15:35) (in thread):
+> Great, looking forward to learning more. We're working on fine tuning a model based on Llama3 8B on our internal tools. It would be great if we could reuse one already tuned for Bioc, or replicate the same approach.
+
+**Ludwig Geistlinger** (16:58:49) (in thread):
+> Hi Michael is there a reason why you are not using the 405B Llama 3.1 model for your internal tools? This is currently the most capable open one, with performance getting close to the major closed models (GPT4 etc) in certain benchmarks ...
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07GUPADE72/image.png)
+
+**Ludwig Geistlinger** (17:11:01) (in thread):
+> As described earlier ([slides](https://docs.google.com/presentation/d/1r-mF_kC0PoQAm441uIb8DDx8eKHRIU7U/edit?usp=sharing&ouid=114559908277846944324&rtpof=true&sd=true),[recording](https://drive.google.com/file/d/1EgWC9jiUmgKWHIshkL0IiSJ7P_Y81cfw/view?usp=sharing)) we've been looking into building, deploying, and evaluating RAG models that could mimic the behavior of the support site. We've basically put all bioc package vignettes and manuals into a RAG store and asked whether providing general models (here: GPT4, LLama2, LLama3) with the RAG store improves answers as judged based on a number of top-voted question-answer pairs from the support site.
+> 
+> The impression from some minimal evaluations were that there is some gain in providing a RAG store, but we haven't conclusively worked out yet whether that gain over applying general models is worth the additional effort.
+> 
+> We haven't looked into fine-tuning yet, but I know that Ezekiel and Alex are currently working on processing a database dump of the support site to create a larger evaluation set, that could on the other hand also be used for fine-tuning.
+
+**Michael Lawrence** (18:20:39) (in thread):
+> Thanks for the update@Ludwig Geistlinger. That's interesting. I think the support site makes a fairly convenient fine tuning dataset, given the question/answer structure. I'd be happy to help with processing the data dump with@Ezekiel Ekanemand@Alex Mahmoud. As far as why we are not using a 405B parameter model, I work at Genentech, not Facebook or Nvidia:wink:GPUs are in short supply. We might scale up once we get past the prototyping stage.
+
+
+## 2024-08-12
+
+**Erdal Cosgun** (14:42:16):
+> Hi<!channel>, we're due to rotate the next chair of the Cloud Methods WG at the end of August. If you would like to lead this great working group for the next 6 months, please do speak up or DM me! We can vote on our monthly meeting this Thursday.
+
+**Michael Lawrence** (15:55:28) (in thread):
+> Following up on this, I'd really appreciate an update from@Ezekiel Ekanemand@Alex Mahmoudon the data dump. It would be great if we could leverage the support site for our fine tuning.
+
+**Tyrone Lee** (16:44:43):
+> @ posit::conf(2024)
+> from hadely wickam's[R in production](https://github.com/posit-conf-2024/r-in-production)workshop
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F07GE7RUXAA/image.png)
+
+
+## 2024-08-14
+
+**Erdal Cosgun** (13:17:04):
+> Hi<!channel>. We look forward to meeting you tomorrow on our WG monthly call. Here is the proposed agenda for tomorrow. Please feel free to add your items as a comment to this message.
+> 
+> 1. Recap BioC 2024 session
+> 
+> 2. Select/vote for our next chair
+
+**Alex Mahmoud** (13:30:31) (in thread):
+> Hey@Michael Lawrence, sorry for the delayed response, I was out for a few days. It's not a database dump per se. To avoid any possible policy complications, we used the public API to retrieve the public posts from the support site into a JSON structure including questions, their answers, and vote counts. The work was primarily done by Ezekiel, who's interning with Bioconductor this summer. We discussed this briefly at the core team meeting last week, and I think@Vince Careycan email you with more logistical details about what we can vs can't provide as free support from the core team, but in short it'd be great to meet and discuss your goals and how we might be able to collaborate on this more formally
+
+**Michael Lawrence** (13:34:21) (in thread):
+> Great, yes, let's discuss. I think it would be great to have a publicly available bioc-aware chatbot, and I'd like to collaborate on that with whoever is interested.
+
+*13:43:45 - @Robert Shear has left the channel*
+
+## 2024-08-15
+
+**Erdal Cosgun** (11:50:08):
+> <!channel>we'll be beginning our monthly Cloud Methods WG meeting in 10 mins. FYI[https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1](https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1)
+
+**Vince Carey** (15:06:52):
+> sorry to miss the meeting.  this[set of notes](https://docs.google.com/document/d/1IVPUhohCr41LAqjHf91bAw5pcXRWviUl-ye5pT4s5nA/edit)seems way out of date, is there something that captured the call today?
+  - File (Google Docs): [Bioc Cloud Methods Working Group](https://community-bioc.slack.com/files/U34P8RS3B/F07H4E86M50/bioc_cloud_methods_working_group)
+
+**Alex Mahmoud** (15:57:58):
+> I believe Zoom's AI notetaking was set up, not sure who gets the notes/recordings tho, maybe Sebastian?
+
+**Michael Lawrence** (16:17:26) (in thread):
+> @Alex MahmoudFeel free to send me a calendar invite.[michafla@gene.com](mailto:michafla@gene.com)
+
+**Sebastian Lobentanzer** (16:21:19):
+> I get them, but they should also be available in the persistent chat for the meetings
+
+**Sebastian Lobentanzer** (16:21:36):
+> I can copy them here, will do soon
+
+
+## 2024-08-16
+
+*05:05:41 - @Kozo Nishida has joined the channel*
+**Sebastian Lobentanzer** (07:15:37):
+> @Vince Careyhere's the summary:
+> 
+> Meeting summary for Bioconductor Cloud Working Group (08/15/2024)
+> Quick recap
+> Tyrone shared insights from a recent conference on the growing interest in positron and the potential of cloud instances and AI tools, while also discussing the services offered by Posit and the distinction between its products and the R packages they support. The team also reviewed the attendance and feedback from the Microconductor and Biconductor conferences, discussing the need for follow-up actions, the potential of using Google Cloud Zone, and the idea of transitioning from self-hosting to using Github for the Biconnector project.
+> Next steps
+> • Erdal to reach out to the Bioconductor core team about finding and recreating new Cloud Working Group members.
+> • Cloud Working Group to create a survey for Bioconductor users to identify cloud infrastructure users and their needs.
+> • Cloud Working Group to consider organizing educational sessions on cloud technologies (e.g., storage, compute, AI) for Bioconductor users.
+> • Alex to continue testing and developing the GitHub-based package hosting system at[get.dev.test.bioconductor.org](http://get.dev.test.bioconductor.org).
+> • Alex to invite interested members to weekly meetings about the GitHub migration project.
+> • Alex to consult with experienced Bioconductor developers (e.g., Mike Love, Stephanie Hicks, Wolfgang Huber) for feedback on the GitHub migration plan.
+> Summary
+> Posit's AI Strategy and Deployment
+> Tyrone shared his insights from a recent conference, emphasizing the growing interest in positron, an open-source code related to Vs code, and its potential for cloud instances and AI tools. He also introduced a newly trained shiny assistant for shiny command queries and discussed the use of bioconductor tools and an emerging AI strategy at Posit. Furthermore, he clarified that while Posit users could deploy Docker images on AWS, the company prefers to use an auto-orchestration system, and Kubernetes could now be used on almost any platform.
+> Posit Corporation and Data Science Tools
+> Erdal expressed his inability to attend a conference and thanked Tyrone for sharing information from it. Tyrone clarified that he was still in Seattle and invited Erdal to visit if he had the time. The discussion then focused on the Posit corporation, which was originally the studio but rebranded itself as a public benefit corporation focusing on data science tools after a pivot decision by Chief Scientist Hayley. Tyrone explained the services offered by Posit, a company focused on data science, and the distinction between Posit's products and the R packages they support. There was a need for clearer information regarding the relationship between Posit and the open-source packages maintained by its employees, which Tyrone clarified as much as possible, given the complexity of the situation.
+> Biconductor Conference Outcomes and Recommendations
+> Erdal and Alexandru discussed the outcomes of the recent Biconductor Conference, focusing on the need for follow-up actions. Alexandru stressed the importance of addressing recommendations on Github actions and best practices for cloud, while Erdal proposed scheduling educational sessions on Github actions for the next month. Alexandru also suggested the need for more explicit recommendations and a decision tree for Bioconductor users and package developers, and the potential for automation and linting to reduce manual review work. Erdal acknowledged Alexandru's thoughts and thanked him for sharing.
+> Microconductor Conference Review and Future Plans
+> Erdal and Tyrone reviewed the attendance and feedback from the Microconductor Conference, noting that most attendees were using VMs and HPC clusters. They agreed to conduct a survey to gather more insights, particularly from those interested in cloud technologies. Erdal proposed a draft for a survey to be conducted for focus groups with the next chair, but no volunteers were found for the next term. Sean suggested pivoting the focus of the Cloud Working Group to Github actions or to cloud technologies, depending on the group's preference. Tyrone suggested focusing on collaborative projects to ensure active participation.
+> Cloud Storage and Processing for Experiment Summaries
+> Sean shared his experience with utilizing cloud storage and processing for his recent project involving 800 experiment summaries. He explained his shift from using an HPC system to Google Cloud Run for improved flexibility and capacity, and how he used Kubernetes and Google Cloud Run to parallelize the processing. He also discussed the use of DuckDB and Click House, cloud-based databases, for reading and analyzing the files, highlighting their efficiency and cost-effectiveness. He emphasized the ease of data manipulation in the cloud, particularly with Python, and noted the limitations of R in this context.
+> Bioconductor Studio and Cloud Integration
+> Sean, Alexandru, and Erdal discussed the potential of using Google Cloud Zone and other technologies for their bioconductor studio. Alexandru proposed creating a "fake Google Cloud" for bioconductor users, while Sean expressed concerns about the complexity and scalability of this idea. Instead, Sean suggested focusing on education to teach users how to use cloud storage, compute, and other basic tools. The team agreed to further explore these ideas and to identify and engage with cloud infrastructure and bioconductor users for educational sessions on best practices.
+> Addressing Billing Hesitations and Cloud Working Group
+> Alexandru highlighted the issue of people being hesitant to create billing accounts due to potential unexpected costs and the lack of proper cost controls in cloud vendors. He proposed creating a specific billing account for training to allow people to follow along with workshops without worrying about billing. Erdal agreed and suggested that they could invite other users to this new environment. They also discussed the idea of finding and recreating a new Cloud Working group members while Erdal is on vacation. Lastly, Alexandru shared an update from the quarter.
+> Biconnector Project Github Transition Discussion
+> Alexandru discussed the idea of transitioning from self-hosting to using Github for the Biconnector project. He explained the current setup, which involves redirecting traffic from[get.biconductor.org](http://get.biconductor.org)to a Github page, and how this is managed through an engine X rule. Alexandru mentioned that they are testing this system with Marcel and Vince's packages and will monitor any issues over the coming months. If successful, this could lead to a complete shift from self-hosting to Github, with the bioconductor source packages residing in a canonical Github repository.
+> Team Involvement and Weekly Meetings
+> Alexandru encouraged team members to get involved in the project's development and decision-making process. He also outlined the plan for weekly meetings to discuss progress and upcoming tasks. Erdal and Sean suggested that Alexandru should consult with a small group of experienced developers for feedback and insights. Alexandru agreed to this idea and planned to discuss it in the upcoming Tab meeting. Erdal noted his absence for the next month's meeting.
+> AI-generated content may be inaccurate or misleading. Always check for accuracy.
+
+**Vince Carey** (07:30:13):
+> thanks.
+
+**Michael Lawrence** (11:32:27):
+> The mention of moving to GitHub for hosting projects reminds me of an effort coming out of the R Consortium Repositories Working Group, where Will Landau et al are integrating GitHub and R Universe to create the[R multiverse](https://r-multiverse.org/). Right now it represents a single cohort of packages, submitted through GitHub pull requests, that get deployed to an R package repository. The ultimate goal, or at least what I have been pushing, is for the system to support multiple cohorts, defined by a scientific domain, set of policies, or whatever. I think if we were going to build the Bioc infrastructure from scratch, we would just piggyback on this.
+  - Attachment (r-multiverse.org): [R-multiverse](https://r-multiverse.org/)
+    > A community-curated collection of R package releases, powered by R-universe.
+
+
+## 2024-08-25
+
+**Vince Carey** (19:44:55):
+> [Collection of papers on RAG](https://cloud.epsilla.com/enterprise-search/df6624c1-1c2a-4263-8c10-14f495fc3e7f-340417431/73ee9739-e674-44cd-b007-3c46b5811c2b?sid=6503323b-ef77-496f-accf-17c0e5175612)
+
+
+## 2024-09-10
+
+*03:45:56 - @Alex Qin has joined the channel*
+
+## 2024-09-19
+
+**Vince Carey** (11:25:00):
+> it appears to me that the meeting minutes document listed in files above is somewhat stale?  are there more recent presentations or docs to be linked?  i trust we will meet at noon today.  in the absence of a voluntary chair i will chair.
+
+
+## 2024-10-04
+
+*02:05:34 - @Monisa Hasnain has joined the channel*
+
+## 2024-10-17
+
+**Erdal Cosgun** (11:46:12):
+> <!channel>we'll be beginning our monthly Cloud Methods WG meeting in 15 mins. FYI[https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1](https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1)
+
+
+## 2024-11-07
+
+**Erdal Cosgun** (13:03:29):
+> Upcoming changes on GitHub actions: GitHub will migrate the`ubuntu-latest`label to`ubuntu 24`starting on December 5, 2024. With the new image there will be cuts to the list of packages and R is one of them. JFYI:[https://github.blog/changelog/2024-11-05-notice-of-breaking-changes-for-github-actions/](https://github.blog/changelog/2024-11-05-notice-of-breaking-changes-for-github-actions/),[https://github.com/actions/runner-images/issues/10636](https://github.com/actions/runner-images/issues/10636).
+  - Attachment (The GitHub Blog): [Notice of breaking changes for GitHub Actions · GitHub Changelog](https://github.blog/changelog/2024-11-05-notice-of-breaking-changes-for-github-actions/)
+    > Notice of breaking changes for GitHub Actions
+  - Attachment: [#10636 Ubuntu-latest workflows will use Ubuntu-24.04 image](https://github.com/actions/runner-images/issues/10636)
+    > **Rollout will begin on December 5th and will complete on January 17th, 2025.**
+    > 
+    > **Breaking changes**  
+    > Ubuntu 24.04 is ready to be the default version for the "ubuntu-latest" label in GitHub Actions and Azure DevOps.
+    > 
+    > **Target date**  
+    > This change will be rolled out over a period of several weeks beginning December 5th and will complete on January 17th, 2025.
+    > 
+    > **The motivation for the changes**  
+    > GitHub Actions and Azure DevOps have supported Ubuntu 24.04 in preview mode since May 2024, and starting from July 2024 Ubuntu 24.04 is generally available for all customers. We have monitored customer feedback to improve the Ubuntu 24.04 image stability and now we are ready to set it as the latest. There are a set of packages listed below that we have removed from the Ubuntu 24 image. Please review the list carefully to see if you will be impacted by these changes. We have made cuts to the list of packages so that we can maintain our SLA for free disk space. The images have grown so large we are in danger of violating our SLA if we keep the package list as-is.
+    > 
+    > The factors we took into consideration when removing packages are as follows:
+    > 
+    > • How long does it take to install the tool at runtime?
+    > • How much space does it take up on the image?
+    > • How many users are there of the tool?
+    > 
+    > We understand that our reasoning may not make sense to some of you out there, but please bear in mind that we tried to keep disruptions as minimal as possible, and tried to keep the best interests of the community at large in mind. There is a very large and diverse community using our images, and as much as we would like to, we cannot pre-install every tool on these images.
+    > 
+    > **Platforms affected**
+    > 
+    > • Azure DevOps
+    > • GitHub Actions
+    > 
+    > **Mitigation ways**  
+    > Steps or options for impact mitigation  
+    > If you see any issues with your workflows during transition period:
+    > 
+    > • Switch back to Ubuntu 22 by changing workflow YAML to use `runs-on: ubuntu-22.04` We support two latest LTS Ubuntu versions, so Ubuntu 22 will still be maintained for the next 2 years.
+    > • File an issue in this repository
+    > 
+    > **Software Differences**  
+    > The Ubuntu 22.04 image has a different set of software than Ubuntu 24.04. The most significant changes are listed in the table below:
+    > 
+    > | Tool name                   | Ubuntu 22.04                                                                                                                                                   | Ubuntu 24.04                                                 | Notes                                                                                                                                                                                                                                                                                                                                                              |
+    > | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+    > | Clang                       | 13.* 14.* (default)15.*                                                                                                                                        | 16.* 17.* 18.* (default)                                     | The most recent versions are installed                                                                                                                                                                                                                                                                                                                             |
+    > | GCC / GNU C++ / GNU Fortran | 9.* 10.* 11.* 12.* 13.*                                                                                                                                        | 12.* 13.* 14.*                                               | The most recent versions are installed                                                                                                                                                                                                                                                                                                                             |
+    > | PHP                         | 8.1.*                                                                                                                                                          | 8.3.*                                                        | The most recent version are installed                                                                                                                                                                                                                                                                                                                              |
+    > | Java                        | 8.* 11.* (default)17.* 21.*                                                                                                                                    | 8.* 11.* 17.* (default)21.*                                  | Default Java switched to 17.* for Ubuntu 24.04 image.                                                                                                                                                                                                                                                                                                              |
+    > | Python                      | 3.7.* (cached)3.8.* (cached)3.9.* (cached)3.10.* (default)3.11.* (cached)3.12.* (cached)                                                                       | 3.9.* (cached)3.10.* (cached)3.11.* (cached)3.12.* (default) | Pre-cached versions currently unavailable. Default version switched to the latest one. On GitHub Actions, [actions/setup-python]([https://github.com/actions/setup-python](https://github.com/actions/setup-python)) can install any version on-flight so this change doesn't impact users                                                                                                                    |
+    > | Go                          | 1.20.* (cached)1.21.* (default)1.22.* (cached)                                                                                                                 | 1.21.* (cached)1.22.* (cached)1.23.* (default)               | If your use-case requires using any of these versions, consider using tasks to install Go on-flight: [actions/setup-go]([https://github.com/actions/setup-go](https://github.com/actions/setup-go)) (GitHub Actions) [Go Tool Installer]([https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/go-tool?view=azure-devops](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/go-tool?view=azure-devops)) (Azure DevOps)                                                     |
+    > | PyPy                        | 3.7.* (cached)3.8.* (cached)3.9.* (cached)3.10.* (cached)                                                                                                      | 3.9.* (cached)3.10.* (cached)                                | Deprecated all the versions besides the most recent ones                                                                                                                                                                                                                                                                                                           |
+    > | Ruby                        | 3.0.* (default)3.1.* (cached)                                                                                                                                  | 3.2.* (default)                                    …
+
+
+## 2024-11-14
+
+**Sean Davis** (10:25:46):
+> [https://bsky.app/profile/seandavi.bsky.social/post/3law63mrm4k2n](https://bsky.app/profile/seandavi.bsky.social/post/3law63mrm4k2n)Macos and Windows in docker....
+  - Attachment (Bluesky Social): [Sean Davis (@seandavi.bsky.social)](https://bsky.app/profile/seandavi.bsky.social/post/3law63mrm4k2n)
+    > #macos in #docker.
+    > [github.com/dockur/macos](http://github.com/dockur/macos)
+    > 
+    > #mswindows in #docker.
+    > [github.com/dockur/windows](http://github.com/dockur/windows)
+    > [https://github.com/dockur/macos](https://github.com/dockur/macos)
+
+
+## 2024-11-21
+
+**Vince Carey** (08:43:38):
+> i don't know if i am acting chair at this time ... but i will have some trouble joining at 12 as i am taking daughter to a doctor.  i will try to tie in.  it would be good to draft some agenda items.
+
+**Erdal Cosgun** (11:50:17):
+> <!channel>we'll be beginning our monthly Cloud Methods WG meeting in 10mins. FYI[https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1](https://us06web.zoom.us/j/89217987202?pwd=3iPv9RzO4Vd90pRquJyajYOTz9xsub.1)
+
+**Sebastian Lobentanzer** (11:57:48):
+> I am off this week, see you in the next one:slightly_smiling_face:
+
+**Erdal Cosgun** (12:53:39):
+> Hi<!channel>, we had a short meeting today and briefly talked about the upcoming changes on GitHub Actions. We also cancelled the next month's meeting (December 19th). We will continue to meet on Thursday, January 16th 2025. FYI
+
+**Sean Davis** (13:37:07):
+> Sorry to have missed the meeting. Would someone mind giving a 15-word summary of upcoming changes?
+
+**Erdal Cosgun** (13:39:04):
+> Hi@Sean Davis- More than 15 words but here is my message posted above: "GitHub will migrate the`ubuntu-latest`label to`ubuntu 24`starting on December 5, 2024. With the new image there will be cuts to the list of packages and R is one of them. JFYI":[https://github.blog/changelog/2024-11-05-notice-of-breaking-changes-for-github-actions/](https://github.blog/changelog/2024-11-05-notice-of-breaking-changes-for-github-actions/),[https://github.com/actions/runner-images/issues/10636](https://github.com/actions/runner-images/issues/10636).
+
+
+## 2024-12-11
+
+*12:33:27 - @Joselyn Chávez has left the channel*
+
+## 2025-01-02
+
+*12:28:48 - @Stephanie Hicks has joined the channel*
+
+## 2025-01-14
+
+**Tyrone Lee** (07:00:01):
+> Would like to start the monthly meetings for 2025. If there is interest I'll remake the meeting for this Thurs -  Jan, 16th .
+> Topics:
+> * Review the previous Strategic Plan
+> 
+>   * open editing for ver 0.2?
+> 
+> * github action[outage](https://www.githubstatus.com/incidents/qd96yfgvmcf9)- hopefully be resolved by then
+> * status with sustainability
+> 
+>   * alternative package building platforms (whatever happened to discussions with conda-forge)
+>   * container platforms ie[gitpod](https://www.gitpod.io/),[biocontainers ](https://biocontainers.pro/)
+> 
+> * Ideas about a public LLM benchmark for bioc questions.
+  - Attachment (githubstatus.com): [Incident with Git Operations](https://www.githubstatus.com/incidents/qd96yfgvmcf9)
+    > GitHub's Status Page - Incident with Git Operations.
+  - Attachment (gitpod.io): [Gitpod: Always ready-to-code.](https://www.gitpod.io/)
+    > Gitpod is a platform for automated and standardized development environments. Available self-hosted in 3 minutes, or run locally on your laptop.
+  - Attachment (biocontainers.pro): [BioContainers Community including registry, documentation, specification](https://biocontainers.pro/)
+    > BioContainers Community including registry, documentation, specification
+
+
+## 2025-01-15
+
+**Tyrone Lee** (13:29:42) (in thread):
+> zoom link for the meeting tomarrow[https://harvard.zoom.us/j/93057504772](https://harvard.zoom.us/j/93057504772)
+
+**Andres Wokaty** (14:42:14):
+> set the channel topic: Meeting: [https://harvard.zoom.us/j/93057504772](https://harvard.zoom.us/j/93057504772)
+
+**Erdal Cosgun** (14:44:08) (in thread):
+> @Tyrone LeeSame time right? noon-1 pm (EST)
+
+**Tyrone Lee** (14:53:14) (in thread):
+> Yes! noon(12pm) -1pm EST
+
+
+## 2025-01-16
+
+**Tyrone Lee** (11:47:27):
+> set the channel topic: Meeting every 3rd Thurs: [https://harvard.zoom.us/j/93057504772](https://harvard.zoom.us/j/93057504772)
+
+**Tyrone Lee** (12:03:38):
+> <!channel>First meeting of the year starting now:[https://harvard.zoom.us/j/93057504772](https://harvard.zoom.us/j/93057504772)
+
+*13:05:38 - @Simple Poll has joined the channel*
+**Simple Poll** (13:07:02):
+> [Unsupported block type: section]
+
+**Simple Poll** (13:18:43):
+> [Unsupported block type: section]
+
+**Vince Carey** (13:48:16):
+> It sounds like we need a "persona" concept to help organize efforts.  And the fusion of LLM and cloud technology discussion does not seem that helpful to me.  There should be a separate AI/LLM working group eventually.
+
+
+## 2025-01-21
+
+**Simple Poll** (09:49:37):
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: divider]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: actions]
+> 
+> [Unsupported block type: context]
+
+**Simple Poll** (09:50:49):
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: divider]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: section]
+> 
+> [Unsupported block type: actions]
+> 
+> [Unsupported block type: context]
+
+
+## 2025-01-23
+
+*11:09:47 - @António Domingues has left the channel*
+
+## 2025-02-11
+
+**Tyrone Lee** (15:15:10):
+> set the channel topic: Meeting this Friday 2/14/25 12pm : [https://harvard.zoom.us/j/93057504772](https://harvard.zoom.us/j/93057504772)
+
+**Tyrone Lee** (15:23:51):
+> Hi, I've just moved this week's meeting to Friday 2/14 per results of the poll. If you cannot make it, don't worry this should be a short one.
+> Items for discussion:
+> * go over presentation shown to TAB last week
+> * I made my best effort to chair this working group but I think it needs a chair more involved in this particular space than I am. If anyone else is interested, please let me or Vince know.
+> 
+>   * If we still cannot find a chair then perhaps this channel can close up threads, move  discussion to other channels and be mothballed for the time being.
+
+**Tyrone Lee** (15:48:13):
+> cleared channel topic
+
+**Tyrone Lee** (15:52:07):
+> Actually monthly meetings are cancelled (got a notification on some absences) but we will keep the slack channel open for the time being.
+
+
+## 2025-03-10
+
+*11:29:05 - @Hiru has joined the channel*
+
+## 2025-03-11
+
+**Hiru** (10:31:48):
+> Hello Bioconductor community,
+> 
+> I'm investigating ways to reduce the long package installation times on Ubuntu GitHub Action runners for our R package workflow automation tool,[rworkflows](https://github.com/neurogenomics/rworkflows).
+> 
+> Currently, we're using`remotes::install_local()`to install dependencies, but this is taking an extremely long time (up to 3 hours) for packages with numerous dependencies. I've noticed that instead of using binaries, it's compiling dependencies from source.
+> 
+> Has anyone found effective solutions to speed up dependency installation in CI/CD pipelines? Might`BiocManager::install()`be more efficient? We're already implementing caching, but this still requires at least one successful long run with the current behaviour.
+> 
+> Any advice or experience you could share would be greatly appreciated!
+
+**Hiru** (10:34:08):
+> Please let me know if this is the wrong channel to ask, I'd be happy to post elsewhere if more appropriate.
+
+**Sean Davis** (10:44:14):
+> @HiruYes, if you use a bioconductor container for your GH actions, you'll get the benefit of pre-compiled binaries.[https://bioconductor.org/help/docker/](https://bioconductor.org/help/docker/)
+  - Attachment (bioconductor.org): [Bioconductor - Docker for Bioconductor](https://bioconductor.org/help/docker/)
+    > The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.
+
+**Sean Davis** (10:45:05):
+> @Brian Schildercan probably chime in with more details since you are using rworkflows.
+
+**Sean Davis** (10:46:01):
+> And as for your question about BiocManager::install(), yes, you can and should use it.
+
+**Hiru** (10:47:50):
+> Hello Sean, thanks for your suggestion. We're already using the container[ghcr.io/bioconductor/bioconductor_docker:devel](http://ghcr.io/bioconductor/bioconductor_docker:devel)for our Ubuntu runners.
+> 
+> I'm assisting Brian with the maintenance of rworkflows. I'll try BiocManager::install() as you suggested to see if it helps.
+
+**Sean Davis** (10:51:58):
+> Great. Let us know how switching works for you.
+
+**Sean Davis** (10:53:29):
+> And thanks a bunch for helping with maintaining rworkflows!
+
+**Marcel Ramos Pérez** (11:10:04) (in thread):
+> Note that`BiocManager::install`does not install local packages. For that, you can use`remotes::install_local(..., repos = BiocManager::repositories())`
+
+**Hiru** (11:13:26) (in thread):
+> Hello Marcel,
+> That's the current behaviour. However,`remotes::install_local`seems to install most, if not all, dependencies from source (even with`repos=BiocManager::repositories()`).
+> 
+> I was looking into collecting dependencies using`remotes::dev_package_deps(dependencies = TRUE)`and then passing the package names to`BiocManager::install()`. Once all the dependencies are installed, run`remotes::install_local`as usual.
+> 
+> Would this make any difference? Aim is to download and install from binaries wherever possible.
+
+**Marcel Ramos Pérez** (11:21:50) (in thread):
+> As Sean suggested, using the Bioconductor container will get you the BioC binaries for fast installation. You should also set your CRAN repository to one of the binary locations e.g., for Ubuntu 24.04 :[https://p3m.dev/cran/__linux__/noble/latest](https://p3m.dev/cran/__linux__/noble/latest). Collecting the dependencies should not be necessary if you are using the`install_local`call above. See here for an example to set the CRAN env var[https://github.com/Bioconductor/BuildABiocWorkshop/blob/9923855838049050a48b817e2168971dbb6c272c/.github/workflows/basic_checks.yaml#L16](https://github.com/Bioconductor/BuildABiocWorkshop/blob/9923855838049050a48b817e2168971dbb6c272c/.github/workflows/basic_checks.yaml#L16)
+
+**Hiru** (11:39:12) (in thread):
+> I see. The CRAN environment variable is new to me. But is there any reason why`install_local(repos=BiocManager::repositories())`*inside *the Bioconductor container doesn't use a CRAN repository with binaries but package sources instead?
+
+**Hiru** (12:09:45) (in thread):
+> Okay, I was not aware default CRAN URL does not provide binaries for linux.
+> 
+> However, could you please point to how this CRAN env var is being used? I cannot find any references for this.
+> 
+> The easiest way I see is
+> ```
+> repos <- BiocManager::repositories()
+> repos["CRAN"] <- "custom_cran_url"
+> 
+> install_local(repos=repos, ...)
+> ```
+
+**Marcel Ramos Pérez** (12:13:15) (in thread):
+> BiocManager does not control the CRAN repository that you may choose. Setting the`env: CRAN`in the`.github/workflows/<file>.yaml`(as linked above) should be enough
+
+**Hiru** (12:18:07) (in thread):
+> I understand BiocManager doesn't control the CRAN repository, but I'm specifically wondering which function or script reads the`CRAN`environment variable set in the workflow YAML? I can't find documentation/code on how this environment variable is actually used during installation. Could you please point me to this?
+> 
+> From what I can see, most of the install functions use`getOptions("repos")`rather than env vars
+
+**Marcel Ramos Pérez** (12:31:28) (in thread):
+> It may be somewhere in R's startup. I am not sure.
+
+
+## 2025-03-12
+
+**Mike Smith** (10:43:49):
+> I'm pretty sure the Bioconductor package binaries are only built for the release version of Bioconductor.  If you're using the`devel`Docker image then I don't think they're available to you.  I can't find any documentation on this, but I can see that a list of packages exists for 3.20 ([https://storage.googleapis.com/bioconductor-packages/3.20/container-binaries/bioconductor_docker/src/contrib/PACKAGES](https://storage.googleapis.com/bioconductor-packages/3.20/container-binaries/bioconductor_docker/src/contrib/PACKAGES)) but not if you try the same for 3.21.
+> 
+> One thing that can help a bit is to make sure you've set`options(Ncpus = 4L)`so that the installation can take some benefit from the multiple cores the GitHub runners have.  It's not linear, but I've found that can noticeably reduce the installation time for multiple packages.[bioc-actions/setup-bioc](https://github.com/grimbough/bioc-actions/tree/v1-branch/setup-bioc)tries to do this automatically, although I have occasionally run into issues with`r-lib/install-dependencies`running into what I assume were race conditions and failing unless I scaled back to few cores.
+> 
+> I'm not sure how you structure the`rworkflows`but I also find it helpful to cache the R library of packages, and to make sure that cache is retained even if the workflow fails.  There's nothing more frustrating than to wait for all the package installation only to find that some subsequent  step fails due to a typo and then you have to repeat all the installation again.
+
+**Hiru** (12:39:28):
+> I have been experimenting with different setups and this is what I find-
+> ```
+> Docker Images	  BiocManager::repositories()["CRAN"]                Binaries (linux)?
+> ----------------------------------------------------------------------------------------
+> RELEASE_3_19[https://p3m.dev/cran/__linux__/jammy/latest](https://p3m.dev/cran/__linux__/jammy/latest)Yes
+> RELEASE_3_20[https://p3m.dev/cran/__linux__/noble/latest](https://p3m.dev/cran/__linux__/noble/latest)Yes
+> devel[https://cloud.r-project.org](https://cloud.r-project.org)No
+> ```
+> Using[https://p3m.dev/cran/__linux__/noble/latest](https://p3m.dev/cran/__linux__/noble/latest)as CRAN for devel still doesn't help, possibly since binaries are not yet available for R4.5.0, as mentioned.
+> 
+> I'll look into using more cores and preserving cache even on run failures. Thanks for all the help - Sean, Marcel and Mike!
+
+**Alex Mahmoud** (13:37:53):
+> We used to build for both release and devel, but have had a bit of an issue with the binary building stack. We recently fixed it for release, and are working on building the devel binaries as well. Sorry for the inconvenience. However, even when available, because of R-devel being unreleased, binaries in devel are more likely to be unstable. I am not sure about CRAN binaries, will ask internally folks who have more long-time R experience to see what they think about including p3m repo by default in devel as well
+
+**Brian Schilder** (17:48:35) (in thread):
+> thank you so much@Mike Smith! this is hugely helpful!
+
+**Brian Schilder** (17:49:04) (in thread):
+> thanks so much Alex! I think this helps to explain a lot
+
+*19:42:11 - @Sisi Wang has joined the channel*
+
+## 2025-03-20
+
+**Leonardo Collado Torres** (09:19:45) (in thread):
+> Aye, caching R packages really helps
+
+
+## 2025-04-27
+
+**Vince Carey** (13:52:07):
+> How are things going with the cloud working group?  Are there topics to present to the May 1 TAB meeting?
+
+
+## 2025-04-28
+
+**Erdal Cosgun** (14:03:21) (in thread):
+> Hi@Vince Carey, we do not have any topic to present this month.

@@ -1,0 +1,1677 @@
+---
+title: "#spatialexperiment"
+format: gfm
+---
+
+
+## 2020-10-23
+
+*15:10:42 - @Lukas Weber has joined the channel*
+**Lukas Weber** (15:10:43):
+> set the channel description: Discussion on development of SpatialExperiment object class
+
+*15:21:07 - @Stephanie Hicks has joined the channel*
+*15:21:08 - @Dario Righelli has joined the channel*
+*15:21:08 - @Davide Risso has joined the channel*
+*15:21:08 - @Leonardo Collado Torres has joined the channel*
+*15:21:08 - @Helena L. Crowell has joined the channel*
+*15:21:09 - @Mark Robinson has joined the channel*
+*15:21:09 - @Shila Ghazanfar has joined the channel*
+**Lukas Weber** (15:22:26):
+> Hi all, I just had a great discussion with@Helena L. Crowellabout SpatialExperiment this morning. We have a few people using these objects now, so I thought this might be a good time to start a SpatialExperiment channel.@Leonardo Collado Torresand Brenda Pardo have also been doing a lot of work to update SpatialLIBD objects to use SpatialExperiments.
+> 
+> Helena had some good suggestions e.g. on user-friendly ways for VisiumExperiment object creation, how to link image files, and how to handle multiple samples.
+> 
+> I think if we all post these kinds of ideas in this channel, this would be really useful for discussion, since we are working on slightly different datasets and this would hopefully help reach a consensus for a broadly useful object structure. This would be useful both for ourselves (e.g. Helena's new collaboration, my STdata objects, Leo and Brenda's SpatialLIBD objects), as well as more generally for new users in the community.@Dario Righelliare you also writing a paper on SpatialExperiment? Not sure what your proposed plans were there so thought I'd ask.@Shila Ghazanfarthe rest of us are mainly working with Visium, but would be great to get your comments from the SeqFISH perspective too.@Helena L. Crowelldo you want to post some of your suggestions from this morning here? (No rush, I know it's evening/weekend in Europe now!)
+> 
+> Thanks and have a great weekend all! (@Leonardo Collado Torresis Brenda on Bioc Slack? I couldn't find her. Have I missed anyone else?)
+
+**Leonardo Collado Torres** (15:26:03):
+> I'll ask Brenda to join
+
+**Leonardo Collado Torres** (15:26:09):
+> and thanks for organizing this Lukas!
+
+**Davide Risso** (15:27:00):
+> Thanks@Lukas Weberfor creating this channel!
+
+**Davide Risso** (15:28:47):
+> Adding@Ruben Driesas I bet he’s interested in these conversations!
+
+*15:28:50 - @Ruben Dries has joined the channel*
+**Lukas Weber** (15:29:51):
+> ah yes, thanks!
+
+**Dario Righelli** (16:34:36):
+> Thanks@Lukas Weber! Great idea and organizing!:slightly_smiling_face:
+
+**Dario Righelli** (16:36:34):
+> about the paper, we’re still discussing about on what to do to wrap in order to propose something!
+> We’ve some ideas, but still lot of work to do!
+
+**Ruben Dries** (17:01:32):
+> Yes, thanks for the invite@Davide Rissoand great to see so many people working on this. I’m happy to help in any way
+
+
+## 2020-10-24
+
+**Helena L. Crowell** (02:30:33):
+> I thought I share my thoughts from yesterday morning’s discussion with@Lukas Weber. Note in advance: I got excited about finally getting my hands on some Visium data, didn’t know about`SpatialExperiment`, and implemented class definitions and some computation/plotting wrappers… Without the goal to develop anything, but simply to get an analysis going without using`Seurat`. So these are just some thoughts, without wanting claim what’s better and what’s not:wink:
+> 1. `SpatialExperiment`currently stores image paths. But if we were to save the object (.rds) to share it, or if paths are relative vs. absolute, the images will not be available. I currently have a slot`imgData`that is a`tibble`, e.g.,
+> 
+> ```
+> image  sample resolution width height scaleFactor
+> [grob] s1     high       100   100    0.8
+> [grob] s1     low        100   100    0.5
+> [grob] s2     high       100   100    0.8
+> ...
+> ```
+> motivation:
+> * accommodate images for different resolutions & samples
+> pros:
+> * scaling factors are stored alongside the corresponding image, so don’t have to be matched later on
+> * the image`grob`s can be added to a`ggplot`with`annotation_custom()`, whereas xy-coordinates are scaled with the corresponding`scaleFactor`for plotting (if the image is included in the plot, see below)
+> cons:
+> * this adds 2 dependencies: i)`magick`to read in the image; and, ii)`grid`to turn the image into a`grob`using`rasterGrob`
+> 2. In my current implementation, I construct a`VisiumSet`as follows. Here, if`path`is of length > 1, the file paths will be expanded and multiple samples are read in. E.g.,
+> ```
+> VisiumSet <- function(
+>     path = ".",
+>     counts = "raw_feature_bc_matrix.h5", 
+>     spotData = "tissue_positions_list.csv", 
+>     images = "tissue_lowres_image.png", 
+>     scaleFactors = "scalefactors_json.json") 
+> {
+>     ...
+> }
+> 
+> # sample1/2 are directories containing files for the
+> # count matrix, coordinates, images, scale factors
+> vs <- VisiumSet(
+>     path = c("sample1", "sample2"))
+> 
+> > vs
+> class: VisiumSet 
+> dim: 32285 9984 
+> metadata(0):
+> assays(1): counts
+> rownames(32285): Xkr4 Gm1992 ... AC234645.1
+>   AC149090.1
+> rowData names(0):
+> colnames(9984): AAACAACGAATAGTTC-1
+>   AAACAAGTATCTCCCA-1 ... TTGTTTGTATTACACG-1
+>   TTGTTTGTGTAAATTC-1
+> colData names(1): tissue sample
+> reducedDimNames(0):
+> altExpNames(0):
+> spotData(5): row col imgx imgy
+> imgData(4): image sample resolution width height scaleFactor
+> samples(2): sample1 sample2
+> ```
+> motivation:
+> * I have 2 samples right now, but we expect to get another 6. Since the data comes with a fixed naming scheme, this was the simples way to read in multiple samples at once.
+> pros:
+> * easier to set up / omits a long preamble to read in all the data, especially when there are multiple samples
+> cons:
+> * this again adds dependencies, e.g.,`jsonlite`and`Matrix`, something to read in`.h5`(to support both input types, i.e.`counts`could also be directory containing barcodes, features, counts).
+> 3. This is not so much a difference, but the above setup allows for some neat visualisation. At the moment, I have a wrapper`ggspatial`that allows faceting by sample or feature, coloring by feature value or metadata, and has options to turn on/of the image/points. E.g.,
+> ```
+> # this is a 'patchwork' output, so we use '&' to add global plotting settings
+> ggspatial(vs, fill = "tissue") & scale_fill_manual(values = c("black", "red"))
+> ```
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F01DYM07Y2C/image.png)
+
+**Helena L. Crowell** (02:31:02):
+> ```
+> ggspatial(vs, sample = "sample1", fill = rownames(vs)[seq_len(15)], image = FALSE)
+> ```
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F01DF0ZNJVA/image.png)
+
+**Helena L. Crowell** (02:31:24):
+> ```
+> ggspatial(vs[, !vs$tissue], fill = "total") & scale_fill_viridis_c(trans = "log10")
+> ```
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F01DMERLX09/image.png)
+
+*10:06:06 - @Charlotte Soneson has joined the channel*
+**Davide Risso** (10:41:50):
+> Thanks for sharing this@Helena L. Crowell! Those plots are really cool!
+
+**Dario Righelli** (10:42:07):
+> thanks@Helena L. Crowellfor sharing this very good work! I think they are all very good points and we can try to find a way to put all this things together…
+
+**Davide Risso** (10:45:55):
+> How big are the image objects? is it feasible to keep the images loaded for a moderately large dataset? Are you using the low or high resolution?
+
+**Davide Risso** (10:47:06):
+> We should also consider that the EBImage Bioconductor package has a Image class that is used e.g. by the cytomapper package
+
+**Davide Risso** (10:47:33):
+> Not sure what are the pros/cons of EBImage vs. your current approach
+
+**Dario Righelli** (10:49:22) (in thread):
+> low/high/full resolution?
+
+**Davide Risso** (10:49:50):
+> @Lukas Weberabout the question on publication, we didn’t really think about this at the moment. The idea was to get started with some sort of “standard” class for Bioc developers. I think this channel is a great idea and can be used to tweak/modify/test the class.
+
+**Davide Risso** (10:51:04):
+> We could think about a collaborative paper (application note / software / workflow) with anyone who wants to contribute after we are all happy with the class
+
+**Helena L. Crowell** (10:55:05) (in thread):
+> * .png low 600KB, high 6MB
+> * the`grob`s, however, are considerably larger when written to`.rds`: 1 and 11MB, respectively.
+> * if I instead store an object of class`magick-image`in the`tibble`, high resolution is only 82 bytes!
+> * so I think this is not the bottleneck in terms of storage, considering in the end we might have 4 samples, 40k features, 5k spots per sample with multiple assays. But definitely worth thinking about how to best store the image (as an object, which I’d definitely prefer over just paths)
+> * upside of`magick-image`is also it can directly be plotted with`show()`/ by not doing anything. This could then just be converted to a`grob`for`ggplot2`by whatever plotting function people come up with.
+
+**Helena L. Crowell** (11:00:21) (in thread):
+> Okay, my mistake… you cannot store it`magick`ly, because it’s just a pointer, hence 80 bytes. I’ll have a look at@Davide Risso’s suggestion of`EBImage`
+
+**Davide Risso** (11:01:17) (in thread):
+> yeah 82 bytes seemed a bit too good to be true!:slightly_smiling_face:
+
+
+## 2020-10-26
+
+*14:48:18 - @Brenda Pardo has joined the channel*
+**Leonardo Collado Torres** (17:30:23):
+> Hi everyone!
+> 
+> Brenda@Brenda Pardois an undergrad student at LCG-UNAM-EJ who has been working with me to adapt our data in`spatialLIBD`to be compatible with`SpatialExperiment`(in particular the`VisiumExperiment`class) in prep for BioC 3.12. I just met with her, and we’ll try to summarize what she’s done in a blog post by next Monday.
+
+**Leonardo Collado Torres** (17:34:29):
+> I like your tibble solution Helena. We had something similar in our initial SCE objects under`metadata(sce)`. I do think that it’ll be useful to support multiple resolutions of images. Note that there’s “low” and “high” as defined by spaceranger, but you could also in theory use much higher resolution images. These can easily be 500mb or even more. I’m guessing that something like that could come into play if someone wanted to make a “zoomed in” plot function
+
+**Leonardo Collado Torres** (17:37:24):
+> Have you seen[https://edward130603.github.io/BayesSpace/reference/readVisium.html](https://edward130603.github.io/BayesSpace/reference/readVisium.html)? I was thinking of using it with our upcoming new Visium data
+  - Attachment (edward130603.github.io): [Load a Visium spatial dataset as a SingleCellExperiment. — readVisium](https://edward130603.github.io/BayesSpace/reference/readVisium.html)
+    > Load a Visium spatial dataset as a SingleCellExperiment.
+
+**Leonardo Collado Torres** (17:37:42):
+> though I’m curious on learning more about`VisiumSet()`^^
+
+
+## 2020-10-27
+
+*03:40:21 - @Aaron Lun has joined the channel*
+**Aaron Lun** (03:40:30):
+> my god, this i where eveyrone is.
+
+**Aaron Lun** (03:41:06):
+> is there somewhere I can donate my moran's I function to, or should I keep stacking it into spatula?
+
+*04:40:23 - @Peter Hickey has joined the channel*
+**Stephanie Hicks** (07:05:09):
+> @Aaron Lun—@Lukas Weberis building a package that it might fit well into
+
+**Lukas Weber** (07:25:56):
+> hey! yes I have been collecting some functions here. I was also trying some modified versions of Moran's I and/or Geary's C (e.g. not scaling by variance, just the top part of the formula):[https://github.com/lmweber/spatzli/tree/master/R](https://github.com/lmweber/spatzli/tree/master/R)I probably mangled some things in my implementation (e.g. sparse matrices for kernel weights) - but yes maybe makes sense to think about merging it in there. Which function is it in spatula? I'll have a look at the implementation.
+
+**Lukas Weber** (07:34:33):
+> @Helena L. CrowellI also like the`VisiumSet()`idea - sort of making use of the`flowSet`idea from cytometry, where there is a similar setup of one`flowSet`consisting of multiple`flowFrames`(samples) with different numbers of cells/spots per sample
+
+**Helena L. Crowell** (07:56:36):
+> Maybe the`Set`was misleading, it’s really not like a`flowSet`- if it were, we cant just use e.g.,`scater`, but would need to implement custom methods (e.g. there’s`fsApply`). Anything else would need to be done separately for each frame, e.g.,`assay(VisiumSet[[1]])`… and I don’t like an analysis that has a`lapply`in almost every single line…
+> The current`VisiumSet`is just like a**normal**SCE with sample identifiers, so I can run dim. red., accession, computations on the whole thing. I think that makes sense as we assume samples are indeed replicates or different conditions, and the # of spots is the same across samples.
+> Alternatively, we could have a**set**with different dimensions per**frame**. But I dont know when that makes sense - e.g., would anyone use different Visium plate resolutions (does that even exist?) in the same experiment?
+> Of course, we could also have both: A global object structure with all samples or a**split**one, so e.g. dim. red. can be run separately for each sample… But again, I don’t know why we’d want that and we don’t do it for e.g. scRNA-seq.
+
+**Helena L. Crowell** (07:59:40):
+> Theeen again, if we in the future had paired spatial & single-cell res data for each sample, we would probably need another structure all together, e.g., based on`MultiAssayExperiment`
+
+**Lukas Weber** (08:04:00):
+> Ah ok - yeah maybe it is just simpler to put it all into a single SCE/SPE/assay like this. You are right, having something like`flowSet`would make it difficult/impossible to use`scater`
+
+**Lukas Weber** (08:07:22):
+> I think usually we will have the same total number of spots per sample, but different numbers of spots with actual tissue on them - so this is where the different dimensions per sample come from, i.e. we remove the spots that do not overlap with tissue (I think it is called`is_tissue`from Space Ranger)
+
+**Lukas Weber** (08:08:42):
+> it is also possible that a few spots get chopped off if the sample/slide isn't aligned very well
+
+**Dario Righelli** (09:28:58):
+> As already answered to an old issue opened by@Leonardo Collado Torres, I'd suggest to use the`MultiAssayExperiment`or to extend it to provide some needed functionalities.
+> The`MultiAssayExperiment`is a really good work and it can already take multiple`VisiumExperiment`objects as input.
+> Maybe@Leonardo Collado Torrescould tell us if he already had experience working with these classes and provide us some feedbacks.
+
+**Dario Righelli** (09:32:18):
+> Also the`VisiumExperiment`(as well as the`SpatialExperiment`) already works with all the packages supporting`SummarizedExperiment`family-classes, such as the`scater`.
+> That's why the`MultiAssayExperiment`natively supports SCE/SPE/VE objects.
+
+**Helena L. Crowell** (09:42:40):
+> Re MultiAssay- I am not too familiar with that class, but without having multi-omics data, won’t that complicate things? E.g., would`scater::runPCA`work on it or have to be applied separately to each sample in the object? I honestly don’t know.
+> Re VisiumExp- totally. That’s the beauty of extending an existing class.
+
+**Dario Righelli** (09:51:55):
+> On MultiAssay- I'm sure we can consider any kind of multiple datasets (also not multi-omics), but of course I surely have to better understand any kind of allowed operations.
+> For example a sort of`assayApply`as you were suggesting in a previous message.
+> That's why I was suggesting to extend it with additional methods if we consider it necessary.:slightly_smiling_face:
+
+**Dario Righelli** (09:54:59):
+> On the other hand your`VisiumSet`seems really elegant in managing multiple visium experiments, so we can find a way to put all the things together.
+
+**Lukas Weber** (10:07:42):
+> yes - I think there is a distinction here between having only multiple**samples**(where MultiAssay is maybe over-complicating things) vs. multiple data types (or also conditions?) where MultiAssay would be very useful
+
+**Leonardo Collado Torres** (10:14:04):
+> On`MultiAssayExperiment`, with the data from`spatialLIBD`(12 Visium images), we like doing things like:
+> * Running clustering algorithms using all images. For example, using`scater`. Having 12 separate data matrices and having to combine them for every such step didn't seem like the way to go to me, but I might be wrong.
+> * We don't read the data for all the spots into R. We only read the data from the spots that overlap tissue. So our dimensions (number of spots, aka columns) is different for every sample. My vague understanding is that`MultiAssayExperiment`is meant for cases when you have the same number of columns across multiple technologies (different number of rows). We could read in the data from all spots, but then, for many operations, we would have to filter them out, and that didn't seem ideal to me. Like, why require more memory for something we won't ever use? I guess that we could transpose the data, but then, we would need to transpose it to use other tools that expect genes in the rows.
+> * Plotting the data from all images. We have`spatialLIBD::sce_image_grid()`and`spatialLIBD::sce_image_grid_gene()`for example. This can be adapted to support`MultiAssayExperiment`.
+
+**Dario Righelli** (10:26:47) (in thread):
+> okok, thanks this is a really good feedback.
+> Yes I think you're right about the common samples across the assays in the`MultiAssayExperiment`and maybe this could not help in our case.
+> So maybe we can discuss about other ways to handle multiple Visium samples, such as a`VisiumSet`that takes multiple`VisiumExperiment`objects (?)
+
+**Helena L. Crowell** (10:50:24):
+> Hm, maybe I’m missing something. But I think of the data as pretty much scRNA-seq, the only difference being i) obs. != cells (not much considered atm, other than for apply deconvolution) and ii) we have x and y for each obs. So, my current approach is similar to what@Leonardo Collado Torressays: Do everything with a single object that has sample identifiers. It’s then straight-foward to subset spots mapped to the image via`vs[, vs$tissue]`. The**novel**bit comes from functions designed specifically for this data. E.g.
+> * For Moran’s I (MI), I have a wrapper that takes a blocking argument (similar to many other functions already), e.g.`findSVGs(vs, method = "MI", block = "sample")`(in a multi-sample setting; so spatially variable genes (SVGs) are computed separately for each sample) or`block = c("sample", "cluster")`(to get SVGs within clusters)
+> * For plotting, of course, xy-coords. and images need to be matched with the data. This is taken care of internally by my plotting wrapper, not the object.
+> So overall, the most straight-forward way (in my opinion) is do everything like in a SCE, except for spatial-specific stuff. But I don’t think we need to split the object in a special way to do that… Because that would come at a tremendous cost of losing**normal**functionality (e.g.`scater`), or having to loop through the data all the time (as@Leonardo Collado Torresmentioned as well).
+> 
+> Finally, I don’t think we**need**a`VisiumExp`vs.`VisiumSet`. We also don’t do this for multi-sample multi-group scRNA-seq data. One class is sufficient where a single- vs. multi-sample setting just differs by (not) having a sample identifier, and whether there are multiple`sample`s in the image`tibble`(or similar structure).
+
+**Helena L. Crowell** (10:55:22):
+> Regarding image storage:
+> A possible compromise between`SpatialExperiment`’s current and my approach would be to construct the object with a flag`storeImages = TRUE/FALSE`. In principle, the`imgData`could either store just paths or`grob`s of the images.
+> Then, we could provide a wrapper such as`addImage(vs, ...)`that would actively load an image (a new one or one already specified in the object), and add the`grob`into the object. That would allow, e.g., specifying paths to all resolutions for all samples, but only loading certain images if desired.
+
+**Aaron Lun** (11:15:20):
+> Good discussion here. I would say that MAE is overkill given that we have (i) the same feature set across all samples and (ii) no 1:many mappings - or really, any mappings - between the different columns of the matrices. So the MAE would essentially devolve into a list of SEs, at which point we might as well cbind them all together.
+
+**Aaron Lun** (11:15:53):
+> If people are worried about the memory cost of cbinding, it is possible to effectively delay it by wrapping all relevant matrices into a DelayedArray and cbinding those instead.
+
+**Aaron Lun** (11:17:52):
+> For general use, I would agree that you just need a`colData`column specifying the sample of origin - plus possibly another`int_metadata`field containing a named character vectro, specifying the path to each image file for each sample - and then you should be okay.`SpatialExperment`can mediate the extraction of the file names and other file-related metadata.
+
+**Aaron Lun** (11:19:33):
+> Re Moran’s I:[https://github.com/LTLA/spatula](https://github.com/LTLA/spatula), written in C++ with DelayedArray support. Tell me where to PR, plz.
+
+
+## 2020-10-28
+
+**Aaron Lun** (03:12:01):
+> So... PR? No PR? It does compute correct one-sided p-values.
+
+**Aaron Lun** (03:12:26):
+> I also have some ideas about scanning across radii/bandwidths to search across resolutions.
+
+**Aaron Lun** (11:53:58):
+> Got awful quiet here. Guess that’s a no, then.
+
+
+## 2020-10-29
+
+**Lukas Weber** (00:40:04):
+> soon! re resolutions - I believe SPARK ([https://www.nature.com/articles/s41592-019-0701-7](https://www.nature.com/articles/s41592-019-0701-7)) does something like this with searching across multiple kernel types and bandwidths too, and then using a method to combine p-values
+
+**Aaron Lun** (00:58:41):
+> paywalled, but I get the general idea.
+
+**Lukas Weber** (00:59:00):
+> sci-hub:wink:
+
+**Aaron Lun** (01:01:03):
+> I only break the law to do things I enjoy.
+
+**Aaron Lun** (01:01:18):
+> reading papers is definitely not one of them.
+
+*10:47:30 - @Atul Deshpande has joined the channel*
+*13:03:33 - @Vince Carey has joined the channel*
+
+## 2020-11-02
+
+*17:20:36 - @RGentleman has joined the channel*
+
+## 2020-11-09
+
+**Brenda Pardo** (17:14:35):
+> Hello everyone!
+> I’m Brenda Pardo and I’m an undergrad student in genomic sciences at UNAM. I have been working with@Leonardo Collado Torresto adapt the package spatialLIBD to use VisiumExperiment class objects. We recently published a blog post summarizing the modifications we have done to the package. I invite you to read it and give us your comments.  Thank you in advance![http://research.libd.org/rstatsclub/2020/11/06/using-visiumexperiment-at-spatiallibd-package/#.X6m58y2z1QJ](http://research.libd.org/rstatsclub/2020/11/06/using-visiumexperiment-at-spatiallibd-package/#.X6m58y2z1QJ)
+  - Attachment (LIBD rstats club): [Using VisiumExperiment at spatialLIBD package | LIBD rstats club](http://research.libd.org/rstatsclub/2020/11/06/using-visiumexperiment-at-spatiallibd-package/#.X6m58y2z1QJ)
+    > By Brenda Pardo A month ago, I started an enriching adventure by joining Leonardo Collado-Torres’ team at Lieber Institute for Brain Development. Since then, I have been working on modifying spatialLIBD, a package to interactively visualize the LIBD human dorsolateral pre-frontal cortex (DLPFC) spatial transcriptomics data (Maynard, Collado-Torres, Weber, Uytingco, et al., 2020). The performed modifications allow spatialLIBD to use objects of the VisiumExperiment class, which is designed to specifically store spatial transcriptomics data (Righelli and Risso, 2020).
+
+
+## 2020-11-10
+
+**Dario Righelli** (05:09:51) (in thread):
+> Really good work! Thanks for sharing it!:slightly_smiling_face:
+
+
+## 2020-11-12
+
+**Dario Righelli** (08:00:05):
+> Hi<!here>,@Charlotte Sonesonwas suggesting to submit a Birds of a Feather proposal for the next Euro Bioc 2020 on the spatial transcriptomics.
+> I’d be good to know if someone of you is interested in participating and to collaborate on the abstract.
+> Here it is my initial draft (fell free to trace your editing)[https://docs.google.com/document/d/16zSSzr24T5rjMfJoGq_5Fs3iDaixyU-31KBPwMp93ns/edit?usp=sharing](https://docs.google.com/document/d/16zSSzr24T5rjMfJoGq_5Fs3iDaixyU-31KBPwMp93ns/edit?usp=sharing)Looking forward for your thoughts and feedbacks!
+
+**Helena L. Crowell** (08:32:37):
+> Any updates re accommodating multiple samples? I feel quite strongly this should be top-priority, since already folks are trying to adapt their functions/analyses to the`SpatialExperiment`class. The sooner we can get a sensible structure for this the better & less work re-writing downstream:slightly_smiling_face:Maybe this can be added as a target for the BoF (besides just focusing on analysis)?
+
+**Dario Righelli** (09:10:48):
+> you are right about the fact that this is a top priority decision, but in general I still think that it’d be enough to wrap multiple`VisiumExperiment`objects inside a`list`or a`set`.
+> Functions working with multiple samples can simply check that each object has what they expect a`list`of 1 or more`VisiumExperiment`objects.
+> On the other hand, we can start to scratch a document where we point out a rough description with any needed requirement (in a software engineering style:laughing:)
+
+**Dario Righelli** (09:12:20) (in thread):
+> Do you have a public github with your code?
+
+**Helena L. Crowell** (09:26:36) (in thread):
+> I disagree… having multiple samples in a list would, for example, not allow to run`scater::runPCA`on the joint data. That’s just one of a dozen other examples were this would be anything but desirable, one of the top pains being to have 100`lapply`s in your workflow. My main argument is: We don’t have a list for normal single-cell data, but a single`SingleCellExperiment`. Why should it be different for spatial other than some images?
+
+**Lukas Weber** (09:32:33):
+> Hi@Helena L. Crowell@Dario Righelli, yes I agree, let's try to reach a consensus on the issue of multiple samples.
+> 
+> Maybe now is a good time to organize a Zoom call for those who are interested (on this and other issues from our previous messages above), as we suggested previously but didn't quite get around to. I also have a few other new minor updates that I can go through.
+> 
+> Would early next week work? Maybe in the morning our time, so afternoon European time. Let's see if I can figure out how to make a poll below.
+> 
+> I can put together an agenda in a Google doc. Maybe a possible output could be a short vignette demonstrating a hypothetical example with multiple samples.
+
+**Lukas Weber** (09:43:27):
+> Ok I can't figure out polls, so let's use number emojis instead.<!channel>for those interested, please respond with numbers for those that work for you - I have suggested a few possible times below. If none are good, I'll try again. (Sorry they will not be great for all time zones - I have focused on working hours for EST and CET, since that is where most of us are. I'll also send around a summary afterwards for those who can't make it.)
+> * 1 = Friday (tomorrow) 9am EST / 3pm CET
+> * 2 = Monday 9am EST / 3pm CET
+> * 3 = Tuesday 9am EST / 3pm CET
+> * 4 = Wednesday 10am EST / 4pm CET
+
+**Lukas Weber** (09:44:31) (in thread):
+> I think making sure`scater::runPCA`and other scater functions work properly is a really important point
+
+**Lukas Weber** (09:45:04):
+> I'll also send around a Google doc with agenda / discussion points later today
+
+**Lukas Weber** (10:19:35):
+> (and maybe also add "5 = none of these work but you would like to join")
+
+**Davide Risso** (10:20:19) (in thread):
+> My personal opinion is that we definitely need a container for multi-sample spatial data. One question is whether we need two classes (one for a single sample and another one for multi-sample data) or if we can do just fine with one class (of which the one sample case is just a special case). I think that we can probably do fine with just one class, potentially simply turning the image slot to a list of images?
+
+**Davide Risso** (10:21:07) (in thread):
+> I voted 5, but please meet without me and I will read the meeting notes after the meeting
+
+**Helena L. Crowell** (10:46:06) (in thread):
+> Agreed. I actually disregarded my`VisiumExp/Set`for just one class by now.
+> However, for the image data, I think a`tibble`is preferable over a list of images / image paths PLUS a list of scale factors. I generally don’t like lists as part of a class definition…. The`tibble`(or similar) structure has various advantages:
+> a) it’s compact / pretty to look at and
+> b) I believe having separate slots for this is a really bad idea… scale factors from each sample-resolution belong to one image only; this pairing can and should be stored by the constructer, rather than having to match them each time you want to plot it.
+> c) the`tibble`could support both, storing image paths or the actual image (as a`grob`)
+> d) we can store all relevant data side by side, a list cannot do that (e.g. sample ID, resolution, width, height, scale factor)
+
+**Lukas Weber** (10:50:33):
+> Here are a few more time options, in case we can find one that works for everyone:
+> 6 = Friday (tomorrow) 10am EST / 4pm CET
+> 7 = Monday 8am EST / 2pm CET
+> 8 = Monday 10am EST / 4pm CET
+> 9 = Tuesday 8am EST / 2pm CET
+> 10 = Tuesday 10am EST / 4pm CET
+
+*11:46:34 - @Abby Spangler has joined the channel*
+**Leonardo Collado Torres** (12:28:30):
+> Hi everyone! Thanks Lukas for organizing this. Brenda@Brenda Pardojust presented her updates on`spatialLIBD`in relation to`SpatialExperiment`to our group and we were thinking that it'd be good to maybe talk a little about it at this upcoming meeting. In addition, Brenda submitted an abstract for a short talk or poster for EuroBioc2020. All of this is based on the material that is available on her blog post.
+> 
+> In addition, I'm working with Abby (welcome!)@Abby Spanglerwith some new spatial data (multiple images) that we want to use`SpatialExperiment`from the get go, but also have the ability to use the plotting and exploratory code we have in`spatialLIBD`.
+> 
+> So in all, we do have a need for a way to handle multiple images in analyses. Like Helena, I think that changes to the current`VisiumExperiment`class would be good, but maybe there's a need for another class too. In summary these are:
+> * Add support for imagePath(ve) pointing to URLs? Right now the validity code checks that the images exist locally, which makes it a bit weird with sharing the files around multiple file systems. Or what do you have in mind as the best practice for sharing the data + images?
+> * The`scaleFactors`gets messy with multiple images. We**hacked**our way around it as described in Brenda's blog post.
+> * Reading the "low" quality images from space ranger on the fly to produce the`grob`needed for the plots works fast enough, but**if**we wanted to use higher quality images (maybe even beyond the ones from space ranger), then this might get tricky.
+
+**Leonardo Collado Torres** (12:30:09):
+> By the way@Lukas Weber, I like using[https://www.timeanddate.com/worldclock/meeting.html](https://www.timeanddate.com/worldclock/meeting.html)when I need to plan meetings across time zones since it keeps track of when each country changes to and from DST.
+  - Attachment (timeanddate.com): [Meeting Planner – Find best time across Time Zones](https://www.timeanddate.com/worldclock/meeting.html)
+    > The World Clock Meeting Planner is used to find a suitable time to have a telephone conversation, web cast or meeting with participants in many time zones
+
+**Lukas Weber** (12:30:47) (in thread):
+> oh cool thanks, was wondering if there is something like that - especially if we want to accommodate even more timezones e.g. Australia
+
+**Dario Righelli** (14:10:25):
+> I’ll trying to answer all the points:@Lukas WeberI think this is a really good idea! let’s have a call!
+> After putting together what@Helena L. Crowelland@Leonardo Collado Torreswere bringing up, I started to better understand what you meant!
+> In general speaking, you have all my support on improving the spatial classes on the needs that are arising and I think that having this call + the BOF on the EuroBioc conference would be a great way to do that!
+> Anyway, I’m not sure that building a new class is the best approach, maybe the@Helena L. Crowell’s idea of using the`tibble`or a similar data structure to handle the images and the scalefactors together is better.
+> On the URLs problem, I was already thinking about it, because having really big images it’s a huge handling problem. Indeed I was planning to implement something for the load/unload images on the fly when needed, but I still don’t have an optimized solution.
+
+**Leonardo Collado Torres** (15:06:58) (in thread):
+> hehe yup, plus as you add countries it becomes pretty hard to keep up with when people change their timezones and stuff like that
+
+**Leonardo Collado Torres** (15:07:11):
+> sounds good! see you soon then ^^
+
+**Leonardo Collado Torres** (15:07:20):
+> and yes, the BoF at EuroBioc2020 would be good
+
+**Aaron Lun** (15:08:09):
+> is there anything in my part of the stack that I need to care about?
+
+**Leonardo Collado Torres** (15:10:58):
+> yup, the bank:wink:
+
+**Aaron Lun** (15:11:11):
+> huh?
+
+**Leonardo Collado Torres** (15:11:27):
+> hehe:money_with_wings:
+
+**Aaron Lun** (15:11:35):
+> oh you want money
+
+**Aaron Lun** (15:11:45):
+> hm.
+
+**Leonardo Collado Torres** (15:11:59):
+> in all seriousness though, you should feel free to join and give us feedback since you have quite a bit of experience with making classes and all that
+
+**Leonardo Collado Torres** (15:12:08):
+> (the money stuff was a joke, a bad one I guess)
+
+**Aaron Lun** (15:12:18):
+> because I do have loads of money.
+
+**Aaron Lun** (15:12:28):
+> I’ve often thought about just paying someone to take care of my packages for me.
+
+**Leonardo Collado Torres** (15:12:46):
+> Rafa Irizarry does that
+
+**Leonardo Collado Torres** (15:12:55):
+> he hired someone to help him maintain his R packages
+
+**Leonardo Collado Torres** (15:14:44):
+> I'm not sure how it works at Genentech, but well, the idea of applying for money to hire people to help you maintain and/or develop new projects sounds worth it to me
+
+**Lukas Weber** (15:33:20):
+> @Aaron Lundefinitely feel free to join the meeting when we select a time (although I picked bad times for US west coast) - I'll wait for another few responses on the polls above. I will also make another push on OSTA/STdata soon in the other channel, now that I have a lot more experience with this data and we have the VisiumExperiment class.
+
+**Aaron Lun** (15:34:06):
+> I’ll do my best
+
+**Lukas Weber** (15:34:33):
+> :+1:
+
+**Lukas Weber** (22:47:53):
+> Here is a google doc with a proposed agenda for our meeting, starting with the discussion on how to handle multiple samples in VisiumExperiments. We might not get all the way to the end, but that is okay. Looks like currently the times with most votes are Monday 9am EST (2pm UK / 3pm CET) and Tuesday 10am EST (3pm UK / 4pm CET). I'll wait to see if we get some more votes (note there were two sets of times above):[https://docs.google.com/document/d/1diK4Z1O0LTofQX5TRBezuZQ5webYksjR_nA3WWwtfyM/edit?usp=sharing](https://docs.google.com/document/d/1diK4Z1O0LTofQX5TRBezuZQ5webYksjR_nA3WWwtfyM/edit?usp=sharing)In the agenda, I have proposed that we start with two short examples (say 5 minutes each) from Helena and Leo/Brenda on multiple samples - e.g. a couple of slides, or just show us your screen and some code in RStudio. I think this would help make the problem clear for everyone, and followed by discussion.@Helena L. Crowell@Brenda Pardo@Leonardo Collado Torreslet me know if you think this works, or if you have a different idea. Then after this I suggest that each person goes through their additional ideas/suggestions from the messages above, so we can all discuss them.
+> 
+> Feel free to add notes in the agenda doc in the meantime too.
+
+**Aaron Lun** (22:58:10):
+> hopefully might crawl in on the back half, if I wake up.
+
+
+## 2020-11-13
+
+**Dario Righelli** (03:15:38):
+> Thanks Lukas! The only point I’d bring up now is that the deadline for the EuroBioc2020 is the 16th:sweat_smile:
+
+**Helena L. Crowell** (03:20:33):
+> I think that’s fine- I’d suggest just writing a general proposal for “discussing infrastructure / class design and analysis Bioc-based workflows for spatial transcriptomics”. In the end, our main goal should be to come up with something soon-ish with which people can work with, without having to use`Seurat`as many already do, because there’s not much from Bioc:confused:
+
+**Dario Righelli** (03:31:33) (in thread):
+> I totally agree! Would you like to add that part to the doc file?:slightly_smiling_face:
+
+**Dario Righelli** (03:33:22) (in thread):
+> (and obviously being part of the submission)
+
+**Helena L. Crowell** (09:54:40) (in thread):
+> I’m on it right now- if you’re available by any chance it would be cool to try and do this “interactively”, e.g., comment on stuff and re-write together?
+
+**Dario Righelli** (10:25:54) (in thread):
+> I’m online too, sorry to be late!
+
+**Lukas Weber** (12:26:58):
+> Ok for those who can make it, let's go with***Monday 16 November, 9am EST (2pm UK / 3pm CET)***for the meeting, since that is one of the slots with the highest votes. Unfortunately there wasn't a time that worked for everyone, so I'll make sure we summarize the discussion in the meeting agenda doc and send it around afterwards. In the meantime I'll keep updating the agenda doc. I'll also set up a Zoom link. Thanks all!
+
+**Leonardo Collado Torres** (15:01:34):
+> <!channel>check the message from Lukas regarding the meeting this***next Monday***
+
+**Lukas Weber** (15:01:53) (in thread):
+> thanks!
+
+**Leonardo Collado Torres** (15:06:20) (in thread):
+> I sent a Google Calendar invitation with a few of us. There's more people on the channel though. Anyways, everyone has permissions to edit the event. Can you add the zoom info? I'm already hosting another event that overlaps with this one, hence why I didn't use my Zoom account.
+
+**Lukas Weber** (15:07:42) (in thread):
+> yep I'll add a Zoom link in the agenda doc too - I'll add it in the calendar event too, thanks
+
+
+## 2020-11-16
+
+**Lukas Weber** (08:56:33):
+> Just a reminder - here are links for today:
+> * meeting agenda:[https://docs.google.com/document/d/1diK4Z1O0LTofQX5TRBezuZQ5webYksjR_nA3WWwtfyM/edit?usp=sharing](https://docs.google.com/document/d/1diK4Z1O0LTofQX5TRBezuZQ5webYksjR_nA3WWwtfyM/edit?usp=sharing)
+> * birds-of-feather proposal for EuroBioc2020:[https://docs.google.com/document/d/16zSSzr24T5rjMfJoGq_5Fs3iDaixyU-31KBPwMp93ns/edit?usp=sharing](https://docs.google.com/document/d/16zSSzr24T5rjMfJoGq_5Fs3iDaixyU-31KBPwMp93ns/edit?usp=sharing)
+
+**Lukas Weber** (09:08:54):
+> [https://JHUBlueJays.zoom.us/j/99477761138?pwd=akdtZkJxQlhnbkg1ZWFaQ1BKZnBtUT09](https://JHUBlueJays.zoom.us/j/99477761138?pwd=akdtZkJxQlhnbkg1ZWFaQ1BKZnBtUT09)
+
+**Leonardo Collado Torres** (09:42:54):
+> [http://spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/)
+
+**Leonardo Collado Torres** (09:43:07):
+> [https://github.com/LieberInstitute/spatialLIBD/blob/master/R/read_image.R](https://github.com/LieberInstitute/spatialLIBD/blob/master/R/read_image.R)
+
+**Leonardo Collado Torres** (09:51:15):
+> Plotting functions that allow taking a`data.frame()`instead of assuming data on`colData()`like[https://github.com/LieberInstitute/spatialLIBD/blob/master/R/sce_image_clus_p.R#L40-L42](https://github.com/LieberInstitute/spatialLIBD/blob/master/R/sce_image_clus_p.R#L40-L42)then allow having a single data.frame-like object that has been run through`plotly::highlight_key()`as in[https://github.com/LieberInstitute/spatialLIBD/blob/master/R/app_server.R#L387-L388](https://github.com/LieberInstitute/spatialLIBD/blob/master/R/app_server.R#L387-L388)
+
+**Leonardo Collado Torres** (12:26:00):
+> Helana, regarding a package for plotting functions for`VisiumExperiment`, are you thinking that we should ship the plotting functions from`spatialLIBD`to a new package? I could do that if you and/or Lukas want to add your plotting code there and/or edit the current functions we have.`spatialLIBD`also has code for a shiny app[http://spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/)and some analyses we did for our data.
+> 
+> We could also wait for the updates to`SpatialExperiment`to be in place before we do this. For the shiny app in`spatialLIBD`, the plotting functions home doesn't matter really as long as we can get the package on BioC or CRAN in the BioC 3.13 cycle (given that you can't import/depend on GitHub packages for BioC packages)
+
+**Leonardo Collado Torres** (12:26:22):
+> I'd just like to avoid having to update`spatialLIBD`multiple times
+
+**Helena L. Crowell** (12:28:52):
+> 1. Yes, definitely we should wait!
+> 2. I think having a separate visualization package would be neat (any probably not having “LIBD” in the name:wink:). But that’s just my experience- because in scRNA-seq, I feel like everyone has their own plotting functions nowadays to do the same thing, and it would be nice to have something functional for spatial right from the start!
+> 3. And by something I mean dedicated to plotting and making it flexible and also PRETTY
+> 4. This could also keep dependecies low in other places - e.g., say `spratzli` has a bunch of spatial stats, but doesn’t really need ggplot2 other than to plot spots… this could also be separated (computation vs. visualization)
+> *but happy to agree to disagree if other people have different oppinions…
+
+**Helena L. Crowell** (12:33:10) (in thread):
+> But regardless of what we do and don’t do- you should of course always keep whatever you like in your package when it fluffily your specific needs!
+
+**Lukas Weber** (12:34:03):
+> Hi all, thanks a lot to those who joined the meeting today (and sorry it went quite long!!) I think this was a great discussion, and will hopefully help us move things forward. Here is the updated agenda and meeting notes doc -- I have rearranged it to to follow our discussion, and tried to summarize some of the main discussion points and action items. (Feel free to also add additional notes for things I may have missed):[https://docs.google.com/document/d/1diK4Z1O0LTofQX5TRBezuZQ5webYksjR_nA3WWwtfyM/edit?usp=sharing](https://docs.google.com/document/d/1diK4Z1O0LTofQX5TRBezuZQ5webYksjR_nA3WWwtfyM/edit?usp=sharing)
+
+**Lukas Weber** (13:15:02):
+> For the question of what to call the classes - there seem to be two main groups of technologies - (i) spot-based e.g. Visium, Slide-seq, and (ii) molecule-based e.g. seqFISH, MERFISH. So how about calling them something like`SpatialSpotExperiment`and`SpatialMoleculeExperiment`? Any other suggestions? (These names would be a little on the long end, but they are clear.)
+
+**Stephanie Hicks** (13:29:18):
+> i think those names make a lot of sense in terms of being able to generalize to other types of spatial data that will be coming.
+
+**Aaron Lun** (14:11:59):
+> FYI BioC standard for classes have caps for first letter
+
+**Dario Righelli** (14:29:49):
+> About the visualization package, we were already thinking to do a sort of`iSEE`module for the spatial data visualization.
+> I think that already having the@Leonardo Collado Torres’s package`shiny`code would speed up the module creation.
+> We can check what are the requirements for shaping the code as a module for`iSEE`, I also have some experience with shiny, if this can help.
+
+**Aaron Lun** (14:30:46):
+> the short answer is[https://isee.github.io/iSEE-book/](https://isee.github.io/iSEE-book/), which contains the long answer.@Charlotte Sonesonmay be the best person to lead that part
+  - Attachment (isee.github.io): [Extending iSEE](https://isee.github.io/iSEE-book/)
+    > This book describes how to use the Bioconductor iSEE package to create web-applications for exploring data stored in SummarizedExperiment objects.
+
+**Dario Righelli** (14:32:10):
+> About the names of the classes, that’s a really good point! I’m just worried if there is already someone using them (except us).
+
+**Dario Righelli** (14:32:23) (in thread):
+> thanks@Aaron Lun!!
+
+**Lukas Weber** (14:39:21) (in thread):
+> good point
+
+**Lukas Weber** (14:40:34) (in thread):
+> I just did a google search for`"SpatialMoleculeExperiment"`and`"SpatialSpotExperiment"`and nothing came up, so these should be okay
+
+**Dario Righelli** (14:43:57) (in thread):
+> I was mentioning the`VE`and`SE `classes
+
+**Lukas Weber** (15:00:11) (in thread):
+> ah right - I just checked them too (google searching with quotes), and it seems to mainly come up with your package, so I think we are okay
+
+**Lukas Weber** (15:00:36) (in thread):
+> but yes good call to confirm
+
+**Lukas Weber** (15:00:54) (in thread):
+> OH - you mean if someone else has started using your package already
+
+**Dario Righelli** (15:00:56) (in thread):
+> okok, good to know!:slightly_smiling_face:
+
+**Lukas Weber** (15:01:12) (in thread):
+> yeah good point - but I think we are probably still early enough
+
+**Lukas Weber** (15:01:29) (in thread):
+> we could include a note in the vignette to mention it
+
+**Dario Righelli** (15:02:31) (in thread):
+> Or do a two-versions migration from the old to the new names.
+
+**Lukas Weber** (15:02:52) (in thread):
+> yeah that's an idea too
+
+**Lukas Weber** (15:03:01) (in thread):
+> a deprecated function that explains it and renames it
+
+**Dario Righelli** (15:03:11) (in thread):
+> yeah exactly
+
+**Dario Righelli** (15:04:25) (in thread):
+> a first official bioc version with the deprecated stuff, and a full migration at the following official release of Bioc
+
+**Dario Righelli** (16:04:34):
+> I’m going to pin the today’s agenda into this channel
+
+**Dario Righelli** (16:04:35):
+> [https://docs.google.com/document/d/1diK4Z1O0LTofQX5TRBezuZQ5webYksjR_nA3WWwtfyM/edit#](https://docs.google.com/document/d/1diK4Z1O0LTofQX5TRBezuZQ5webYksjR_nA3WWwtfyM/edit#)
+
+
+## 2020-11-17
+
+**Helena L. Crowell** (04:19:50):
+> So@Aaron Lun…`DataFrame(I(list(grob)))`doesn’t work- any ideas? The`tibble`works for sure- but I guess we want a`DFrame`
+
+**Charlotte Soneson** (04:34:20) (in thread):
+> Aaron will have a better answer but since it’s in the middle of the night where he is, just to check - are you on release or devel? If on devel, are your package versions (esp.`S4Vectors`) up to date? In what sense exactly does it not work?
+
+**Helena L. Crowell** (09:11:36) (in thread):
+> I’m on devel & pretty sure all is up to date. It doesn’t work in that I get:
+> ```
+> > DataFrame(I(list(grob)))
+> DataFrame with 1 row and 1 column
+> Error: C stack usage  7971408 is too close to the limit
+> In addition: There were 50 or more warnings (use warnings() to see the first 50)
+> ```
+> I’m guessing`DataFrame`is unlisting the`grob`? Not sure actually what is happening.
+
+**Lukas Weber** (10:23:29):
+> Hi all, following on from the summary in the meeting notes doc, here is also a list of the specific tasks we discussed, and who is assigned to each:
+> * creating new branch in`SpatialExperiment`GitHub repo:@Dario Righelli
+> * rename subclasses to`SpatialSpotExperiment`and`SpatialMoleculeExperiment`(i.e. 2 subclasses within the main class`SpatialExperiment`):@Dario Righelli
+> * pull request containing code for`imgData`tibble containing sample IDs, image info, scale factors, etc (in branch above):@Helena L. Crowell
+> * pull request containing`readVisium`function, to directly create a`SpatialSpotExperiment`for Visium data:@Helena L. Crowell
+> * continue updating`spatialLIBD`for consistency with new class names and`imgData`format:@Leonardo Collado Torresand@Brenda Pardo
+> * set up new visualization package to collect and consolidate visualization functions from Leo/Brenda (spatialLIBD), Helena, and Lukas: [I don't think we decided on a person here - I am happy to volunteer, and then contact people for input - let me know if you have a different preference]
+> * pull request containing extended seqFISH vignette and examples:@Shila Ghazanfar
+> * submit EuroBioc2020 proposal:@Dario Righelli[DONE]
+> I might also open these as issues in the repo and tag/assign people in the Google Doc, to make it easier to keep track of.
+
+**Dario Righelli** (10:25:49):
+> I can work on the readVisium starting from the official 10x Visium datasets and/or giving the possibility to load a design file with all the specifics for loading the dataset
+
+**Dario Righelli** (10:27:04):
+> anyway, we’ll wait for the class reshaping before doing this
+
+**Helena L. Crowell** (10:27:59):
+> One design question as I am trying to work through this… if we go with`SpatialSpot/MoleculeExperiment`- which slot should the`SpatialExperiment`super-class have for the spatial data? Since I had`SpotData`for`VisiumExp`, this forced row, col, pxl_x, pxl_y. But I guess for other data this might not exist. So should`SpatialExperiment`simply have a`spatialData`slot, which only requires x, y? If yes, I guess we need to decide on a general naming of coordinates - not`pxl_row_in_fullres`(because this is specific to 10x).
+> *Side note: Would be neat to have a 3-letter slot name… Because`rowData, colData, imgData, xxxData`would look nice:wink:
+
+**Helena L. Crowell** (10:28:50) (in thread):
+> I already have this… so was going to include that in the PR & we can still modify it / add stuff - since, e.g., it maybe can’t yet deal with all cases and some things could possibly be implemented more elegantly.
+
+**Dario Righelli** (10:29:23) (in thread):
+> I agree on the entire line!:smile:
+
+**Lukas Weber** (10:30:00) (in thread):
+> sounds good - maybe@Helena L. Crowellinclude it in your pull request for now since you already have it, as shown in the code in the meeting yesterday. Then@Dario Righelliand I can also both add things in the pull request
+
+**Dario Righelli** (10:30:25) (in thread):
+> ok for the x and y into the main class, ok for the pxl_x, pxl_y for the sub class.
+> I like the idea of doing imgData too!
+
+**Lukas Weber** (10:30:28) (in thread):
+> I also have a long example that does a lot of this here too, in case it is useful (first few sections in this markdown):[https://github.com/lmweber/locus-c/blob/main/analysis/features_per_spot/features_per_spot.Rmd](https://github.com/lmweber/locus-c/blob/main/analysis/features_per_spot/features_per_spot.Rmd)
+
+**Dario Righelli** (10:31:05) (in thread):
+> But it doesn’t work for the`SpatialExperiment`, something like`spaData`?:thinking_face:
+
+**Helena L. Crowell** (10:31:40) (in thread):
+> I was thinking posData (since it contains tissue_positions_list.csv)… Not entirely happy with either tho:stuck_out_tongue:Or xyzData - though I can’t really justify the z haha
+
+**Dario Righelli** (10:32:54) (in thread):
+> It could work! If something better comes up, we can do it!:smile:
+
+**Dario Righelli** (10:33:36) (in thread):
+> ahahah no we don’t have a z here, or we can imagine the z as the multiple samples dimension…
+
+**Lukas Weber** (10:33:44) (in thread):
+> I agree with having a more general slot. Maybe simply`spatialData`(even if it is not 3 letters:joy:)
+
+**Lukas Weber** (10:33:48) (in thread):
+> or`posData`
+
+**Lukas Weber** (10:34:09) (in thread):
+> I don't think using`pxl`is right, since some technologies may not have pixels/voxels
+
+**Dario Righelli** (10:36:10) (in thread):
+> I really don’t know how the other “spot” technologies work…
+
+**Lukas Weber** (10:36:45) (in thread):
+> yeah and I agree with Stephanie's point yesterday that we will probably also see completely new technologies in the future, so best to keep things as general as possible
+
+**Lukas Weber** (10:37:44) (in thread):
+> so I would lean towards either (i)`spatialData`(if it contains info on both positions and images), or (ii)`posData`(if it contains only positions, and image info is in a different slot)
+
+**Helena L. Crowell** (10:38:00) (in thread):
+> I think going with required only “x” and “y” is most general. For the`VisiumExp`, we can bump the requirements, but would leave it at x and y… I don’t think it’s legit to have a super-class use x/y and then the other use pxl_x ??
+
+**Dario Righelli** (10:38:04) (in thread):
+> let’s begin with the x,y “slots” into the general class, then providing the`molData`maybe? If we want to change the`SE`to`SpatialMoleculeExperiment`
+
+**Dario Righelli** (10:38:44) (in thread):
+> and do the same for the son class`SpatialSpotExperiment`->`spoData`
+
+**Helena L. Crowell** (10:38:45) (in thread):
+> I would keep ONE slot, independent of the technology, but just do different checks depending on the sub-class
+
+**Dario Righelli** (10:38:47) (in thread):
+> ?
+
+**Helena L. Crowell** (10:38:58) (in thread):
+> it should always be some “spatial” slot
+
+**Helena L. Crowell** (10:39:20) (in thread):
+> Otherwise we’ll have a spatial slot with x,y and another slot add stuff which is entirely connected but in different places:confused:
+
+**Dario Righelli** (10:39:34) (in thread):
+> yeah sure! once we have a working`DF`we can include whatever we want there
+
+**Lukas Weber** (10:39:36) (in thread):
+> yep@Dario RighelliI think the super-class is called`SpatialExperiment`, and then both`SpatialSpotExperiment`and`SpatialMoleculExperiment`are sub-classes
+
+**Dario Righelli** (10:40:31) (in thread):
+> mmm I’m loosing why we are splitting in two subclasses
+
+**Dario Righelli** (10:41:08) (in thread):
+> To have rows operations?
+
+**Helena L. Crowell** (10:41:13) (in thread):
+> Because as we discussed yesterday, single-molecule resolution technologies have fairly different data… e.g., each feature has x molecules, each with xy-coords
+
+**Lukas Weber** (10:41:14) (in thread):
+> oh I thought this was what we meant? i.e. we have (i) a super-class for all spatial technologies, and (ii) then sub-classes for each "group" of specific technologies (spot-based and molecule-based)
+
+**Lukas Weber** (10:41:28) (in thread):
+> so then Shila can include seqFISH-specific stuff in the`SpatialMoleculeExperiment`
+
+**Lukas Weber** (10:41:48) (in thread):
+> and we include Visium-specific stuff in`SpatialSpotExperiment`
+
+**Dario Righelli** (10:42:12) (in thread):
+> okok
+
+**Lukas Weber** (10:42:31) (in thread):
+> and if some new technology comes along next year, we can always add another one
+
+**Dario Righelli** (10:42:54) (in thread):
+> Yeah but I’m not so much confident about creating too much classes
+
+**Lukas Weber** (10:43:08) (in thread):
+> yep agree - having these "groups" (spot-based and molecule-based) also means we don't end up with 15 different sub-classes for each individual technology - only 2 for now
+
+**Lukas Weber** (10:43:17) (in thread):
+> all the current technologies I can think of fall into these 2 groups
+
+**Dario Righelli** (10:43:57) (in thread):
+> we were keeping an eye also on the[http://www.bioconductor.org/packages/release/bioc/html/TreeSummarizedExperiment.html](http://www.bioconductor.org/packages/release/bioc/html/TreeSummarizedExperiment.html)
+  - Attachment (Bioconductor): [TreeSummarizedExperiment](http://www.bioconductor.org/packages/release/bioc/html/TreeSummarizedExperiment.html)
+    > TreeSummarizedExperiment has extended SingleCellExperiment to include hierarchical information on the rows or columns of the rectangular data.
+
+**Lukas Weber** (10:44:08) (in thread):
+> (i) spot-based = Visium, Slide-seq; (ii) molecule-based = seqFISH, MERFISH, RNAscope, etc
+
+**Dario Righelli** (10:44:30) (in thread):
+> Because some of these technologies can be seen as hierarchical in terms of features
+
+**Lukas Weber** (10:44:53) (in thread):
+> ok will keep that in mind
+
+**Dario Righelli** (10:44:56) (in thread):
+> for the rows and the columns
+
+**Dario Righelli** (10:45:26) (in thread):
+> ~~~but the problem in R is that you cannot have multiple classes inheritance~~~Not True! ^^
+
+**Dario Righelli** (10:46:13) (in thread):
+> otherwise my idea was to integrate both classes into one and then split in subclasses for more specific usages
+
+**Dario Righelli** (10:47:16) (in thread):
+> * creating new branch in`SpatialExperiment`GitHub repo:@Dario Righelli
+> devel branch created:white_check_mark:
+
+**Helena L. Crowell** (10:47:46) (in thread):
+> Huh- but it’s possible to have both`SpatialSpot/MolExp`contain`SpatialExp`, no?
+
+**Dario Righelli** (10:48:39) (in thread):
+> yes, but it’s not possible for the`SpatialExperiment`to inherits from`SingleCellExperiment`and from`TreeSummarizedExperiment`
+
+**Charlotte Soneson** (10:50:04) (in thread):
+> Just a note that`TreeSummarizedExperiment`already extends`SingleCellExperiment`(not`SummarizedExperiment`)
+
+**Dario Righelli** (10:51:05) (in thread):
+> oh thanks for pointing that out!
+> We could extend the`TreeSummarizedExperiment`then, if we consider it useful!
+
+**Helena L. Crowell** (10:51:06) (in thread):
+> Maybe I’m missing the point… but I don’t see why we’d want`TreeSummarizedExperiment`to begin with. Maybe downstream our`SpatialXExperiment`could be converted to it anyways? But I wouldn’t define the class that way
+
+**Dario Righelli** (10:51:58) (in thread):
+> I was thinking to do it because some technologies (seqFISH) can have data at cellular and subcellular level.
+
+**Helena L. Crowell** (10:51:59) (in thread):
+> As in: We don’t necessarily having a tree associated with the data from the start… And in both cases might never have one
+
+**Dario Righelli** (10:52:24) (in thread):
+> So in some way we could handle this problem with just one class (if the trees could be used for this aim)
+
+**Helena L. Crowell** (10:52:26) (in thread):
+> Yes, but Shila’s solution from yesterday worked around this via the colData & assay architecture
+
+**Lukas Weber** (10:53:05) (in thread):
+> I think this could definitely be useful, but is maybe something we could consider later, e.g. if it becomes useful to group molecules in some dataset. I don't think we need to make the design of the spatial class already dependent on the TSE format for now
+
+**Dario Righelli** (10:53:24) (in thread):
+> yes that’s true, but it’s a workaround
+
+**Lukas Weber** (10:54:04) (in thread):
+> e.g. we could have a converter from`SpatialMoleculeExperiment`to`TSE`if that becomes useful
+
+**Dario Righelli** (10:54:05) (in thread):
+> Sure, I was just bringing this up because we were discussing about the classes…
+
+**Lukas Weber** (10:54:19) (in thread):
+> yep, agree it is a good point for us to keep in mind
+
+**Dario Righelli** (10:56:29) (in thread):
+> ok so, in the end, how do we want to rename the`spatialCoords`?:slightly_smiling_face:
+
+**Dario Righelli** (10:57:25) (in thread):
+> `spaData`?
+
+**Lukas Weber** (10:57:57) (in thread):
+> I was leaning towards`spatialData`, just for clarity:joy:
+
+**Lukas Weber** (10:58:22) (in thread):
+> maybe we could have a vote in the main channel if we have different opinions:grinning:
+
+**Lukas Weber** (10:59:53) (in thread):
+> `spa`makes me think of an actual pool/spa:joy:
+
+**Dario Righelli** (11:00:02) (in thread):
+> ahahahah
+
+**Dario Righelli** (11:00:34) (in thread):
+> it was for the three letters idea
+
+**Lukas Weber** (11:01:13) (in thread):
+> yep. I think`spatialData`it is still short enough, but it is ok if others disagree
+
+**Dario Righelli** (11:02:51) (in thread):
+> it works for me
+
+**Aaron Lun** (12:59:39) (in thread):
+> Might be a`grob`thing, stuff like:
+> ```
+> DataFrame(X=I(DataFrame(B=LETTERS)))
+> ```
+> works correctly
+
+**Aaron Lun** (13:00:24) (in thread):
+> Suggest filing a repro example on the***S4Vectors***repo
+
+**Aaron Lun** (13:03:18) (in thread):
+> I should add that the failure is actually related to the`show`method, where is probably tries to print the image when it displays the grob; not to the actual storage of the object inside the DF.
+
+**Aaron Lun** (13:03:52) (in thread):
+> If you do:
+> ```
+> X <- DataFrame(X=I(list(grob)))
+> ```
+> and then
+> ```
+> X[,1]
+> ## [[1]]
+> ## rastergrob[GRID.rastergrob.4]
+> ```
+> It’s perfectly happy
+
+
+## 2020-11-18
+
+**Dario Righelli** (08:52:09):
+> Spatial barspotted multiomics DBiT-seq[https://www.cell.com/cell/fulltext/S0092-8674(20)31390-8](https://www.cell.com/cell/fulltext/S0092-8674(20)31390-8)
+
+**Shila Ghazanfar** (12:05:51) (in thread):
+> only just caught up on this thread !! i like the three-letter naming, and soon enough we will have xyz (the embryo seqFISH data has a z dimension already), but for generalisation I like`posData`, but also with`spatialData`
+
+**Lukas Weber** (14:43:26) (in thread):
+> :+1:
+
+**Leonardo Collado Torres** (16:51:28):
+> This thread is pure gold hehe[https://community-bioc.slack.com/archives/C01DLPDUQ2V/p1605626879217600](https://community-bioc.slack.com/archives/C01DLPDUQ2V/p1605626879217600)^^ I don't have much to say about it beyond what's been said. Aka, I like the idea of a general class where Visium will fit in, and another general class where seqFISH will fit in ^^.
+> 
+> Whether it's`xxxData()`or not, well, I don't really care hehe (there's already`reducedDim()`for example).`imgData()`is clear enough and well, I guess I'm leaning also towards`spatialData()`over`spaData()`because of the clarity in the longer name.`img`is already a commonly used since it's part of HTML code, though if you prefer`imageData()`it would also be ok.
+  - Attachment: [Attachment](https://community-bioc.slack.com/archives/C01DLPDUQ2V/p1605626879217600)
+    > One design question as I am trying to work through this… if we go with `SpatialSpot/MoleculeExperiment`  - which slot should the `SpatialExperiment`  super-class have for the spatial data? Since I had `SpotData`  for `VisiumExp` , this forced row, col, pxl_x, pxl_y. But I guess for other data this might not exist. So should `SpatialExperiment`  simply have a `spatialData`  slot, which only requires x, y? If yes, I guess we need to decide on a general naming of coordinates - not `pxl_row_in_fullres`  (because this is specific to 10x).
+    > *Side note: Would be neat to have a 3-letter slot name… Because `rowData, colData, imgData, xxxData` would look nice :wink:
+
+
+## 2020-11-19
+
+*05:23:25 - @Davide Corso has joined the channel*
+**Dario Righelli** (06:04:40):
+> Hi@Davide Corso!:slightly_smiling_face:
+
+**Helena L. Crowell** (08:23:14):
+> @Shila Ghazanfaris there some toy seqFish data I could play with to test the new class structure and methods?
+
+**Helena L. Crowell** (08:24:00):
+> @Dario Righellido you have the .h5 for the example data in the package? Just to make the examples more complete & show that that works too
+
+**Dario Righelli** (09:08:00) (in thread):
+> mmm sorry I didn’t put the h5, but it’s a good idea to put it there, just it’d be subset as the other data.
+
+**Dario Righelli** (09:08:25) (in thread):
+> you can use the SingleCellMultiModal::seqFISH() one
+
+**Helena L. Crowell** (09:21:25) (in thread):
+> that’s fine- needn’t be biologically relevant, but would be could to include nevertheless so long we don’t run into space-issues. Similarly, it would be neat to have 2 samples since a lot of or discussions are about that we want to show how that works I think
+
+**Dario Righelli** (10:43:13) (in thread):
+> can we simply load twice the same dataset?
+
+**Helena L. Crowell** (10:49:33) (in thread):
+> Sure, we can do anything we like:see_no_evil:it’s just for examples to show that it works... doesn’t matter the data
+
+**Helena L. Crowell** (10:50:07) (in thread):
+> I’m thinking about loading an image of a cat from google just to show how to load imgs from urls:smile:
+
+**Shila Ghazanfar** (12:26:17) (in thread):
+> SingleCellMultiModal::seqFISH() doesn’t include individual molecules does it? and i dont have any toy example of mRNA counts, i should generate some
+
+**Dario Righelli** (13:11:38) (in thread):
+> For molecule you mean subcellular data? such as seqFISH+ data, here is one:[https://zenodo.org/record/2669683#.X7a1IRNKhTa](https://zenodo.org/record/2669683#.X7a1IRNKhTa)I hadn’t downloaded it yet though
+  - Attachment (Zenodo): [NIH3T3_point_locations for RNA seqFISH+ experiments](https://zenodo.org/record/2669683#.X7a1IRNKhTa)
+    > These source data consist of the point locations of individual decoded mRNA dots in seqFISH+ experiments on NIH/3T3 cells. DAPI_experiment folder contains the DAPI stainings with other beads images. ROIs_experiment folders are the manual segmentation performed in ImageJ. We only performed segmentation on the whole single cells. In seqFISH+_NIH3T3_point_locations zip folder, there are 3 matlab files . One is gene name file, the other two files are point locations for replicate 1 and 2 seqFISH+ experiments in NIH/3T3 cells. The columns of the data represent field of view(FOV), Cell , and Gene. For example : FOV1 , Cell 5, Gene : Bgn to retrieve the point locations.
+
+**Helena L. Crowell** (13:29:26) (in thread):
+> We can try the real thing, or maybe@Shila Ghazanfarcan you come up with some toydata with centroids, sensible vertices & random molecules etc.? I’m thinking anything will work where we can, in principle, have plot that looks reasonable... just to test the object class etc. (not super urgent, but next up after we settle on the spot stuff)
+
+**Dario Righelli** (13:55:27) (in thread):
+> I have to download this data, so we can provide a subset of them into the final package
+
+**Dario Righelli** (13:56:00) (in thread):
+> also to provide a “standard file” support for loading them
+
+
+## 2020-11-24
+
+**Helena L. Crowell** (04:57:39):
+> Just to say this is totally made my day…:star-struck:
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F01F7H7T5E2/image.png)
+
+**Helena L. Crowell** (08:14:51):
+> FYI
+  - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F01FBKSABL5/image.png)
+
+
+## 2020-11-26
+
+**Helena L. Crowell** (05:10:56):
+> Dear all,
+> 
+> While I don’t feel 100% happy with everything, I have just done a PR ([https://github.com/drighelli/SpatialExperiment/pull/9](https://github.com/drighelli/SpatialExperiment/pull/9)). I am also attaching a compiled demo below, which includes a summary section at the top that gives an overview of the overall design.
+> 
+> *scared voice > I am aware that things got a little “out of hand” in the sense that changing one thing leads to another and then examples break and validity checks break and aaah. The bottom line is: I realised it’s not straightforward to just “add your idea and do a PR”, and ended up commenting out conflicting code. Thus, please be kind and don’t freak out:pray:
+  - File (HTML): [10xVisium.html](https://community-bioc.slack.com/files/U34P8RS3B/F01F5LEQX71/10xvisium.html)
+
+**Aaron Lun** (15:11:43):
+> L_1L
+
+**Aaron Lun** (15:11:46):
+> whoops
+
+**Aaron Lun** (15:11:49):
+> :+1::
+
+
+## 2020-11-29
+
+**Lukas Weber** (19:43:17):
+> Hi@Helena L. Crowell, thanks a lot for sending this! I have had a look through it, and added some questions in the pull request so we can continue the discussion there. I'll think some more in the meantime, especially on whether we really don't need the two sub-classes (spot-based and molecule-based).
+
+
+## 2020-12-01
+
+**Aaron Lun** (02:47:44):
+> BumpyMatrix: 2D extension of CompressedSplitDFrameList where each cell is a column, each row is a gene, and each entry is a variable-nrow DFrame holding any information (in this case, x/y/z coordinates for each transcript in that cell for that gene; possibly also pixel intensities and confidences, if one is so inclined). Allows transcript-level information to be embedded in an SE as another assay alongside the count matrix and other things. Supports a variety of complex subsetting operations.
+
+**Aaron Lun** (02:48:31):
+> Currently a private repo for various company IP reasons. Request access by responding in a thread.
+
+**Shila Ghazanfar** (15:07:59) (in thread):
+> id be keen to have a try of it Aaron, are you envisioning the input as a single DFrame with two columns for the row & column indices of the BumpyMatrix?
+
+**Aaron Lun** (23:37:45):
+> ls
+
+**Aaron Lun** (23:43:34):
+> whoops
+
+
+## 2020-12-12
+
+*00:38:10 - @Huipeng Li has joined the channel*
+
+## 2020-12-14
+
+*13:21:55 - @Nick Owen has joined the channel*
+*14:08:29 - @Alsu Missarova has joined the channel*
+
+## 2020-12-16
+
+**Davide Corso** (09:36:48):
+> Hello everyone, I would like to contribute to the SpatialDE challenge.
+> Issue open:[https://github.com/HelenaLC/BiocSpatialChallenges/issues/1](https://github.com/HelenaLC/BiocSpatialChallenges/issues/1)
+
+**Lukas Weber** (12:47:17) (in thread):
+> thanks@Davide Corso!
+
+*15:16:02 - @Jared Andrews has joined the channel*
+*15:20:37 - @Dan Bunis has joined the channel*
+**Jared Andrews** (15:36:22):
+> Hi all,
+> 
+> We (i.e.@Dan Bunisand I) are contemplating adding support for Spatial data to dittoSeq, which can already handle SE and SCE objects natively and has quite a variety of viz functions already:[https://www.bioconductor.org/packages/release/bioc/html/dittoSeq.html](https://www.bioconductor.org/packages/release/bioc/html/dittoSeq.html)We are currently combing this channel to determine what efforts have already been made towards viz, where it looks like this class may be headed, etc. If anybody has any things we should immediately know, we're open to suggestions.  Currently, our plans are to build off the`dittoScatterPlot`function, similar to what has already been done for`dittoDimPlot `and`dittoDimHex`. As these functions already take care of all of the requirements in[https://helenalc.github.io/BiocSpatialChallenges/articles/challenges/visualization.html](https://helenalc.github.io/BiocSpatialChallenges/articles/challenges/visualization.html), we feel dittoSeq is a natural landing spot for spatial viz functions such that nobody will have to reinvent the wheel.
+
+**Lukas Weber** (16:24:55) (in thread):
+> great, thanks for the tip! will have a look at / try out these functions
+
+**Jared Andrews** (16:27:38) (in thread):
+> @Friederike Dündaris also interested in helping out with this, so we'll keep the channel updated.
+
+*16:27:44 - @Friederike Dündar has joined the channel*
+**Friederike Dündar** (16:28:50) (in thread):
+> @Lukas Weberseeing Lukas' package today at the EuroBioc was the impetus to get going again with this
+
+**Friederike Dündar** (16:29:28) (in thread):
+> I've already implemented my own set of functions for plotting pre-SpatialExperimentClass including overlaying with tissues, but I felt dittoSeq is a well established base to go off of
+
+
+## 2020-12-17
+
+**Dario Righelli** (05:18:58) (in thread):
+> Hi guys, good to know about`dittoSeq`and also that it already works with SCE objects.
+> We have a coercion function into the`SpatialExperiment`package for moving from`SCE`to`SPE`class.
+> Of course some implementations are needed, such as the use of the`spatialCoords`accessor, but in general I think that it could be helpful to try the coercion if you already have some examples made with SCE.
+> If you can test it, that would be great! (in case you find any issue please report them in our github)
+
+**Dario Righelli** (05:20:25) (in thread):
+> Keep in mind that the actual SpatialExperiment class will be the reference for the spot-based family.
+> For the molecular-based we’re still thinking if to extend the actual one with other functionalities or to split into two different classes.
+> We’ll come up with a solution before Christmas Eve!:slightly_smiling_face:
+
+**Dario Righelli** (05:21:24) (in thread):
+> (Btw, thanks@Friederike Dündarfor the Cartana hint, I dind’t know about it!:smile:)
+
+**Friederike Dündar** (14:53:10) (in thread):
+> Yeah, they'll probably get a pretty good boost now after having been acquired by 10X Genomics
+
+**Friederike Dündar** (15:20:58):
+> does anyone already have functions for markvariograms and such?
+
+**Aaron Lun** (17:19:58) (in thread):
+> Looking forward to seeing some viz functionality, will save us from having to implement them in scater.
+
+
+## 2020-12-18
+
+*09:41:51 - @Milan Malfait has joined the channel*
+*17:12:20 - @Aedin Culhane has joined the channel*
+
+## 2021-01-01
+
+*14:07:04 - @Bernd has joined the channel*
+
+## 2021-01-16
+
+**Dan Bunis** (17:55:41):
+> dittoSpatial has been initialized =). Not complete, but finishing the first version shouldn't be too hard if I can get a bit more knowledge of the typical Spatial/VisiumExperiment workflow (& maybe also some data to test with)![https://github.com/dtm2451/dittoSeq/pull/68](https://github.com/dtm2451/dittoSeq/pull/68)
+
+**Aaron Lun** (22:35:33):
+> lay it on me bro
+
+**Dan Bunis** (23:28:48):
+> Eww, "bro" lol but here are the main ones? Will there be set (or at least typical) spatialCoord column names for x / y coordinates? When there are multiple slides or different z stacks, where is the linkage of that to assay columns and also to images stored?
+
+
+## 2021-01-17
+
+**Aaron Lun** (00:59:30):
+> I thought they were standardized at`x`and`y`.
+
+**Aaron Lun** (00:59:43):
+> Can't remember what`z`was.
+
+**Aaron Lun** (01:00:22):
+> `imgData`should have the paths or grobs for stored images.
+
+**Dan Bunis** (02:31:19):
+> Based on the the vignette and examples, it seemed like`x`and`y`for SpatialExperiments, and`array_row`and`array_col`for VisiumExperiments, are maybe just suggestions but nothing is guarranteed? So maybe a user can actually use anything? I could work with the need for such flexibility, just would still want to make those sensible x/y defaults.
+> 
+> For images, right right, I'd found the img getter, but need the`z`.
+
+**Aaron Lun** (02:37:12):
+> I think the`x`and`y`is standardized now for all experiment types but@Lukas Weberwould know more.
+
+**Aaron Lun** (03:24:21):
+> you can have a look at some commentary at[https://github.com/drighelli/SpatialExperiment/issues/14#issuecomment-748650320](https://github.com/drighelli/SpatialExperiment/issues/14#issuecomment-748650320)
+
+**Lukas Weber** (21:03:39):
+> Hey, that's great - yes we currently have default column names`x`and`y`(previously these were`x_coord`and`y_coord`), and also user flexibility to use different column names if required (e.g. if something completely different like polar coordinates).@Dario Righellihas just been updating this in the most recent updates
+
+**Lukas Weber** (21:05:23):
+> For multiple slides, yes we are storing this all in one assay, so that existing methods from`scater`etc can easily be applied to all spots if needed
+
+**Lukas Weber** (21:08:08):
+> `spatialData`is the slot where the`x`and`y`(and similar) columns are stored, and`spatialCoords`is also a separate accessor that returns a simple matrix containing just the`x`and`y`columns (not`in_tissue`etc) instead of data frame (possibly useful for downstream methods where this is simpler as an input)
+
+
+## 2021-01-18
+
+**Dan Bunis** (13:00:53) (in thread):
+> I can simplify this code in dittoSeq then, but will allow`x`and`y`to have different names when a user decides. The assumption for now will be that they’re cartesian coords, but we could probably add a polar coordinates transformation in the future.
+
+**Dan Bunis** (13:06:32):
+> Seems my understanding of how things work, which has largely based on documentation, examples & vignettes, may be out-of-date. (`in_tissue`location is one example then, but another:`?VisiumExperiment`example still has “array_row” & “array_col” as x/y column names.)
+
+**Dan Bunis** (13:10:15):
+> Still wondering, is there also a default column name for the`z`/ which stack / image-linkage?  And is this actually linked to images via a corresponding column in`imgData`?
+
+**Dario Righelli** (13:45:00) (in thread):
+> We are already providing the possibility to the user to set the coordinates as desired…
+
+**Dario Righelli** (13:45:13) (in thread):
+> (I’m working on it right now)
+
+**Dan Bunis** (13:46:47) (in thread):
+> Right, I just meant on the dittoSeq side, if we needed to allow for alternate column names, we could.
+
+**Dario Righelli** (13:47:32) (in thread):
+> with the newer version the user can set as many coordinate names requires… No defaults for them btw.
+> The only column linked to the`imgData`is the`sample_id`column.
+
+**Dario Righelli** (13:48:10) (in thread):
+> Sure you can… FYI, we’re switching the`spatialCoords`to`spatialData`functions.
+
+
+## 2021-01-22
+
+*15:46:25 - @Annajiat Alim Rasel has joined the channel*
+
+## 2021-01-26
+
+**Aaron Lun** (12:53:17):
+> Right. Finally going to use the SpatialExperiment to actually do something. Let's see how well everything is documented...
+
+**Lukas Weber** (13:31:36):
+> Awesome
+
+**Lukas Weber** (13:31:56):
+> @Dario Righelliis currently merging things to Bioc-devel
+
+**Lukas Weber** (13:33:39):
+> GitHub is now merged into`master`branch earlier today
+
+**Dario Righelli** (13:53:04) (in thread):
+> looking forward for your feedbacks… That are already coming…:smile:
+
+
+## 2021-01-27
+
+**Dan Bunis** (15:01:05):
+> wonderful updates! I’ve incorporated some into`dittoSpatial()`and it’s inching closer:smiley:.  It’ll be ready for testing soon!
+> One suggestion, would be a`toGrob`endpoint for images.  (Because my own parsing of imgData(obj)$data options toward consistently having a grob got UGLY even while ignoring the url option & because I think it’d be better to have that implementation internal to SpatialExperiment).
+> One question: I’m still a little uncertain if I should standardize **defaults** for expected names for x/y columns of spatialCoords() around “x”/“y” versus “array_row”/“array_col” or maybe`spatialCoordsNames(obj)[1:2]`if their order placement will be standard?
+> And one request, for something I’d bet you already had planned: Would it be possible to set up the example`ve`data in a way where its images are user-retrievable from the package? If they aren’t too large / could be made “lowres” enough for doing so… the current version seems to require a clone of the repo.
+
+**Aaron Lun** (15:01:54):
+> Suggest dumping one or more test visium experiments in`DropletTestFiles`for use in examples.
+
+**Dan Bunis** (15:06:06):
+> Haven’t used that before myself but is it an Ehub-based package, like scRNAseq, where the package itself is basically a bunch of data download wrappers and so relatively slim installation?
+
+**Aaron Lun** (15:06:19):
+> yep
+
+**Aaron Lun** (15:06:45):
+> Its previous sole purpose is to serve files to test`DropletUtils`. I couldn't put them in`scRNAseq`because these are the files**before**you even get to an SCE.
+
+**Dan Bunis** (15:09:20):
+> excellent!
+
+**Aaron Lun** (15:09:51):
+> You might want to add all your suggestsions as SPE issues, easier to keep track.
+
+**Dan Bunis** (15:10:37):
+> right, right, will do this evening.  gotta get back to my “real” work for now.
+
+
+## 2021-01-28
+
+**Dario Righelli** (04:51:06) (in thread):
+> Could you please open an issue on this`ve`example problem? Thanks!
+
+**Dario Righelli** (04:52:00) (in thread):
+> oh you already made it!:joy:
+
+
+## 2021-01-29
+
+*04:42:27 - @Nils Eling has joined the channel*
+
+## 2021-02-02
+
+**Aaron Lun** (03:08:23):
+> is someone going to comment on those design issues I raised, or what?
+
+**Dario Righelli** (04:02:19) (in thread):
+> Thanks Aaron, I saw them, but I think@Helena L. Crowellcould answer them better than me. Just I think she is really busy with her PhD at the moment…
+> If she will not be back in a few days I’ll go through them.
+
+
+## 2021-02-04
+
+**Helena L. Crowell** (08:17:03) (in thread):
+> I’m back and slowly working my way through Slack and GitHub and emails and all that… feel free to point me to what matters as I’m a bit overwhelmed right now and would be happy to focus on anything specific.
+
+
+## 2021-02-05
+
+**Aaron Lun** (18:02:54):
+> package is broken on BioC-devel. What's the big deal?
+
+
+## 2021-02-06
+
+**Lukas Weber** (10:28:08) (in thread):
+> hmm
+
+**Lukas Weber** (10:28:15) (in thread):
+> looks like vignette
+
+**Lukas Weber** (10:28:28) (in thread):
+> will check, thanks
+
+
+## 2021-02-07
+
+**Dario Righelli** (05:26:57) (in thread):
+> no, it’s something in the manual, but it’s difficult to say because LaTeX messages are not very informative.
+
+**Dario Righelli** (05:36:28) (in thread):
+> I’m trying to reproduce the error on my local docker bioc devel … ^^'
+
+**Lukas Weber** (16:00:33) (in thread):
+> I just tried out`BiocCheck`on your latest commit/push@Dario Righelliand looks like this is passing now
+
+**Lukas Weber** (16:02:27) (in thread):
+> `devtools check`still gives a weird error related to namespace:
+> ```
+> > devtools::check()
+> Updating SpatialExperiment documentation
+> Loading SpatialExperiment
+> Error in add_classes_to_exports(ns = nsenv, package = package, exports = exports,  : 
+>   object 'lev' not found
+> ```
+> not sure yet what this one means or if the Bioc build will have a problem with this too
+
+
+## 2021-02-08
+
+**Dario Righelli** (03:18:42) (in thread):
+> never saw this one…
+
+**Lukas Weber** (14:37:44) (in thread):
+> still same error message from manual in today's build report
+
+**Lukas Weber** (14:39:22) (in thread):
+> any ideas? otherwise I'll have a deeper look too - maybe it is also related to that namespace error I pasted above
+
+**Dario Righelli** (14:40:28) (in thread):
+> If you want to take a look I’d really appreciate it, maybe is something I’m not able to see… Start from the master on github, I made some changes today…
+
+**Lukas Weber** (14:40:57) (in thread):
+> ok! maybe it is simply a messed up`.Rd`- I'll have a look through them
+
+**Dario Righelli** (14:45:27) (in thread):
+> maybe I found it
+
+**Dario Righelli** (14:48:38) (in thread):
+> I’m pushing to upstream
+
+**Dario Righelli** (14:49:02) (in thread):
+> guess we’ve to wait until tomorrow… because I wasn’t able to reproduce this error on my machine
+
+**Lukas Weber** (14:51:47) (in thread):
+> ah yes that change looks plausible -`\item`not wrapped in`\itemize`- I'll pull it and check`devtools::check()`now
+
+**Dario Righelli** (14:53:10) (in thread):
+> yeah but my`devtools::check()`never showed that error…
+
+
+## 2021-02-11
+
+**Dario Righelli** (05:49:45) (in thread):
+> We’re still getting the same error,@Lukas Weberdo you want to take a look? I still don’t find where this missing item is
+
+**Lukas Weber** (10:15:08) (in thread):
+> hmm ok will have another look
+
+**Dario Righelli** (10:23:29) (in thread):
+> thanks!
+
+
+## 2021-02-12
+
+**Leonardo Collado Torres** (02:56:24):
+> Now that`SpatialExperiment`has been updated and well, it’s basically going to be available on`bioc-devel`anytime soon, I went ahead and updated`spatialLIBD`. The idea is that it’ll only support`SpatialExperiment`objects instead of the custom`SingleCellExperiment`objects, thus simplifying our code and well, taking advantage as much as possible from`SpatialExperiment`.
+> 
+> Here’s the big commit[https://github.com/LieberInstitute/spatialLIBD/commit/e8c5e8690f6a0ac0a7a45a1355ec959cc7587911](https://github.com/LieberInstitute/spatialLIBD/commit/e8c5e8690f6a0ac0a7a45a1355ec959cc7587911). We still have to document the steps needed after[https://github.com/drighelli/SpatialExperiment/blob/master/R/read10xVisium.R](https://github.com/drighelli/SpatialExperiment/blob/master/R/read10xVisium.R)+ resolve any differences we might have to make sure that`spatialLIBD`can be used with new data read into R by`SpatialExperiment`.
+> 
+> Now, of particular interest to others here, we constructed the SPE object “manually” at[https://github.com/LieberInstitute/spatialLIBD/blob/e8c5e8690f6a0ac0a7a45a1355ec959cc7587911/R/sce_to_spe.R#L133-L145](https://github.com/LieberInstitute/spatialLIBD/blob/e8c5e8690f6a0ac0a7a45a1355ec959cc7587911/R/sce_to_spe.R#L133-L145)since[https://github.com/LieberInstitute/spatialLIBD/blob/e8c5e8690f6a0ac0a7a45a1355ec959cc7587911/R/sce_to_spe.R#L153-L166](https://github.com/LieberInstitute/spatialLIBD/blob/e8c5e8690f6a0ac0a7a45a1355ec959cc7587911/R/sce_to_spe.R#L153-L166)doesn’t work given[https://github.com/drighelli/SpatialExperiment/blob/a9e54fbd5af7fe676f8a5b29e4cfe113402070d4/R/SpatialExperiment.R#L143-L144](https://github.com/drighelli/SpatialExperiment/blob/a9e54fbd5af7fe676f8a5b29e4cfe113402070d4/R/SpatialExperiment.R#L143-L144)(can be avoided by setting`sample_id = NULL`and providing`sce$Sample`) and[https://github.com/drighelli/SpatialExperiment/blob/a9e54fbd5af7fe676f8a5b29e4cfe113402070d4/R/SpatialExperiment.R#L164](https://github.com/drighelli/SpatialExperiment/blob/a9e54fbd5af7fe676f8a5b29e4cfe113402070d4/R/SpatialExperiment.R#L164).
+> 
+> Though hmm, maybe there’s a better way to do what we need here (creating a SPE object with multiple`sample_id`values).
+> 
+> Also, hm.., for using`ggplot2`we tend to need to combine the`colData()`and the`spatialData()`as in[https://github.com/LieberInstitute/spatialLIBD/blob/master/R/spe_meta.R](https://github.com/LieberInstitute/spatialLIBD/blob/master/R/spe_meta.R). From what I could see,`SpatialExperiment`doesn’t have this code already, but it might sense to have it (with a name that you like. If you give me a name, I can send a small PR).
+
+**Dario Righelli** (03:27:13):
+> Hi@Leonardo Collado Torres, as explained[here](https://github.com/drighelli/SpatialExperiment/blob/a9e54fbd5af7fe676f8a5b29e4cfe113402070d4/R/SpatialExperiment.R#L51-L52), for multiple experiments just use the`cbind`, it works pretty good, indeed we use it into the`read10xVisium`to handle multiple samples…
+
+**Dario Righelli** (03:30:51):
+> for combining`colData`and`spatialData`just use the`cd_bind`argument into the`spatialData`accessor as explained[here](https://github.com/drighelli/SpatialExperiment/blob/a9e54fbd5af7fe676f8a5b29e4cfe113402070d4/R/SpatialExperiment-methods.R#L31-35)(there is an error in the documentation, substitute`cd_keep`with`cd_bind`)
+
+**Dario Righelli** (03:43:48):
+> Anyway, I agree that multiple samples support could be implemented in the constructor, I’ll work on it…
+
+**Dario Righelli** (03:53:14) (in thread):
+> documentation updated
+
+
+## 2021-03-20
+
+*01:58:33 - @watanabe_st has joined the channel*
+
+## 2021-03-23
+
+*23:06:19 - @Lambda Moses has joined the channel*
+
+## 2021-04-29
+
+*04:27:58 - @Jovan Tanevski has joined the channel*
+
+## 2021-05-04
+
+**Leonardo Collado Torres** (15:20:34):
+> Thanks everyone for your work on this package! Thanks to your work, we’ve updated`spatialLIBD`and it now has a pre-print ^^[https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1](https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1).
+  - Attachment (bioRxiv): [spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data](https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1)
+    > Motivation: Spatially-resolved transcriptomics has now enabled the quantification of high-throughput and transcriptome-wide gene expression in intact tissue while also retaining the spatial coordinates. Incorporating the precise spatial mapping of gene activity advances our understanding of intact tissue-specific biological processes. In order to interpret these novel spatial data types, interactive visualization tools are necessary. Results: We describe spatialLIBD, an R/Bioconductor package to interactively explore spatially-resolved transcriptomics data generated with the 10x Genomics Visium platform. The package contains functions to interactively access, visualize, and inspect the observed spatial gene expression data and data-driven clusters identified with supervised or unsupervised analyses, either on the user's computer or through a web application. Availability: spatialLIBD is available at [http://bioconductor.org/packages/spatialLIBD](http://bioconductor.org/packages/spatialLIBD). ### Competing Interest Statement The authors have declared no competing interest.
+
+
+## 2021-05-07
+
+**Dario Righelli** (04:28:38):
+> Hi Everyone, for the ones interested we finally updated the #SpatialExperiment class on the Bioconductor development repository.
+> If you need to check the new structure and your packages please refer to this version[1.1.700](https://bioconductor.org/packages/devel/bioc/html/SpatialExperiment.html).
+  - Attachment (Bioconductor): [SpatialExperiment (development version)](https://bioconductor.org/packages/devel/bioc/html/SpatialExperiment.html)
+    > Defines S4 classes for storing data for spatial experiments. Main examples are reported by using seqFISH and 10x-Visium Spatial Gene Expression data. This includes specialized methods for storing, retrieving spatial coordinates, 10x dedicated parameters and their handling.
+
+
+## 2021-05-11
+
+*16:45:57 - @Megha Lal has joined the channel*
+
+## 2021-07-19
+
+*17:02:48 - @Leo Lahti has joined the channel*
+
+## 2021-08-04
+
+**Leonardo Collado Torres** (17:45:54):
+> congrats for the excellent workshop@Dario Righelli@Helena L. Crowell@Lukas Weber^^
+
+**Dario Righelli** (17:46:30):
+> Thanks Leo!!!:smile:
+
+**Helena L. Crowell** (17:46:36):
+> Thanks Leo!! And thanks for all your input:wink:
+
+**Leonardo Collado Torres** (17:48:22):
+> :smiley:
+
+**Lukas Weber** (17:49:17):
+> Thank you! Here is a link to the workshop materials:[https://drighelli.github.io/SpatialExperiment_Bioc2021/index.html](https://drighelli.github.io/SpatialExperiment_Bioc2021/index.html)
+  - Attachment (drighelli.github.io): [SpatialExperiment_Bioc2021](https://drighelli.github.io/SpatialExperiment_Bioc2021/index.html)
+    > Spatially resolved transcriptomics is a new set of technologies to measure gene expression for up to thousands of genes at near-single-cell, single-cell, or sub-cellular resolution, together with the spatial positions of the measurements. Analyzing combined molecular and spatial information has generated new insights about biological processes that manifest in a spatial manner within tissues. However, to efficiently analyze these data, specialized data infrastructure is required, which facilitates storage, retrieval, subsetting, and interfacing with downstream tools. SpatialExperiment is a new data infrastructure for storing and accessing spatially resolved transcriptomics data, implemented within the Bioconductor framework in R. SpatialExperiment extends the existing SingleCellExperiment for single-cell data, which brings with it advantages of modularity, interoperability, standardized operations, and comprehensive documentation. SpatialExperiment is extendable to alternative technological platforms measuring expression and to new types of data modalities, such as spatial immunofluorescence or proteomics, in the future. In this workshop, we provide an overview of spot-based and molecule-based spatially resolved transcriptomics technologies, an introduction to SpatialExperiment, an explanation of the structure of the SpatialExperiment class, and interactive examples showing how to load and visualize datasets that have been formatted as SpatialExperiment objects.
+
+
+## 2021-08-05
+
+*12:09:47 - @Sonali has joined the channel*
+*15:18:19 - @Hirak has joined the channel*
+
+## 2021-09-05
+
+*12:05:40 - @Mikhael Manurung has joined the channel*
+
+## 2021-09-06
+
+*08:23:38 - @Eddie has joined the channel*
+
+## 2021-09-07
+
+*14:52:12 - @Andrew Jaffe has joined the channel*
+
+## 2021-10-18
+
+*19:33:59 - @Qirong Lin has joined the channel*
+
+## 2021-10-22
+
+**Aedin Culhane** (09:15:34):
+> There is a virtual (and in person) 10x symposium in Boston today. The agenda is at[https://web.cvent.com/event/c9048e32-52cc-4e26-999e-75267c1382bd/websitePage:96525454-a01e-4639-9eed-927ed729ec6b](https://web.cvent.com/event/c9048e32-52cc-4e26-999e-75267c1382bd/websitePage:96525454-a01e-4639-9eed-927ed729ec6b)There are several spatial 10x visium talks
+  - Attachment (web.cvent.com): [10x Genomics Boston User Group Meeting](https://web.cvent.com/event/c9048e32-52cc-4e26-999e-75267c1382bd/websitePage:96525454-a01e-4639-9eed-927ed729ec6b)
+    > Join me for the 10x Genomics Boston User Group Meeting.
+
+
+## 2021-11-04
+
+**Stephanie Hicks** (10:17:01):
+> hi! I’m curious to see if there are folks who are currently developing a class (or maybe extending`spatialExperiment`?) to store spatial data with multiple -omics? i.e.. Same spatial coordinates, but different sets of features. The one I see in`MultiAssayExperiment`has one`SpatialExperiment`for seqFish and one`SingleCellExperiment`for scRNAseq ([https://bioconductor.org/packages/SingleCellMultiModal](https://bioconductor.org/packages/SingleCellMultiModal)). Should I do the same and have two`SpatialExperiment`s?
+  - Attachment (Bioconductor): [SingleCellMultiModal](https://bioconductor.org/packages/SingleCellMultiModal)
+    > SingleCellMultiModal is an ExperimentHub package that serves multiple datasets obtained from GEO and other sources and represents them as MultiAssayExperiment objects. We provide several multi-modal datasets including scNMT, 10X Multiome, seqFISH, CITEseq, SCoPE2, and others. The scope of the package is is to provide data for benchmarking and analysis.
+
+**Dario Righelli** (12:07:50) (in thread):
+> Hi@Stephanie Hicks, I was talking about that during a meeting with@Levi Waldron,@Marcel Ramos Pérezand@Davide Risso.
+> It could be an idea to extend a class inheriting from`MultiAssayExperiment `and`SpatialExperiment`, but it could be tricky to design and maintain IMHO.
+> At the moment, you have two ways to do that (or at least that come to my mind):
+> 1. Use a`MAE`which stores two`SpE`as you were suggesting.
+> 2. Use a`SpE`which stores spatial RNA-seq as main`assay`and alternative omics as`AltExps`
+> I suggest the first case when you have two sets of coordinates and two sets of counts with different features (like RNAseq and ATACseq from different cells)
+> The second case could be used when you have one set of coordinates and two sets of “counts” (like spatial RNAseq and ATACseq from same cells)
+> While when you have two sets of coordinates and two sets of the same features in counts form you can simply`cbind`two`SpE`
+
+**Stephanie Hicks** (14:46:34) (in thread):
+> ok thanks!
+
+
+## 2021-11-08
+
+*03:29:44 - @Paula Nieto García has joined the channel*
+
+## 2021-11-22
+
+**Leonardo Collado Torres** (23:19:53):
+> This one was more of a`SpatialExperiment`question[https://github.com/LieberInstitute/spatialLIBD/issues/18](https://github.com/LieberInstitute/spatialLIBD/issues/18)
+
+
+## 2021-12-14
+
+*08:24:00 - @Megha Lal has left the channel*
+
+## 2022-01-03
+
+*17:05:28 - @Kurt Showmaker has joined the channel*
+
+## 2022-02-24
+
+*18:07:06 - @Natalie charitakis has joined the channel*
+*23:54:43 - @Amelia Dunstone has joined the channel*
+
+## 2022-03-21
+
+*05:02:54 - @Pedro Sanchez has joined the channel*
+
+## 2022-03-31
+
+*22:27:45 - @Nicole Ortogero has joined the channel*
+
+## 2022-04-19
+
+**Leonardo Collado Torres** (08:37:58):
+> Woo, congrats@Dario Righelli@Lukas Weber@Helena L. Crowell@Brenda Pardo@Shila Ghazanfar@Aaron Lun@Stephanie Hicks^^!!
+
+**Leonardo Collado Torres** (08:38:08):
+> err, forgot@Davide Risso:stuck_out_tongue:
+
+**Davide Risso** (08:38:40):
+> Congrats everyone!
+
+**Lukas Weber** (08:38:53):
+> Thanks for your help and feedback everyone!!
+
+**Helena L. Crowell** (08:48:38):
+> What happened?:speak_no_evil:
+
+**Lukas Weber** (08:50:13) (in thread):
+> Paper accepted in Bioinformatics:tada:
+
+**Lukas Weber** (08:50:37) (in thread):
+> We received an email, you should have it too:tada:
+
+**Helena L. Crowell** (08:50:59) (in thread):
+> Aha!! Dayum, it went into junk - cool.
+
+**Lukas Weber** (08:51:09) (in thread):
+> :joy:
+
+**Lukas Weber** (08:52:44) (in thread):
+> Not even a second round of additional / minor revisions. It went straight from major revision to accepted, which is awesome
+
+**Lukas Weber** (08:53:39) (in thread):
+> We did carefully address every comment, so I'm glad it worked out well!:slightly_smiling_face:
+
+**Dario Righelli** (09:07:33):
+> Thanks and Congratulations everyone!
+
+**Stephanie Hicks** (09:21:04):
+> Such great news!! Congratulations everyone!!
+
+**Shila Ghazanfar** (22:58:07):
+> Wonderful news!! Congratulations!!:tada:
+
+
+## 2022-04-20
+
+**Leonardo Collado Torres** (08:58:00):
+> And perfect timing, today`spatialLIBD`got accepted:smiley:Back to back days with paper acceptances ^^
+  - File (PNG): [Screen Shot 2022-04-20 at 8.57.33 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/F03CKCF497B/screen_shot_2022-04-20_at_8.57.33_am.png)
+
+
+## 2022-04-26
+
+**Brenda Pardo** (18:35:41):
+> Both these are wonderful news! Thank you all!
+
+
+## 2022-05-05
+
+*05:57:48 - @Flavio Lombardo has joined the channel*
+
+## 2022-05-23
+
+**Peter Hickey** (18:56:19):
+> In reviewing a package that I’d argue should be using**SpatialExperiment**rather than a**SingleCellExperiment**, one reason the package submitter didn’t use***SpatialExperiment***is that “SpatialExperiment is mainly for spatial transcriptomics, especially for 10X Visium.”
+> Indeed, the opening sentence of the ‘Description’ in`help("SpatialExperiment", "SpatialExperiment")`says:
+> > The SpatialExperiment class is designed to represent spatially resolved transcriptomics (ST) data
+> But that’s an inaccuracy in the documentation rather than an actual limitation, right?
+> I.e., the SpatialExperiment class isn’t restricted to spatial transcriptomics data just as the SingleCellExperiment class isn’t restricted to single-cell transcriptomics.
+> 
+> 
+> Link to package review:[https://github.com/Bioconductor/Contributions/issues/2606](https://github.com/Bioconductor/Contributions/issues/2606)
+
+
+## 2022-05-24
+
+**Dario Righelli** (03:47:02) (in thread):
+> Thanks@Peter Hickey, you're totally right, I agree that maybe it's better for us to update the documentation.
+
+
+## 2022-05-25
+
+*17:44:18 - @Sanket Verma has joined the channel*
+**Lukas Weber** (23:30:57) (in thread):
+> Thanks@Peter Hickey. Yes, maybe the way we have written this in the documentation isn't very clear, and makes it sound more restrictive than it is. We can definitely try to make this more clear
+
+
+## 2022-07-28
+
+*09:48:16 - @Will t has joined the channel*
+**Leonardo Collado Torres** (17:37:18):
+> Lots of interesting new work by@Lambda Mosesat#bioc2022[https://twitter.com/lcolladotor/status/1552768081507692544?s=20&t=HhUIBZZVmwvH_sBIO5NC0w](https://twitter.com/lcolladotor/status/1552768081507692544?s=20&t=HhUIBZZVmwvH_sBIO5NC0w)
+  - Attachment (twitter): [Attachment](https://twitter.com/lcolladotor/status/1552768081507692544?s=20&amp;t=HhUIBZZVmwvH_sBIO5NC0w)
+    > Lambda [@LambdaMoses](https://twitter.com/LambdaMoses) is explaining #SpatialFeatureExperiment [https://github.com/pachterlab/SpatialFeatureExperiment](https://github.com/pachterlab/SpatialFeatureExperiment) which you can try at [http://orchestra.cancerdatasci.org/](http://orchestra.cancerdatasci.org/)
+    > 
+    > #SpatialExperiment can be coerced to SFE
+    > #Voyager [https://github.com/pachterlab/Voyager](https://github.com/pachterlab/Voyager) can explore:mag_right: SFE
+    > Can use segmentation masks :mask:
+    > :soon: [@Bioconductor](https://twitter.com/Bioconductor)
+    > 
+    > #BioC2022 [https://pbs.twimg.com/media/FYyI62nUYAAZOAE.jpg](https://pbs.twimg.com/media/FYyI62nUYAAZOAE.jpg)
+
+
+## 2022-08-11
+
+*17:16:25 - @Rene Welch has joined the channel*
+
+## 2022-08-15
+
+*13:13:32 - @Michael Kaufman has joined the channel*
+
+## 2022-09-14
+
+*05:19:34 - @Robert Ivánek has joined the channel*
+
+## 2022-09-23
+
+*08:40:13 - @Iivari has joined the channel*
+
+## 2022-10-31
+
+*10:05:48 - @Chenyue Lu has joined the channel*
+
+## 2022-11-06
+
+*11:21:40 - @Sherine Khalafalla Saber has joined the channel*
+
+## 2022-11-22
+
+*15:54:13 - @Ellis Patrick has joined the channel*
+
+## 2022-12-12
+
+*17:58:25 - @Umran has joined the channel*
+
+## 2022-12-13
+
+*09:01:35 - @Ana Cristina Guerra de Souza has joined the channel*
+*18:33:06 - @Xiangnan Xu has joined the channel*
+
+## 2022-12-20
+
+*10:41:43 - @Jennifer Foltz has joined the channel*
+
+## 2023-01-09
+
+*11:30:46 - @Luca Marconato has joined the channel*
+
+## 2023-02-14
+
+*12:22:54 - @Sean Davis has joined the channel*
+**Sean Davis** (12:23:18):
+> archived the channel

@@ -1,0 +1,121 @@
+---
+title: "#tess-integration"
+format: gfm
+---
+
+
+## 2024-04-18
+
+**Maria Doyle** (06:38:51):
+> Hi Kozo, Lori, and Alex,
+> 
+> I’m exploring how we might automatically feed Bioconductor events into the TeSS training registry (here:[https://tess.elixir-europe.org/events](https://tess.elixir-europe.org/events)). We’re thinking about adding Bioschemas to help with this.
+> 
+> Alex, since you’re leading on TeSS, your thoughts would be really helpful here. Kozo and Lori, your thoughts from your experience with the event submission process at Bioconductor would be very helpful to ensure any proposed changes work smoothly.
+> 
+> Quick rundown of the current Bioconductor event adding process:
+> 1. Events are submitted via[this GitHub form](https://github.com/BioconductorBoards/CABWorkingGroups/issues/new?assignees=kozo2&labels=event%2Ccalendar&template=EVENT-CALENDAR.yml&title=%5BEvent%5D%3A+REPLACE+ME+WITH+YOUR+EVENT+TITLE).
+> 2. That generates a GitHub issue ([like this one](https://github.com/BioconductorBoards/CABWorkingGroups/issues/61)).
+> 3. Then someone updates the Bioconductor site with a new event via a commit, similar to[this commit](https://github.com/Bioconductor/bioconductor.org/commit/7ae8ec719b3c9c5b313fd23d788d084e6c08518a#diff-d2204378bce06e678300182a41bc54d45b3cc5f7ab5a7e03e58661f7c5c05847).
+> Would love to hear any ideas on making this easier and more streamlined! What do you guys think?
+
+
+## 2024-04-19
+
+**Alexander Botzki** (02:48:35):
+> Hi Maria, all, thanks for this outline. 
+> For Bioschemas, we would need an additional file compatible to the yaml file of step 3. The format would be JSON-LD and adheres to the[schema.org](http://schema.org)Course/Course instance profile[https://bioschemas.org/profiles/Course/1.0-RELEASE](https://bioschemas.org/profiles/Course/1.0-RELEASE)Next to the individual JSON-LD objects, you could create a list of all JSON-LD objects (in the sense of a Python list) which would be the source file TeSS scrapes.
+> Other technical setups would also work but this is the general idea.
+  - Attachment (bioschemas.org): [Bioschemas - 1.0 Release](https://bioschemas.org/profiles/Course/1.0-RELEASE)
+
+**Kozo Nishida** (02:56:45):
+> Hi all,
+> I think collaborating with TeSS, that is, updating our[this GitHub form](https://github.com/BioconductorBoards/CABWorkingGroups/issues/new?assignees=kozo2&labels=event%2Ccalendar&template=EVENT-CALENDAR.yml&title=%5BEvent%5D%3A+REPLACE+ME+WITH+YOUR+EVENT+TITLE)to use the controlled vocabulary from[bioscheme.org](http://bioscheme.org), is a great idea.
+
+**Kozo Nishida** (02:59:15):
+> @Alexander BotzkiIs there any example scripts (likely in Python?) for creating that YAML file?
+
+**Kozo Nishida** (03:18:43):
+> I would like to create the YAML programmatically and change "the current Bioconductor event adding process:".
+> Because the current process involves a lot of manual confirmation and lacks automation (, so I'd like to improve it).
+
+**Kozo Nishida** (03:20:56):
+> Even if we create that YAML, we may not be able to completely eliminate manual checks, but I believe that we can expect some improvements.
+> (I think that's what Maria thought, and that's why Maria messaged Lori and me as well...)
+
+**Kozo Nishida** (03:22:34):
+> I don't have any concrete ideas on how to do it, but anyway I would like an example of the YAML (Alex expects) and a simple scripting program to create it.
+
+**Alexander Botzki** (06:49:27):
+> I do not have any examples for creating the yaml file from a github issue but Geert Van Geest produced a small Python library[https://pypi.org/project/addbioschemas/](https://pypi.org/project/addbioschemas/)which converts a bioschemas "compliant" yaml file to the corresponding JSON-LD object. This works for mkdocs but could be potentially extended for other purposes.
+> I'll mention it in our ELIXIR meeting today if Geert is present and come back to you.
+  - Attachment (PyPI): [addbioschemas](https://pypi.org/project/addbioschemas/)
+    > A markdown extension to add bioschemas markup to rendered html
+
+
+## 2024-04-20
+
+**Alexander Botzki** (04:15:47):
+> Hi, I chatted with Geert yesterday and he suggested to check what you can extract via the GitHub API regarding the issues about event creation.
+> Probably with some parsing you should be able to create a structured yaml file.
+
+
+## 2024-04-21
+
+**Maria Doyle** (18:41:40):
+> Thanks a lot Alex! I’ll take a look at the GitHub API as soon as I can. I haven’t worked with it before, so any tips would be really appreciated. Kozo, if you have any advice on this, please let me know.
+
+
+## 2024-04-23
+
+**Kozo Nishida** (04:24:07):
+> Thanks Alex:pray:[https://pypi.org/project/addbioschemas/](https://pypi.org/project/addbioschemas/)is very informative.
+> I think we can generate[https://pypi.org/project/addbioschemas/](https://pypi.org/project/addbioschemas/)YAML file from our GitHub issue form.
+  - Attachment (PyPI): [addbioschemas](https://pypi.org/project/addbioschemas/)
+    > A markdown extension to add bioschemas markup to rendered html
+
+**Kozo Nishida** (04:29:13):
+> We can extract the markdown body of[https://github.com/BioconductorBoards/CABWorkingGroups/issues/62](https://github.com/BioconductorBoards/CABWorkingGroups/issues/62)by requesting[https://api.github.com/repos/BioconductorBoards/CABWorkingGroups/issues/62](https://api.github.com/repos/BioconductorBoards/CABWorkingGroups/issues/62).
+> ```
+> "body": "### Type\n\nSeminar/Lecture\n\n### Description\n\n![Leah Guthrie]([https://github.com/BioconductorBoards/CABWorkingGroups/assets/163227299/b555067b-7065-42e5-9fd7-58614d7c7b15](https://github.com/BioconductorBoards/CABWorkingGroups/assets/163227299/b555067b-7065-42e5-9fd7-58614d7c7b15))\r\n\r\n_The #BlackInCompBio Seminar Series provides a platform for Black scientists to share their science with our global community._\r\n\r\n***Title: Decoding Diet-Microbiota Interactions Shaping Kidney Biology***\r\n\r\nLeah Guthrie is an Assistant Professor in the Department of Bioengineering at the University of California, Berkeley. Her lab uses molecular and computational tools to decipher the role of diet-derived microbiota generated metabolites in host signaling and kidney disease progression. The Guthrie lab studies diverse questions relevant to the role of microbes in human health and disease: how microbiome shapes food and drug metabolism, how microbial metabolites shape host biology, and how the microbiome can be manipulated to benefit human health.\r\n\r\nFor more information see: [[https://www.theguthrielab.com/\](https://www.theguthrielab.com/)](https://www.theguthrielab.com/](https://www.theguthrielab.com/))\r\n\r\n\n\n### Location\n\nVirtual\n\n### Website\n\n[https://www.blackwomencompbio.org/event-details/blackincompbio-seminar-series-leah-guthrie-phd](https://www.blackwomencompbio.org/event-details/blackincompbio-seminar-series-leah-guthrie-phd)\n\n### Start date and time\n\nMarch 20, 2024 at 12pm\n\n### End date and time\n\nMarch 20, 2024 at 1pm\n\n### Time zone\n\nEST\n\n### Contact Details\n\nprograms@blackwomencompbio.org\n\n### Registration details (if applicable)\n\nRSVP:[https://www.blackwomencompbio.org/event-details/blackincompbio-seminar-series-leah-guthrie-phd](https://www.blackwomencompbio.org/event-details/blackincompbio-seminar-series-leah-guthrie-phd)\n\n### Sponsor or Organization\n\nThe Black Women in Computational Biology Network\r\n![BWCB-logo 2]([https://github.com/BioconductorBoards/CABWorkingGroups/assets/163227299/9ac36ab0-8cbe-4169-95a1-4de7c90a65a0](https://github.com/BioconductorBoards/CABWorkingGroups/assets/163227299/9ac36ab0-8cbe-4169-95a1-4de7c90a65a0))\r\n\n\n### Comment field\n\n_No response_\n\n### Checklist\n\n- [X] This event has a Bioconductor focus or interest to Bioconductor users/developers.\n- [X] The event organizer read and confirmed the [Bioconductor Code of Conduct]([http://bioconductor.org/about/code-of-conduct/](http://bioconductor.org/about/code-of-conduct/)).\n- [X] The event has the Code of Conduct (CoC) derived from the partner organization or the [Bioconductor Code of Conduct]([http://bioconductor.org/about/code-of-conduct/](http://bioconductor.org/about/code-of-conduct/)).\n- [X] The event organizer have the shorter version (summary) of the CoC.",
+> ```
+  - Attachment: [#62 #BlackInCompBio Seminar: Decoding Diet-Microbiota Interactions Shaping Kidney Biology](https://github.com/BioconductorBoards/CABWorkingGroups/issues/62)
+
+**Kozo Nishida** (04:31:44):
+> Unfortunately, it seems that with "GitHub issue forms" (we're using),
+> it's not possible to retrieve only the values of each form via the API.
+
+**Kozo Nishida** (04:34:37):
+> To generate addbioschemas YAML file, we would need to parse the markdown above.
+> That might not be efficient approach...
+
+**Kozo Nishida** (04:36:17):
+> Should we consider using a different Form service?
+
+**Maria Doyle** (11:08:22):
+> Hi@Kozo Nishidaand@Alexander Botzki,
+> Given our ongoing technical discussions, I’d like to propose converting this group message into a public Slack channel, tentatively named #tess-integration. This could be the channel I referenced on the[working groups page](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html#tess), which would open up our conversations for broader input, especially on forms and automation processes.
+> What do you think? If you both agree, I’ll convert this to a channel, but if you’d prefer not to, that’s completely fine too.
+> Looking forward to your thoughts!
+
+**Alexander Botzki** (12:57:01):
+> Hi Maria, totally fine for me. Thanks!
+
+
+## 2024-04-24
+
+**USLACKBOT** (08:17:54):
+> @Maria Doylecreated this channel from a conversation with@Maria Doyle,@Alexander Botzki,@Lori Shepherd, and@Kozo Nishida.
+
+**Maria Doyle** (08:27:12):
+> Ok great, I can change it to a private channel but need a workspace owner to convert it to public so have asked Marcel.
+
+*09:25:01 - @Marcel Ramos Pérez has joined the channel*
+**Marcel Ramos Pérez** (09:39:30):
+> made this channel **public**. Any member in this workspace can see and join it.
+
+*09:39:51 - @Marcel Ramos Pérez has left the channel*
+
+## 2024-05-27
+
+*21:16:46 - @Aedin Culhane has joined the channel*
