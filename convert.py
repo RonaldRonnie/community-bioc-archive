@@ -10,7 +10,7 @@ import html # Import the html module for unescaping
 def parse_slack_markdown(text, user_map=None, channel_map=None):
     """
     Converts basic Slack mrkdwn formatting to standard Markdown,
-    replaces user/channel IDs, and escapes potential inline R snippets.
+    replaces user/channel IDs, and removes 'r ' prefix from potential inline R.
     """
     if not text:
         return ""
@@ -41,9 +41,10 @@ def parse_slack_markdown(text, user_map=None, channel_map=None):
             return f"#{channel_name}"
         text = re.sub(r'<#(C[A-Z0-9]+)(?:\|([^>]+))?>', channel_replacer, text)
 
-    # --- **REVISED:** Escape backticks around `r ...` to prevent parsing errors ---
-    # This finds `r ...` and adds backslashes before the backticks
-    text = re.sub(r'`(r\s+.*?)`', r'\\`\1\\`', text)
+    # --- **REVISED:** Remove 'r ' prefix from potential inline code like `r code()` ---
+    # This avoids Quarto attempting to parse it as R code.
+    # It specifically targets `r` followed by one or more spaces inside single backticks.
+    text = re.sub(r'`r\s+(.*?)`', r'`\1`', text)
     # --- END REVISED ---
 
     return text.strip()
