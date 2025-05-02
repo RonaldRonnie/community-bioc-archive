@@ -3,23 +3,38 @@ title: "#documentation-translation"
 format: gfm
 ---
 
-
 ## 2021-06-16
 
-*06:32:44 - @Martin Morgan has joined the channel*
+**Martin Morgan** (06:32:44):
+> @Martin Morgan has joined the channel
+
 **Martin Morgan** (06:32:45):
 > set the channel description: Discuss topics related to translating package documentation
 
 **Martin Morgan** (06:41:30):
 > I have some thoughts about documentation translation and want to coordinate the discussion somewhere. Some initial comments / things I don’t know about.@JiefeiWangI think the appropriate language identifier is`zh_CN`Chinese (Simplified) or`zh_TW`Chinese (Traditional)@Robert CasteloI don’t know how file encoding works or the subtleties of how R handles encoding. The DESCRIPTION file advertises ‘UTF-8’ and the other translations use or at least advertise in the header) UTF-8. Do you know whether it is necessary, or whether it matters, that R-es.po advertises ISO-8859-1?@Marcel Ramos Pérez@Dario Righelli@Davide Risso@Federico Mariniplease feel free to discuss the Italian translation here.@Kozo Nishidathanks for the Japanese translation!
 
-*06:42:19 - @JiefeiWang has joined the channel*
-*06:42:19 - @Robert Castelo has joined the channel*
-*06:42:19 - @Marcel Ramos Pérez has joined the channel*
-*06:42:19 - @Dario Righelli has joined the channel*
-*06:42:20 - @Davide Risso has joined the channel*
-*06:42:20 - @Federico Marini has joined the channel*
-*06:42:20 - @Kozo Nishida has joined the channel*
+**JiefeiWang** (06:42:19):
+> @JiefeiWang has joined the channel
+
+**Robert Castelo** (06:42:19):
+> @Robert Castelo has joined the channel
+
+**Marcel Ramos Pérez** (06:42:19):
+> @Marcel Ramos Pérez has joined the channel
+
+**Dario Righelli** (06:42:19):
+> @Dario Righelli has joined the channel
+
+**Davide Risso** (06:42:20):
+> @Davide Risso has joined the channel
+
+**Federico Marini** (06:42:20):
+> @Federico Marini has joined the channel
+
+**Kozo Nishida** (06:42:20):
+> @Kozo Nishida has joined the channel
+
 **Martin Morgan** (06:44:48):
 > I’ll do a presentation at the developer forum on Thursday about translation; it would be great if you’re able to attend. Especially it would be useful to discuss issues like those at[https://github.com/Bioconductor/BiocManager/blob/po-translations/README-Translation.md#concerns--next-steps](https://github.com/Bioconductor/BiocManager/blob/po-translations/README-Translation.md#concerns--next-steps).
 
@@ -68,7 +83,9 @@ format: gfm
 **Davide Risso** (14:37:51):
 > I didn’t have the chance to say it on the call because we reached the end of the hour, but as someone involved with the italian translation of the BiocManager messages it is extremely useful to have a first draft of the translation to improve upon. So answering@Vince Carey‘s question, I think a first rough translation by google translate would be a good starting point and likely to encourage help from a native speaker to improve it. Perhaps making an open call here on slack.
 
-*14:37:55 - @Vince Carey has joined the channel*
+**Vince Carey** (14:37:55):
+> @Vince Carey has joined the channel
+
 
 ## 2021-06-18
 
@@ -81,24 +98,28 @@ format: gfm
 **Federico Marini** (12:51:42):
 > Cross posting here:[https://community-bioc.slack.com/archives/CLUJWDQF4/p1624286018044500](https://community-bioc.slack.com/archives/CLUJWDQF4/p1624286018044500)
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CLUJWDQF4/p1624286018044500)
-    > Last week’s developer forum on translating help messages is at [https://youtu.be/M8Fyj2HMYVw](https://youtu.be/M8Fyj2HMYVw); if you’re interested in further discussion, visit the #documentation-translation channel
+> Last week’s developer forum on translating help messages is at [https://youtu.be/M8Fyj2HMYVw](https://youtu.be/M8Fyj2HMYVw); if you’re interested in further discussion, visit the #documentation-translation channel
 
-*15:08:01 - @Michael Lawrence has joined the channel*
+**Michael Lawrence** (15:08:01):
+> @Michael Lawrence has joined the channel
+
 **Michael Lawrence** (15:16:28):
 > Some comments I had from Martin’s talk at the dev forum: it’s really important that we clean up the english error messages, vignettes, or any other source material before translating them. For example, I noticed in the example in the talk that the English message lacked a verb “argument <whatever> not valid”, while the French translation included “est”, which would translate back to “argument <whatever>***is***not valid”. This cleanup would be both to improve overall quality and make the messages easier to translate. That cleanup could be made easier by centralizing the generation of messages that fit a pattern. Like there could be a`msgInvalidArg()`function that would translate the string “Argument %s is not valid”. Finally, another benefit of translation is that the translators become contributors to the project, which will increase the size and likely diversity of the community.
 
-*17:48:50 - @Peter Hickey has joined the channel*
+**Peter Hickey** (17:48:50):
+> @Peter Hickey has joined the channel
+
 **Martin Morgan** (19:01:38):
 > Thanks@Michael Lawrencefor your comments.
 
 **Martin Morgan** (19:01:48):
 > After the presentation I read the gettext documentation (for instance at[https://www.gnu.org/software/gettext/manual/gettext.html#Preparing-Strings](https://www.gnu.org/software/gettext/manual/gettext.html#Preparing-Strings)), which had a number of helpful suggestions like ‘write complete sentences’. It also provided some useful insight into locale names and environment variables ([https://www.gnu.org/software/gettext/manual/gettext.html#Setting-the-POSIX-Locale](https://www.gnu.org/software/gettext/manual/gettext.html#Setting-the-POSIX-Locale)) and specifying a hierarchy of languages ([https://www.gnu.org/software/gettext/manual/gettext.html#The-LANGUAGE-variable](https://www.gnu.org/software/gettext/manual/gettext.html#The-LANGUAGE-variable)).
   - Attachment (gnu.org): [GNU gettext utilities](https://www.gnu.org/software/gettext/manual/gettext.html#Preparing-Strings)
-    > GNU gettext utilities
+> GNU gettext utilities
   - Attachment (gnu.org): [GNU gettext utilities](https://www.gnu.org/software/gettext/manual/gettext.html#Setting-the-POSIX-Locale)
-    > GNU gettext utilities
+> GNU gettext utilities
   - Attachment (gnu.org): [GNU gettext utilities](https://www.gnu.org/software/gettext/manual/gettext.html#The-LANGUAGE-variable)
-    > GNU gettext utilities
+> GNU gettext utilities
 
 **Martin Morgan** (19:01:56):
 > Also, as Michael Chirico said, the`.pot`file is really just a template for the`.po`files, so it was just ‘wishful thinking’ to suppose that the`msgid`could be used as an error key ‘ERR001’ to a universal`msgstr`. But on the other hand I guess that is exactly what`msgid`is — a unique key that happens to be the untranslated message string. Maybe in the context of condition handling, this just points to the convention that the ‘class’ is just the untranslated message string. This would also make it easy to print out the original and translated message at the time of error.
@@ -185,8 +206,8 @@ format: gfm
 
 **Martin Morgan** (11:03:26):
   - Attachment (twitter): [Attachment](https://twitter.com/tatsuya_amano/status/1413369391194902528)
-    > #languagebarriers have multiple major consequences for scientists, the advance of science, and its impact on societies. We need a concerted effort from all – both non-native & native speakers. Here we've listed ten things you can start doing today.
-    > [https://rdcu.be/cnZQf](https://rdcu.be/cnZQf) [https://pbs.twimg.com/media/E51LyBrVcAsHpUu.jpg](https://pbs.twimg.com/media/E51LyBrVcAsHpUu.jpg)
+> #languagebarriers have multiple major consequences for scientists, the advance of science, and its impact on societies. We need a concerted effort from all – both non-native & native speakers. Here we've listed ten things you can start doing today.
+> [https://rdcu.be/cnZQf](https://rdcu.be/cnZQf) [https://pbs.twimg.com/media/E51LyBrVcAsHpUu.jpg](https://pbs.twimg.com/media/E51LyBrVcAsHpUu.jpg)
 
 **Martin Morgan** (13:57:10):
 > Here’s what the po-translations-hash branch produces
@@ -240,12 +261,18 @@ format: gfm
 
 ## 2021-07-23
 
-*15:52:46 - @Batool Almarzouq has joined the channel*
+**Batool Almarzouq** (15:52:46):
+> @Batool Almarzouq has joined the channel
+
 
 ## 2021-08-06
 
-*17:22:23 - @Daniela Cassol has joined the channel*
-*17:22:46 - @Leonardo Collado Torres has joined the channel*
+**Daniela Cassol** (17:22:23):
+> @Daniela Cassol has joined the channel
+
+**Leonardo Collado Torres** (17:22:46):
+> @Leonardo Collado Torres has joined the channel
+
 **Leonardo Collado Torres** (17:23:06):
 > hi!
 
@@ -280,7 +307,9 @@ format: gfm
 **Kozo Nishida** (17:46:18) (in thread):
 > @Daniela CassolIt seems that@Kevin Rue-Albrecht, not me, has already added you as a translator member of the project. Thank you@Kevin Rue-Albrecht.
 
-*17:46:27 - @Kevin Rue-Albrecht has joined the channel*
+**Kevin Rue-Albrecht** (17:46:27):
+> @Kevin Rue-Albrecht has joined the channel
+
 **Kozo Nishida** (17:48:51) (in thread):
 > @Daniela CassolI can see that you have already translated about 23%. Thank you.
   - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F02B44ZTM8U/image.png)
@@ -306,12 +335,14 @@ format: gfm
 **Daniela Cassol** (10:00:24) (in thread):
 > Humm... not sure. I clicked on this[link](https://crowdin.com/project/bioconductor-code-of-conduct/)and started the translation... I didn't receive any notification that I was added to the project.
   - Attachment (Crowdin): [Bioconductor Code of Conduct — Translation Project on Crowdin](https://crowdin.com/project/bioconductor-code-of-conduct/)
-    > Help us translate Bioconductor Code of Conduct and bring it to the world!
+> Help us translate Bioconductor Code of Conduct and bring it to the world!
 
 
 ## 2021-08-20
 
-*05:23:42 - @Xueyi Dong has joined the channel*
+**Xueyi Dong** (05:23:42):
+> @Xueyi Dong has joined the channel
+
 
 ## 2021-09-06
 
@@ -353,7 +384,7 @@ format: gfm
 > Now I've come to think that it's better to translate using translate toolkit, poedit and github.
 > I exported@Kevin Rue-Albrechtand@Daniela Cassol’s Crowdin data[https://crowdin.com/project/bioconductor-code-of-conduct](https://crowdin.com/project/bioconductor-code-of-conduct)to xliff and po and pushed it to[https://github.com/BioconductorBoards/CABWorkingGroups/tree/main/coc](https://github.com/BioconductorBoards/CABWorkingGroups/tree/main/coc)
   - Attachment (Crowdin): [Bioconductor Code of Conduct — Translation Project on Crowdin](https://crowdin.com/project/bioconductor-code-of-conduct)
-    > Help us translate Bioconductor Code of Conduct and bring it to the world!
+> Help us translate Bioconductor Code of Conduct and bring it to the world!
 
 **Kozo Nishida** (14:38:39):
 > Although I said I exported, the original English sentence (break)s (and the Markdown notation) in the po file created by translate toolkit is different from those by Crowdin, so I need to ask Kevin and Daniela to do some tweaking again (when migrating to use translate toolkit). Sorry...
@@ -380,12 +411,18 @@ format: gfm
 
 ## 2021-11-08
 
-*03:26:51 - @Paula Nieto García has joined the channel*
+**Paula Nieto García** (03:26:51):
+> @Paula Nieto García has joined the channel
+
 
 ## 2022-06-09
 
-*09:08:01 - @John Hutchinson has joined the channel*
-*09:08:38 - @John Hutchinson has left the channel*
+**John Hutchinson** (09:08:01):
+> @John Hutchinson has joined the channel
+
+**John Hutchinson** (09:08:38):
+> @John Hutchinson has left the channel
+
 
 ## 2022-07-09
 
@@ -394,38 +431,42 @@ format: gfm
 > If you like, please feel free to join us.
 > The introduction slide is[https://docs.google.com/presentation/d/1yvC6ylG2eK6qnwv9MRPrRUJ0pfYc-7H4zbkhSWnlEos/edit?usp=sharing](https://docs.google.com/presentation/d/1yvC6ylG2eK6qnwv9MRPrRUJ0pfYc-7H4zbkhSWnlEos/edit?usp=sharing).
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C010R4JC2TB/p1656714332682559?thread_ts=1656701547533089&cid=C010R4JC2TB)
-    > I haven't posted the event to the chat yet.
-    > 
-    > [https://www.meetup.com/boston-r-bioconductor-for-genomics/events/286908674/](https://www.meetup.com/boston-r-bioconductor-for-genomics/events/286908674/) is the event page!
-    > If there's anything you are unclear on, please let me know!
+> I haven't posted the event to the chat yet.
+> 
+> [https://www.meetup.com/boston-r-bioconductor-for-genomics/events/286908674/](https://www.meetup.com/boston-r-bioconductor-for-genomics/events/286908674/) is the event page!
+> If there's anything you are unclear on, please let me know!
   - File (Google Slides): [Bioconductor Translation-a-thon intro](https://community-bioc.slack.com/files/U34P8RS3B/F03NQAZ6L1L/bioconductor_translation_virtual_sprint__9_july_2022)
 
-*09:56:30 - @Lluís Revilla has joined the channel*
-*12:01:33 - @Clara Pereira has joined the channel*
+**Lluís Revilla** (09:56:30):
+> @Lluís Revilla has joined the channel
+
+**Clara Pereira** (12:01:33):
+> @Clara Pereira has joined the channel
+
 
 ## 2022-08-20
 
 **Kozo Nishida** (18:13:23):
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C010R4JC2TB/p1661033574304389)
-    > Does anyone know of any local Bioconductor groups other than those listed below?
-    > • [https://www.meetup.com/boston-r-bioconductor-for-genomics/](https://www.meetup.com/boston-r-bioconductor-for-genomics/)
-    > • [https://www.meetup.com/biocnyc/events/287804371/](https://www.meetup.com/biocnyc/events/287804371/)
-    > I would like to invite Bioconductor groups around the world to this Translation-a-thon.
-    > [https://www.meetup.com/boston-r-bioconductor-for-genomics/events/287802282/](https://www.meetup.com/boston-r-bioconductor-for-genomics/events/287802282/)
+> Does anyone know of any local Bioconductor groups other than those listed below?
+> • [https://www.meetup.com/boston-r-bioconductor-for-genomics/](https://www.meetup.com/boston-r-bioconductor-for-genomics/)
+> • [https://www.meetup.com/biocnyc/events/287804371/](https://www.meetup.com/biocnyc/events/287804371/)
+> I would like to invite Bioconductor groups around the world to this Translation-a-thon.
+> [https://www.meetup.com/boston-r-bioconductor-for-genomics/events/287802282/](https://www.meetup.com/boston-r-bioconductor-for-genomics/events/287802282/)
 
 
 ## 2022-08-27
 
 **Kozo Nishida** (09:56:14):
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C010R4JC2TB/p1661608398545279)
-    > The Bioconductor Translation-a-thon will start in about 8 minutes.
-    > [https://www.meetup.com/boston-r-bioconductor-for-genomics/events/287802282/](https://www.meetup.com/boston-r-bioconductor-for-genomics/events/287802282/)
-    > Sorry, I forgot to advertise it on this channel and add it to Bioconductor's calendar....
+> The Bioconductor Translation-a-thon will start in about 8 minutes.
+> [https://www.meetup.com/boston-r-bioconductor-for-genomics/events/287802282/](https://www.meetup.com/boston-r-bioconductor-for-genomics/events/287802282/)
+> Sorry, I forgot to advertise it on this channel and add it to Bioconductor's calendar....
 
 **Kozo Nishida** (09:56:26):
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C010R4JC2TB/p1661608532864549)
-    > The translation can be started by accessing [https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/) without participating in the Translation-a-thon.
-    > But I think it would be better if we do the translation together!
+> The translation can be started by accessing [https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/) without participating in the Translation-a-thon.
+> But I think it would be better if we do the translation together!
 
 **Clara Pereira** (11:56:33):
 > Thank you so much Kozo and everyone! It was a great session!
@@ -439,11 +480,15 @@ format: gfm
 
 ## 2022-11-30
 
-*23:10:35 - @Shixiang Wang has joined the channel*
+**Shixiang Wang** (23:10:35):
+> @Shixiang Wang has joined the channel
+
 
 ## 2022-12-12
 
-*10:45:39 - @irem Kahveci has joined the channel*
+**irem Kahveci** (10:45:39):
+> @irem Kahveci has joined the channel
+
 
 ## 2023-01-12
 
@@ -451,32 +496,44 @@ format: gfm
 > I am interested in the workflow described in[https://ropensci.org/blog/2023/01/12/multilingual-publishing-en/](https://ropensci.org/blog/2023/01/12/multilingual-publishing-en/).
 > I will share it with the Bioconductor community.
   - Attachment (ropensci.org): [Expanding our Community through Multilingual Publishing](https://ropensci.org/blog/2023/01/12/multilingual-publishing-en/)
-    > We are translating rOpenSci's materials on best practices for software development, code review, and contribution to open source projects into Spanish! We are also developing guidelines and tools for translating open source resources to reach a wider audience. Learn about the project in this blog post.
+> We are translating rOpenSci's materials on best practices for software development, code review, and contribution to open source projects into Spanish! We are also developing guidelines and tools for translating open source resources to reach a wider audience. Learn about the project in this blog post.
 
 
 ## 2023-01-19
 
-*23:19:49 - @Nick R. has joined the channel*
+**Nick R.** (23:19:49):
+> @Nick R. has joined the channel
+
 
 ## 2023-01-21
 
-*16:02:10 - @Hien has joined the channel*
+**Hien** (16:02:10):
+> @Hien has joined the channel
+
 
 ## 2023-04-26
 
-*13:44:20 - @Alex Mahmoud has joined the channel*
+**Alex Mahmoud** (13:44:20):
+> @Alex Mahmoud has joined the channel
+
 
 ## 2023-08-02
 
-*08:20:30 - @Beth Cimini has joined the channel*
+**Beth Cimini** (08:20:30):
+> @Beth Cimini has joined the channel
+
 
 ## 2023-08-03
 
-*17:15:47 - @Abiud Cantu has joined the channel*
+**Abiud Cantu** (17:15:47):
+> @Abiud Cantu has joined the channel
+
 
 ## 2023-08-04
 
-*10:49:52 - @Ray Su has joined the channel*
+**Ray Su** (10:49:52):
+> @Ray Su has joined the channel
+
 
 ## 2023-09-04
 
@@ -504,8 +561,8 @@ format: gfm
 
 **Kozo Nishida** (04:59:47) (in thread):
 > > For those of you in the Asian time zone and in non-English-speaking regions,
-> I'm considering holding a (Carpentries) community session to translate[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)into your native languages starting at 13:00 Japan time on the Sep 13th.
-> Is anyone interested?
+> > I'm considering holding a (Carpentries) community session to translate[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)into your native languages starting at 13:00 Japan time on the Sep 13th.
+> > Is anyone interested?
 > I have decided to postpone this event. (I'm sorry:pray:)
 > 
 > However, the system to support translation (Crowdin+DeepL+GitHub) is almost fully set up,
@@ -521,21 +578,23 @@ format: gfm
 
 **Kozo Nishida** (09:34:44):
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CUKAPEE1Y/p1694437833239669?thread_ts=1694437833.239669&cid=CUKAPEE1Y)
-    > I have set up bioc-intro translation system below,
-    > [https://bioconductor.crowdin.com/bioc-intro](https://bioconductor.crowdin.com/bioc-intro) (You can use DeepL translation assist in this project.)
-    > [https://github.com/bioconductor-translations/bioc-intro-translation](https://github.com/bioconductor-translations/bioc-intro-translation)
-    > but I cannot attend the bioc-teaching meeting. If anyone has any thoughts or concerns, please let me know in this channel.
+> I have set up bioc-intro translation system below,
+> [https://bioconductor.crowdin.com/bioc-intro](https://bioconductor.crowdin.com/bioc-intro) (You can use DeepL translation assist in this project.)
+> [https://github.com/bioconductor-translations/bioc-intro-translation](https://github.com/bioconductor-translations/bioc-intro-translation)
+> but I cannot attend the bioc-teaching meeting. If anyone has any thoughts or concerns, please let me know in this channel.
 
 **Kozo Nishida** (09:35:02):
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CUKAPEE1Y/p1694439027719699?thread_ts=1694437833.239669&cid=CUKAPEE1Y)
-    > If anyone would prefer to set up Crowdin for [https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro) instead of [https://github.com/bioconductor-translations/bioc-intro-translation](https://github.com/bioconductor-translations/bioc-intro-translation), please let me know.
-    > 
-    > Also, if anyone wishes to become the manager of [https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/), please let me know.
+> If anyone would prefer to set up Crowdin for [https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro) instead of [https://github.com/bioconductor-translations/bioc-intro-translation](https://github.com/bioconductor-translations/bioc-intro-translation), please let me know.
+> 
+> Also, if anyone wishes to become the manager of [https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/), please let me know.
 
 
 ## 2023-10-26
 
-*07:37:53 - @Maria Doyle has joined the channel*
+**Maria Doyle** (07:37:53):
+> @Maria Doyle has joined the channel
+
 
 ## 2023-12-28
 
@@ -548,7 +607,7 @@ format: gfm
 > You can sign up to attend on the[Community Sessions Etherpad](https://pad.carpentries.org/community-sessions-2023).
 > In the session, I will share how to use AI (DeepL / Google Translation / ChatGPT) to make translation easier.[https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/)[https://hackmd.io/@joelnitta/SkCSC6ZNT](https://hackmd.io/@joelnitta/SkCSC6ZNT)
   - Attachment (HackMD): [Carpentries translation guide - HackMD](https://hackmd.io/@joelnitta/SkCSC6ZNT)
-    > Joel H. Nitta
+> Joel H. Nitta
 
 **Kozo Nishida** (20:09:06):
 > The[crowdin.com](http://crowdin.com)and[bioconductor.crowdin.com](http://bioconductor.crowdin.com)accounts appear to be different.
@@ -565,17 +624,27 @@ format: gfm
 
 ## 2024-01-02
 
-*10:08:50 - @Javier Carpinteyro Ponce has joined the channel*
+**Javier Carpinteyro Ponce** (10:08:50):
+> @Javier Carpinteyro Ponce has joined the channel
+
 
 ## 2024-05-27
 
-*21:16:04 - @Aedin Culhane has joined the channel*
+**Aedin Culhane** (21:16:04):
+> @Aedin Culhane has joined the channel
+
 
 ## 2024-07-02
 
-*10:28:23 - @Charlotte Soneson has joined the channel*
-*10:28:29 - @Laurent Gatto has joined the channel*
-*10:30:32 - @David Shih has joined the channel*
+**Charlotte Soneson** (10:28:23):
+> @Charlotte Soneson has joined the channel
+
+**Laurent Gatto** (10:28:29):
+> @Laurent Gatto has joined the channel
+
+**David Shih** (10:30:32):
+> @David Shih has joined the channel
+
 **David Shih** (10:31:18):
 > I'd love to get my students involved in this. We can help translate into Chinese.
 
@@ -610,21 +679,23 @@ format: gfm
 **Dario Righelli** (05:48:37) (in thread):
 > I don’t know how much this WG overlaps with the existing  multilingual one, just reporting it[https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html#multilingual](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html#multilingual)
   - Attachment (workinggroups.bioconductor.org): [Chapter 2 Currently Active Working Groups / Committees | Bioconductor Working Groups: Guidelines and activities](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html#multilingual)
-    > The following describe currently active working groups listed in alphabetical order. If you are interested in becoming involved with one of these groups please contact the group leader(s). 2.1...
+> The following describe currently active working groups listed in alphabetical order. If you are interested in becoming involved with one of these groups please contact the group leader(s). 2.1...
 
 **Laurent Gatto** (06:24:00) (in thread):
 > Thank you for pointing this one out, Dario.@Kozo Nishida@Maria Doyle@Aedin Culhane, what do you think? Do we need a more focused WG for our carpentries material (and link back to that one), or should we add details/members to this one?
 
-*09:25:18 - @Susan Holmes has joined the channel*
+**Susan Holmes** (09:25:18):
+> @Susan Holmes has joined the channel
+
 **Maria Doyle** (10:23:12) (in thread):
 > How about we list the new language translation efforts as subgroups under the existing multilingual WG? This way we could keep things unified while still focusing on each language. For example:
 > > Subgroups:***French Translation Subgroup***Description: Focused on translating Bioconductor Carpentries lessons into French.
-> Leads: 
-> Current Members:
-> Slack:  #translation-fr***Spanish Translation Subgroup***Description: Focused on translating Bioconductor Carpentries lessons into Spanish.
-> Leads: 
-> Current Members: 
-> Slack:  #translation-es
+> > Leads: 
+> > Current Members:
+> > Slack:  #translation-fr***Spanish Translation Subgroup***Description: Focused on translating Bioconductor Carpentries lessons into Spanish.
+> > Leads: 
+> > Current Members: 
+> > Slack:  #translation-es
 
 **Laurent Gatto** (10:25:07) (in thread):
 > Yes, that seems to be the best approach. Will prepare a PR.
@@ -644,7 +715,7 @@ format: gfm
 **Laurent Gatto** (09:56:31) (in thread):
 > [Pull request](https://github.com/Bioconductor/BiocWorkingGroups/pull/44)with the different translation sub-working groups created.
   - Attachment: [#44 Create documentation translation sub-working groups](https://github.com/Bioconductor/BiocWorkingGroups/pull/44)
-    > See discussion here for details and backgroup ([https://community-bioc.slack.com/archives/C024SNHU8A3/p1720431165227479](https://community-bioc.slack.com/archives/C024SNHU8A3/p1720431165227479)).
+> See discussion here for details and backgroup ([https://community-bioc.slack.com/archives/C024SNHU8A3/p1720431165227479](https://community-bioc.slack.com/archives/C024SNHU8A3/p1720431165227479)).
 
 **Laurent Gatto** (09:58:22) (in thread):
 > I'm missing@David Shihas a member, as I didn't know where to add you in terms of language. Currently we have French and Spanish groups, and a general CoC translation group. Let me know and/or send a PR once this one is merged.
@@ -652,7 +723,9 @@ format: gfm
 
 ## 2024-07-15
 
-*07:18:26 - @Lori Shepherd has joined the channel*
+**Lori Shepherd** (07:18:26):
+> @Lori Shepherd has joined the channel
+
 **Michael Lawrence** (10:23:52):
 > Btw, there is an ongoing effort in the general R community towards enabling translation packages, which distribute translated Rd files for a particular package. I'll keep you up to date as that work evolves.
 
@@ -992,7 +1065,9 @@ format: gfm
 
 ## 2024-09-10
 
-*03:46:12 - @Alex Qin has joined the channel*
+**Alex Qin** (03:46:12):
+> @Alex Qin has joined the channel
+
 
 ## 2024-09-11
 
@@ -1003,53 +1078,69 @@ format: gfm
 
 ## 2024-10-22
 
-*14:25:55 - @Leonardo Collado Torres has left the channel*
+**Leonardo Collado Torres** (14:25:55):
+> @Leonardo Collado Torres has left the channel
+
 
 ## 2024-11-08
 
-*00:37:53 - @Michael Nakai has joined the channel*
+**Michael Nakai** (00:37:53):
+> @Michael Nakai has joined the channel
+
 
 ## 2024-11-20
 
-*05:06:59 - @Sergius Nyah has joined the channel*
+**Sergius Nyah** (05:06:59):
+> @Sergius Nyah has joined the channel
+
 
 ## 2024-12-18
 
-*07:20:58 - @Yanina Bellini Saibene has joined the channel*
+**Yanina Bellini Saibene** (07:20:58):
+> @Yanina Bellini Saibene has joined the channel
+
 **Yanina Bellini Saibene** (07:21:28):
 > Sharing here too:slightly_smiling_face:
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C34NC134G/p1734523581796159?thread_ts=1734523581.796159&cid=C34NC134G)
-    > Nice to close the year accomplishing objectives :-) :sunglasses::grin:
-    > 
-    > Very proud of this guide that we generated in rOpenSci: everything we developed and learned during the translations and localizations of our content is detailed in this book: the processes, the roles, and the technical tools.
-    > 
-    > We hope it will be helpful to other groups and communities!
-    > 
-    > :writing_hand: Blog post By [Yanina Bellini Saibene](https://ropensci.org/author/yanina-bellini-saibene/), [Maëlle Salmon](https://ropensci.org/author/ma%C3%ABlle-salmon/), [Pao Corrales](https://ropensci.org/author/pao-corrales/), [Elio Campitelli](https://ropensci.org/author/elio-campitelli/) – Edited by [Steffi LaZerte](https://ropensci.org/author/steffi-lazerte/):  [https://ropensci.org/blog/2024/12/17/localization-guide/](https://ropensci.org/blog/2024/12/17/localization-guide/)
-    > 
-    > :toolbox: rOpenSci Localization and Translation Guidelines. Why and how we localize and translate our resources: [https://translationguide.ropensci.org](https://translationguide.ropensci.org)
-    > 
-    > Both content are in English and Spanish.  Feedback is appreciated. :slightly_smiling_face:
+> Nice to close the year accomplishing objectives :-) :sunglasses::grin:
+> 
+> Very proud of this guide that we generated in rOpenSci: everything we developed and learned during the translations and localizations of our content is detailed in this book: the processes, the roles, and the technical tools.
+> 
+> We hope it will be helpful to other groups and communities!
+> 
+> :writing_hand: Blog post By [Yanina Bellini Saibene](https://ropensci.org/author/yanina-bellini-saibene/), [Maëlle Salmon](https://ropensci.org/author/ma%C3%ABlle-salmon/), [Pao Corrales](https://ropensci.org/author/pao-corrales/), [Elio Campitelli](https://ropensci.org/author/elio-campitelli/) – Edited by [Steffi LaZerte](https://ropensci.org/author/steffi-lazerte/):  [https://ropensci.org/blog/2024/12/17/localization-guide/](https://ropensci.org/blog/2024/12/17/localization-guide/)
+> 
+> :toolbox: rOpenSci Localization and Translation Guidelines. Why and how we localize and translate our resources: [https://translationguide.ropensci.org](https://translationguide.ropensci.org)
+> 
+> Both content are in English and Spanish.  Feedback is appreciated. :slightly_smiling_face:
 
 
 ## 2024-12-19
 
-*10:57:35 - @Ouma Ronald has joined the channel*
+**Ouma Ronald** (10:57:35):
+> @Ouma Ronald has joined the channel
+
 
 ## 2025-01-15
 
-*05:05:00 - @Claire Rioualen has joined the channel*
+**Claire Rioualen** (05:05:00):
+> @Claire Rioualen has joined the channel
+
 **Claire Rioualen** (05:08:27):
 > Hi there:wave:French native here, also fluent in English and Spanish, in case I can help with something:blush:
 
 
 ## 2025-02-13
 
-*13:54:20 - @JP Flores has joined the channel*
+**JP Flores** (13:54:20):
+> @JP Flores has joined the channel
+
 
 ## 2025-02-21
 
-*08:14:14 - @rodrigo arcoverde has joined the channel*
+**rodrigo arcoverde** (08:14:14):
+> @rodrigo arcoverde has joined the channel
+
 **rodrigo arcoverde** (08:16:50):
 > Hi@Kozo Nishida, I was talking to@Izabela Mamedeabout the translation she made for biocrna-seq workshop but she mentioned that there is no option for her to input all the files at once crowdin, she has to copy and paste each line. Could she just send the translated files to you and you could add those as the default for portuguese translation for the biocrna-seq course? I don't know if thats even possible though.
 
@@ -1077,13 +1168,15 @@ format: gfm
 > Could you try using it? ([https://support.crowdin.com/uploading-translations/](https://support.crowdin.com/uploading-translations/))
 > If you have any trouble accessing the feature, please feel free to let me know.
   - Attachment (store.crowdin.com): [Document Aligner for Crowdin](https://store.crowdin.com/aligner)
-    > Create Translation Memories in XLSX file format from the translated documents. Translation alignment is often used to upload existing translations of non-key-value documents to Crowdin.
+> Create Translation Memories in XLSX file format from the translated documents. Translation alignment is often used to upload existing translations of non-key-value documents to Crowdin.
   - Attachment (bioconductor.crowdin.com): [Crowdin Enterprise](https://bioconductor.crowdin.com/)
-    > Use Crowdin Enterprise for localization of your projects. Register now and join the global translation community.
+> Use Crowdin Enterprise for localization of your projects. Register now and join the global translation community.
   - Attachment (Crowdin Docs): [Uploading Existing Translations](https://support.crowdin.com/uploading-translations/)
-    > Learn how to upload existing translations to your project
+> Learn how to upload existing translations to your project
 
-*15:59:30 - @Izabela Mamede has joined the channel*
+**Izabela Mamede** (15:59:30):
+> @Izabela Mamede has joined the channel
+
 
 ## 2025-03-05
 
@@ -1105,7 +1198,7 @@ format: gfm
 **Laurent Gatto** (13:04:54) (in thread):
 > Hi@Ouma Ronald- what languages could you help with? We have a couple of dedicated working groups that work on different languages (see[https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html)).
   - Attachment (workinggroups.bioconductor.org): [Chapter 2 Currently Active Working Groups / Committees | Bioconductor Working Groups: Guidelines and activities](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html)
-    > The following describe currently active working groups listed in alphabetical order. If you are interested in becoming involved with one of these groups please contact the group leader(s). 2.1...
+> The following describe currently active working groups listed in alphabetical order. If you are interested in becoming involved with one of these groups please contact the group leader(s). 2.1...
 
 **Kozo Nishida** (14:50:43) (in thread):
 > Hi@Laurent GattoYes, the English lesson template will be updated when we push changes to the original GitHub repository.
@@ -1128,7 +1221,7 @@ format: gfm
 > [https://github.com/kozo2](https://github.com/kozo2)is me.
 > It still appears that my permission for[https://github.com/carpentries-incubator/bioc-intro](https://github.com/carpentries-incubator/bioc-intro)is insufficient to allow synchronization with[https://bioconductor.crowdin.com/](https://bioconductor.crowdin.com/).
   - Attachment (bioconductor.crowdin.com): [Crowdin Enterprise](https://bioconductor.crowdin.com/)
-    > Use Crowdin Enterprise for localization of your projects. Register now and join the global translation community.
+> Use Crowdin Enterprise for localization of your projects. Register now and join the global translation community.
 
 **Laurent Gatto** (07:58:40) (in thread):
 > I added you just now as a maintainer - could you try again.
@@ -1172,7 +1265,9 @@ format: gfm
 
 ## 2025-04-23
 
-*08:38:24 - @Silvia González has joined the channel*
+**Silvia González** (08:38:24):
+> @Silvia González has joined the channel
+
 
 ## 2025-04-30
 
@@ -1181,4 +1276,4 @@ format: gfm
 > If anyone is available to help with that, please reply.
 > I feel that I haven't been able to clearly communicate how Crowdin and GitHub are used in the Bioconductor translation project. If you have any questions, please don’t hesitate to ask.
   - Attachment (scientific-python-translations.github.io): [Scientific Python Translations -](https://scientific-python-translations.github.io/)
-    > Documentation & FAQ for Scientific Python Translations project.
+> Documentation & FAQ for Scientific Python Translations project.

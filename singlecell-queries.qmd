@@ -3,15 +3,20 @@ title: "#singlecell-queries"
 format: gfm
 ---
 
-
 ## 2020-05-03
 
-*11:06:38 - @Nitin Sharma has joined the channel*
+**Nitin Sharma** (11:06:38):
+> @Nitin Sharma has joined the channel
+
 **Nitin Sharma** (11:06:39):
 > set the channel description: Discuss general queries regarding Single Cell Data Analysis
 
-*13:04:50 - @Chiaowen Joyce Hsiao has joined the channel*
-*14:27:48 - @Dan Bunis has joined the channel*
+**Chiaowen Joyce Hsiao** (13:04:50):
+> @Chiaowen Joyce Hsiao has joined the channel
+
+**Dan Bunis** (14:27:48):
+> @Dan Bunis has joined the channel
+
 **Nitin Sharma** (15:12:18):
 > hello all,
 > 
@@ -23,32 +28,68 @@ format: gfm
 > * We filter cells that have >5% mitochondrial counts
 > Now, I am working on single nuclei RNA-seq (snRNA-seq) and wanted to know what cutoff will be used for QC filtration step and why?
 
-*15:12:48 - @Vivek Das has joined the channel*
+**Vivek Das** (15:12:48):
+> @Vivek Das has joined the channel
+
 **Vivek Das** (15:19:41):
 > This should be tissue and biology dependent. The idea of generalizing that threshold is not correct if I look across evidences in varied tissue type. If I may ask what is your tissue of origin? How many cells and genes were in fact subjected to be quantified? Since before subjected to sequencing there must be a specific check list based on read depth, overall cell numbers & genes that was the goal. This should guide the query in addition to biology. Does your tissue source have mitochondrial function as a key component? If not then anything between 2-5% is fine but if it does you might have to think through. In cardiomyocytes & kidney, in theory general cut off is 20-30% for mito genes and upon clustering and projection Mito genes are generally found in all clusters. Take a look at the recent single nuc RNASeq papers in those tissues and their adjoining codes on GitHub. You will see that it is high. However, try to see in your tissue of query what kind of evidences have been published so far. This will serve as a primer as well. Another easy way is to filter initially only for minimum genes and cells. Plot the mitochondrial % & cluster. See if Mito genes are only restricted in single cluster via tSNE or UMAP. If so then that’s not due to biology and most probably the sequencing artifact or due to mechanical dissociation process during single cell isolation. Then just remove the entire cluster of mitochondrial genes. These are common hacks. Again in sn-RNASeq one should not have a lot of it given it is not a biological component. But if it does then discount it based on how it’s distributed across all clusters. 
 > 
 > My two cents. Hope this helps.
 
-*18:41:51 - @Keith Connolly has joined the channel*
-*18:43:08 - @Mikhael Manurung has joined the channel*
-*18:45:24 - @Kelly Eckenrode has joined the channel*
-*19:04:11 - @Anamaria Elek has joined the channel*
-*19:13:52 - @Vince Carey has joined the channel*
-*19:47:19 - @Peter Hickey has joined the channel*
+**Keith Connolly** (18:41:51):
+> @Keith Connolly has joined the channel
+
+**Mikhael Manurung** (18:43:08):
+> @Mikhael Manurung has joined the channel
+
+**Kelly Eckenrode** (18:45:24):
+> @Kelly Eckenrode has joined the channel
+
+**Anamaria Elek** (19:04:11):
+> @Anamaria Elek has joined the channel
+
+**Vince Carey** (19:13:52):
+> @Vince Carey has joined the channel
+
+**Peter Hickey** (19:47:19):
+> @Peter Hickey has joined the channel
+
 
 ## 2020-05-04
 
-*01:55:43 - @Charlotte Soneson has joined the channel*
-*03:13:44 - @Laurent Gatto has joined the channel*
-*04:13:42 - @Charlotte Rich-Griffin has joined the channel*
-*05:39:38 - @Nadine Bestard-Cuche has joined the channel*
-*05:46:09 - @Devika Agarwal has joined the channel*
-*06:17:37 - @Giuseppe D'Agostino has joined the channel*
-*07:13:53 - @Almut has joined the channel*
-*07:31:19 - @Nils Eling has joined the channel*
-*07:48:11 - @Robert Ivánek has joined the channel*
-*10:22:29 - @Kevin Blighe has joined the channel*
-*11:23:58 - @Tim Triche has joined the channel*
+**Charlotte Soneson** (01:55:43):
+> @Charlotte Soneson has joined the channel
+
+**Laurent Gatto** (03:13:44):
+> @Laurent Gatto has joined the channel
+
+**Charlotte Rich-Griffin** (04:13:42):
+> @Charlotte Rich-Griffin has joined the channel
+
+**Nadine Bestard-Cuche** (05:39:38):
+> @Nadine Bestard-Cuche has joined the channel
+
+**Devika Agarwal** (05:46:09):
+> @Devika Agarwal has joined the channel
+
+**Giuseppe D'Agostino** (06:17:37):
+> @Giuseppe D'Agostino has joined the channel
+
+**Almut** (07:13:53):
+> @Almut has joined the channel
+
+**Nils Eling** (07:31:19):
+> @Nils Eling has joined the channel
+
+**Robert Ivánek** (07:48:11):
+> @Robert Ivánek has joined the channel
+
+**Kevin Blighe** (10:22:29):
+> @Kevin Blighe has joined the channel
+
+**Tim Triche** (11:23:58):
+> @Tim Triche has joined the channel
+
 **Tim Triche** (11:24:14):
 > here's a thought
 
@@ -73,25 +114,39 @@ format: gfm
 **Tim Triche** (11:26:34):
 > what do you suppose happens to the cells that potentiate the adaptive immune response?
 
-*11:43:49 - @Alan O'C has joined the channel*
+**Alan O'C** (11:43:49):
+> @Alan O'C has joined the channel
+
 **Tim Triche** (12:21:06):
 > I would be extremely careful with these types of cutoff based "QC" protocols.  Refer to e.g.[https://www.cell.com/fulltext/S0092-8674(12)01226-3](https://www.cell.com/fulltext/S0092-8674(12)01226-3)for $60M+ worth of cautionary tales about assumptions:slightly_smiling_face:
 
-*12:40:14 - @Nicholas Knoblauch has joined the channel*
-*13:51:23 - @Jared Andrews has joined the channel*
+**Nicholas Knoblauch** (12:40:14):
+> @Nicholas Knoblauch has joined the channel
+
+**Jared Andrews** (13:51:23):
+> @Jared Andrews has joined the channel
+
 **Jared Andrews** (13:55:30):
 > Indeed, the pipeComp paper found arbitrary QC thresholds or even MADs-thresholds of whole samples may remove populations of interest. A per-cluster removal of outliers with manual removal of clusters composed of clearly dead cells may be the "safest" option.
 
-*14:02:44 - @Stephanie Hicks has joined the channel*
+**Stephanie Hicks** (14:02:44):
+> @Stephanie Hicks has joined the channel
+
 
 ## 2020-05-05
 
-*03:37:26 - @Al J Abadi has joined the channel*
+**Al J Abadi** (03:37:26):
+> @Al J Abadi has joined the channel
+
 
 ## 2020-05-06
 
-*10:16:26 - @Davide Risso has joined the channel*
-*14:14:05 - @Keegan Korthauer has joined the channel*
+**Davide Risso** (10:16:26):
+> @Davide Risso has joined the channel
+
+**Keegan Korthauer** (14:14:05):
+> @Keegan Korthauer has joined the channel
+
 **Kelly Eckenrode** (15:01:22):
 > (Context: I am new to analysis) Can you get away without thresholding? I understand that thresholding allows the reduction of noisy signal, but isn't preserving heterogeneity (**even if noisy**) ideal? Thresholding also allows for binning, which is great for defining a cell type. But what if cell types don't fit into a nice box..?@Tim Triche@Jared Andrews
 
@@ -128,7 +183,7 @@ format: gfm
 **Tim Triche** (15:25:21):
 > it's bad enough for normal cells, when you start looking at malignant progenitors it gets really fun (cf.[https://www.nature.com/articles/s41586-018-0436-0](https://www.nature.com/articles/s41586-018-0436-0))
   - Attachment (Nature): [The genetic basis and cell of origin of mixed phenotype acute leukaemi](https://www.nature.com/articles/s41586-018-0436-0)
-    > A large-scale genomics study shows that the cell of origin and founding mutations determine disease subtype and lead to the expression of multiple haematopoietic lineage-defining antigens in mixed phenotype acute leukaemia.
+> A large-scale genomics study shows that the cell of origin and founding mutations determine disease subtype and lead to the expression of multiple haematopoietic lineage-defining antigens in mixed phenotype acute leukaemia.
 
 **Tim Triche** (15:25:50):
 > I submit that you need to plan on at least one, and preferably two or three, orthogonal functional validation experiments for any exploratory scRNA result.  Maybe a lot more.
@@ -151,7 +206,9 @@ format: gfm
 **Tim Triche** (17:59:11) (in thread):
 > That's part of it, but another aspect is that the instant you either fix a cell (for e.g. visium) or dissociate it, you are already changing its milieu. At least with blood cells we don't have to fix or dissect (much)
 
-*22:25:36 - @Wanding Zhou has joined the channel*
+**Wanding Zhou** (22:25:36):
+> @Wanding Zhou has joined the channel
+
 
 ## 2020-05-07
 
@@ -182,7 +239,7 @@ format: gfm
 **Tim Triche** (18:26:26):
 > [https://www.nature.com/articles/s41586-020-2157-4](https://www.nature.com/articles/s41586-020-2157-4)
   - Attachment (Nature): [Construction of a human cell landscape at single-cell level](https://www.nature.com/articles/s41586-020-2157-4)
-    > Single-cell RNA sequencing is used to generate a dataset covering all major human organs in both adult and fetal stages, allowing comparison to similar datasets for mouse tissues.
+> Single-cell RNA sequencing is used to generate a dataset covering all major human organs in both adult and fetal stages, allowing comparison to similar datasets for mouse tissues.
 
 **Tim Triche** (18:27:03):
 > Prying out the raw reads is taking a while (we look at velocity on basically everything)
@@ -199,8 +256,12 @@ format: gfm
 **Vivek Das** (18:34:11):
 > Also if I recall(I need to access download this paper on my phone) , the single cell platform here is not a part of the benchmarking work.:disappointed:
 
-*18:38:00 - @Upasna Srivastava has joined the channel*
-*19:56:03 - @Paul Harrison has joined the channel*
+**Upasna Srivastava** (18:38:00):
+> @Upasna Srivastava has joined the channel
+
+**Paul Harrison** (19:56:03):
+> @Paul Harrison has joined the channel
+
 **Tim Triche** (20:35:58):
 > It’s seqwell (or maybe microwell-seq) IIRC. On my phone, will update later. But droplet crap is way overrated imho
 
@@ -231,9 +292,15 @@ format: gfm
 
 ## 2020-05-08
 
-*03:50:23 - @Federico Marini has joined the channel*
-*07:02:48 - @Kellie Kravarik has joined the channel*
-*07:13:49 - @Lucy has joined the channel*
+**Federico Marini** (03:50:23):
+> @Federico Marini has joined the channel
+
+**Kellie Kravarik** (07:02:48):
+> @Kellie Kravarik has joined the channel
+
+**Lucy** (07:13:49):
+> @Lucy has joined the channel
+
 **Dan Bunis** (14:23:39):
 > Question from a colleague of mine:
 > Does anyone have thoughts about integrating a scRNA seq library and a snRNA library, especially if the single cell and single nuclei samples are from different timepoints? If integrating to look for shared cell populations from these two different library preps isn’t problematic (they recognize that this might be one major hurdle), are there specific workflows for batch corrections that are most helpful when integrating single nucleus and single cell libaries?
@@ -241,7 +308,7 @@ format: gfm
 **Tim Triche** (14:40:42):
 > look at the HCA paper and/or the Broad preprint, it looks like it should be doable, although it will depend on how/what you're combining and with regards to what (i.e. if you're combining deep plate-seq with droplet snRNAseq and looking to compute velocity... you're gonna have a rough time).  Aaron Lun's paper on using a big pseudocount is pretty amazing in the "simplest thing that could possibly work" department, fwiw;  we found it to be almost magical for ratiometric "normalization".  Obviously if you can avoid normalization with scaling, you should; see for example[https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02006-2](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02006-2)and the spike-in section of the SmartSeq3 paper and the HCA comparisons by Holger Heyn's group.  We will be submitting a paper on multi-omic single-cell spike-ins presently (because not enough big data people hate us yet) as well.
   - Attachment (Genome Biology): [Single-cell RNA-seq with spike-in cells enables accurate quantification of cell-specific drug effects in pancreatic islets](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02006-2)
-    > Single-cell RNA-seq (scRNA-seq) is emerging as a powerful tool to dissect cell-specific effects of drug treatment in complex tissues. This application requires high levels of precision, robustness, and quantitative accuracy—beyond those achievable with existing methods for mainly qualitative single-cell analysis. Here, we establish the use of standardized reference cells as spike-in controls for accurate and robust dissection of single-cell drug responses. We find that contamination by cell-free RNA can constitute up to 20% of reads in human primary tissue samples, and we show that the ensuing biases can be removed effectively using a novel bioinformatics algorithm. Applying our method to both human and mouse pancreatic islets treated ex vivo, we obtain an accurate and quantitative assessment of cell-specific drug effects on the transcriptome. We observe that FOXO inhibition induces dedifferentiation of both alpha and beta cells, while artemether treatment upregulates insulin and other beta cell marker genes in a subset of alpha cells. In beta cells, dedifferentiation and insulin repression upon artemether treatment occurs predominantly in mouse but not in human samples. This new method for quantitative, error-correcting, scRNA-seq data normalization using spike-in reference cells helps clarify complex cell-specific effects of pharmacological perturbations with single-cell resolution and high quantitative accuracy.
+> Single-cell RNA-seq (scRNA-seq) is emerging as a powerful tool to dissect cell-specific effects of drug treatment in complex tissues. This application requires high levels of precision, robustness, and quantitative accuracy—beyond those achievable with existing methods for mainly qualitative single-cell analysis. Here, we establish the use of standardized reference cells as spike-in controls for accurate and robust dissection of single-cell drug responses. We find that contamination by cell-free RNA can constitute up to 20% of reads in human primary tissue samples, and we show that the ensuing biases can be removed effectively using a novel bioinformatics algorithm. Applying our method to both human and mouse pancreatic islets treated ex vivo, we obtain an accurate and quantitative assessment of cell-specific drug effects on the transcriptome. We observe that FOXO inhibition induces dedifferentiation of both alpha and beta cells, while artemether treatment upregulates insulin and other beta cell marker genes in a subset of alpha cells. In beta cells, dedifferentiation and insulin repression upon artemether treatment occurs predominantly in mouse but not in human samples. This new method for quantitative, error-correcting, scRNA-seq data normalization using spike-in reference cells helps clarify complex cell-specific effects of pharmacological perturbations with single-cell resolution and high quantitative accuracy.
 
 **Tim Triche** (14:41:37):
 > just found this one too:[https://www.biorxiv.org/content/10.1101/832444v2](https://www.biorxiv.org/content/10.1101/832444v2)
@@ -270,7 +337,7 @@ format: gfm
 **Tim Triche** (15:14:23):
 > Shiyi & Sean's paper:[https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-1950-6](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-1950-6))
   - Attachment (Genome Biology): [Decontamination of ambient RNA in single-cell RNA-seq with DecontX](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-1950-6)
-    > Droplet-based microfluidic devices have become widely used to perform single-cell RNA sequencing (scRNA-seq). However, ambient RNA present in the cell suspension can be aberrantly counted along with a cell’s native mRNA and result in cross-contamination of transcripts between different cell populations. DecontX is a novel Bayesian method to estimate and remove contamination in individual cells. DecontX accurately predicts contamination levels in a mouse-human mixture dataset and removes aberrant expression of marker genes in PBMC datasets. We also compare the contamination levels between four different scRNA-seq protocols. Overall, DecontX can be incorporated into scRNA-seq workflows to improve downstream analyses.
+> Droplet-based microfluidic devices have become widely used to perform single-cell RNA sequencing (scRNA-seq). However, ambient RNA present in the cell suspension can be aberrantly counted along with a cell’s native mRNA and result in cross-contamination of transcripts between different cell populations. DecontX is a novel Bayesian method to estimate and remove contamination in individual cells. DecontX accurately predicts contamination levels in a mouse-human mixture dataset and removes aberrant expression of marker genes in PBMC datasets. We also compare the contamination levels between four different scRNA-seq protocols. Overall, DecontX can be incorporated into scRNA-seq workflows to improve downstream analyses.
 
 **Tim Triche** (15:15:01):
 > I'm having a hell of a time finding the Broad scRNA/snRNA pipeline comparison, you'll have to forgive me, but if anyone else finds it, please post the link here.
@@ -378,28 +445,38 @@ format: gfm
 
 ## 2020-05-11
 
-*14:28:34 - @John Hutchinson has joined the channel*
+**John Hutchinson** (14:28:34):
+> @John Hutchinson has joined the channel
+
 **Tim Triche** (17:50:21):
 > Fwiw, the pipeline paper is published today:[https://www.nature.com/articles/s41591-020-0844-1](https://www.nature.com/articles/s41591-020-0844-1)
   - Attachment (Nature Medicine): [A single-cell and single-nucleus RNA-Seq toolbox for fresh and frozen](https://www.nature.com/articles/s41591-020-0844-1)
-    > A set of ready-to-use tools for profiling fresh and frozen clinical tumor samples using scRNA-Seq and snRNA-Seq facilitates the implementation of single-cell technologies in clinical settings and the construction of single-cell tumor atlases.
+> A set of ready-to-use tools for profiling fresh and frozen clinical tumor samples using scRNA-Seq and snRNA-Seq facilitates the implementation of single-cell technologies in clinical settings and the construction of single-cell tumor atlases.
 
 
 ## 2020-05-13
 
-*17:09:58 - @Aedin Culhane has joined the channel*
+**Aedin Culhane** (17:09:58):
+> @Aedin Culhane has joined the channel
+
 
 ## 2020-05-17
 
-*19:09:03 - @Goutham Atla has joined the channel*
+**Goutham Atla** (19:09:03):
+> @Goutham Atla has joined the channel
+
 
 ## 2020-05-19
 
-*11:18:48 - @Tobias Hoch has joined the channel*
+**Tobias Hoch** (11:18:48):
+> @Tobias Hoch has joined the channel
+
 
 ## 2020-05-20
 
-*01:34:10 - @dylan has joined the channel*
+**dylan** (01:34:10):
+> @dylan has joined the channel
+
 
 ## 2020-05-23
 
@@ -421,7 +498,9 @@ format: gfm
 
 ## 2020-05-26
 
-*13:52:31 - @Somesh has joined the channel*
+**Somesh** (13:52:31):
+> @Somesh has joined the channel
+
 **Somesh** (14:20:29):
 > I am having issues recovering genes while doing cluster-wise differential expression testing between two conditions - The testing mostly produces genes up-regulated for one condition while very few genes (< 6) seem to be up-regulated for the other condition. Read-counts and other technical variates look okay for both conditions - Could it be because of the test I am employing (wilcox) or other parameters used? I am working with Seurat v3
 
@@ -446,19 +525,27 @@ format: gfm
 
 ## 2020-05-29
 
-*08:53:51 - @Shuyu Zheng has joined the channel*
+**Shuyu Zheng** (08:53:51):
+> @Shuyu Zheng has joined the channel
+
 
 ## 2020-06-06
 
-*19:58:17 - @Olagunju Abdulrahman has joined the channel*
+**Olagunju Abdulrahman** (19:58:17):
+> @Olagunju Abdulrahman has joined the channel
+
 
 ## 2020-06-07
 
-*12:21:16 - @Juan Ojeda-Garcia has joined the channel*
+**Juan Ojeda-Garcia** (12:21:16):
+> @Juan Ojeda-Garcia has joined the channel
+
 
 ## 2020-06-08
 
-*08:13:07 - @MounikaGoruganthu has joined the channel*
+**MounikaGoruganthu** (08:13:07):
+> @MounikaGoruganthu has joined the channel
+
 
 ## 2020-06-09
 
@@ -468,7 +555,7 @@ format: gfm
 **Tim Triche** (19:51:50):
 > [https://www.nature.com/articles/s41592-019-0392-0](https://www.nature.com/articles/s41592-019-0392-0)
   - Attachment (Nature Methods): [Multiplexed detection of proteins, transcriptomes, clonotypes and CRIS](https://www.nature.com/articles/s41592-019-0392-0)
-    > ECCITE-seq combines the single-cell analysis of multiple modalities, for example transcriptome, immune cell receptors, cell surface proteins and single-guide RNAs.
+> ECCITE-seq combines the single-cell analysis of multiple modalities, for example transcriptome, immune cell receptors, cell surface proteins and single-guide RNAs.
 
 **Stephanie Hicks** (20:35:28):
 > @Peter Hickey— by “genetic variation”, do you mean to demultiplex pooled cells?
@@ -482,7 +569,9 @@ format: gfm
 **Peter Hickey** (20:40:12):
 > we've done this but not published:slightly_smiling_face:looking for something to cite in a grant app
 
-*20:40:16 - @Lukas Weber has joined the channel*
+**Lukas Weber** (20:40:16):
+> @Lukas Weber has joined the channel
+
 **Lukas Weber** (20:40:25):
 > oh I wasn't in this channel:joy:
 
@@ -525,7 +614,7 @@ format: gfm
 **Stephanie Hicks** (20:46:02):
 > it’s basically a computational demultiplexer using genetic variants.[https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1865-2](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1865-2)
   - Attachment (Genome Biology): [Vireo: Bayesian demultiplexing of pooled single-cell RNA-seq data without genotype reference](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1865-2)
-    > Multiplexed single-cell RNA-seq analysis of multiple samples using pooling is a promising experimental design, offering increased throughput while allowing to overcome batch variation. To reconstruct the sample identify of each cell, genetic variants that segregate between the samples in the pool have been proposed as natural barcode for cell demultiplexing. Existing demultiplexing strategies rely on availability of complete genotype data from the pooled samples, which limits the applicability of such methods, in particular when genetic variation is not the primary object of study. To address this, we here present Vireo, a computationally efficient Bayesian model to demultiplex single-cell data from pooled experimental designs. Uniquely, our model can be applied in settings when only partial or no genotype information is available. Using pools based on synthetic mixtures and results on real data, we demonstrate the robustness of Vireo and illustrate the utility of multiplexed experimental designs for common expression analyses.
+> Multiplexed single-cell RNA-seq analysis of multiple samples using pooling is a promising experimental design, offering increased throughput while allowing to overcome batch variation. To reconstruct the sample identify of each cell, genetic variants that segregate between the samples in the pool have been proposed as natural barcode for cell demultiplexing. Existing demultiplexing strategies rely on availability of complete genotype data from the pooled samples, which limits the applicability of such methods, in particular when genetic variation is not the primary object of study. To address this, we here present Vireo, a computationally efficient Bayesian model to demultiplex single-cell data from pooled experimental designs. Uniquely, our model can be applied in settings when only partial or no genotype information is available. Using pools based on synthetic mixtures and results on real data, we demonstrate the robustness of Vireo and illustrate the utility of multiplexed experimental designs for common expression analyses.
 
 **Stephanie Hicks** (20:46:13):
 > uses a bayesian algorithm
@@ -704,7 +793,7 @@ format: gfm
 **Lukas Weber** (20:56:48):
 > yeah Vireo seems to be great. There is also another one published at around the same time called`scSplit`, which seems very similar:[https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1852-7](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1852-7)
   - Attachment (Genome Biology): [Genotype-free demultiplexing of pooled single-cell RNA-seq](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1852-7)
-    > A variety of methods have been developed to demultiplex pooled samples in a single cell RNA sequencing (scRNA-seq) experiment which either require hashtag barcodes or sample genotypes prior to pooling. We introduce scSplit which utilizes genetic differences inferred from scRNA-seq data alone to demultiplex pooled samples. scSplit also enables mapping clusters to original samples. Using simulated, merged, and pooled multi-individual datasets, we show that scSplit prediction is highly concordant with demuxlet predictions and is highly consistent with the known truth in cell-hashing dataset. scSplit is ideally suited to samples without external genotype information and is available at: [https://github.com/jon-xu/scSplit](https://github.com/jon-xu/scSplit)
+> A variety of methods have been developed to demultiplex pooled samples in a single cell RNA sequencing (scRNA-seq) experiment which either require hashtag barcodes or sample genotypes prior to pooling. We introduce scSplit which utilizes genetic differences inferred from scRNA-seq data alone to demultiplex pooled samples. scSplit also enables mapping clusters to original samples. Using simulated, merged, and pooled multi-individual datasets, we show that scSplit prediction is highly concordant with demuxlet predictions and is highly consistent with the known truth in cell-hashing dataset. scSplit is ideally suited to samples without external genotype information and is available at: [https://github.com/jon-xu/scSplit](https://github.com/jon-xu/scSplit)
 
 **Lukas Weber** (20:57:00):
 > haven't tried this one, since Vireo was already working well for us
@@ -730,7 +819,9 @@ format: gfm
 **Peter Hickey** (20:59:52) (in thread):
 > we're frequently recommending genotype demultiplexing for human samples, supplemented by hashtags to distinguish treatments. but we also do a lot of stuff on inbred mice where we can't make use of genotypes:disappointed:
 
-*21:00:06 - @Davis McCarthy has joined the channel*
+**Davis McCarthy** (21:00:06):
+> @Davis McCarthy has joined the channel
+
 **Stephanie Hicks** (21:00:42) (in thread):
 > ah makes sense.
 
@@ -776,7 +867,7 @@ format: gfm
 **Tim Triche** (21:05:14) (in thread):
 > see also[https://www.pnas.org/content/111/47/16802](https://www.pnas.org/content/111/47/16802)
   - Attachment (PNAS): [Sample processing obscures cancer-specific alterations in leukemic transcriptomes](https://www.pnas.org/content/111/47/16802)
-    > An important goal of cancer biology is to identify molecular differences between normal and cancer cells. Accordingly, many large-scale initiatives to characterize both solid and liquid tumor samples with genomics technologies are currently underway. Here, we show that standard blood collection procedures cause rapid changes to the transcriptomes of hematopoietic cells. The resulting transcriptional and posttranscriptional artifacts are visible in most published leukemia genomics datasets and hinder the identification and interpretation of cancer-specific alterations.
+> An important goal of cancer biology is to identify molecular differences between normal and cancer cells. Accordingly, many large-scale initiatives to characterize both solid and liquid tumor samples with genomics technologies are currently underway. Here, we show that standard blood collection procedures cause rapid changes to the transcriptomes of hematopoietic cells. The resulting transcriptional and posttranscriptional artifacts are visible in most published leukemia genomics datasets and hinder the identification and interpretation of cancer-specific alterations.
 
 **Tim Triche** (21:14:10):
 > @Stephanie Hicks@Lukas Weberare you using the (older, R) version of Vireo or the (newer, Python) version?
@@ -913,7 +1004,9 @@ format: gfm
 **Charlotte Soneson** (01:35:49) (in thread):
 > Maybe@Avi Srivastavacan provide some more insights here
 
-*01:35:54 - @Avi Srivastava has joined the channel*
+**Avi Srivastava** (01:35:54):
+> @Avi Srivastava has joined the channel
+
 **Avi Srivastava** (09:01:20):
 > Hey guys ! Thanks@Charlotte Sonesonfor adding to the channel !
 > It sounds like a very interesting discussion.@Lukas Weber@Stephanie Hicks, if I understand correctly, the motivation is to call cell-level SNPs using the alignments from the BAM ?
@@ -948,7 +1041,9 @@ format: gfm
 **Tim Triche** (11:57:08):
 > The "problem" of having 250K or 1M "cells" that may or may not be informative is... less my interest than having a few hundred/thousand that are very informative for a process of interest.
 
-*11:57:48 - @Rob Patro has joined the channel*
+**Rob Patro** (11:57:48):
+> @Rob Patro has joined the channel
+
 **Tim Triche** (11:57:58):
 > oh hi Rob
 
@@ -972,7 +1067,7 @@ format: gfm
 **Avi Srivastava** (12:07:19):
 > That’s awesome@Tim Triche, I wasn’t aware about this.
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C012YR6J2CS/p1591804871230600)
-    > @Rob Patro @Charlotte Soneson @Avi Srivastava this is us slowly reconciling RNA velocity measurements -- you might get a kick out of the revisions to [https://www.nature.com/articles/s41591-020-0944-y/figures/4](https://www.nature.com/articles/s41591-020-0944-y/figures/4) where they ended up re-running everything with the dynamical model -- looks like we're not the only ones who see this :slightly_smiling_face:
+> @Rob Patro @Charlotte Soneson @Avi Srivastava this is us slowly reconciling RNA velocity measurements -- you might get a kick out of the revisions to [https://www.nature.com/articles/s41591-020-0944-y/figures/4](https://www.nature.com/articles/s41591-020-0944-y/figures/4) where they ended up re-running everything with the dynamical model -- looks like we're not the only ones who see this :slightly_smiling_face:
 
 **Tim Triche** (12:15:36):
 > well, it turns out that your paper matters:slightly_smiling_face:
@@ -1025,7 +1120,7 @@ format: gfm
 **Tim Triche** (12:25:01) (in thread):
 > ps. all healthy human cells have non-diploid genomes.  Mostly these get thrown away, until someone needs a Science or Nature paper:[https://www.the-scientist.com/magazine-issue/the-two-genomes-in-every-eukaryotic-cell-66623](https://www.the-scientist.com/magazine-issue/the-two-genomes-in-every-eukaryotic-cell-66623)
   - Attachment (The Scientist Magazine®): [The Two Genomes in Every Eukaryotic Cell](https://www.the-scientist.com/magazine-issue/the-two-genomes-in-every-eukaryotic-cell-66623)
-    > Interactions between mitochondrial and nuclear genomes have further-reaching effects on physiological function, adaptation, and speciation than previously appreciated.
+> Interactions between mitochondrial and nuclear genomes have further-reaching effects on physiological function, adaptation, and speciation than previously appreciated.
 
 **Lukas Weber** (12:30:36):
 > yeah I was getting very good demultiplexing performance with the Cell Ranger BAM and cellSNP/Vireo, so the multimapping issue wasn't creating huge problems in this case. However there was a small proportion of cells (1-2%) that Vireo couldn't assign correctly to samples (it ended up calling them as "unassigned" or incorrect doublets), so it is possible that some of these were affected by multimapping reads
@@ -1033,7 +1128,7 @@ format: gfm
 **Tim Triche** (12:36:28):
 > my suspicion is that for non-allele-specific expression of autosomal diploid genes, this is fine; however Lana showed increased performance with better assignment overall:[https://www.nature.com/articles/s41467-018-07170-5](https://www.nature.com/articles/s41467-018-07170-5)
   - Attachment (Nature Communications): [Using single nucleotide variations in single-cell RNA-seq to identify](https://www.nature.com/articles/s41467-018-07170-5)
-    > Identification of cell subpopulations using transcript abundance is noisy. Here, the authors developed a linear modeling framework, SSrGE, which utilizes effective and expressed nucleotide variations from single-cell RNA-seq to identify tumor subpopulations.
+> Identification of cell subpopulations using transcript abundance is noisy. Here, the authors developed a linear modeling framework, SSrGE, which utilizes effective and expressed nucleotide variations from single-cell RNA-seq to identify tumor subpopulations.
 
 **Tim Triche** (12:37:46):
 > caveat: as usual, it probably depends on the experiment, the prep, the depth, and the degree of diversity in the cells
@@ -1041,7 +1136,9 @@ format: gfm
 
 ## 2020-06-12
 
-*13:40:27 - @Paul Hoffman has joined the channel*
+**Paul Hoffman** (13:40:27):
+> @Paul Hoffman has joined the channel
+
 
 ## 2020-06-15
 
@@ -1081,7 +1178,9 @@ format: gfm
 
 ## 2020-06-16
 
-*05:36:41 - @Alexander Toenges has joined the channel*
+**Alexander Toenges** (05:36:41):
+> @Alexander Toenges has joined the channel
+
 **Alexander Toenges** (05:44:14):
 > @Charlotte SonesonQuick question if I may towards velocity, especially your Alevin/scvelo tutorial: Do you know if it is appropriate to run velocity on integrated data? I have two genotypes with n=2 each, basically followed OSCA, integrated and clustered them, and now aim to run velocity analysis. Any assumption of either scvelo of velocyto that forbids to use the integrated PCA (so the "corrected" reducedDim)? Since some clusters are unique for one condition I would run velocity separately on each condition but using the integrated reducedDims, is that possible?
 
@@ -1094,25 +1193,39 @@ format: gfm
 **Alexander Toenges** (07:27:08):
 > I see, thank you for your answer. I guess I will end up exploring how the different strategies behave and compare.
 
-*09:53:59 - @jessi elderkin has joined the channel*
-*10:12:12 - @Nicholas Knoblauch has left the channel*
-*10:31:32 - @Jordan Veldboom has joined the channel*
+**jessi elderkin** (09:53:59):
+> @jessi elderkin has joined the channel
+
+**Nicholas Knoblauch** (10:12:12):
+> @Nicholas Knoblauch has left the channel
+
+**Jordan Veldboom** (10:31:32):
+> @Jordan Veldboom has joined the channel
+
 
 ## 2020-06-18
 
-*09:54:44 - @pamela himadewi has joined the channel*
+**pamela himadewi** (09:54:44):
+> @pamela himadewi has joined the channel
+
 
 ## 2020-06-23
 
-*19:33:42 - @Steve Lianoglou has joined the channel*
+**Steve Lianoglou** (19:33:42):
+> @Steve Lianoglou has joined the channel
+
 
 ## 2020-06-25
 
-*16:00:23 - @CristinaChe has joined the channel*
+**CristinaChe** (16:00:23):
+> @CristinaChe has joined the channel
+
 
 ## 2020-06-30
 
-*06:21:08 - @Frank Rühle has joined the channel*
+**Frank Rühle** (06:21:08):
+> @Frank Rühle has joined the channel
+
 
 ## 2020-07-05
 
@@ -1211,7 +1324,7 @@ format: gfm
 > 1. [https://www.biorxiv.org/content/10.1101/689547v1](https://www.biorxiv.org/content/10.1101/689547v1)
 > 2. [https://ai.facebook.com/blog/poincare-maps-hyperbolic-embeddings-to-understand-how-cells-develop/](https://ai.facebook.com/blog/poincare-maps-hyperbolic-embeddings-to-understand-how-cells-develop/)
   - Attachment (ai.facebook.com): [Poincaré maps: Hyperbolic embeddings to understand how cells develop](https://ai.facebook.com/blog/poincare-maps-hyperbolic-embeddings-to-understand-how-cells-develop/)
-    > Poincaré maps: Hyperbolic embeddings to understand how cells develop
+> Poincaré maps: Hyperbolic embeddings to understand how cells develop
 
 **Vivek Das** (12:36:47):
 > Well, a pretty naive generalization at my end from signal processing. But my point was more on how we understand imaging science and methods we employ around it while dealing the pixels across stacks for any kind of interpretations. This isn’t restricted to linear approximations since we have so many factors we take into account from geometry, phenomena, distance, etc. With single cell biology reaching a state of such high abundance information complex, I fail to understand why we can’t take learnings from imaging science. If we can, then those methods will also come into usage and probably we can eventually get comfortable. Of course the black box arguments will be there but there are smarter folks who do write those underlying mathematical equations that led to such methods, and probably they can teach and educate us
@@ -1233,7 +1346,7 @@ format: gfm
 **Tim Triche** (14:10:40):
 > question for e.g.@Aaron Lunand others who have spent some time on this -- what do people who have benchmarked single-cell plate-seq approaches with and without spike-in standards think of`sctransform`and its regularized negative binomial regression model?[https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1)
   - Attachment (Genome Biology): [Normalization and variance stabilization of single-cell RNA-seq data using regularized negative binomial regression](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1)
-    > Single-cell RNA-seq (scRNA-seq) data exhibits significant cell-to-cell variation due to technical factors, including the number of molecules detected in each cell, which can confound biological heterogeneity with technical effects. To address this, we present a modeling framework for the normalization and variance stabilization of molecular count data from scRNA-seq experiments. We propose that the Pearson residuals from “regularized negative binomial regression,” where cellular sequencing depth is utilized as a covariate in a generalized linear model, successfully remove the influence of technical characteristics from downstream analyses while preserving biological heterogeneity. Importantly, we show that an unconstrained negative binomial model may overfit scRNA-seq data, and overcome this by pooling information across genes with similar abundances to obtain stable parameter estimates. Our procedure omits the need for heuristic steps including pseudocount addition or log-transformation and improves common downstream analytical tasks such as variable gene selection, dimensional reduction, and differential expression. Our approach can be applied to any UMI-based scRNA-seq dataset and is freely available as part of the R package sctransform, with a direct interface to our single-cell toolkit Seurat.
+> Single-cell RNA-seq (scRNA-seq) data exhibits significant cell-to-cell variation due to technical factors, including the number of molecules detected in each cell, which can confound biological heterogeneity with technical effects. To address this, we present a modeling framework for the normalization and variance stabilization of molecular count data from scRNA-seq experiments. We propose that the Pearson residuals from “regularized negative binomial regression,” where cellular sequencing depth is utilized as a covariate in a generalized linear model, successfully remove the influence of technical characteristics from downstream analyses while preserving biological heterogeneity. Importantly, we show that an unconstrained negative binomial model may overfit scRNA-seq data, and overcome this by pooling information across genes with similar abundances to obtain stable parameter estimates. Our procedure omits the need for heuristic steps including pseudocount addition or log-transformation and improves common downstream analytical tasks such as variable gene selection, dimensional reduction, and differential expression. Our approach can be applied to any UMI-based scRNA-seq dataset and is freely available as part of the R package sctransform, with a direct interface to our single-cell toolkit Seurat.
 
 **Vivek Das** (16:24:24):
 > #singlecell-queries, to add to our morning discussions, this preprint seems pretty interesting to me. Just came around it today.[https://www.biorxiv.org/content/10.1101/2020.06.24.169136v1](https://www.biorxiv.org/content/10.1101/2020.06.24.169136v1)
@@ -1317,35 +1430,57 @@ format: gfm
 **Tim Triche** (13:25:53):
 > The r2c2 paper! That would be a nice resource. We have some direct RNA and capture DNA on the same cell lines but the r2c2 approach is far more fun
 
-*20:04:44 - @Luyi Tian has joined the channel*
+**Luyi Tian** (20:04:44):
+> @Luyi Tian has joined the channel
+
 
 ## 2020-07-21
 
-*15:48:33 - @James MacDonald has joined the channel*
+**James MacDonald** (15:48:33):
+> @James MacDonald has joined the channel
+
 
 ## 2020-07-27
 
-*12:10:08 - @Arun Chavan has joined the channel*
+**Arun Chavan** (12:10:08):
+> @Arun Chavan has joined the channel
+
 
 ## 2020-07-29
 
-*21:32:37 - @Brianna Barry has joined the channel*
+**Brianna Barry** (21:32:37):
+> @Brianna Barry has joined the channel
+
 
 ## 2020-07-30
 
-*01:43:15 - @Ayush Aggarwal has joined the channel*
-*10:44:35 - @Ludwig Geistlinger has joined the channel*
-*10:46:48 - @Nur-Taz Rahman has joined the channel*
-*10:54:57 - @koki has joined the channel*
-*10:56:25 - @Markus Schroeder has joined the channel*
-*10:58:23 - @sani has joined the channel*
+**Ayush Aggarwal** (01:43:15):
+> @Ayush Aggarwal has joined the channel
+
+**Ludwig Geistlinger** (10:44:35):
+> @Ludwig Geistlinger has joined the channel
+
+**Nur-Taz Rahman** (10:46:48):
+> @Nur-Taz Rahman has joined the channel
+
+**koki** (10:54:57):
+> @koki has joined the channel
+
+**Markus Schroeder** (10:56:25):
+> @Markus Schroeder has joined the channel
+
+**sani** (10:58:23):
+> @sani has joined the channel
+
 **sani** (10:59:32):
 > Hi everyone, does anyone draw something similar to this[https://github.com/satijalab/seurat/issues/962](https://github.com/satijalab/seurat/issues/962)
 
 **Jared Andrews** (11:02:10):
 > Ah, you want dittoSeq:[https://bioconductor.org/packages/release/bioc/html/dittoSeq.html](https://bioconductor.org/packages/release/bioc/html/dittoSeq.html)
 
-*11:02:17 - @shr19818 has joined the channel*
+**shr19818** (11:02:17):
+> @shr19818 has joined the channel
+
 **Jared Andrews** (11:02:24):
 > Can do that with ease.
 
@@ -1361,7 +1496,9 @@ format: gfm
 **sani** (11:29:03) (in thread):
 > Thank you I will try this and will let you know:slightly_smiling_face:
 
-*11:35:39 - @Bharati Mehani has joined the channel*
+**Bharati Mehani** (11:35:39):
+> @Bharati Mehani has joined the channel
+
 **sani** (14:38:02):
 > I was wondering if anyone knows how I can order the cluster number in pic below. Thank you.
   - File (PNG): [2.PNG](https://community-bioc.slack.com/files/U34P8RS3B/F01810WDQJE/2.png)
@@ -1372,13 +1509,15 @@ format: gfm
 **Jared Andrews** (14:41:45) (in thread):
 > Or if using`dittoBarPlot`, use the`x.reorder`parameter:
 > > Integer vector. A sequence of numbers, from 1 to the number of groupings, for rearranging the order of x-axis groupings. 
-> 
-> Method: Make a first plot without this input. Then, treating the leftmost grouping as index 1, and the rightmost as index n. Values of x.reorder should be these indices, but in the order that you would like them rearranged to be.
+> > 
+> > Method: Make a first plot without this input. Then, treating the leftmost grouping as index 1, and the rightmost as index n. Values of x.reorder should be these indices, but in the order that you would like them rearranged to be.
 
 **sani** (14:42:23) (in thread):
 > I used dittoBarPlot.
 
-*17:14:25 - @Selvi Guharaj has joined the channel*
+**Selvi Guharaj** (17:14:25):
+> @Selvi Guharaj has joined the channel
+
 
 ## 2020-07-31
 
@@ -1440,9 +1579,15 @@ format: gfm
 
 ## 2020-08-05
 
-*03:23:25 - @Hans-Rudolf Hotz has joined the channel*
-*13:39:32 - @Frederick Tan has joined the channel*
-*13:42:02 - @Aaron Lun has joined the channel*
+**Hans-Rudolf Hotz** (03:23:25):
+> @Hans-Rudolf Hotz has joined the channel
+
+**Frederick Tan** (13:39:32):
+> @Frederick Tan has joined the channel
+
+**Aaron Lun** (13:42:02):
+> @Aaron Lun has joined the channel
+
 **Aaron Lun** (13:42:13):
 > my god, this is where all the questions are.
 
@@ -1452,7 +1597,9 @@ format: gfm
 **Aaron Lun** (13:49:05) (in thread):
 > Sounds like what Sten was talking about in 2018. I was like meh, whatever floats his boat.
 
-*13:50:42 - @Elana Fertig has joined the channel*
+**Elana Fertig** (13:50:42):
+> @Elana Fertig has joined the channel
+
 **Aaron Lun** (13:53:33) (in thread):
 > The practical issue is that, if you use a fixed radius for linking cells, the size of your graph may be n^2 rather than linear to the number of cells (as is the case for existing NN graphs). Which results in larger graphs and slower clustering. I don’t care enough about theoretical principles to be able to swallow a speed drop.
 
@@ -1578,13 +1725,21 @@ format: gfm
 
 ## 2020-08-13
 
-*14:25:03 - @Loyal has joined the channel*
+**Loyal** (14:25:03):
+> @Loyal has joined the channel
+
 
 ## 2020-08-14
 
-*04:44:00 - @Roye Rozov has joined the channel*
-*05:28:09 - @Kasper D. Hansen has joined the channel*
-*15:06:20 - @Shijie C. Zheng has joined the channel*
+**Roye Rozov** (04:44:00):
+> @Roye Rozov has joined the channel
+
+**Kasper D. Hansen** (05:28:09):
+> @Kasper D. Hansen has joined the channel
+
+**Shijie C. Zheng** (15:06:20):
+> @Shijie C. Zheng has joined the channel
+
 
 ## 2020-08-17
 
@@ -1676,16 +1831,22 @@ format: gfm
 
 ## 2020-08-18
 
-*09:00:54 - @Daniel Baker has joined the channel*
-*09:08:36 - @Will Macnair has joined the channel*
-*09:14:58 - @Stephany Orjuela has joined the channel*
+**Daniel Baker** (09:00:54):
+> @Daniel Baker has joined the channel
+
+**Will Macnair** (09:08:36):
+> @Will Macnair has joined the channel
+
+**Stephany Orjuela** (09:14:58):
+> @Stephany Orjuela has joined the channel
+
 
 ## 2020-08-19
 
 **Stephanie Hicks** (09:32:33):
 > @Kevin Blighei haven’t read it, but i saw this come across my feed in Jan[https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1850-9](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1850-9)
   - Attachment (Genome Biology): [A benchmark of batch-effect correction methods for single-cell RNA sequencing data](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1850-9)
-    > Large-scale single-cell transcriptomic datasets generated using different technologies contain batch-specific systematic variations that present a challenge to batch-effect removal and data integration. With continued growth expected in scRNA-seq data, achieving effective batch integration with available computational resources is crucial. Here, we perform an in-depth benchmark study on available batch correction methods to determine the most suitable method for batch-effect removal. We compare 14 methods in terms of computational runtime, the ability to handle large datasets, and batch-effect correction efficacy while preserving cell type purity. Five scenarios are designed for the study: identical cell types with different technologies, non-identical cell types, multiple batches, big data, and simulated data. Performance is evaluated using four benchmarking metrics including kBET, LISI, ASW, and ARI. We also investigate the use of batch-corrected data to study differential gene expression. Based on our results, Harmony, LIGER, and Seurat 3 are the recommended methods for batch integration. Due to its&nbsp;significantly shorter runtime, Harmony is recommended as the first method to try, with the other methods as viable alternatives.
+> Large-scale single-cell transcriptomic datasets generated using different technologies contain batch-specific systematic variations that present a challenge to batch-effect removal and data integration. With continued growth expected in scRNA-seq data, achieving effective batch integration with available computational resources is crucial. Here, we perform an in-depth benchmark study on available batch correction methods to determine the most suitable method for batch-effect removal. We compare 14 methods in terms of computational runtime, the ability to handle large datasets, and batch-effect correction efficacy while preserving cell type purity. Five scenarios are designed for the study: identical cell types with different technologies, non-identical cell types, multiple batches, big data, and simulated data. Performance is evaluated using four benchmarking metrics including kBET, LISI, ASW, and ARI. We also investigate the use of batch-corrected data to study differential gene expression. Based on our results, Harmony, LIGER, and Seurat 3 are the recommended methods for batch integration. Due to its&nbsp;significantly shorter runtime, Harmony is recommended as the first method to try, with the other methods as viable alternatives.
 
 **Tim Triche** (10:16:54):
 > see also@Kasper D. Hansen’s recent post on batch effect correction in rna velocity estimation
@@ -1737,7 +1898,9 @@ format: gfm
 **Tim Triche** (12:12:06):
 > :100:
 
-*12:25:20 - @Yi Wang has joined the channel*
+**Yi Wang** (12:25:20):
+> @Yi Wang has joined the channel
+
 
 ## 2020-08-20
 
@@ -1769,11 +1932,15 @@ format: gfm
 **Jared Andrews** (12:06:47):
 > For single cell, FOXP3 has been the best marker in my hands.
 
-*13:44:42 - @Daniel Baker has left the channel*
+**Daniel Baker** (13:44:42):
+> @Daniel Baker has left the channel
+
 
 ## 2020-08-24
 
-*07:55:44 - @Jose Alquicira has joined the channel*
+**Jose Alquicira** (07:55:44):
+> @Jose Alquicira has joined the channel
+
 **Nur-Taz Rahman** (10:12:39):
 > Is there any tool that is tailored for gene set enrichment or pathway analysis for single cell transcriptomics?
 
@@ -1804,7 +1971,9 @@ format: gfm
 **Jared Andrews** (11:26:00) (in thread):
 > @Nick BorcherdingWe should get Seurat out of the dependencies list if possible. Can get away with moving it to suggests for the vignette. Or we could change the example to use any of the datasets from the`scRNAseq`package.
 
-*11:26:05 - @Nick Borcherding has joined the channel*
+**Nick Borcherding** (11:26:05):
+> @Nick Borcherding has joined the channel
+
 **Nur-Taz Rahman** (11:38:02) (in thread):
 > @Ludwig GeistlingerI will let you know how it goes.
 
@@ -1841,7 +2010,9 @@ format: gfm
 
 ## 2020-09-06
 
-*08:36:28 - @Bob Policastro has joined the channel*
+**Bob Policastro** (08:36:28):
+> @Bob Policastro has joined the channel
+
 
 ## 2020-09-08
 
@@ -1895,7 +2066,9 @@ format: gfm
 
 ## 2020-09-11
 
-*00:23:47 - @Talha has joined the channel*
+**Talha** (00:23:47):
+> @Talha has joined the channel
+
 **Bharati Mehani** (12:22:34):
 > Hi I am new with single cell analysis and want to do reference based clustering. It is a human canacer data generated from 10 human cancers by 10x chemistry. I am using Seurat v3 to integrate all these samples with SCTransform. I have list of genes specific to tumor cells and TME, but not sure how can i integrate it and perform reference based clustering. Can anybody please share any workflow for the same?
 > Thanks in adavance.
@@ -1921,7 +2094,7 @@ format: gfm
 **Aaron Lun** (19:50:01):
 > sure it can, check out the book:[https://ltla.github.io/SingleRBook/](https://ltla.github.io/SingleRBook/)
   - Attachment (ltla.github.io): [Assigning cell types with SingleR](https://ltla.github.io/SingleRBook/)
-    > The SingleR book. Because sometimes, a vignette just isn’t enough.
+> The SingleR book. Because sometimes, a vignette just isn’t enough.
 
 **Bharati Mehani** (21:35:45):
 > Thanks for sharing this. Will check it for sure.
@@ -1938,7 +2111,7 @@ format: gfm
 **Tim Triche** (17:18:52) (in thread):
 > [https://www.nature.com/articles/s41467-020-15710-1](https://www.nature.com/articles/s41467-020-15710-1)
   - Attachment (Nature Communications): [High throughput pMHC-I tetramer library production using chaperone-mediated peptide exchange](https://www.nature.com/articles/s41467-020-15710-1)
-    > Peptide-MHC (pMHC) tetramers are important tools for probing T cell repertoire and adaptive immune responses. Here the authors use a molecular chaperone, TAPBPR, to develop a high-throughput, multiplexible platform for pMHC tetramer generation to facilitate simultaneous assessments of T cell repertoire/antigen specificity and transcriptome.
+> Peptide-MHC (pMHC) tetramers are important tools for probing T cell repertoire and adaptive immune responses. Here the authors use a molecular chaperone, TAPBPR, to develop a high-throughput, multiplexible platform for pMHC tetramer generation to facilitate simultaneous assessments of T cell repertoire/antigen specificity and transcriptome.
 
 **Aaron Lun** (17:19:20) (in thread):
 > excellent,t hanks.
@@ -1973,7 +2146,7 @@ format: gfm
 **Peter Hickey** (02:16:01):
 > [https://osca.bioconductor.org/integrating-with-protein-abundance.html#by-differential-testing](https://osca.bioconductor.org/integrating-with-protein-abundance.html#by-differential-testing)?
   - Attachment (osca.bioconductor.org): [Chapter 18 Integrating with protein abundance | Orchestrating Single-Cell Analysis with Bioconductor](https://osca.bioconductor.org/integrating-with-protein-abundance.html#by-differential-testing)
-    > Online companion to ‘Orchestrating Single-Cell Analysis with Bioconductor’ manuscript by the Bioconductor team.
+> Online companion to ‘Orchestrating Single-Cell Analysis with Bioconductor’ manuscript by the Bioconductor team.
 
 **Aaron Lun** (02:26:17):
 > is that what you were looking for? It's just the usual stuff on the log-abundance values.
@@ -2006,7 +2179,9 @@ format: gfm
 
 ## 2020-09-25
 
-*22:56:13 - @Anna Liza Kretzschmar has joined the channel*
+**Anna Liza Kretzschmar** (22:56:13):
+> @Anna Liza Kretzschmar has joined the channel
+
 
 ## 2020-09-28
 
@@ -2060,13 +2235,17 @@ format: gfm
 **Stephanie Hicks** (14:26:00):
 > [https://twitter.com/m_hemberg/status/1313897724954251267](https://twitter.com/m_hemberg/status/1313897724954251267)
   - Attachment (twitter): [Attachment](https://twitter.com/m_hemberg/status/1313897724954251267)
-    > #Brexodus news: I will join [https://evergrande.hms.harvard.edu/home](https://evergrande.hms.harvard.edu/home) and [@BrighamWomens](https://twitter.com/BrighamWomens) in Q1 2021 after 6.5 great yrs at [@sangerinstitute](https://twitter.com/sangerinstitute) and [@GurdonInstitute](https://twitter.com/GurdonInstitute). Re-booting lab => post-doc positions available. If you are interested contact me at my [http://sanger.ac.uk](http://sanger.ac.uk) email (mh26)
+> #Brexodus news: I will join [https://evergrande.hms.harvard.edu/home](https://evergrande.hms.harvard.edu/home) and [@BrighamWomens](https://twitter.com/BrighamWomens) in Q1 2021 after 6.5 great yrs at [@sangerinstitute](https://twitter.com/sangerinstitute) and [@GurdonInstitute](https://twitter.com/GurdonInstitute). Re-booting lab => post-doc positions available. If you are interested contact me at my [http://sanger.ac.uk](http://sanger.ac.uk) email (mh26)
 
 
 ## 2020-10-08
 
-*13:00:13 - @Batuhan Cakir has joined the channel*
-*13:46:03 - @Koen Van den Berge has joined the channel*
+**Batuhan Cakir** (13:00:13):
+> @Batuhan Cakir has joined the channel
+
+**Koen Van den Berge** (13:46:03):
+> @Koen Van den Berge has joined the channel
+
 
 ## 2020-10-09
 
@@ -2100,7 +2279,9 @@ format: gfm
 
 ## 2020-10-17
 
-*08:25:23 - @Kevin Blighe has joined the channel*
+**Kevin Blighe** (08:25:23):
+> @Kevin Blighe has joined the channel
+
 **Alexander Toenges** (19:49:14):
 > Towards[https://support.bioconductor.org/p/134696/](https://support.bioconductor.org/p/134696/)where I think Gordon got me a bit wrong. Given we use alevin for quantification of 10x data and use its bootstrapping procedure to quantify mapping uncertainty: Is there a meaningful way of aggregating this information to the pseudobulk level together with the raw counts? Basically, when using`alevin`and then import it with`tximeta`you get a SummarizedExperiment with the gene level counts, the mean and variance of the bootstrapping that alevin performs. Is it even possible to use this information on the pseudobulk level?
 
@@ -2177,7 +2358,7 @@ format: gfm
 **Aaron Lun** (00:40:20):
 > I have already repro'd most of their pancreatic example in depth in[http://bioconductor.org/books/devel/OSCA/merged-pancreas.html](http://bioconductor.org/books/devel/OSCA/merged-pancreas.html), sans the Xin dataset.
   - Attachment (bioconductor.org): [Chapter 34 Merged human pancreas datasets | Orchestrating Single-Cell Analysis with Bioconductor](http://bioconductor.org/books/devel/OSCA/merged-pancreas.html)
-    > Or: how I learned to stop worrying and love the t-SNEs.
+> Or: how I learned to stop worrying and love the t-SNEs.
 
 **Aaron Lun** (00:41:02):
 > And this is what I get from their HSC example, which is not too bad
@@ -2190,31 +2371,45 @@ format: gfm
 > Oh wait, forgot to run`multiBatchNorm`beforehand. And kicked up the merge aggressiveness for your viewing pleasure:
   - File (PNG): [dataset10.png](https://community-bioc.slack.com/files/U34P8RS3B/F01CZV2UHPE/dataset10.png)
 
-*20:26:14 - @Adele Barugahare has joined the channel*
+**Adele Barugahare** (20:26:14):
+> @Adele Barugahare has joined the channel
+
 
 ## 2020-10-23
 
-*11:40:57 - @ImranF has joined the channel*
+**ImranF** (11:40:57):
+> @ImranF has joined the channel
+
 
 ## 2020-11-02
 
-*16:07:41 - @RGentleman has joined the channel*
+**RGentleman** (16:07:41):
+> @RGentleman has joined the channel
+
 
 ## 2020-11-04
 
-*15:56:28 - @Regina Reynolds has joined the channel*
+**Regina Reynolds** (15:56:28):
+> @Regina Reynolds has joined the channel
+
 
 ## 2020-11-07
 
-*10:34:13 - @Jonathan Griffiths has joined the channel*
+**Jonathan Griffiths** (10:34:13):
+> @Jonathan Griffiths has joined the channel
+
 
 ## 2020-11-11
 
-*09:09:39 - @Joshua Shapiro has joined the channel*
+**Joshua Shapiro** (09:09:39):
+> @Joshua Shapiro has joined the channel
+
 
 ## 2020-11-13
 
-*14:41:50 - @brian capaldo has joined the channel*
+**brian capaldo** (14:41:50):
+> @brian capaldo has joined the channel
+
 
 ## 2020-11-16
 
@@ -2266,8 +2461,12 @@ format: gfm
 
 ## 2020-11-19
 
-*05:23:34 - @Pierre-Luc Germain has joined the channel*
-*08:30:46 - @Kevin Blighe has joined the channel*
+**Pierre-Luc Germain** (05:23:34):
+> @Pierre-Luc Germain has joined the channel
+
+**Kevin Blighe** (08:30:46):
+> @Kevin Blighe has joined the channel
+
 **Pierre-Luc Germain** (09:38:53):
 > Would anybody be interested in a bioconductor***docker image***pre-loaded with single-cell analysis packages?
 > Some people (e.g.@Aaron Lun) already use images to speed up the automation of package build & check (i.e. github actions running much more rapidly than if you have to reinstall all your dependencies on a generic BioC image every time), and it seems a lot of people could rely on the same basic image for such purposes. I guess there could be other uses, like providing a comparable/reproducible environment for benchmarks, teaching, and such.
@@ -2276,7 +2475,9 @@ format: gfm
 
 ## 2020-11-20
 
-*00:24:49 - @ImranF has joined the channel*
+**ImranF** (00:24:49):
+> @ImranF has joined the channel
+
 **Jonathan Griffiths** (04:24:43) (in thread):
 > Do you mean going beyond Bioc packages? I have found it very easy to work from the bioconductor-provided images and simply install the packages I needed - so I'm not sure what this would add except for saving some install time? (which is commendable, still)
 
@@ -2307,11 +2508,13 @@ format: gfm
 
 ## 2020-11-23
 
-*23:34:53 - @Jenny Drnevich has joined the channel*
+**Jenny Drnevich** (23:34:53):
+> @Jenny Drnevich has joined the channel
+
 **Jenny Drnevich** (23:39:25):
 > Wasn't sure whether I should post this here or on#randomdue to its general coolness, but I came across this great interactive site explaining UMAP and tSNE. My favorite is the 3D pixelated woolly mammoth skeleton reduced down to a 2D UMAP projection![https://pair-code.github.io/understanding-umap/](https://pair-code.github.io/understanding-umap/)
   - Attachment (pair-code.github.io): [Understanding UMAP](https://pair-code.github.io/understanding-umap/)
-    > UMAP is a new dimensionality reduction technique that offers increased speed and better preservation of global structure.
+> UMAP is a new dimensionality reduction technique that offers increased speed and better preservation of global structure.
 
 
 ## 2020-12-11
@@ -2328,7 +2531,9 @@ format: gfm
 
 ## 2020-12-12
 
-*00:38:19 - @Huipeng Li has joined the channel*
+**Huipeng Li** (00:38:19):
+> @Huipeng Li has joined the channel
+
 
 ## 2020-12-13
 
@@ -2350,7 +2555,9 @@ format: gfm
 
 ## 2020-12-21
 
-*04:11:30 - @Harithaa Anand has joined the channel*
+**Harithaa Anand** (04:11:30):
+> @Harithaa Anand has joined the channel
+
 
 ## 2020-12-22
 
@@ -2421,7 +2628,9 @@ format: gfm
 
 ## 2021-01-01
 
-*14:06:49 - @Bernd has joined the channel*
+**Bernd** (14:06:49):
+> @Bernd has joined the channel
+
 **Alexander Toenges** (15:10:40):
 > Regarding the`offset`argument in`fitGAM`from tradeSeq, I see in the source code that by default the`edgeR`size factors it calculates are used like`log(colSums(counts) * sizeFactor)`. Can one do the exact same thing with the factors obtained from`scran::calculateSumFactors()`?
 
@@ -2449,7 +2658,7 @@ format: gfm
 **Alexander Toenges** (05:51:51):
 > Definitely[https://pubmed.ncbi.nlm.nih.gov/29915358/](https://pubmed.ncbi.nlm.nih.gov/29915358/):slightly_smiling_face:
   - Attachment (PubMed): [Single-cell characterization of haematopoietic progenitors and their trajectories in homeostasis and perturbed haematopoiesis - PubMed](https://pubmed.ncbi.nlm.nih.gov/29915358/)
-    > The dynamics of haematopoietic stem cell differentiation and the hierarchy of oligopotent stem cells in the bone marrow remain controversial. Here we dissect haematopoietic progenitor populations at single cell resolution, deriving an unbiased reference model of transcriptional states in normal and …
+> The dynamics of haematopoietic stem cell differentiation and the hierarchy of oligopotent stem cells in the bone marrow remain controversial. Here we dissect haematopoietic progenitor populations at single cell resolution, deriving an unbiased reference model of transcriptional states in normal and …
 
 **Alexander Toenges** (05:52:38):
 > MARS-seq of hematopoietic almost-everything plus CRISP-seq
@@ -2694,7 +2903,9 @@ format: gfm
 
 ## 2021-01-22
 
-*15:45:40 - @Annajiat Alim Rasel has joined the channel*
+**Annajiat Alim Rasel** (15:45:40):
+> @Annajiat Alim Rasel has joined the channel
+
 
 ## 2021-01-26
 
@@ -3015,7 +3226,9 @@ format: gfm
 
 ## 2021-01-29
 
-*08:46:18 - @Davide Corso has joined the channel*
+**Davide Corso** (08:46:18):
+> @Davide Corso has joined the channel
+
 
 ## 2021-02-03
 
@@ -3110,7 +3323,9 @@ format: gfm
 
 ## 2021-02-13
 
-*12:34:15 - @Wes W has joined the channel*
+**Wes W** (12:34:15):
+> @Wes W has joined the channel
+
 
 ## 2021-02-15
 
@@ -3181,7 +3396,9 @@ format: gfm
 
 ## 2021-02-23
 
-*10:33:04 - @Wynn Cheung has joined the channel*
+**Wynn Cheung** (10:33:04):
+> @Wynn Cheung has joined the channel
+
 
 ## 2021-02-24
 
@@ -3258,14 +3475,16 @@ format: gfm
 
 ## 2021-03-23
 
-*23:06:08 - @Lambda Moses has joined the channel*
+**Lambda Moses** (23:06:08):
+> @Lambda Moses has joined the channel
+
 
 ## 2021-03-29
 
 **Federico Marini** (07:41:21):
 > FYI:[https://cannoodt.dev/2021/03/anndata-for-r-has-a-new-home/](https://cannoodt.dev/2021/03/anndata-for-r-has-a-new-home/)
   - Attachment (Robrecht Cannoodt): [anndata for R has a new home! | Robrecht Cannoodt](https://cannoodt.dev/2021/03/anndata-for-r-has-a-new-home/)
-    > Welcome to the dynverse project :)
+> Welcome to the dynverse project :)
 
 **Aaron Lun** (11:24:56):
 > What's new? Looks same-old, same-old to me.
@@ -3276,7 +3495,9 @@ format: gfm
 
 ## 2021-04-06
 
-*00:09:39 - @Lindsay Hayes has joined the channel*
+**Lindsay Hayes** (00:09:39):
+> @Lindsay Hayes has joined the channel
+
 
 ## 2021-04-15
 
@@ -3380,7 +3601,7 @@ format: gfm
 **Alan O'C** (10:46:00):
 > This I think?[https://github.com/LTLA/scRNAseq/issues/15](https://github.com/LTLA/scRNAseq/issues/15)
   - Attachment: [#15 Seurat versions?](https://github.com/LTLA/scRNAseq/issues/15)
-    > If I convert the datasets present in this package to `Seurat` format, with metadata retained between versions, would the authors allow a pull request? I know the community is somewhat split over SingleCellExperiment vs. Seurat, but my and many other labs use Seurat, and whenever I pull a dataset from this package I need to convert it to `Seurat` format. I think it'd be great for the package to include a compressed version of a `Seurat` object for each experiment, and I'm willing to do the legwork to convert the files myself.
+> If I convert the datasets present in this package to `Seurat` format, with metadata retained between versions, would the authors allow a pull request? I know the community is somewhat split over SingleCellExperiment vs. Seurat, but my and many other labs use Seurat, and whenever I pull a dataset from this package I need to convert it to `Seurat` format. I think it'd be great for the package to include a compressed version of a `Seurat` object for each experiment, and I'm willing to do the legwork to convert the files myself.
 
 **Alan O'C** (10:47:10) (in thread):
 > Worth noting that "move fast and break stuff" works in other languages with good package version management (eg, ruby) but not with the "all as one" model of R and CRAN in particular
@@ -3421,7 +3642,7 @@ format: gfm
 **Vince Carey** (06:36:50) (in thread):
 > It might be worth noting that Rstudio pro includes features that allow users to work with multiple versions of R.  You can emulate this if you don't go to pro, using renv:[https://rstudio.github.io/renv/articles/renv.html](https://rstudio.github.io/renv/articles/renv.html)
   - Attachment (rstudio.github.io): [Introduction to renv](https://rstudio.github.io/renv/articles/renv.html)
-    > renv
+> renv
 
 **Alan O'C** (06:59:21) (in thread):
 > Yeah using more than one version of R with renv is probably the cleanest way to manage a mix of old and new packages. Can guarantee some confusion if half the scripts are run with one version of R and the other half another though
@@ -3438,7 +3659,7 @@ format: gfm
 **Nadine Bestard-Cuche** (11:21:04) (in thread):
 > I know this is not a place where to discuss Seurat stuff, but I got a bit confused recently. Everyone talks about "CCA from Seurat",  but I am not sure what it refers too looking at their webpage. Is [this]([https://satijalab.org/seurat/articles/integration_introduction.html](https://satijalab.org/seurat/articles/integration_introduction.html)) CCA integration? In the paper cited this seems something different, also inspired from MNN and "improved"  (even if we know how all changes are sold as better than the previous version)
   - Attachment (satijalab.org): [Introduction to scRNA-seq integration](https://satijalab.org/seurat/articles/integration_introduction.html)
-    > Seurat
+> Seurat
 
 **Alan O'C** (11:24:43) (in thread):
 > The original Seurat integration paper was "just" CCA IIRC, while the 2019 paper is an update that borrows ideas from MNN etc. I don't remember if the 2019 method still uses primarily CCA? I recall a lot of talk about "integration anchors"
@@ -3473,7 +3694,7 @@ format: gfm
 **Stephanie Hicks** (12:02:07):
 > Random question. Are there published standards or guidance on which metadata elements should be required for scRNAseq or scATACseq data? I know of this[https://www.nature.com/articles/s41587-020-00744-z.pdf?origin=ppub](https://www.nature.com/articles/s41587-020-00744-z.pdf?origin=ppub)and some metadata types from HCA (e.g.[https://data.humancellatlas.org/metadata](https://data.humancellatlas.org/metadata)).
   - Attachment (HCA Data Portal): [Metadata Types](https://data.humancellatlas.org/metadata)
-    > An overview of the HCA metadata schema types and structure.
+> An overview of the HCA metadata schema types and structure.
 
 **Stephanie Hicks** (12:02:35):
 > Are there other guidelines for metadata?
@@ -3481,19 +3702,27 @@ format: gfm
 
 ## 2021-04-23
 
-*19:13:28 - @hcorrada has joined the channel*
+**hcorrada** (19:13:28):
+> @hcorrada has joined the channel
+
 
 ## 2021-04-24
 
-*08:34:57 - @Jayaram Kancherla has joined the channel*
+**Jayaram Kancherla** (08:34:57):
+> @Jayaram Kancherla has joined the channel
+
 
 ## 2021-04-26
 
-*11:19:49 - @rohitsatyam102 has joined the channel*
+**rohitsatyam102** (11:19:49):
+> @rohitsatyam102 has joined the channel
+
 
 ## 2021-04-27
 
-*17:18:13 - @Chris Vanderaa has joined the channel*
+**Chris Vanderaa** (17:18:13):
+> @Chris Vanderaa has joined the channel
+
 
 ## 2021-04-29
 
@@ -3632,7 +3861,7 @@ format: gfm
 **Aaron Lun** (15:53:13):
 > incidentally, here is a post from Gordon on this topic:[https://stats.stackexchange.com/questions/310676/continuous-generalization-of-the-negative-binomial-distribution/311927](https://stats.stackexchange.com/questions/310676/continuous-generalization-of-the-negative-binomial-distribution/311927)
   - Attachment (Cross Validated): [Continuous generalization of the negative binomial distribution](https://stats.stackexchange.com/questions/310676/continuous-generalization-of-the-negative-binomial-distribution/311927)
-    > Negative binomial (NB) distribution is defined on non-negative integers and has probability mass function$$f(k;r,p)={\binom {k+r-1}{k}}p^{k}(1-p)^{r}.$$ Does it make sense to consider a continuous
+> Negative binomial (NB) distribution is defined on non-negative integers and has probability mass function$$f(k;r,p)={\binom {k+r-1}{k}}p^{k}(1-p)^{r}.$$ Does it make sense to consider a continuous
 
 **Alan O'C** (15:59:55) (in thread):
 > Unless you're defining extra behaviour for your object it might be easier/less confusing/less work to just use SCE and explain to your users that it's just a container; the name doesn't matter
@@ -3683,7 +3912,9 @@ format: gfm
 **brian capaldo** (15:18:38):
 > aside from computational burden, is there a reason to not use all genes when performing dimensionality reduction? I find that I end up with better resolution between clusters when using all genes rather than a top subset (which I feel like shouldn't be too surprising), but my expertise and training is not in these higher level maths.
 
-*16:45:53 - @Megha Lal has joined the channel*
+**Megha Lal** (16:45:53):
+> @Megha Lal has joined the channel
+
 
 ## 2021-05-12
 
@@ -3775,8 +4006,12 @@ format: gfm
 
 ## 2021-06-04
 
-*04:21:28 - @Izaskun Mallona has joined the channel*
-*05:52:35 - @Flavio Lombardo has joined the channel*
+**Izaskun Mallona** (04:21:28):
+> @Izaskun Mallona has joined the channel
+
+**Flavio Lombardo** (05:52:35):
+> @Flavio Lombardo has joined the channel
+
 **Tim Triche** (11:32:03) (in thread):
 > look on the bright side, rows are samples and columns are who knows what
 
@@ -3801,7 +4036,7 @@ format: gfm
 **Alexander Toenges** (13:43:13) (in thread):
 > this maybe?[https://combine-lab.github.io/alevin-tutorial/2020/alevin-features/](https://combine-lab.github.io/alevin-tutorial/2020/alevin-features/)
   - Attachment (combine-lab.github.io): [Alevin w/ Feature Barcodes](https://combine-lab.github.io/alevin-tutorial/2020/alevin-features/)
-    > Feature Barcoding based Single-Cell Quantification with alevin
+> Feature Barcoding based Single-Cell Quantification with alevin
 
 **Vince Carey** (15:29:10) (in thread):
 > Nice looking set of examples:[https://github.com/jlduan/fba#workflow-example](https://github.com/jlduan/fba#workflow-example)
@@ -3815,7 +4050,7 @@ format: gfm
 **Rob Patro** (13:46:29):
 > You can also do this pretty easily with alevin-fry[https://combine-lab.github.io/alevin-fry-tutorials/2021/af-feature-bc/](https://combine-lab.github.io/alevin-fry-tutorials/2021/af-feature-bc/)
   - Attachment (combine-lab.github.io): [Processing feature barcoding data with alevin-fry](https://combine-lab.github.io/alevin-fry-tutorials/2021/af-feature-bc/)
-    > In this tutorial we will look at how to process a CITE-seq experiment (a type of feature barcoding experiment) using an alevin-fry based pipeline. Note : This tutorial is meant to mimic the original tutorial for feature barcode analysis with alevin written by Avi Srivastava and Yuhan Hao. Thus, most of the descriptive text and commands are taken directly from that tutorial. However, here we will be analyzing the data using the alevin-fry pipeline instead of alevin.
+> In this tutorial we will look at how to process a CITE-seq experiment (a type of feature barcoding experiment) using an alevin-fry based pipeline. Note : This tutorial is meant to mimic the original tutorial for feature barcode analysis with alevin written by Avi Srivastava and Yuhan Hao. Thus, most of the descriptive text and commands are taken directly from that tutorial. However, here we will be analyzing the data using the alevin-fry pipeline instead of alevin.
 
 **Rob Patro** (13:47:02):
 > Happy to answer questions or add other use cases as it makes sense
@@ -3844,39 +4079,51 @@ format: gfm
 **Tim Triche** (15:41:41) (in thread):
 > anyone compare against[https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02006-2](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02006-2)?  It sounds like our experience with scATAC, where we could use a control cell line to compare others, but a control cell line was not really sufficient to control for confounders in complex tissues.
   - Attachment (Genome Biology): [Single-cell RNA-seq with spike-in cells enables accurate quantification of cell-specific drug effects in pancreatic islets](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02006-2)
-    > Background Single-cell RNA-seq (scRNA-seq) is emerging as a powerful tool to dissect cell-specific effects of drug treatment in complex tissues. This application requires high levels of precision, robustness, and quantitative accuracy—beyond those achievable with existing methods for mainly qualitative single-cell analysis. Here, we establish the use of standardized reference cells as spike-in controls for accurate and robust dissection of single-cell drug responses. Results We find that contamination by cell-free RNA can constitute up to 20% of reads in human primary tissue samples, and we show that the ensuing biases can be removed effectively using a novel bioinformatics algorithm. Applying our method to both human and mouse pancreatic islets treated ex vivo, we obtain an accurate and quantitative assessment of cell-specific drug effects on the transcriptome. We observe that FOXO inhibition induces dedifferentiation of both alpha and beta cells, while artemether treatment upregulates insulin and other beta cell marker genes in a subset of alpha cells. In beta cells, dedifferentiation and insulin repression upon artemether treatment occurs predominantly in mouse but not in human samples. Conclusions This new method for quantitative, error-correcting, scRNA-seq data normalization using spike-in reference cells helps clarify complex cell-specific effects of pharmacological perturbations with single-cell resolution and high quantitative accuracy.
+> Background Single-cell RNA-seq (scRNA-seq) is emerging as a powerful tool to dissect cell-specific effects of drug treatment in complex tissues. This application requires high levels of precision, robustness, and quantitative accuracy—beyond those achievable with existing methods for mainly qualitative single-cell analysis. Here, we establish the use of standardized reference cells as spike-in controls for accurate and robust dissection of single-cell drug responses. Results We find that contamination by cell-free RNA can constitute up to 20% of reads in human primary tissue samples, and we show that the ensuing biases can be removed effectively using a novel bioinformatics algorithm. Applying our method to both human and mouse pancreatic islets treated ex vivo, we obtain an accurate and quantitative assessment of cell-specific drug effects on the transcriptome. We observe that FOXO inhibition induces dedifferentiation of both alpha and beta cells, while artemether treatment upregulates insulin and other beta cell marker genes in a subset of alpha cells. In beta cells, dedifferentiation and insulin repression upon artemether treatment occurs predominantly in mouse but not in human samples. Conclusions This new method for quantitative, error-correcting, scRNA-seq data normalization using spike-in reference cells helps clarify complex cell-specific effects of pharmacological perturbations with single-cell resolution and high quantitative accuracy.
 
 
 ## 2021-07-10
 
-*11:21:47 - @Kent Johnson has joined the channel*
+**Kent Johnson** (11:21:47):
+> @Kent Johnson has joined the channel
+
 
 ## 2021-07-23
 
-*15:54:04 - @Batool Almarzouq has joined the channel*
+**Batool Almarzouq** (15:54:04):
+> @Batool Almarzouq has joined the channel
+
 
 ## 2021-08-04
 
-*13:58:30 - @shristi shrestha has joined the channel*
+**shristi shrestha** (13:58:30):
+> @shristi shrestha has joined the channel
+
 
 ## 2021-08-05
 
-*07:11:01 - @Ambarish S. Ghatpande has joined the channel*
-*08:48:59 - @Assa has joined the channel*
+**Ambarish S. Ghatpande** (07:11:01):
+> @Ambarish S. Ghatpande has joined the channel
+
+**Assa** (08:48:59):
+> @Assa has joined the channel
+
 **Assa** (08:50:30):
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C6KJHH0M9/p1628166456016300?thread_ts=1628142652015500&cid=C6KJHH0M9)
-    > @Assa great question! yes this is a widely discussed topic in the field. Briefly, the choice of how many zeros we “expect” to see does seem to vary across technologies. This difference is important in how not only we preprocess the data (e.g. imputation), but also how we model the data (e.g. dimensionality reduction or differential expression). Here are a few papers you might find relevant related to just evaluating “how many zeros we expect to see in 10x data”. specifically, they show 10x data are not zero inflated
-    > • [https://www.nature.com/articles/s41587-019-0379-5](https://www.nature.com/articles/s41587-019-0379-5)
-    > • [https://academic.oup.com/bioinformatics/article/33/21/3486/3952669](https://academic.oup.com/bioinformatics/article/33/21/3486/3952669)
-    > • [https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1861-6](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1861-6)
-    > In terms of just imputation, here is a paper on evaluating and benchmarking 18 scRNA-seq imputation methods where both 10x and smart-seq data are discussed:
-    > • [https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02132-x](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02132-x)
-    > Two other more recent papers on this topic that you might find relevant:
-    > • [https://www.biorxiv.org/content/10.1101/2020.12.28.424633v1](https://www.biorxiv.org/content/10.1101/2020.12.28.424633v1)
-    > • [https://www.biorxiv.org/content/10.1101/477794v2](https://www.biorxiv.org/content/10.1101/477794v2)
-    > Happy single-cell data analysis-ing!
+> @Assa great question! yes this is a widely discussed topic in the field. Briefly, the choice of how many zeros we “expect” to see does seem to vary across technologies. This difference is important in how not only we preprocess the data (e.g. imputation), but also how we model the data (e.g. dimensionality reduction or differential expression). Here are a few papers you might find relevant related to just evaluating “how many zeros we expect to see in 10x data”. specifically, they show 10x data are not zero inflated
+> • [https://www.nature.com/articles/s41587-019-0379-5](https://www.nature.com/articles/s41587-019-0379-5)
+> • [https://academic.oup.com/bioinformatics/article/33/21/3486/3952669](https://academic.oup.com/bioinformatics/article/33/21/3486/3952669)
+> • [https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1861-6](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1861-6)
+> In terms of just imputation, here is a paper on evaluating and benchmarking 18 scRNA-seq imputation methods where both 10x and smart-seq data are discussed:
+> • [https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02132-x](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02132-x)
+> Two other more recent papers on this topic that you might find relevant:
+> • [https://www.biorxiv.org/content/10.1101/2020.12.28.424633v1](https://www.biorxiv.org/content/10.1101/2020.12.28.424633v1)
+> • [https://www.biorxiv.org/content/10.1101/477794v2](https://www.biorxiv.org/content/10.1101/477794v2)
+> Happy single-cell data analysis-ing!
 
-*17:58:06 - @Manojkumar Selvaraju has joined the channel*
+**Manojkumar Selvaraju** (17:58:06):
+> @Manojkumar Selvaraju has joined the channel
+
 
 ## 2021-08-12
 
@@ -3904,7 +4151,7 @@ format: gfm
 **Jenny Drnevich** (11:36:58) (in thread):
 > Thanks,@Frederick Tanand@Kevin Blighe, I will check those out. I also came across this one:[https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE118127](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE118127)that the PI said might be better because prenatal/neonatal does not have some of the cell types that develop in adulthood.
   - Attachment (ncbi.nlm.nih.gov): [GEO Accession viewer](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE118127)
-    > NCBI's Gene Expression Omnibus (GEO) is a public archive and resource for gene expression data.
+> NCBI's Gene Expression Omnibus (GEO) is a public archive and resource for gene expression data.
 
 
 ## 2021-08-17
@@ -3933,23 +4180,33 @@ format: gfm
 
 ## 2021-08-19
 
-*02:01:33 - @mariadermit has joined the channel*
+**mariadermit** (02:01:33):
+> @mariadermit has joined the channel
+
 
 ## 2021-09-07
 
-*14:52:03 - @Andrew Jaffe has joined the channel*
+**Andrew Jaffe** (14:52:03):
+> @Andrew Jaffe has joined the channel
+
 
 ## 2021-09-16
 
-*18:35:10 - @Henry Miller has joined the channel*
+**Henry Miller** (18:35:10):
+> @Henry Miller has joined the channel
+
 
 ## 2021-09-24
 
-*14:18:59 - @ChiaSin has joined the channel*
+**ChiaSin** (14:18:59):
+> @ChiaSin has joined the channel
+
 
 ## 2021-09-25
 
-*19:04:52 - @Mikey C has joined the channel*
+**Mikey C** (19:04:52):
+> @Mikey C has joined the channel
+
 
 ## 2021-10-07
 
@@ -3959,13 +4216,17 @@ format: gfm
 
 ## 2021-10-08
 
-*00:44:25 - @Wancen Mu has joined the channel*
+**Wancen Mu** (00:44:25):
+> @Wancen Mu has joined the channel
+
 **Federico Marini** (05:22:21):
 > The recent work from@Constantin Ahlmann-Eltzemaybe? -->[https://www.biorxiv.org/content/10.1101/2021.06.24.449781v2](https://www.biorxiv.org/content/10.1101/2021.06.24.449781v2)
   - Attachment (bioRxiv): [Transformation and Preprocessing of Single-Cell RNA-Seq Data](https://www.biorxiv.org/content/10.1101/2021.06.24.449781v2)
-    > The count table, a numeric matrix of genes × cells, is the basic input data structure in the analysis of single-cell RNA-seq data. A common preprocessing step is to adjust the counts for variable sampling efficiency and to transform them so that the variance is similar across the dynamic range. These steps are intended to make subsequent application of generic statistical methods more palatable. Here, we describe three transformations (based on the delta method, model residuals, or inferred latent expression state) and compare their strengths and weaknesses. We find that although the residuals and latent expression state-based models have appealing theoretical properties, in benchmarks using simulated and real-world data the simple shifted logarithm in combination with principal component analysis performs surprisingly well. Software An R package implementing the delta method and residuals-based variance-stabilizing transformations is available on [[github.com/const-ae/transformGamPoi](http://github.com/const-ae/transformGamPoi)][1]. Contact constantin.ahlmann{at}[embl.de](http://embl.de) ### Competing Interest Statement The authors have declared no competing interest. [1]: [https://github.com/const-ae/transformGamPoi](https://github.com/const-ae/transformGamPoi)
+> The count table, a numeric matrix of genes × cells, is the basic input data structure in the analysis of single-cell RNA-seq data. A common preprocessing step is to adjust the counts for variable sampling efficiency and to transform them so that the variance is similar across the dynamic range. These steps are intended to make subsequent application of generic statistical methods more palatable. Here, we describe three transformations (based on the delta method, model residuals, or inferred latent expression state) and compare their strengths and weaknesses. We find that although the residuals and latent expression state-based models have appealing theoretical properties, in benchmarks using simulated and real-world data the simple shifted logarithm in combination with principal component analysis performs surprisingly well. Software An R package implementing the delta method and residuals-based variance-stabilizing transformations is available on [[github.com/const-ae/transformGamPoi](http://github.com/const-ae/transformGamPoi)][1]. Contact constantin.ahlmann{at}[embl.de](http://embl.de) ### Competing Interest Statement The authors have declared no competing interest. [1]: [https://github.com/const-ae/transformGamPoi](https://github.com/const-ae/transformGamPoi)
 
-*06:02:26 - @Constantin Ahlmann-Eltze has joined the channel*
+**Constantin Ahlmann-Eltze** (06:02:26):
+> @Constantin Ahlmann-Eltze has joined the channel
+
 **Constantin Ahlmann-Eltze** (06:03:47):
 > Thanks@Federico Marinifor tagging me:slightly_smiling_face:Yeah, that is pretty exactly what we did there. Or is some other specific aspect of VST for single-cell that you were interested in@Alan O'C?:slightly_smiling_face:
 
@@ -3987,11 +4248,15 @@ format: gfm
 
 ## 2021-10-21
 
-*14:28:35 - @Emily Collins has joined the channel*
+**Emily Collins** (14:28:35):
+> @Emily Collins has joined the channel
+
 
 ## 2021-10-29
 
-*13:22:24 - @Enrico Ferrero has joined the channel*
+**Enrico Ferrero** (13:22:24):
+> @Enrico Ferrero has joined the channel
+
 
 ## 2021-11-03
 
@@ -4004,11 +4269,15 @@ format: gfm
 **Jared Andrews** (10:05:03):
 > I think people use Kraken for this:[https://www.ebi.ac.uk/research/enright/software/kraken](https://www.ebi.ac.uk/research/enright/software/kraken)
 
-*10:09:13 - @Jeroen Gilis has joined the channel*
+**Jeroen Gilis** (10:09:13):
+> @Jeroen Gilis has joined the channel
+
 
 ## 2021-11-08
 
-*03:29:38 - @Paula Nieto García has joined the channel*
+**Paula Nieto García** (03:29:38):
+> @Paula Nieto García has joined the channel
+
 
 ## 2021-11-19
 
@@ -4036,7 +4305,9 @@ format: gfm
 
 ## 2021-12-01
 
-*11:21:14 - @Alexander Bender has joined the channel*
+**Alexander Bender** (11:21:14):
+> @Alexander Bender has joined the channel
+
 
 ## 2021-12-06
 
@@ -4087,16 +4358,18 @@ format: gfm
 
 ## 2022-01-03
 
-*17:05:25 - @Kurt Showmaker has joined the channel*
+**Kurt Showmaker** (17:05:25):
+> @Kurt Showmaker has joined the channel
+
 
 ## 2022-01-10
 
 **Aaron Lun** (12:59:50):
 > [https://twitter.com/jayaram/status/1480599647039016962](https://twitter.com/jayaram/status/1480599647039016962)
   - Attachment (twitter): [Attachment](https://twitter.com/jayaram/status/1480599647039016962)
-    > Today Aaron and I are excited to announce Kana [https://www.jkanche.com/kana](https://www.jkanche.com/kana), an app to perform #SingleCell RNA-seq analysis in the browser. Yes you read that right, the calculations are performed client-side, by your browser, on your laptop! #webassembly
-    > 
-    > Want to analyze your data?:thread: [https://pbs.twimg.com/media/FIwJKVqUYAU4eXi.jpg](https://pbs.twimg.com/media/FIwJKVqUYAU4eXi.jpg)
+> Today Aaron and I are excited to announce Kana [https://www.jkanche.com/kana](https://www.jkanche.com/kana), an app to perform #SingleCell RNA-seq analysis in the browser. Yes you read that right, the calculations are performed client-side, by your browser, on your laptop! #webassembly
+> 
+> Want to analyze your data?:thread: [https://pbs.twimg.com/media/FIwJKVqUYAU4eXi.jpg](https://pbs.twimg.com/media/FIwJKVqUYAU4eXi.jpg)
 
 **Rob Patro** (15:16:47):
 > very cool!
@@ -4110,7 +4383,9 @@ format: gfm
 **rohitsatyam102** (06:42:36) (in thread):
 > I liked playing ping pong, but the screen was also moving up and down along with the ping pong paddles.
 
-*09:41:29 - @Levi Waldron has joined the channel*
+**Levi Waldron** (09:41:29):
+> @Levi Waldron has joined the channel
+
 **Jayaram Kancherla** (10:49:47) (in thread):
 > its a new type of ping pong:stuck_out_tongue:
 
@@ -4130,7 +4405,7 @@ format: gfm
 **Charlotte Soneson** (04:52:12) (in thread):
 > Not really. However, you can get the summary tables with the`readAlevinQC()`function and combine them manually ([https://csoneson.github.io/alevinQC/articles/alevinqc.html#generate-individual-plots](https://csoneson.github.io/alevinQC/articles/alevinqc.html#generate-individual-plots)).
   - Attachment (csoneson.github.io): [alevinQC](https://csoneson.github.io/alevinQC/articles/alevinqc.html#generate-individual-plots)
-    > alevinQC
+> alevinQC
 
 **Alexander Bender** (05:08:28) (in thread):
 > That's all I need. Thanks!
@@ -4138,7 +4413,9 @@ format: gfm
 
 ## 2022-01-19
 
-*10:11:21 - @Stephany Orjuela has left the channel*
+**Stephany Orjuela** (10:11:21):
+> @Stephany Orjuela has left the channel
+
 
 ## 2022-02-01
 
@@ -4182,7 +4459,9 @@ format: gfm
 
 ## 2022-02-15
 
-*12:01:38 - @Gene Cutler has joined the channel*
+**Gene Cutler** (12:01:38):
+> @Gene Cutler has joined the channel
+
 
 ## 2022-02-17
 
@@ -4210,7 +4489,7 @@ format: gfm
 **Enrico Ferrero** (12:46:34):
 > Hello everyone, I recently came across this interesting paper on covarying neighbourhood analysis (CNA), which establishes a framework to test for associations between groups of cells (e.g., cell clusters or "neighbourhoods") and phenotypes (e.g., clinical variables, experimental conditions):[https://www.nature.com/articles/s41587-021-01066-4](https://www.nature.com/articles/s41587-021-01066-4)The Python cna package in built on top of scanpy:[https://github.com/immunogenomics/cna](https://github.com/immunogenomics/cna)Are there options to perform a similar kind of analysis within the SingleCellExperiment framework?
   - Attachment (Nature): [Co-varying neighborhood analysis identifies cell populations associated with phenotypes of interest from single-cell transcriptomics](https://www.nature.com/articles/s41587-021-01066-4)
-    > Nature Biotechnology - Inter-sample variability reveals disease-associated cell subpopulations in single-cell RNA sequencing.
+> Nature Biotechnology - Inter-sample variability reveals disease-associated cell subpopulations in single-cell RNA sequencing.
 
 
 ## 2022-02-22
@@ -4234,7 +4513,7 @@ format: gfm
 **Nadine Bestard-Cuche** (14:59:35) (in thread):
 > I see that one of the problems that this method is trying to overcome is that "Current statistical approaches typically map cells to clusters and then assess differences in cluster abundance". [MILO]([https://www.nature.com/articles/s41587-021-01033-z](https://www.nature.com/articles/s41587-021-01033-z)) also tries to find an alternative for this same step, using neighborhoods of cells (not exactly the same, but might be useful)
   - Attachment (Nature): [Differential abundance testing on single-cell data using k-nearest neighbor graphs](https://www.nature.com/articles/s41587-021-01033-z)
-    > Nature Biotechnology - Milo identifies differentially abundant populations of cells in scRNA-seq data without clustering.
+> Nature Biotechnology - Milo identifies differentially abundant populations of cells in scRNA-seq data without clustering.
 
 
 ## 2022-03-04
@@ -4245,11 +4524,15 @@ format: gfm
 
 ## 2022-03-21
 
-*05:02:47 - @Pedro Sanchez has joined the channel*
+**Pedro Sanchez** (05:02:47):
+> @Pedro Sanchez has joined the channel
+
 
 ## 2022-03-23
 
-*04:40:42 - @Doortje Theunissen has joined the channel*
+**Doortje Theunissen** (04:40:42):
+> @Doortje Theunissen has joined the channel
+
 
 ## 2022-03-29
 
@@ -4298,14 +4581,16 @@ format: gfm
 
 ## 2022-05-03
 
-*06:55:49 - @Ray Su has joined the channel*
+**Ray Su** (06:55:49):
+> @Ray Su has joined the channel
+
 
 ## 2022-05-11
 
 **Jenny Drnevich** (10:07:13):
 > I need to get some data from a Biorxiv preprint and the data availability statement just says "The scRNAseq count matrix dataset was deposited in OSF". Anyone know what this is?[https://www.biorxiv.org/content/10.1101/2022.02.08.479522v1.full](https://www.biorxiv.org/content/10.1101/2022.02.08.479522v1.full)
   - Attachment (bioRxiv): [A single cell atlas of the cycling murine ovary](https://www.biorxiv.org/content/10.1101/2022.02.08.479522v1.full)
-    > The estrous cycle is regulated by rhythmic endocrine interactions of the nervous and reproductive systems, which coordinate the hormonal and ovulatory functions of the ovary. Folliculogenesis and follicle progression require the orchestrated response of a variety of cell types to allow the maturation of the follicle and its sequela, ovulation, corpus luteum (CL) formation, and ovulatory wound repair. Little is known about the cell state dynamics of the ovary during the estrous cycle, and the paracrine factors that help coordinate this process. Herein we used single-cell RNA sequencing to evaluate the transcriptome of > 34,000 cells of the adult mouse ovary and describe the transcriptional changes that occur across the normal estrous cycle and other reproductive states to build a comprehensive dynamic atlas of murine ovarian cell types and states. ### Competing Interest Statement The authors have declared no competing interest.
+> The estrous cycle is regulated by rhythmic endocrine interactions of the nervous and reproductive systems, which coordinate the hormonal and ovulatory functions of the ovary. Folliculogenesis and follicle progression require the orchestrated response of a variety of cell types to allow the maturation of the follicle and its sequela, ovulation, corpus luteum (CL) formation, and ovulatory wound repair. Little is known about the cell state dynamics of the ovary during the estrous cycle, and the paracrine factors that help coordinate this process. Herein we used single-cell RNA sequencing to evaluate the transcriptome of > 34,000 cells of the adult mouse ovary and describe the transcriptional changes that occur across the normal estrous cycle and other reproductive states to build a comprehensive dynamic atlas of murine ovarian cell types and states. ### Competing Interest Statement The authors have declared no competing interest.
 
 **Hans-Rudolf Hotz** (10:19:07) (in thread):
 > OSF is probably:[https://osf.io/](https://osf.io/)after a quick search, I found this:[https://osf.io/9cvym/](https://osf.io/9cvym/)
@@ -4343,7 +4628,9 @@ format: gfm
 
 ## 2022-06-28
 
-*00:48:22 - @GuandongShang has joined the channel*
+**GuandongShang** (00:48:22):
+> @GuandongShang has joined the channel
+
 **GuandongShang** (00:56:58):
 > Hi, everyone. I want to select a package can do cell type deconvolution, which means I have a 10x scRNA-seq data and have many same tissue(mutant or wt) bulk RNA-seq and want to know the cell-type fraction in these bulk RNA-seq. I have seen AutoGeneS, but it is a python package. I am wondering whether someone can recommend a R package and can treat SingleCellExperiment or seurat object.
 
@@ -4371,15 +4658,21 @@ format: gfm
 
 ## 2022-07-04
 
-*19:45:25 - @Andrew J. Rech has joined the channel*
+**Andrew J. Rech** (19:45:25):
+> @Andrew J. Rech has joined the channel
+
 
 ## 2022-07-07
 
-*14:27:34 - @Clara Pereira has joined the channel*
+**Clara Pereira** (14:27:34):
+> @Clara Pereira has joined the channel
+
 
 ## 2022-07-11
 
-*00:15:23 - @Andrew McDavid has joined the channel*
+**Andrew McDavid** (00:15:23):
+> @Andrew McDavid has joined the channel
+
 **Andrew McDavid** (00:27:17):
 > has anyone had luck with the kallisto kite workflow for cite seq quantitation on the chromium v3 chemistry?  I'm getting some odd behavior with the cell barcodes that are recovered there (ie essentially no overlap with the ones reported from cellranger), although the protein expression and number of recovered cells is plausible.  I think there's something arcane with the chemistry in the 10x feature barcoding kits (beyond that the middle two bases in the barcode are reverse complemented in feature barcoded libraries compared to the GEX libraries)...
 
@@ -4395,7 +4688,9 @@ format: gfm
 
 ## 2022-07-13
 
-*14:58:59 - @Alan Aw has joined the channel*
+**Alan Aw** (14:58:59):
+> @Alan Aw has joined the channel
+
 **Alan Aw** (15:01:41):
 > Hi, I have a question about normalization of raw counts data. These are the methods I am aware of:
 > * log-normalization ([link](https://satijalab.org/seurat/reference/normalizedata))
@@ -4405,9 +4700,9 @@ format: gfm
 > * ***my goal is to remove technical noise from the counts, in order to perform DE analysis***
 > Finally, you may assume that I will run Wilcoxon tests on the normalized data. Appreciate any advice on this:slightly_smiling_face:
   - Attachment (satijalab.org): [Normalize Data — NormalizeData](https://satijalab.org/seurat/reference/normalizedata)
-    > Normalize the count data present in a given assay.
+> Normalize the count data present in a given assay.
   - Attachment (satijalab.org): [Introduction to SCTransform, v2 regularization](https://satijalab.org/seurat/articles/sctransform_v2_vignette.html)
-    > Seurat
+> Seurat
 
 **Steve Lianoglou** (15:53:04) (in thread):
 > In broad strokes:
@@ -4416,7 +4711,7 @@ format: gfm
 > 3. I'd then perform DE analysis by pseudo-bulking the data at the appropriate level of resolution (sample:celltype or sample:cluster)[as explained here](http://bioconductor.org/books/3.15/OSCA.multisample/multi-sample-comparisons.html)(as opposed to using the Wilcoxon approach)
 > That all assumes that you have biological replicates, though.
   - Attachment (bioconductor.org): [Chapter 4 DE analyses between conditions | Multi-Sample Single-Cell Analyses with Bioconductor](http://bioconductor.org/books/3.15/OSCA.multisample/multi-sample-comparisons.html)
-    > Chapter 4 DE analyses between conditions | Multi-Sample Single-Cell Analyses with Bioconductor
+> Chapter 4 DE analyses between conditions | Multi-Sample Single-Cell Analyses with Bioconductor
 
 **Steve Lianoglou** (15:57:38) (in thread):
 > You may also want to have a look at the new[countsplit](https://anna-neufeld.github.io/countsplit/)package for DE testing, as well (you'll find a link to their preprint on that github page as well). Even if you don't end up using it, it does point out some things to be aware of when doing standard DE approaches on scRNAseq data.
@@ -4427,7 +4722,9 @@ format: gfm
 
 ## 2022-07-15
 
-*15:18:27 - @Ashley Robbins has joined the channel*
+**Ashley Robbins** (15:18:27):
+> @Ashley Robbins has joined the channel
+
 
 ## 2022-07-17
 
@@ -4450,7 +4747,7 @@ format: gfm
 **Tim Triche** (11:15:31):
 > [https://www.biorxiv.org/content/10.1101/2021.06.24.449781v3](https://www.biorxiv.org/content/10.1101/2021.06.24.449781v3)re: transformations
   - Attachment (bioRxiv): [Comparison of Transformations for Single-Cell RNA-Seq Data](https://www.biorxiv.org/content/10.1101/2021.06.24.449781v3)
-    > The count table, a numeric matrix of genes × cells, is the basic input data structure in the analysis of single-cell RNA-seq data. A common preprocessing step is to adjust the counts for variable sampling efficiency and to transform them so that the variance is similar across the dynamic range. These steps are intended to make subsequent application of generic statistical methods more palatable. Here, we describe four transformation approaches based on the delta method, model residuals, inferred latent expression state, and factor analysis. We compare their strengths and weaknesses and find that the latter three have appealing theoretical properties. However, in benchmarks using simulated and real-world data, it turns out that a rather simple approach, namely, the logarithm with a pseudo-count followed by principal component analysis, performs as well or better than the more sophisticated alternatives. ### Competing Interest Statement The authors have declared no competing interest.
+> The count table, a numeric matrix of genes × cells, is the basic input data structure in the analysis of single-cell RNA-seq data. A common preprocessing step is to adjust the counts for variable sampling efficiency and to transform them so that the variance is similar across the dynamic range. These steps are intended to make subsequent application of generic statistical methods more palatable. Here, we describe four transformation approaches based on the delta method, model residuals, inferred latent expression state, and factor analysis. We compare their strengths and weaknesses and find that the latter three have appealing theoretical properties. However, in benchmarks using simulated and real-world data, it turns out that a rather simple approach, namely, the logarithm with a pseudo-count followed by principal component analysis, performs as well or better than the more sophisticated alternatives. ### Competing Interest Statement The authors have declared no competing interest.
 
 **Pedro Sanchez** (11:16:58) (in thread):
 > I want to tell my PI I won’t come the next month to the lab because I want to read all the sc normalization literature:sweat_smile:
@@ -4497,7 +4794,9 @@ format: gfm
 **Tim Triche** (14:59:02):
 > nb. strongly recommend reading this recent paper on count splitting for more on the duality of discrete vs. continuous states and testing for both without double dipping.  it's also implemented already in R and python:[https://arxiv.org/pdf/2207.00554.pdf](https://arxiv.org/pdf/2207.00554.pdf)
 
-*17:21:31 - @Anna Reisetter has joined the channel*
+**Anna Reisetter** (17:21:31):
+> @Anna Reisetter has joined the channel
+
 
 ## 2022-07-20
 
@@ -4516,7 +4815,7 @@ format: gfm
 **Tim Triche** (07:47:22) (in thread):
 > [https://arxiv.org/abs/2207.00554](https://arxiv.org/abs/2207.00554)
   - Attachment (arXiv.org): [Inference after latent variable estimation for single-cell RNA...](https://arxiv.org/abs/2207.00554)
-    > In the analysis of single-cell RNA sequencing data, researchers often characterize the variation between cells by estimating a latent variable, such as cell type or pseudotime, representing some...
+> In the analysis of single-cell RNA sequencing data, researchers often characterize the variation between cells by estimating a latent variable, such as cell type or pseudotime, representing some...
 
 **Tim Triche** (07:47:40) (in thread):
 > It is quite tricky to control the error rate otherwise!
@@ -4524,13 +4823,17 @@ format: gfm
 **Tim Triche** (08:03:01):
 > Countsplitting site:[https://anna-neufeld.github.io/countsplit/](https://anna-neufeld.github.io/countsplit/)
   - Attachment (anna-neufeld.github.io): [Splitting a Poisson count matrix into independent training and testing matrices.](https://anna-neufeld.github.io/countsplit/)
-    > Implements the count splitting methodology from the paper "Inference after latent variable estimation for single cell RNA sequencing data" (Neufeld et al., 2022).
+> Implements the count splitting methodology from the paper "Inference after latent variable estimation for single cell RNA sequencing data" (Neufeld et al., 2022).
 
 
 ## 2022-07-28
 
-*17:21:13 - @Mervin Fansler has joined the channel*
-*18:43:36 - @Erick Cuevas has joined the channel*
+**Mervin Fansler** (17:21:13):
+> @Mervin Fansler has joined the channel
+
+**Erick Cuevas** (18:43:36):
+> @Erick Cuevas has joined the channel
+
 **Erick Cuevas** (18:50:18):
 > Hello, is there any known software or tool to do meta analysis of multiple scRNA data?
 
@@ -4540,7 +4843,9 @@ format: gfm
 
 ## 2022-08-02
 
-*05:09:49 - @Alvaro Sanchez has joined the channel*
+**Alvaro Sanchez** (05:09:49):
+> @Alvaro Sanchez has joined the channel
+
 
 ## 2022-08-04
 
@@ -4550,7 +4855,9 @@ format: gfm
 
 ## 2022-08-15
 
-*13:15:52 - @Michael Kaufman has joined the channel*
+**Michael Kaufman** (13:15:52):
+> @Michael Kaufman has joined the channel
+
 
 ## 2022-09-02
 
@@ -4561,36 +4868,54 @@ format: gfm
 
 ## 2022-09-13
 
-*17:48:22 - @Alex Schrader has joined the channel*
+**Alex Schrader** (17:48:22):
+> @Alex Schrader has joined the channel
+
 
 ## 2022-09-19
 
-*16:51:32 - @Ryan Williams has joined the channel*
+**Ryan Williams** (16:51:32):
+> @Ryan Williams has joined the channel
+
 
 ## 2022-09-27
 
-*16:14:59 - @Jennifer Holmes has joined the channel*
-*22:14:37 - @vin has joined the channel*
+**Jennifer Holmes** (16:14:59):
+> @Jennifer Holmes has joined the channel
+
+**vin** (22:14:37):
+> @vin has joined the channel
+
 
 ## 2022-10-06
 
-*05:38:02 - @Devika Agarwal has joined the channel*
+**Devika Agarwal** (05:38:02):
+> @Devika Agarwal has joined the channel
+
 
 ## 2022-10-20
 
-*01:25:40 - @Connie Li Wai Suen has joined the channel*
+**Connie Li Wai Suen** (01:25:40):
+> @Connie Li Wai Suen has joined the channel
+
 
 ## 2022-10-28
 
-*12:29:41 - @Vandenbulcke Stijn has joined the channel*
+**Vandenbulcke Stijn** (12:29:41):
+> @Vandenbulcke Stijn has joined the channel
+
 
 ## 2022-10-31
 
-*10:05:40 - @Chenyue Lu has joined the channel*
+**Chenyue Lu** (10:05:40):
+> @Chenyue Lu has joined the channel
+
 
 ## 2022-11-06
 
-*11:21:31 - @Sherine Khalafalla Saber has joined the channel*
+**Sherine Khalafalla Saber** (11:21:31):
+> @Sherine Khalafalla Saber has joined the channel
+
 
 ## 2022-11-29
 
@@ -4621,13 +4946,21 @@ format: gfm
 
 ## 2022-12-12
 
-*17:58:20 - @Umran has joined the channel*
-*17:59:50 - @Lexi Bounds has joined the channel*
+**Umran** (17:58:20):
+> @Umran has joined the channel
+
+**Lexi Bounds** (17:59:50):
+> @Lexi Bounds has joined the channel
+
 
 ## 2022-12-13
 
-*08:58:37 - @Lea Seep has joined the channel*
-*09:01:29 - @Ana Cristina Guerra de Souza has joined the channel*
+**Lea Seep** (08:58:37):
+> @Lea Seep has joined the channel
+
+**Ana Cristina Guerra de Souza** (09:01:29):
+> @Ana Cristina Guerra de Souza has joined the channel
+
 
 ## 2022-12-20
 
@@ -4640,7 +4973,9 @@ format: gfm
 **Jared Andrews** (10:34:15):
 > The patterning is an interesting idea, how does it look with mixed populations though?
 
-*10:41:37 - @Jennifer Foltz has joined the channel*
+**Jennifer Foltz** (10:41:37):
+> @Jennifer Foltz has joined the channel
+
 **Jennifer Foltz** (11:10:21):
 > Hi all! I recently started digging into NMF for scRNAseq analysis!:tada:I’ve been playing around with`CoGAPS`and really enjoying its ease of use. I’ve come across a couple questions about it, would anyone here be willing to share their knowledge on`CoGAPS`and answer a few questions? I would be so grateful!
 
@@ -4808,15 +5143,21 @@ format: gfm
 
 ## 2023-01-08
 
-*05:31:20 - @Pageneck Chikondowa has joined the channel*
+**Pageneck Chikondowa** (05:31:20):
+> @Pageneck Chikondowa has joined the channel
+
 
 ## 2023-01-18
 
-*22:32:28 - @Jenea Adams has joined the channel*
+**Jenea Adams** (22:32:28):
+> @Jenea Adams has joined the channel
+
 
 ## 2023-01-26
 
-*12:32:59 - @Yu Zhang has joined the channel*
+**Yu Zhang** (12:32:59):
+> @Yu Zhang has joined the channel
+
 **Aedin Culhane** (14:07:19):
 > ***HCA Biological Network Seminar******Thursday 09 February 2023******10:30-12:00 EDT | 15:30-17:00 BST***Please join us for the upcoming Biological Networks Seminar on Thursday 9th February 2023, featuring updates on Atlas Integration and CAP (Cell Annotation Platform).
 > 
@@ -4826,9 +5167,9 @@ format: gfm
 > 
 > Register[here](https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fu25091498.ct.sendgrid.net%2Fls%2Fclick%3Fupn%3DxhQH-2FUcYdyqYwOLz400BpxaYvGTyUVP1KSrQxC-2BPXpJhCh3zyHnX412GMwpBxZ4qhIrsV1UWy7LtDDUR5e9H9c5MPXzgWKSIhIPdLdZ5l7IXFq6aO-2BPgkVeVpxNVyl1-2BoAIKaY0XFOwEvahUXpp2ycGGS1Dx3LJXSUdE4QmNTPVPQtMz3tl8MPhwDrt1iH73jZ5DUx-2BSCClANXZO182hm6gIBpbUtck7Vuhh24KSf8xUxfcUMUMDUi-2FUNF6bFeCLZkseq-2BXtS74u9hFulcFmhyENZXPFVYFYhYoPMZisfPM9fL7BaPPT-2BrHxhpVa5o-2BxKdH0mLSt6WcKVNXjhR0LmrA-2FP9t5A6O0vYd2EJtSeIRTEw8Awf-2FCD9UHrQNXEUP-2BjsCay1pdwWYOaz2fJSZl-2FCbnE-2Bk985-2FS5JgBdgh9kXNZ5-2FAH7WWA37PD8tFbtiBKI82lxS8f-2B7Fm7XOpLk7VStpmW6WhlRuGT1r-2FjfT9YV0-3Dj7et_R8p2gfMBWEZT07VF-2F-2BI6yFKdD9rlgLFpuZWM35eyqCKVjl5nBr4uIPotb3l0RVSDq2SEAbSEVXKCTIF44E-2FgEKHWPoLcDKR-2BBpknhInYZIOeTWa0bKw8OVLXK-2FHfup8EHAgmpLZSCvqgEjiAdq9ZGMEzUALr5h-2BrrUzKtjhzUQ84GKzTVxtTCEydg9JKKtmq1f-2BNrSh5VN09pFAyBYh1FdcNwVtq-2FWldbpMMT-2BPusx3zJbd8N2l0-2BMXX-2Fo-2B1VftvyqX9TKbAnoaLyADJrzDzaAKqVKuhfv4g52PzocfESXaUozhNB0PwtlFpXcyXVduG6Sy9ma5f4Jr2w13X3erimN2J0lIQjq-2FG6JVCYoSPHsYmpakYpNrwJpudxU9yckxF&data=05%7C01%7Caedin.culhane%40ul.ie%7C607d4bf968f74b09b23008daffcae190%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638103544100338144%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=Sb2WzIdlIVy%2FYmCgJ1thuYtfFgCcriWpe8Md51aMnyI%3D&reserved=0). We hope you can join us.
   - Attachment (humancellatlas.org): [Biological Network Seminar Series](https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fu25091498.ct.sendgrid.net%2Fls%2Fclick%3Fupn%3DxhQH-2FUcYdyqYwOLz400BpxIOtvcoObkFKNGTbfQkj4BjYYQSRzZU6HhWHpf8-2FzDhxG1D-2B53bGmTOu6t985-2BNlNvUKHJsKfwe8ec9CWhKnzI-3DJsG-_R8p2gfMBWEZT07VF-2F-2BI6yFKdD9rlgLFpuZWM35eyqCKVjl5nBr4uIPotb3l0RVSDq2SEAbSEVXKCTIF44E-2FgEKHWPoLcDKR-2BBpknhInYZIOeTWa0bKw8OVLXK-2FHfup8EHAgmpLZSCvqgEjiAdq9ZGMEzUALr5h-2BrrUzKtjhzUQ84GKzTVxtTCEydg9JKKtmqwO2Nc-2F4GDECS4hux4-2BIf1tNqaISyiPN87zi9krqd9MspCz5Hp9sK9-2BBTRSEyp4TBKWqX2bCj5a-2F5-2FuBDmu5yQDTELOMhjzj2f-2FHg-2FmsGM2FeAUXcrKJM-2BMDVuH1YVx1-2B-2B5rUAt-2BWNQDhFlPZ1kKc5XmW5Ic5Sa5auBMMv3vbz-2F-2B-2Fc3s-2FE-2FC8UKTgtg9FH5jV&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7C607d4bf968f74b09b23008daffcae190%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638103544100026881%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=PNbO9%2BWISp3dpK85c%2FJnfTwze4ZEgjyN3EcO45YxZ4w%3D&amp;reserved=0)
-    > To create comprehensive reference maps of all human cells—the fundamental units of life—as a basis for both understanding human health and diagnosing, monitoring, and treating disease.
+> To create comprehensive reference maps of all human cells—the fundamental units of life—as a basis for both understanding human health and diagnosing, monitoring, and treating disease.
   - Attachment (Zoom): [Welcome! You are invited to join a webinar: HCA Bionetworks Seminar: Updates on Atlas Integration and CAP (Cell Annotation Platform). After registering, you will receive a confirmation email about joining the webinar.](https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fu25091498.ct.sendgrid.net%2Fls%2Fclick%3Fupn%3DxhQH-2FUcYdyqYwOLz400BpxaYvGTyUVP1KSrQxC-2BPXpJhCh3zyHnX412GMwpBxZ4qhIrsV1UWy7LtDDUR5e9H9c5MPXzgWKSIhIPdLdZ5l7IXFq6aO-2BPgkVeVpxNVyl1-2BoAIKaY0XFOwEvahUXpp2ycGGS1Dx3LJXSUdE4QmNTPVPQtMz3tl8MPhwDrt1iH73jZ5DUx-2BSCClANXZO182hm6gIBpbUtck7Vuhh24KSf8xUxfcUMUMDUi-2FUNF6bFeCLZkseq-2BXtS74u9hFulcFmhyENZXPFVYFYhYoPMZisfPM9fL7BaPPT-2BrHxhpVa5o-2BxKdH0mLSt6WcKVNXjhR0LmrA-2FP9t5A6O0vYd2EJtSeIRTEw8Awf-2FCD9UHrQNXEUP-2BjsCay1pdwWYOaz2fJSZl-2FCbnE-2Bk985-2FS5JgBdgh9kXNZ5-2FAH7WWA37PD8tFbtiBKI82lxS8f-2B7Fm7XOpLk7VStpmW6WhlRuGT1r-2FjfT9YV0-3Dj7et_R8p2gfMBWEZT07VF-2F-2BI6yFKdD9rlgLFpuZWM35eyqCKVjl5nBr4uIPotb3l0RVSDq2SEAbSEVXKCTIF44E-2FgEKHWPoLcDKR-2BBpknhInYZIOeTWa0bKw8OVLXK-2FHfup8EHAgmpLZSCvqgEjiAdq9ZGMEzUALr5h-2BrrUzKtjhzUQ84GKzTVxtTCEydg9JKKtmq1f-2BNrSh5VN09pFAyBYh1FdcNwVtq-2FWldbpMMT-2BPusx3zJbd8N2l0-2BMXX-2Fo-2B1VftvyqX9TKbAnoaLyADJrzDzaAKqVKuhfv4g52PzocfESXaUozhNB0PwtlFpXcyXVduG6Sy9ma5f4Jr2w13X3erimN2J0lIQjq-2FG6JVCYoSPHsYmpakYpNrwJpudxU9yckxF&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7C607d4bf968f74b09b23008daffcae190%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638103544100338144%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=Sb2WzIdlIVy%2FYmCgJ1thuYtfFgCcriWpe8Md51aMnyI%3D&amp;reserved=0)
-    > Please use an email address linked to your Zoom account, and make sure you are logged into that account when registering.
+> Please use an email address linked to your Zoom account, and make sure you are logged into that account when registering.
 
 **Tim Triche** (17:04:22):
 > I'll be there...
@@ -4836,7 +5177,9 @@ format: gfm
 
 ## 2023-01-31
 
-*09:11:17 - @Ahmad Al Ajami has joined the channel*
+**Ahmad Al Ajami** (09:11:17):
+> @Ahmad Al Ajami has joined the channel
+
 **brian capaldo** (13:05:27):
 > is is possible to update/override the`rownames`in a singleCell/summarized experiment object? I realize this is probably really poor OOD if it was easy to do so
 
@@ -4880,7 +5223,7 @@ format: gfm
 > If you haven’t already, take a read of[https://bioconductor.org/books/3.16/OSCA.multisample/differential-abundance.html](https://bioconductor.org/books/3.16/OSCA.multisample/differential-abundance.html)for methods to test for changes in cluster abundance.
 > Note that this requires you have biological replicates, as would any sensible statistical method for this type of analysis.
   - Attachment (bioconductor.org): [Chapter 6 Changes in cluster abundance | Multi-Sample Single-Cell Analyses with Bioconductor](https://bioconductor.org/books/3.16/OSCA.multisample/differential-abundance.html)
-    > Chapter 6 Changes in cluster abundance | Multi-Sample Single-Cell Analyses with Bioconductor
+> Chapter 6 Changes in cluster abundance | Multi-Sample Single-Cell Analyses with Bioconductor
 
 
 ## 2023-02-06
@@ -4897,7 +5240,9 @@ format: gfm
 
 ## 2023-02-22
 
-*01:44:33 - @michaelkleymn has joined the channel*
+**michaelkleymn** (01:44:33):
+> @michaelkleymn has joined the channel
+
 
 ## 2023-03-01
 
@@ -4907,7 +5252,9 @@ format: gfm
 **Pedro Sanchez** (06:16:15):
 > Also, in the case of having known inter-sample doublets, is it better to run`scDblFinder()`with`knownDoublets`or would you run`recoverDoublets()`? Thank you!
 
-*12:14:34 - @jeremymchacón has joined the channel*
+**jeremymchacón** (12:14:34):
+> @jeremymchacón has joined the channel
+
 
 ## 2023-03-02
 
@@ -4962,19 +5309,27 @@ format: gfm
 **Pierre-Luc Germain** (02:59:18) (in thread):
 > well I guess that's a good sign!
 
-*11:34:40 - @Meeta Mistry has joined the channel*
+**Meeta Mistry** (11:34:40):
+> @Meeta Mistry has joined the channel
+
 
 ## 2023-03-10
 
-*15:28:02 - @Edel Aron has joined the channel*
+**Edel Aron** (15:28:02):
+> @Edel Aron has joined the channel
+
 
 ## 2023-03-14
 
-*04:05:06 - @Jean Yang has joined the channel*
+**Jean Yang** (04:05:06):
+> @Jean Yang has joined the channel
+
 
 ## 2023-03-24
 
-*07:27:44 - @H. Emre has joined the channel*
+**H. Emre** (07:27:44):
+> @H. Emre has joined the channel
+
 
 ## 2023-03-30
 
@@ -4993,15 +5348,21 @@ format: gfm
 
 ## 2023-04-21
 
-*14:22:10 - @Kozo Nishida has joined the channel*
+**Kozo Nishida** (14:22:10):
+> @Kozo Nishida has joined the channel
+
 
 ## 2023-05-03
 
-*16:18:49 - @Rebecca Butler has joined the channel*
+**Rebecca Butler** (16:18:49):
+> @Rebecca Butler has joined the channel
+
 
 ## 2023-05-18
 
-*05:54:06 - @Oluwafemi Oyedele has joined the channel*
+**Oluwafemi Oyedele** (05:54:06):
+> @Oluwafemi Oyedele has joined the channel
+
 
 ## 2023-06-01
 
@@ -5011,27 +5372,27 @@ format: gfm
 **Kasper D. Hansen** (10:47:34):
 > This could be useful:[https://arxiv.org/abs/2305.06501](https://arxiv.org/abs/2305.06501)
   - Attachment (arXiv.org): [Challenges and opportunities to computationally deconvolve heterogeneous tissue with varying cell sizes using single cell RNA-sequencing datasets](https://arxiv.org/abs/2305.06501)
-    > Deconvolution of cell mixtures in "bulk" transcriptomic samples from
-    > homogenate human tissue is important for understanding the pathologies of
-    > diseases. However, several experimental and computational challenges remain in
-    > developing and implementing transcriptomics-based deconvolution approaches,
-    > especially those using a single cell/nuclei RNA-seq reference atlas, which are
-    > becoming rapidly available across many tissues. Notably, deconvolution
-    > algorithms are frequently developed using samples from tissues with similar
-    > cell sizes. However, brain tissue or immune cell populations have cell types
-    > with substantially different cell sizes, total mRNA expression, and
-    > transcriptional activity. When existing deconvolution approaches are applied to
-    > these tissues, these systematic differences in cell sizes and transcriptomic
-    > activity confound accurate cell proportion estimates and instead may quantify
-    > total mRNA content. Furthermore, there is a lack of standard reference atlases
-    > and computational approaches to facilitate integrative analyses, including not
-    > only bulk and single cell/nuclei RNA-seq data, but also new data modalities
-    > from spatial -omic or imaging approaches. New multi-assay datasets need to be
-    > collected with orthogonal data types generated from the same tissue block and
-    > the same individual, to serve as a "gold standard" for evaluating new and
-    > existing deconvolution methods. Below, we discuss these key challenges and how
-    > they can be addressed with the acquisition of new datasets and approaches to
-    > analysis.
+> Deconvolution of cell mixtures in "bulk" transcriptomic samples from
+> homogenate human tissue is important for understanding the pathologies of
+> diseases. However, several experimental and computational challenges remain in
+> developing and implementing transcriptomics-based deconvolution approaches,
+> especially those using a single cell/nuclei RNA-seq reference atlas, which are
+> becoming rapidly available across many tissues. Notably, deconvolution
+> algorithms are frequently developed using samples from tissues with similar
+> cell sizes. However, brain tissue or immune cell populations have cell types
+> with substantially different cell sizes, total mRNA expression, and
+> transcriptional activity. When existing deconvolution approaches are applied to
+> these tissues, these systematic differences in cell sizes and transcriptomic
+> activity confound accurate cell proportion estimates and instead may quantify
+> total mRNA content. Furthermore, there is a lack of standard reference atlases
+> and computational approaches to facilitate integrative analyses, including not
+> only bulk and single cell/nuclei RNA-seq data, but also new data modalities
+> from spatial -omic or imaging approaches. New multi-assay datasets need to be
+> collected with orthogonal data types generated from the same tissue block and
+> the same individual, to serve as a "gold standard" for evaluating new and
+> existing deconvolution methods. Below, we discuss these key challenges and how
+> they can be addressed with the acquisition of new datasets and approaches to
+> analysis.
 
 **Pedro Sanchez** (11:01:06) (in thread):
 > Indeed. Many thanks!!
@@ -5039,7 +5400,9 @@ format: gfm
 
 ## 2023-06-12
 
-*02:56:40 - @Carmen Navarron has joined the channel*
+**Carmen Navarron** (02:56:40):
+> @Carmen Navarron has joined the channel
+
 
 ## 2023-06-22
 
@@ -5086,7 +5449,7 @@ format: gfm
 **rohitsatyam102** (04:18:41):
 > Hi everyone. I need some advise on using ALRA for imputation. I have control-drug treated single cells from two different time points (so T1 ctrl, T1 treated, T2 ctrl and T2 treated where T1 and T2 have 1hr difference only ) and I want to use ALRA to perform imputation. In a[recent publication](https://www.nature.com/articles/s41467-021-27729-z#data-availability), the ALRA authors used "ALRA was applied on the merged and normalized data matrix." I wish to understand if I should perform ALRA imputation by taking all the data together or separately (all T1 imputed separately and T2 separately) or should impute control together and treatment together?
   - Attachment (Nature): [Zero-preserving imputation of single-cell RNA-seq data](https://www.nature.com/articles/s41467-021-27729-z#data-availability)
-    > Nature Communications - Missing values in scRNA-seq datasets can bias their analysis. Here, the authors threshold the low rank approximation of the expression matrix, so false zeros can be imputed...
+> Nature Communications - Missing values in scRNA-seq datasets can bias their analysis. Here, the authors threshold the low rank approximation of the expression matrix, so false zeros can be imputed...
 
 **Vince Carey** (11:41:43):
 > Working with a student at CSHL summer course.
@@ -5224,11 +5587,13 @@ format: gfm
 > 
 > there is of course some other cool use cases for imputation but wont get into them as it might take your question off topic
 
-*19:18:13 - @Sean Davis has joined the channel*
+**Sean Davis** (19:18:13):
+> @Sean Davis has joined the channel
+
 **Sean Davis** (19:19:25):
 > Is there an equivalent vignette/tutorial to this from SatijaLab in Bioconductor? I'm showing my lack of SC experience here, I know![https://satijalab.org/seurat/articles/atacseq_integration_vignette.html](https://satijalab.org/seurat/articles/atacseq_integration_vignette.html)
   - Attachment (satijalab.org): [Integrating scRNA-seq and scATAC-seq data](https://satijalab.org/seurat/articles/atacseq_integration_vignette.html)
-    > Seurat
+> Seurat
 
 
 ## 2023-07-11
@@ -5246,11 +5611,15 @@ format: gfm
 
 ## 2023-07-12
 
-*19:12:53 - @Kishori has joined the channel*
+**Kishori** (19:12:53):
+> @Kishori has joined the channel
+
 **Kishori** (19:13:20):
 > I am doing some 10x single-cell RNA seq analysis for mouse tumor data. I noticed a huge amount of Neutrophils (after processing through SingleR), but I was hoping to see some MDSC (Myyeloid-derived suppressor cells) as well. I don't even see MDSC labels in MDSC. Has anyone encountered this situation or has any idea how to detect MDSC? Any comments or suggestion  would be much appreciated.
 
-*19:13:31 - @Vivek Sharma has joined the channel*
+**Vivek Sharma** (19:13:31):
+> @Vivek Sharma has joined the channel
+
 **Vivek Sharma** (19:14:33) (in thread):
 > I’mstruggling to with similar issues. Any pointers will be appreciated
 
@@ -5258,8 +5627,12 @@ format: gfm
 > It's very unlikely there are MDSC in the reference dataset you are using, so there's no way any cells in your dataset will get that label by SingleR (which is a reference-based annotation tool).
 > What reference are you supplying to SingleR?
 
-*19:33:51 - @Axel Klenk has joined the channel*
-*19:43:10 - @Augustine has joined the channel*
+**Axel Klenk** (19:33:51):
+> @Axel Klenk has joined the channel
+
+**Augustine** (19:43:10):
+> @Augustine has joined the channel
+
 **Kishori** (20:07:23) (in thread):
 > @Peter HickeyI am using MouseRNAseqData, ImmGenData as references.
 
@@ -5271,23 +5644,41 @@ format: gfm
 **Peter Hickey** (20:12:48) (in thread):
 > See[https://bioconductor.org/books/release/SingleRBook/classic-mode.html#reference-choice](https://bioconductor.org/books/release/SingleRBook/classic-mode.html#reference-choice)for a discussion of the choice of reference dataset and why it's critical
   - Attachment (bioconductor.org): [Chapter 2 Using the classic mode | Assigning cell types with SingleR](https://bioconductor.org/books/release/SingleRBook/classic-mode.html#reference-choice)
-    > The SingleR book. Because sometimes, a vignette just isn’t enough.
+> The SingleR book. Because sometimes, a vignette just isn’t enough.
 
-*20:19:53 - @Noorul has joined the channel*
-*20:27:16 - @John Scanlan has joined the channel*
+**Noorul** (20:19:53):
+> @Noorul has joined the channel
+
+**John Scanlan** (20:27:16):
+> @John Scanlan has joined the channel
+
 **Kishori** (20:34:01) (in thread):
 > @Peter HickeyThank you! This is very useful information!
 
-*20:44:48 - @Marc Elosua has joined the channel*
+**Marc Elosua** (20:44:48):
+> @Marc Elosua has joined the channel
+
 
 ## 2023-07-13
 
-*04:01:45 - @Chris Chiu has joined the channel*
-*05:36:14 - @Liz Ing-Simmons has joined the channel*
-*07:59:26 - @Jacques SERIZAY has joined the channel*
-*08:54:42 - @kent riemondy has joined the channel*
-*11:12:13 - @Robert Castelo has joined the channel*
-*11:46:41 - @Jared Slosberg has joined the channel*
+**Chris Chiu** (04:01:45):
+> @Chris Chiu has joined the channel
+
+**Liz Ing-Simmons** (05:36:14):
+> @Liz Ing-Simmons has joined the channel
+
+**Jacques SERIZAY** (07:59:26):
+> @Jacques SERIZAY has joined the channel
+
+**kent riemondy** (08:54:42):
+> @kent riemondy has joined the channel
+
+**Robert Castelo** (11:12:13):
+> @Robert Castelo has joined the channel
+
+**Jared Slosberg** (11:46:41):
+> @Jared Slosberg has joined the channel
+
 
 ## 2023-07-15
 
@@ -5362,12 +5753,18 @@ format: gfm
 
 ## 2023-07-28
 
-*13:47:06 - @Konstantinos Daniilidis has joined the channel*
-*15:59:00 - @Benjamin Yang has joined the channel*
+**Konstantinos Daniilidis** (13:47:06):
+> @Konstantinos Daniilidis has joined the channel
+
+**Benjamin Yang** (15:59:00):
+> @Benjamin Yang has joined the channel
+
 
 ## 2023-07-30
 
-*10:42:04 - @Dipanjan Dey has joined the channel*
+**Dipanjan Dey** (10:42:04):
+> @Dipanjan Dey has joined the channel
+
 **Kasper D. Hansen** (16:17:09) (in thread):
 > This seems crazy
 
@@ -5383,16 +5780,24 @@ format: gfm
 
 ## 2023-08-02
 
-*14:43:41 - @Jamin Liu has joined the channel*
+**Jamin Liu** (14:43:41):
+> @Jamin Liu has joined the channel
+
 
 ## 2023-08-03
 
-*15:59:36 - @Ritika Giri has joined the channel*
-*23:55:27 - @tho nguyen has joined the channel*
+**Ritika Giri** (15:59:36):
+> @Ritika Giri has joined the channel
+
+**tho nguyen** (23:55:27):
+> @tho nguyen has joined the channel
+
 
 ## 2023-08-04
 
-*09:36:24 - @Trisha Timpug has joined the channel*
+**Trisha Timpug** (09:36:24):
+> @Trisha Timpug has joined the channel
+
 **Aedin Culhane** (14:15:34) (in thread):
 > Only seeing this now.Iwouldn’tdo harmony.It tends to over align.In this studyyou’llexpect diff cells in each “batch”.FastMNN might do the same.The alignment method we did in corral is more subtle.Sometimesit’snot forceful enough but it might remove some effects
 
@@ -5421,7 +5826,7 @@ format: gfm
 **rohitsatyam102** (11:23:53) (in thread):
 > The data is from PRJNA560557.[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8552519/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8552519/)
   - Attachment (PubMed Central (PMC)): [Single-Cell RNA Sequencing Reveals Cellular Heterogeneity and Stage Transition under Temperature Stress in Synchronized Plasmodium falciparum Cells](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8552519/)
-    > The malaria parasite has a complex life cycle exhibiting phenotypic and morphogenic variations in two different hosts by existing in heterogeneous developmental states. To investigate this cellular heterogeneity of the parasite within the human host, ...
+> The malaria parasite has a complex life cycle exhibiting phenotypic and morphogenic variations in two different hosts by existing in heterogeneous developmental states. To investigate this cellular heterogeneity of the parasite within the human host, ...
 
 **rohitsatyam102** (11:25:23) (in thread):
 > The cell ranger's intronic read percentage is also low i.e. 1.2 percent when I check the cell ranger summary report
@@ -5443,21 +5848,29 @@ format: gfm
 > 
 > you can use`STARsolo`with correct splice tags to generate spliced/unspliced counts , or I highly recommend using the`alevin-fry`method of generating a splici reference and spliced/unspliced counts[https://combine-lab.github.io/alevin-fry-tutorials/2021/alevin-fry-velocity/](https://combine-lab.github.io/alevin-fry-tutorials/2021/alevin-fry-velocity/)if this doesn't change your output , could be the data.
   - Attachment (combine-lab.github.io): [An introduction to RNA-velocity using alevin-fry](https://combine-lab.github.io/alevin-fry-tutorials/2021/alevin-fry-velocity/)
-    > Recently, RNA-velocity estimation has becomes increasingly popular tool in single-cell RNA seq analysis. In this post, we will discuss an additional advantage brought by the Unspliced-Spliced-Ambiguous (USA) mode introduced in alevin-fry 0.3.0 and later. That is, the solution presented in that approach for controlling the spurious mapping to spliced transcripts of sequenced fragments arising from introns (in the absence of full decoy) basically gives us the preprocessing results we need to perform an RNA-velocity analysis “for free”. Here we provide an end-to-end tutorial describing how to perform an RNA-velocity analysis for a 10x Chromium dataset. In this tutorial, we will show the whole analysis pipeline, starting from the raw FASTQ files to the gorgeous velocity plots (generated by scVelo) that you may like to include in your next analysis or paper.
+> Recently, RNA-velocity estimation has becomes increasingly popular tool in single-cell RNA seq analysis. In this post, we will discuss an additional advantage brought by the Unspliced-Spliced-Ambiguous (USA) mode introduced in alevin-fry 0.3.0 and later. That is, the solution presented in that approach for controlling the spurious mapping to spliced transcripts of sequenced fragments arising from introns (in the absence of full decoy) basically gives us the preprocessing results we need to perform an RNA-velocity analysis “for free”. Here we provide an end-to-end tutorial describing how to perform an RNA-velocity analysis for a 10x Chromium dataset. In this tutorial, we will show the whole analysis pipeline, starting from the raw FASTQ files to the gorgeous velocity plots (generated by scVelo) that you may like to include in your next analysis or paper.
 
 
 ## 2023-09-13
 
-*17:05:07 - @Christopher Chin has joined the channel*
+**Christopher Chin** (17:05:07):
+> @Christopher Chin has joined the channel
+
 
 ## 2023-09-20
 
-*04:50:58 - @Alik Huseynov has joined the channel*
-*05:30:06 - @Jaykishan has joined the channel*
+**Alik Huseynov** (04:50:58):
+> @Alik Huseynov has joined the channel
+
+**Jaykishan** (05:30:06):
+> @Jaykishan has joined the channel
+
 
 ## 2023-09-25
 
-*09:15:59 - @Kerim Secener has joined the channel*
+**Kerim Secener** (09:15:59):
+> @Kerim Secener has joined the channel
+
 
 ## 2023-09-28
 
@@ -5511,11 +5924,13 @@ format: gfm
 
 ## 2023-11-02
 
-*10:51:57 - @Sunil Poudel has joined the channel*
+**Sunil Poudel** (10:51:57):
+> @Sunil Poudel has joined the channel
+
 **Sunil Poudel** (10:59:35):
 > Our next seminar on Mon, Nov 06, 3-4 AM ET, will feature Ricard Argelaguet, who will discuss[principles and challenges in single-cell data integration](https://www.nature.com/articles/s41587-021-00895-7). Join us under the zoom link provided in the flyer below!
   - Attachment (Nature): [Computational principles and challenges in single-cell data integration](https://www.nature.com/articles/s41587-021-00895-7)
-    > Nature Biotechnology - As the number of single-cell experiments with multiple data modalities increases, Argelaguet and colleagues review the concepts and challenges of data integration.
+> Nature Biotechnology - As the number of single-cell experiments with multiple data modalities increases, Argelaguet and colleagues review the concepts and challenges of data integration.
   - File (PDF): [CCB_SeminarFlyer_Ricard.pdf](https://community-bioc.slack.com/files/U34P8RS3B/F064NTWPW8Y/ccb_seminarflyer_ricard.pdf)
 
 
@@ -5556,23 +5971,33 @@ format: gfm
 
 ## 2023-12-01
 
-*10:16:31 - @Tram Nguyen has joined the channel*
+**Tram Nguyen** (10:16:31):
+> @Tram Nguyen has joined the channel
+
 
 ## 2023-12-27
 
-*14:38:58 - @Cindy Reichel has joined the channel*
+**Cindy Reichel** (14:38:58):
+> @Cindy Reichel has joined the channel
+
 
 ## 2024-01-10
 
-*15:04:10 - @Bernie Mulvey has joined the channel*
+**Bernie Mulvey** (15:04:10):
+> @Bernie Mulvey has joined the channel
+
 
 ## 2024-01-11
 
-*12:01:22 - @Nilesh Kumar has joined the channel*
+**Nilesh Kumar** (12:01:22):
+> @Nilesh Kumar has joined the channel
+
 
 ## 2024-01-27
 
-*04:52:59 - @atongsa miyamoto has joined the channel*
+**atongsa miyamoto** (04:52:59):
+> @atongsa miyamoto has joined the channel
+
 
 ## 2024-02-02
 
@@ -5615,14 +6040,16 @@ format: gfm
 
 ## 2024-02-16
 
-*03:00:18 - @Jovana Maksimovic has joined the channel*
+**Jovana Maksimovic** (03:00:18):
+> @Jovana Maksimovic has joined the channel
+
 
 ## 2024-02-28
 
 **Jenny Drnevich** (11:00:57):
 > Anyone want to try this?[https://www.nature.com/articles/s41592-024-02201-0](https://www.nature.com/articles/s41592-024-02201-0)
   - Attachment (Nature): [scGPT: toward building a foundation model for single-cell multi-omics using generative AI](https://www.nature.com/articles/s41592-024-02201-0)
-    > Nature Methods - Pretrained using over 33 million single-cell RNA-sequencing profiles, scGPT is a foundation model facilitating a broad spectrum of downstream single-cell analysis tasks by transfer...
+> Nature Methods - Pretrained using over 33 million single-cell RNA-sequencing profiles, scGPT is a foundation model facilitating a broad spectrum of downstream single-cell analysis tasks by transfer...
 
 **Ludwig Geistlinger** (11:04:19) (in thread):
 > we actually did start to try this@Tyrone Lee
@@ -5630,14 +6057,18 @@ format: gfm
 **Jenny Drnevich** (11:07:52) (in thread):
 > Are you installing it yourself or trying the webapps? One thing you don't see a lot of with all the new AI models is discussion of compute/memory requirements
 
-*11:09:55 - @Tyrone Lee has joined the channel*
+**Tyrone Lee** (11:09:55):
+> @Tyrone Lee has joined the channel
+
 **Ludwig Geistlinger** (11:11:00) (in thread):
 > we've been installing it on our HPC cluster with GPU access. as soon as you do model training and fine-tuning things get intense and you'll need GPUs to get somewhere.
 
 **Ludwig Geistlinger** (11:11:14) (in thread):
 > Also@Andrew Ghazi
 
-*11:11:17 - @Andrew Ghazi has joined the channel*
+**Andrew Ghazi** (11:11:17):
+> @Andrew Ghazi has joined the channel
+
 **Jenny Drnevich** (11:12:02) (in thread):
 > I can see that being worthwhile if you're at a place doing lots of human single cell. Me, not so much!
 
@@ -5652,7 +6083,9 @@ format: gfm
 **Jenny Drnevich** (11:22:50) (in thread):
 > I still wonder how much all this AI is going to lock us into what we think we know now. "Expertly curated cell types" - my guess is that some of the data in the atlas is annotated incorrectly. I asked a LLM person who recently gave a talk here about accounting for uncertainty in the training data and they had never thought about it!
 
-*11:26:25 - @Kasper D. Hansen has left the channel*
+**Kasper D. Hansen** (11:26:25):
+> @Kasper D. Hansen has left the channel
+
 
 ## 2024-03-04
 
@@ -5668,22 +6101,28 @@ format: gfm
 
 ## 2024-03-05
 
-*01:33:48 - @Pratibha Panwar has joined the channel*
+**Pratibha Panwar** (01:33:48):
+> @Pratibha Panwar has joined the channel
+
 
 ## 2024-03-06
 
-*04:03:00 - @Luke Zappia has joined the channel*
+**Luke Zappia** (04:03:00):
+> @Luke Zappia has joined the channel
+
 
 ## 2024-03-11
 
-*11:40:59 - @Dania Machlab has joined the channel*
+**Dania Machlab** (11:40:59):
+> @Dania Machlab has joined the channel
+
 
 ## 2024-03-12
 
 **Peter Hickey** (00:11:49):
 > @Aaron Lunquoted in Nature. You've hit the the big time.[https://www.nature.com/articles/d41586-024-00725-1](https://www.nature.com/articles/d41586-024-00725-1)
   - Attachment (Nature): [No installation required: how WebAssembly is changing scientific computing](https://www.nature.com/articles/d41586-024-00725-1)
-    > Enabling code execution in the web browser, the multilanguage tool is powerful but complicated.
+> Enabling code execution in the web browser, the multilanguage tool is powerful but complicated.
 
 **Jonathan Griffiths** (04:18:36) (in thread):
 > And the quotes about about as stereotypically Aaron as you could imagine
@@ -5691,11 +6130,15 @@ format: gfm
 
 ## 2024-03-27
 
-*05:45:12 - @abhich has joined the channel*
+**abhich** (05:45:12):
+> @abhich has joined the channel
+
 
 ## 2024-03-28
 
-*02:41:10 - @Ivan Osinnii has joined the channel*
+**Ivan Osinnii** (02:41:10):
+> @Ivan Osinnii has joined the channel
+
 
 ## 2024-04-01
 
@@ -5730,29 +6173,29 @@ format: gfm
 **Aaron Lun** (13:42:46):
 > no need to correct for a batch effect, se[https://github.com/LTLA/SingleR/issues/129#issuecomment-638542261](https://github.com/LTLA/SingleR/issues/129#issuecomment-638542261)
   - Attachment: [Comment on #129 Dealing with Batch effect corrected data](https://github.com/LTLA/SingleR/issues/129#issuecomment-638542261)
-    > > **What's the input of SingleR (or other automatic cell annotation tools) if data were batch-corrected?**
-    > 
-    > Counts, counts, counts. (Or monotonic transformations thereof.)
-    > 
-    > Don't give `SingleR()` batch-corrected values, there is no guarantee that the correction preserves the ordering of expression values within each cell. In fact, there is no guarantee that the corrected expression values retain relevant biological information, see my comments <https://osca.bioconductor.org/integrating-datasets.html#using-corrected-values|here>.
-    > 
-    > To me, the only purpose for corrected expression values is to (i) generate a common set of clusters across all batches for easier interpretation and (ii) make a pretty t-SNE plot. All other analyses that can use the original counts should do so. For example, DE analyses should use the original counts (or log-expression values) and block on the batch to account for the batch effect.
-    > 
-    > > But I wonder what if the expression indeed affected by batch effect? Why wouldn't we apply the corrected data in this situation?
-    > 
-    > Now, that's the thing. **SingleR** is *already* correcting for a batch effect - the difference between your single-cell dataset and the references! These are big technical differences: if you're using the in-built references, then we're comparing single-cell data with *microarrays*. That's ancient history right there. I mean, that's a technology almost as old as me (or more, depending on how you count it).
-    > 
-    > If **SingleR** can deal with these massive technological differences, your little between-batch effects are nothing in comparison. So just let **SingleR** figure it out. As mentioned above, giving it corrected data may actually make the situation worse because the correction imposes many assumptions about which subpopulations should match up across batches.
-    > 
-    > > The batch correction only influences the tSNE/UMAP clustering result
-    > 
-    > I have to chip in here. Clustering is an independent process from visualization by t-SNE/UMAP. It is generally not a good idea to cluster on the t-SNE/UMAP coordinates, see arguments <https://osca.bioconductor.org/dimensionality-reduction.html#visualization-interpretation|here>.
-    > 
-    > > and thus cells annotated with the same cell type may be separated in different clusters.
-    > 
-    > Happens on occasion. For example, annotation separates T cells by CD4+ and CD8+, but the clustering might partition them into naive/stimulated grouping because that's the bigger axis of variation. No one's doing anything wrong here, both procedures are doing their job but the annotation has access to prior biological knowledge (through the sweat and tears of whoever generated and annotated the reference dataset) and the clustering does not.
-    > 
-    > Personally, I think it's more interesting when the two don't match up, as this tells me that there is something novel in the dataset that isn't captured by the existing annotation. If it's exactly the same... well, congratulations, you've just recapitulated known biology.
+> > **What's the input of SingleR (or other automatic cell annotation tools) if data were batch-corrected?**
+> 
+> Counts, counts, counts. (Or monotonic transformations thereof.)
+> 
+> Don't give `SingleR()` batch-corrected values, there is no guarantee that the correction preserves the ordering of expression values within each cell. In fact, there is no guarantee that the corrected expression values retain relevant biological information, see my comments <https://osca.bioconductor.org/integrating-datasets.html#using-corrected-values|here>.
+> 
+> To me, the only purpose for corrected expression values is to (i) generate a common set of clusters across all batches for easier interpretation and (ii) make a pretty t-SNE plot. All other analyses that can use the original counts should do so. For example, DE analyses should use the original counts (or log-expression values) and block on the batch to account for the batch effect.
+> 
+> > But I wonder what if the expression indeed affected by batch effect? Why wouldn't we apply the corrected data in this situation?
+> 
+> Now, that's the thing. **SingleR** is *already* correcting for a batch effect - the difference between your single-cell dataset and the references! These are big technical differences: if you're using the in-built references, then we're comparing single-cell data with *microarrays*. That's ancient history right there. I mean, that's a technology almost as old as me (or more, depending on how you count it).
+> 
+> If **SingleR** can deal with these massive technological differences, your little between-batch effects are nothing in comparison. So just let **SingleR** figure it out. As mentioned above, giving it corrected data may actually make the situation worse because the correction imposes many assumptions about which subpopulations should match up across batches.
+> 
+> > The batch correction only influences the tSNE/UMAP clustering result
+> 
+> I have to chip in here. Clustering is an independent process from visualization by t-SNE/UMAP. It is generally not a good idea to cluster on the t-SNE/UMAP coordinates, see arguments <https://osca.bioconductor.org/dimensionality-reduction.html#visualization-interpretation|here>.
+> 
+> > and thus cells annotated with the same cell type may be separated in different clusters.
+> 
+> Happens on occasion. For example, annotation separates T cells by CD4+ and CD8+, but the clustering might partition them into naive/stimulated grouping because that's the bigger axis of variation. No one's doing anything wrong here, both procedures are doing their job but the annotation has access to prior biological knowledge (through the sweat and tears of whoever generated and annotated the reference dataset) and the clustering does not.
+> 
+> Personally, I think it's more interesting when the two don't match up, as this tells me that there is something novel in the dataset that isn't captured by the existing annotation. If it's exactly the same... well, congratulations, you've just recapitulated known biology.
 
 **Aaron Lun** (13:56:17):
 > cells should not have the same scores. suggest you check the intersection of genes between the two datasets.
@@ -5783,12 +6226,18 @@ format: gfm
 
 ## 2024-04-25
 
-*05:02:21 - @Mercedes Guerrero has joined the channel*
+**Mercedes Guerrero** (05:02:21):
+> @Mercedes Guerrero has joined the channel
+
 
 ## 2024-04-29
 
-*08:29:25 - @Amarinder Singh Thind has joined the channel*
-*19:00:14 - @Jacqui Thompson has joined the channel*
+**Amarinder Singh Thind** (08:29:25):
+> @Amarinder Singh Thind has joined the channel
+
+**Jacqui Thompson** (19:00:14):
+> @Jacqui Thompson has joined the channel
+
 
 ## 2024-05-01
 
@@ -5849,11 +6298,15 @@ format: gfm
 
 ## 2024-05-06
 
-*11:56:57 - @Michal Kolář has joined the channel*
+**Michal Kolář** (11:56:57):
+> @Michal Kolář has joined the channel
+
 
 ## 2024-05-07
 
-*12:12:35 - @Carlo Pecoraro has joined the channel*
+**Carlo Pecoraro** (12:12:35):
+> @Carlo Pecoraro has joined the channel
+
 
 ## 2024-05-08
 
@@ -5869,11 +6322,15 @@ format: gfm
 
 ## 2024-05-09
 
-*07:40:06 - @Philippe Laffont has joined the channel*
+**Philippe Laffont** (07:40:06):
+> @Philippe Laffont has joined the channel
+
 
 ## 2024-05-15
 
-*08:30:58 - @Sunil Nahata has joined the channel*
+**Sunil Nahata** (08:30:58):
+> @Sunil Nahata has joined the channel
+
 
 ## 2024-05-31
 
@@ -5883,51 +6340,75 @@ format: gfm
 
 ## 2024-06-09
 
-*10:24:08 - @Saejeong Park has joined the channel*
+**Saejeong Park** (10:24:08):
+> @Saejeong Park has joined the channel
+
 
 ## 2024-06-10
 
-*09:35:54 - @Harshitha has joined the channel*
+**Harshitha** (09:35:54):
+> @Harshitha has joined the channel
+
 
 ## 2024-06-11
 
-*04:36:44 - @Ziru Chen has joined the channel*
+**Ziru Chen** (04:36:44):
+> @Ziru Chen has joined the channel
+
 
 ## 2024-06-19
 
-*13:26:58 - @Maria Doyle has joined the channel*
+**Maria Doyle** (13:26:58):
+> @Maria Doyle has joined the channel
+
 
 ## 2024-06-30
 
-*13:09:18 - @Nicolas Peterson has joined the channel*
+**Nicolas Peterson** (13:09:18):
+> @Nicolas Peterson has joined the channel
+
 
 ## 2024-07-11
 
-*07:20:25 - @Hothri Moka has joined the channel*
+**Hothri Moka** (07:20:25):
+> @Hothri Moka has joined the channel
+
 
 ## 2024-07-17
 
-*07:41:13 - @Michael Lynch has joined the channel*
+**Michael Lynch** (07:41:13):
+> @Michael Lynch has joined the channel
+
 
 ## 2024-08-04
 
-*14:58:43 - @sunnyday has joined the channel*
+**sunnyday** (14:58:43):
+> @sunnyday has joined the channel
+
 
 ## 2024-08-19
 
-*09:38:52 - @Rema Gesaka has joined the channel*
+**Rema Gesaka** (09:38:52):
+> @Rema Gesaka has joined the channel
+
 
 ## 2024-08-31
 
-*23:12:23 - @Zahraa W Alsafwani has joined the channel*
+**Zahraa W Alsafwani** (23:12:23):
+> @Zahraa W Alsafwani has joined the channel
+
 
 ## 2024-09-20
 
-*09:30:34 - @Camille Guillermin has joined the channel*
+**Camille Guillermin** (09:30:34):
+> @Camille Guillermin has joined the channel
+
 
 ## 2024-09-24
 
-*11:33:11 - @Zhu Yujia has joined the channel*
+**Zhu Yujia** (11:33:11):
+> @Zhu Yujia has joined the channel
+
 
 ## 2024-11-19
 
@@ -5949,7 +6430,9 @@ format: gfm
 
 ## 2024-11-22
 
-*11:50:43 - @Meg Urisko has joined the channel*
+**Meg Urisko** (11:50:43):
+> @Meg Urisko has joined the channel
+
 **Meg Urisko** (11:51:33):
 > :wave:Hi! I'm Meg, a user researcher at the Chan Zuckerberg Initiative:wave:I am running a survey to understand how folks use[the CZ CELLxGENE Discover Census](https://chanzuckerberg.github.io/cellxgene-census/). We want to learn more about what data you're interested in and how you download it.:arrow_right:[ ](https://chanzuck.co1.qualtrics.com/jfe/form/SV_etlnx8Hy6EZa5P8):link:[We would appreciate it if you could take our survey ](https://chanzuck.co1.qualtrics.com/jfe/form/SV_etlnx8Hy6EZa5P8):link::arrow_left::point_up_2:It should take about 10 minutes to complete, and we can offer you $10 Amazon eGift card as a thank-you for filling it out. We'd love to hear from as many Census users as possible, so please feel free to share this link with anyone you know who is using the Census:gratitude-thank-you:
 
@@ -5977,11 +6460,15 @@ format: gfm
 
 ## 2024-12-28
 
-*07:55:51 - @Pascal-Onaho has joined the channel*
+**Pascal-Onaho** (07:55:51):
+> @Pascal-Onaho has joined the channel
+
 
 ## 2025-01-09
 
-*11:40:44 - @Ammar Sabir Cheema has joined the channel*
+**Ammar Sabir Cheema** (11:40:44):
+> @Ammar Sabir Cheema has joined the channel
+
 
 ## 2025-01-22
 
@@ -5998,11 +6485,15 @@ format: gfm
 
 ## 2025-02-10
 
-*00:38:51 - @Mark has joined the channel*
+**Mark** (00:38:51):
+> @Mark has joined the channel
+
 
 ## 2025-02-20
 
-*14:39:34 - @António Domingues has joined the channel*
+**António Domingues** (14:39:34):
+> @António Domingues has joined the channel
+
 **António Domingues** (15:29:42):
 > I have a general question about experimental design and avoidance of confounding batch effects in single-cell, specifically in longitudinal experiments (time series). I looked up quite a few resources / papers, but none was particularly clear.
 > 
@@ -6034,7 +6525,7 @@ format: gfm
 **Tim Triche** (08:46:33) (in thread):
 > spike-ins are rarely discussed but probably ought to be:[https://www.nature.com/articles/s41592-022-01446-x#Sec8](https://www.nature.com/articles/s41592-022-01446-x#Sec8)
   - Attachment (Nature): [Molecular spikes: a gold standard for single-cell RNA counting](https://www.nature.com/articles/s41592-022-01446-x#Sec8)
-    > Nature Methods - This work presents an RNA spike-in that can be used to improve RNA counting in single-cell RNA-sequencing (scRNA-seq) analysis, as well as to report the performance of scRNA-seq...
+> Nature Methods - This work presents an RNA spike-in that can be used to improve RNA counting in single-cell RNA-sequencing (scRNA-seq) analysis, as well as to report the performance of scRNA-seq...
 
 **Tim Triche** (08:53:14) (in thread):
 > the joint UKBB/Technopole project is dealing with a lot of these issues, but I'm having trouble finding a link to it.  I***think***the PI is at HT in Milan, she presented at CZI a couple years in a row and her talk was memorable for discussing these issues.
@@ -6085,9 +6576,9 @@ format: gfm
 > @Peter Hickeyyou can check for the dataset from this paper,[https://pubmed.ncbi.nlm.nih.gov/32269339/](https://pubmed.ncbi.nlm.nih.gov/32269339/),
 > which was used to validate this pipeline ([https://link.springer.com/protocol/10.1007/978-1-0716-2938-3_22](https://link.springer.com/protocol/10.1007/978-1-0716-2938-3_22))
   - Attachment (PubMed): [A conserved dendritic-cell regulatory program limits antitumour immunity - PubMed](https://pubmed.ncbi.nlm.nih.gov/32269339/)
-    > Checkpoint blockade therapies have improved cancer treatment, but such immunotherapy regimens fail in a large subset of patients. Conventional type 1 dendritic cells (DC1s) control the response to checkpoint blockade in preclinical models and are associated with better overall survival in patients w …
+> Checkpoint blockade therapies have improved cancer treatment, but such immunotherapy regimens fail in a large subset of patients. Conventional type 1 dendritic cells (DC1s) control the response to checkpoint blockade in preclinical models and are associated with better overall survival in patients w …
   - Attachment (SpringerLink): [Harnessing Single-Cell RNA Sequencing to Identify Dendritic Cell Types](https://link.springer.com/protocol/10.1007/978-1-0716-2938-3_22)
-    > Dendritic cells (DCs) orchestrate innate and adaptive immunity, by translating the sensing of distinct danger signals into the induction of different effector lymphocyte responses, to induce the defense mechanisms the best suited to face the threat. Hence, DCs are...
+> Dendritic cells (DCs) orchestrate innate and adaptive immunity, by translating the sensing of distinct danger signals into the induction of different effector lymphocyte responses, to induce the defense mechanisms the best suited to face the threat. Hence, DCs are...
 
 **Peter Hickey** (17:22:29) (in thread):
 > As far as I can see, they only measured DCs from mice for the CITE-seq. Unfortunately I need a broader sampling of immune cell types than this, but thank you.
@@ -6095,11 +6586,15 @@ format: gfm
 
 ## 2025-03-11
 
-*07:12:09 - @Sanika Menkudale has joined the channel*
+**Sanika Menkudale** (07:12:09):
+> @Sanika Menkudale has joined the channel
+
 
 ## 2025-03-13
 
-*06:59:44 - @Mihai Todor has joined the channel*
+**Mihai Todor** (06:59:44):
+> @Mihai Todor has joined the channel
+
 
 ## 2025-04-03
 
@@ -6180,8 +6675,11 @@ format: gfm
 
 ## 2025-04-17
 
-*17:31:54 - @Juan Henao has joined the channel*
+**Juan Henao** (17:31:54):
+> @Juan Henao has joined the channel
+
 
 ## 2025-04-25
 
-*04:58:04 - @Marisa Loach has joined the channel*
+**Marisa Loach** (04:58:04):
+> @Marisa Loach has joined the channel

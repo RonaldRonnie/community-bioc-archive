@@ -3,54 +3,93 @@ title: "#tidiness_in_bioc"
 format: gfm
 ---
 
-
 ## 2018-12-10
 
-*15:14:41 - @Vince Carey has joined the channel*
+**Vince Carey** (15:14:41):
+> @Vince Carey has joined the channel
+
 **Vince Carey** (15:14:42):
 > set the channel description: discuss relationship of Bioc structures to tidyverse
 
-*15:14:42 - @Martin Morgan has joined the channel*
-*15:14:42 - @Stuart Lee has joined the channel*
-*15:14:42 - @Michael Lawrence has joined the channel*
-*15:14:42 - @Laurent Gatto has joined the channel*
+**Martin Morgan** (15:14:42):
+> @Martin Morgan has joined the channel
+
+**Stuart Lee** (15:14:42):
+> @Stuart Lee has joined the channel
+
+**Michael Lawrence** (15:14:42):
+> @Michael Lawrence has joined the channel
+
+**Laurent Gatto** (15:14:42):
+> @Laurent Gatto has joined the channel
+
 **Vince Carey** (15:19:36):
 > Welcome to the tidiness channel.  To cut to the quick. at Bioc Europe we had a brief discussion of options for using tidyverse concepts (linear command chains, small number of manipulation verbs, tidy data concept) with SummarizedExperiments.@Stuart Leeand@Michael Lawrencehave probably given this some thought.  I was particularly impressed by the plyranges talk given at Bioc2018 and felt sure that I should try to incorporate the key pedagogic themes there into work I try to do with SummarizedExperiments.  It has not proven all that easy, and before I go into more details I thought I would just see what kinds of work may already be going on in this direction.
 
 **Martin Morgan** (20:39:21):
 > Hmm... also[https://github.com/sa-lee/plyexperiment/issues/1](https://github.com/sa-lee/plyexperiment/issues/1)
   - Attachment (GitHub): [Design notes  · Issue #1 · sa-lee/plyexperiment](https://github.com/sa-lee/plyexperiment/issues/1)
-    > @lawremi&#39;s notes moved over from the plyranges wiki Design Goals We have basically the same goals as for (G)Ranges: make SummarizedExperiment easier to use. Data Structures The trouble with SE ...
+> @lawremi&#39;s notes moved over from the plyranges wiki Design Goals We have basically the same goals as for (G)Ranges: make SummarizedExperiment easier to use. Data Structures The trouble with SE ...
 
-*21:40:21 - @Sean Davis has joined the channel*
-*22:13:58 - @Rob Amezquita has joined the channel*
+**Sean Davis** (21:40:21):
+> @Sean Davis has joined the channel
+
+**Rob Amezquita** (22:13:58):
+> @Rob Amezquita has joined the channel
+
 
 ## 2018-12-11
 
-*00:07:51 - @Charlotte Soneson has joined the channel*
-*00:51:06 - @Ludwig Geistlinger has joined the channel*
-*04:14:45 - @Kevin Rue-Albrecht has joined the channel*
-*06:49:44 - @Malte Thodberg has joined the channel*
-*10:52:19 - @Dror Berel has joined the channel*
-*15:48:44 - @Daniel Van Twisk has joined the channel*
-*16:59:56 - @Frederick Tan has joined the channel*
+**Charlotte Soneson** (00:07:51):
+> @Charlotte Soneson has joined the channel
+
+**Ludwig Geistlinger** (00:51:06):
+> @Ludwig Geistlinger has joined the channel
+
+**Kevin Rue-Albrecht** (04:14:45):
+> @Kevin Rue-Albrecht has joined the channel
+
+**Malte Thodberg** (06:49:44):
+> @Malte Thodberg has joined the channel
+
+**Dror Berel** (10:52:19):
+> @Dror Berel has joined the channel
+
+**Daniel Van Twisk** (15:48:44):
+> @Daniel Van Twisk has joined the channel
+
+**Frederick Tan** (16:59:56):
+> @Frederick Tan has joined the channel
+
 
 ## 2018-12-12
 
-*11:43:48 - @James Taylor has joined the channel*
-*15:08:36 - @Stephanie Hicks has joined the channel*
-*22:21:42 - @Michael Love has joined the channel*
+**James Taylor** (11:43:48):
+> @James Taylor has joined the channel
+
+**Stephanie Hicks** (15:08:36):
+> @Stephanie Hicks has joined the channel
+
+**Michael Love** (22:21:42):
+> @Michael Love has joined the channel
+
 
 ## 2018-12-13
 
 **Michael Love** (07:34:45):
 > See also@Laurent Gattowork on[https://github.com/lgatto/tidies](https://github.com/lgatto/tidies)
   - Attachment (GitHub): [lgatto/tidies](https://github.com/lgatto/tidies)
-    > A Grammar of Data Manipulation for Omics Data. Contribute to lgatto/tidies development by creating an account on GitHub.
+> A Grammar of Data Manipulation for Omics Data. Contribute to lgatto/tidies development by creating an account on GitHub.
 
-*09:25:20 - @Tim Triche has joined the channel*
-*12:42:26 - @Michael Lawrence has joined the channel*
-*13:00:30 - @Matt Ritchie has joined the channel*
+**Tim Triche** (09:25:20):
+> @Tim Triche has joined the channel
+
+**Michael Lawrence** (12:42:26):
+> @Michael Lawrence has joined the channel
+
+**Matt Ritchie** (13:00:30):
+> @Matt Ritchie has joined the channel
+
 **Martin Morgan** (13:46:14):
 > @Michael Lawrenceis it worth while to think about 'tidy' at the S4Vectors level, e.g., if there were a 'tidy' interface to Vector and / or List would we automatically have tidy DataFrame / GRanges / SummarizedExperiment ?
 
@@ -66,7 +105,9 @@ format: gfm
 **Martin Morgan** (13:59:11):
 > (and again, just to get these ideas out there...) it seems like the biobroom approach (whack everything into one big tibble) isn't a good idea -- it loses the constraints implicit in the SummarizedExperiment, and is inefficient in storage and computation. I think Laurent's approach is some intermediate ground, where, e.g.,`filter(dex == "trt")`figures out that`dex`is metadata on the column, then does the appropriate subsetting but returns an ExpressionSet. My understanding is that plyexperiment introduces new verbs`filter_rows()`/`filter_columns()`or similar, increasing cognitive load but avoiding inevitable corner cases and also conflicting generics; I don't know how this is implemented, but I guess by imposing a kind of 'view' (Michael said something about a 'DPI' in a recent conversation?) on the underlying S4 object...
 
-*14:13:38 - @Nitesh Turaga has joined the channel*
+**Nitesh Turaga** (14:13:38):
+> @Nitesh Turaga has joined the channel
+
 **Michael Lawrence** (14:26:56):
 > I went with the`_rows`and`_columns`suffixes because it makes the code more explicit. Personally, it's never made sense to me that SummarizedExperiment is a Vector, nor should it be treated as a long table. The simple structure of SummarizedExperiment makes it easy to reason about the data. We've seen the SE design arise again and again. Loom, Hail, etc. We shouldn't throw the baby out with the bath water.
 
@@ -76,9 +117,11 @@ format: gfm
 **Michael Lawrence** (14:31:44):
 > Btw, here is an example of treating the data as one long table and querying it with an extension of SQL.[https://app.dimensions.ai/details/publication/pub.1034559870](https://app.dimensions.ai/details/publication/pub.1034559870)
   - Attachment (app.dimensions.ai): [GenoMetric Query Language: a novel approach to large-scale genomic data management - Dimensions](https://app.dimensions.ai/details/publication/pub.1034559870)
-    > MOTIVATION: Improvement of sequencing technologies and data processing pipelines is rapidly providing sequencing data, with associated high-level features, of many individual genomes in multiple biological and clinical conditions. They allow for data-driven genomic, transcriptomic and epigenomic characterizations, but require state-of-the-art 'big data' computing strategies, with abstraction levels beyond available tool capabilities. RESULTS: We propose a high-level, declarative GenoMetric Query Language (GMQL) and a toolkit for its use. GMQL operates downstream of raw data preprocessing pipelines and supports queries over thousands of heterogeneous datasets and samples; as such it is key to genomic 'big data' analysis. GMQL leverages a simple data model that provides both abstractions of genomic region data and associated experimental, biological and clinical metadata and interoperability between many data formats. Based on Hadoop framework and Apache Pig platform, GMQL ensures high scalability, expressivity, flexibility and simplicity of use, as demonstrated by several biological query examples on ENCODE and TCGA datasets. AVAILABILITY AND IMPLEMENTATION: The GMQL toolkit is freely available for non-commercial use at [http://www.bioinformatics.deib.polimi.it/GMQL/](http://www.bioinformatics.deib.polimi.it/GMQL/).
+> MOTIVATION: Improvement of sequencing technologies and data processing pipelines is rapidly providing sequencing data, with associated high-level features, of many individual genomes in multiple biological and clinical conditions. They allow for data-driven genomic, transcriptomic and epigenomic characterizations, but require state-of-the-art 'big data' computing strategies, with abstraction levels beyond available tool capabilities. RESULTS: We propose a high-level, declarative GenoMetric Query Language (GMQL) and a toolkit for its use. GMQL operates downstream of raw data preprocessing pipelines and supports queries over thousands of heterogeneous datasets and samples; as such it is key to genomic 'big data' analysis. GMQL leverages a simple data model that provides both abstractions of genomic region data and associated experimental, biological and clinical metadata and interoperability between many data formats. Based on Hadoop framework and Apache Pig platform, GMQL ensures high scalability, expressivity, flexibility and simplicity of use, as demonstrated by several biological query examples on ENCODE and TCGA datasets. AVAILABILITY AND IMPLEMENTATION: The GMQL toolkit is freely available for non-commercial use at [http://www.bioinformatics.deib.polimi.it/GMQL/](http://www.bioinformatics.deib.polimi.it/GMQL/).
 
-*14:32:11 - @Nicholas Knoblauch has joined the channel*
+**Nicholas Knoblauch** (14:32:11):
+> @Nicholas Knoblauch has joined the channel
+
 **Stuart Lee** (20:40:31) (in thread):
 > I think NSE seems central to the tidyverse approach (see their efforts with rlang), however under the constraint that NSE occurs only wrt the grammar. For example, tibble does not implement any NSE for base ops like`[`, so your example would only work with a call to`filter()`.
 
@@ -88,11 +131,15 @@ format: gfm
 **Stuart Lee** (20:58:07):
 > What does DPI stand for? I think it's right to try and port dplyr via S4Vectors, then both plyranges and plyexperiment/tidies can piggyback on that.  I probably won't get around to starting this until the new year though but happy to collaborate if someone else would like to take the lead.
 
-*22:51:11 - @Peter Hickey has joined the channel*
+**Peter Hickey** (22:51:11):
+> @Peter Hickey has joined the channel
+
 
 ## 2018-12-14
 
-*04:22:08 - @Davide Risso has joined the channel*
+**Davide Risso** (04:22:08):
+> @Davide Risso has joined the channel
+
 **Michael Lawrence** (12:28:38):
 > DPI: Data Programming Interface
 
@@ -133,7 +180,9 @@ format: gfm
 
 ## 2018-12-18
 
-*22:48:30 - @Levi Waldron has joined the channel*
+**Levi Waldron** (22:48:30):
+> @Levi Waldron has joined the channel
+
 **Levi Waldron** (22:50:55):
 > Did no one make it far enough through the GMQL paper to read that “Also packages of R/ Bioconductor ([https://www.bioconductor.org/](https://www.bioconductor.org/)) have been proposed for tertiary analysis (Huber et al., 2015); they facilitate typical specific operations, but require to perform them through scripts and are not suitable for big data processing”? That, after starting the paper with “We previously proposed a paradigm shift in genomic data management…”
 
@@ -336,16 +385,24 @@ format: gfm
 
 ## 2018-12-20
 
-*22:00:01 - @Shian Su has joined the channel*
+**Shian Su** (22:00:01):
+> @Shian Su has joined the channel
+
 
 ## 2018-12-28
 
-*12:47:02 - @Rene Welch has joined the channel*
+**Rene Welch** (12:47:02):
+> @Rene Welch has joined the channel
+
 
 ## 2019-01-03
 
-*12:58:49 - @Kasper D. Hansen has joined the channel*
-*13:03:57 - @Aedin Culhane has joined the channel*
+**Kasper D. Hansen** (12:58:49):
+> @Kasper D. Hansen has joined the channel
+
+**Aedin Culhane** (13:03:57):
+> @Aedin Culhane has joined the channel
+
 **Sean Davis** (13:08:15):
 > @Michael Lawrence, do you have any good references on relational algebra? It seems like the tidiness ideas are “old” in the sense that there is a well-established literature on relational algebra. SQL is one common implementation of those ideas, but dplyr and other tidy data approaches lean heavily on the same ideas.
 
@@ -376,7 +433,7 @@ format: gfm
 **Tim Triche** (13:20:25):
 > @Aedin Culhaneprobably[https://r4ds.had.co.nz/](https://r4ds.had.co.nz/)since it is canonical
   - Attachment (r4ds.had.co.nz): [R for Data Science](https://r4ds.had.co.nz/)
-    > This book will teach you how to do data science with R: You’ll learn how to get your data into R, get it into the most useful structure, transform it, visualise it and model it. In this book, you will find a practicum of skills for data science. Just as a chemist learns how to clean test tubes and stock a lab, you’ll learn how to clean data and draw plots—and many other things besides. These are the skills that allow data science to happen, and here you will find the best practices for doing each of these things with R. You’ll learn how to use the grammar of graphics, literate programming, and reproducible research to save time. You’ll also learn how to manage cognitive resources to facilitate discoveries when wrangling, visualising, and exploring data.
+> This book will teach you how to do data science with R: You’ll learn how to get your data into R, get it into the most useful structure, transform it, visualise it and model it. In this book, you will find a practicum of skills for data science. Just as a chemist learns how to clean test tubes and stock a lab, you’ll learn how to clean data and draw plots—and many other things besides. These are the skills that allow data science to happen, and here you will find the best practices for doing each of these things with R. You’ll learn how to use the grammar of graphics, literate programming, and reproducible research to save time. You’ll also learn how to manage cognitive resources to facilitate discoveries when wrangling, visualising, and exploring data.
 
 **Tim Triche** (13:20:59):
 > the blurb says a bunch of stuff about data science, but really it's "data science in the tidyverse" by its authors
@@ -390,7 +447,7 @@ format: gfm
 **Martin Morgan** (15:30:17):
 > From the classics, I really liked[http://shop.oreilly.com/product/9780596100124.do](http://shop.oreilly.com/product/9780596100124.do)
   - Attachment (shop.oreilly.com): [Database in Depth](http://shop.oreilly.com/product/9780596100124.do)
-    > This concise guide sheds light on the principles behind the relational model, which underlies all database products in wide use today. It goes beyond the hype to give you a clear view of the techn...
+> This concise guide sheds light on the principles behind the relational model, which underlies all database products in wide use today. It goes beyond the hype to give you a clear view of the techn...
 
 **Shian Su** (18:20:28):
 > Personally I find tidyverse composition with magrittr piping syntax appealing because it makes it extremely easy to observe intermediate states and reason about the logic
@@ -459,7 +516,7 @@ format: gfm
 **Vince Carey** (10:44:31):
 > Skimming the slideset pinned by Sean on Relational Algebra reminded me of some recent reading on the history of logic, specifically footnote 13 on page 291 of[https://epdf.tips/the-evolution-of-logic.html](https://epdf.tips/the-evolution-of-logic.html)... we will need a new channel to pursue this I think, but I really wonder if we are at a turning point -- do we need query optimization in genomic applications, and can we get it outside of formal database architecture/deployments?  BigQuery for TCGA has been around for a while and does not seem to have caught fire.  Can we say why?  Does it boil down to the risk of a very costly unintended computation?
   - Attachment (epdf.tips): [The evolution of logic - PDF Free Download](https://epdf.tips/the-evolution-of-logic.html)
-    > The Evolution of Logic The Evolution of Logic examines the relations between logic and philosophy over the last 150 yea...
+> The Evolution of Logic The Evolution of Logic examines the relations between logic and philosophy over the last 150 yea...
 
 **Kasper D. Hansen** (10:44:39):
 > Btw. a database table does not need to have a primary key
@@ -479,7 +536,7 @@ format: gfm
 **Aedin Culhane** (10:49:16):
 > There is a chapter on relational data in hadley "bible"...[https://r4ds.had.co.nz/relational-data.html](https://r4ds.had.co.nz/relational-data.html)
   - Attachment (r4ds.had.co.nz): [13 Relational data | R for Data Science](https://r4ds.had.co.nz/relational-data.html)
-    > This book will teach you how to do data science with R: You’ll learn how to get your data into R, get it into the most useful structure, transform it, visualise it and model it. In this book, you will find a practicum of skills for data science. Just as a chemist learns how to clean test tubes and stock a lab, you’ll learn how to clean data and draw plots—and many other things besides. These are the skills that allow data science to happen, and here you will find the best practices for doing each of these things with R. You’ll learn how to use the grammar of graphics, literate programming, and reproducible research to save time. You’ll also learn how to manage cognitive resources to facilitate discoveries when wrangling, visualising, and exploring data.
+> This book will teach you how to do data science with R: You’ll learn how to get your data into R, get it into the most useful structure, transform it, visualise it and model it. In this book, you will find a practicum of skills for data science. Just as a chemist learns how to clean test tubes and stock a lab, you’ll learn how to clean data and draw plots—and many other things besides. These are the skills that allow data science to happen, and here you will find the best practices for doing each of these things with R. You’ll learn how to use the grammar of graphics, literate programming, and reproducible research to save time. You’ll also learn how to manage cognitive resources to facilitate discoveries when wrangling, visualising, and exploring data.
 
 **Vince Carey** (10:49:45):
 > it seems to me that a key attraction of the tidyverse is that the same "things that work" with data.frame can work with external data architectures including RDBMS.  when you go down that road, the idea of an intrinsic or physical ordering of records is gone, and that means you abandon that for data.frame too.
@@ -550,7 +607,7 @@ format: gfm
 **Aedin Culhane** (11:18:13):
 > [http://www.ericrscott.com/2018/06/28/webchem/](http://www.ericrscott.com/2018/06/28/webchem/)
   - Attachment (Eric R. Scott): [Retrieve chemical retention indices from NIST with {webchem}! | Eric R. Scott](http://www.ericrscott.com/2018/06/28/webchem/)
-    > PhD Candidate in Biology
+> PhD Candidate in Biology
 
 **Aedin Culhane** (11:18:47):
 > Anyway... thats a tangent for another time
@@ -599,12 +656,12 @@ format: gfm
 **Levi Waldron** (13:36:24):
 > More or less, and to write a response to their slander of R/Bioconductor.[https://github.com/waldronlab/GMQLvsBioc](https://github.com/waldronlab/GMQLvsBioc)
   - Attachment (GitHub): [waldronlab/GMQLvsBioc](https://github.com/waldronlab/GMQLvsBioc)
-    > Alternative approaches to [https://doi.org/10.1093/bioinformatics/bty688](https://doi.org/10.1093/bioinformatics/bty688) analysis - waldronlab/GMQLvsBioc
+> Alternative approaches to [https://doi.org/10.1093/bioinformatics/bty688](https://doi.org/10.1093/bioinformatics/bty688) analysis - waldronlab/GMQLvsBioc
 
 **Aedin Culhane** (13:37:45):
 > For anyone without Bioninformatics, the pdf is on[https://www.researchgate.net/publication/327020526_Processing_of_big_heterogeneous_genomic_datasets_for_tertiary_analysis_of_Next_Generation_Sequencing_data](https://www.researchgate.net/publication/327020526_Processing_of_big_heterogeneous_genomic_datasets_for_tertiary_analysis_of_Next_Generation_Sequencing_data)
   - Attachment (ResearchGate): [(PDF) Processing of big heterogeneous genomic datasets for tertiary analysis of Next Generation Sequencing data](https://www.researchgate.net/publication/327020526_Processing_of_big_heterogeneous_genomic_datasets_for_tertiary_analysis_of_Next_Generation_Sequencing_data)
-    > PDF | Motivation: We previously proposed a paradigm shift in genomic data management, based on the Genomic Data Model (GDM) for mediating existing data formats and on the GenoMetric Query Language (GMQL) for supporting, at a high level of abstraction, data extraction and the most...
+> PDF | Motivation: We previously proposed a paradigm shift in genomic data management, based on the Genomic Data Model (GDM) for mediating existing data formats and on the GenoMetric Query Language (GMQL) for supporting, at a high level of abstraction, data extraction and the most...
 
 **Aedin Culhane** (13:52:16) (in thread):
 > So they want " DNA somatic mutations occurring within the first 2,000 bp upstream or downstream of any of the expressed methylated genes "
@@ -833,8 +890,8 @@ format: gfm
 **Levi Waldron** (15:44:00):
 > A while ago@Martin Morganposted something about Information Hiding ([https://en.wikipedia.org/wiki/Information_hiding](https://en.wikipedia.org/wiki/Information_hiding)) which helped clarify the Bioconductor S4 approach to me. Details of data structure and methods implementation are hidden from users to a) provide relatively simple workflows (“magical incantations”) that I think are what most Bioconductor end-users come for, but which are still in many cases able to be inspected and extended by developers and power users, unlike predecessors of Bioconductor like GenePattern. The information hiding has the added advantage of enabling new technologies like REST or HDF5 to occur without distracting the user. With complex semantic data and without the information hiding, you instead can get tidy but horribly complicated workflows like this one, to pick on a vignette from my own lab that stems from an inadequate S4 data structure and methods. This kind of workflow is not what has hooked in tens of thousands of Bioconductor users…
   - Attachment: [Information hiding](https://en.wikipedia.org/wiki/Information_hiding)
-    > In computer science, information hiding is the principle of segregation of the design decisions in a computer program that are most likely to change, thus protecting other parts of the program from extensive modification if the design decision is changed. The protection involves providing a stable interface which protects the remainder of the program from the implementation (the details that are most likely to change).
-    > Written another way, information hiding is the ability to prevent certain aspects of a class or software component from being accessible to its clients, using either programming language features (like private variables) or an explicit exporting policy.
+> In computer science, information hiding is the principle of segregation of the design decisions in a computer program that are most likely to change, thus protecting other parts of the program from extensive modification if the design decision is changed. The protection involves providing a stable interface which protects the remainder of the program from the implementation (the details that are most likely to change).
+> Written another way, information hiding is the ability to prevent certain aspects of a class or software component from being accessible to its clients, using either programming language features (like private variables) or an explicit exporting policy.
 
 **Levi Waldron** (15:45:15):
 > Just a part of the code from[https://bioconductor.org/packages/release/data/experiment/vignettes/HMP16SData/inst/doc/HMP16SData.html#phylum-level-comparison-to-metagenomic-shotgun-sequencing](https://bioconductor.org/packages/release/data/experiment/vignettes/HMP16SData/inst/doc/HMP16SData.html#phylum-level-comparison-to-metagenomic-shotgun-sequencing)
@@ -907,13 +964,13 @@ format: gfm
 **Levi Waldron** (07:51:52):
 > @Shian SuI share your frustration about the lack of standardized vocabularies used in data reporting and in software. It’s not the fault or role of`SummarizedExperiment`, but I think there is a role for topic-specific classes derived from base classes like`DataFrame`and`character`that contain names and entries from controlled vocabularies, such as genes, experimental factors, and taxonomies. This work can be done in stand-alone packages that enforce domain-specific vocabularies and provide derived classes and simplified methods - in your Entrez Gene example, a relevant class could guarantee that a vector contains only relevant Entrez IDs as of a certain NCBI version, and provide convenient lookup and mapping.  The thing is it requires a significant up-front effort to select those controlled vocabularies, define relevant domain-specific classes, and provide enough convenient methods enabled by them to make other developers and users take the effort to adopt them. Of course, some developers here have been thinking about the value of ontologies long before me (thinking of@Vince Carey’s[https://bioconductor.org/packages/ontoProc](https://bioconductor.org/packages/ontoProc),[https://bioconductor.org/packages/pogos/](https://bioconductor.org/packages/pogos/),[https://bioconductor.org/packages/tenXplore/](https://bioconductor.org/packages/tenXplore/), and even going way back to Gene Ontology[https://www.sciencedirect.com/science/article/pii/S0047259X04000223)](https://www.sciencedirect.com/science/article/pii/S0047259X04000223)).@Sean Davishas also helped convince me of the value of formal ontologies.
   - Attachment (Bioconductor): [ontoProc](https://bioconductor.org/packages/ontoProc)
-    > Support harvesting of diverse bioinformatic ontologies, making particular use of the ontologyIndex package on CRAN. We provide snapshots of key ontologies for terms about cells, cell lines, chemical compounds, and anatomy, to help analyze genome-scale experiments, particularly cell x compound screens. Another purpose is to strengthen development of compelling use cases for richer interfaces to emerging ontologies.
+> Support harvesting of diverse bioinformatic ontologies, making particular use of the ontologyIndex package on CRAN. We provide snapshots of key ontologies for terms about cells, cell lines, chemical compounds, and anatomy, to help analyze genome-scale experiments, particularly cell x compound screens. Another purpose is to strengthen development of compelling use cases for richer interfaces to emerging ontologies.
   - Attachment (Bioconductor): [pogos](https://bioconductor.org/packages/pogos/)
-    > Provide simple utilities for querying bhklab PharmacoDB, modeling API outputs, and integrating to cell and compound ontologies.
+> Provide simple utilities for querying bhklab PharmacoDB, modeling API outputs, and integrating to cell and compound ontologies.
   - Attachment (Bioconductor): [tenXplore](https://bioconductor.org/packages/tenXplore/)
-    > Perform ontological exploration of scRNA-seq of 1.3 million mouse neurons from 10x genomics.
+> Perform ontological exploration of scRNA-seq of 1.3 million mouse neurons from 10x genomics.
   - Attachment (sciencedirect.com): [Ontology concepts and tools for statistical genomics](https://www.sciencedirect.com/science/article/pii/S0047259X04000223))
-    > In computer science, an ontology is any formally structured vocabulary covering a conceptual domain. Gene Ontology (GO) is a structured collection of …
+> In computer science, an ontology is any formally structured vocabulary covering a conceptual domain. Gene Ontology (GO) is a structured collection of …
 
 **Tim Triche** (08:25:04):
 > @Sean Davismight have some input re: MESH terms, disease/phenotype ontologies, etc. as NIH plowed a lot of money into this a long time ago. Things like clinical data elements, etc. expose some of these (although not always consistently, i.e. not all such instances are keyed as ID:Name pairs such that updating the Name cascades to all instances of the ID, which is how these things are supposed to work, abstracting away misspellings etc.)
@@ -936,7 +993,7 @@ format: gfm
 **Sean Davis** (09:04:23):
 > Ontology mapping can be quite valuable, but the process does not lend itself to automation as far as I can tell. I recently did some mapping for recount-brain from hand-curated terms to ontology terms and 90% of the work was done by hand-written term matching code (semi-automated). The other 10% required direct “maps” done by hand (literally typing terms). See, for example:[https://github.com/LieberInstitute/recount-brain/blob/19d0a1c7462e64d471ef4891b060d9fd36fe4328/cross_studies_metadata/recount_brain_ontologies.Rmd](https://github.com/LieberInstitute/recount-brain/blob/19d0a1c7462e64d471ef4891b060d9fd36fe4328/cross_studies_metadata/recount_brain_ontologies.Rmd)
   - Attachment (GitHub): [LieberInstitute/recount-brain](https://github.com/LieberInstitute/recount-brain/blob/19d0a1c7462e64d471ef4891b060d9fd36fe4328/cross_studies_metadata/recount_brain_ontologies.Rmd)
-    > Code and analyses for the recount-brain project. Contribute to LieberInstitute/recount-brain development by creating an account on GitHub.
+> Code and analyses for the recount-brain project. Contribute to LieberInstitute/recount-brain development by creating an account on GitHub.
 
 **Sean Davis** (09:08:02):
 > That said, when contributing to or creating “curation” projects, it seems fairly natural to choose existing terms when possible. The naming thing seems like a wash, but queries of data can be much more powerful (if they leverage the ontology relationships). Reasoning over ontologies offers real potential, but I have to admit that I have not seen many killer apps in this space yet.
@@ -944,7 +1001,7 @@ format: gfm
 **Sean Davis** (09:11:51):
 > You can see from my code (above) what I did to do some of the mappings from terms to ontology terms. In terms of “tidy” datasets, I chose to keep the ontologies in a single lookup table:[https://github.com/LieberInstitute/recount-brain/blob/19d0a1c7462e64d471ef4891b060d9fd36fe4328/cross_studies_metadata/recount_brain_ontologies.Rmd#L16-L33](https://github.com/LieberInstitute/recount-brain/blob/19d0a1c7462e64d471ef4891b060d9fd36fe4328/cross_studies_metadata/recount_brain_ontologies.Rmd#L16-L33)
   - Attachment (GitHub): [LieberInstitute/recount-brain](https://github.com/LieberInstitute/recount-brain/blob/19d0a1c7462e64d471ef4891b060d9fd36fe4328/cross_studies_metadata/recount_brain_ontologies.Rmd#L16-L33)
-    > Code and analyses for the recount-brain project. Contribute to LieberInstitute/recount-brain development by creating an account on GitHub.
+> Code and analyses for the recount-brain project. Contribute to LieberInstitute/recount-brain development by creating an account on GitHub.
 
 **Sean Davis** (09:17:02):
 > Finally, for those interested, BioPortal is one of the key resources, with dozens of ontologies mapped to each other and searchable.[http://bioportal.bioontology.org/](http://bioportal.bioontology.org/)
@@ -952,14 +1009,16 @@ format: gfm
 **Laurent Gatto** (09:30:10):
 > On the subject of ontologies, there's also EBI's Ontology Lookup Service ([https://www.ebi.ac.uk/ols/index](https://www.ebi.ac.uk/ols/index)) and the associated`rols`package ([https://www.bioconductor.org/packages/release/bioc/html/rols.html](https://www.bioconductor.org/packages/release/bioc/html/rols.html)).
   - Attachment (ebi.ac.uk): [Home < Ontology Lookup Service < EMBL-EBI](https://www.ebi.ac.uk/ols/index)
-    > EMBL-EBI Ontology Lookup Service is a repository of bio-medical ontologies and provides a powerful REST API for searching and accessing ontology term information
+> EMBL-EBI Ontology Lookup Service is a repository of bio-medical ontologies and provides a powerful REST API for searching and accessing ontology term information
   - Attachment (Bioconductor): [rols](https://www.bioconductor.org/packages/release/bioc/html/rols.html)
-    > The rols package is an interface to the Ontology Lookup Service (OLS) to access and query hundred of ontolgies directly from R.
+> The rols package is an interface to the Ontology Lookup Service (OLS) to access and query hundred of ontolgies directly from R.
 
 **Laurent Gatto** (09:43:10):
 > In MS and proteomics, the efforts to use controlled vocabulary and ontologies to document experiments (such as data submitted to the main data repositories such as PRIDE) have, as far as I can tell, largely failed and are used mainly (only?) within the developer communities, mostly (only?) when writing/reading data.
 
-*10:49:47 - @Ruizhu HUANG has joined the channel*
+**Ruizhu HUANG** (10:49:47):
+> @Ruizhu HUANG has joined the channel
+
 **Vince Carey** (15:18:04):
 > One of the reasons for starting this channel was to collect energy for a document on tidiness in genomics/bioconductor.  It seems to me that a document on obstacles to interoperability related to ontology non-adoption would also be useful.  An estimate of the fraction of annotation tokens that could have been derived from a standard but are not is of course hard to get objectively, but maybe there is scope for a good-enough estimate?  In addition to token selection there is the logistical problem of linking the standard/ontological terms and their identifiers to usable data.  Perhaps another channel is needed?  Is "tidiness" a semantic concept?
 
@@ -982,9 +1041,9 @@ format: gfm
 > lego_movie <- read_html("[http://www.imdb.com/title/tt1490017/](http://www.imdb.com/title/tt1490017/)")
 > ```
   - Attachment (IMDb): [The Lego Movie (2014)](http://www.imdb.com/title/tt1490017/)
-    > Directed by Phil Lord, Christopher Miller. With Chris Pratt, Will Ferrell, Elizabeth Banks, Will Arnett. An ordinary LEGO construction worker, thought to be the prophesied as "special", is recruited to join a quest to stop an evil tyrant from gluing the LEGO universe into eternal stasis.
+> Directed by Phil Lord, Christopher Miller. With Chris Pratt, Will Ferrell, Elizabeth Banks, Will Arnett. An ordinary LEGO construction worker, thought to be the prophesied as "special", is recruited to join a quest to stop an evil tyrant from gluing the LEGO universe into eternal stasis.
   - Attachment (GitHub): [hadley/rvest](https://github.com/hadley/rvest)
-    > Simple web scraping for R. Contribute to hadley/rvest development by creating an account on GitHub.
+> Simple web scraping for R. Contribute to hadley/rvest development by creating an account on GitHub.
 
 **Shian Su** (19:31:17) (in thread):
 > The rvest data structure is not transparent at all, but it is a HTML structure and easy to reason inside say a web browser.
@@ -995,7 +1054,7 @@ format: gfm
 **Levi Waldron** (19:35:06):
 > BTW I’ve finished a draft solution of this silly GMQL challenge (did it for ACC to keep things smaller for testing) at[https://github.com/waldronlab/GMQLvsBioc](https://github.com/waldronlab/GMQLvsBioc).
   - Attachment (GitHub): [waldronlab/GMQLvsBioc](https://github.com/waldronlab/GMQLvsBioc)
-    > Alternative approaches to [https://doi.org/10.1093/bioinformatics/bty688](https://doi.org/10.1093/bioinformatics/bty688) analysis - waldronlab/GMQLvsBioc
+> Alternative approaches to [https://doi.org/10.1093/bioinformatics/bty688](https://doi.org/10.1093/bioinformatics/bty688) analysis - waldronlab/GMQLvsBioc
 
 **Martin Morgan** (19:38:18) (in thread):
 > (FWIW I was totally enamored of xpath back in the day as a way to navigate XML / HTML documents; one definitely needed additional tools to figure out the document structure...)
@@ -1070,12 +1129,12 @@ format: gfm
 **Stuart Lee** (22:37:21):
 > See[https://dplyr.tidyverse.org/reference/tbl_cube.html](https://dplyr.tidyverse.org/reference/tbl_cube.html)
   - Attachment (dplyr.tidyverse.org): [A data cube tbl — tbl_cube](https://dplyr.tidyverse.org/reference/tbl_cube.html)
-    > A cube tbl stores data in a compact array format where dimension names are not needlessly repeated. They are particularly appropriate for experimental data where all combinations of factors are tried (e.g. complete factorial designs), or for storing the result of aggregations. Compared to data frames, they will occupy much less memory when variables are crossed, not nested.
+> A cube tbl stores data in a compact array format where dimension names are not needlessly repeated. They are particularly appropriate for experimental data where all combinations of factors are tried (e.g. complete factorial designs), or for storing the result of aggregations. Compared to data frames, they will occupy much less memory when variables are crossed, not nested.
 
 **Stuart Lee** (22:38:03):
 > And also[https://github.com/TileDB-Inc/TileDB-Presto](https://github.com/TileDB-Inc/TileDB-Presto)
   - Attachment (GitHub): [TileDB-Inc/TileDB-Presto](https://github.com/TileDB-Inc/TileDB-Presto)
-    > TileDB Connector for PrestoDB. Contribute to TileDB-Inc/TileDB-Presto development by creating an account on GitHub.
+> TileDB Connector for PrestoDB. Contribute to TileDB-Inc/TileDB-Presto development by creating an account on GitHub.
 
 
 ## 2019-01-08
@@ -1083,7 +1142,7 @@ format: gfm
 **Peter Hickey** (07:10:08):
 > [https://github.com/DavisVaughan/rray](https://github.com/DavisVaughan/rray)may be of interest
   - Attachment (GitHub): [DavisVaughan/rray](https://github.com/DavisVaughan/rray)
-    > Simple Arrays and Matrices. Contribute to DavisVaughan/rray development by creating an account on GitHub.
+> Simple Arrays and Matrices. Contribute to DavisVaughan/rray development by creating an account on GitHub.
 
 **Tim Triche** (11:21:48) (in thread):
 > at least for RNAseq, one obvious grouping/filtering example could be grouping transcripts by gene, and filtering by functional annotation (coding, NMD, antisense, lncRNA, etc.)
@@ -1100,7 +1159,7 @@ format: gfm
 **Michael Lawrence** (14:36:22):
 > @Levi WaldronShouldn't this line[https://github.com/waldronlab/GMQLvsBioc/blob/b29d165d94080192509bbbdd0a0b3eeac21b4610/R/loadACC.R#L19](https://github.com/waldronlab/GMQLvsBioc/blob/b29d165d94080192509bbbdd0a0b3eeac21b4610/R/loadACC.R#L19)be`any(!`[is.na](http://is.na)`(x))`?
   - Attachment (GitHub): [waldronlab/GMQLvsBioc](https://github.com/waldronlab/GMQLvsBioc/blob/b29d165d94080192509bbbdd0a0b3eeac21b4610/R/loadACC.R#L19)
-    > Alternative approaches to [https://doi.org/10.1093/bioinformatics/bty688](https://doi.org/10.1093/bioinformatics/bty688) analysis - waldronlab/GMQLvsBioc
+> Alternative approaches to [https://doi.org/10.1093/bioinformatics/bty688](https://doi.org/10.1093/bioinformatics/bty688) analysis - waldronlab/GMQLvsBioc
 
 **Levi Waldron** (14:37:29):
 > Oops yes, fixing that now. Thanks@Michael Lawrence
@@ -1123,7 +1182,7 @@ format: gfm
 **Levi Waldron** (05:07:05) (in thread):
 > @Michael Lawrenceyour suggestion of`rowsum`takes a couple seconds instead of a couple minutes with`dplyr`, and produces the same result. I’ve pushed the change ([https://github.com/waldronlab/GMQLvsBioc/commit/9042f4f1b98bf937fd4c3622b9df45b6a846616b](https://github.com/waldronlab/GMQLvsBioc/commit/9042f4f1b98bf937fd4c3622b9df45b6a846616b))
   - Attachment (GitHub): [use rowsum instead of dplyr · waldronlab/GMQLvsBioc@9042f4f](https://github.com/waldronlab/GMQLvsBioc/commit/9042f4f1b98bf937fd4c3622b9df45b6a846616b)
-    > Alternative approaches to [https://doi.org/10.1093/bioinformatics/bty688](https://doi.org/10.1093/bioinformatics/bty688) analysis - waldronlab/GMQLvsBioc
+> Alternative approaches to [https://doi.org/10.1093/bioinformatics/bty688](https://doi.org/10.1093/bioinformatics/bty688) analysis - waldronlab/GMQLvsBioc
 
 **Levi Waldron** (05:14:10) (in thread):
 > (and does it with fewer characters of more readable code - the only hackish part is multiplying a logical matrix by`1L`to make it integer so that`rowsum`will work on it )
@@ -1206,7 +1265,9 @@ format: gfm
 **Levi Waldron** (15:38:29):
 > In this case I doubt it will speed things up much overall because most of the matrix has to be checked, but in many cases it’ll be a big improvement and it’s great not having a big wait before you can do anything.
 
-*16:10:07 - @Marcel Ramos Pérez has joined the channel*
+**Marcel Ramos Pérez** (16:10:07):
+> @Marcel Ramos Pérez has joined the channel
+
 **Levi Waldron** (17:26:01) (in thread):
 > `BRCA`has a small 27K methylation dataset, I could cheat and use that:smile:. Otherwise, sadly I don’t think there’s much time to be gained from filtering the meth data here, although I can remove the probes that aren’t mapped to a gene in the`rowData`…
 
@@ -1250,16 +1311,24 @@ format: gfm
 
 ## 2019-01-14
 
-*06:58:47 - @Di Cook has joined the channel*
+**Di Cook** (06:58:47):
+> @Di Cook has joined the channel
+
 
 ## 2019-01-17
 
-*07:23:50 - @Lluís Revilla has joined the channel*
-*08:28:45 - @Kayla Interdonato has joined the channel*
+**Lluís Revilla** (07:23:50):
+> @Lluís Revilla has joined the channel
+
+**Kayla Interdonato** (08:28:45):
+> @Kayla Interdonato has joined the channel
+
 
 ## 2019-01-22
 
-*13:19:18 - @Hervé Pagès has joined the channel*
+**Hervé Pagès** (13:19:18):
+> @Hervé Pagès has joined the channel
+
 
 ## 2019-01-23
 
@@ -1269,7 +1338,9 @@ format: gfm
 
 ## 2019-01-24
 
-*19:47:22 - @Kylie Bemis has joined the channel*
+**Kylie Bemis** (19:47:22):
+> @Kylie Bemis has joined the channel
+
 
 ## 2019-01-30
 
@@ -1292,11 +1363,15 @@ format: gfm
 
 ## 2019-02-07
 
-*20:21:12 - @Charity Law has joined the channel*
+**Charity Law** (20:21:12):
+> @Charity Law has joined the channel
+
 
 ## 2019-02-18
 
-*21:22:50 - @Diego Diez has joined the channel*
+**Diego Diez** (21:22:50):
+> @Diego Diez has joined the channel
+
 
 ## 2019-02-24
 
@@ -1306,53 +1381,81 @@ format: gfm
 
 ## 2019-04-15
 
-*12:26:42 - @Jon Bråte has joined the channel*
+**Jon Bråte** (12:26:42):
+> @Jon Bråte has joined the channel
+
 
 ## 2019-06-20
 
-*19:39:57 - @Marko Zecevic has joined the channel*
+**Marko Zecevic** (19:39:57):
+> @Marko Zecevic has joined the channel
+
 
 ## 2019-06-25
 
-*10:17:57 - @Aaron Wolen has joined the channel*
+**Aaron Wolen** (10:17:57):
+> @Aaron Wolen has joined the channel
+
 
 ## 2019-06-26
 
-*13:29:58 - @Junhao Li has joined the channel*
+**Junhao Li** (13:29:58):
+> @Junhao Li has joined the channel
+
 
 ## 2019-06-28
 
-*12:42:27 - @Andrew McDavid has joined the channel*
+**Andrew McDavid** (12:42:27):
+> @Andrew McDavid has joined the channel
+
 
 ## 2019-07-09
 
-*21:31:54 - @Stevie Pederson has joined the channel*
+**Stevie Pederson** (21:31:54):
+> @Stevie Pederson has joined the channel
+
 
 ## 2019-07-12
 
-*07:44:50 - @Jannik Buhr has joined the channel*
+**Jannik Buhr** (07:44:50):
+> @Jannik Buhr has joined the channel
+
 
 ## 2019-08-15
 
-*11:23:04 - @Constantin Ahlmann-Eltze has joined the channel*
+**Constantin Ahlmann-Eltze** (11:23:04):
+> @Constantin Ahlmann-Eltze has joined the channel
+
 
 ## 2019-10-05
 
-*12:07:17 - @John Hutchinson has joined the channel*
+**John Hutchinson** (12:07:17):
+> @John Hutchinson has joined the channel
+
 
 ## 2019-11-29
 
-*14:46:31 - @David Mas-Ponte has joined the channel*
-*15:43:11 - @koki has joined the channel*
+**David Mas-Ponte** (14:46:31):
+> @David Mas-Ponte has joined the channel
+
+**koki** (15:43:11):
+> @koki has joined the channel
+
 
 ## 2019-12-04
 
-*09:51:59 - @Benjamin Reisman has joined the channel*
-*17:39:39 - @Jonathan Carroll has joined the channel*
+**Benjamin Reisman** (09:51:59):
+> @Benjamin Reisman has joined the channel
+
+**Jonathan Carroll** (17:39:39):
+> @Jonathan Carroll has joined the channel
+
 
 ## 2019-12-12
 
-*17:50:58 - @Tim Triche has left the channel*
+**Tim Triche** (17:50:58):
+> @Tim Triche has left the channel
+
 
 ## 2020-02-07
 
@@ -1386,7 +1489,9 @@ format: gfm
 **Laurent Gatto** (02:41:36) (in thread):
 > Yes, I'm definitely interested.
 
-*03:08:06 - @Teun van den Brand has joined the channel*
+**Teun van den Brand** (03:08:06):
+> @Teun van den Brand has joined the channel
+
 **Teun van den Brand** (03:51:31):
 > I too am interested
 
@@ -1433,104 +1538,156 @@ format: gfm
 
 ## 2020-03-24
 
-*09:05:40 - @Nitesh Turaga has left the channel*
+**Nitesh Turaga** (09:05:40):
+> @Nitesh Turaga has left the channel
+
 
 ## 2020-06-06
 
-*19:57:59 - @Olagunju Abdulrahman has joined the channel*
+**Olagunju Abdulrahman** (19:57:59):
+> @Olagunju Abdulrahman has joined the channel
+
 
 ## 2020-06-10
 
-*19:07:46 - @Hervé Pagès has left the channel*
+**Hervé Pagès** (19:07:46):
+> @Hervé Pagès has left the channel
+
 
 ## 2020-06-17
 
-*08:37:56 - @Marco Chiapello has joined the channel*
-*16:10:36 - @Andrew Jaffe has joined the channel*
+**Marco Chiapello** (08:37:56):
+> @Marco Chiapello has joined the channel
+
+**Andrew Jaffe** (16:10:36):
+> @Andrew Jaffe has joined the channel
+
 
 ## 2020-06-24
 
-*14:57:39 - @Stephanie Hicks has left the channel*
+**Stephanie Hicks** (14:57:39):
+> @Stephanie Hicks has left the channel
+
 
 ## 2020-07-15
 
-*08:56:18 - @Spencer Nystrom has joined the channel*
+**Spencer Nystrom** (08:56:18):
+> @Spencer Nystrom has joined the channel
+
 
 ## 2020-07-31
 
-*14:07:10 - @bogdan tanasa has joined the channel*
+**bogdan tanasa** (14:07:10):
+> @bogdan tanasa has joined the channel
+
 
 ## 2020-08-05
 
-*13:48:06 - @shr19818 has joined the channel*
+**shr19818** (13:48:06):
+> @shr19818 has joined the channel
+
 
 ## 2020-10-23
 
-*08:18:42 - @Rebecca Howard has joined the channel*
+**Rebecca Howard** (08:18:42):
+> @Rebecca Howard has joined the channel
+
 
 ## 2020-11-23
 
-*08:38:55 - @Dominique Paul has joined the channel*
+**Dominique Paul** (08:38:55):
+> @Dominique Paul has joined the channel
+
 
 ## 2020-12-02
 
-*05:44:09 - @Konstantinos Geles (Constantinos Yeles) has joined the channel*
+**Konstantinos Geles (Constantinos Yeles)** (05:44:09):
+> @Konstantinos Geles (Constantinos Yeles) has joined the channel
+
 
 ## 2020-12-12
 
-*00:37:57 - @Huipeng Li has joined the channel*
+**Huipeng Li** (00:37:57):
+> @Huipeng Li has joined the channel
+
 
 ## 2020-12-13
 
-*13:42:28 - @Kelly Eckenrode has joined the channel*
+**Kelly Eckenrode** (13:42:28):
+> @Kelly Eckenrode has joined the channel
+
 
 ## 2021-01-01
 
-*14:07:12 - @Bernd has joined the channel*
+**Bernd** (14:07:12):
+> @Bernd has joined the channel
+
 
 ## 2021-01-22
 
-*15:46:36 - @Annajiat Alim Rasel has joined the channel*
+**Annajiat Alim Rasel** (15:46:36):
+> @Annajiat Alim Rasel has joined the channel
+
 
 ## 2021-02-12
 
-*15:53:21 - @Janani Ravi has joined the channel*
+**Janani Ravi** (15:53:21):
+> @Janani Ravi has joined the channel
+
 
 ## 2021-03-23
 
-*23:06:27 - @Lambda Moses has joined the channel*
+**Lambda Moses** (23:06:27):
+> @Lambda Moses has joined the channel
+
 
 ## 2021-05-11
 
-*16:46:06 - @Megha Lal has joined the channel*
+**Megha Lal** (16:46:06):
+> @Megha Lal has joined the channel
+
 
 ## 2021-06-02
 
-*15:59:45 - @Levi Waldron has left the channel*
+**Levi Waldron** (15:59:45):
+> @Levi Waldron has left the channel
+
 
 ## 2021-06-05
 
-*17:22:29 - @KP has joined the channel*
+**KP** (17:22:29):
+> @KP has joined the channel
+
 
 ## 2021-06-07
 
-*00:45:46 - @Stuart Lee has left the channel*
+**Stuart Lee** (00:45:46):
+> @Stuart Lee has left the channel
+
 
 ## 2021-06-11
 
-*07:10:18 - @Sebastian Worms has joined the channel*
+**Sebastian Worms** (07:10:18):
+> @Sebastian Worms has joined the channel
+
 
 ## 2021-08-06
 
-*20:02:06 - @ChiaSin has joined the channel*
+**ChiaSin** (20:02:06):
+> @ChiaSin has joined the channel
+
 
 ## 2021-09-01
 
-*14:43:58 - @Katie Saund has joined the channel*
+**Katie Saund** (14:43:58):
+> @Katie Saund has joined the channel
+
 
 ## 2021-09-25
 
-*07:20:50 - @Haichao Wang has joined the channel*
+**Haichao Wang** (07:20:50):
+> @Haichao Wang has joined the channel
+
 
 ## 2021-10-29
 
@@ -1539,9 +1696,15 @@ format: gfm
 > 
 > AFAIK@Stuart Lee**plyranges**is just for GRanges and not easily adaptable to SummarizedExperiment. Not sure if this computation is currently possible with@stefano mangiola’s**tidybulk**? Or maybe@Marcel Ramos Pérezhas thought about this with**MultiAssayExperiment**?
 
-*13:42:24 - @Wancen Mu has joined the channel*
-*13:42:24 - @Stuart Lee has joined the channel*
-*13:42:24 - @stefano mangiola has joined the channel*
+**Wancen Mu** (13:42:24):
+> @Wancen Mu has joined the channel
+
+**Stuart Lee** (13:42:24):
+> @Stuart Lee has joined the channel
+
+**stefano mangiola** (13:42:24):
+> @stefano mangiola has joined the channel
+
 **Malte Thodberg** (15:25:23) (in thread):
 > CAGEfightR implements something like this (promoter-enhancer correlation within a certain distance) with findLinks(), and returns a GInteractions.
 
@@ -1567,7 +1730,9 @@ format: gfm
 
 ## 2021-11-08
 
-*03:30:19 - @Paula Nieto García has joined the channel*
+**Paula Nieto García** (03:30:19):
+> @Paula Nieto García has joined the channel
+
 **Michael Love** (07:11:08):
 > @stefano mangiolajust wanted to check before we reproduce this functionality — do you have something to compute correlation across two assays in tidybulk?
 
@@ -1600,7 +1765,9 @@ format: gfm
 
 ## 2021-11-09
 
-*16:53:42 - @Maria Doyle has joined the channel*
+**Maria Doyle** (16:53:42):
+> @Maria Doyle has joined the channel
+
 
 ## 2021-11-12
 
@@ -1646,12 +1813,18 @@ format: gfm
 
 ## 2021-11-24
 
-*13:15:57 - @Helge Hecht has joined the channel*
+**Helge Hecht** (13:15:57):
+> @Helge Hecht has joined the channel
+
 
 ## 2021-12-14
 
-*08:23:36 - @Megha Lal has left the channel*
-*09:18:53 - @Liz Ing-Simmons has joined the channel*
+**Megha Lal** (08:23:36):
+> @Megha Lal has left the channel
+
+**Liz Ing-Simmons** (09:18:53):
+> @Liz Ing-Simmons has joined the channel
+
 
 ## 2021-12-29
 
@@ -1667,7 +1840,9 @@ format: gfm
 > ## edited -- this had a bug, fixed on github...
 > ```
 
-*17:05:38 - @Kurt Showmaker has joined the channel*
+**Kurt Showmaker** (17:05:38):
+> @Kurt Showmaker has joined the channel
+
 
 ## 2022-01-04
 
@@ -1767,61 +1942,87 @@ format: gfm
 
 ## 2022-04-25
 
-*19:59:11 - @Antoine de Weck has joined the channel*
+**Antoine de Weck** (19:59:11):
+> @Antoine de Weck has joined the channel
+
 
 ## 2022-05-05
 
-*05:58:00 - @Flavio Lombardo has joined the channel*
+**Flavio Lombardo** (05:58:00):
+> @Flavio Lombardo has joined the channel
+
 
 ## 2022-05-07
 
-*04:21:26 - @Kozo Nishida has joined the channel*
+**Kozo Nishida** (04:21:26):
+> @Kozo Nishida has joined the channel
+
 
 ## 2022-05-20
 
-*03:16:57 - @Simon Pearce has joined the channel*
+**Simon Pearce** (03:16:57):
+> @Simon Pearce has joined the channel
+
 
 ## 2022-07-13
 
-*11:52:56 - @Sarah Pierce has joined the channel*
-*11:52:57 - @Brenda Pardo has joined the channel*
+**Sarah Pierce** (11:52:56):
+> @Sarah Pierce has joined the channel
+
+**Brenda Pardo** (11:52:57):
+> @Brenda Pardo has joined the channel
+
 
 ## 2022-07-31
 
-*14:06:59 - @Tim Howes has joined the channel*
+**Tim Howes** (14:06:59):
+> @Tim Howes has joined the channel
+
 
 ## 2022-08-01
 
-*11:30:30 - @Marc Elosua has joined the channel*
+**Marc Elosua** (11:30:30):
+> @Marc Elosua has joined the channel
+
 **Michael Love** (13:11:48):
 > post-BioC, Stefano and i were interested to see what interest there would be in a beginners workshop re: tidy genomic analysis. Here’s a poll about timing:[https://twitter.com/mikelove/status/1554132629720539136](https://twitter.com/mikelove/status/1554132629720539136)
   - Attachment (twitter): [Attachment](https://twitter.com/mikelove/status/1554132629720539136)
-    > For #rstats bioinformatics folks, esp. students and postdocs: 
-    > 
-    > Would you be interested in a "tidy genomic analysis" in [@Bioconductor](https://twitter.com/Bioconductor) zoom workshop?
-    > 
-    > Should we do late day in Melbourne (GMT+10) / early in US (GMT-5), or early in Melbourne and late in US?
+> For #rstats bioinformatics folks, esp. students and postdocs: 
+> 
+> Would you be interested in a "tidy genomic analysis" in [@Bioconductor](https://twitter.com/Bioconductor) zoom workshop?
+> 
+> Should we do late day in Melbourne (GMT+10) / early in US (GMT-5), or early in Melbourne and late in US?
 
 
 ## 2022-08-02
 
-*07:18:19 - @Mikhael Manurung has joined the channel*
+**Mikhael Manurung** (07:18:19):
+> @Mikhael Manurung has joined the channel
+
 
 ## 2022-08-04
 
-*21:56:06 - @László Kupcsik has joined the channel*
+**László Kupcsik** (21:56:06):
+> @László Kupcsik has joined the channel
+
 
 ## 2022-08-10
 
-*11:00:20 - @Mae Woods has joined the channel*
+**Mae Woods** (11:00:20):
+> @Mae Woods has joined the channel
+
 
 ## 2022-08-15
 
-*13:13:19 - @Michael Kaufman has joined the channel*
+**Michael Kaufman** (13:13:19):
+> @Michael Kaufman has joined the channel
+
 
 ## 2022-08-29
 
-*19:12:16 - @Margaret Turner has joined the channel*
+**Margaret Turner** (19:12:16):
+> @Margaret Turner has joined the channel
+
 
 ## 2022-09-04
 
@@ -1845,7 +2046,9 @@ format: gfm
 
 ## 2022-09-12
 
-*13:30:58 - @Samuel Gamboa has joined the channel*
+**Samuel Gamboa** (13:30:58):
+> @Samuel Gamboa has joined the channel
+
 
 ## 2022-11-22
 
@@ -1854,56 +2057,80 @@ format: gfm
 > * [https://twitter.com/mikelove/status/1595038783371706369](https://twitter.com/mikelove/status/1595038783371706369)
 > * [https://genomic.social/@mikelove/109387583769396088](https://genomic.social/@mikelove/109387583769396088)
   - Attachment (twitter): [Attachment](https://twitter.com/mikelove/status/1595038783371706369)
-    > Stefano Mangiola [@steman_research](https://twitter.com/steman_research)  & I are planning a tutorial on "Tidy Genomic Analysis"
-    > 
-    > Dec 12, 4:30 PM EST
-    > Dec 13, 8:30 AM AEDT
-    > 60 min + 30 min Q/A
-    > 
-    > - Tidy single-cell and bulk transcriptomics
-    > - Tidy enrichment with plyranges and nullranges
-    > 
-    > Sign up:
-    > [https://unc.zoom.us/meeting/register/tJIoduypqzkoEtCKxHGyW01DOdaIUrGPxmro](https://unc.zoom.us/meeting/register/tJIoduypqzkoEtCKxHGyW01DOdaIUrGPxmro)
+> Stefano Mangiola [@steman_research](https://twitter.com/steman_research)  & I are planning a tutorial on "Tidy Genomic Analysis"
+> 
+> Dec 12, 4:30 PM EST
+> Dec 13, 8:30 AM AEDT
+> 60 min + 30 min Q/A
+> 
+> - Tidy single-cell and bulk transcriptomics
+> - Tidy enrichment with plyranges and nullranges
+> 
+> Sign up:
+> [https://unc.zoom.us/meeting/register/tJIoduypqzkoEtCKxHGyW01DOdaIUrGPxmro](https://unc.zoom.us/meeting/register/tJIoduypqzkoEtCKxHGyW01DOdaIUrGPxmro)
   - Attachment: [Attachment](https://twitter.com/mikelove/status/1595038783371706369)
   - Attachment (genomic.social): [Michael Love (@mikelove@genomic.social)](https://genomic.social/@mikelove/109387583769396088)
-    > Attached: 2 images
-    > 
-    > Stefano Mangiola and I are planning a zoom tutorial on "Tidy Genomic Analysis":
-    > 
-    > Dec 12, 4:30 PM EST
-    > Dec 13, 8:30 AM AEDT
-    > 60 min + 30 min Q/A
-    > 
-    > - Tidy single-cell and bulk transcriptomics
-    > - Tidy enrichment with plyranges and nullranges
-    > 
-    > Sign up:
-    > [https://unc.zoom.us/meeting/register/tJIoduypqzkoEtCKxHGyW01DOdaIUrGPxmro](https://unc.zoom.us/meeting/register/tJIoduypqzkoEtCKxHGyW01DOdaIUrGPxmro) 
-    > 
-    > #tidy #RStats #Bioconductor #genomics
+> Attached: 2 images
+> 
+> Stefano Mangiola and I are planning a zoom tutorial on "Tidy Genomic Analysis":
+> 
+> Dec 12, 4:30 PM EST
+> Dec 13, 8:30 AM AEDT
+> 60 min + 30 min Q/A
+> 
+> - Tidy single-cell and bulk transcriptomics
+> - Tidy enrichment with plyranges and nullranges
+> 
+> Sign up:
+> [https://unc.zoom.us/meeting/register/tJIoduypqzkoEtCKxHGyW01DOdaIUrGPxmro](https://unc.zoom.us/meeting/register/tJIoduypqzkoEtCKxHGyW01DOdaIUrGPxmro) 
+> 
+> #tidy #RStats #Bioconductor #genomics
 
-*09:58:37 - @Mikhail Dozmorov has joined the channel*
+**Mikhail Dozmorov** (09:58:37):
+> @Mikhail Dozmorov has joined the channel
+
 
 ## 2022-11-28
 
-*09:55:21 - @Joshua Shapiro has joined the channel*
+**Joshua Shapiro** (09:55:21):
+> @Joshua Shapiro has joined the channel
+
 
 ## 2022-11-29
 
-*09:09:17 - @Assa has joined the channel*
+**Assa** (09:09:17):
+> @Assa has joined the channel
+
 
 ## 2022-12-12
 
-*17:53:38 - @Jenny Drnevich has joined the channel*
-*17:53:44 - @Mervin Fansler has joined the channel*
-*17:53:45 - @Melysssa Minto has joined the channel*
-*17:56:48 - @Jennifer Foltz has joined the channel*
-*17:56:54 - @Umran has joined the channel*
-*17:56:57 - @Kartik has joined the channel*
-*17:57:29 - @Lexi Bounds has joined the channel*
-*17:57:42 - @Jenea Adams has joined the channel*
-*18:04:25 - @Sofya Marchenko has joined the channel*
+**Jenny Drnevich** (17:53:38):
+> @Jenny Drnevich has joined the channel
+
+**Mervin Fansler** (17:53:44):
+> @Mervin Fansler has joined the channel
+
+**Melysssa Minto** (17:53:45):
+> @Melysssa Minto has joined the channel
+
+**Jennifer Foltz** (17:56:48):
+> @Jennifer Foltz has joined the channel
+
+**Umran** (17:56:54):
+> @Umran has joined the channel
+
+**Kartik** (17:56:57):
+> @Kartik has joined the channel
+
+**Lexi Bounds** (17:57:29):
+> @Lexi Bounds has joined the channel
+
+**Jenea Adams** (17:57:42):
+> @Jenea Adams has joined the channel
+
+**Sofya Marchenko** (18:04:25):
+> @Sofya Marchenko has joined the channel
+
 
 ## 2022-12-13
 
@@ -1911,8 +2138,12 @@ format: gfm
 > Video recording from this workshop:[https://www.youtube.com/watch?v=nXxTGoBJYHM](https://www.youtube.com/watch?v=nXxTGoBJYHM)
   - Attachment (YouTube): [Tidy Genomics Analysis Workshop: Tidy Enrichment and Tidy Transcriptomics](https://www.youtube.com/watch?v=nXxTGoBJYHM)
 
-*09:02:06 - @Ana Cristina Guerra de Souza has joined the channel*
-*09:16:53 - @Sarah Djeddi has joined the channel*
+**Ana Cristina Guerra de Souza** (09:02:06):
+> @Ana Cristina Guerra de Souza has joined the channel
+
+**Sarah Djeddi** (09:16:53):
+> @Sarah Djeddi has joined the channel
+
 
 ## 2022-12-14
 
@@ -1945,7 +2176,9 @@ format: gfm
 **Spencer Nystrom** (09:31:58) (in thread):
 > (I also use emacs, and vim cause I am a monster, but I alias Ctrl + Shift + M =`%>%`cause it's too good)
 
-*09:39:48 - @Mercilena Benjamin has joined the channel*
+**Mercilena Benjamin** (09:39:48):
+> @Mercilena Benjamin has joined the channel
+
 
 ## 2022-12-17
 
@@ -1973,34 +2206,48 @@ format: gfm
 
 ## 2022-12-23
 
-*08:36:09 - @Pierre Gestraud has joined the channel*
+**Pierre Gestraud** (08:36:09):
+> @Pierre Gestraud has joined the channel
+
 **Michael Love** (11:23:01):
 > spreading the tidy on support site:slightly_smiling_face:[https://support.bioconductor.org/p/9148540/](https://support.bioconductor.org/p/9148540/)
 
 
 ## 2022-12-25
 
-*12:53:44 - @Antonio Cembellin Prieto has joined the channel*
+**Antonio Cembellin Prieto** (12:53:44):
+> @Antonio Cembellin Prieto has joined the channel
+
 
 ## 2023-01-18
 
-*13:10:24 - @José Basílio has joined the channel*
+**José Basílio** (13:10:24):
+> @José Basílio has joined the channel
+
 
 ## 2023-03-10
 
-*15:28:45 - @Edel Aron has joined the channel*
+**Edel Aron** (15:28:45):
+> @Edel Aron has joined the channel
+
 
 ## 2023-05-03
 
-*16:19:12 - @Rebecca Butler has joined the channel*
+**Rebecca Butler** (16:19:12):
+> @Rebecca Butler has joined the channel
+
 
 ## 2023-05-18
 
-*05:54:16 - @Oluwafemi Oyedele has joined the channel*
+**Oluwafemi Oyedele** (05:54:16):
+> @Oluwafemi Oyedele has joined the channel
+
 
 ## 2023-05-25
 
-*17:14:24 - @Jacob Krol has joined the channel*
+**Jacob Krol** (17:14:24):
+> @Jacob Krol has joined the channel
+
 
 ## 2023-06-15
 
@@ -2023,37 +2270,47 @@ format: gfm
 
 ## 2023-06-19
 
-*05:12:34 - @Pierre-Paul Axisa has joined the channel*
+**Pierre-Paul Axisa** (05:12:34):
+> @Pierre-Paul Axisa has joined the channel
+
 
 ## 2023-06-28
 
-*11:00:04 - @Andrew Ghazi has joined the channel*
+**Andrew Ghazi** (11:00:04):
+> @Andrew Ghazi has joined the channel
+
 
 ## 2023-07-06
 
-*02:54:08 - @Assa has left the channel*
+**Assa** (02:54:08):
+> @Assa has left the channel
+
 
 ## 2023-07-26
 
-*08:15:57 - @Guillaume Devailly has joined the channel*
-*08:19:14 - @Helena L. Crowell has joined the channel*
+**Guillaume Devailly** (08:15:57):
+> @Guillaume Devailly has joined the channel
+
+**Helena L. Crowell** (08:19:14):
+> @Helena L. Crowell has joined the channel
+
 **Michael Love** (09:04:10):
 > @stefano mangiolaand I are compiling a list of open challenges for “tidyomics” — tidy-data paradigm for Bioconductor objects and other biological datasets. An open project, we invite anyone interested to assign themselves to an issue, and then we will include you in the writing of a paper describing this joint effort. Happy to discuss here or in person at BioC
 > * [https://twitter.com/mikelove/status/1684171715457454082](https://twitter.com/mikelove/status/1684171715457454082)
 > * [https://github.com/orgs/tidybiology/projects/1/views/1](https://github.com/orgs/tidybiology/projects/1/views/1)
   - Attachment (Twitter): [Michael Love on Twitter](https://twitter.com/mikelove/status/1684171715457454082)
-    > Be part of the #tidyomics community! Take on one of the Tidyomics Open Challenges & become part of our upcoming paper, "Enhancing omic data analyses with the tidyomics ecosystem"
-    > 
-    > Challenges:
-    > [https://t.co/5BYzVjNwLm](https://t.co/5BYzVjNwLm)
-    > 
-    > tidiness_in_bioc on bioc slack 
-    > @steman_research @Bioconductor
+> Be part of the #tidyomics community! Take on one of the Tidyomics Open Challenges & become part of our upcoming paper, "Enhancing omic data analyses with the tidyomics ecosystem"
+> 
+> Challenges:
+> [https://t.co/5BYzVjNwLm](https://t.co/5BYzVjNwLm)
+> 
+> tidiness_in_bioc on bioc slack 
+> @steman_research @Bioconductor
 
 **Guillaume Devailly** (09:11:15):
 > I might be interested in writing a little something for the blog. Is the blog live somewhere or not yet? I was looking for previous posts for inspiration, but all I could find was this:[https://tidybiology.github.io/tidyomicsBlog/](https://tidybiology.github.io/tidyomicsBlog/)
   - Attachment (tidybiology.github.io): [Tidy transcriptomics](https://tidybiology.github.io/tidyomicsBlog/)
-    > The blog about tidy transcriptomics.
+> The blog about tidy transcriptomics.
 
 **Michael Love** (09:15:05) (in thread):
 > that would be great, i think@stefano mangiolais planning to bring the blog back to life soon. if you want to start drafting in Rmd or md I’m sure that could be brought in easily
@@ -2102,62 +2359,68 @@ format: gfm
 **Michael Love** (10:40:46):
 > As a preview of what we mean by integration, in this upcoming workshop we work across SingleCellExperiment <-> SummarizedExperiment <-> ranges using Stefano’s tidy* packages and plyranges with familiar tidyverse verbs[https://tidybiology.github.io/tidyomicsWorkshopBioc2023/articles/tidyGenomicsTranscriptomics.html](https://tidybiology.github.io/tidyomicsWorkshopBioc2023/articles/tidyGenomicsTranscriptomics.html)
   - Attachment (tidybiology.github.io): [Tidy genomic and transcriptomic single-cell analyses](https://tidybiology.github.io/tidyomicsWorkshopBioc2023/articles/tidyGenomicsTranscriptomics.html)
-    > tidyomicsWorkshopBioc2023
+> tidyomicsWorkshopBioc2023
 
 **Martin Morgan** (11:03:39):
 > mentioning[https://github.com/Bioconductor/S4Vectors/pull/116](https://github.com/Bioconductor/S4Vectors/pull/116)in case there is some insight or more general solution@Kevin Rue-Albrecht
   - Attachment: [#116 add fortify.DataFrame](https://github.com/Bioconductor/S4Vectors/pull/116)
-    > Hi there
-    > 
-    > TL;DR: This PR makes the following code possible:
-    > 
-    > ```
-    > library(S4Vectors)
-    > 
-    > df <- DataFrame(
-    >   x = 1:10,
-    >   y = rnorm(10)
-    > )
-    > 
-    > library(ggplot2)
-    > 
-    > ggplot(df, aes(x, y)) +
-    >   geom_point()
-    > 
-    > # see also:
-    > fortify(df)
-    > ```
-    > 
-    > Without the need for `as.data.frame(df)` in the `ggplot()` call.
-    > 
-    > * * *
-    > 
-    > Context:
-    > 
-    > As per [https://community-bioc.slack.com/archives/C6KJHH0M9/p1690235172607369](https://community-bioc.slack.com/archives/C6KJHH0M9/p1690235172607369)
-    > 
-    > I've messed around `S4vectors` a bit to test feasibility, and somehow landed on my feet with something that seems to work.
-    > 
-    > I'll be honest, I'm not even sure why R allows me to do it, but it seems that I can `importFrom` a package that is listed in `Suggests` (i.e., not in `Depends`).
-    > 
-    > I added `ggplot2` to `Suggests` because I don't like the idea of having it under `Imports`. It just feels wrong to automatically install `ggplot2` and its own dependencies as a dependency of `S4Vectors`. `S4Vectors` should remain a lightweight package.
-    > 
-    > I suppose that if users have `ggplot2` installed, the import statement "just works", and if they don't have `ggplot2` installed.. well... they don't have any reason to call `ggplot()` on a `DataFrame` object :D
-    > 
-    > I'm aware that this PR is unlikely to be the final fix (if any is possible at all). I just aim to give a starting point to the discussion.
-    > 
-    > Also, I've considered other approaches, but run into chicken-and-egg issues:
-    > 
-    > • I suspect `ggplot2` will not accept to `Suggests: S4Vectors`, as I don't see any Bioconductor package in its existing Imports/Suggests ([https://cran.r-project.org/web/packages/ggplot2/index.html](https://cran.r-project.org/web/packages/ggplot2/index.html)) and `install.packages()` cannot see Bioconductor packages without messing with `options(repos)`.
-    > • I suspect `S4Vectors` will not accept to `Imports: ggplot2`, to justify more cleanly `importFrom(ggplot2, fortify)`. Same reason as above: keep S4Vectors dependencies to a minimum
-    > • I noted that `?ggplot2::fortify` states "Rather than using this function, I now recommend using the broom package, which implements a much wider range of methods. fortify() may be deprecated in the future." However, it is not clear to me what needs to be done in [broom](https://cran.r-project.org/web/packages/broom/index.html) (or [biobroom](https://bioconductor.org/packages/release/bioc/html/biobroom.html))
+> Hi there
+> 
+> TL;DR: This PR makes the following code possible:
+> 
+> ```
+> library(S4Vectors)
+> 
+> df <- DataFrame(
+>   x = 1:10,
+>   y = rnorm(10)
+> )
+> 
+> library(ggplot2)
+> 
+> ggplot(df, aes(x, y)) +
+>   geom_point()
+> 
+> # see also:
+> fortify(df)
+> ```
+> 
+> Without the need for `as.data.frame(df)` in the `ggplot()` call.
+> 
+> * * *
+> 
+> Context:
+> 
+> As per [https://community-bioc.slack.com/archives/C6KJHH0M9/p1690235172607369](https://community-bioc.slack.com/archives/C6KJHH0M9/p1690235172607369)
+> 
+> I've messed around `S4vectors` a bit to test feasibility, and somehow landed on my feet with something that seems to work.
+> 
+> I'll be honest, I'm not even sure why R allows me to do it, but it seems that I can `importFrom` a package that is listed in `Suggests` (i.e., not in `Depends`).
+> 
+> I added `ggplot2` to `Suggests` because I don't like the idea of having it under `Imports`. It just feels wrong to automatically install `ggplot2` and its own dependencies as a dependency of `S4Vectors`. `S4Vectors` should remain a lightweight package.
+> 
+> I suppose that if users have `ggplot2` installed, the import statement "just works", and if they don't have `ggplot2` installed.. well... they don't have any reason to call `ggplot()` on a `DataFrame` object :D
+> 
+> I'm aware that this PR is unlikely to be the final fix (if any is possible at all). I just aim to give a starting point to the discussion.
+> 
+> Also, I've considered other approaches, but run into chicken-and-egg issues:
+> 
+> • I suspect `ggplot2` will not accept to `Suggests: S4Vectors`, as I don't see any Bioconductor package in its existing Imports/Suggests ([https://cran.r-project.org/web/packages/ggplot2/index.html](https://cran.r-project.org/web/packages/ggplot2/index.html)) and `install.packages()` cannot see Bioconductor packages without messing with `options(repos)`.
+> • I suspect `S4Vectors` will not accept to `Imports: ggplot2`, to justify more cleanly `importFrom(ggplot2, fortify)`. Same reason as above: keep S4Vectors dependencies to a minimum
+> • I noted that `?ggplot2::fortify` states "Rather than using this function, I now recommend using the broom package, which implements a much wider range of methods. fortify() may be deprecated in the future." However, it is not clear to me what needs to be done in [broom](https://cran.r-project.org/web/packages/broom/index.html) (or [biobroom](https://bioconductor.org/packages/release/bioc/html/biobroom.html))
 
-*11:11:39 - @Gurpreet Kaur has joined the channel*
-*11:20:24 - @Christian Brueffer has joined the channel*
+**Gurpreet Kaur** (11:11:39):
+> @Gurpreet Kaur has joined the channel
+
+**Christian Brueffer** (11:20:24):
+> @Christian Brueffer has joined the channel
+
 **stefano mangiola** (18:47:44) (in thread):
 > great.@William Hutchisonmaybe prioritise the blog transfer a little so members of the community will be able to contribute. Please@Guillaume Devaillyadd yourself to the github issue so we can start planning there.
 
-*18:47:51 - @William Hutchison has joined the channel*
+**William Hutchison** (18:47:51):
+> @William Hutchison has joined the channel
+
 **William Hutchison** (20:26:17) (in thread):
 > Sure, I will work to get the blog up as soon as possible. Thank you for your interest Guillaume
 
@@ -2176,8 +2439,12 @@ format: gfm
 **Helena L. Crowell** (04:54:29):
 > Sorry if I'm missing something, but could it be that one cannot create/assign challenges w/o being a project member? Or maybe this is only true for tasks that are linked to package-issues?
 
-*07:33:30 - @Clemens Kohl has joined the channel*
-*07:35:14 - @Louise Morlot has joined the channel*
+**Clemens Kohl** (07:33:30):
+> @Clemens Kohl has joined the channel
+
+**Louise Morlot** (07:35:14):
+> @Louise Morlot has joined the channel
+
 **stefano mangiola** (08:28:21) (in thread):
 > It’s maybe the case that you cannot create issues on the project if you’re not member. You should be able to assign yourself to an issue though. These requires the same rights as assigning yourself to an issue of the public repository.
 > 
@@ -2198,7 +2465,9 @@ format: gfm
 **Michael Love** (11:15:30) (in thread):
 > added@Abdullah Al Nahid
 
-*11:15:45 - @Abdullah Al Nahid has joined the channel*
+**Abdullah Al Nahid** (11:15:45):
+> @Abdullah Al Nahid has joined the channel
+
 **Michael Love** (11:22:52) (in thread):
 > I’m still learning how to do this, but some of the challenges may be writing new packages, and i think the Issue should link to the new package in that case. I just did this for:[https://github.com/orgs/tidybiology/projects/1/views/1?pane=issue&itemId=34385041](https://github.com/orgs/tidybiology/projects/1/views/1?pane=issue&itemId=34385041)
 
@@ -2218,13 +2487,17 @@ format: gfm
 > * Once we're happy with things, transfer what we can to`tidySummarizedExperiment`and ...?
 > Let me know what you (*anyone interested) think! I think all these could be done fairly quickly, and would bring us into a more stable state; then the "hard stuff" can be tackled (efficiency, grouping):muscle:
   - Attachment (contributions.bioconductor.org): [Chapter 15 R code | Bioconductor Packages: Development, Maintenance, and Peer Review](https://contributions.bioconductor.org/r-code.html#r-code)
-    > Everyone has their own coding style and formats. There are however some best practice guidelines that Bioconductor reviewers will look for. can be a robust, fast and efficient programming language...
+> Everyone has their own coding style and formats. There are however some best practice guidelines that Bioconductor reviewers will look for. can be a robust, fast and efficient programming language...
 
 **Christian Brueffer** (15:00:25) (in thread):
 > Sounds reasonable to me, particularly cleaning up lint issues early on.
 
-*15:59:08 - @Benjamin Yang has joined the channel*
-*19:19:46 - @Noriaki Sato has joined the channel*
+**Benjamin Yang** (15:59:08):
+> @Benjamin Yang has joined the channel
+
+**Noriaki Sato** (19:19:46):
+> @Noriaki Sato has joined the channel
+
 **stefano mangiola** (22:19:04) (in thread):
 > Impressive! I left few comments on the PR.
 > 
@@ -2279,7 +2552,9 @@ format: gfm
 
 ## 2023-08-03
 
-*08:32:05 - @Jacques SERIZAY has joined the channel*
+**Jacques SERIZAY** (08:32:05):
+> @Jacques SERIZAY has joined the channel
+
 **Michael Love** (09:57:46) (in thread):
 > @Laurent Gatto, I wanted to ask: is there someone from your group or a suggestion of someone from the Bioc proteomics community that may want to work on an API similar to tidySE etc. for MsExperiment?
 > 
@@ -2307,7 +2582,9 @@ format: gfm
 > Let's vote::balloon:for sentence case:star:for lower case
   - File (PNG): [tidyomics.png](https://community-bioc.slack.com/files/U34P8RS3B/F05L0U3UGRL/tidyomics.png)
 
-*15:59:49 - @Ritika Giri has joined the channel*
+**Ritika Giri** (15:59:49):
+> @Ritika Giri has joined the channel
+
 **stefano mangiola** (21:25:25) (in thread):
 > Amazing! as logo I was also thinking about a graphical hex logo.
 > 
@@ -2361,16 +2638,36 @@ format: gfm
 **Abdullah Al Nahid** (09:03:43) (in thread):
 > Haha, it's fine. I will try flat, gradient anything I feel like might look good. Will then ask for feedbacks and finally, if requires, voting
 
-*10:04:59 - @Abiud Cantu has joined the channel*
-*10:05:24 - @Joost Groot has joined the channel*
-*10:09:12 - @Jianhong has joined the channel*
-*10:48:09 - @Ray Su has joined the channel*
-*10:50:11 - @Scott Norton has joined the channel*
-*10:50:13 - @Brian Gural has joined the channel*
-*10:50:51 - @Sowmya Parthiban has joined the channel*
-*10:51:13 - @Cindy Fang has joined the channel*
-*13:48:49 - @Francesc Català-Moll has joined the channel*
-*14:23:22 - @Lucio Queiroz has joined the channel*
+**Abiud Cantu** (10:04:59):
+> @Abiud Cantu has joined the channel
+
+**Joost Groot** (10:05:24):
+> @Joost Groot has joined the channel
+
+**Jianhong** (10:09:12):
+> @Jianhong has joined the channel
+
+**Ray Su** (10:48:09):
+> @Ray Su has joined the channel
+
+**Scott Norton** (10:50:11):
+> @Scott Norton has joined the channel
+
+**Brian Gural** (10:50:13):
+> @Brian Gural has joined the channel
+
+**Sowmya Parthiban** (10:50:51):
+> @Sowmya Parthiban has joined the channel
+
+**Cindy Fang** (10:51:13):
+> @Cindy Fang has joined the channel
+
+**Francesc Català-Moll** (13:48:49):
+> @Francesc Català-Moll has joined the channel
+
+**Lucio Queiroz** (14:23:22):
+> @Lucio Queiroz has joined the channel
+
 
 ## 2023-08-06
 
@@ -2379,7 +2676,9 @@ format: gfm
 > 
 > Stefano and I will move over projects/links etc., just to explain that some links may be moving`tidybiology`->`tidyomics`in the next few weeks
 
-*11:25:16 - @Ming Tang has joined the channel*
+**Ming Tang** (11:25:16):
+> @Ming Tang has joined the channel
+
 **Michael Love** (11:38:01):
 > So at this moment, open issues are in two places. That’s ok, bc the Issues are anyway tied to repos. So Stefano and I just need to move these over one by one (the Assignees, Labels, etc. will come over automatically).
   - File (PNG): [Screenshot 2023-08-06 at 11.21.51 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/F05LB8P4PAS/screenshot_2023-08-06_at_11.21.51_am.png)
@@ -2390,7 +2689,7 @@ format: gfm
 **Spencer Nystrom** (14:23:05) (in thread):
 > [https://stackoverflow.com/questions/57024087/github-api-how-to-move-an-issue-to-a-project](https://stackoverflow.com/questions/57024087/github-api-how-to-move-an-issue-to-a-project)
   - Attachment (Stack Overflow): [GitHub API - how to move an issue to a project?](https://stackoverflow.com/questions/57024087/github-api-how-to-move-an-issue-to-a-project)
-    > There are several ways to move a Github issue to a Project board through the GitHub user interface, but there doesn't seem to be any way to do this via the API (either v3 or v4). Is this missing
+> There are several ways to move a Github issue to a Project board through the GitHub user interface, but there doesn't seem to be any way to do this via the API (either v3 or v4). Is this missing
 
 **Michael Love** (16:51:49) (in thread):
 > all the items are issues, it’s pretty quick to just start typing, they auto-complete
@@ -2414,186 +2713,186 @@ format: gfm
 **Charlotte Soneson** (03:40:42):
 > :wave:I wonder if the issue identified in[https://github.com/stemangiola/tidySummarizedExperiment/issues/70](https://github.com/stemangiola/tidySummarizedExperiment/issues/70)is another candidate for a challenge (I couldn't see it in the list):slightly_smiling_face:- I think`get_count_datasets()`might need also a check for the row names being consistent between assays, and a decision of what to do if the dimnames of the assays don't agree with those of the SE.
   - Attachment: [#70 Can't convert my TreeSummarizedExperiment to a tibble](https://github.com/stemangiola/tidySummarizedExperiment/issues/70)
-    > I used to be able to transform my tse into tidy format by calling `tidySummarizedExperiment::as_tibble` (don't remember the version), but it doesn't work anymore. Wondering if this could be a bug or just some formatting I need to do in my data. I'd appreciate any help. Thanks.
-    > 
-    > ```
-    > library(curatedMetagenomicData)
-    > #> Loading required package: SummarizedExperiment
-    > #> Loading required package: MatrixGenerics
-    > #> Loading required package: matrixStats
-    > #> 
-    > #> Attaching package: 'MatrixGenerics'
-    > #> The following objects are masked from 'package:matrixStats':
-    > #> 
-    > #>     colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
-    > #>     colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
-    > #>     colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
-    > #>     colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
-    > #>     colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
-    > #>     colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
-    > #>     colWeightedMeans, colWeightedMedians, colWeightedSds,
-    > #>     colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
-    > #>     rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
-    > #>     rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
-    > #>     rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
-    > #>     rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
-    > #>     rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
-    > #>     rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
-    > #>     rowWeightedSds, rowWeightedVars
-    > #> Loading required package: GenomicRanges
-    > #> Loading required package: stats4
-    > #> Loading required package: BiocGenerics
-    > #> 
-    > #> Attaching package: 'BiocGenerics'
-    > #> The following objects are masked from 'package:stats':
-    > #> 
-    > #>     IQR, mad, sd, var, xtabs
-    > #> The following objects are masked from 'package:base':
-    > #> 
-    > #>     anyDuplicated, aperm, append, as.data.frame, basename, cbind,
-    > #>     colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
-    > #>     get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
-    > #>     match, mget, order, paste, pmax, [pmax.int](http://pmax.int), pmin, [pmin.int](http://pmin.int),
-    > #>     Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
-    > #>     table, tapply, union, unique, unsplit, which.max, which.min
-    > #> Loading required package: S4Vectors
-    > #> 
-    > #> Attaching package: 'S4Vectors'
-    > #> The following object is masked from 'package:utils':
-    > #> 
-    > #>     findMatches
-    > #> The following objects are masked from 'package:base':
-    > #> 
-    > #>     expand.grid, I, unname
-    > #> Loading required package: IRanges
-    > #> Loading required package: GenomeInfoDb
-    > #> Loading required package: Biobase
-    > #> Welcome to Bioconductor
-    > #> 
-    > #>     Vignettes contain introductory material; view with
-    > #>     'browseVignettes()'. To cite Bioconductor, see
-    > #>     'citation("Biobase")', and for packages 'citation("pkgname")'.
-    > #> 
-    > #> Attaching package: 'Biobase'
-    > #> The following object is masked from 'package:MatrixGenerics':
-    > #> 
-    > #>     rowMedians
-    > #> The following objects are masked from 'package:matrixStats':
-    > #> 
-    > #>     anyMissing, rowMedians
-    > #> Warning: replacing previous import 'S4Arrays::read_block' by
-    > #> 'DelayedArray::read_block' when loading 'SummarizedExperiment'
-    > #> Loading required package: TreeSummarizedExperiment
-    > #> Loading required package: SingleCellExperiment
-    > #> Loading required package: Biostrings
-    > #> Loading required package: XVector
-    > #> 
-    > #> Attaching package: 'Biostrings'
-    > #> The following object is masked from 'package:base':
-    > #> 
-    > #>     strsplit
-    > library(tidySummarizedExperiment)
-    > #> 
-    > #> Attaching package: 'tidySummarizedExperiment'
-    > #> The following object is masked from 'package:XVector':
-    > #> 
-    > #>     slice
-    > #> The following object is masked from 'package:IRanges':
-    > #> 
-    > #>     slice
-    > #> The following object is masked from 'package:S4Vectors':
-    > #> 
-    > #>     rename
-    > #> The following object is masked from 'package:matrixStats':
-    > #> 
-    > #>     count
-    > #> The following object is masked from 'package:stats':
-    > #> 
-    > #>     filter
-    > dataset_name <- "HallAB_2017.relative_abundance"
-    > tse <- curatedMetagenomicData(
-    >     pattern = dataset_name, 
-    >     dryrun = FALSE, rownames = 'NCBI',
-    >     counts = TRUE
-    > )[[1]]
-    > #> 
-    > #> $`2021-10-14.HallAB_2017.relative_abundance`
-    > #> dropping rows without rowTree matches:
-    > #>   k__Bacteria|p__Actinobacteria|c__Coriobacteriia|o__Coriobacteriales|f__Atopobiaceae|g__Olsenella|s__Olsenella_profusa
-    > #>   k__Bacteria|p__Actinobacteria|c__Coriobacteriia|o__Coriobacteriales|f__Coriobacteriaceae|g__Collinsella|s__Collinsella_stercoris
-    > #>   k__Bacteria|p__Firmicutes|c__Bacilli|o__Lactobacillales|f__Carnobacteriaceae|g__Granulicatella|s__Granulicatella_elegans
-    > #>   k__Bacteria|p__Firmicutes|c__Clostridia|o__Clostridiales|f__Ruminococcaceae|g__Ruminococcus|s__Ruminococcus_champanellensis
-    > #>   k__Bacteria|p__Firmicutes|c__Erysipelotrichia|o__Erysipelotrichales|f__Erysipelotrichaceae|g__Bulleidia|s__Bulleidia_extructa
-    > #>   k__Bacteria|p__Proteobacteria|c__Betaproteobacteria|o__Burkholderiales|f__Sutterellaceae|g__Sutterella|s__Sutterella_parvirubra
-    > #>   k__Bacteria|p__Synergistetes|c__Synergistia|o__Synergistales|f__Synergistaceae|g__Cloacibacillus|s__Cloacibacillus_evryensis
-    > tse 
-    > #> class: TreeSummarizedExperiment 
-    > #> dim: 503 259 
-    > #> metadata(1): agglomerated_by_rank
-    > #> assays(1): relative_abundance
-    > #> rownames(503): 853 820 ... 172901 1262744
-    > #> rowData names(7): superkingdom phylum ... genus species
-    > #> colnames(259): p8582_mo1 p8582_mo10 ... SKST041_2_G103027
-    > #>   SKST041_3_G103028
-    > #> colData names(24): study_name subject_id ... HBI SCCAI
-    > #> reducedDimNames(0):
-    > #> mainExpName: NULL
-    > #> altExpNames(0):
-    > #> rowLinks: a LinkDataFrame (503 rows)
-    > #> rowTree: 1 phylo tree(s) (10430 leaves)
-    > #> colLinks: NULL
-    > #> colTree: NULL
-    > class(tse)
-    > #> [1] "TreeSummarizedExperiment"
-    > #> attr(,"package")
-    > #> [1] "TreeSummarizedExperiment"
-    > tidy_tse <- tidySummarizedExperiment::as_tibble(tse)
-    > #> Error in `map2()`:
-    > #> :information_source: In index: 1.
-    > #> :information_source: With name: relative_abundance.
-    > #> Caused by error in `.x[rownames(se), , drop = FALSE]`:
-    > #> ! subscript out of bounds
-    > #> Backtrace:
-    > #>      ▆
-    > #>   1. ├─tidySummarizedExperiment::as_tibble(tse)
-    > #>   2. ├─tidySummarizedExperiment:::as_tibble.SummarizedExperiment(tse)
-    > #>   3. │ └─tidySummarizedExperiment:::.as_tibble_optimised(...)
-    > #>   4. │   └─tidySummarizedExperiment:::get_count_datasets(x)
-    > #>   5. │     ├─... %>% ...
-    > #>   6. │     └─purrr::map2(...)
-    > #>   7. │       └─purrr:::map2_("list", .x, .y, .f, ..., .progress = .progress)
-    > #>   8. │         ├─purrr:::with_indexed_errors(...)
-    > #>   9. │         │ └─base::withCallingHandlers(...)
-    > #>  10. │         ├─purrr:::call_with_cleanup(...)
-    > #>  11. │         └─tidySummarizedExperiment (local) .f(.x[[i]], .y[[i]], ...)
-    > #>  12. ├─purrr::when(...)
-    > #>  13. ├─purrr::when(...)
-    > #>  14. └─purrr (local) `<fn>`(`<sbscOOBE>`)
-    > #>  15.   └─cli::cli_abort(...)
-    > #>  16.     └─rlang::abort(...)
-    > sessioninfo::session_info()
-    > #> ─ Session info ───────────────────────────────────────────────────────────────
-    > #>  setting  value
-    > #>  version  R version 4.3.0 (2023-04-21)
-    > #>  os       Pop!_OS 22.04 LTS
-    > #>  system   x86_64, linux-gnu
-    > #>  ui       X11
-    > #>  language (EN)
-    > #>  collate  en_US.UTF-8
-    > #>  ctype    en_US.UTF-8
-    > #>  tz       America/New_York
-    > #>  date     2023-05-15
-    > #>  pandoc   2.19.2 @ /usr/lib/rstudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
-    > #> 
-    > #> ─ Packages ───────────────────────────────────────────────────────────────────
-    > #>  package                  * version   date (UTC) lib source
-    > #>  AnnotationDbi              1.62.1    2023-05-02 [1] Bioconductor
-    > #>  AnnotationHub              3.8.0     2023-04-25 [1] Bioconductor
-    > #>  ape                        5.7-1     2023-03-13 [1] CRAN (R 4.3.0)
-    > #>  beachmat                   2.16.0    2023-04-25 [1] Bioconductor
-    > #>  beeswarm                   0.4.0     2021-06-01 [1] CRAN (R 4.3.0)
-    > #>  Biobase                  * 2.60.0    2023-04-25 [1] Bioconductor
-    > #>  BiocFileCache              2.8.0     2023-04-25 [1] Bioc…
+> I used to be able to transform my tse into tidy format by calling `tidySummarizedExperiment::as_tibble` (don't remember the version), but it doesn't work anymore. Wondering if this could be a bug or just some formatting I need to do in my data. I'd appreciate any help. Thanks.
+> 
+> ```
+> library(curatedMetagenomicData)
+> #> Loading required package: SummarizedExperiment
+> #> Loading required package: MatrixGenerics
+> #> Loading required package: matrixStats
+> #> 
+> #> Attaching package: 'MatrixGenerics'
+> #> The following objects are masked from 'package:matrixStats':
+> #> 
+> #>     colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
+> #>     colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
+> #>     colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
+> #>     colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
+> #>     colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
+> #>     colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
+> #>     colWeightedMeans, colWeightedMedians, colWeightedSds,
+> #>     colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
+> #>     rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
+> #>     rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
+> #>     rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
+> #>     rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
+> #>     rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
+> #>     rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
+> #>     rowWeightedSds, rowWeightedVars
+> #> Loading required package: GenomicRanges
+> #> Loading required package: stats4
+> #> Loading required package: BiocGenerics
+> #> 
+> #> Attaching package: 'BiocGenerics'
+> #> The following objects are masked from 'package:stats':
+> #> 
+> #>     IQR, mad, sd, var, xtabs
+> #> The following objects are masked from 'package:base':
+> #> 
+> #>     anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+> #>     colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+> #>     get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+> #>     match, mget, order, paste, pmax, [pmax.int](http://pmax.int), pmin, [pmin.int](http://pmin.int),
+> #>     Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+> #>     table, tapply, union, unique, unsplit, which.max, which.min
+> #> Loading required package: S4Vectors
+> #> 
+> #> Attaching package: 'S4Vectors'
+> #> The following object is masked from 'package:utils':
+> #> 
+> #>     findMatches
+> #> The following objects are masked from 'package:base':
+> #> 
+> #>     expand.grid, I, unname
+> #> Loading required package: IRanges
+> #> Loading required package: GenomeInfoDb
+> #> Loading required package: Biobase
+> #> Welcome to Bioconductor
+> #> 
+> #>     Vignettes contain introductory material; view with
+> #>     'browseVignettes()'. To cite Bioconductor, see
+> #>     'citation("Biobase")', and for packages 'citation("pkgname")'.
+> #> 
+> #> Attaching package: 'Biobase'
+> #> The following object is masked from 'package:MatrixGenerics':
+> #> 
+> #>     rowMedians
+> #> The following objects are masked from 'package:matrixStats':
+> #> 
+> #>     anyMissing, rowMedians
+> #> Warning: replacing previous import 'S4Arrays::read_block' by
+> #> 'DelayedArray::read_block' when loading 'SummarizedExperiment'
+> #> Loading required package: TreeSummarizedExperiment
+> #> Loading required package: SingleCellExperiment
+> #> Loading required package: Biostrings
+> #> Loading required package: XVector
+> #> 
+> #> Attaching package: 'Biostrings'
+> #> The following object is masked from 'package:base':
+> #> 
+> #>     strsplit
+> library(tidySummarizedExperiment)
+> #> 
+> #> Attaching package: 'tidySummarizedExperiment'
+> #> The following object is masked from 'package:XVector':
+> #> 
+> #>     slice
+> #> The following object is masked from 'package:IRanges':
+> #> 
+> #>     slice
+> #> The following object is masked from 'package:S4Vectors':
+> #> 
+> #>     rename
+> #> The following object is masked from 'package:matrixStats':
+> #> 
+> #>     count
+> #> The following object is masked from 'package:stats':
+> #> 
+> #>     filter
+> dataset_name <- "HallAB_2017.relative_abundance"
+> tse <- curatedMetagenomicData(
+>     pattern = dataset_name, 
+>     dryrun = FALSE, rownames = 'NCBI',
+>     counts = TRUE
+> )[[1]]
+> #> 
+> #> $`2021-10-14.HallAB_2017.relative_abundance`
+> #> dropping rows without rowTree matches:
+> #>   k__Bacteria|p__Actinobacteria|c__Coriobacteriia|o__Coriobacteriales|f__Atopobiaceae|g__Olsenella|s__Olsenella_profusa
+> #>   k__Bacteria|p__Actinobacteria|c__Coriobacteriia|o__Coriobacteriales|f__Coriobacteriaceae|g__Collinsella|s__Collinsella_stercoris
+> #>   k__Bacteria|p__Firmicutes|c__Bacilli|o__Lactobacillales|f__Carnobacteriaceae|g__Granulicatella|s__Granulicatella_elegans
+> #>   k__Bacteria|p__Firmicutes|c__Clostridia|o__Clostridiales|f__Ruminococcaceae|g__Ruminococcus|s__Ruminococcus_champanellensis
+> #>   k__Bacteria|p__Firmicutes|c__Erysipelotrichia|o__Erysipelotrichales|f__Erysipelotrichaceae|g__Bulleidia|s__Bulleidia_extructa
+> #>   k__Bacteria|p__Proteobacteria|c__Betaproteobacteria|o__Burkholderiales|f__Sutterellaceae|g__Sutterella|s__Sutterella_parvirubra
+> #>   k__Bacteria|p__Synergistetes|c__Synergistia|o__Synergistales|f__Synergistaceae|g__Cloacibacillus|s__Cloacibacillus_evryensis
+> tse 
+> #> class: TreeSummarizedExperiment 
+> #> dim: 503 259 
+> #> metadata(1): agglomerated_by_rank
+> #> assays(1): relative_abundance
+> #> rownames(503): 853 820 ... 172901 1262744
+> #> rowData names(7): superkingdom phylum ... genus species
+> #> colnames(259): p8582_mo1 p8582_mo10 ... SKST041_2_G103027
+> #>   SKST041_3_G103028
+> #> colData names(24): study_name subject_id ... HBI SCCAI
+> #> reducedDimNames(0):
+> #> mainExpName: NULL
+> #> altExpNames(0):
+> #> rowLinks: a LinkDataFrame (503 rows)
+> #> rowTree: 1 phylo tree(s) (10430 leaves)
+> #> colLinks: NULL
+> #> colTree: NULL
+> class(tse)
+> #> [1] "TreeSummarizedExperiment"
+> #> attr(,"package")
+> #> [1] "TreeSummarizedExperiment"
+> tidy_tse <- tidySummarizedExperiment::as_tibble(tse)
+> #> Error in `map2()`:
+> #> :information_source: In index: 1.
+> #> :information_source: With name: relative_abundance.
+> #> Caused by error in `.x[rownames(se), , drop = FALSE]`:
+> #> ! subscript out of bounds
+> #> Backtrace:
+> #>      ▆
+> #>   1. ├─tidySummarizedExperiment::as_tibble(tse)
+> #>   2. ├─tidySummarizedExperiment:::as_tibble.SummarizedExperiment(tse)
+> #>   3. │ └─tidySummarizedExperiment:::.as_tibble_optimised(...)
+> #>   4. │   └─tidySummarizedExperiment:::get_count_datasets(x)
+> #>   5. │     ├─... %>% ...
+> #>   6. │     └─purrr::map2(...)
+> #>   7. │       └─purrr:::map2_("list", .x, .y, .f, ..., .progress = .progress)
+> #>   8. │         ├─purrr:::with_indexed_errors(...)
+> #>   9. │         │ └─base::withCallingHandlers(...)
+> #>  10. │         ├─purrr:::call_with_cleanup(...)
+> #>  11. │         └─tidySummarizedExperiment (local) .f(.x[[i]], .y[[i]], ...)
+> #>  12. ├─purrr::when(...)
+> #>  13. ├─purrr::when(...)
+> #>  14. └─purrr (local) `<fn>`(`<sbscOOBE>`)
+> #>  15.   └─cli::cli_abort(...)
+> #>  16.     └─rlang::abort(...)
+> sessioninfo::session_info()
+> #> ─ Session info ───────────────────────────────────────────────────────────────
+> #>  setting  value
+> #>  version  R version 4.3.0 (2023-04-21)
+> #>  os       Pop!_OS 22.04 LTS
+> #>  system   x86_64, linux-gnu
+> #>  ui       X11
+> #>  language (EN)
+> #>  collate  en_US.UTF-8
+> #>  ctype    en_US.UTF-8
+> #>  tz       America/New_York
+> #>  date     2023-05-15
+> #>  pandoc   2.19.2 @ /usr/lib/rstudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
+> #> 
+> #> ─ Packages ───────────────────────────────────────────────────────────────────
+> #>  package                  * version   date (UTC) lib source
+> #>  AnnotationDbi              1.62.1    2023-05-02 [1] Bioconductor
+> #>  AnnotationHub              3.8.0     2023-04-25 [1] Bioconductor
+> #>  ape                        5.7-1     2023-03-13 [1] CRAN (R 4.3.0)
+> #>  beachmat                   2.16.0    2023-04-25 [1] Bioconductor
+> #>  beeswarm                   0.4.0     2021-06-01 [1] CRAN (R 4.3.0)
+> #>  Biobase                  * 2.60.0    2023-04-25 [1] Bioconductor
+> #>  BiocFileCache              2.8.0     2023-04-25 [1] Bioc…
 
 **stefano mangiola** (07:00:34) (in thread):
 > That’s quite new issue:slightly_smiling_face:doing a check and throwing an informative error might be a clean and simple idea.
@@ -2666,34 +2965,48 @@ format: gfm
 **Michael Love** (09:07:01):
 > otherwise it will just cause confusion
 
-*14:37:36 - @Andres Wokaty has joined the channel*
-*14:37:52 - @Alex Mahmoud has joined the channel*
-*14:40:11 - @Robert Shear has joined the channel*
+**Andres Wokaty** (14:37:36):
+> @Andres Wokaty has joined the channel
+
+**Alex Mahmoud** (14:37:52):
+> @Alex Mahmoud has joined the channel
+
+**Robert Shear** (14:40:11):
+> @Robert Shear has joined the channel
+
 
 ## 2023-08-18
 
-*12:35:40 - @Victor Yuan has joined the channel*
+**Victor Yuan** (12:35:40):
+> @Victor Yuan has joined the channel
+
 
 ## 2023-08-21
 
 **stefano mangiola** (03:13:12):
 > Congrats to@Charlotte Sonesonto her first contribution![https://github.com/stemangiola/tidySummarizedExperiment/pull/78](https://github.com/stemangiola/tidySummarizedExperiment/pull/78)Amazing work
   - Attachment: [#78 Bugfix nonmatching dimnames](https://github.com/stemangiola/tidySummarizedExperiment/pull/78)
-    > Here's a first attempt to address [#70](https://github.com/stemangiola/tidySummarizedExperiment/issues/70), as well as increasing the consistency of `utilities.R` in terms of indentation, spaces and assignment operators.  
-    > Currently the situation where assays are unnamed is not handled well by `get_count_datasets()`. Do we want to require named assays? At the moment, adding a check for this makes `nest()` fail (even if the assays are in fact named).
+> Here's a first attempt to address [#70](https://github.com/stemangiola/tidySummarizedExperiment/issues/70), as well as increasing the consistency of `utilities.R` in terms of indentation, spaces and assignment operators.  
+> Currently the situation where assays are unnamed is not handled well by `get_count_datasets()`. Do we want to require named assays? At the moment, adding a check for this makes `nest()` fail (even if the assays are in fact named).
 
 
 ## 2023-08-24
 
-*01:20:20 - @Lachlan Baer has joined the channel*
-*17:14:21 - @Leo Lahti has joined the channel*
+**Lachlan Baer** (01:20:20):
+> @Lachlan Baer has joined the channel
+
+**Leo Lahti** (17:14:21):
+> @Leo Lahti has joined the channel
+
 **Leo Lahti** (17:15:17) (in thread):
 > Hi! I only saw this now. People on#miaversechannel might also be able to help.
 
 
 ## 2023-08-26
 
-*11:47:47 - @chilam has joined the channel*
+**chilam** (11:47:47):
+> @chilam has joined the channel
+
 **Michael Love** (16:22:57):
 > As part of one of the challenges,@Abdullah Al Nahidhas submitted`easylift`to Bioconductor:tada:way to go!
 > 
@@ -2730,11 +3043,15 @@ format: gfm
 
 ## 2023-09-01
 
-*09:39:12 - @Kwangwoon (Jon) Lee has joined the channel*
+**Kwangwoon (Jon) Lee** (09:39:12):
+> @Kwangwoon (Jon) Lee has joined the channel
+
 
 ## 2023-09-05
 
-*10:27:31 - @Richard White has joined the channel*
+**Richard White** (10:27:31):
+> @Richard White has joined the channel
+
 
 ## 2023-09-08
 
@@ -2767,10 +3084,10 @@ format: gfm
 **Jacques SERIZAY** (08:07:31):
 > Hi all, me again with`plyinteractions`. The package now ports the most important`dplyr`and`plyranges`functions (IMHO) to`GInteractions`, everything is referenced in the`pkgdown`website:[https://tidyomics.github.io/plyinteractions/](https://tidyomics.github.io/plyinteractions/), with extensive examples and a rather long vignette. I'm happy with the state of it as it currently is and would be ready to submit it to Bioc, but I first wanted to see if#tidiness_in_biocpeeps have comments/suggestions prior to formal review. Please do let me know if you feel like some functionalities are missing!:hugging_face:
   - Attachment (tidyomics.github.io): [Extending tidy verbs to genomic interactions](https://tidyomics.github.io/plyinteractions/)
-    > A dplyr-like interface for interacting with the common Bioconductor 
-    >  class GInteractions. By providing a grammatical
-    >  and consistent way of manipulating these classes their accessiblity for new
-    >  Bioconductor users is hopefully increased.
+> A dplyr-like interface for interacting with the common Bioconductor 
+>  class GInteractions. By providing a grammatical
+>  and consistent way of manipulating these classes their accessiblity for new
+>  Bioconductor users is hopefully increased.
 
 
 ## 2023-09-14
@@ -2778,19 +3095,21 @@ format: gfm
 **stefano mangiola** (07:37:10):
 > #tidyomics is officially live![https://x.com/steman_research/status/1702184792920674566?s=20](https://x.com/steman_research/status/1702184792920674566?s=20)Thanks to the whole community, we are doing great!
   - Attachment (X (formerly Twitter)): [Stefano Mangiola on X](https://x.com/steman_research/status/1702184792920674566?s=20)
-    > :tada::broom: The #tidyomics ecosystem is official! 
-    > 
-    > Into #omic data analysis? Spanning #Seurat @Bioconductor #SCE, #SE, #GRanges, #Citometry?
-    > Now, just use #tidyverse !
-    > 
-    > Co-led with @mikelove and @TonyPapenfuss @WEHI_research #singlecell
-    > 
-    > The preprint [https://t.co/jGEy2BVj5C](https://t.co/jGEy2BVj5C)
+> :tada::broom: The #tidyomics ecosystem is official! 
+> 
+> Into #omic data analysis? Spanning #Seurat @Bioconductor #SCE, #SE, #GRanges, #Citometry?
+> Now, just use #tidyverse !
+> 
+> Co-led with @mikelove and @TonyPapenfuss @WEHI_research #singlecell
+> 
+> The preprint [https://t.co/jGEy2BVj5C](https://t.co/jGEy2BVj5C)
 
 
 ## 2023-09-15
 
-*04:56:48 - @Leo Lahti has joined the channel*
+**Leo Lahti** (04:56:48):
+> @Leo Lahti has joined the channel
+
 
 ## 2023-09-16
 
@@ -2824,15 +3143,17 @@ format: gfm
 > 
 > Note also that more generally, use cases using`SE`or`SCE`also apply to proteomics, given that these data structures can also be applied to quantitative proteomics.
   - Attachment (uclouvain-cbio.github.io): [Using the `sager` package to import and analyse `sage` results in R](https://uclouvain-cbio.github.io/sager/articles/sager.html#quantitative-data)
-    > sager
+> sager
   - Attachment (rformassspectrometry.github.io): [Spectra Infrastructure for Mass Spectrometry Data](https://rformassspectrometry.github.io/Spectra/)
-    > The Spectra package defines an efficient infrastructure for storing and handling mass spectrometry spectra and functionality to subset, process, visualize and compare spectra data. It provides different implementations (backends) to store mass spectrometry data. These comprise backends tuned for fast data access and processing and backends for very large data sets ensuring a small memory footprint.
+> The Spectra package defines an efficient infrastructure for storing and handling mass spectrometry spectra and functionality to subset, process, visualize and compare spectra data. It provides different implementations (backends) to store mass spectrometry data. These comprise backends tuned for fast data access and processing and backends for very large data sets ensuring a small memory footprint.
   - Attachment (rformassspectrometry.github.io): [Quantitative features for mass spectrometry data](https://rformassspectrometry.github.io/QFeatures/)
-    > The QFeatures infrastructure enables the management and processing of quantitative features for high-throughput mass spectrometry assays. It provides a familiar Bioconductor user experience to manages quantitative data across different assay levels (such as peptide spectrum matches, peptides and proteins) in a coherent and tractable format.
+> The QFeatures infrastructure enables the management and processing of quantitative features for high-throughput mass spectrometry assays. It provides a familiar Bioconductor user experience to manages quantitative data across different assay levels (such as peptide spectrum matches, peptides and proteins) in a coherent and tractable format.
   - Attachment (uclouvain-cbio.github.io): [Mass Spectrometry-Based Single-Cell Proteomics Data Analysis](https://uclouvain-cbio.github.io/scp/index.html)
-    > Utility functions for manipulating, processing, and analyzing mass spectrometry-based single-cell proteomics data. The package is an extension to the QFeatures package and relies on SingleCellExpirement to enable single-cell proteomics analyses. The package offers the user the functionality to process quantitative table (as generated by MaxQuant, Proteome Discoverer, and more) into data tables ready for downstream analysis and data visualization.
+> Utility functions for manipulating, processing, and analyzing mass spectrometry-based single-cell proteomics data. The package is an extension to the QFeatures package and relies on SingleCellExpirement to enable single-cell proteomics analyses. The package offers the user the functionality to process quantitative table (as generated by MaxQuant, Proteome Discoverer, and more) into data tables ready for downstream analysis and data visualization.
 
-*17:45:07 - @Stephanie Hicks has joined the channel*
+**Stephanie Hicks** (17:45:07):
+> @Stephanie Hicks has joined the channel
+
 
 ## 2023-09-17
 
@@ -2901,7 +3222,9 @@ format: gfm
 **Jacques SERIZAY** (04:20:49) (in thread):
 > Thanks, I've added more content when needed, following your suggestions! I'll submit the package for review by Bioc in the coming days
 
-*08:28:24 - @Artur Sannikov has joined the channel*
+**Artur Sannikov** (08:28:24):
+> @Artur Sannikov has joined the channel
+
 
 ## 2023-09-20
 
@@ -2959,8 +3282,12 @@ format: gfm
 **Michael Lawrence** (13:20:07):
 > @Sanchit Sainiis working on something like this, carrying on from work done by@Stuart Lee(the “query” framework). And I did something like that many years ago. I had it in bioc svn but it was never released as a package and therefore might be gone forever. I think@Martin Morganwas working with someone on a DelayedGRanges, which I think is what stimulated the factoring out of the GenomicRanges class to enable this sort of thing. I should also note that@Aaron Lunis working on a parquet-backed DataFrame right now.
 
-*13:20:18 - @Sanchit Saini has joined the channel*
-*13:20:18 - @Aaron Lun has joined the channel*
+**Sanchit Saini** (13:20:18):
+> @Sanchit Saini has joined the channel
+
+**Aaron Lun** (13:20:18):
+> @Aaron Lun has joined the channel
+
 **Vince Carey** (13:22:22):
 > Good to know.  Providing performant access to the AlphaMissense results is a motivating use case.
 
@@ -2973,23 +3300,29 @@ format: gfm
 **Ludwig Geistlinger** (14:23:13):
 > I think this is also of interest for@Jiaji George Chen@Ruben Drieswho also work on a duckdb/parquet-backend for data frames eg for large molecule data from spatial platforms.
 
-*14:23:17 - @Jiaji George Chen has joined the channel*
-*14:23:18 - @Ruben Dries has joined the channel*
-*18:16:10 - @Timothy Keyes has joined the channel*
+**Jiaji George Chen** (14:23:17):
+> @Jiaji George Chen has joined the channel
+
+**Ruben Dries** (14:23:18):
+> @Ruben Dries has joined the channel
+
+**Timothy Keyes** (18:16:10):
+> @Timothy Keyes has joined the channel
+
 **Sean Davis** (18:21:41):
 > There has been quite a bit of work done in genomic file indexing and performant access. Tabix is one approach based on text files:[https://rdrr.io/bioc/Rsamtools/man/TabixFile-class.html](https://rdrr.io/bioc/Rsamtools/man/TabixFile-class.html). If the data contain information that can be stored as VCF, then the binary equivalent, BCF, may be relevant. Again, there is bioconductor tooling for this:[https://rdrr.io/bioc/Rsamtools/man/BcfFile-class.html](https://rdrr.io/bioc/Rsamtools/man/BcfFile-class.html).
   - Attachment (rdrr.io): [TabixFile-class: Manipulate tabix indexed tab-delimited files. in Rsamtools: Binary alignment (BAM), FASTA, variant call (BCF), and tabix file import](https://rdrr.io/bioc/Rsamtools/man/TabixFile-class.html)
-    > Use TabixFile() to create a reference to a Tabix file (and its
-    > index). Once opened, the reference remains open across calls to
-    > methods, avoiding costly index re-loading.
-    > TabixFileList() provides a convenient way of managing a list of
-    > TabixFile instances.
+> Use TabixFile() to create a reference to a Tabix file (and its
+> index). Once opened, the reference remains open across calls to
+> methods, avoiding costly index re-loading.
+> TabixFileList() provides a convenient way of managing a list of
+> TabixFile instances.
   - Attachment (rdrr.io): [BcfFile-class: Manipulate BCF files. in Rsamtools: Binary alignment (BAM), FASTA, variant call (BCF), and tabix file import](https://rdrr.io/bioc/Rsamtools/man/BcfFile-class.html)
-    > Use BcfFile() to create a reference to a BCF (and optionally
-    > its index). The reference remains open across calls to methods, 
-    > avoiding costly index re-loading.
-    > BcfFileList() provides a convenient way of managing a list of
-    > BcfFile instances.
+> Use BcfFile() to create a reference to a BCF (and optionally
+> its index). The reference remains open across calls to methods, 
+> avoiding costly index re-loading.
+> BcfFileList() provides a convenient way of managing a list of
+> BcfFile instances.
 
 **Sean Davis** (18:27:27):
 > Parquet files are columnar (ie., each column is stored together, rather than having rows stored together). They support relatively easy "projection pushdown," a fancy term meaning that we can limit reading parquet files to only those COLUMNS that we want. However, achieving "predicate pushdown," a fancy term for passing along the "where" or "filter" clause of a query, is not as straightforward since parquet files don't include "indexes" for filtering "rows." Furthermore, the performance of "predicate pushdown" will vary based on the filter applied and its relation to the "ordering" of the file on disk.
@@ -3048,8 +3381,12 @@ format: gfm
 > ```
 > so something is amiss ... but the excursion seems pointful.
 
-*19:51:16 - @Tyrone Lee has joined the channel*
-*20:22:06 - @Eddie Ruiz has joined the channel*
+**Tyrone Lee** (19:51:16):
+> @Tyrone Lee has joined the channel
+
+**Eddie Ruiz** (20:22:06):
+> @Eddie Ruiz has joined the channel
+
 **Vince Carey** (21:32:57):
 > ok, needed h=FALSE.  also the parquet example may be unfair as it does not produce a data.frame
 > ```
@@ -3088,7 +3425,7 @@ format: gfm
 **Michael Love** (09:08:28):
 > See here:[https://tidyomics.github.io/tidyomicsWorkshopBioc2023/articles/tidyGenomicsTranscriptomics.html#part-1-introduction-to-tidysinglecellexperiment](https://tidyomics.github.io/tidyomicsWorkshopBioc2023/articles/tidyGenomicsTranscriptomics.html#part-1-introduction-to-tidysinglecellexperiment)
   - Attachment (tidyomics.github.io): [Tidy genomic and transcriptomic single-cell analyses](https://tidyomics.github.io/tidyomicsWorkshopBioc2023/articles/tidyGenomicsTranscriptomics.html#part-1-introduction-to-tidysinglecellexperiment)
-    > tidyomicsWorkshopBioc2023
+> tidyomicsWorkshopBioc2023
 
 **Michael Love** (09:08:46):
 > > It creates an invisible layer that enables viewing the SingleCellExperiment object as a tidyverse tibble…
@@ -3122,16 +3459,18 @@ format: gfm
 > #> tidySummarizedExperiment says: Key columns are missing. A data frame is returned for independent data analysis.
 > ```
 
-*09:49:21 - @Aaron Lun has left the channel*
+**Aaron Lun** (09:49:21):
+> @Aaron Lun has left the channel
+
 **Martin Morgan** (09:52:30) (in thread):
 > @Michael Lawrencementioned my name a little up stream, probably referring to packages by@Qian Liu, maybe VCFArray or GDSArray (uses 'gds' format, which is quite performant).@Vince CareyA key reservation about a database implementation is that one would like efficient operations on ranges (`findOverlaps`, etc); naive implementations (like in`Rsamtools::scanVcf()`where the`param=`argument is more than one GRanges) are probably quadratic in the number of ranges in the reference and the number of ranges queried. I think one wants 'spatial' indexes ([https://duckdb.org/docs/extensions/spatial.html](https://duckdb.org/docs/extensions/spatial.html)?) which I haven't explored...
   - Attachment (DuckDB): [Spatial](https://duckdb.org/docs/extensions/spatial.html)
-    > DuckDB is an in-process database management system focused on analytical query processing. It is designed to be easy to install and easy to use. DuckDB has no external dependencies. DuckDB has bindings for C/C++, Python and R.
+> DuckDB is an in-process database management system focused on analytical query processing. It is designed to be easy to install and easy to use. DuckDB has no external dependencies. DuckDB has bindings for C/C++, Python and R.
 
 **Michael Love** (11:11:39) (in thread):
 > I think this is the expected behavior:[https://stemangiola.github.io/tidySummarizedExperiment/articles/introduction.html#tidyverse-commands](https://stemangiola.github.io/tidySummarizedExperiment/articles/introduction.html#tidyverse-commands)
   - Attachment (stemangiola.github.io): [Overview of the tidySummarizedExperiment package](https://stemangiola.github.io/tidySummarizedExperiment/articles/introduction.html#tidyverse-commands)
-    > tidySummarizedExperiment
+> tidySummarizedExperiment
 
 **Vince Carey** (11:37:33) (in thread):
 > Thanks Martin!  The spatial extensions are surely worth investigating....  I hope someone listening has some bandwidth.
@@ -3374,79 +3713,83 @@ format: gfm
 **Artur Sannikov** (10:20:33) (in thread):
 > [https://github.com/stemangiola/tidySummarizedExperiment/issues/84](https://github.com/stemangiola/tidySummarizedExperiment/issues/84)
   - Attachment: [#84 Warning:The assays in your SummarizedExperiment have row names, but they don't agree with the row names of the SummarizedExperiment object itself](https://github.com/stemangiola/tidySummarizedExperiment/issues/84)
-    > Reposting from Slack.
-    > 
-    > When creating a new column in a `tse` object, I get `Warning: tidySummarizedExperiment says: the assays in your SummarizedExperiment have row names, but they don't agree with the row names of the SummarizedExperiment object itself. It is strongly recommended to make the assays consistent, to avoid erroneous matching of features.`
-    > 
-    > For example, running
-    > 
-    > ```
-    > animal_tse <-
-    >   tse |>
-    >   mutate(animal_id = substr(sample_name, 1, 10))
-    > ```
-    > 
-    > get me Error: 67 specified rows can't be found. I have 67 species in `rowData`. I confirmed that the `rownames` of the assay and the `tse` object itself are identical/
-    > 
-    > I was not able to reproduce the issue on the test `pasilla` data.
-    > 
-    > [@HelenaLC](https://github.com/HelenaLC) suggested running
-    > 
-    > ```
-    > . <- lapply(assays(tse, withDimnames=FALSE), rownames)
-    > sapply(.[-1], identical, .[[1]])
-    > ```
-    > 
-    > That gave me
-    > 
-    > ```
-    > sapply(.[-1], identical, .[[1]])
-    > #> named list()
-    > 
-    > sapply(., identical, rownames(tse))
-    > #> counts 
-    >  FALSE 
-    > ```
-    > 
-    > The code that checks for warning is <https://github.com/stemangiola/tidySummarizedExperiment/blob/cf66bf1810f814b885e922d5f8ef688156331a33/R/utilities.R#L726|here>.
-    > 
-    > If I run `if` checks individually, they all give me `TRUE`, thus the warning.
-    > 
-    > [@HelenaLC](https://github.com/HelenaLC) said that
-    > 
-    > > If they are all TRUE, I guess the problematic line is `all(rownames(assays(se, withDimnames = FALSE)[[1]]) %in% rownames(se))` ... in your original post, you did not specify `withDimnames` , so this went unnoticed. `withDimnames=TRUE` (default) will basically set these on the fly, so they always appear to match. Simply overwriting the assay might fix it, e.g., `assay(tsne) <- assay(tsne)` (since the accessor sets the row names according to rownames(tsne)) ...but I'm not sure
-    > 
-    > So, doing
-    > 
-    > ```
-    > assay(tse) <- assay(tse)
-    > ```
-    > 
-    > solved the problem.
+> Reposting from Slack.
+> 
+> When creating a new column in a `tse` object, I get `Warning: tidySummarizedExperiment says: the assays in your SummarizedExperiment have row names, but they don't agree with the row names of the SummarizedExperiment object itself. It is strongly recommended to make the assays consistent, to avoid erroneous matching of features.`
+> 
+> For example, running
+> 
+> ```
+> animal_tse <-
+>   tse |>
+>   mutate(animal_id = substr(sample_name, 1, 10))
+> ```
+> 
+> get me Error: 67 specified rows can't be found. I have 67 species in `rowData`. I confirmed that the `rownames` of the assay and the `tse` object itself are identical/
+> 
+> I was not able to reproduce the issue on the test `pasilla` data.
+> 
+> [@HelenaLC](https://github.com/HelenaLC) suggested running
+> 
+> ```
+> . <- lapply(assays(tse, withDimnames=FALSE), rownames)
+> sapply(.[-1], identical, .[[1]])
+> ```
+> 
+> That gave me
+> 
+> ```
+> sapply(.[-1], identical, .[[1]])
+> #> named list()
+> 
+> sapply(., identical, rownames(tse))
+> #> counts 
+>  FALSE 
+> ```
+> 
+> The code that checks for warning is <https://github.com/stemangiola/tidySummarizedExperiment/blob/cf66bf1810f814b885e922d5f8ef688156331a33/R/utilities.R#L726|here>.
+> 
+> If I run `if` checks individually, they all give me `TRUE`, thus the warning.
+> 
+> [@HelenaLC](https://github.com/HelenaLC) said that
+> 
+> > If they are all TRUE, I guess the problematic line is `all(rownames(assays(se, withDimnames = FALSE)[[1]]) %in% rownames(se))` ... in your original post, you did not specify `withDimnames` , so this went unnoticed. `withDimnames=TRUE` (default) will basically set these on the fly, so they always appear to match. Simply overwriting the assay might fix it, e.g., `assay(tsne) <- assay(tsne)` (since the accessor sets the row names according to rownames(tsne)) ...but I'm not sure
+> 
+> So, doing
+> 
+> ```
+> assay(tse) <- assay(tse)
+> ```
+> 
+> solved the problem.
 
 
 ## 2023-10-11
 
-*05:41:38 - @Romane Libouban has joined the channel*
+**Romane Libouban** (05:41:38):
+> @Romane Libouban has joined the channel
+
 
 ## 2023-10-15
 
-*05:19:06 - @Boyd Tarlinton has joined the channel*
+**Boyd Tarlinton** (05:19:06):
+> @Boyd Tarlinton has joined the channel
+
 
 ## 2023-10-26
 
 **Michael Love** (08:11:06):
 > easylift is released in 3.18:slightly_smiling_face:[https://twitter.com/mikelove/status/1717514050974978394](https://twitter.com/mikelove/status/1717514050974978394)
   - Attachment (X (formerly Twitter)): [Michael Love on X](https://twitter.com/mikelove/status/1717514050974978394)
-    > Abdullah's first @Bioconductor package! :tada:
-    > 
-    > Facilitates genomic liftover using existing Bioc tools:
-    > 
-    > ranges |> easylift("hg38")
-    > 
-    > Abdullah is one of the group that signed up for #tidyomics open challenges with @steman_research et al:
-    > 
-    > [https://t.co/BkJ3k1KXLh](https://t.co/BkJ3k1KXLh)
+> Abdullah's first @Bioconductor package! :tada:
+> 
+> Facilitates genomic liftover using existing Bioc tools:
+> 
+> ranges |> easylift("hg38")
+> 
+> Abdullah is one of the group that signed up for #tidyomics open challenges with @steman_research et al:
+> 
+> [https://t.co/BkJ3k1KXLh](https://t.co/BkJ3k1KXLh)
 
 
 ## 2023-11-09
@@ -3505,7 +3848,9 @@ format: gfm
 
 ## 2023-11-26
 
-*13:43:06 - @Izabela Mamede has joined the channel*
+**Izabela Mamede** (13:43:06):
+> @Izabela Mamede has joined the channel
+
 
 ## 2023-11-27
 
@@ -3637,9 +3982,9 @@ format: gfm
 **Malte Thodberg** (02:28:28) (in thread):
 > I don’t know if they apply here, but there are some flavors of SummarizedExperiments with “ragged” content:[https://bioconductor.org/packages/release/bioc/html/BumpyMatrix.html](https://bioconductor.org/packages/release/bioc/html/BumpyMatrix.html)and[https://bioconductor.org/packages/release/bioc/html/RaggedExperiment.html](https://bioconductor.org/packages/release/bioc/html/RaggedExperiment.html)
   - Attachment (Bioconductor): [BumpyMatrix](https://bioconductor.org/packages/release/bioc/html/BumpyMatrix.html)
-    > Implements the BumpyMatrix class and several subclasses for holding non-scalar objects in each entry of the matrix. This is akin to a ragged array but the raggedness is in the third dimension, much like a bumpy surface - hence the name. Of particular interest is the BumpyDataFrameMatrix, where each entry is a Bioconductor data frame. This allows us to naturally represent multivariate data in a format that is compatible with two-dimensional containers like the SummarizedExperiment and MultiAssayExperiment objects.
+> Implements the BumpyMatrix class and several subclasses for holding non-scalar objects in each entry of the matrix. This is akin to a ragged array but the raggedness is in the third dimension, much like a bumpy surface - hence the name. Of particular interest is the BumpyDataFrameMatrix, where each entry is a Bioconductor data frame. This allows us to naturally represent multivariate data in a format that is compatible with two-dimensional containers like the SummarizedExperiment and MultiAssayExperiment objects.
   - Attachment (Bioconductor): [RaggedExperiment](https://bioconductor.org/packages/release/bioc/html/RaggedExperiment.html)
-    > This package provides a flexible representation of copy number, mutation, and other data that fit into the ragged array schema for genomic location data. The basic representation of such data provides a rectangular flat table interface to the user with range information in the rows and samples/specimen in the columns. The RaggedExperiment class derives from a GRangesList representation and provides a semblance of a rectangular dataset.
+> This package provides a flexible representation of copy number, mutation, and other data that fit into the ragged array schema for genomic location data. The basic representation of such data provides a rectangular flat table interface to the user with range information in the rows and samples/specimen in the columns. The RaggedExperiment class derives from a GRangesList representation and provides a semblance of a rectangular dataset.
 
 **Jacques SERIZAY** (03:57:48) (in thread):
 > @stefano mangiolahere is a report comparing tidyverse operations on SE/CoverageExperiment (CE) objects.`mutate`and`summarize`are tricky to get to work with`CoverageExperiment`because of the nature of the data stored in each cell of the assay matrix.
@@ -3651,14 +3996,16 @@ format: gfm
 
 ## 2023-12-08
 
-*17:48:18 - @Eric Waltari has joined the channel*
+**Eric Waltari** (17:48:18):
+> @Eric Waltari has joined the channel
+
 
 ## 2023-12-09
 
 **Michael Love** (09:15:25):
 > Just noticed this from 2017 - bedtools-in-R + dplyr, similar in scope to some things here[https://f1000research.com/articles/6-1025](https://f1000research.com/articles/6-1025)
   - Attachment (f1000research.com): [F1000Research Article: valr: Reproducible genome interval analysis in R.](https://f1000research.com/articles/6-1025)
-    > Read the latest article version by Kent A. Riemondy, Ryan M. Sheridan, Austin Gillen, Yinni Yu, Christopher G. Bennett, Jay R. Hesselberth, at F1000Research.
+> Read the latest article version by Kent A. Riemondy, Ryan M. Sheridan, Austin Gillen, Yinni Yu, Christopher G. Bennett, Jay R. Hesselberth, at F1000Research.
 
 **Vince Carey** (10:11:44) (in thread):
 > good catch.  lots of c++ infrastructure.  also potentially peculiar handling of RNG seed in e.g., bed_random.
@@ -3679,11 +4026,15 @@ format: gfm
 
 ## 2023-12-27
 
-*14:38:18 - @Cindy Reichel has joined the channel*
+**Cindy Reichel** (14:38:18):
+> @Cindy Reichel has joined the channel
+
 
 ## 2023-12-28
 
-*09:16:26 - @David Rach has joined the channel*
+**David Rach** (09:16:26):
+> @David Rach has joined the channel
+
 
 ## 2024-01-06
 
@@ -3892,18 +4243,22 @@ format: gfm
 
 ## 2024-01-25
 
-*05:03:00 - @Francesc Català has joined the channel*
+**Francesc Català** (05:03:00):
+> @Francesc Català has joined the channel
+
 
 ## 2024-01-27
 
-*04:52:28 - @atongsa miyamoto has joined the channel*
+**atongsa miyamoto** (04:52:28):
+> @atongsa miyamoto has joined the channel
+
 
 ## 2024-02-15
 
 **Jacques SERIZAY** (13:13:13):
 > This made me realize that***cross-package***documentation covering the whole tidyomics ecosystem is kinda lacking... (I think this was mentioned by one of the reviewers?). Is there any plan on writing a compendium decribing the tidyomics with advanced examples, use cases, etc... ? Could it be mostly done by aggregating examples from the different packages together?
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C34NC134G/p1708020425194989?thread_ts=1708008937.646229&cid=C34NC134G)
-    > Not as well organized as Hadley's books, but [Computational Genomics with R](https://compgenomr.github.io/book/) from Altuna Akalin covers most aspects of bioinfo analysis for bulk assays. It has not been updated for quite some time though, and it doesn't cover at all the tidyomics principles :scream:.
+> Not as well organized as Hadley's books, but [Computational Genomics with R](https://compgenomr.github.io/book/) from Altuna Akalin covers most aspects of bioinfo analysis for bulk assays. It has not been updated for quite some time though, and it doesn't cover at all the tidyomics principles :scream:.
 
 **Michael Love** (13:30:24):
 > go for it! in the revision, we did update the docs a bit, i don’t know if you’ve seen them in 2024
@@ -3950,7 +4305,7 @@ format: gfm
 **Michael Love** (13:42:04):
 > yeah so we did this contrived thing here:[https://tidyomics.github.io/tidyomicsWorkshopBioc2023/articles/tidyGenomicsTranscriptomics.html#part-3-genomic-and-transcriptomic-data-integration](https://tidyomics.github.io/tidyomicsWorkshopBioc2023/articles/tidyGenomicsTranscriptomics.html#part-3-genomic-and-transcriptomic-data-integration)
   - Attachment (tidyomics.github.io): [Tidy genomic and transcriptomic single-cell analyses](https://tidyomics.github.io/tidyomicsWorkshopBioc2023/articles/tidyGenomicsTranscriptomics.html#part-3-genomic-and-transcriptomic-data-integration)
-    > tidyomicsWorkshopBioc2023
+> tidyomicsWorkshopBioc2023
 
 **Jacques SERIZAY** (13:42:07):
 > All the ENCODE data is there I think. It has ChIP, RNA, accessibility, even Hi-C I think. And functional annotations (whatever they are worth)
@@ -3964,7 +4319,7 @@ format: gfm
 **Michael Love** (13:43:32):
 > later i point out the limitations:
 > > we are comparing cell-type-specific expression to aggregate ChIP-seq peaks in PBMC
-> the two experiments, while both PBMC, come from different projects, different labs, and one is from cancer patients, while the other is from the ENCODE project
+> > the two experiments, while both PBMC, come from different projects, different labs, and one is from cancer patients, while the other is from the ENCODE project
 
 **Michael Love** (13:44:12):
 > i ended up just doing something for demo purposes because getting a big dataset with all the right omics is a ton of work, and I had to do this on a tight schedule:slightly_smiling_face:
@@ -3984,15 +4339,21 @@ format: gfm
 
 ## 2024-03-05
 
-*02:09:05 - @Vamika Mendiratta has joined the channel*
+**Vamika Mendiratta** (02:09:05):
+> @Vamika Mendiratta has joined the channel
+
 
 ## 2024-03-15
 
-*08:36:43 - @Peace Sandy has joined the channel*
+**Peace Sandy** (08:36:43):
+> @Peace Sandy has joined the channel
+
 
 ## 2024-03-28
 
-*08:39:44 - @Laura Symul has joined the channel*
+**Laura Symul** (08:39:44):
+> @Laura Symul has joined the channel
+
 
 ## 2024-04-01
 
@@ -4060,14 +4421,18 @@ format: gfm
 **Michael Love** (10:17:59):
 > @Jacques SERIZAY@Eric Davisand others: there is interest in extending the plyinteractions demo into a longer workshop at BioC, which would also include a (brief) intro to the tidyomics project. Eric are you going? Anyone else in this channel going to BioC in person who could do an intro to the project? Or Jacques you could also do the whole time but it’s a bit exhausting to talk for that long, I myself prefer to split it up into two presenters…
 
-*10:18:11 - @Eric Davis has joined the channel*
+**Eric Davis** (10:18:11):
+> @Eric Davis has joined the channel
+
 **Jacques SERIZAY** (10:53:23):
 > Happy to talk about`plyinteractions`of course, alone or with@Eric Davisor anybody else who wants to join in:slightly_smiling_face:Also happy to include a brief intro to`tidyomics`if needed, although I agree it'd be nice to split things, otherwise it will indeed get exhausitng!
 
 
 ## 2024-04-17
 
-*10:58:52 - @Chenyue Lu has joined the channel*
+**Chenyue Lu** (10:58:52):
+> @Chenyue Lu has joined the channel
+
 
 ## 2024-04-18
 
@@ -4137,7 +4502,9 @@ format: gfm
 
 ## 2024-04-28
 
-*08:43:12 - @Danielle Callan has joined the channel*
+**Danielle Callan** (08:43:12):
+> @Danielle Callan has joined the channel
+
 
 ## 2024-04-29
 
@@ -4187,7 +4554,9 @@ format: gfm
 >   mutate_row_data(new_col = z)
 > ```
 
-*07:39:52 - @Philippe Laffont has joined the channel*
+**Philippe Laffont** (07:39:52):
+> @Philippe Laffont has joined the channel
+
 **stefano mangiola** (07:55:03) (in thread):
 > I think there is scope to create mutate_row_data and col_data. But I would like to understand whether it would be very inconvenient doing it with the current framework before creating ad hoc functions
 > 
@@ -4249,7 +4618,9 @@ format: gfm
 
 ## 2024-05-15
 
-*08:31:25 - @Sunil Nahata has joined the channel*
+**Sunil Nahata** (08:31:25):
+> @Sunil Nahata has joined the channel
+
 
 ## 2024-05-23
 
@@ -4321,11 +4692,15 @@ format: gfm
 
 ## 2024-06-05
 
-*05:47:09 - @Adrian Hirt has joined the channel*
+**Adrian Hirt** (05:47:09):
+> @Adrian Hirt has joined the channel
+
 
 ## 2024-06-10
 
-*13:18:09 - @Justin Landis has joined the channel*
+**Justin Landis** (13:18:09):
+> @Justin Landis has joined the channel
+
 
 ## 2024-06-11
 
@@ -4350,25 +4725,25 @@ format: gfm
 **stefano mangiola** (21:31:23):
 > Hello Community! I am glad to announce that the #tidyomics ecosystem has made it to Nature Methods.:tada::tada:Thanks to all the dev and user community!@Michael Loveco-led the study, and congrats to@William Hutchisonand@Timothy Keyesfor making this happen. The work has just started :)[https://www.nature.com/articles/s41592-024-02299-2?utm_source=twitter&utm_medium=social&utm_campaign=nmeth](https://www.nature.com/articles/s41592-024-02299-2?utm_source=twitter&utm_medium=social&utm_campaign=nmeth)Tweet:[https://x.com/steman_research/status/1802505141045833731](https://x.com/steman_research/status/1802505141045833731)Bluesky:[https://bsky.app/profile/stemang.bsky.social/post/3kv3j4kr6l327](https://bsky.app/profile/stemang.bsky.social/post/3kv3j4kr6l327)We will organise a Zoom party to celebrate with the community and plan for the future!
   - Attachment (Nature): [The tidyomics ecosystem: enhancing omic data analyses](https://www.nature.com/articles/s41592-024-02299-2?utm_source=twitter&amp;utm_medium=social&amp;utm_campaign=nmeth)
-    > Nature Methods - tidyomics offers a software ecosystem for omic data manipulation and analysis that bridges Bioconductor with the tidyverse framework.
+> Nature Methods - tidyomics offers a software ecosystem for omic data manipulation and analysis that bridges Bioconductor with the tidyverse framework.
   - Attachment (X (formerly Twitter)): [Stefano Mangiola (@steman_research) on X](https://x.com/steman_research/status/1802505141045833731)
-    > :broom::star-struck: #tidyomics made it to @naturemethods!
-    > "The tidyomics ecosystem: Enhancing omic data analyses", :clap::skin-tone-4:, @hutchisonwj0, @timothykeyes, and Team!
-    > 
-    > 32 researchers | 26 institutes | 10 countries | 4 continents
-    > 
-    > A #crowd/#community-research success
-    > [https://t.co/koiFWBVygM](https://t.co/koiFWBVygM) @cziscience
+> :broom::star-struck: #tidyomics made it to @naturemethods!
+> "The tidyomics ecosystem: Enhancing omic data analyses", :clap::skin-tone-4:, @hutchisonwj0, @timothykeyes, and Team!
+> 
+> 32 researchers | 26 institutes | 10 countries | 4 continents
+> 
+> A #crowd/#community-research success
+> [https://t.co/koiFWBVygM](https://t.co/koiFWBVygM) @cziscience
   - Attachment (Bluesky Social): [Stefano Mangiola (@stemang.bsky.social)](https://bsky.app/profile/stemang.bsky.social/post/3kv3j4kr6l327)
-    > #tidyomics made it to #NatureMethods! "The tidyomics ecosystem: Enhancing omic data analyses", :clap::skin-tone-4: Will, Timothy, and Team! 
-    > 
-    > 32 researchers | 26 institutes | 10 countries | 4 continents 
-    > 
-    > A #crowd/#community-research success 
-    > 
-    > [https://nature.com/articles/s41592-024-02299-2?utm_source=twitter&utm_medium=social&utm_campaign=nmeth](https://nature.com/articles/s41592-024-02299-2?utm_source=twitter&utm_medium=social&utm_campaign=nmeth)… 
-    > 
-    > #CZI, Thanks @mikelove.bsky.social !
+> #tidyomics made it to #NatureMethods! "The tidyomics ecosystem: Enhancing omic data analyses", :clap::skin-tone-4: Will, Timothy, and Team! 
+> 
+> 32 researchers | 26 institutes | 10 countries | 4 continents 
+> 
+> A #crowd/#community-research success 
+> 
+> [https://nature.com/articles/s41592-024-02299-2?utm_source=twitter&utm_medium=social&utm_campaign=nmeth](https://nature.com/articles/s41592-024-02299-2?utm_source=twitter&utm_medium=social&utm_campaign=nmeth)… 
+> 
+> #CZI, Thanks @mikelove.bsky.social !
 
 **Michael Love** (21:35:38) (in thread):
 > Thanks to all the contributors and co-authors. It's been so exciting and fun to work on such a large open project within the Bioc community. And thanks to Stefano for spearheading at every turn:grin:
@@ -4401,7 +4776,9 @@ format: gfm
 > 10PM Australia time (Sydney, AEST)
   - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F078CNY6U0N/image.png)
 
-*12:22:05 - @shristi shrestha has joined the channel*
+**shristi shrestha** (12:22:05):
+> @shristi shrestha has joined the channel
+
 
 ## 2024-06-19
 
@@ -4429,7 +4806,9 @@ format: gfm
 **Izabela Mamede** (08:31:49) (in thread):
 > Will do, thanks!
 
-*19:09:51 - @Alyssa Columbus has joined the channel*
+**Alyssa Columbus** (19:09:51):
+> @Alyssa Columbus has joined the channel
+
 **stefano mangiola** (23:43:18) (in thread):
 > Yes Iza, feel free to open an issue to tidyseurat
 
@@ -4442,7 +4821,9 @@ format: gfm
 
 ## 2024-06-30
 
-*13:08:52 - @Nicolas Peterson has joined the channel*
+**Nicolas Peterson** (13:08:52):
+> @Nicolas Peterson has joined the channel
+
 
 ## 2024-07-02
 
@@ -4462,16 +4843,24 @@ format: gfm
 > Calendar invite
   - File (Binary): [tidyomics celebration of future plans.ics](https://community-bioc.slack.com/files/U34P8RS3B/F07APJEU883/tidyomics_celebration_of_future_plans.ics)
 
-*09:49:28 - @Juan Henao has joined the channel*
-*10:56:35 - @Diána Pejtsik has joined the channel*
+**Juan Henao** (09:49:28):
+> @Juan Henao has joined the channel
+
+**Diána Pejtsik** (10:56:35):
+> @Diána Pejtsik has joined the channel
+
 
 ## 2024-07-05
 
-*12:28:50 - @Margherita has joined the channel*
+**Margherita** (12:28:50):
+> @Margherita has joined the channel
+
 
 ## 2024-07-11
 
-*07:21:07 - @Hothri Moka has joined the channel*
+**Hothri Moka** (07:21:07):
+> @Hothri Moka has joined the channel
+
 
 ## 2024-07-14
 
@@ -4646,7 +5035,9 @@ format: gfm
 **Jacques SERIZAY** (17:42:35):
 > Lets brainstorm a name title, then I can update content and push to tidyomics as origin. The way BiocBooks work requires to have the same repo name and book title, in order to have a working docker deployed
 
-*19:48:09 - @Qiwen Octavia Huang has joined the channel*
+**Qiwen Octavia Huang** (19:48:09):
+> @Qiwen Octavia Huang has joined the channel
+
 
 ## 2024-07-27
 
@@ -4690,7 +5081,9 @@ format: gfm
 **Michael Love** (09:34:24) (in thread):
 > I can join, just a little late tomorrow
 
-*10:27:57 - @Maximilian has joined the channel*
+**Maximilian** (10:27:57):
+> @Maximilian has joined the channel
+
 **Jenny Drnevich** (10:35:57) (in thread):
 > I will try to join about half way through.@Jacques SERIZAYand I had some good discussion at the conference about tidy-izing the bioc-rnaseq Carpentries workshop ([https://carpentries-incubator.github.io/bioc-rnaseq/](https://carpentries-incubator.github.io/bioc-rnaseq/)) as it's all in base R. We want to make a few more improvements based on last week's teaching of it, and then the idea is you all fork it off and tidyize it. Jacques said a side-by-side comparison would be beneficial for your paper as well.
 
@@ -4752,7 +5145,7 @@ format: gfm
 > 
 > Also OSTA isn’t here actually…[https://www.bioconductor.org/help/bioconductor-books/](https://www.bioconductor.org/help/bioconductor-books/)
   - Attachment (bioconductor.org): [Bioconductor - Bioconductor Books](https://www.bioconductor.org/help/bioconductor-books/)
-    > The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.
+> The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.
 
 **Michael Love** (13:38:23) (in thread):
 > Some of these are mega-vignettes actually (just one package). Not that I mind.
@@ -4766,7 +5159,9 @@ format: gfm
 
 ## 2024-07-30
 
-*08:45:41 - @Susan Holmes has joined the channel*
+**Susan Holmes** (08:45:41):
+> @Susan Holmes has joined the channel
+
 **Juan Henao** (12:57:23) (in thread):
 > Should we pin the link for the document? or fix it in the channel description? Otherwise, it will get lost, or you have to send the link everytime
 
@@ -4837,12 +5232,12 @@ format: gfm
 **Jonathan Carroll** (01:35:34):
 > I wanted to write a pre-read post for presenting {DFplyr} and it got long...[https://jcarroll.com.au/2024/08/11/tidy-dataframes-but-not-tibbles/](https://jcarroll.com.au/2024/08/11/tidy-dataframes-but-not-tibbles/)
   - Attachment (Irregularly Scheduled Programming): [Tidy DataFrames but not Tibbles](https://jcarroll.com.au/2024/08/11/tidy-dataframes-but-not-tibbles/)
-    > A while ago (2019 seems so long ago now) I started working on something I
-    > thought was interesting but which never really got any traction. It has
-    > potential once more, so it’s about time I wrote up what it does and why I think
-    > it’s a useful idea. I’m going to talk about using the {dplyr} package on some
-    > data with rows and columns, but we’re not talking about data.frames or
-    > tibbles…
+> A while ago (2019 seems so long ago now) I started working on something I
+> thought was interesting but which never really got any traction. It has
+> potential once more, so it’s about time I wrote up what it does and why I think
+> it’s a useful idea. I’m going to talk about using the {dplyr} package on some
+> data with rows and columns, but we’re not talking about data.frames or
+> tibbles…
 
 
 ## 2024-08-12
@@ -4864,7 +5259,9 @@ format: gfm
 > 
 > is there plan to submit to Bioc?
 
-*16:19:43 - @Robert M Flight has joined the channel*
+**Robert M Flight** (16:19:43):
+> @Robert M Flight has joined the channel
+
 **Jonathan Carroll** (17:54:15) (in thread):
 > I haven’t ventured quite as far as`join`but that would be a natural extension, and I don’t immediately see a reason it wouldn’t work.
 > 
@@ -4879,7 +5276,9 @@ format: gfm
 **stefano mangiola** (19:48:02) (in thread):
 > Yes we should record every time! We forgot this time:disappointed:But the blogpost from Jon Caroll above is a good summary
 
-*20:09:25 - @Arash Bagherabadi has joined the channel*
+**Arash Bagherabadi** (20:09:25):
+> @Arash Bagherabadi has joined the channel
+
 **Arash Bagherabadi** (20:12:41):
 > :wave:Hello, team! Glad to see you all here and thanks for the meeting.
 
@@ -4955,32 +5354,34 @@ format: gfm
 
 ## 2024-08-19
 
-*09:37:19 - @Rema Gesaka has joined the channel*
+**Rema Gesaka** (09:37:19):
+> @Rema Gesaka has joined the channel
+
 
 ## 2024-08-20
 
 **stefano mangiola** (20:53:12):
 > Hello Folks! Please share the call to participate to the next tidyomics meeting. Tuesday 27th of August.[https://x.com/steman_research/status/1826059124091793867](https://x.com/steman_research/status/1826059124091793867)[https://bsky.app/profile/stemang.bsky.social/post/3l26vts4aak26](https://bsky.app/profile/stemang.bsky.social/post/3l26vts4aak26)
   - Attachment (X (formerly Twitter)): [Stefano Mangiola (Hiring!) (@steman_research) on X](https://x.com/steman_research/status/1826059124091793867)
-    > Hello Community!
-    > 
-    > Don't miss the #tidyomics meeting in one week! All welcome! plz share :pray:
-    > 
-    > We'll present #HPCell, a pipe-to-HPC :package: for popular single-cell and spatial tools.
-    > + we'll discuss ecosystem and community! 
-    > 
-    > 8.30AM (New York) 
-    > 1.30PM (London) 
-    > 10.30PM (Sydney)
+> Hello Community!
+> 
+> Don't miss the #tidyomics meeting in one week! All welcome! plz share :pray:
+> 
+> We'll present #HPCell, a pipe-to-HPC :package: for popular single-cell and spatial tools.
+> + we'll discuss ecosystem and community! 
+> 
+> 8.30AM (New York) 
+> 1.30PM (London) 
+> 10.30PM (Sydney)
   - Attachment (Bluesky Social): [Stefano Mangiola (Hiring!) (@stemang.bsky.social)](https://bsky.app/profile/stemang.bsky.social/post/3l26vts4aak26)
-    > Hello Community! Don't miss the #tidyomics meeting in one week! All welcome! plz share :pray:
-    > 
-    > We'll present #HPCell, a pipe-to-HPC :package: for popular single-cell and spatial tools.
-    > + we'll discuss ecosystem and community! 
-    > 
-    > 8.30AM (New York) 
-    > 1.30PM (London) 
-    > 10.30PM (Sydney)
+> Hello Community! Don't miss the #tidyomics meeting in one week! All welcome! plz share :pray:
+> 
+> We'll present #HPCell, a pipe-to-HPC :package: for popular single-cell and spatial tools.
+> + we'll discuss ecosystem and community! 
+> 
+> 8.30AM (New York) 
+> 1.30PM (London) 
+> 10.30PM (Sydney)
 
 
 ## 2024-08-21
@@ -5013,7 +5414,7 @@ format: gfm
 > Hi Stefano,
 > I DM’d you about the posts for that, and I’ve added the meeting to the Events Google calendar here:[https://bioconductor.org/help/events/](https://bioconductor.org/help/events/). I’ve also made a PR to get it on the Events webpage:[https://github.com/Bioconductor/bioconductor.org/pull/282/files#diff-407109866fb33b2b0abfe3d17d23b035a63147b607218992a8e8b5babc78b966](https://github.com/Bioconductor/bioconductor.org/pull/282/files#diff-407109866fb33b2b0abfe3d17d23b035a63147b607218992a8e8b5babc78b966)
   - Attachment (bioconductor.org): [Bioconductor - Events](https://bioconductor.org/help/events/)
-    > The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.
+> The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.
 
 
 ## 2024-08-23
@@ -5021,11 +5422,15 @@ format: gfm
 **stefano mangiola** (02:43:52):
 > Thanks Maria!
 
-*10:13:01 - @Alexandra Emmons has joined the channel*
+**Alexandra Emmons** (10:13:01):
+> @Alexandra Emmons has joined the channel
+
 
 ## 2024-08-27
 
-*02:01:10 - @Assa has joined the channel*
+**Assa** (02:01:10):
+> @Assa has joined the channel
+
 **stefano mangiola** (04:12:38):
 > Hello All,
 > 
@@ -5038,7 +5443,9 @@ format: gfm
 > Tidy workshop from Bioc is up:[https://www.youtube.com/watch?v=ky-N_IEe6cw&list=PLdl4u5ZRDMQQzhPLvgOl2O6iWe_EGTywz](https://www.youtube.com/watch?v=ky-N_IEe6cw&list=PLdl4u5ZRDMQQzhPLvgOl2O6iWe_EGTywz)
   - Attachment (YouTube): [Workshop: Applying tidy principles to investigating chromatin composition and architecture](https://www.youtube.com/watch?v=ky-N_IEe6cw&amp;list=PLdl4u5ZRDMQQzhPLvgOl2O6iWe_EGTywz)
 
-*18:37:09 - @Peter Hickey has left the channel*
+**Peter Hickey** (18:37:09):
+> @Peter Hickey has left the channel
+
 
 ## 2024-09-04
 
@@ -5076,7 +5483,9 @@ format: gfm
 **Jonathan Carroll** (00:02:47) (in thread):
 > If there aren't glaring issues I could aim for 3.20 but this is my first try so I don't yet know what I'm overlooking.
 
-*11:34:32 - @Dario Righelli has joined the channel*
+**Dario Righelli** (11:34:32):
+> @Dario Righelli has joined the channel
+
 **Michael Love** (17:39:33) (in thread):
 > Jonathan -- would you want to spend some minutes on the Sept 10/11 getting additional feedback?
 > 
@@ -5089,8 +5498,8 @@ format: gfm
 > * September 10 – 23:00 UTC -@Justin Landisof UNC will present a tidyomics work in progress,`biocmask`, with a[data masking](https://dplyr.tidyverse.org/reference/dplyr_data_masking.html)approach to SummarizedExperiment manipulation
 > Agenda + notes + time zone details[https://docs.google.com/document/d/1tlUsMvKbdHdM1n_MDphD9sTsyLoMX2EG7dvEso-8dCY](https://docs.google.com/document/d/1tlUsMvKbdHdM1n_MDphD9sTsyLoMX2EG7dvEso-8dCY)Zoom in thread:point_down:
   - Attachment (dplyr.tidyverse.org): [Data-masking — dplyr_data_masking](https://dplyr.tidyverse.org/reference/dplyr_data_masking.html)
-    > This page is now located at
-    > ?rlang::args_data_masking.
+> This page is now located at
+> ?rlang::args_data_masking.
 
 **Michael Love** (17:46:19) (in thread):
 > Michael Love (he/him) is inviting you to a scheduled Zoom meeting.
@@ -5153,7 +5562,9 @@ format: gfm
 
 ## 2024-09-10
 
-*03:45:57 - @Alex Qin has joined the channel*
+**Alex Qin** (03:45:57):
+> @Alex Qin has joined the channel
+
 **Michael Love** (18:02:00):
 > Reminder: Justin Landis will show`biocmask`in one hour.
 > 
@@ -5178,7 +5589,9 @@ format: gfm
 
 ## 2024-10-01
 
-*04:09:56 - @Caroline Schreiber has joined the channel*
+**Caroline Schreiber** (04:09:56):
+> @Caroline Schreiber has joined the channel
+
 
 ## 2024-10-23
 
@@ -5197,7 +5610,7 @@ format: gfm
 **Abdullah Al Nahid** (16:36:01):
 > Apologies for my bad wording. I meant to say, some curated datasets for education/workshop purposes like[https://archive.ics.uci.edu](https://archive.ics.uci.edu)
   - Attachment (archive.ics.uci.edu): [UCI Machine Learning Repository](https://archive.ics.uci.edu)
-    > Discover datasets around the world!
+> Discover datasets around the world!
 
 **Abdullah Al Nahid** (16:36:36):
 > I will explore`ExperimentHub`
@@ -5211,7 +5624,9 @@ format: gfm
 
 ## 2024-10-29
 
-*11:28:01 - @Travis Blimkie has joined the channel*
+**Travis Blimkie** (11:28:01):
+> @Travis Blimkie has joined the channel
+
 
 ## 2024-11-17
 
@@ -5442,7 +5857,7 @@ format: gfm
 **Abdullah Al Nahid** (19:12:06) (in thread):
 > This is the font[https://fonts.google.com/specimen/Farro](https://fonts.google.com/specimen/Farro)
   - Attachment (Google Fonts): [Farro - Google Fonts](https://fonts.google.com/specimen/Farro)
-    > Farro is an artsy, four-weighted, display typeface that has a peculiar personality flowing through its European humanist silhouette. To contribute, see github.c
+> Farro is an artsy, four-weighted, display typeface that has a peculiar personality flowing through its European humanist silhouette. To contribute, see github.c
 
 **stefano mangiola** (19:14:19) (in thread):
 > Abdullah, would you like to write a section on the logo, meaning + font name?
@@ -5474,15 +5889,21 @@ format: gfm
 
 ## 2024-12-11
 
-*20:19:47 - @Chris Fields has joined the channel*
+**Chris Fields** (20:19:47):
+> @Chris Fields has joined the channel
+
 
 ## 2024-12-12
 
-*05:07:22 - @Janetta Top has joined the channel*
+**Janetta Top** (05:07:22):
+> @Janetta Top has joined the channel
+
 
 ## 2025-01-02
 
-*12:48:13 - @Jason Laird has joined the channel*
+**Jason Laird** (12:48:13):
+> @Jason Laird has joined the channel
+
 
 ## 2025-01-19
 
@@ -5504,7 +5925,9 @@ format: gfm
 > * :sunny:Thursday 13th of March 4PM NY , 9PM London, 8AM (Friday) Melbourne
 > **Stefano and Mike**
 
-*02:16:43 - @Chen Zhan has joined the channel*
+**Chen Zhan** (02:16:43):
+> @Chen Zhan has joined the channel
+
 **stefano mangiola** (02:42:59) (in thread):
 > I gave a tidyomic solution ;)
 
@@ -5520,7 +5943,9 @@ format: gfm
 
 ## 2025-02-28
 
-*09:22:37 - @Kateřina Matějková has joined the channel*
+**Kateřina Matějková** (09:22:37):
+> @Kateřina Matějková has joined the channel
+
 
 ## 2025-03-02
 
@@ -5540,18 +5965,30 @@ format: gfm
 
 ## 2025-03-04
 
-*11:46:34 - @Himel Mallick has joined the channel*
-*13:39:02 - @Ammar Sabir Cheema has joined the channel*
-*16:08:22 - @Artür Manukyan has joined the channel*
+**Himel Mallick** (11:46:34):
+> @Himel Mallick has joined the channel
+
+**Ammar Sabir Cheema** (13:39:02):
+> @Ammar Sabir Cheema has joined the channel
+
+**Artür Manukyan** (16:08:22):
+> @Artür Manukyan has joined the channel
+
 
 ## 2025-03-05
 
-*06:21:26 - @Najla Abassi has joined the channel*
-*22:30:22 - @Benjamin Hernandez Rodriguez has joined the channel*
+**Najla Abassi** (06:21:26):
+> @Najla Abassi has joined the channel
+
+**Benjamin Hernandez Rodriguez** (22:30:22):
+> @Benjamin Hernandez Rodriguez has joined the channel
+
 
 ## 2025-03-11
 
-*10:23:42 - @Rüçhan Ekren has joined the channel*
+**Rüçhan Ekren** (10:23:42):
+> @Rüçhan Ekren has joined the channel
+
 **stefano mangiola** (18:08:47) (in thread):
 > NY time is 5PM (not 4PM). Apologies!
 > 
@@ -5567,7 +6004,9 @@ format: gfm
 
 ## 2025-03-12
 
-*09:24:28 - @Rafael has joined the channel*
+**Rafael** (09:24:28):
+> @Rafael has joined the channel
+
 **Michael Love** (17:03:05):
 > <!channel>meeting now:[https://adelaide.zoom.us/j/4427895326?pwd=vAJIUl3pjeHpC2UrCVhacSRk4IQD1S.1](https://adelaide.zoom.us/j/4427895326?pwd=vAJIUl3pjeHpC2UrCVhacSRk4IQD1S.1)
 
@@ -5599,11 +6038,15 @@ format: gfm
 **Michael Love** (18:57:50):
 > If anyone is interested in running a workshop this year let me know, would be great to promote and coordinate
 
-*19:42:21 - @Sisi Wang has joined the channel*
+**Sisi Wang** (19:42:21):
+> @Sisi Wang has joined the channel
+
 
 ## 2025-03-13
 
-*06:59:53 - @Mihai Todor has joined the channel*
+**Mihai Todor** (06:59:53):
+> @Mihai Todor has joined the channel
+
 
 ## 2025-03-17
 
@@ -5666,7 +6109,9 @@ format: gfm
 **stefano mangiola** (16:59:03) (in thread):
 > I added[lamamedhat333@gmail.com](mailto:lamamedhat333@gmail.com)to the email list
 
-*18:11:38 - @Lama Salem has joined the channel*
+**Lama Salem** (18:11:38):
+> @Lama Salem has joined the channel
+
 
 ## 2025-03-25
 
@@ -5700,7 +6145,9 @@ format: gfm
 
 ## 2025-03-27
 
-*05:42:27 - @Jacqueline Murphy has joined the channel*
+**Jacqueline Murphy** (05:42:27):
+> @Jacqueline Murphy has joined the channel
+
 **Michael Love** (09:48:20) (in thread):
 > I have some developers on an email thread -- Pierre Paul I can add you?
 
@@ -5735,16 +6182,16 @@ format: gfm
 **Jenny Drnevich** (10:08:06):
 > The abstract deadlines are for 10 min talks and posters only. We sent out a survey for the longer 45 min workshops for what people wanted to see and who was interested in teaching a workshop. The "deadline" was March 21, but it looks like it's still open:[https://forms.gle/i34Ag8SHMtBAmpPh7](https://forms.gle/i34Ag8SHMtBAmpPh7). We haven't made any decisions yet, but there were already a few more than the number of slots. However, the submissions were heavily Galaxy-biased (this is how they do workshops) so Bioc ones might get more preference (can't promise anything).
   - Attachment (Google Docs): [Expression of interest for GBCC2025 training topics](https://forms.gle/i34Ag8SHMtBAmpPh7)
-    > GBCC2025 is coming up soon and we'd like to hear from you! This year, we're doing things a little differently with our joint conference between Galaxy and Bioconductor. There will be 10 training sessions, each lasting 1.5 hours.
-    > 
-    > Please fill out this form to:
-    > Indicate the topics you are interested in learning about at GBCC this year.
-    > Express your interest in leading a training session (optional).
-    > Note: This year, there are no abstract submissions for package demos or workshops, only talks and posters. If you want to lead a training session, please use this form. If you're interested in giving a talk or presenting a poster, please submit through the conference abstract submission page.
-    > Fill out this form by Friday, March 21st, so that we can create a training schedule that better serves all of us in the Galaxy and Bioconductor community.
-    > 
-    > Thank you for your input!
-    > The GBCC2025 Organizing Committee
+> GBCC2025 is coming up soon and we'd like to hear from you! This year, we're doing things a little differently with our joint conference between Galaxy and Bioconductor. There will be 10 training sessions, each lasting 1.5 hours.
+> 
+> Please fill out this form to:
+> Indicate the topics you are interested in learning about at GBCC this year.
+> Express your interest in leading a training session (optional).
+> Note: This year, there are no abstract submissions for package demos or workshops, only talks and posters. If you want to lead a training session, please use this form. If you're interested in giving a talk or presenting a poster, please submit through the conference abstract submission page.
+> Fill out this form by Friday, March 21st, so that we can create a training schedule that better serves all of us in the Galaxy and Bioconductor community.
+> 
+> Thank you for your input!
+> The GBCC2025 Organizing Committee
 
 **Jenny Drnevich** (10:10:45):
 > Galaxy usually pushes "posters", even those selected for a talk are encouraged to also do a poster. They often have people with laptops giving demos at the poster sessions. Just another avenue for getting your tidyomics stuff out...
@@ -5829,14 +6276,16 @@ format: gfm
 
 ## 2025-04-14
 
-*07:07:38 - @Saad Farooq has joined the channel*
+**Saad Farooq** (07:07:38):
+> @Saad Farooq has joined the channel
+
 
 ## 2025-04-25
 
 **stefano mangiola** (03:20:27):
 > Should we propose a tidyomics challenges hackatlon?
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C04125EK0LF/p1745512003802059)
-    > If you have any ideas for the collaboration fest / hackathon post-conference (GBCC25 joint Galaxy-Bioconductor conference in the US), please submit any and all ideas to [https://forms.gle/RzrT75DpRh9Vb8Z16](https://forms.gle/RzrT75DpRh9Vb8Z16)
+> If you have any ideas for the collaboration fest / hackathon post-conference (GBCC25 joint Galaxy-Bioconductor conference in the US), please submit any and all ideas to [https://forms.gle/RzrT75DpRh9Vb8Z16](https://forms.gle/RzrT75DpRh9Vb8Z16)
 
 **Michael Love** (09:25:36):
 > I’d love to see it — I couldn’t manage to include Co-Fest in my travel, but I’m also happy to find time during the meeting to hack with tidyomics folks!
@@ -5847,7 +6296,9 @@ format: gfm
 
 ## 2025-04-26
 
-*09:30:49 - @Carlos Mata-Machado has joined the channel*
+**Carlos Mata-Machado** (09:30:49):
+> @Carlos Mata-Machado has joined the channel
+
 
 ## 2025-04-29
 
@@ -5892,4 +6343,5 @@ format: gfm
 **stefano mangiola** (22:36:22) (in thread):
 > just a comment on sqlite, if complex relational stricture is not needed, parquet is probably the way to go. fast and efficient
 
-*23:42:00 - @Haroon has joined the channel*
+**Haroon** (23:42:00):
+> @Haroon has joined the channel

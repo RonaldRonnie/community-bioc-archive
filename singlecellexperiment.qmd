@@ -3,15 +3,20 @@ title: "#singlecellexperiment"
 format: gfm
 ---
 
-
 ## 2017-08-08
 
-*10:09:20 - @Davide Risso has joined the channel*
+**Davide Risso** (10:09:20):
+> @Davide Risso has joined the channel
+
 **Davide Risso** (10:09:21):
 > set the channel description: Discuss implementation of the SingleCellExperiment class
 
-*10:09:42 - @Aaron Lun has joined the channel*
-*10:09:42 - @Vladimir Kiselev has joined the channel*
+**Aaron Lun** (10:09:42):
+> @Aaron Lun has joined the channel
+
+**Vladimir Kiselev** (10:09:42):
+> @Vladimir Kiselev has joined the channel
+
 **Davide Risso** (10:11:13):
 > OK, so this is thinking out loud so stop me if it makes no sense
 
@@ -30,12 +35,16 @@ format: gfm
 **Davide Risso** (10:14:49):
 > at least people now that there are no hidden side effects
 
-*10:22:36 - @Peter Hickey has joined the channel*
+**Peter Hickey** (10:22:36):
+> @Peter Hickey has joined the channel
+
 **Peter Hickey** (10:29:32):
 > I favour explicit with no side effects. E.g., 
 > suppose logcounts was empty, either`logcounts()`computes and return the values each time it is called or it has to silently modify the SCE as a side effect to ensure that repeated calls to`logcounts()`don’t re-compute the data (or`logcounts()`could be**memoised**but I don’t know whether that helps user-level transparency and would still require a large matrix to be kept around)
 
-*10:34:12 - @Kevin Rue-Albrecht has joined the channel*
+**Kevin Rue-Albrecht** (10:34:12):
+> @Kevin Rue-Albrecht has joined the channel
+
 **Aaron Lun** (10:39:50):
 > I think`logcounts`should just fail if it hasn't been set.
 
@@ -48,9 +57,15 @@ format: gfm
 **Aaron Lun** (10:48:31):
 > Not`logCounts`, or`log_counts`, or - dear god -`exprs`.
 
-*12:52:46 - @Sean Davis has joined the channel*
-*12:53:27 - @Nitesh Turaga has joined the channel*
-*12:53:43 - @Marcel Ramos Pérez has joined the channel*
+**Sean Davis** (12:52:46):
+> @Sean Davis has joined the channel
+
+**Nitesh Turaga** (12:53:27):
+> @Nitesh Turaga has joined the channel
+
+**Marcel Ramos Pérez** (12:53:43):
+> @Marcel Ramos Pérez has joined the channel
+
 **Sean Davis** (12:58:09):
 > It might make sense to focus on developing an API (methods and classes) without immediately specifying an implementation. That could even take the form of a virtual class and generics so that folks could be free to inherit from an empty shell and supply behavior. The line between API spec and implementation is blurry, I realize, though.
 
@@ -90,18 +105,24 @@ format: gfm
 **Aaron Lun** (05:20:50):
 > I'll drag@Andrew McDavidinto this channel, as he probably has some strong opinions on this.
 
-*05:20:54 - @Andrew McDavid has joined the channel*
+**Andrew McDavid** (05:20:54):
+> @Andrew McDavid has joined the channel
+
 **Aaron Lun** (06:09:42):
 > Note that, if you do have a slot for distance matrices, they will not be handled by`cbind`operations. This is because there is no coherent and generalizable way to combine two distance matrices together (as you need to fill in the off-diagonal blocks, and the only way to do that is to calculate the distances again). Thus, any attempt to do`cbind`(or`[<-`on the columns) should ignore distance matrices, probably spitting out a warning.
 
 **Aaron Lun** (06:12:19):
 > Arguably the same reasoning applies to dimensionality reduction coordinates - there are very few cases where you would want to combine separate PCA results together. However, it's easy enough to do, and I guess I've done it before (separate t-SNEs of quite distinct populations that I wanted to put on the same plot) so we'll continue to support it, I suppose.
 
-*07:08:54 - @hcorrada has joined the channel*
+**hcorrada** (07:08:54):
+> @hcorrada has joined the channel
+
 **Peter Hickey** (09:05:16):
 > at least a warning seems appropriate
 
-*09:58:46 - @Kasper D. Hansen has joined the channel*
+**Kasper D. Hansen** (09:58:46):
+> @Kasper D. Hansen has joined the channel
+
 **Kasper D. Hansen** (10:00:55):
 > I strongly opposed storing distance matrices in the basic single cell container. There are multiple arguments against it.  First, it goes against our existing paradigm of having a separate fit / dist object (not saying this is a holy paradigm, but I note it goes against it).
 
@@ -158,9 +179,9 @@ format: gfm
 
 **Aaron Lun** (10:29:05):
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C6KJHH0M9/p1502287255032864)
-    > I strongly opposed storing distance matrices in the basic single cell container. There are multiple arguments against it.  First, it goes against our existing paradigm of having a separate fit / dist object (not saying this is a holy paradigm, but I note it goes against it).
+> I strongly opposed storing distance matrices in the basic single cell container. There are multiple arguments against it.  First, it goes against our existing paradigm of having a separate fit / dist object (not saying this is a holy paradigm, but I note it goes against it).
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C6KJHH0M9/p1502288945084564?thread_ts=1502287255032864&cid=C6KJHH0M9)
-    > I'm happy to go either way on this one. Yes, the presence of a distance matrix slot would imply a specific clustering strategy, which wouldn't fit into a concept of a base class. On a more practical level, if many packages need it, then I would be willing to live with the philosophical discomfort of a distance slot (that can potentially be empty). This seems easier for users and developers to work with, than to have yet another subclass.
+> I'm happy to go either way on this one. Yes, the presence of a distance matrix slot would imply a specific clustering strategy, which wouldn't fit into a concept of a base class. On a more practical level, if many packages need it, then I would be willing to live with the philosophical discomfort of a distance slot (that can potentially be empty). This seems easier for users and developers to work with, than to have yet another subclass.
 
 **Aaron Lun** (10:38:17):
 > I would guess that the current named assay wrappers are the most general -`counts`can apply to gene/transcript-level counts, bin-level counts (for CNVs in genomic sequencing) or region-level counts (for ATAC-seq). Methylation will require more specialized accessors - and that's fine, they can be implemented in the relevant packages. It seems to me that you'd want to implement them anyway for**SummarizedExperiment**, in which case they can be applied to**SingleCellExperiment**without much extra effort.
@@ -174,15 +195,21 @@ format: gfm
 **Kasper D. Hansen** (10:42:35):
 > (core = present in the package)
 
-*11:01:20 - @Stephanie Hicks has joined the channel*
+**Stephanie Hicks** (11:01:20):
+> @Stephanie Hicks has joined the channel
+
 **Aaron Lun** (11:40:59):
 > @Peter HickeyYeah, it should just break with "i not found" or something like that.
 
-*12:09:50 - @Martin Morgan has joined the channel*
+**Martin Morgan** (12:09:50):
+> @Martin Morgan has joined the channel
+
 **Aaron Lun** (12:22:50):
 > So if there's no objections about the named assay wrappers, I'll merge the branch into the master.
 
-*14:27:01 - @Lorena Pantano has joined the channel*
+**Lorena Pantano** (14:27:01):
+> @Lorena Pantano has joined the channel
+
 **Aaron Lun** (14:50:09):
 > @Kasper D. Hansen@Davide Risso@Sean DavisJust wondering what the name of the subclass would be. My creative juices are finished for the day, so...`ClusteredCellExperiment`?
 
@@ -227,7 +254,9 @@ format: gfm
 
 ## 2017-08-10
 
-*00:59:59 - @Fanny Perraudeau has joined the channel*
+**Fanny Perraudeau** (00:59:59):
+> @Fanny Perraudeau has joined the channel
+
 **Aaron Lun** (04:23:50):
 > Named assay branch has been merged. The vignette needs some updating though.
 
@@ -325,7 +354,9 @@ format: gfm
 **Aaron Lun** (06:29:54):
 > Ah, I didn't read Kevin's comment fully. Yes, I use separate directories to avoid chaos.
 
-*14:10:44 - @Tim Triche has joined the channel*
+**Tim Triche** (14:10:44):
+> @Tim Triche has joined the channel
+
 **Sean Davis** (15:17:19):
 > Hi, all. I created the#bioc_gitchannel to discuss all things bioc and git. If we don’t use it, it can go away, but I suspect there will be some interest.
 
@@ -335,7 +366,7 @@ format: gfm
 **Aaron Lun** (06:53:15):
 > @Davide RissoI have cloned SingleCellExperiment from the Bioc git and started making some commits ([https://github.com/LTLA/SingleCellExperiment](https://github.com/LTLA/SingleCellExperiment)). I think our best strategy is for someone (either you or me) to have a "central" repository on Github that everyone else forks or makes publicly visible PRs to. This should make it easier to avoid surprise conflicts from (relatively hidden) commits to the Bioc git.
   - Attachment (GitHub): [LTLA/SingleCellExperiment](https://github.com/LTLA/SingleCellExperiment)
-    > Clone of the Bioconductor repository for the SingleCellExperiment package, see [https://bioconductor.org/packages/devel/bioc/html/SingleCellExperiment.html](https://bioconductor.org/packages/devel/bioc/html/SingleCellExperiment.html) for the official development version.
+> Clone of the Bioconductor repository for the SingleCellExperiment package, see [https://bioconductor.org/packages/devel/bioc/html/SingleCellExperiment.html](https://bioconductor.org/packages/devel/bioc/html/SingleCellExperiment.html) for the official development version.
 
 **Aaron Lun** (06:54:24):
 > I personally will be archiving all my existing Git repositories for my other packages (**csaw**,**diffHic**, etc.). Far too much effort would be required to reconcile the histories, and for no apparent gain.
@@ -377,7 +408,7 @@ format: gfm
 **Davide Risso** (09:29:50):
 > it’s now at[https://github.com/drisso/archive-SingleCellExperiment](https://github.com/drisso/archive-SingleCellExperiment)
   - Attachment (GitHub): [drisso/archive-SingleCellExperiment](https://github.com/drisso/archive-SingleCellExperiment)
-    > archive-SingleCellExperiment - This is the archived version of SingleCellExperiment with the history before Bioc submission.
+> archive-SingleCellExperiment - This is the archived version of SingleCellExperiment with the history before Bioc submission.
 
 **Davide Risso** (09:30:05):
 > Feel free to transfer the new one to me anytime
@@ -454,14 +485,16 @@ format: gfm
 
 ## 2017-09-07
 
-*07:20:18 - @Michael Steinbaugh has joined the channel*
+**Michael Steinbaugh** (07:20:18):
+> @Michael Steinbaugh has joined the channel
+
 
 ## 2017-10-03
 
 **Sean Davis** (10:29:53):
 > Just FYI, there is a small collection of batched fibroblast cells here, perhaps useful for some QC/normalization work.[https://github.com/singlecell-batches/getting-started](https://github.com/singlecell-batches/getting-started)
   - Attachment (GitHub): [singlecell-batches/getting-started](https://github.com/singlecell-batches/getting-started)
-    > getting-started - How to get started with the single cell batches comparison
+> getting-started - How to get started with the single cell batches comparison
 
 
 ## 2017-10-04
@@ -472,15 +505,19 @@ format: gfm
 
 ## 2017-10-06
 
-*16:33:36 - @David Jenkins has joined the channel*
+**David Jenkins** (16:33:36):
+> @David Jenkins has joined the channel
+
 
 ## 2017-10-26
 
-*19:20:18 - @Levi Waldron has joined the channel*
+**Levi Waldron** (19:20:18):
+> @Levi Waldron has joined the channel
+
 **Levi Waldron** (19:20:40):
 > Just saw this:[https://www.biorxiv.org/content/early/2017/10/23/207704](https://www.biorxiv.org/content/early/2017/10/23/207704)
   - Attachment (bioRxiv): [ascend: R package for analysis of single cell RNA-seq data](https://www.biorxiv.org/content/early/2017/10/23/207704)
-    > Abstract Summary: ascend is an R package comprised of fast, streamlined analysis functions optimized to address the statistical challenges of single cell RNA-seq. The package incorporates novel and established methods to provide a flexible framework to perform filtering, quality control, normalization, dimension reduction, clustering, differential expression and a wide-range of plotting. ascend is designed to work with scRNA-seq data generated by any high-throughput platform, and includes functions to convert data objects between software packages. Availability: The R package and associated vignettes are freely available at [https://github.com/IMB-Computational-Genomics-Lab/ascend](https://github.com/IMB-Computational-Genomics-Lab/ascend). Contact: <mailto:joseph.powell@uq.edu.au|joseph.powell@uq.edu.au> Supplementary information: An example dataset is available at ArrayExpress, accession number E-MTAB-6108
+> Abstract Summary: ascend is an R package comprised of fast, streamlined analysis functions optimized to address the statistical challenges of single cell RNA-seq. The package incorporates novel and established methods to provide a flexible framework to perform filtering, quality control, normalization, dimension reduction, clustering, differential expression and a wide-range of plotting. ascend is designed to work with scRNA-seq data generated by any high-throughput platform, and includes functions to convert data objects between software packages. Availability: The R package and associated vignettes are freely available at [https://github.com/IMB-Computational-Genomics-Lab/ascend](https://github.com/IMB-Computational-Genomics-Lab/ascend). Contact: <mailto:joseph.powell@uq.edu.au|joseph.powell@uq.edu.au> Supplementary information: An example dataset is available at ArrayExpress, accession number E-MTAB-6108
 
 
 ## 2017-10-27
@@ -488,7 +525,7 @@ format: gfm
 **Sean Davis** (06:42:01):
 > Added “ascend” to list:[https://github.com/seandavi/awesome-single-cell](https://github.com/seandavi/awesome-single-cell)
   - Attachment (GitHub): [seandavi/awesome-single-cell](https://github.com/seandavi/awesome-single-cell)
-    > awesome-single-cell - List of software packages for single-cell data analysis, including RNA-seq, ATAC-seq, etc.
+> awesome-single-cell - List of software packages for single-cell data analysis, including RNA-seq, ATAC-seq, etc.
 
 **Lorena Pantano** (13:56:33):
 > [http://www.scrna-tools.org](http://www.scrna-tools.org)
@@ -522,7 +559,7 @@ format: gfm
 > > query(ExperimentHub(), find)
 > ```
   - Attachment (GitHub): [LTLA/TENxBrainData](https://github.com/LTLA/TENxBrainData)
-    > TENxBrainData - An ExperimentHub package for the 1.3 million brain cell 10X single-cell RNA-seq data set.
+> TENxBrainData - An ExperimentHub package for the 1.3 million brain cell 10X single-cell RNA-seq data set.
 
 **Martin Morgan** (06:53:04):
 > Also, the 'loom' format is kind of a SummarizedExperiment in hdf5; there's a new parser at`SummarizedExperiment::makeSummarizedExperimentFromLoom()`(in git, should be available after today's build, or from`biocLite("Bioconductor/SummarizedExperiment")`, both using R-devel / bioc-devel).
@@ -542,7 +579,7 @@ format: gfm
 **Martin Morgan** (08:30:41):
 > The script at[https://github.com/LTLA/TENxBrainData/blob/master/inst/scripts/make-data.R](https://github.com/LTLA/TENxBrainData/blob/master/inst/scripts/make-data.R)describes how the data are made -- chunked dense matrix
   - Attachment (GitHub): [LTLA/TENxBrainData](https://github.com/LTLA/TENxBrainData/blob/master/inst/scripts/make-data.R)
-    > TENxBrainData - An ExperimentHub package for the 1.3 million brain cell 10X single-cell RNA-seq data set.
+> TENxBrainData - An ExperimentHub package for the 1.3 million brain cell 10X single-cell RNA-seq data set.
 
 **Aaron Lun** (12:24:12):
 > @Martin MorganWould you like me to transfer the repository to Bioconductor, if it makes it easier for you to make the necessary changes?
@@ -556,11 +593,15 @@ format: gfm
 
 ## 2017-11-29
 
-*09:43:11 - @Matthew McCall has joined the channel*
+**Matthew McCall** (09:43:11):
+> @Matthew McCall has joined the channel
+
 
 ## 2017-12-11
 
-*16:47:17 - @Ricard Argelaguet has joined the channel*
+**Ricard Argelaguet** (16:47:17):
+> @Ricard Argelaguet has joined the channel
+
 
 ## 2018-02-14
 
@@ -580,11 +621,15 @@ format: gfm
 
 ## 2018-02-28
 
-*15:18:12 - @Daniel Van Twisk has joined the channel*
+**Daniel Van Twisk** (15:18:12):
+> @Daniel Van Twisk has joined the channel
+
 
 ## 2018-03-03
 
-*09:36:56 - @Aedin Culhane has joined the channel*
+**Aedin Culhane** (09:36:56):
+> @Aedin Culhane has joined the channel
+
 
 ## 2018-03-07
 
@@ -624,14 +669,16 @@ format: gfm
 
 ## 2018-03-09
 
-*10:09:27 - @Elizabeth Purdom has joined the channel*
+**Elizabeth Purdom** (10:09:27):
+> @Elizabeth Purdom has joined the channel
+
 
 ## 2018-03-15
 
 **Martin Morgan** (18:30:58):
 > Single cell experimenters might wish to cast their eye over (provide a brief review of) this package[https://github.com/Bioconductor/Contributions/issues/675](https://github.com/Bioconductor/Contributions/issues/675)
   - Attachment (GitHub): [ccfindR · Issue #675 · Bioconductor/Contributions](https://github.com/Bioconductor/Contributions/issues/675)
-    > Update the following URL to point to the GitHub repository of the package you wish to submit to Bioconductor Repository: [https://github.com/hjunwoo/ccfindR](https://github.com/hjunwoo/ccfindR) Confirm the following by editing each c...
+> Update the following URL to point to the GitHub repository of the package you wish to submit to Bioconductor Repository: [https://github.com/hjunwoo/ccfindR](https://github.com/hjunwoo/ccfindR) Confirm the following by editing each c...
 
 **Kevin Rue-Albrecht** (18:39:06):
 > I know I’m already biased against a package when the first thing I see is « Please re-use the SingleCellExperiment representation »:sweat_smile:
@@ -642,7 +689,9 @@ format: gfm
 
 ## 2018-03-30
 
-*07:53:02 - @Matt Ritchie has joined the channel*
+**Matt Ritchie** (07:53:02):
+> @Matt Ritchie has joined the channel
+
 
 ## 2018-04-12
 
@@ -730,7 +779,9 @@ format: gfm
 **Aaron Lun** (01:49:13):
 > @Davide Risso@Keegan Korthauersuggest changing the class name to`LinearEmbeddingMatrix`and give it matrix-like behaviour, for dim/dimnames and during subsetting (i.e., drop=TRUE by default and returning a vector).
 
-*01:49:16 - @Keegan Korthauer has joined the channel*
+**Keegan Korthauer** (01:49:16):
+> @Keegan Korthauer has joined the channel
+
 **Aaron Lun** (01:49:47):
 > This ensures that the object is truly interchangeable with matrices when stored in the SCE reddim slot.
 
@@ -764,14 +815,16 @@ format: gfm
 **Aaron Lun** (16:53:57):
 > @Hervé PagèsI am thinking of putting this document as a vignette in the**SummarizedExperiment**package itself, would that be a good idea or should I put it in a separate repo?
 
-*16:54:01 - @Hervé Pagès has joined the channel*
+**Hervé Pagès** (16:54:01):
+> @Hervé Pagès has joined the channel
+
 **Aaron Lun** (22:29:38):
 > I’ve put up a draft as a PR.
 
 **Aaron Lun** (23:02:35):
 > Bumping@Kasper D. Hansen@Martin Morgan, if interested. Also added some thoughts about how to potentially simplify the derivation process. Link is at[https://github.com/Bioconductor/SummarizedExperiment/pull/10](https://github.com/Bioconductor/SummarizedExperiment/pull/10).
   - Attachment (GitHub): [Detailed instructions for class extension by LTLA · Pull Request #10 · Bioconductor/SummarizedExperiment](https://github.com/Bioconductor/SummarizedExperiment/pull/10)
-    > This is very much a work in progress, just adding it as a PR to put it on the radar and to get feedback.
+> This is very much a work in progress, just adding it as a PR to put it on the radar and to get feedback.
 
 **Martin Morgan** (23:44:50):
 > I don't think it belongs in SummarizedExperiment, which is basically a 'user' package; maybe S4Vectors...?
@@ -957,7 +1010,9 @@ format: gfm
 **Davide Risso** (13:43:05):
 > Anyway, LinearEmbeddingMatrix lives in the SingleCellExperiment package
 
-*13:51:07 - @Loyal has joined the channel*
+**Loyal** (13:51:07):
+> @Loyal has joined the channel
+
 **Aaron Lun** (13:57:25):
 > See the`develop`branch for enforced equality of featureLoadings (within a tolerance) during rbind.
 
@@ -1094,7 +1149,7 @@ format: gfm
 **Aaron Lun** (05:36:51):
 > There's a few comments at[https://github.com/Bioconductor/SummarizedExperiment/pull/10](https://github.com/Bioconductor/SummarizedExperiment/pull/10)about an idea for`parallelSlotNames`for the other dimensions, which would allow automatic subsetting and combining behaviour.
   - Attachment (GitHub): [Detailed instructions for class extension by LTLA · Pull Request #10 · Bioconductor/SummarizedExperiment](https://github.com/Bioconductor/SummarizedExperiment/pull/10)
-    > This is very much a work in progress, just adding it as a PR to put it on the radar and to get feedback.
+> This is very much a work in progress, just adding it as a PR to put it on the radar and to get feedback.
 
 **Aaron Lun** (05:38:58):
 > The idea is that if you have a new slot that's parallel to the column or row, you just add the slot name to the set of slot names, and - presto - you get instant (correct) subsetting and combining behaviour. If this were implemented,`colData`would obviously be the first entry in the slots parallel to the columns; but you could easily imagine just adding`internal_colData`to this set of names, and that's job done. No need to modify all of the subsetting/combining methods.
@@ -1171,7 +1226,9 @@ format: gfm
 
 ## 2018-06-26
 
-*08:37:21 - @Elana Fertig has joined the channel*
+**Elana Fertig** (08:37:21):
+> @Elana Fertig has joined the channel
+
 
 ## 2018-07-19
 
@@ -1369,7 +1426,7 @@ format: gfm
 
 **Aedin Culhane** (17:22:21):
 > > x<-read10xCounts(xDirs)
-> rownames(x)[1:2]
+> > rownames(x)[1:2]
 > [1] "ENSG00000243485" "ENSG00000237613"
 > > rowData(x)[1:2]
 > DataFrame with 32738 rows and 2 columns
@@ -1395,8 +1452,8 @@ format: gfm
 
 **Aedin Culhane** (17:25:37):
 > > rowData(x)<- merge(rowData(x), Rxx,by.x="ID" ,by.y= "EnsEMBLID" , all=TRUE)
-> 
-> rownames(x)[1:2]
+> > 
+> > rownames(x)[1:2]
 > [1] "ENSG00000243485" "ENSG00000237613"
 > > rowData(x)[1:2,]
 > DataFrame with 2 rows and 6 columns
@@ -1580,14 +1637,24 @@ format: gfm
 
 ## 2018-07-25
 
-*09:33:10 - @Neke Ibeh has joined the channel*
-*13:06:50 - @Diya Das has joined the channel*
-*15:57:48 - @C. Mirzayi (please do not tag this account) has joined the channel*
-*16:02:21 - @Ben Johnson has joined the channel*
+**Neke Ibeh** (09:33:10):
+> @Neke Ibeh has joined the channel
+
+**Diya Das** (13:06:50):
+> @Diya Das has joined the channel
+
+**C. Mirzayi (please do not tag this account)** (15:57:48):
+> @C. Mirzayi (please do not tag this account) has joined the channel
+
+**Ben Johnson** (16:02:21):
+> @Ben Johnson has joined the channel
+
 
 ## 2018-07-26
 
-*12:56:33 - @Matthew Oldach has joined the channel*
+**Matthew Oldach** (12:56:33):
+> @Matthew Oldach has joined the channel
+
 
 ## 2018-07-31
 
@@ -1657,7 +1724,7 @@ format: gfm
 **Aaron Lun** (08:05:19):
 > [https://github.com/drisso/SingleCellExperiment/pull/24](https://github.com/drisso/SingleCellExperiment/pull/24)
   - Attachment (GitHub): [Large-scale refactoring of internals by LTLA · Pull Request #24 · drisso/SingleCellExperiment](https://github.com/drisso/SingleCellExperiment/pull/24)
-    > Reorganized functions to separate source files for easier navigation. Added reducedDimNames<- method. Added withDimnames= option for reducedDim(s) methods. Exported internal getters and setters....
+> Reorganized functions to separate source files for easier navigation. Added reducedDimNames<- method. Added withDimnames= option for reducedDim(s) methods. Exported internal getters and setters....
 
 **Davide Risso** (08:24:22):
 > Thanks@Aaron Lunreally nice vignette!
@@ -1665,7 +1732,7 @@ format: gfm
 **Aedin Culhane** (12:18:23):
 > SCAP[http://advances.sciencemag.org/content/4/8/eaat8573](http://advances.sciencemag.org/content/4/8/eaat8573)
   - Attachment (Science Advances): [Accelerating a paradigm shift: The Common Fund Single Cell Analysis Program](http://advances.sciencemag.org/content/4/8/eaat8573)
-    > It has become exceedingly important to understand the precise molecular profiles of the nearly 40 trillion cells in an adult human because of their role in determining health, disease, and therapeutic outcome. The National Institutes of Health (NIH) Common Fund–supported Single Cell Analysis Program (SCAP) was designed to address this challenge. In this review, we outline the original program goals and provide a perspective on the impact of the program as a catalyst for exploration of heterogeneity of human tissues at the cellular level. We believe that the technological advances in single-cell RNA sequencing and multiplexed imaging combined with computational methods made by this program will undoubtedly have an impact on broad and robust applications of single-cell analyses in both health and disease research.
+> It has become exceedingly important to understand the precise molecular profiles of the nearly 40 trillion cells in an adult human because of their role in determining health, disease, and therapeutic outcome. The National Institutes of Health (NIH) Common Fund–supported Single Cell Analysis Program (SCAP) was designed to address this challenge. In this review, we outline the original program goals and provide a perspective on the impact of the program as a catalyst for exploration of heterogeneity of human tissues at the cellular level. We believe that the technological advances in single-cell RNA sequencing and multiplexed imaging combined with computational methods made by this program will undoubtedly have an impact on broad and robust applications of single-cell analyses in both health and disease research.
 
 **Davide Risso** (14:40:42):
 > Hey@Aaron Lun(or anyone else<!here>) random question: do you have any favorite method to detect cell doublets?
@@ -1709,7 +1776,7 @@ format: gfm
 **Aaron Lun** (14:50:44):
 > Oh,`doubletCells`may only be in[https://github.com/MarioniLab/scran](https://github.com/MarioniLab/scran). Can't remember, need to push**scater**and**SingleCellExperiment**first.
   - Attachment (GitHub): [MarioniLab/scran](https://github.com/MarioniLab/scran)
-    > Clone of the Bioconductor repository for the scran package, see [https://bioconductor.org/packages/devel/bioc/html/scran.html](https://bioconductor.org/packages/devel/bioc/html/scran.html) for the official development version.
+> Clone of the Bioconductor repository for the scran package, see [https://bioconductor.org/packages/devel/bioc/html/scran.html](https://bioconductor.org/packages/devel/bioc/html/scran.html) for the official development version.
 
 **Aaron Lun** (14:53:19):
 > I should mention that, even if you have 1 million cells, you wouldn't have generated them in a single run. Doublets only form within runs, so you should be running the function for each run separately.
@@ -1726,7 +1793,9 @@ format: gfm
 
 ## 2018-08-16
 
-*16:58:28 - @Marcus Kinsella has joined the channel*
+**Marcus Kinsella** (16:58:28):
+> @Marcus Kinsella has joined the channel
+
 
 ## 2018-09-13
 
@@ -1811,11 +1880,15 @@ format: gfm
 
 ## 2018-09-20
 
-*12:49:07 - @JiefeiWang has joined the channel*
+**JiefeiWang** (12:49:07):
+> @JiefeiWang has joined the channel
+
 
 ## 2018-09-24
 
-*21:49:01 - @Kim-Anh Lê Cao has joined the channel*
+**Kim-Anh Lê Cao** (21:49:01):
+> @Kim-Anh Lê Cao has joined the channel
+
 
 ## 2018-10-03
 
@@ -1836,7 +1909,9 @@ format: gfm
 
 ## 2018-10-24
 
-*11:26:59 - @Vince Carey has joined the channel*
+**Vince Carey** (11:26:59):
+> @Vince Carey has joined the channel
+
 **Davide Risso** (12:00:21):
 > Answering@Martin Morganquestion here, I think that no, conversion is not the right word
 
@@ -1888,7 +1963,7 @@ format: gfm
 **Kevin Rue-Albrecht** (12:46:34):
 > I vaguely started a mini-package ([https://github.com/Bioconductor/Contributions/issues/826](https://github.com/Bioconductor/Contributions/issues/826)) that was solely dedicated to interfacing Seurat to Bioconductor. I didn’t dig through the entire Seurat object, which as@Davide Rissowrote, leads to loss of information.
   - Attachment (GitHub): [(inactive) BioSeurat · Issue #826 · Bioconductor/Contributions](https://github.com/Bioconductor/Contributions/issues/826)
-    > Update the following URL to point to the GitHub repository of the package you wish to submit to Bioconductor Repository: [https://github.com/kevinrue/BioSeurat](https://github.com/kevinrue/BioSeurat) Confirm the following by editing each ...
+> Update the following URL to point to the GitHub repository of the package you wish to submit to Bioconductor Repository: [https://github.com/kevinrue/BioSeurat](https://github.com/kevinrue/BioSeurat) Confirm the following by editing each ...
 
 **Aaron Lun** (12:47:16):
 > **scran**has a`convertTo`method as well. It was - and continues to be - a real pain to maintain.
@@ -2091,15 +2166,21 @@ format: gfm
 
 ## 2018-10-31
 
-*16:51:58 - @Raphael Gottardo has joined the channel*
+**Raphael Gottardo** (16:51:58):
+> @Raphael Gottardo has joined the channel
+
 **Raphael Gottardo** (16:53:48):
 > Team, are there been any work on supporting multiple omics assay at the single-cell level. So sort of like an MAE structure for single-cell data? A SummarizedExperiment x MAE. Perhaps that's already supported? I am thinking of CITE-Seq or ATAC-seq and RNA-seq on the same cells. Or VDJ scRNA-seq.
 
 **Raphael Gottardo** (16:54:06):
 > @Martin Morgan@Aaron Lun@Rob Amezquita
 
-*16:54:09 - @Rob Amezquita has joined the channel*
-*16:57:06 - @Jayaram Kancherla has joined the channel*
+**Rob Amezquita** (16:54:09):
+> @Rob Amezquita has joined the channel
+
+**Jayaram Kancherla** (16:57:06):
+> @Jayaram Kancherla has joined the channel
+
 **Martin Morgan** (17:09:01):
 > if each of the data types can be represented in a SummarizedExperiment (or RaggedExperiment or any other matrix-like object) then they can be combined into a MultiAssayExperiment. SummarizedExperiment can store DelayedArray, so very large data.@Marcel Ramos Pérezmight have more to say
 
@@ -2173,11 +2254,11 @@ format: gfm
 > trying to illustrate with a few resources, none of them “Bioc-compliant” yet, as far as I could see
 > -[https://www.biorxiv.org/content/early/2018/08/20/395004.1](https://www.biorxiv.org/content/early/2018/08/20/395004.1)-[https://github.com/dviraran/SingleR](https://github.com/dviraran/SingleR)-[https://www.biorxiv.org/content/early/2018/07/15/369538](https://www.biorxiv.org/content/early/2018/07/15/369538)-
   - Attachment (bioRxiv): [Decomposing cell identity for transfer learning across cellular measurements, platforms, tissues, and species.](https://www.biorxiv.org/content/early/2018/08/20/395004.1)
-    > New approaches are urgently needed to glean biological insights from the vast amounts of single cell RNA sequencing (scRNA-Seq) data now being generated. To this end, we propose that cell identity should map to a reduced set of factors which will describe both exclusive and shared biology of individual cells, and that the dimensions which contain these factors reflect biologically meaningful relationships across different platforms, tissues and species. To find a robust set of dependent factors in large-scale scRNA-Seq data, we developed a Bayesian non-negative matrix factorization (NMF) algorithm, scCoGAPS. Application of scCoGAPS to scRNA-Seq data obtained over the course of mouse retinal development identified gene expression signatures for factors associated with specific cell types and continuous biological processes. To test whether these signatures are shared across diverse cellular contexts, we developed projectR to map biologically disparate datasets into the factors learned by scCoGAPS. Because projecting these dimensions preserve relative distances between samples, biologically meaningful relationships/factors will stratify new data consistent with their underlying processes, allowing labels or information from one dataset to be used for annotation of the other — a machine learning concept called transfer learning. Using projectR, data from multiple datasets was used to annotate latent spaces and reveal novel parallels between developmental programs in other tissues, species and cellular assays. Using this approach we are able to transfer cell type and state designations across datasets to rapidly annotate cellular features in a new dataset without a priori knowledge of their type, identify a species-specific signature of microglial cells, and identify a previously undescribed subpopulation of neurosecretory cells within the lung. Together, these algorithms define biologically meaningful dimensions of cellular identity, state, and trajectories that persist across technologies, molecular features, and species.
+> New approaches are urgently needed to glean biological insights from the vast amounts of single cell RNA sequencing (scRNA-Seq) data now being generated. To this end, we propose that cell identity should map to a reduced set of factors which will describe both exclusive and shared biology of individual cells, and that the dimensions which contain these factors reflect biologically meaningful relationships across different platforms, tissues and species. To find a robust set of dependent factors in large-scale scRNA-Seq data, we developed a Bayesian non-negative matrix factorization (NMF) algorithm, scCoGAPS. Application of scCoGAPS to scRNA-Seq data obtained over the course of mouse retinal development identified gene expression signatures for factors associated with specific cell types and continuous biological processes. To test whether these signatures are shared across diverse cellular contexts, we developed projectR to map biologically disparate datasets into the factors learned by scCoGAPS. Because projecting these dimensions preserve relative distances between samples, biologically meaningful relationships/factors will stratify new data consistent with their underlying processes, allowing labels or information from one dataset to be used for annotation of the other — a machine learning concept called transfer learning. Using projectR, data from multiple datasets was used to annotate latent spaces and reveal novel parallels between developmental programs in other tissues, species and cellular assays. Using this approach we are able to transfer cell type and state designations across datasets to rapidly annotate cellular features in a new dataset without a priori knowledge of their type, identify a species-specific signature of microglial cells, and identify a previously undescribed subpopulation of neurosecretory cells within the lung. Together, these algorithms define biologically meaningful dimensions of cellular identity, state, and trajectories that persist across technologies, molecular features, and species.
   - Attachment (GitHub): [dviraran/SingleR](https://github.com/dviraran/SingleR)
-    > SingleR: Single-cell RNA-seq cell types Recognition - dviraran/SingleR
+> SingleR: Single-cell RNA-seq cell types Recognition - dviraran/SingleR
   - Attachment (bioRxiv): [scPred: Single cell prediction using singular value decomposition and machine learning classification](https://www.biorxiv.org/content/early/2018/07/15/369538)
-    > Single-cell RNA sequencing has enabled the characterization of highly specific cell types in many human tissues, as well as both primary and stem cell-derived cell lines. An important facet of these studies is the ability to identify the transcriptional signatures that define a cell type or state. In theory, this information can be used to classify an unknown cell based on its transcriptional profile; and clearly, the ability to accurately predict a cell type and any pathologic-related state will play a critical role in the early diagnosis of disease and decisions around the personalized treatment for patients. Here we present a new generalizable method (scPred) for prediction of cell type(s), using a combination of unbiased feature selection from a reduced-dimension space, and machine-learning classification. scPred solves several problems associated with the identification of individual gene feature selection and is able to capture subtle effects of many genes, increasing the overall variance explained by the model, and correspondingly improving the prediction accuracy. We apply scPred to scRNA-seq data from pancreatic tissue, colorectal tumor biopsies, and circulating dendritic cells, and show that scPred is able to classify cell subtypes with an accuracy of 96.1-99.2%. Furthermore, we demonstrate that the feature selection step of scPred is able to discriminate from both transcriptional variation between single-cell RNA-sequencing protocols, and between laboratory batch effects, and still predict cell subtype with an accuracy greater the 96%. Collectively, our results demonstrate the utility of scPred as a single cell prediction method that can be used for a wide variety of applications. The generalized method is implemented in software available here: [https://github.com/IMB-Computational-Genomics-Lab/scPred/](https://github.com/IMB-Computational-Genomics-Lab/scPred/)
+> Single-cell RNA sequencing has enabled the characterization of highly specific cell types in many human tissues, as well as both primary and stem cell-derived cell lines. An important facet of these studies is the ability to identify the transcriptional signatures that define a cell type or state. In theory, this information can be used to classify an unknown cell based on its transcriptional profile; and clearly, the ability to accurately predict a cell type and any pathologic-related state will play a critical role in the early diagnosis of disease and decisions around the personalized treatment for patients. Here we present a new generalizable method (scPred) for prediction of cell type(s), using a combination of unbiased feature selection from a reduced-dimension space, and machine-learning classification. scPred solves several problems associated with the identification of individual gene feature selection and is able to capture subtle effects of many genes, increasing the overall variance explained by the model, and correspondingly improving the prediction accuracy. We apply scPred to scRNA-seq data from pancreatic tissue, colorectal tumor biopsies, and circulating dendritic cells, and show that scPred is able to classify cell subtypes with an accuracy of 96.1-99.2%. Furthermore, we demonstrate that the feature selection step of scPred is able to discriminate from both transcriptional variation between single-cell RNA-sequencing protocols, and between laboratory batch effects, and still predict cell subtype with an accuracy greater the 96%. Collectively, our results demonstrate the utility of scPred as a single cell prediction method that can be used for a wide variety of applications. The generalized method is implemented in software available here: [https://github.com/IMB-Computational-Genomics-Lab/scPred/](https://github.com/IMB-Computational-Genomics-Lab/scPred/)
 
 **Vince Carey** (12:45:23):
 > Thanks Kevin!  I'll take a look.
@@ -2199,7 +2280,7 @@ format: gfm
 **Peter Hickey** (14:40:13):
 > also looking to do the same for data on[https://www.haemosphere.org/](https://www.haemosphere.org/)
   - Attachment (haemosphere.org): [Haemosphere](https://www.haemosphere.org/)
-    > Gene Expression Analysis Tool
+> Gene Expression Analysis Tool
 
 **Aaron Lun** (14:40:28):
 > #singlecellexperimentwas intended for S4 dataa containers and stuff.
@@ -2216,7 +2297,9 @@ format: gfm
 **Kevin Rue-Albrecht** (14:43:59):
 > from a ML perspective, I'd be keen to see a`predict(x, sce)`function
 
-*14:45:20 - @Valentin Voillet has joined the channel*
+**Valentin Voillet** (14:45:20):
+> @Valentin Voillet has joined the channel
+
 **Kevin Rue-Albrecht** (14:45:24):
 > ("views are my own")
 
@@ -2250,7 +2333,9 @@ format: gfm
 **Aaron Lun** (08:48:43):
 > @Martin Morgan@Michael LoveI noticed`SummarizedExperiment`has a`readKallisto`function. should that be made obsolete by tximeta?
 
-*08:55:40 - @Michael Love has joined the channel*
+**Michael Love** (08:55:40):
+> @Michael Love has joined the channel
+
 **Aaron Lun** (08:57:15):
 > Bit of an odd place to put this function.
 
@@ -2314,7 +2399,9 @@ format: gfm
 
 ## 2018-12-04
 
-*08:43:36 - @Avi Srivastava has joined the channel*
+**Avi Srivastava** (08:43:36):
+> @Avi Srivastava has joined the channel
+
 **Avi Srivastava** (08:51:52):
 > Hi guys, we (PI- Rob Patro) recently preprinted a tool Alevin, which performs quantification of droplet based single cell protocols. Along with improved quantification estimates, Alevin also has a capability to perform bootstrapping of the gene counts matrix per cell. I am aware of the fact that the format of the estimates of single cell experiments is itself an active research area let alone multiple bootstraps matrices per experiment but just wanted to explore the idea of what should be an ideal format to dump say`|i.j.k|`size matrix where i is the number of cells, j is the number of genes and k is the number of bootstraps.
 > We have a couple of ideas for the same, one could be (g is gene, c is cell, b is bootstrap id):
@@ -2392,7 +2479,9 @@ format: gfm
 **Michael Love** (09:40:04):
 > ok, we'll look for inspiration
 
-*09:40:46 - @Rob Patro has joined the channel*
+**Rob Patro** (09:40:46):
+> @Rob Patro has joined the channel
+
 **Michael Love** (09:40:58):
 > worst case we could use HDF5, rather than storing as some custom type (really don't want to do this)
 
@@ -2402,7 +2491,7 @@ format: gfm
 **Avi Srivastava** (09:42:45):
 > On the discussion of HDF5,[https://github.com/CINPLA/exdir](https://github.com/CINPLA/exdir)is worth considering .
   - Attachment (GitHub): [CINPLA/exdir](https://github.com/CINPLA/exdir)
-    > Directory structure standard for experimental pipelines. - CINPLA/exdir
+> Directory structure standard for experimental pipelines. - CINPLA/exdir
 
 
 ## 2018-12-06
@@ -2413,24 +2502,32 @@ format: gfm
 **Martin Morgan** (16:51:58):
 > Maybe the LoomExperiment package and vignette is a starting place?[https://bioconductor.org/packages/LoomExperiment](https://bioconductor.org/packages/LoomExperiment)
   - Attachment (Bioconductor): [LoomExperiment](https://bioconductor.org/packages/LoomExperiment)
-    > The LoomExperiment class provide a means to easily convert Bioconductor's
+> The LoomExperiment class provide a means to easily convert Bioconductor's
 
 
 ## 2018-12-08
 
-*04:43:53 - @Charlotte Soneson has joined the channel*
+**Charlotte Soneson** (04:43:53):
+> @Charlotte Soneson has joined the channel
+
 
 ## 2018-12-10
 
-*15:15:31 - @Mark Robinson has joined the channel*
+**Mark Robinson** (15:15:31):
+> @Mark Robinson has joined the channel
+
 
 ## 2018-12-12
 
-*16:36:30 - @Fabiola Curion has joined the channel*
+**Fabiola Curion** (16:36:30):
+> @Fabiola Curion has joined the channel
+
 
 ## 2018-12-14
 
-*12:45:53 - @Rena Yang has joined the channel*
+**Rena Yang** (12:45:53):
+> @Rena Yang has joined the channel
+
 
 ## 2018-12-22
 
@@ -2455,7 +2552,9 @@ format: gfm
 **Aedin Culhane** (13:10:40) (in thread):
 > Also have a look at some of the work from@Benjamin Haibe-Kainsgroup. They were trying to standardize signatures
 
-*13:10:46 - @Benjamin Haibe-Kains has joined the channel*
+**Benjamin Haibe-Kains** (13:10:46):
+> @Benjamin Haibe-Kains has joined the channel
+
 
 ## 2019-01-07
 
@@ -2468,7 +2567,9 @@ format: gfm
 
 ## 2019-01-08
 
-*02:03:48 - @Laurent Gatto has joined the channel*
+**Laurent Gatto** (02:03:48):
+> @Laurent Gatto has joined the channel
+
 **Sean Davis** (11:24:07):
 > Small speaker announcement on#randomthat might be of interest to folks here.
 
@@ -2557,14 +2658,16 @@ format: gfm
 
 ## 2019-01-24
 
-*13:56:31 - @Steve Lianoglou has joined the channel*
+**Steve Lianoglou** (13:56:31):
+> @Steve Lianoglou has joined the channel
+
 
 ## 2019-01-25
 
 **Stephanie Hicks** (23:08:56):
 > by chance does anyone have just the count table of the Usoskin 2015 data? ([https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE59739](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE59739))
   - Attachment (ncbi.nlm.nih.gov): [GEO Accession viewer](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE59739)
-    > NCBI's Gene Expression Omnibus (GEO) is a public archive and resource for gene expression data.
+> NCBI's Gene Expression Omnibus (GEO) is a public archive and resource for gene expression data.
 
 
 ## 2019-01-26
@@ -2668,7 +2771,9 @@ format: gfm
 **Aaron Lun** (06:03:53):
 > ARgh. So I can't get rid of`convertTo`.
 
-*07:08:34 - @Federico Marini has joined the channel*
+**Federico Marini** (07:08:34):
+> @Federico Marini has joined the channel
+
 **Federico Marini** (07:09:19):
 > Hi everyone:slightly_smiling_face:Given the fact that the SCE class was conceived and born here, you might have some first hand info
 
@@ -2715,7 +2820,9 @@ format: gfm
 **Kevin Rue-Albrecht** (07:37:54):
 > Oh sorry right, yes, I actually should have said: especially core team, I just have a hunch that the discussion might have already happened and that the SCE dev team also has the answer.
 
-*07:46:57 - @Kayla Interdonato has joined the channel*
+**Kayla Interdonato** (07:46:57):
+> @Kayla Interdonato has joined the channel
+
 **Martin Morgan** (08:51:57):
 > The problem with adding slots that are only sometimes used is that the type of the object is compromised -- all code just starts with`if (is.null(...)) stop()`and the user wonders at the point of a function that mostly fails.
 
@@ -2738,7 +2845,7 @@ format: gfm
 > Apparently, “[R performs] a full memory copy before making the mutation”
 > > [https://community.rstudio.com/t/killed-error-during-installation-for-many-packages/24239/5?u=kevinrue](https://community.rstudio.com/t/killed-error-during-installation-for-many-packages/24239/5?u=kevinrue)
   - Attachment (RStudio Community): ["Killed" error during installation for many packages](https://community.rstudio.com/t/killed-error-during-installation-for-many-packages/24239/5?u=kevinrue)
-    > When I open that project and run gc() I see: > gc() used (Mb) gc trigger (Mb) max used (Mb) Ncells 5475504 292.5 8828510 471.5 8828510 471.5 Vcells 16484956 125.8 23798222 181.6 19711902 150.4 I am not certain how R mutates into the copy, but if it performs a full memory copy before making the mutation, then you could very easily run out of memory here.
+> When I open that project and run gc() I see: > gc() used (Mb) gc trigger (Mb) max used (Mb) Ncells 5475504 292.5 8828510 471.5 8828510 471.5 Vcells 16484956 125.8 23798222 181.6 19711902 150.4 I am not certain how R mutates into the copy, but if it performs a full memory copy before making the mutation, then you could very easily run out of memory here.
 
 **Kevin Rue-Albrecht** (06:48:28):
 > I’m asking here, in the absence of a #summarizedexperiment channel
@@ -2810,24 +2917,36 @@ format: gfm
 
 ## 2019-04-03
 
-*01:05:35 - @Lambda Moses has joined the channel*
-*15:46:20 - @Levi Mangarin has joined the channel*
+**Lambda Moses** (01:05:35):
+> @Lambda Moses has joined the channel
+
+**Levi Mangarin** (15:46:20):
+> @Levi Mangarin has joined the channel
+
 
 ## 2019-04-23
 
-*12:54:40 - @darlanminussi has joined the channel*
+**darlanminussi** (12:54:40):
+> @darlanminussi has joined the channel
+
 
 ## 2019-04-26
 
-*09:47:20 - @Almut has joined the channel*
+**Almut** (09:47:20):
+> @Almut has joined the channel
+
 
 ## 2019-05-06
 
-*10:31:43 - @Firas has joined the channel*
+**Firas** (10:31:43):
+> @Firas has joined the channel
+
 
 ## 2019-05-08
 
-*13:51:26 - @Ming Tang has joined the channel*
+**Ming Tang** (13:51:26):
+> @Ming Tang has joined the channel
+
 
 ## 2019-05-13
 
@@ -2848,11 +2967,15 @@ format: gfm
 
 ## 2019-05-16
 
-*11:21:22 - @Sridhar N has joined the channel*
+**Sridhar N** (11:21:22):
+> @Sridhar N has joined the channel
+
 
 ## 2019-05-20
 
-*05:28:22 - @Assa has joined the channel*
+**Assa** (05:28:22):
+> @Assa has joined the channel
+
 **Sean Davis** (21:07:46):
 > Posted a preprint of a comparison of PCA methods over on#sc-batch-correction.
 
@@ -2877,28 +3000,42 @@ format: gfm
 
 ## 2019-05-22
 
-*15:48:28 - @Brendan Innes has joined the channel*
+**Brendan Innes** (15:48:28):
+> @Brendan Innes has joined the channel
+
 
 ## 2019-05-30
 
-*18:57:13 - @FeiZhao has joined the channel*
+**FeiZhao** (18:57:13):
+> @FeiZhao has joined the channel
+
 
 ## 2019-06-23
 
-*22:10:03 - @Ameya Kulkarni has joined the channel*
+**Ameya Kulkarni** (22:10:03):
+> @Ameya Kulkarni has joined the channel
+
 
 ## 2019-06-24
 
-*09:22:53 - @Komal Rathi has joined the channel*
+**Komal Rathi** (09:22:53):
+> @Komal Rathi has joined the channel
+
 
 ## 2019-06-25
 
-*10:17:11 - @Aaron Wolen has joined the channel*
-*15:52:33 - @Sonali has joined the channel*
+**Aaron Wolen** (10:17:11):
+> @Aaron Wolen has joined the channel
+
+**Sonali** (15:52:33):
+> @Sonali has joined the channel
+
 
 ## 2019-06-26
 
-*13:29:48 - @Junhao Li has joined the channel*
+**Junhao Li** (13:29:48):
+> @Junhao Li has joined the channel
+
 
 ## 2019-06-28
 
@@ -3106,7 +3243,9 @@ format: gfm
 
 ## 2019-07-04
 
-*10:39:24 - @Martin Treppner has joined the channel*
+**Martin Treppner** (10:39:24):
+> @Martin Treppner has joined the channel
+
 **Sridhar N** (20:54:01):
 > is there a way to plot overall normalized expression of a gene from single cell data, meaning total expression minus the cluster/celltype
 
@@ -3144,7 +3283,7 @@ format: gfm
 **Sridhar N** (21:22:41):
 > [https://satijalab.org/seurat/v3.0/conversion_vignette.html](https://satijalab.org/seurat/v3.0/conversion_vignette.html)
   - Attachment (satijalab.org): [Satija Lab](https://satijalab.org/seurat/v3.0/conversion_vignette.html)
-    > Lab Webpage ---
+> Lab Webpage ---
 
 **Aaron Lun** (21:23:12):
 > Well, scater doesn't.
@@ -3203,19 +3342,27 @@ format: gfm
 
 ## 2019-07-05
 
-*05:31:35 - @Kevin Missault has joined the channel*
+**Kevin Missault** (05:31:35):
+> @Kevin Missault has joined the channel
+
 
 ## 2019-07-09
 
-*21:31:35 - @Stevie Pederson has joined the channel*
+**Stevie Pederson** (21:31:35):
+> @Stevie Pederson has joined the channel
+
 
 ## 2019-07-15
 
-*13:36:23 - @Oriol Pavón has joined the channel*
+**Oriol Pavón** (13:36:23):
+> @Oriol Pavón has joined the channel
+
 
 ## 2019-07-17
 
-*14:32:57 - @John Hutchinson has joined the channel*
+**John Hutchinson** (14:32:57):
+> @John Hutchinson has joined the channel
+
 
 ## 2019-07-22
 
@@ -3289,9 +3436,11 @@ format: gfm
 **Tim Triche** (15:48:02):
 > this?[https://rdrr.io/github/drisso/SingleCellExperiment/src/tests/testthat/test-sce-altExp.R](https://rdrr.io/github/drisso/SingleCellExperiment/src/tests/testthat/test-sce-altExp.R)
   - Attachment (rdrr.io): [drisso/SingleCellExperiment source: tests/testthat/test-sce-altExp.R](https://rdrr.io/github/drisso/SingleCellExperiment/src/tests/testthat/test-sce-altExp.R)
-    > tests/testthat/test-sce-altExp.R defines the following functions:
+> tests/testthat/test-sce-altExp.R defines the following functions:
 
-*15:48:12 - @Friederike Dündar has joined the channel*
+**Friederike Dündar** (15:48:12):
+> @Friederike Dündar has joined the channel
+
 **Aaron Lun** (15:48:13):
 > commit <- match.arg(commit)
 
@@ -3316,11 +3465,15 @@ format: gfm
 **Tim Triche** (15:48:47):
 > thanks
 
-*15:50:32 - @Dan Bunis has joined the channel*
+**Dan Bunis** (15:50:32):
+> @Dan Bunis has joined the channel
+
 **Friederike Dündar** (15:51:05) (in thread):
 > yeah, I found that, too, but didn't immediately get how it would work, but I guess I'll just have to try and see
 
-*16:25:42 - @Jared Andrews has joined the channel*
+**Jared Andrews** (16:25:42):
+> @Jared Andrews has joined the channel
+
 **Federico Marini** (17:09:15) (in thread):
 > same here, did not try that extensively
 
@@ -3336,9 +3489,15 @@ format: gfm
 
 ## 2019-08-02
 
-*02:28:09 - @Dave Tang has joined the channel*
-*04:04:53 - @Gabriele Sales has joined the channel*
-*08:40:39 - @Kellie Kravarik has joined the channel*
+**Dave Tang** (02:28:09):
+> @Dave Tang has joined the channel
+
+**Gabriele Sales** (04:04:53):
+> @Gabriele Sales has joined the channel
+
+**Kellie Kravarik** (08:40:39):
+> @Kellie Kravarik has joined the channel
+
 **Federico Marini** (16:42:24) (in thread):
 > Well, load into python via scanpy, and then write out to something that gets loaded back into R - this being quite suboptimal
 
@@ -3351,12 +3510,18 @@ format: gfm
 
 ## 2019-08-03
 
-*13:53:02 - @Mikhael Manurung has joined the channel*
-*14:42:32 - @Shila Ghazanfar has joined the channel*
+**Mikhael Manurung** (13:53:02):
+> @Mikhael Manurung has joined the channel
+
+**Shila Ghazanfar** (14:42:32):
+> @Shila Ghazanfar has joined the channel
+
 
 ## 2019-08-05
 
-*09:28:08 - @Koen Van den Berge has joined the channel*
+**Koen Van den Berge** (09:28:08):
+> @Koen Van den Berge has joined the channel
+
 
 ## 2019-08-09
 
@@ -3375,11 +3540,15 @@ format: gfm
 
 ## 2019-08-14
 
-*07:25:10 - @Mike Smith has joined the channel*
+**Mike Smith** (07:25:10):
+> @Mike Smith has joined the channel
+
 
 ## 2019-08-16
 
-*04:41:16 - @Constantin Ahlmann-Eltze has joined the channel*
+**Constantin Ahlmann-Eltze** (04:41:16):
+> @Constantin Ahlmann-Eltze has joined the channel
+
 **Kevin Rue-Albrecht** (18:20:49):
 > incoming PR:grimacing:
 
@@ -3391,7 +3560,7 @@ format: gfm
 
 **Kevin Rue-Albrecht** (13:54:11):
 > > This should go into the body of the tryCatch, don’t know why you need to catch the NULL here.
-> Oh wait, just replace this with the dep warning. But make sure you use if (...) {.
+> > Oh wait, just replace this with the dep warning. But make sure you use if (...) {.
 > What’s the`dep`warning?@Aaron Lun
 
 **Aaron Lun** (13:54:59):
@@ -3776,11 +3945,15 @@ format: gfm
 **Kevin Rue-Albrecht** (19:23:33):
 > PS: making Travis describe warnings as errors is so depressing:stuck_out_tongue:
 
-*21:29:00 - @Luke Zappia has joined the channel*
+**Luke Zappia** (21:29:00):
+> @Luke Zappia has joined the channel
+
 
 ## 2019-08-19
 
-*17:52:05 - @Kin Lau has joined the channel*
+**Kin Lau** (17:52:05):
+> @Kin Lau has joined the channel
+
 
 ## 2019-08-22
 
@@ -4120,7 +4293,9 @@ format: gfm
 
 ## 2019-09-16
 
-*10:14:39 - @Joan has joined the channel*
+**Joan** (10:14:39):
+> @Joan has joined the channel
+
 **Joan** (10:26:36):
 > does anyone has idea of how to remove batch effect on ADT data ? i have looked Aaron’s pipeline of how to remove batch effect using batchelor ([https://bioconductor.org/packages/release/workflows/vignettes/simpleSingleCell/inst/doc/batch.html#6_controlling_the_merge_order](https://bioconductor.org/packages/release/workflows/vignettes/simpleSingleCell/inst/doc/batch.html#6_controlling_the_merge_order)) , but don’t find anything on ADT data. can we apply this process to the ADT data too?@Aaron Lun
 
@@ -4175,22 +4350,28 @@ format: gfm
 
 ## 2019-10-07
 
-*09:41:32 - @Lauren Hsu has joined the channel*
+**Lauren Hsu** (09:41:32):
+> @Lauren Hsu has joined the channel
+
 
 ## 2019-10-14
 
-*15:32:39 - @Kathy Sivils has joined the channel*
+**Kathy Sivils** (15:32:39):
+> @Kathy Sivils has joined the channel
+
 
 ## 2019-10-23
 
-*15:16:59 - @Tokuwa Kanno has joined the channel*
+**Tokuwa Kanno** (15:16:59):
+> @Tokuwa Kanno has joined the channel
+
 
 ## 2019-10-27
 
 **Sean Davis** (11:03:05):
 > Single cell transcriptomics DREAM Challenge with spatial component.[https://www.synapse.org/#!Synapse:syn15665609/wiki/582909](https://www.synapse.org/#!Synapse:syn15665609/wiki/582909)
   - Attachment (synapse.org): [Synapse | Sage Bionetworks](https://www.synapse.org/#!Synapse:syn15665609/wiki/582909)
-    > Synapse is a platform for supporting scientific collaborations centered around shared biomedical data sets. Our goal is to make biomedical research more transparent, more reproducible, and more accessible to a broader audience of scientists. Synapse serves as the host site for a variety of scientific collaborations, individual research projects, and DREAM challenges.
+> Synapse is a platform for supporting scientific collaborations centered around shared biomedical data sets. Our goal is to make biomedical research more transparent, more reproducible, and more accessible to a broader audience of scientists. Synapse serves as the host site for a variety of scientific collaborations, individual research projects, and DREAM challenges.
 
 **Hervé Pagès** (18:03:29):
 > Looks like the challenge was in 2018?
@@ -4198,7 +4379,7 @@ format: gfm
 **Avi Srivastava** (20:28:12):
 > :slightly_smiling_face:I think Sean meant this[https://www.synapse.org/#!Synapse:syn20692755/wiki/595096](https://www.synapse.org/#!Synapse:syn20692755/wiki/595096), ?? the problem statement looks v interesting !
   - Attachment (synapse.org): [Synapse | Sage Bionetworks](https://www.synapse.org/#!Synapse:syn20692755/wiki/595096)
-    > Synapse is a platform for supporting scientific collaborations centered around shared biomedical data sets. Our goal is to make biomedical research more transparent, more reproducible, and more accessible to a broader audience of scientists. Synapse serves as the host site for a variety of scientific collaborations, individual research projects, and DREAM challenges.
+> Synapse is a platform for supporting scientific collaborations centered around shared biomedical data sets. Our goal is to make biomedical research more transparent, more reproducible, and more accessible to a broader audience of scientists. Synapse serves as the host site for a variety of scientific collaborations, individual research projects, and DREAM challenges.
 
 **Avi Srivastava** (20:29:31):
 > oh my bad may be as he said spatial component.
@@ -4242,10 +4423,12 @@ format: gfm
 **Sean Davis** (06:28:55) (in thread):
 > [https://twitter.com/seandavis12/status/1188762760513019904](https://twitter.com/seandavis12/status/1188762760513019904)
   - Attachment (twitter): [Attachment](https://twitter.com/seandavis12/status/1188762760513019904)
-    > ROGUE: an entropy-based universal metric for assessing the purity of single cell population [https://www.biorxiv.org/content/10.1101/819581v1](https://www.biorxiv.org/content/10.1101/819581v1)
-    > "determination & annotation of cell subtypes is often subjective and arbitrary...Here we present an entropy-based statistic...to quantify the purity of...clusters." [https://pbs.twimg.com/media/EH9U4LKWkAE_bBN.jpg](https://pbs.twimg.com/media/EH9U4LKWkAE_bBN.jpg)
+> ROGUE: an entropy-based universal metric for assessing the purity of single cell population [https://www.biorxiv.org/content/10.1101/819581v1](https://www.biorxiv.org/content/10.1101/819581v1)
+> "determination & annotation of cell subtypes is often subjective and arbitrary...Here we present an entropy-based statistic...to quantify the purity of...clusters." [https://pbs.twimg.com/media/EH9U4LKWkAE_bBN.jpg](https://pbs.twimg.com/media/EH9U4LKWkAE_bBN.jpg)
 
-*11:08:44 - @Sehyun Oh has joined the channel*
+**Sehyun Oh** (11:08:44):
+> @Sehyun Oh has joined the channel
+
 **Aaron Lun** (22:33:30):
 > I swore we had a visualization channel, but I'll just post it here.
 
@@ -4300,7 +4483,7 @@ format: gfm
 **Rob Amezquita** (10:16:23):
 > [https://www.indifferentlanguages.com/words/sunflower](https://www.indifferentlanguages.com/words/sunflower)
   - Attachment (indifferentlanguages.com): [Do You Know How to Say Sunflower in Different Languages?](https://www.indifferentlanguages.com/words/sunflower)
-    > Looking for ways to say sunflower in other languages? Check out our list for saying sunflower in different languages. Be ready to meet a foreign friend!
+> Looking for ways to say sunflower in other languages? Check out our list for saying sunflower in different languages. Be ready to meet a foreign friend!
 
 **Avi Srivastava** (10:41:55) (in thread):
 > How about making the color of petals same all round. It just make the lighter color petals show up more brightly and saves some squinting .
@@ -4323,26 +4506,36 @@ format: gfm
 **Sean Davis** (07:15:29):
 > [https://github.com/seandavi/awesome-single-cell/pull/170#issuecomment-548321963](https://github.com/seandavi/awesome-single-cell/pull/170#issuecomment-548321963)
 
-*11:13:03 - @Ambrose Carr has joined the channel*
+**Ambrose Carr** (11:13:03):
+> @Ambrose Carr has joined the channel
+
 **Stephanie Hicks** (11:58:40):
 > haha! Thank you@Sean Davis!
 
 
 ## 2019-11-04
 
-*07:58:00 - @Izaskun Mallona has joined the channel*
+**Izaskun Mallona** (07:58:00):
+> @Izaskun Mallona has joined the channel
+
 
 ## 2019-11-05
 
-*13:40:32 - @Michelle Miron has joined the channel*
+**Michelle Miron** (13:40:32):
+> @Michelle Miron has joined the channel
+
 
 ## 2019-11-07
 
-*11:27:04 - @Kevin Blighe has joined the channel*
+**Kevin Blighe** (11:27:04):
+> @Kevin Blighe has joined the channel
+
 
 ## 2019-11-08
 
-*08:22:47 - @Alan O'C has joined the channel*
+**Alan O'C** (08:22:47):
+> @Alan O'C has joined the channel
+
 
 ## 2019-11-10
 
@@ -4359,7 +4552,7 @@ format: gfm
 > 
 > How should I store the count data? Currently I use`Matrix::readMM()`to read the mtx files, creating a`dgTMatrix`class. But should I be aiming for`dgCMatrix`or for`HDF5Array`, or...? Looking for maximum interoperability within the Bioconductor single cell ecosystem.
   - Attachment (Bioconductor): [LoomExperiment](https://bioconductor.org/packages/LoomExperiment)
-    > The LoomExperiment class provide a means to easily convert Bioconductor's
+> The LoomExperiment class provide a means to easily convert Bioconductor's
 
 **Aaron Lun** (20:04:55):
 > a dgCMatrix is usually the better way to go. dgT's would work but are less efficient (and get silently converted to dgC's inside most Matrix functions anyway). Hopefully there's not too many non-zero entries to pop the max integer limit.
@@ -4370,23 +4563,33 @@ format: gfm
 **Sean Davis** (11:03:34):
 > [https://twitter.com/seandavis12/status/1196435524556349440](https://twitter.com/seandavis12/status/1196435524556349440)
   - Attachment (twitter): [Attachment](https://twitter.com/seandavis12/status/1196435524556349440)
-    > The New York Genome Center is hosting an [@NCBI](https://twitter.com/NCBI) #SingleCell in the #cloud code-a-thon from January 15-17, 2020.
-    > Submissions for project proposals are due December 2nd.
-    > [https://support.nlm.nih.gov/Single_Cell_Codeathon_Project_Proposal/](https://support.nlm.nih.gov/Single_Cell_Codeathon_Project_Proposal/)
-    > [@DCHackathons](https://twitter.com/DCHackathons) [@nygenome](https://twitter.com/nygenome)
-    > #bioinformatics #RNASeq [https://pbs.twimg.com/media/EJqXwlBXsAAFCJu.jpg](https://pbs.twimg.com/media/EJqXwlBXsAAFCJu.jpg)
+> The New York Genome Center is hosting an [@NCBI](https://twitter.com/NCBI) #SingleCell in the #cloud code-a-thon from January 15-17, 2020.
+> Submissions for project proposals are due December 2nd.
+> [https://support.nlm.nih.gov/Single_Cell_Codeathon_Project_Proposal/](https://support.nlm.nih.gov/Single_Cell_Codeathon_Project_Proposal/)
+> [@DCHackathons](https://twitter.com/DCHackathons) [@nygenome](https://twitter.com/nygenome)
+> #bioinformatics #RNASeq [https://pbs.twimg.com/media/EJqXwlBXsAAFCJu.jpg](https://pbs.twimg.com/media/EJqXwlBXsAAFCJu.jpg)
 
 
 ## 2019-11-19
 
-*12:11:27 - @Mohamed Gunady has joined the channel*
+**Mohamed Gunady** (12:11:27):
+> @Mohamed Gunady has joined the channel
+
 
 ## 2019-11-20
 
-*10:03:45 - @Siyuan Ma has joined the channel*
-*12:01:39 - @Nolan Nichols has joined the channel*
-*12:02:40 - @Russ Bainer has joined the channel*
-*21:27:16 - @Pratima Chennuri has joined the channel*
+**Siyuan Ma** (10:03:45):
+> @Siyuan Ma has joined the channel
+
+**Nolan Nichols** (12:01:39):
+> @Nolan Nichols has joined the channel
+
+**Russ Bainer** (12:02:40):
+> @Russ Bainer has joined the channel
+
+**Pratima Chennuri** (21:27:16):
+> @Pratima Chennuri has joined the channel
+
 
 ## 2019-11-26
 
@@ -4429,11 +4632,15 @@ format: gfm
 
 ## 2019-12-04
 
-*09:27:50 - @Benjamin Reisman has joined the channel*
+**Benjamin Reisman** (09:27:50):
+> @Benjamin Reisman has joined the channel
+
 
 ## 2019-12-05
 
-*11:18:03 - @Juan Ojeda-Garcia has joined the channel*
+**Juan Ojeda-Garcia** (11:18:03):
+> @Juan Ojeda-Garcia has joined the channel
+
 **Aedin Culhane** (17:14:13):
 > @Davide RissoWe started refactoring mogsa:: mbpca to work wth svds and support sparse matrices.  Would love your advice on best approch
 
@@ -4443,18 +4650,30 @@ format: gfm
 
 ## 2019-12-06
 
-*12:21:15 - @Somesh has joined the channel*
+**Somesh** (12:21:15):
+> @Somesh has joined the channel
+
 
 ## 2019-12-10
 
-*05:40:51 - @Robert Ivánek has joined the channel*
-*07:41:31 - @Chris Vanderaa has joined the channel*
-*11:57:46 - @Camille BONAMY has joined the channel*
+**Robert Ivánek** (05:40:51):
+> @Robert Ivánek has joined the channel
+
+**Chris Vanderaa** (07:41:31):
+> @Chris Vanderaa has joined the channel
+
+**Camille BONAMY** (11:57:46):
+> @Camille BONAMY has joined the channel
+
 
 ## 2019-12-11
 
-*10:16:30 - @Milan Malfait has joined the channel*
-*11:19:57 - @Elisabetta Mereu has joined the channel*
+**Milan Malfait** (10:16:30):
+> @Milan Malfait has joined the channel
+
+**Elisabetta Mereu** (11:19:57):
+> @Elisabetta Mereu has joined the channel
+
 
 ## 2019-12-16
 
@@ -4464,21 +4683,33 @@ format: gfm
 
 ## 2019-12-17
 
-*02:41:58 - @Jean Yang has joined the channel*
-*15:44:33 - @Ellis Patrick has joined the channel*
+**Jean Yang** (02:41:58):
+> @Jean Yang has joined the channel
+
+**Ellis Patrick** (15:44:33):
+> @Ellis Patrick has joined the channel
+
 
 ## 2019-12-20
 
-*08:36:38 - @Domenick Braccia has joined the channel*
-*18:00:28 - @Paul Harrison has joined the channel*
+**Domenick Braccia** (08:36:38):
+> @Domenick Braccia has joined the channel
+
+**Paul Harrison** (18:00:28):
+> @Paul Harrison has joined the channel
+
 
 ## 2019-12-22
 
-*16:08:29 - @Sara Fonseca Costa has joined the channel*
+**Sara Fonseca Costa** (16:08:29):
+> @Sara Fonseca Costa has joined the channel
+
 
 ## 2019-12-23
 
-*10:36:55 - @dylan has joined the channel*
+**dylan** (10:36:55):
+> @dylan has joined the channel
+
 
 ## 2019-12-25
 
@@ -4488,7 +4719,9 @@ format: gfm
 
 ## 2020-01-13
 
-*13:05:30 - @Lori Shepherd has joined the channel*
+**Lori Shepherd** (13:05:30):
+> @Lori Shepherd has joined the channel
+
 **Lori Shepherd** (13:24:24):
 > Hello<!channel>-   For other projects (AnVIL) we have been investigating creating dockstore tools related to Bioconductor packages and workflows ([https://dockstore.org](https://dockstore.org)) .  We were wondering if anyone might be interested in creating a "tool" for taking raw files, to create a singlecellexperiment object  -  there is already some work on analysis of the singlecellexperiment object but actually creating the object from the raw files seems like it could be a useful tool to create.
 
@@ -4822,15 +5055,21 @@ format: gfm
 **Alan O'C** (11:23:54):
 > Cool, I must have missed that. Just checking to see if someone here is on it already. Unfortunately I think it may require refactoring the existing fitsne library rather than just wrapping it (or doing some major hacking)
 
-*14:00:57 - @Ahmet Kurdoglu has joined the channel*
+**Ahmet Kurdoglu** (14:00:57):
+> @Ahmet Kurdoglu has joined the channel
+
 
 ## 2020-01-21
 
-*14:45:47 - @Qian Liu has joined the channel*
+**Qian Liu** (14:45:47):
+> @Qian Liu has joined the channel
+
 
 ## 2020-01-22
 
-*05:24:12 - @Stephany Orjuela has joined the channel*
+**Stephany Orjuela** (05:24:12):
+> @Stephany Orjuela has joined the channel
+
 **Hervé Pagès** (11:22:02):
 > What do the SCE experts in this channel think of a submission that relies on Seurat objects instead of SCE objects:[https://support.bioconductor.org/p/127714/](https://support.bioconductor.org/p/127714/)(Too bad this discussion didn't happen on the BioC-devel mailing list.) Would it be reasonable to ask them to use SCE objects or are there things that can only be done (or are easier to do) with Seurat objects? Feel free to chime in. Thanks!
 
@@ -4864,7 +5103,7 @@ format: gfm
 **Vince Carey** (11:50:04):
 > [https://satijalab.org/seurat/v3.1/conversion_vignette.html](https://satijalab.org/seurat/v3.1/conversion_vignette.html)
   - Attachment (satijalab.org): [Satija Lab](https://satijalab.org/seurat/v3.1/conversion_vignette.html)
-    > Lab Webpage ---
+> Lab Webpage ---
 
 **Alan O'C** (11:52:06):
 > There's a "download this file from dropbox" line in that vignette that makes me feel extremely uneasy
@@ -4875,7 +5114,9 @@ format: gfm
 
 ## 2020-01-29
 
-*04:33:51 - @sangsookim has joined the channel*
+**sangsookim** (04:33:51):
+> @sangsookim has joined the channel
+
 **sangsookim** (04:39:41):
 > ```
 > library(scRNAseq)
@@ -4949,15 +5190,21 @@ format: gfm
 
 ## 2020-02-04
 
-*18:38:22 - @koki has joined the channel*
+**koki** (18:38:22):
+> @koki has joined the channel
+
 
 ## 2020-02-05
 
-*06:35:33 - @Will Macnair has joined the channel*
+**Will Macnair** (06:35:33):
+> @Will Macnair has joined the channel
+
 
 ## 2020-02-07
 
-*04:27:00 - @Nitin Sharma has joined the channel*
+**Nitin Sharma** (04:27:00):
+> @Nitin Sharma has joined the channel
+
 
 ## 2020-02-08
 
@@ -5064,7 +5311,7 @@ format: gfm
 **Sridhar N** (14:37:01):
 > [https://satijalab.org/seurat/v3.0/visualization_vignette.html](https://satijalab.org/seurat/v3.0/visualization_vignette.html)
   - Attachment (satijalab.org): [Satija Lab](https://satijalab.org/seurat/v3.0/visualization_vignette.html)
-    > Lab Webpage ---
+> Lab Webpage ---
 
 **Aaron Lun** (14:37:04):
 > yegods
@@ -5093,7 +5340,7 @@ format: gfm
 **Kevin Rue-Albrecht** (14:40:00):
 > haven’t used it yet, but it looks convenient:[https://twitter.com/carroll_jono/status/1223279115479830528](https://twitter.com/carroll_jono/status/1223279115479830528)
   - Attachment (twitter): [Attachment](https://twitter.com/carroll_jono/status/1223279115479830528)
-    > I am so very excited to announce that {ggeasy} is now a CRAN package! Having trouble remembering how to tweak your {ggplot2} components? We got you covered. [https://CRAN.R-project.org/package=ggeasy](https://CRAN.R-project.org/package=ggeasy) [https://pbs.twimg.com/media/EPn130hU0AAcqVr.jpg](https://pbs.twimg.com/media/EPn130hU0AAcqVr.jpg)
+> I am so very excited to announce that {ggeasy} is now a CRAN package! Having trouble remembering how to tweak your {ggplot2} components? We got you covered. [https://CRAN.R-project.org/package=ggeasy](https://CRAN.R-project.org/package=ggeasy) [https://pbs.twimg.com/media/EPn130hU0AAcqVr.jpg](https://pbs.twimg.com/media/EPn130hU0AAcqVr.jpg)
 
 **Aaron Lun** (14:40:23):
 > All this viz stuff is definitely not my problem. The sooner I can deprecate all of***scater***'s viz commands, the better.
@@ -5164,7 +5411,7 @@ format: gfm
 **Aaron Lun** (16:49:53):
 > [https://osca.bioconductor.org/](https://osca.bioconductor.org/)
   - Attachment (osca.bioconductor.org): [Orchestrating Single-Cell Analysis with Bioconductor](https://osca.bioconductor.org/)
-    > Online companion to ‘Orchestrating Single-Cell Analysis with Bioconductor’ manuscript by the Bioconductor team.
+> Online companion to ‘Orchestrating Single-Cell Analysis with Bioconductor’ manuscript by the Bioconductor team.
 
 **Sridhar N** (16:50:12):
 > sweet ta!
@@ -5336,23 +5583,33 @@ format: gfm
 
 ## 2020-02-11
 
-*15:36:31 - @Theresa Alexander has joined the channel*
+**Theresa Alexander** (15:36:31):
+> @Theresa Alexander has joined the channel
+
 
 ## 2020-02-12
 
-*09:42:34 - @Thanh Le Viet has joined the channel*
+**Thanh Le Viet** (09:42:34):
+> @Thanh Le Viet has joined the channel
+
 
 ## 2020-02-17
 
 **Aaron Lun** (01:02:59):
 > It is done.
 
-*12:29:12 - @Arshi Arora has joined the channel*
-*17:55:03 - @Andrew Skelton has joined the channel*
+**Arshi Arora** (12:29:12):
+> @Arshi Arora has joined the channel
+
+**Andrew Skelton** (17:55:03):
+> @Andrew Skelton has joined the channel
+
 
 ## 2020-02-19
 
-*13:22:50 - @Paula Beati has joined the channel*
+**Paula Beati** (13:22:50):
+> @Paula Beati has joined the channel
+
 **Aaron Lun** (14:19:16):
 > @Dan BunisI have SOLVED the DF problem. The`extreme`branch of***scater***on GitHub now allows you to do this insane thing:
 > ```
@@ -5485,11 +5742,15 @@ format: gfm
 **Kasper D. Hansen** (15:13:31):
 > oh yeah, that is for sure one purpose of ALTREP as I understand it
 
-*15:58:29 - @Ludwig Geistlinger has joined the channel*
+**Ludwig Geistlinger** (15:58:29):
+> @Ludwig Geistlinger has joined the channel
+
 
 ## 2020-02-21
 
-*07:34:38 - @Teun van den Brand has joined the channel*
+**Teun van den Brand** (07:34:38):
+> @Teun van den Brand has joined the channel
+
 **JiefeiWang** (09:43:22):
 > Hi@Aaron Lun, it is nice to see that ALTREP gets useful here, here is a closed issue that might be helpful:[https://github.com/Bioconductor/Contributions/issues/1222](https://github.com/Bioconductor/Contributions/issues/1222)
 
@@ -5769,7 +6030,9 @@ format: gfm
 **Aaron Lun** (03:48:39):
 > That said,@JiefeiWangmay find the code in***LazyAssayVectors***useful for reviving***SharedObject***. It is simple to modify the watcher concept to execute arbitrary R code; you can serialize a function and its arguments and pass it to the watcher process during construction of the ALTREP, and then when the ALTREP is materialized, just send a simple message to the watcher to execute that code. Then you can just pick up the results inside the ALTREP method. As far as the ALTREP knows, there is no R code inside the same process, so we sidestep all of the GC/error issues discussed previously.
 
-*22:29:14 - @Jialin Ma has joined the channel*
+**Jialin Ma** (22:29:14):
+> @Jialin Ma has joined the channel
+
 
 ## 2020-02-25
 
@@ -5810,15 +6073,15 @@ format: gfm
 **Teun van den Brand** (03:05:27):
 > I'm also working on circumventing the eval_tidy and had some success, but it is nowhere near usable yet. The next roadblock is a hard`rlang::is_vector()`check on all columns, which is`FALSE`for S4 classes ([https://github.com/tidyverse/ggplot2/issues/3835](https://github.com/tidyverse/ggplot2/issues/3835)).  See[https://community-bioc.slack.com/archives/CPL94P675/p1581926938002800](https://community-bioc.slack.com/archives/CPL94P675/p1581926938002800)in the cool-vis channel. With regards to the DataFrame class, I cannot see any way that it would survive the internals of ggplot as it is combined and split out into base::data.frame at many points. It would probably be safest to convert to base::data.frame at the fortify stage and let column classes handle any problems.
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CPL94P675/p1581926938002800)
-    > I've made some progress sheparding Vector-based classes through ggplot. Any thoughts on what classes would be cool to have in ggplot?
-    > ```df <- DataFrame(
-    >   x = GRanges(c("chr1:1000-2000", "chr1:1500-2500", 
-    >                 "chr2:3000-4000", "chr3:4000-4500")),
-    >   y = c(1, 2, 3, 2)
-    > )
-    > 
-    > ggplot(df, aes(xmin = x, xmax = x, ymin = y - 0.2, ymax = y + 0.2)) +
-    >   geom_rect()```
+> I've made some progress sheparding Vector-based classes through ggplot. Any thoughts on what classes would be cool to have in ggplot?
+> ```df <- DataFrame(
+>   x = GRanges(c("chr1:1000-2000", "chr1:1500-2500", 
+>                 "chr2:3000-4000", "chr3:4000-4500")),
+>   y = c(1, 2, 3, 2)
+> )
+> 
+> ggplot(df, aes(xmin = x, xmax = x, ymin = y - 0.2, ymax = y + 0.2)) +
+>   geom_rect()```
 
 **Hervé Pagès** (04:02:57):
 > I should have said that my suggestion to have ggplot2 support arbitrary rectangular objects via definition of specialized`ggplot2::fortify()`and`rlang::eval_tidy()`methods is for rectangular objects where the columns (or rows) are ordinary vectors (like in Aaron's use case where the rows of an SCE object are atomic vectors), not S4 objects, so the`rlang::is_vector`check should not cause problems. Looks like our goals are slightly different.
@@ -5835,7 +6098,9 @@ format: gfm
 
 ## 2020-02-28
 
-*16:20:52 - @Yi Wang has joined the channel*
+**Yi Wang** (16:20:52):
+> @Yi Wang has joined the channel
+
 
 ## 2020-03-04
 
@@ -5854,7 +6119,9 @@ format: gfm
 **Tim Triche** (12:03:55):
 > @Ben Johnson@Jacob Morrisonyou know you want to do this thing
 
-*12:03:59 - @Jacob Morrison has joined the channel*
+**Jacob Morrison** (12:03:59):
+> @Jacob Morrison has joined the channel
+
 **Aaron Lun** (12:08:33):
 > The succession model follows that of the Sith, see#sc-signaturefor more details.
 
@@ -5867,7 +6134,9 @@ format: gfm
 
 ## 2020-03-06
 
-*14:51:33 - @Pierre-Luc Germain has joined the channel*
+**Pierre-Luc Germain** (14:51:33):
+> @Pierre-Luc Germain has joined the channel
+
 
 ## 2020-03-12
 
@@ -5901,7 +6170,9 @@ format: gfm
 
 ## 2020-03-16
 
-*13:23:08 - @cigdemak has joined the channel*
+**cigdemak** (13:23:08):
+> @cigdemak has joined the channel
+
 **Dan Bunis** (17:14:19):
 > @Sridhar Nfyi faceting is added in dittoSeq now ([https://github.com/dtm2451/dittoSeq](https://github.com/dtm2451/dittoSeq)).  Both through an automatic`split.by`variable or a manual`extra.vars`variable which doesn’t do the splitting, but lets you control your own via
 > ```
@@ -5922,20 +6193,30 @@ format: gfm
 
 ## 2020-03-17
 
-*07:27:27 - @Giuseppe D'Agostino has joined the channel*
-*20:05:39 - @Jianhong has joined the channel*
+**Giuseppe D'Agostino** (07:27:27):
+> @Giuseppe D'Agostino has joined the channel
+
+**Jianhong** (20:05:39):
+> @Jianhong has joined the channel
+
 
 ## 2020-03-18
 
-*12:18:14 - @Crowy has joined the channel*
+**Crowy** (12:18:14):
+> @Crowy has joined the channel
+
 
 ## 2020-03-23
 
-*12:05:24 - @Peter Allen has joined the channel*
+**Peter Allen** (12:05:24):
+> @Peter Allen has joined the channel
+
 
 ## 2020-03-24
 
-*13:24:10 - @Edgar has joined the channel*
+**Edgar** (13:24:10):
+> @Edgar has joined the channel
+
 
 ## 2020-03-25
 
@@ -5948,47 +6229,61 @@ format: gfm
 **Alan O'C** (08:24:39):
 > Hmm, seems there's only a couple more in Valentine's paper so I'll have to actually put in the leg work for the rest. Sad
 
-*13:32:35 - @brian capaldo has joined the channel*
+**brian capaldo** (13:32:35):
+> @brian capaldo has joined the channel
+
 
 ## 2020-03-31
 
-*12:30:31 - @Yagoub Ali Ibrahim Adam has joined the channel*
+**Yagoub Ali Ibrahim Adam** (12:30:31):
+> @Yagoub Ali Ibrahim Adam has joined the channel
+
 
 ## 2020-04-01
 
-*12:14:32 - @Raphaël Bonnet has joined the channel*
+**Raphaël Bonnet** (12:14:32):
+> @Raphaël Bonnet has joined the channel
+
 
 ## 2020-04-05
 
-*18:55:06 - @Pavitra Roychoudhury has joined the channel*
+**Pavitra Roychoudhury** (18:55:06):
+> @Pavitra Roychoudhury has joined the channel
+
 
 ## 2020-04-16
 
-*09:31:59 - @Dylan Harwood has joined the channel*
-*14:27:26 - @Xinran Tian has joined the channel*
+**Dylan Harwood** (09:31:59):
+> @Dylan Harwood has joined the channel
+
+**Xinran Tian** (14:27:26):
+> @Xinran Tian has joined the channel
+
 
 ## 2020-04-20
 
-*02:49:09 - @Nils Eling has joined the channel*
+**Nils Eling** (02:49:09):
+> @Nils Eling has joined the channel
+
 
 ## 2020-04-22
 
 **Levi Waldron** (13:39:56):
 > FYI we’re organizing a single-cell multimodal data journal club:[https://community-bioc.slack.com/archives/C35G93GJH/p1587573511180200](https://community-bioc.slack.com/archives/C35G93GJH/p1587573511180200)
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C35G93GJH/p1587573511180200)
-    > Hi all! 
-    > 
-    > I am new to this community and have introduced myself [here](https://community-bioc.slack.com/archives/C36B0HK7W/p1587573301035700) today.  I am a postdoctoral researcher with @Levi Waldron.
-    > 
-    > I’d like to invite you to a newly forming **journal club about single cell multimodal (SCMM) data** with @Levi Waldron and @Davide Risso’s groups . If you have experience working with SCMM or are interested in learning more about the literature, please consider joining us. Take a look at the list of article ideas [here](https://github.com/waldronlab/data-science-seminar/wiki/Single-cell-multimodal-data).
-    > 
-    > **Please fill out this doodle to help us schedule our first meeting time: [https://doodle.com/poll/3ry8kg66yv3rsbvq](https://doodle.com/poll/3ry8kg66yv3rsbvq)**
-    > 
-    > Join us in the #education-and-training channel. This is where I will post SCMM journal club updates.
-    > 
-    > In addition to the journal club, if you are interested in sharing a SCMM dataset of yours or one of interest, please share with us.  To streamline our database curation, please read the following guidelines [here](https://github.com/waldronlab/SingleCellMultiModal/wiki/Contributor-Guideline). Parties interested in contributing would have to make a pull request to the repository.
-    > 
-    > I'm looking forward to reading with you!
+> Hi all! 
+> 
+> I am new to this community and have introduced myself [here](https://community-bioc.slack.com/archives/C36B0HK7W/p1587573301035700) today.  I am a postdoctoral researcher with @Levi Waldron.
+> 
+> I’d like to invite you to a newly forming **journal club about single cell multimodal (SCMM) data** with @Levi Waldron and @Davide Risso’s groups . If you have experience working with SCMM or are interested in learning more about the literature, please consider joining us. Take a look at the list of article ideas [here](https://github.com/waldronlab/data-science-seminar/wiki/Single-cell-multimodal-data).
+> 
+> **Please fill out this doodle to help us schedule our first meeting time: [https://doodle.com/poll/3ry8kg66yv3rsbvq](https://doodle.com/poll/3ry8kg66yv3rsbvq)**
+> 
+> Join us in the #education-and-training channel. This is where I will post SCMM journal club updates.
+> 
+> In addition to the journal club, if you are interested in sharing a SCMM dataset of yours or one of interest, please share with us.  To streamline our database curation, please read the following guidelines [here](https://github.com/waldronlab/SingleCellMultiModal/wiki/Contributor-Guideline). Parties interested in contributing would have to make a pull request to the repository.
+> 
+> I'm looking forward to reading with you!
 
 
 ## 2020-04-23
@@ -6041,7 +6336,9 @@ format: gfm
 > * a logical vector the same length as there are columns in the object
 > * a numeric vector containing the indices of the wanted cells
 
-*12:05:55 - @Devika Agarwal has joined the channel*
+**Devika Agarwal** (12:05:55):
+> @Devika Agarwal has joined the channel
+
 **Dan Bunis** (12:06:26):
 > I’ll also add that while dittoSeq’s`meta("metaname", object)`function was useful in writing the package as it ensures a standard output with every value named as it’s cell’s name, simple`object$metaname`does suffice for most purposes and is easier to type (with`tab`completion too!).
 
@@ -6054,12 +6351,18 @@ format: gfm
 
 ## 2020-04-25
 
-*17:29:20 - @Daniela Cassol has joined the channel*
+**Daniela Cassol** (17:29:20):
+> @Daniela Cassol has joined the channel
+
 
 ## 2020-04-27
 
-*04:06:21 - @Charlotte Rich-Griffin has joined the channel*
-*10:56:58 - @Kelly Eckenrode has joined the channel*
+**Charlotte Rich-Griffin** (04:06:21):
+> @Charlotte Rich-Griffin has joined the channel
+
+**Kelly Eckenrode** (10:56:58):
+> @Kelly Eckenrode has joined the channel
+
 
 ## 2020-04-29
 
@@ -6068,7 +6371,9 @@ format: gfm
 > 
 > If you're passionate about single-cell visualization and you want to try your hand at maintaining a package, let me know and I will onboard you onto***scater***'s development team (currently: myself) over the course of this release cycle.
 
-*03:05:11 - @Anamaria Elek has joined the channel*
+**Anamaria Elek** (03:05:11):
+> @Anamaria Elek has joined the channel
+
 **Hervé Pagès** (13:04:46):
 > ***scuttle***? I'm surprised nobody went for***scout***already
 
@@ -6124,7 +6429,9 @@ format: gfm
 
 ## 2020-05-01
 
-*17:43:08 - @Norbert Tavares has joined the channel*
+**Norbert Tavares** (17:43:08):
+> @Norbert Tavares has joined the channel
+
 
 ## 2020-05-03
 
@@ -6134,14 +6441,18 @@ format: gfm
 
 ## 2020-05-04
 
-*06:27:07 - @Nadine Bestard-Cuche has joined the channel*
+**Nadine Bestard-Cuche** (06:27:07):
+> @Nadine Bestard-Cuche has joined the channel
+
 **Aaron Lun** (13:44:28):
 > Har har har. scuttle builds and passes check. Most custody arrangements with scater have been resolved, just a few more bits and pieces left to hammer out.
 
 
 ## 2020-05-05
 
-*04:54:15 - @Zhiyuan Hu has joined the channel*
+**Zhiyuan Hu** (04:54:15):
+> @Zhiyuan Hu has joined the channel
+
 
 ## 2020-05-06
 
@@ -6160,8 +6471,12 @@ format: gfm
 **Shila Ghazanfar** (04:30:56):
 > I dont think Davis has disappeared, he’s just down under:upside_down_face::flag-au:
 
-*07:08:43 - @Sanchit Saini has joined the channel*
-*08:30:15 - @Ben Story has joined the channel*
+**Sanchit Saini** (07:08:43):
+> @Sanchit Saini has joined the channel
+
+**Ben Story** (08:30:15):
+> @Ben Story has joined the channel
+
 **Tim Triche** (18:25:13) (in thread):
   - Attachment: [rim shot](https://giphy.com/gifs/ben-tattoo-giant-cD7PLGE1KWOhG)
 
@@ -6183,7 +6498,9 @@ format: gfm
 **Alan O'C** (07:50:48):
 > Planning on transferring the repo or adding myself and Dan as collaborators?
 
-*09:26:56 - @Sangram Keshari Sahu has joined the channel*
+**Sangram Keshari Sahu** (09:26:56):
+> @Sangram Keshari Sahu has joined the channel
+
 **Aaron Lun** (13:42:12):
 > Yes.
 
@@ -6338,12 +6655,18 @@ format: gfm
 
 ## 2020-05-18
 
-*08:43:57 - @B P Kailash has joined the channel*
-*09:23:18 - @Huipeng Li has joined the channel*
+**B P Kailash** (08:43:57):
+> @B P Kailash has joined the channel
+
+**Huipeng Li** (09:23:18):
+> @Huipeng Li has joined the channel
+
 
 ## 2020-05-19
 
-*11:18:29 - @Tobias Hoch has joined the channel*
+**Tobias Hoch** (11:18:29):
+> @Tobias Hoch has joined the channel
+
 
 ## 2020-05-22
 
@@ -6383,7 +6706,9 @@ format: gfm
 
 ## 2020-05-24
 
-*14:35:21 - @Alexander Toenges has joined the channel*
+**Alexander Toenges** (14:35:21):
+> @Alexander Toenges has joined the channel
+
 
 ## 2020-05-25
 
@@ -6392,11 +6717,15 @@ format: gfm
 > 
 > P.S. If anyone has feedback on the Scanpy in R tutorial I would be keen to hear it!
 
-*09:18:18 - @Kaveh Moeini has joined the channel*
+**Kaveh Moeini** (09:18:18):
+> @Kaveh Moeini has joined the channel
+
 
 ## 2020-06-01
 
-*03:06:23 - @Shuyu Zheng has joined the channel*
+**Shuyu Zheng** (03:06:23):
+> @Shuyu Zheng has joined the channel
+
 
 ## 2020-06-03
 
@@ -6436,16 +6765,20 @@ format: gfm
 **Aaron Lun** (19:26:02):
 > IT IS DONE[https://ltla.github.io/acceptable-anime-gifs/](https://ltla.github.io/acceptable-anime-gifs/)
   - Attachment (acceptable-anime-gifs): [REST API documentation](https://ltla.github.io/acceptable-anime-gifs/)
-    > A curated set of GIFs that are reasonably SFW, primarily used to power annoying Slackbots.
+> A curated set of GIFs that are reasonably SFW, primarily used to power annoying Slackbots.
 
-*19:58:16 - @Olagunju Abdulrahman has joined the channel*
+**Olagunju Abdulrahman** (19:58:16):
+> @Olagunju Abdulrahman has joined the channel
+
 
 ## 2020-06-07
 
 **Alan O'C** (06:48:43) (in thread):
 > God help us all
 
-*19:46:28 - @Yingxin Lin has joined the channel*
+**Yingxin Lin** (19:46:28):
+> @Yingxin Lin has joined the channel
+
 **Kasper D. Hansen** (22:14:30):
 > How is the rating decided@Aaron Lun?
 
@@ -6464,7 +6797,9 @@ format: gfm
 
 ## 2020-06-08
 
-*03:00:39 - @Tanzeel Tagalsir has joined the channel*
+**Tanzeel Tagalsir** (03:00:39):
+> @Tanzeel Tagalsir has joined the channel
+
 **Davide Risso** (10:30:04) (in thread):
 > Done. And in less than a month:grimacing:
 
@@ -6474,19 +6809,33 @@ format: gfm
 **Davide Risso** (11:03:35) (in thread):
 > oh, didn’t know that.. will get rid of it
 
-*16:18:50 - @NABISUBI PATRICIA has joined the channel*
+**NABISUBI PATRICIA** (16:18:50):
+> @NABISUBI PATRICIA has joined the channel
+
 
 ## 2020-06-09
 
-*10:05:59 - @Shankar Shakya has joined the channel*
-*15:38:00 - @Mark Tefero Kivumbi has joined the channel*
-*17:16:32 - @Taoyu Mei has joined the channel*
+**Shankar Shakya** (10:05:59):
+> @Shankar Shakya has joined the channel
+
+**Mark Tefero Kivumbi** (15:38:00):
+> @Mark Tefero Kivumbi has joined the channel
+
+**Taoyu Mei** (17:16:32):
+> @Taoyu Mei has joined the channel
+
 
 ## 2020-06-10
 
-*11:23:56 - @MounikaGoruganthu has joined the channel*
-*12:04:49 - @Ye Zheng has joined the channel*
-*16:03:35 - @Vandhana has joined the channel*
+**MounikaGoruganthu** (11:23:56):
+> @MounikaGoruganthu has joined the channel
+
+**Ye Zheng** (12:04:49):
+> @Ye Zheng has joined the channel
+
+**Vandhana** (16:03:35):
+> @Vandhana has joined the channel
+
 
 ## 2020-06-16
 
@@ -6532,14 +6881,18 @@ format: gfm
 **Tim Triche** (09:52:02):
 > also@Aaron Lunis this ([https://www.biorxiv.org/content/10.1101/404962v1.full](https://www.biorxiv.org/content/10.1101/404962v1.full)) process automated anywhere in (say) scuttle?  (looking through scuttle docs)
 
-*09:53:59 - @jessi elderkin has joined the channel*
+**jessi elderkin** (09:53:59):
+> @jessi elderkin has joined the channel
+
 **Charlotte Soneson** (10:31:30):
 > > is scvelo capable of using spanning counts?
 > As far as I know it just takes a spliced and an unspliced count matrix, and where you put the spanning reads in the quantification is up to you.
 > > the velocyto.R package is no longer actively developed IIRC, Ben was saying that La Manno’s lab is focusing on the python version for any further development
 > I haven’t really used the python version, but the GitHub repo was last updated ~1.5 year ago - I have no insights into whether this is currently maintained/actively developed.
 
-*10:31:32 - @Jordan Veldboom has joined the channel*
+**Jordan Veldboom** (10:31:32):
+> @Jordan Veldboom has joined the channel
+
 **Tim Triche** (10:41:50):
 > @Charlotte Sonesonin sce_helpers.R you just use scounts as counts -- did that end up being the most stable?
 
@@ -6725,7 +7078,9 @@ format: gfm
 **Kasper D. Hansen** (14:15:37):
 > We still need to put them back together again
 
-*18:49:06 - @Paul Hoffman has joined the channel*
+**Paul Hoffman** (18:49:06):
+> @Paul Hoffman has joined the channel
+
 
 ## 2020-06-17
 
@@ -6739,7 +7094,9 @@ format: gfm
 > Reply about different the different matrices from Volker (`scVelo`author):
   - File (Plain Text): [Untitled](https://community-bioc.slack.com/files/U34P8RS3B/F015XPH6WHX/untitled)
 
-*10:38:00 - @Shijie C. Zheng has joined the channel*
+**Shijie C. Zheng** (10:38:00):
+> @Shijie C. Zheng has joined the channel
+
 **Aaron Lun** (11:11:06):
 > So I take it that if we supply the reduced dims ourselves, then`X`is surplus to requirements.
 
@@ -6752,8 +7109,12 @@ format: gfm
 **Luke Zappia** (08:11:27):
 > The package is available here if anyone is interested[https://github.com/theislab/zellkonverter](https://github.com/theislab/zellkonverter)
 
-*09:00:39 - @Ruben Dries has joined the channel*
-*09:54:44 - @pamela himadewi has joined the channel*
+**Ruben Dries** (09:00:39):
+> @Ruben Dries has joined the channel
+
+**pamela himadewi** (09:54:44):
+> @pamela himadewi has joined the channel
+
 **Davide Risso** (12:13:53):
 > that’s awesome!
 
@@ -6790,9 +7151,9 @@ format: gfm
 **Kevin Rue-Albrecht** (04:47:35):
 > YOLO[https://yihui.org/en/2019/03/yolo-karl/](https://yihui.org/en/2019/03/yolo-karl/)[https://twitter.com/tam07pb915/status/1101434299369185280](https://twitter.com/tam07pb915/status/1101434299369185280)
   - Attachment (yihui.org): [The Implementation of `yolo = TRUE` in xaringan via yolofy() - Yihui Xie | 谢益辉](https://yihui.org/en/2019/03/yolo-karl/)
-    > It has been more than two years since Karthik requested the (most famous?) yolo = TRUE feature in xaringan, and I feel amused to see people still having great fun with it. The implementation was &hellip;
+> It has been more than two years since Karthik requested the (most famous?) yolo = TRUE feature in xaringan, and I feel amused to see people still having great fun with it. The implementation was &hellip;
   - Attachment (twitter): [Attachment](https://twitter.com/tam07pb915/status/1101434299369185280)
-    > さっきからいじってるxaringanてやつ、ヘッダーの設定にyoloってのがあって、これtrueにするとランダムでおっさんの画像が挿入されるｗｗｗ 腹痛いｗｗｗ
+> さっきからいじってるxaringanてやつ、ヘッダーの設定にyoloってのがあって、これtrueにするとランダムでおっさんの画像が挿入されるｗｗｗ 腹痛いｗｗｗ
 
 **Federico Marini** (05:09:13):
 > I do have a`git yolo`alias btw:smile:
@@ -6989,15 +7350,21 @@ format: gfm
 
 ## 2020-06-29
 
-*13:41:42 - @Lukas Weber has joined the channel*
+**Lukas Weber** (13:41:42):
+> @Lukas Weber has joined the channel
+
 
 ## 2020-06-30
 
-*06:21:15 - @Frank Rühle has joined the channel*
+**Frank Rühle** (06:21:15):
+> @Frank Rühle has joined the channel
+
 
 ## 2020-07-01
 
-*09:00:31 - @000 has joined the channel*
+**000** (09:00:31):
+> @000 has joined the channel
+
 
 ## 2020-07-02
 
@@ -7049,11 +7416,15 @@ format: gfm
 
 ## 2020-07-04
 
-*08:20:42 - @Umar Ahmad has joined the channel*
+**Umar Ahmad** (08:20:42):
+> @Umar Ahmad has joined the channel
+
 
 ## 2020-07-05
 
-*22:08:13 - @Freeman Wang has joined the channel*
+**Freeman Wang** (22:08:13):
+> @Freeman Wang has joined the channel
+
 
 ## 2020-07-06
 
@@ -7106,11 +7477,15 @@ format: gfm
 
 ## 2020-07-07
 
-*03:16:07 - @Pablo Latorre-Doménech has joined the channel*
+**Pablo Latorre-Doménech** (03:16:07):
+> @Pablo Latorre-Doménech has joined the channel
+
 **Luke Zappia** (03:50:09) (in thread):
 > :+1:Those seem like reasonable things to me. I just don't like duplicating things but I suppose there is enough motivation in this case.
 
-*09:25:25 - @Mehdi Pirooznia has joined the channel*
+**Mehdi Pirooznia** (09:25:25):
+> @Mehdi Pirooznia has joined the channel
+
 **Aaron Lun** (11:48:48) (in thread):
 > Also a reminder that 19 is an excellent candidate for a squash merge.
 
@@ -7170,7 +7545,9 @@ format: gfm
 
 ## 2020-07-10
 
-*03:42:39 - @Rajesh Shigdel has joined the channel*
+**Rajesh Shigdel** (03:42:39):
+> @Rajesh Shigdel has joined the channel
+
 **Aaron Lun** (12:32:19):
 > @Luke Zappianice.
 
@@ -7178,7 +7555,7 @@ format: gfm
 > But FYI (emphasis mine):
 > > The mandatory ‘Description’ field should give a**comprehensive**description of what the package does. One can use several (complete) sentences, but only one paragraph. It should be intelligible to all the intended readership (e.g. for a CRAN package to all CRAN users).**** It is good practice not to start with the package name, ‘This package’ or similar. ****As with the ‘Title’ field, double quotes should be used for quotations (including titles of books and articles), and single quotes for non-English usage, including names of other packages and external software. This field should also be used for explaining the package name if necessary. URLs should be enclosed in angle brackets, e.g. ‘<[https://www.r-project.org](https://www.r-project.org)>’: see also[Specifying URLs](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Specifying-URLs).
   - Attachment (cran.r-project.org): [Writing R Extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Specifying-URLs)
-    > Writing R Extensions
+> Writing R Extensions
 
 
 ## 2020-07-11
@@ -7227,8 +7604,12 @@ format: gfm
 > # update rowRanges as required.
 > ```
 
-*10:15:02 - @Genevieve Stein-O'Brien has joined the channel*
-*10:58:13 - @Melanie Loth has joined the channel*
+**Genevieve Stein-O'Brien** (10:15:02):
+> @Genevieve Stein-O'Brien has joined the channel
+
+**Melanie Loth** (10:58:13):
+> @Melanie Loth has joined the channel
+
 **Andrew McDavid** (16:25:06) (in thread):
 > I don't understand this comment.  I have a setting where I am stuck with objects `test_filt` where`test_filt = test[rowSums(assay(test))>0,]`, say.  But both `test_filt` and `train`  are CellRanger hg19 experiments, from the same organism and mapped to the same reference.  So the "missing" rows from`test_filt`are not unknown or unmeasured, they really were zero but were just filtered upstream of me.  If I understand the principles behind SingleR, these genes could be informative, especially if they are markers of some of my cell subsets in`train`.
 
@@ -7244,11 +7625,15 @@ format: gfm
 
 ## 2020-07-14
 
-*15:50:59 - @Ashu Sethi has joined the channel*
+**Ashu Sethi** (15:50:59):
+> @Ashu Sethi has joined the channel
+
 
 ## 2020-07-15
 
-*09:43:57 - @Jessica has joined the channel*
+**Jessica** (09:43:57):
+> @Jessica has joined the channel
+
 **Aaron Lun** (18:55:35):
 > If someone’s up for it, one could build a package around fit-SNE with:
 > ```
@@ -7280,8 +7665,12 @@ format: gfm
 
 ## 2020-07-16
 
-*03:03:15 - @wmuehlhaeuser has joined the channel*
-*04:09:43 - @Pedro Baldoni has joined the channel*
+**wmuehlhaeuser** (03:03:15):
+> @wmuehlhaeuser has joined the channel
+
+**Pedro Baldoni** (04:09:43):
+> @Pedro Baldoni has joined the channel
+
 **Alan O'C** (21:21:34):
 > Well I came up with a clever package name so now I can't resist. Also nice that it allows embedding of new points
 
@@ -7330,7 +7719,9 @@ format: gfm
 
 ## 2020-07-17
 
-*12:35:00 - @Chitrasen has joined the channel*
+**Chitrasen** (12:35:00):
+> @Chitrasen has joined the channel
+
 **Aaron Lun** (15:29:51):
 > why is it called snifter, anyway?
 
@@ -7366,33 +7757,57 @@ format: gfm
 
 ## 2020-07-20
 
-*02:38:58 - @Dr Awala Fortune O. has joined the channel*
+**Dr Awala Fortune O.** (02:38:58):
+> @Dr Awala Fortune O. has joined the channel
+
 **Dr Awala Fortune O.** (02:39:28):
 > hello everyone
 
 **Charlotte Soneson** (04:26:49) (in thread):
 > Aah yes, that did it:+1:. I added this to the current PR (`vignette`branch) - which now also passes the GHA checks.
 
-*06:51:06 - @Ting Sun has joined the channel*
-*09:59:45 - @Jennifer Doering has joined the channel*
-*19:18:56 - @Alexandra Garnham has joined the channel*
+**Ting Sun** (06:51:06):
+> @Ting Sun has joined the channel
+
+**Jennifer Doering** (09:59:45):
+> @Jennifer Doering has joined the channel
+
+**Alexandra Garnham** (19:18:56):
+> @Alexandra Garnham has joined the channel
+
 
 ## 2020-07-21
 
-*00:14:41 - @Manoj Teltumbade has joined the channel*
-*15:48:53 - @James MacDonald has joined the channel*
+**Manoj Teltumbade** (00:14:41):
+> @Manoj Teltumbade has joined the channel
+
+**James MacDonald** (15:48:53):
+> @James MacDonald has joined the channel
+
 
 ## 2020-07-22
 
-*03:54:45 - @Anke Busch has joined the channel*
-*09:34:35 - @Dr Isha Goel has joined the channel*
-*11:47:33 - @Kurt Showmaker has joined the channel*
+**Anke Busch** (03:54:45):
+> @Anke Busch has joined the channel
+
+**Dr Isha Goel** (09:34:35):
+> @Dr Isha Goel has joined the channel
+
+**Kurt Showmaker** (11:47:33):
+> @Kurt Showmaker has joined the channel
+
 
 ## 2020-07-23
 
-*03:03:19 - @Bishoy Wadie has joined the channel*
-*05:10:48 - @Biljana Stankovic has joined the channel*
-*11:29:34 - @Mindy has joined the channel*
+**Bishoy Wadie** (03:03:19):
+> @Bishoy Wadie has joined the channel
+
+**Biljana Stankovic** (05:10:48):
+> @Biljana Stankovic has joined the channel
+
+**Mindy** (11:29:34):
+> @Mindy has joined the channel
+
 **Aaron Lun** (23:58:58):
 > @Peter Hickeywhat happened to the cellbench data!?
 
@@ -7417,59 +7832,111 @@ format: gfm
 
 ## 2020-07-26
 
-*01:04:59 - @Subhajit Dutta has joined the channel*
+**Subhajit Dutta** (01:04:59):
+> @Subhajit Dutta has joined the channel
+
 
 ## 2020-07-27
 
-*07:35:37 - @Isha Goel has joined the channel*
-*08:42:49 - @CristinaChe has joined the channel*
-*08:43:14 - @Noor Pratap Singh has joined the channel*
-*08:43:18 - @Helen Horkan has joined the channel*
-*12:09:35 - @Arun Chavan has joined the channel*
-*12:28:27 - @Will Townes has joined the channel*
-*12:29:45 - @Will Townes has left the channel*
+**Isha Goel** (07:35:37):
+> @Isha Goel has joined the channel
+
+**CristinaChe** (08:42:49):
+> @CristinaChe has joined the channel
+
+**Noor Pratap Singh** (08:43:14):
+> @Noor Pratap Singh has joined the channel
+
+**Helen Horkan** (08:43:18):
+> @Helen Horkan has joined the channel
+
+**Arun Chavan** (12:09:35):
+> @Arun Chavan has joined the channel
+
+**Will Townes** (12:28:27):
+> @Will Townes has joined the channel
+
+**Will Townes** (12:29:45):
+> @Will Townes has left the channel
+
 
 ## 2020-07-28
 
-*09:06:37 - @jackgisby has joined the channel*
-*10:53:08 - @Ray Su has joined the channel*
-*16:33:24 - @Rajiv Kumar Tripathi has joined the channel*
+**jackgisby** (09:06:37):
+> @jackgisby has joined the channel
+
+**Ray Su** (10:53:08):
+> @Ray Su has joined the channel
+
+**Rajiv Kumar Tripathi** (16:33:24):
+> @Rajiv Kumar Tripathi has joined the channel
+
 
 ## 2020-07-29
 
-*17:40:05 - @Riyue Sunny Bao has joined the channel*
-*21:33:18 - @Brianna Barry has joined the channel*
+**Riyue Sunny Bao** (17:40:05):
+> @Riyue Sunny Bao has joined the channel
+
+**Brianna Barry** (21:33:18):
+> @Brianna Barry has joined the channel
+
 
 ## 2020-07-30
 
-*03:28:19 - @Nastasja has joined the channel*
-*10:11:48 - @beyondpie has joined the channel*
-*12:30:10 - @Tim Howes has joined the channel*
-*12:42:14 - @Ayush Raman has joined the channel*
-*18:44:06 - @Hyun-Hwan Jeong has joined the channel*
+**Nastasja** (03:28:19):
+> @Nastasja has joined the channel
+
+**beyondpie** (10:11:48):
+> @beyondpie has joined the channel
+
+**Tim Howes** (12:30:10):
+> @Tim Howes has joined the channel
+
+**Ayush Raman** (12:42:14):
+> @Ayush Raman has joined the channel
+
+**Hyun-Hwan Jeong** (18:44:06):
+> @Hyun-Hwan Jeong has joined the channel
+
 
 ## 2020-07-31
 
-*09:41:35 - @sani has joined the channel*
-*13:57:31 - @bogdan tanasa has joined the channel*
+**sani** (09:41:35):
+> @sani has joined the channel
+
+**bogdan tanasa** (13:57:31):
+> @bogdan tanasa has joined the channel
+
 
 ## 2020-08-01
 
-*11:39:57 - @Nick Borcherding has joined the channel*
+**Nick Borcherding** (11:39:57):
+> @Nick Borcherding has joined the channel
+
 
 ## 2020-08-02
 
-*00:11:57 - @Antonio Colaprico has joined the channel*
+**Antonio Colaprico** (00:11:57):
+> @Antonio Colaprico has joined the channel
+
 
 ## 2020-08-03
 
 **Aaron Lun** (03:09:42):
 > @Philippe BoileauI'm going to try using scPCA for cell cycle effect removal, don't know if you have any opinions on this.
 
-*03:09:47 - @Philippe Boileau has joined the channel*
-*04:08:42 - @Sunil Nahata has joined the channel*
-*11:39:20 - @Lara Ianov has joined the channel*
-*12:58:19 - @Junyan Xu has joined the channel*
+**Philippe Boileau** (03:09:47):
+> @Philippe Boileau has joined the channel
+
+**Sunil Nahata** (04:08:42):
+> @Sunil Nahata has joined the channel
+
+**Lara Ianov** (11:39:20):
+> @Lara Ianov has joined the channel
+
+**Junyan Xu** (12:58:19):
+> @Junyan Xu has joined the channel
+
 **Aaron Lun** (22:27:43):
 > I guess he didn't.
 
@@ -7512,7 +7979,9 @@ format: gfm
 **Philippe Boileau** (12:15:22) (in thread):
 > Sounds good to me.
 
-*14:29:00 - @rohitsatyam102 has joined the channel*
+**rohitsatyam102** (14:29:00):
+> @rohitsatyam102 has joined the channel
+
 **Peter Hickey** (17:34:14):
 > anyone know of a package that uses the`LinearEmbeddingMatrix`class?
 
@@ -7531,8 +8000,12 @@ format: gfm
 
 ## 2020-08-05
 
-*03:23:29 - @Hans-Rudolf Hotz has joined the channel*
-*13:46:09 - @shr19818 has joined the channel*
+**Hans-Rudolf Hotz** (03:23:29):
+> @Hans-Rudolf Hotz has joined the channel
+
+**shr19818** (13:46:09):
+> @shr19818 has joined the channel
+
 
 ## 2020-08-06
 
@@ -7542,7 +8015,9 @@ format: gfm
 
 ## 2020-08-07
 
-*20:02:08 - @Mikhail Dozmorov has joined the channel*
+**Mikhail Dozmorov** (20:02:08):
+> @Mikhail Dozmorov has joined the channel
+
 
 ## 2020-08-09
 
@@ -7577,7 +8052,7 @@ format: gfm
 > ```
 > many thanks !
   - Attachment (cole-trapnell-lab.github.io): [Monocle 3](https://cole-trapnell-lab.github.io/monocle3/docs/differential/)
-    > Monocle - A powerful software toolkit for single-cell analysis
+> Monocle - A powerful software toolkit for single-cell analysis
 
 
 ## 2020-08-11
@@ -7597,14 +8072,18 @@ format: gfm
 
 ## 2020-08-17
 
-*05:25:05 - @Ying Xu has joined the channel*
+**Ying Xu** (05:25:05):
+> @Ying Xu has joined the channel
+
 **Aaron Lun** (19:02:55):
 > Is anyone from the ArchR dev team here?
 
 
 ## 2020-08-18
 
-*09:00:41 - @Daniel Baker has joined the channel*
+**Daniel Baker** (09:00:41):
+> @Daniel Baker has joined the channel
+
 
 ## 2020-08-20
 
@@ -7614,7 +8093,9 @@ format: gfm
 **Aaron Lun** (11:06:45):
 > it… could be done, with sufficient conda-fu.
 
-*11:53:06 - @Daniel Baker has left the channel*
+**Daniel Baker** (11:53:06):
+> @Daniel Baker has left the channel
+
 
 ## 2020-08-21
 
@@ -7627,11 +8108,15 @@ format: gfm
 
 ## 2020-08-23
 
-*11:19:52 - @FelixErnst has joined the channel*
+**FelixErnst** (11:19:52):
+> @FelixErnst has joined the channel
+
 
 ## 2020-08-24
 
-*07:12:42 - @Evgeniy Rumynskiy has joined the channel*
+**Evgeniy Rumynskiy** (07:12:42):
+> @Evgeniy Rumynskiy has joined the channel
+
 **Aaron Lun** (23:55:59):
 > @Kevin Rue-Albrechtlet's get velociraptor into the submission queue.
 
@@ -7647,9 +8132,9 @@ format: gfm
 **Kevin Rue-Albrecht** (08:52:20) (in thread):
 > From[https://docs.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners#supported-runners-and-hardware-resources](https://docs.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners#supported-runners-and-hardware-resources)
 > > Each virtual machine has the same hardware resources available.
-> 2-core CPU
-> 7 GB of RAM memory
-> 14 GB of SSD disk space
+> > 2-core CPU
+> > 7 GB of RAM memory
+> > 14 GB of SSD disk space
 
 **Kevin Rue-Albrecht** (08:57:32) (in thread):
 > I can only think of downsampling right now, but that's not very nice to do to the dataset in the vignette
@@ -7705,12 +8190,12 @@ format: gfm
 **Kevin Rue-Albrecht** (11:21:10):
 > From@Nitesh Turaga
 > > ok, with regards to sysreqs …here is what I think is happening,
-> 
-> 1.[https://packages.ubuntu.com/xenial/python-minimal](https://packages.ubuntu.com/xenial/python-minimal): python-minimal is from Ubuntu Xenial 16.04 (two releases ago!!! )…so the sysreqs package is not generating the correct`apt-get install <command>`.
-> 2.[https://github.com/r-hub/sysreqsdb/blob/master/platforms/linux-x86_64-ubuntu-gcc.json](https://github.com/r-hub/sysreqsdb/blob/master/platforms/linux-x86_64-ubuntu-gcc.json)This is proved by this….
-> 3. It gets the requirement from 16.04 and tries to install it on 20.04 which doesn’t exist.
+> > 
+> > 1.[https://packages.ubuntu.com/xenial/python-minimal](https://packages.ubuntu.com/xenial/python-minimal): python-minimal is from Ubuntu Xenial 16.04 (two releases ago!!! )…so the sysreqs package is not generating the correct`apt-get install <command>`.
+> > 2.[https://github.com/r-hub/sysreqsdb/blob/master/platforms/linux-x86_64-ubuntu-gcc.json](https://github.com/r-hub/sysreqsdb/blob/master/platforms/linux-x86_64-ubuntu-gcc.json)This is proved by this….
+> > 3. It gets the requirement from 16.04 and tries to install it on 20.04 which doesn’t exist.
   - Attachment (packages.ubuntu.com): [Ubuntu – Details of package python-minimal in xenial](https://packages.ubuntu.com/xenial/python-minimal)
-    > minimal subset of the Python language (default version)
+> minimal subset of the Python language (default version)
 
 **Nitesh Turaga** (11:25:08):
 > For what it’s worth, (i’m ok being wrong here) …I think this should be[https://github.com/kevinrue/velociraptor/actions/runs/223748967/workflow#L33-L37](https://github.com/kevinrue/velociraptor/actions/runs/223748967/workflow#L33-L37)
@@ -7762,7 +8247,9 @@ format: gfm
 
 ## 2020-08-26
 
-*03:54:37 - @Iwona Belczacka has joined the channel*
+**Iwona Belczacka** (03:54:37):
+> @Iwona Belczacka has joined the channel
+
 
 ## 2020-08-27
 
@@ -7781,7 +8268,7 @@ format: gfm
 **Aaron Lun** (15:42:02):
 > [https://bioconductor.org/packages/devel/bioc/html/zellkonverter.html](https://bioconductor.org/packages/devel/bioc/html/zellkonverter.html)is now available
   - Attachment (Bioconductor): [zellkonverter (development version)](https://bioconductor.org/packages/devel/bioc/html/zellkonverter.html)
-    > Provides methods to convert between Python AnnData objects and SingleCellExperiment objects. These are primarily intended for use by downstream Bioconductor packages that wrap Python methods for single-cell data analysis. It also includes functions to read and write H5AD files used for saving AnnData objects to disk.
+> Provides methods to convert between Python AnnData objects and SingleCellExperiment objects. These are primarily intended for use by downstream Bioconductor packages that wrap Python methods for single-cell data analysis. It also includes functions to read and write H5AD files used for saving AnnData objects to disk.
 
 **Kevin Rue-Albrecht** (16:03:54):
 > have you had a pass at the package? i've bumped up version etc, but GHA still doesn't pass check (and thus doesn't get to BiocCheck either)
@@ -7905,11 +8392,15 @@ format: gfm
 
 ## 2020-09-04
 
-*08:24:54 - @Goutham Atla has joined the channel*
+**Goutham Atla** (08:24:54):
+> @Goutham Atla has joined the channel
+
 
 ## 2020-09-07
 
-*20:58:36 - @Tyrone Chen has joined the channel*
+**Tyrone Chen** (20:58:36):
+> @Tyrone Chen has joined the channel
+
 
 ## 2020-09-09
 
@@ -8012,18 +8503,22 @@ format: gfm
 **Kevin Rue-Albrecht** (11:48:21) (in thread):
 > I had a more 'serious' hypothesis:  e.g., the number of occurences of`test_that`in the package positively correlates with likelihood of acceptance
 
-*11:49:04 - @Jacob Morrison has left the channel*
+**Jacob Morrison** (11:49:04):
+> @Jacob Morrison has left the channel
+
 **Luke Zappia** (11:49:33) (in thread):
 > There are probably a bunch of small things like that which are good signs
 
 **Kevin Rue-Albrecht** (11:52:25) (in thread):
 > it'd be fun to learn them:slightly_smiling_face:hopefully it won't encourage "acceptance-hacking" with people copy pasting thousands of`testthat::expect_identical(1, 1)`:stuck_out_tongue:
 
-*12:48:56 - @Matt Stone has joined the channel*
+**Matt Stone** (12:48:56):
+> @Matt Stone has joined the channel
+
 **Hervé Pagès** (14:07:05) (in thread):
 > 2032: return to Earth orbit of 3rd stage of Apollo 12 Saturn V, 63 years after its launch:[https://en.wikipedia.org/wiki/2032](https://en.wikipedia.org/wiki/2032)
   - Attachment: [2032](https://en.wikipedia.org/wiki/2032)
-    > 2032 (MMXXXII) will be a leap year starting on Thursday of the Gregorian calendar, the 2032nd year of the Common Era (CE) and Anno Domini (AD) designations, the 32nd  year of the 3rd millennium, the 32nd  year of the 21st century, and the  3rd   year of the 2030s decade.
+> 2032 (MMXXXII) will be a leap year starting on Thursday of the Gregorian calendar, the 2032nd year of the Common Era (CE) and Anno Domini (AD) designations, the 32nd  year of the 3rd millennium, the 32nd  year of the 21st century, and the  3rd   year of the 2030s decade.
 
 **Aaron Lun** (15:23:32):
 > looks like we just need a`.Rbuildignore`on your project files.
@@ -8040,11 +8535,15 @@ format: gfm
 
 ## 2020-09-14
 
-*06:24:01 - @Ilir Sheraj has joined the channel*
+**Ilir Sheraj** (06:24:01):
+> @Ilir Sheraj has joined the channel
+
 
 ## 2020-09-21
 
-*03:38:07 - @Chris Cheshire has joined the channel*
+**Chris Cheshire** (03:38:07):
+> @Chris Cheshire has joined the channel
+
 
 ## 2020-09-24
 
@@ -8090,7 +8589,9 @@ format: gfm
 **Vince Carey** (08:16:48):
 > @BJ Stubbsany thoughts about tracking costs for requestor pays events?
 
-*08:16:53 - @BJ Stubbs has joined the channel*
+**BJ Stubbs** (08:16:53):
+> @BJ Stubbs has joined the channel
+
 **Kasper D. Hansen** (08:28:25):
 > Well, IMO (and I acknowledge I am pushing my own agenda) we want the echo system to be completely indifferent wrt. where the data is hosted. I think its up to the supplier to decide what they want to do. We could have an option for a requester pay bucket, but I don't think we want to force people to use this
 
@@ -8111,7 +8612,9 @@ format: gfm
 
 ## 2020-09-28
 
-*06:53:58 - @Qirong Lin has joined the channel*
+**Qirong Lin** (06:53:58):
+> @Qirong Lin has joined the channel
+
 
 ## 2020-09-29
 
@@ -8145,9 +8648,11 @@ format: gfm
 **Vince Carey** (06:10:21):
 > [https://www.nature.com/sdata/policies/repositories#life](https://www.nature.com/sdata/policies/repositories#life)enumerates data repositories.  Towards the bottom of the page there are "Generalist repositories" with costs and size limits listed.  Metadata about repositories are collected at[re3data.org](http://re3data.org)and[FAIRshare.org](http://FAIRshare.org).  Bioconductor has entries in both of these.  To store at dryad would cost about $5000/TB without any additional arrangement; see[https://datadryad.org/stash/our_community#institutional](https://datadryad.org/stash/our_community#institutional)for membership concept leading to fee waiver.   To get fees waived the foundation could try to obtain a membership.  I think we'll have to form a working group to get clear on storage and access to large curated data in the Bioc framework.
   - Attachment (Nature): [Recommended Data Repositories | Scientific Data](https://www.nature.com/sdata/policies/repositories#life)
-    > Recommended Data Repositories
+> Recommended Data Repositories
 
-*16:49:41 - @Robin Zhou has joined the channel*
+**Robin Zhou** (16:49:41):
+> @Robin Zhou has joined the channel
+
 
 ## 2020-10-01
 
@@ -8413,15 +8918,21 @@ format: gfm
 
 ## 2020-10-07
 
-*09:07:51 - @Anjali Silva has joined the channel*
+**Anjali Silva** (09:07:51):
+> @Anjali Silva has joined the channel
+
 
 ## 2020-10-09
 
-*13:37:38 - @Yuyao Song has joined the channel*
+**Yuyao Song** (13:37:38):
+> @Yuyao Song has joined the channel
+
 
 ## 2020-10-10
 
-*10:50:55 - @Davide Corso has joined the channel*
+**Davide Corso** (10:50:55):
+> @Davide Corso has joined the channel
+
 
 ## 2020-10-13
 
@@ -8461,16 +8972,24 @@ format: gfm
 
 ## 2020-10-15
 
-*04:43:23 - @Pol Castellano has joined the channel*
+**Pol Castellano** (04:43:23):
+> @Pol Castellano has joined the channel
+
 
 ## 2020-10-17
 
-*08:25:06 - @Kevin Blighe has joined the channel*
+**Kevin Blighe** (08:25:06):
+> @Kevin Blighe has joined the channel
+
 
 ## 2020-10-18
 
-*00:23:01 - @Noah Pieta has joined the channel*
-*20:01:31 - @hiro has joined the channel*
+**Noah Pieta** (00:23:01):
+> @Noah Pieta has joined the channel
+
+**hiro** (20:01:31):
+> @hiro has joined the channel
+
 
 ## 2020-10-19
 
@@ -8598,12 +9117,18 @@ format: gfm
 **Edgar** (17:22:28):
 > I would use either apply , mcapply or parallel for loops. I dont care which, as long as I solve my issue quickly. I like for loops since I can if statements.
 
-*18:08:08 - @Adele Barugahare has joined the channel*
-*19:16:39 - @Chris Chiu has joined the channel*
+**Adele Barugahare** (18:08:08):
+> @Adele Barugahare has joined the channel
+
+**Chris Chiu** (19:16:39):
+> @Chris Chiu has joined the channel
+
 
 ## 2020-10-21
 
-*04:33:30 - @Sudarshan has joined the channel*
+**Sudarshan** (04:33:30):
+> @Sudarshan has joined the channel
+
 **Hervé Pagès** (22:36:12) (in thread):
 > This is misleading. What you want to tell to people coming from a non-vectorized programming language is that most of the time they can take advantage of vectorization to avoid loops, not just to avoid`for`loops. With a vectorized language like R, doing`sapply(x, toupper)`on character vector`x`is almost as bad as doing the same thing with a`for`loop. Loops are evil, not just`for`loops.
 
@@ -8613,45 +9138,69 @@ format: gfm
 **Tim Triche** (12:03:43):
 > `bplapply`with a job directory can be quite handy when running Very Large Jobs over a Substantial Period Of Time
 
-*16:44:25 - @ImranF has joined the channel*
+**ImranF** (16:44:25):
+> @ImranF has joined the channel
+
 
 ## 2020-10-29
 
-*13:51:05 - @Jordan L. has joined the channel*
+**Jordan L.** (13:51:05):
+> @Jordan L. has joined the channel
+
 
 ## 2020-11-03
 
-*11:40:22 - @Pablo Rodriguez has joined the channel*
+**Pablo Rodriguez** (11:40:22):
+> @Pablo Rodriguez has joined the channel
+
 
 ## 2020-11-04
 
-*15:56:29 - @Regina Reynolds has joined the channel*
+**Regina Reynolds** (15:56:29):
+> @Regina Reynolds has joined the channel
+
 
 ## 2020-11-09
 
-*23:06:12 - @Al J Abadi has joined the channel*
+**Al J Abadi** (23:06:12):
+> @Al J Abadi has joined the channel
+
 
 ## 2020-11-11
 
-*09:09:35 - @Joshua Shapiro has joined the channel*
-*19:25:12 - @watanabe_st has joined the channel*
+**Joshua Shapiro** (09:09:35):
+> @Joshua Shapiro has joined the channel
+
+**watanabe_st** (19:25:12):
+> @watanabe_st has joined the channel
+
 
 ## 2020-11-17
 
-*07:10:40 - @Carmen Abaurre has joined the channel*
+**Carmen Abaurre** (07:10:40):
+> @Carmen Abaurre has joined the channel
+
 
 ## 2020-11-18
 
-*05:39:28 - @eugenia.galeota has joined the channel*
-*11:39:41 - @Liliana Zięba has joined the channel*
+**eugenia.galeota** (05:39:28):
+> @eugenia.galeota has joined the channel
+
+**Liliana Zięba** (11:39:41):
+> @Liliana Zięba has joined the channel
+
 
 ## 2020-11-19
 
-*08:32:51 - @David Dittmar has joined the channel*
+**David Dittmar** (08:32:51):
+> @David Dittmar has joined the channel
+
 
 ## 2020-11-23
 
-*08:38:45 - @Dominique Paul has joined the channel*
+**Dominique Paul** (08:38:45):
+> @Dominique Paul has joined the channel
+
 
 ## 2020-11-26
 
@@ -8688,46 +9237,72 @@ format: gfm
 
 ## 2020-12-03
 
-*10:07:36 - @cottamma has joined the channel*
+**cottamma** (10:07:36):
+> @cottamma has joined the channel
+
 
 ## 2020-12-10
 
-*04:35:42 - @Phil Xie has joined the channel*
+**Phil Xie** (04:35:42):
+> @Phil Xie has joined the channel
+
 
 ## 2020-12-12
 
-*00:38:17 - @Huipeng Li has joined the channel*
+**Huipeng Li** (00:38:17):
+> @Huipeng Li has joined the channel
+
 
 ## 2020-12-14
 
-*13:21:52 - @Nick Owen has joined the channel*
-*20:03:33 - @Bharati Mehani has joined the channel*
+**Nick Owen** (13:21:52):
+> @Nick Owen has joined the channel
+
+**Bharati Mehani** (20:03:33):
+> @Bharati Mehani has joined the channel
+
 
 ## 2020-12-15
 
-*01:50:16 - @Fredrick E. Kakembo has joined the channel*
-*03:02:57 - @Jenny Brown has joined the channel*
+**Fredrick E. Kakembo** (01:50:16):
+> @Fredrick E. Kakembo has joined the channel
+
+**Jenny Brown** (03:02:57):
+> @Jenny Brown has joined the channel
+
 
 ## 2020-12-21
 
-*04:21:06 - @Giacomo Antonello has joined the channel*
-*07:22:56 - @Faris Naji has joined the channel*
-*09:06:44 - @Yue Pan has joined the channel*
+**Giacomo Antonello** (04:21:06):
+> @Giacomo Antonello has joined the channel
+
+**Faris Naji** (07:22:56):
+> @Faris Naji has joined the channel
+
+**Yue Pan** (09:06:44):
+> @Yue Pan has joined the channel
+
 
 ## 2020-12-22
 
-*09:19:46 - @Wancen Mu has joined the channel*
+**Wancen Mu** (09:19:46):
+> @Wancen Mu has joined the channel
+
 **Aaron Lun** (21:54:39):
 > @Kevin Rue-Albrechtdo you want to own the SCEGallery?
 
 
 ## 2020-12-25
 
-*21:41:20 - @Paul Myers has joined the channel*
+**Paul Myers** (21:41:20):
+> @Paul Myers has joined the channel
+
 
 ## 2020-12-26
 
-*10:31:24 - @Kevin Blighe has joined the channel*
+**Kevin Blighe** (10:31:24):
+> @Kevin Blighe has joined the channel
+
 **Charlotte Soneson** (10:36:37):
 > [https://bioconductor.org/packages/zellkonverter/](https://bioconductor.org/packages/zellkonverter/)
 
@@ -8749,23 +9324,33 @@ format: gfm
 
 ## 2021-01-01
 
-*14:06:53 - @Bernd has joined the channel*
+**Bernd** (14:06:53):
+> @Bernd has joined the channel
+
 
 ## 2021-01-19
 
-*04:35:41 - @Andrea Gobbini has joined the channel*
+**Andrea Gobbini** (04:35:41):
+> @Andrea Gobbini has joined the channel
+
 
 ## 2021-01-22
 
-*15:45:38 - @Annajiat Alim Rasel has joined the channel*
+**Annajiat Alim Rasel** (15:45:38):
+> @Annajiat Alim Rasel has joined the channel
+
 
 ## 2021-01-24
 
-*16:40:48 - @Modeline Longjohn has joined the channel*
+**Modeline Longjohn** (16:40:48):
+> @Modeline Longjohn has joined the channel
+
 
 ## 2021-01-28
 
-*09:42:10 - @Shannan Ho Sui has joined the channel*
+**Shannan Ho Sui** (09:42:10):
+> @Shannan Ho Sui has joined the channel
+
 **Friederike Dündar** (15:22:35):
 > Is there are reason that the`colData`of SCE and`altExp(sce)`are separate? Or did I mess up somewhere along the road?
 
@@ -8808,8 +9393,12 @@ format: gfm
 
 ## 2021-02-05
 
-*09:57:22 - @MARC SUBIRANA I GRANÉS has joined the channel*
-*16:26:32 - @gargi has joined the channel*
+**MARC SUBIRANA I GRANÉS** (09:57:22):
+> @MARC SUBIRANA I GRANÉS has joined the channel
+
+**gargi** (16:26:32):
+> @gargi has joined the channel
+
 
 ## 2021-02-11
 
@@ -8883,12 +9472,18 @@ format: gfm
 
 ## 2021-02-13
 
-*06:51:29 - @ImranF has joined the channel*
-*12:34:16 - @Wes W has joined the channel*
+**ImranF** (06:51:29):
+> @ImranF has joined the channel
+
+**Wes W** (12:34:16):
+> @Wes W has joined the channel
+
 
 ## 2021-02-15
 
-*21:17:36 - @Hojae Lee has joined the channel*
+**Hojae Lee** (21:17:36):
+> @Hojae Lee has joined the channel
+
 **Hojae Lee** (21:21:24):
 > Hello, I’m sorry if this is a very obvious question, but may I ask the difference in use cases for`SingleCellExperiment`object and`Seurat`object? From what I have gathered so far, it seems like`SingleCellExperiment`, combined with`scran`and/or`scater`, can perform a wider variety of transformations or normalization, while`Seurat`objects are more “locked-in”. However, are there more downstream analyses where`Seurat`object is more appropriate?
 > 
@@ -8912,20 +9507,30 @@ format: gfm
 
 ## 2021-02-19
 
-*01:27:24 - @abdullah hanta has joined the channel*
+**abdullah hanta** (01:27:24):
+> @abdullah hanta has joined the channel
+
 
 ## 2021-02-23
 
-*10:33:06 - @Wynn Cheung has joined the channel*
+**Wynn Cheung** (10:33:06):
+> @Wynn Cheung has joined the channel
+
 
 ## 2021-02-26
 
-*13:38:40 - @Scott Lipnick has joined the channel*
+**Scott Lipnick** (13:38:40):
+> @Scott Lipnick has joined the channel
+
 
 ## 2021-03-01
 
-*03:18:12 - @Diana Hendrickx has joined the channel*
-*03:18:32 - @Diana Hendrickx has left the channel*
+**Diana Hendrickx** (03:18:12):
+> @Diana Hendrickx has joined the channel
+
+**Diana Hendrickx** (03:18:32):
+> @Diana Hendrickx has left the channel
+
 
 ## 2021-03-05
 
@@ -8938,7 +9543,9 @@ format: gfm
 
 ## 2021-03-11
 
-*04:08:55 - @Calli Dendrou has joined the channel*
+**Calli Dendrou** (04:08:55):
+> @Calli Dendrou has joined the channel
+
 
 ## 2021-03-22
 
@@ -8948,23 +9555,33 @@ format: gfm
 
 ## 2021-03-23
 
-*13:03:03 - @Philipp Schäfer has joined the channel*
+**Philipp Schäfer** (13:03:03):
+> @Philipp Schäfer has joined the channel
+
 
 ## 2021-03-24
 
-*20:08:00 - @Harry Danwonno has joined the channel*
+**Harry Danwonno** (20:08:00):
+> @Harry Danwonno has joined the channel
+
 
 ## 2021-03-26
 
-*13:27:28 - @Yile He has joined the channel*
+**Yile He** (13:27:28):
+> @Yile He has joined the channel
+
 
 ## 2021-04-02
 
-*21:56:01 - @Nathan Johnson has joined the channel*
+**Nathan Johnson** (21:56:01):
+> @Nathan Johnson has joined the channel
+
 
 ## 2021-04-06
 
-*00:04:46 - @Lindsay Hayes has joined the channel*
+**Lindsay Hayes** (00:04:46):
+> @Lindsay Hayes has joined the channel
+
 
 ## 2021-04-17
 
@@ -9004,7 +9621,9 @@ format: gfm
 
 ## 2021-04-21
 
-*13:55:14 - @Aishwarya Mandava has joined the channel*
+**Aishwarya Mandava** (13:55:14):
+> @Aishwarya Mandava has joined the channel
+
 
 ## 2021-04-23
 
@@ -9070,15 +9689,27 @@ format: gfm
 
 ## 2021-04-30
 
-*02:54:37 - @JAVAN OKENDO has joined the channel*
-*03:57:41 - @Jovan Tanevski has joined the channel*
-*06:51:21 - @Ibra Lujumba has joined the channel*
-*20:26:46 - @Anita Ghansah has joined the channel*
+**JAVAN OKENDO** (02:54:37):
+> @JAVAN OKENDO has joined the channel
+
+**Jovan Tanevski** (03:57:41):
+> @Jovan Tanevski has joined the channel
+
+**Ibra Lujumba** (06:51:21):
+> @Ibra Lujumba has joined the channel
+
+**Anita Ghansah** (20:26:46):
+> @Anita Ghansah has joined the channel
+
 
 ## 2021-05-03
 
-*02:17:21 - @Winfred Gatua has joined the channel*
-*05:04:51 - @Oluwaseyi Ashaka has joined the channel*
+**Winfred Gatua** (02:17:21):
+> @Winfred Gatua has joined the channel
+
+**Oluwaseyi Ashaka** (05:04:51):
+> @Oluwaseyi Ashaka has joined the channel
+
 
 ## 2021-05-09
 
@@ -9122,7 +9753,9 @@ format: gfm
 
 ## 2021-05-11
 
-*16:45:54 - @Megha Lal has joined the channel*
+**Megha Lal** (16:45:54):
+> @Megha Lal has joined the channel
+
 
 ## 2021-05-21
 
@@ -9140,7 +9773,9 @@ format: gfm
 
 ## 2021-05-27
 
-*21:38:48 - @Aarthi Ravikrishnan has joined the channel*
+**Aarthi Ravikrishnan** (21:38:48):
+> @Aarthi Ravikrishnan has joined the channel
+
 
 ## 2021-05-29
 
@@ -9251,7 +9886,9 @@ format: gfm
 
 ## 2021-06-04
 
-*05:53:19 - @Flavio Lombardo has joined the channel*
+**Flavio Lombardo** (05:53:19):
+> @Flavio Lombardo has joined the channel
+
 **Wes W** (08:41:27):
 > Hey all, I am doing some benchmarks on various integration methods for the data in my study and writing a few custom functions. I have searched google and maybe I am just searching it wrong , but is there a way to set a default reduction on an sce object? my code works fine if I do`reducedDim(sce, 'MYintegration')`but that only works if I can pass the known reduction to function.  because non-integration data is also in the reducedDim's (PCA, UMAPs, maybe a dozen UMAPS) I dont want to run a loop for`reduction[i] `because then I will be doing a bunch of computations I dont care about on a bunch of reductions (which would just waste cpu cycles). I can of course hard code passed reductions as a list into the function, BUT before I do that, for ease of use for anyone else trying to run my function in the future , is there a way to set a reducedDim on an sce object as default? sorry if I am over thinking this
 
@@ -9264,7 +9901,9 @@ format: gfm
 
 ## 2021-06-09
 
-*03:40:19 - @Lorenzo Bonaguro has joined the channel*
+**Lorenzo Bonaguro** (03:40:19):
+> @Lorenzo Bonaguro has joined the channel
+
 
 ## 2021-06-16
 
@@ -9313,7 +9952,9 @@ format: gfm
 
 ## 2021-06-24
 
-*08:29:02 - @Ilaria Billato has joined the channel*
+**Ilaria Billato** (08:29:02):
+> @Ilaria Billato has joined the channel
+
 
 ## 2021-07-01
 
@@ -9327,7 +9968,9 @@ format: gfm
 
 ## 2021-07-05
 
-*01:57:05 - @Chouaib Benchraka has joined the channel*
+**Chouaib Benchraka** (01:57:05):
+> @Chouaib Benchraka has joined the channel
+
 **Bernd** (12:38:40):
 > I am suddenly getting the following error message:
 > unable to find an inherited method for function ‘bindCOLS’ for signature ‘“SingleCellExperiment”’
@@ -9433,11 +10076,13 @@ format: gfm
 
 ## 2021-07-14
 
-*14:14:14 - @Peter Allen has joined the channel*
+**Peter Allen** (14:14:14):
+> @Peter Allen has joined the channel
+
 **Peter Allen** (14:16:34):
 > Is there a vignette for how to process 10x runs for ~55 samples (each with their own run)? Google has not been too forgiving. I noticed there's a vignette on[multi-sample comparisons](https://bioconductor.org/books/release/OSCA/multi-sample-comparisons.html)but I've read various threads mentioning having to preprocess separately.
   - Attachment (bioconductor.org): [Chapter 14 Multi-sample comparisons | Orchestrating Single-Cell Analysis with Bioconductor](https://bioconductor.org/books/release/OSCA/multi-sample-comparisons.html)
-    > Or: how I learned to stop worrying and love the t-SNEs.
+> Or: how I learned to stop worrying and love the t-SNEs.
 
 **ImranF** (14:58:26):
 > Well it depends on what you mean by "process", but everything before clustering/integration would have to be done per-sample
@@ -9460,15 +10105,21 @@ format: gfm
 
 ## 2021-07-19
 
-*17:02:44 - @Leo Lahti has joined the channel*
+**Leo Lahti** (17:02:44):
+> @Leo Lahti has joined the channel
+
 
 ## 2021-07-22
 
-*03:48:35 - @Konrad J. Debski has joined the channel*
+**Konrad J. Debski** (03:48:35):
+> @Konrad J. Debski has joined the channel
+
 
 ## 2021-07-23
 
-*15:54:06 - @Batool Almarzouq has joined the channel*
+**Batool Almarzouq** (15:54:06):
+> @Batool Almarzouq has joined the channel
+
 
 ## 2021-07-26
 
@@ -9506,12 +10157,18 @@ format: gfm
 
 ## 2021-07-30
 
-*04:31:04 - @lalchung nungabt has joined the channel*
-*04:31:04 - @lalchung nungabt has joined the channel*
+**lalchung nungabt** (04:31:04):
+> @lalchung nungabt has joined the channel
+
+**lalchung nungabt** (04:31:04):
+> @lalchung nungabt has joined the channel
+
 
 ## 2021-08-04
 
-*09:59:13 - @ChiaSin has joined the channel*
+**ChiaSin** (09:59:13):
+> @ChiaSin has joined the channel
+
 **Tim Triche** (16:21:16):
 > just in case it hasn't been said before, sometimes when Seurat operations crash your R session on a machine with 128GB of RAM and 8 cores, switching to an SCE can make things go faster, use less RAM, and actually complete.  Seurat really is a pig (and a slow one, at that)
 
@@ -9549,8 +10206,12 @@ format: gfm
 **Assa** (01:50:52):
 > Is there a prefer way to handle zeros with a scRNA-Seq data set, depending on the technology used? I mean, should a 10x data set be handled differently than a SMART-Seq data set? How do I decide whether i should impute or use a zero-inflated based algorithm? Any comments on that?
 
-*03:07:51 - @Julia Philipp has joined the channel*
-*04:53:28 - @Prateek Arora has joined the channel*
+**Julia Philipp** (03:07:51):
+> @Julia Philipp has joined the channel
+
+**Prateek Arora** (04:53:28):
+> @Prateek Arora has joined the channel
+
 **Stephanie Hicks** (08:27:36) (in thread):
 > @Assagreat question! yes this is a widely discussed topic in the field. Briefly, the choice of how many zeros we “expect” to see does seem to vary across technologies. This difference is important in how not only we preprocess the data (e.g. imputation), but also how we model the data (e.g. dimensionality reduction or differential expression). Here are a few papers you might find relevant related to just evaluating “how many zeros we expect to see in 10x data”. specifically, they show 10x data are not zero inflated
 > * [https://www.nature.com/articles/s41587-019-0379-5](https://www.nature.com/articles/s41587-019-0379-5)
@@ -9575,12 +10236,18 @@ format: gfm
 **Assa** (08:49:28) (in thread):
 > great, didn’t see that channel. thanks again.
 
-*09:01:44 - @Ambarish S. Ghatpande has joined the channel*
-*10:25:38 - @shristi shrestha has joined the channel*
+**Ambarish S. Ghatpande** (09:01:44):
+> @Ambarish S. Ghatpande has joined the channel
+
+**shristi shrestha** (10:25:38):
+> @shristi shrestha has joined the channel
+
 
 ## 2021-08-06
 
-*01:09:45 - @Wanmin Dai has joined the channel*
+**Wanmin Dai** (01:09:45):
+> @Wanmin Dai has joined the channel
+
 **Wanmin Dai** (09:26:43):
 > Hello everyone, just wondering has anybody used Zellkonverter to convert between anndata and sce? It seems that my sce object exported by the readH5AD function does not have a count assay?
 
@@ -9599,19 +10266,27 @@ format: gfm
 **Luke Zappia** (10:17:33) (in thread):
 > If you have***zellkonverter***v1.2.1 you can also set the`X_name`argument in`readH5AD()`, so`readH5AD(file, X_name = "counts")`should give you an assay named “counts” rather than “X”.
 
-*19:29:43 - @Felix M has joined the channel*
+**Felix M** (19:29:43):
+> @Felix M has joined the channel
+
 
 ## 2021-08-10
 
-*08:18:29 - @Woo has joined the channel*
+**Woo** (08:18:29):
+> @Woo has joined the channel
+
 
 ## 2021-09-07
 
-*14:52:08 - @Andrew Jaffe has joined the channel*
+**Andrew Jaffe** (14:52:08):
+> @Andrew Jaffe has joined the channel
+
 
 ## 2021-10-06
 
-*12:04:16 - @Frederick Tan has joined the channel*
+**Frederick Tan** (12:04:16):
+> @Frederick Tan has joined the channel
+
 **Frederick Tan** (12:16:20):
 > While attempting to create some “cached” intermediates for a workshop, we ran into an issue.  Instructors are attempting to save ExperimentHub data e.g.
 > ```
@@ -9751,7 +10426,9 @@ format: gfm
 **Frederick Tan** (14:06:53):
 > Thank you@Marcel Ramos Pérez!  Passing this along to the instructors.  Wondering if there’s a place this could be further advertised … seems tricky since we encountered the problem through ExperimentHub -> TENxPBMCData -> SingleCellExperiment
 
-*14:18:58 - @claudiozanettini has joined the channel*
+**claudiozanettini** (14:18:58):
+> @claudiozanettini has joined the channel
+
 **Michael Love** (20:04:48) (in thread):
 > Unfortunately not:confused:The plan was to create a space where multiple users of a Linux group have read/write permission. Seems like it would work
 
@@ -9773,19 +10450,27 @@ format: gfm
 
 ## 2021-10-21
 
-*14:28:26 - @Emily Collins has joined the channel*
+**Emily Collins** (14:28:26):
+> @Emily Collins has joined the channel
+
 
 ## 2021-10-22
 
-*10:41:50 - @JP Cartailler has joined the channel*
+**JP Cartailler** (10:41:50):
+> @JP Cartailler has joined the channel
+
 
 ## 2021-10-28
 
-*11:27:53 - @Jun Yu has joined the channel*
+**Jun Yu** (11:27:53):
+> @Jun Yu has joined the channel
+
 
 ## 2021-10-29
 
-*13:22:26 - @Enrico Ferrero has joined the channel*
+**Enrico Ferrero** (13:22:26):
+> @Enrico Ferrero has joined the channel
+
 
 ## 2021-11-02
 
@@ -9813,23 +10498,33 @@ format: gfm
 
 ## 2021-11-08
 
-*03:29:39 - @Paula Nieto García has joined the channel*
+**Paula Nieto García** (03:29:39):
+> @Paula Nieto García has joined the channel
+
 
 ## 2021-11-10
 
-*11:25:33 - @Gabriel Hoffman has joined the channel*
+**Gabriel Hoffman** (11:25:33):
+> @Gabriel Hoffman has joined the channel
+
 
 ## 2021-11-11
 
-*14:39:32 - @kent riemondy has joined the channel*
+**kent riemondy** (14:39:32):
+> @kent riemondy has joined the channel
+
 
 ## 2021-11-24
 
-*14:46:29 - @Heather Bouzek has joined the channel*
+**Heather Bouzek** (14:46:29):
+> @Heather Bouzek has joined the channel
+
 
 ## 2021-12-14
 
-*08:24:10 - @Megha Lal has left the channel*
+**Megha Lal** (08:24:10):
+> @Megha Lal has left the channel
+
 
 ## 2021-12-27
 
@@ -9839,7 +10534,7 @@ format: gfm
 **ImranF** (15:37:50):
 > Hi Leo, this keeps coming up. Brief discussion and code there[https://community-bioc.slack.com/archives/C6KJHH0M9/p1620669257022600](https://community-bioc.slack.com/archives/C6KJHH0M9/p1620669257022600)
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C6KJHH0M9/p1620669257022600)
-    > Does SingleCellExperiment (or maybe SummarizedExperiment) have an analog to `Seurat::SplitObject()` ?This looks similar (  [https://rdrr.io/github/mikelove/tximeta/man/splitSE.html](https://rdrr.io/github/mikelove/tximeta/man/splitSE.html)  ), but isnt
+> Does SingleCellExperiment (or maybe SummarizedExperiment) have an analog to `Seurat::SplitObject()` ?This looks similar (  [https://rdrr.io/github/mikelove/tximeta/man/splitSE.html](https://rdrr.io/github/mikelove/tximeta/man/splitSE.html)  ), but isnt
 
 **Leo Lahti** (16:23:26) (in thread):
 > Thanks!
@@ -9847,7 +10542,9 @@ format: gfm
 
 ## 2021-12-30
 
-*03:42:42 - @Tuomas Borman has joined the channel*
+**Tuomas Borman** (03:42:42):
+> @Tuomas Borman has joined the channel
+
 
 ## 2021-12-31
 
@@ -9875,11 +10572,15 @@ format: gfm
 
 ## 2022-01-03
 
-*17:05:24 - @Kurt Showmaker has joined the channel*
+**Kurt Showmaker** (17:05:24):
+> @Kurt Showmaker has joined the channel
+
 
 ## 2022-01-19
 
-*10:10:29 - @Stephany Orjuela has left the channel*
+**Stephany Orjuela** (10:10:29):
+> @Stephany Orjuela has left the channel
+
 
 ## 2022-01-25
 
@@ -9892,7 +10593,7 @@ format: gfm
 **Andrew Jaffe** (11:42:31):
 > i assume that an intermediary output of this pipeline would be such a genotype matrix necessary to infer ancestry[https://www.nature.com/articles/nbt.4042?report=reader](https://www.nature.com/articles/nbt.4042?report=reader)
   - Attachment (Nature): [Multiplexed droplet single-cell RNA-sequencing using natural genetic variation](https://www.nature.com/articles/nbt.4042?report=reader)
-    > Nature Biotechnology - Droplet single-cell RNA-seq is applied to large numbers of pooled samples from unrelated individuals.
+> Nature Biotechnology - Droplet single-cell RNA-seq is applied to large numbers of pooled samples from unrelated individuals.
 
 **Andrew Jaffe** (11:43:01):
 > (i've never used that pipeline but genotype variation has been used to demultiplex mixed pools of cells from different donors in the same 10x channel)
@@ -9903,23 +10604,33 @@ format: gfm
 
 ## 2022-02-01
 
-*09:58:09 - @Lindsay Clark has joined the channel*
+**Lindsay Clark** (09:58:09):
+> @Lindsay Clark has joined the channel
+
 
 ## 2022-02-10
 
-*03:45:32 - @Susanna has joined the channel*
+**Susanna** (03:45:32):
+> @Susanna has joined the channel
+
 
 ## 2022-02-15
 
-*12:01:40 - @Gene Cutler has joined the channel*
+**Gene Cutler** (12:01:40):
+> @Gene Cutler has joined the channel
+
 
 ## 2022-03-05
 
-*15:17:26 - @Giulio Benedetti has joined the channel*
+**Giulio Benedetti** (15:17:26):
+> @Giulio Benedetti has joined the channel
+
 
 ## 2022-03-10
 
-*11:27:25 - @Ramon Massoni-Badosa has joined the channel*
+**Ramon Massoni-Badosa** (11:27:25):
+> @Ramon Massoni-Badosa has joined the channel
+
 **Ramon Massoni-Badosa** (12:05:37):
 > Hi all! In the context of the human cell atlas (HCA), we have generated a multimodal atlas of human tonsils. We are currently developing the HCATonsilData package, which similarly to the TabulaMurisSenisData and HCAData packages, aims to provide programmatic access to our dataset via ExperimentHub. For scRNA-seq, CITE-seq and Spatial transcriptomics I think it will be pretty straight-forward. However, I'm running into some problems with scATAC-seq. I've analyzed the data with Signac, so now I have the data in the form of Seurat/ChromatinAssay objects. Is there any SingleCellExperiment extension to accommodate this? Most of the slots are similar, but there are some like the FragmentsObject which are ATAC-specific.
 
@@ -9934,7 +10645,7 @@ format: gfm
 > 
 > The vignettes of both hca (two vignettes, from the[hca landing page](https://bioconductor.org/packages/devel/hca)) and cellxgenedp (the[Rmd file](https://github.com/mtmorgan/cellxgenedp/blob/main/vignettes/using_cellxgenedp.Rmd)in the github repo should still be pretty readable; check out the shiny app on[this branch](https://github.com/mtmorgan/cellxgenedp/tree/Kayla-Morrell-shinyApp)!) provide very useful introductions.
   - Attachment (Bioconductor): [hca (development version)](https://bioconductor.org/packages/devel/hca)
-    > This package provides users with the ability to query the Human Cell Atlas data repository for single-cell experiment data. The `projects()`, `files()`, `samples()` and `bundles()` functions retrieve summary information on each of these indexes; corresponding `*_details()` are available for individual entries of each index. File-based resources can be downloaded using `files_download()`. Advanced use of the package allows the user to page through large result sets, and to flexibly query the 'list-of-lists' structure representing query responses.
+> This package provides users with the ability to query the Human Cell Atlas data repository for single-cell experiment data. The `projects()`, `files()`, `samples()` and `bundles()` functions retrieve summary information on each of these indexes; corresponding `*_details()` are available for individual entries of each index. File-based resources can be downloaded using `files_download()`. Advanced use of the package allows the user to page through large result sets, and to flexibly query the 'list-of-lists' structure representing query responses.
 
 **Ramon Massoni-Badosa** (12:51:45) (in thread):
 > thanks@Martin Morgan! will check
@@ -9942,15 +10653,21 @@ format: gfm
 
 ## 2022-03-18
 
-*15:41:27 - @Olga Malkova has joined the channel*
+**Olga Malkova** (15:41:27):
+> @Olga Malkova has joined the channel
+
 
 ## 2022-03-21
 
-*05:02:49 - @Pedro Sanchez has joined the channel*
+**Pedro Sanchez** (05:02:49):
+> @Pedro Sanchez has joined the channel
+
 
 ## 2022-03-23
 
-*04:39:17 - @Doortje Theunissen has joined the channel*
+**Doortje Theunissen** (04:39:17):
+> @Doortje Theunissen has joined the channel
+
 **Susanna** (13:43:45):
 > Hi all. Does anyone know how to deal with h5ad file? Doing some research I found the Seurat library could help. From Seurat, I tried Convert('input_file.h5ad', dest = 'new_file.h5seurat') and then I'm supposed to load the new file with LoadH5Seurat('new_file.h5seurat').
 > However I'm having trouble with the first part: the Concert function throws me an error saying "Error: Not a sparce matrix". Has this ever happened to anyone? Thank you :)
@@ -10002,7 +10719,7 @@ format: gfm
 **Hervé Pagès** (19:01:57):
 > FWIW shallow reference was dropped from the SE/SCE internals in 2019. See[https://github.com/Bioconductor/SummarizedExperiment/commit/e8a159a81e8d5805c7781301bcd5c68d066531d7](https://github.com/Bioconductor/SummarizedExperiment/commit/e8a159a81e8d5805c7781301bcd5c68d066531d7)If your (probably serialized) objects still use a ShallowSimpleListAssays internally, it's time to pass them thru`updateObject()`. If you need to do this in a more automated fashion for a bunch of objects in your package or in a collection of packages, take a look at the***updateObject*****package**(new in BioC 3.15):[https://bioconductor.org/packages/updateObject](https://bioconductor.org/packages/updateObject)Go straight to the vignette.
   - Attachment (Bioconductor): [updateObject (development version)](https://bioconductor.org/packages/updateObject)
-    > A set of tools built around updateObject() to work with old serialized S4 instances. The package is primarily useful to package maintainers who want to update the serialized S4 instances included in their package. This is still work-in-progress.
+> A set of tools built around updateObject() to work with old serialized S4 instances. The package is primarily useful to package maintainers who want to update the serialized S4 instances included in their package. This is still work-in-progress.
 
 **Tim Triche** (19:34:47):
 > oh wow
@@ -10077,14 +10794,16 @@ format: gfm
 **rohitsatyam102** (22:22:11) (in thread):
 > Did some more analysis similar to[sctransform paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1#availability-of-data-and-materials)but couldn't conclude anything!!
   - Attachment (BioMed Central): [Normalization and variance stabilization of single-cell RNA-seq data using regularized negative binomial regression - Genome Biology](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1#availability-of-data-and-materials)
-    > Single-cell RNA-seq (scRNA-seq) data exhibits significant cell-to-cell variation due to technical factors, including the number of molecules detected in each cell, which can confound biological heterogeneity with technical effects. To address this, we present a modeling framework for the normalization and variance stabilization of molecular count data from scRNA-seq experiments. We propose that the Pearson residuals from “regularized negative binomial regression,” where cellular sequencing depth is utilized as a covariate in a generalized linear model, successfully remove the influence of technical characteristics from downstream analyses while preserving biological heterogeneity. Importantly, we show that an unconstrained negative binomial model may overfit scRNA-seq data, and overcome this by pooling information across genes with similar abundances to obtain stable parameter estimates. Our procedure omits the need for heuristic steps including pseudocount addition or log-transformation and improves common downstream analytical tasks such as variable gene selection, dimensional reduction, and differential expression. Our approach can be applied to any UMI-based scRNA-seq dataset and is freely available as part of the R package sctransform, with a direct interface to our single-cell toolkit Seurat.
+> Single-cell RNA-seq (scRNA-seq) data exhibits significant cell-to-cell variation due to technical factors, including the number of molecules detected in each cell, which can confound biological heterogeneity with technical effects. To address this, we present a modeling framework for the normalization and variance stabilization of molecular count data from scRNA-seq experiments. We propose that the Pearson residuals from “regularized negative binomial regression,” where cellular sequencing depth is utilized as a covariate in a generalized linear model, successfully remove the influence of technical characteristics from downstream analyses while preserving biological heterogeneity. Importantly, we show that an unconstrained negative binomial model may overfit scRNA-seq data, and overcome this by pooling information across genes with similar abundances to obtain stable parameter estimates. Our procedure omits the need for heuristic steps including pseudocount addition or log-transformation and improves common downstream analytical tasks such as variable gene selection, dimensional reduction, and differential expression. Our approach can be applied to any UMI-based scRNA-seq dataset and is freely available as part of the R package sctransform, with a direct interface to our single-cell toolkit Seurat.
   - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F03A9762KB8/image.png)
   - File (PNG): [image.png](https://community-bioc.slack.com/files/U34P8RS3B/F03A976MYGN/image.png)
 
 
 ## 2022-04-14
 
-*05:29:28 - @Dario Righelli has joined the channel*
+**Dario Righelli** (05:29:28):
+> @Dario Righelli has joined the channel
+
 **Dario Righelli** (05:30:16):
 > Hi all,
 > 
@@ -10095,7 +10814,9 @@ format: gfm
 
 ## 2022-04-15
 
-*05:50:54 - @Michael Stadler has joined the channel*
+**Michael Stadler** (05:50:54):
+> @Michael Stadler has joined the channel
+
 
 ## 2022-04-18
 
@@ -10157,8 +10878,12 @@ format: gfm
 
 ## 2022-04-27
 
-*10:23:37 - @Ynnez Bestari has joined the channel*
-*10:23:46 - @Genoa Polumbo has joined the channel*
+**Ynnez Bestari** (10:23:37):
+> @Ynnez Bestari has joined the channel
+
+**Genoa Polumbo** (10:23:46):
+> @Genoa Polumbo has joined the channel
+
 **Ynnez Bestari** (10:27:23):
 > We would like to invite everyone interested in working with single-cell and spatial omics data to a seminar with Katy Börner on constructing a reference atlas for mapping healthy cells in the human body within the NIH Human BioMolecular Atlas Program. Please see below for meeting time and link:
 >                                                                                                                                                                                                                                                    Speaker: Speaker: Katy Börner, Victor H. Yngve Distinguished Professor of Intelligent Systems Engineering, Indiana University
@@ -10202,7 +10927,7 @@ format: gfm
 **Tim Triche** (08:59:31):
 > “Provide answers that are not outrageously incorrect in healthy tissues” is a different bar from “capture relevant biology” (latter being experiment dependent, but see e.g.[https://www.nature.com/articles/s43018-022-00356-3](https://www.nature.com/articles/s43018-022-00356-3)for a situation where aberrant cellular interactions appear to be a key aspect of the underlying biology)
   - Attachment (Nature): [Cell type and gene expression deconvolution with BayesPrism enables Bayesian integrative analysis across bulk and single-cell RNA sequencing in oncology](https://www.nature.com/articles/s43018-022-00356-3)
-    > Nature Cancer - Danko and colleagues develop BayesPrism, a bulk RNA sequencing deconvolution tool to infer cell type composition and cell-specific expression levels across clinical cancer datasets.
+> Nature Cancer - Danko and colleagues develop BayesPrism, a bulk RNA sequencing deconvolution tool to infer cell type composition and cell-specific expression levels across clinical cancer datasets.
 
 **Tim Triche** (09:00:19):
 > Not saying you are wrong, but “work[s] fine” is necessarily subjective and contextual.
@@ -10267,82 +10992,122 @@ format: gfm
 **Stephanie Hicks** (21:08:46):
 > the CZI Single-Cell Biology Data Insights Cycle 2 RFA was just announced[https://chanzuckerberg.com/rfa/single-cell-data-insights](https://chanzuckerberg.com/rfa/single-cell-data-insights). Due date is Aug 25
   - Attachment (Chan Zuckerberg Initiative): [New Funding Opportunity for Single-Cell Computational Biology](https://chanzuckerberg.com/rfa/single-cell-data-insights)
-    > Advancing tools and resources for analyzing single-cell biology datasets to gain greater insights into health and disease.
+> Advancing tools and resources for analyzing single-cell biology datasets to gain greater insights into health and disease.
 
 
 ## 2022-07-04
 
-*19:45:15 - @Andrew J. Rech has joined the channel*
+**Andrew J. Rech** (19:45:15):
+> @Andrew J. Rech has joined the channel
+
 
 ## 2022-07-07
 
-*14:27:15 - @Clara Pereira has joined the channel*
+**Clara Pereira** (14:27:15):
+> @Clara Pereira has joined the channel
+
 
 ## 2022-07-13
 
-*14:59:01 - @Alan Aw has joined the channel*
+**Alan Aw** (14:59:01):
+> @Alan Aw has joined the channel
+
 
 ## 2022-07-15
 
-*15:18:26 - @Ashley Robbins has joined the channel*
+**Ashley Robbins** (15:18:26):
+> @Ashley Robbins has joined the channel
+
 
 ## 2022-07-18
 
-*09:24:59 - @Filip Stachura has joined the channel*
+**Filip Stachura** (09:24:59):
+> @Filip Stachura has joined the channel
+
 
 ## 2022-07-19
 
-*17:22:03 - @Anna Reisetter has joined the channel*
+**Anna Reisetter** (17:22:03):
+> @Anna Reisetter has joined the channel
+
 
 ## 2022-07-28
 
-*17:21:16 - @Mervin Fansler has joined the channel*
+**Mervin Fansler** (17:21:16):
+> @Mervin Fansler has joined the channel
+
 
 ## 2022-08-02
 
-*05:09:42 - @Alvaro Sanchez has joined the channel*
+**Alvaro Sanchez** (05:09:42):
+> @Alvaro Sanchez has joined the channel
+
 
 ## 2022-08-04
 
-*21:58:58 - @László Kupcsik has joined the channel*
+**László Kupcsik** (21:58:58):
+> @László Kupcsik has joined the channel
+
 
 ## 2022-08-11
 
-*17:16:20 - @Rene Welch has joined the channel*
+**Rene Welch** (17:16:20):
+> @Rene Welch has joined the channel
+
 
 ## 2022-08-15
 
-*13:15:53 - @Michael Kaufman has joined the channel*
+**Michael Kaufman** (13:15:53):
+> @Michael Kaufman has joined the channel
+
 
 ## 2022-09-04
 
-*14:59:55 - @Gurpreet Kaur has joined the channel*
+**Gurpreet Kaur** (14:59:55):
+> @Gurpreet Kaur has joined the channel
+
 
 ## 2022-09-27
 
-*16:14:51 - @Jennifer Holmes has joined the channel*
-*22:14:27 - @vin has joined the channel*
+**Jennifer Holmes** (16:14:51):
+> @Jennifer Holmes has joined the channel
+
+**vin** (22:14:27):
+> @vin has joined the channel
+
 
 ## 2022-10-06
 
-*05:38:06 - @Devika Agarwal has joined the channel*
+**Devika Agarwal** (05:38:06):
+> @Devika Agarwal has joined the channel
+
 
 ## 2022-10-20
 
-*01:26:06 - @Connie Li Wai Suen has joined the channel*
+**Connie Li Wai Suen** (01:26:06):
+> @Connie Li Wai Suen has joined the channel
+
 
 ## 2022-10-28
 
-*08:31:16 - @Brian Schilder has joined the channel*
-*12:29:50 - @Vandenbulcke Stijn has joined the channel*
+**Brian Schilder** (08:31:16):
+> @Brian Schilder has joined the channel
+
+**Vandenbulcke Stijn** (12:29:50):
+> @Vandenbulcke Stijn has joined the channel
+
 
 ## 2022-10-31
 
-*10:05:41 - @Chenyue Lu has joined the channel*
+**Chenyue Lu** (10:05:41):
+> @Chenyue Lu has joined the channel
+
 
 ## 2022-11-06
 
-*11:21:33 - @Sherine Khalafalla Saber has joined the channel*
+**Sherine Khalafalla Saber** (11:21:33):
+> @Sherine Khalafalla Saber has joined the channel
+
 
 ## 2022-12-02
 
@@ -10356,7 +11121,7 @@ format: gfm
 **Alan O'C** (11:19:51) (in thread):
 > [https://xkcd.com/927/](https://xkcd.com/927/)
   - Attachment: [Standards](https://xkcd.com/927/)
-    > [Title text] "Fortunately, the charging one has been solved now that we've all standardized on mini-USB. Or is it micro-USB? Shit."
+> [Title text] "Fortunately, the charging one has been solved now that we've all standardized on mini-USB. Or is it micro-USB? Shit."
 
 
 ## 2022-12-08
@@ -10370,67 +11135,105 @@ format: gfm
 
 ## 2022-12-12
 
-*17:58:19 - @Umran has joined the channel*
-*17:59:49 - @Lexi Bounds has joined the channel*
+**Umran** (17:58:19):
+> @Umran has joined the channel
+
+**Lexi Bounds** (17:59:49):
+> @Lexi Bounds has joined the channel
+
 
 ## 2022-12-13
 
-*09:01:30 - @Ana Cristina Guerra de Souza has joined the channel*
-*18:33:04 - @Xiangnan Xu has joined the channel*
-*19:04:30 - @Yue Cao has joined the channel*
+**Ana Cristina Guerra de Souza** (09:01:30):
+> @Ana Cristina Guerra de Souza has joined the channel
+
+**Xiangnan Xu** (18:33:04):
+> @Xiangnan Xu has joined the channel
+
+**Yue Cao** (19:04:30):
+> @Yue Cao has joined the channel
+
 
 ## 2022-12-14
 
-*14:11:14 - @Bárbara Zita Peters Couto has joined the channel*
-*19:38:04 - @Lijia Yu has joined the channel*
+**Bárbara Zita Peters Couto** (14:11:14):
+> @Bárbara Zita Peters Couto has joined the channel
+
+**Lijia Yu** (19:38:04):
+> @Lijia Yu has joined the channel
+
 
 ## 2022-12-20
 
-*10:41:38 - @Jennifer Foltz has joined the channel*
+**Jennifer Foltz** (10:41:38):
+> @Jennifer Foltz has joined the channel
+
 
 ## 2023-01-08
 
-*05:33:15 - @Pageneck Chikondowa has joined the channel*
+**Pageneck Chikondowa** (05:33:15):
+> @Pageneck Chikondowa has joined the channel
+
 
 ## 2023-01-26
 
-*12:33:00 - @Yu Zhang has joined the channel*
+**Yu Zhang** (12:33:00):
+> @Yu Zhang has joined the channel
+
 
 ## 2023-01-31
 
-*09:11:20 - @Ahmad Al Ajami has joined the channel*
+**Ahmad Al Ajami** (09:11:20):
+> @Ahmad Al Ajami has joined the channel
+
 
 ## 2023-02-13
 
-*10:44:52 - @Hervé Pagès has left the channel*
+**Hervé Pagès** (10:44:52):
+> @Hervé Pagès has left the channel
+
 
 ## 2023-02-20
 
-*02:28:26 - @Iivari has joined the channel*
+**Iivari** (02:28:26):
+> @Iivari has joined the channel
+
 
 ## 2023-02-22
 
-*01:44:29 - @michaelkleymn has joined the channel*
+**michaelkleymn** (01:44:29):
+> @michaelkleymn has joined the channel
+
 
 ## 2023-02-23
 
-*15:49:01 - @Claire Seibold has joined the channel*
+**Claire Seibold** (15:49:01):
+> @Claire Seibold has joined the channel
+
 
 ## 2023-02-28
 
-*15:30:12 - @Ramin has joined the channel*
+**Ramin** (15:30:12):
+> @Ramin has joined the channel
+
 
 ## 2023-03-08
 
-*01:36:40 - @Ayantika Sen has joined the channel*
+**Ayantika Sen** (01:36:40):
+> @Ayantika Sen has joined the channel
+
 
 ## 2023-03-10
 
-*15:27:51 - @Edel Aron has joined the channel*
+**Edel Aron** (15:27:51):
+> @Edel Aron has joined the channel
+
 
 ## 2023-03-17
 
-*00:49:02 - @Michael Milton has joined the channel*
+**Michael Milton** (00:49:02):
+> @Michael Milton has joined the channel
+
 **Michael Milton** (00:52:35) (in thread):
 > I recently got an update on SOMA’s progress:[https://github.com/single-cell-data/TileDB-SOMA/issues/1087#issuecomment-1468614647](https://github.com/single-cell-data/TileDB-SOMA/issues/1087#issuecomment-1468614647)
 
@@ -10470,7 +11273,7 @@ format: gfm
 **Martin Morgan** (10:02:34) (in thread):
 > @Michael Miltonwould be a great person to present at Bioc2023, on this and[CuratedAtlasQueryR](https://github.com/stemangiola/CuratedAtlasQueryR)(probably travel funds could be found either through a travel scholarship or...) ! With respect to lazy data, I have[h5ad](https://github.com/mtmorgan/h5ad)(this package is very immature and will probably remain that way...) for interfacing with h5ad files; data stays on disk until asked... I've also spoken with Luke Zappia ([zellkonverter](https://bioconductor.org/packages/zellkonverter)author) about the value of laziness in his mature readH5AD function.
   - Attachment (Bioconductor): [zellkonverter](https://bioconductor.org/packages/zellkonverter)
-    > Provides methods to convert between Python AnnData objects and SingleCellExperiment objects. These are primarily intended for use by downstream Bioconductor packages that wrap Python methods for single-cell data analysis. It also includes functions to read and write H5AD files used for saving AnnData objects to disk.
+> Provides methods to convert between Python AnnData objects and SingleCellExperiment objects. These are primarily intended for use by downstream Bioconductor packages that wrap Python methods for single-cell data analysis. It also includes functions to read and write H5AD files used for saving AnnData objects to disk.
 
 **Michael Milton** (10:14:00) (in thread):
 > I would certainly be interested in presenting, though I hadn't made any plans to make a submission...!
@@ -10499,11 +11302,15 @@ format: gfm
 > When: April 03, 2023, 3 PM ET
 > Where:[https://harvard.zoom.us/j/97173440183?pwd=eHI1ODRub0p5NGNEZncwU0lURlJjdz09](https://harvard.zoom.us/j/97173440183?pwd=eHI1ODRub0p5NGNEZncwU0lURlJjdz09)
 
-*11:46:29 - @Stefania Pirrotta has joined the channel*
+**Stefania Pirrotta** (11:46:29):
+> @Stefania Pirrotta has joined the channel
+
 
 ## 2023-03-31
 
-*06:45:46 - @Laura Masatti has joined the channel*
+**Laura Masatti** (06:45:46):
+> @Laura Masatti has joined the channel
+
 
 ## 2023-04-05
 
@@ -10526,39 +11333,57 @@ format: gfm
 
 ## 2023-04-12
 
-*15:21:07 - @aaronwolen has joined the channel*
+**aaronwolen** (15:21:07):
+> @aaronwolen has joined the channel
+
 
 ## 2023-04-21
 
-*14:22:04 - @Kozo Nishida has joined the channel*
+**Kozo Nishida** (14:22:04):
+> @Kozo Nishida has joined the channel
+
 
 ## 2023-05-04
 
-*16:28:50 - @Leopoldo Valiente has joined the channel*
+**Leopoldo Valiente** (16:28:50):
+> @Leopoldo Valiente has joined the channel
+
 
 ## 2023-05-17
 
-*12:18:13 - @Hassan Kehinde Ajulo has joined the channel*
+**Hassan Kehinde Ajulo** (12:18:13):
+> @Hassan Kehinde Ajulo has joined the channel
+
 
 ## 2023-05-18
 
-*05:54:26 - @Oluwafemi Oyedele has joined the channel*
+**Oluwafemi Oyedele** (05:54:26):
+> @Oluwafemi Oyedele has joined the channel
+
 
 ## 2023-06-14
 
-*21:30:16 - @Stevie Pederson has left the channel*
+**Stevie Pederson** (21:30:16):
+> @Stevie Pederson has left the channel
+
 
 ## 2023-06-19
 
-*05:12:28 - @Pierre-Paul Axisa has joined the channel*
+**Pierre-Paul Axisa** (05:12:28):
+> @Pierre-Paul Axisa has joined the channel
+
 
 ## 2023-06-28
 
-*10:59:48 - @Andrew Ghazi has joined the channel*
+**Andrew Ghazi** (10:59:48):
+> @Andrew Ghazi has joined the channel
+
 
 ## 2023-07-12
 
-*19:33:54 - @Axel Klenk has joined the channel*
+**Axel Klenk** (19:33:54):
+> @Axel Klenk has joined the channel
+
 
 ## 2023-07-24
 
@@ -10630,7 +11455,7 @@ format: gfm
 > [https://broom.tidymodels.org/articles/adding-tidiers.html](https://broom.tidymodels.org/articles/adding-tidiers.html)
 > > Tidiers for objects from BioConductor belong in`biobroom`
   - Attachment (broom.tidymodels.org): [Writing new tidier methods](https://broom.tidymodels.org/articles/adding-tidiers.html)
-    > broom
+> broom
 
 **Kevin Rue-Albrecht** (08:30:22) (in thread):
 > this is ugly for different reasons but seems to work[https://github.com/kevinrue/S4Vectors/tree/kra-fortify](https://github.com/kevinrue/S4Vectors/tree/kra-fortify)
@@ -10649,50 +11474,50 @@ format: gfm
 **Kevin Rue-Albrecht** (09:45:13) (in thread):
 > I've opened this PR to continue the discussion with the S4Vectors developers[https://github.com/Bioconductor/S4Vectors/pull/116](https://github.com/Bioconductor/S4Vectors/pull/116)
   - Attachment: [#116 add fortify.DataFrame](https://github.com/Bioconductor/S4Vectors/pull/116)
-    > Hi there
-    > 
-    > TL;DR: This PR makes the following code possible:
-    > 
-    > ```
-    > library(S4Vectors)
-    > 
-    > df <- DataFrame(
-    >   x = 1:10,
-    >   y = rnorm(10)
-    > )
-    > 
-    > library(ggplot2)
-    > 
-    > ggplot(df, aes(x, y)) +
-    >   geom_point()
-    > 
-    > # see also:
-    > fortify(df)
-    > ```
-    > 
-    > Without the need for `as.data.frame(df)` in the `ggplot()` call.
-    > 
-    > * * *
-    > 
-    > Context:
-    > 
-    > As per [https://community-bioc.slack.com/archives/C6KJHH0M9/p1690235172607369](https://community-bioc.slack.com/archives/C6KJHH0M9/p1690235172607369)
-    > 
-    > I've messed around `S4vectors` a bit to test feasibility, and somehow landed on my feet with something that seems to work.
-    > 
-    > I'll be honest, I'm not even sure why R allows me to do it, but it seems that I can `importFrom` a package that is listed in `Suggests` (i.e., not in `Depends`).
-    > 
-    > I added `ggplot2` to `Suggests` because I don't like the idea of having it under `Imports`. It just feels wrong to automatically install `ggplot2` and its own dependencies as a dependency of `S4Vectors`. `S4Vectors` should remain a lightweight package.
-    > 
-    > I suppose that if users have `ggplot2` installed, the import statement "just works", and if they don't have `ggplot2` installed.. well... they don't have any reason to call `ggplot()` on a `DataFrame` object :D
-    > 
-    > I'm aware that this PR is unlikely to be the final fix (if any is possible at all). I just aim to give a starting point to the discussion.
-    > 
-    > Also, I've considered other approaches, but run into chicken-and-egg issues:
-    > 
-    > • I suspect `ggplot2` will not accept to `Suggests: S4Vectors`, as I don't see any Bioconductor package in its existing Imports/Suggests ([https://cran.r-project.org/web/packages/ggplot2/index.html](https://cran.r-project.org/web/packages/ggplot2/index.html)) and `install.packages()` cannot see Bioconductor packages without messing with `options(repos)`.
-    > • I suspect `S4Vectors` will not accept to `Imports: ggplot2`, to justify more cleanly `importFrom(ggplot2, fortify)`. Same reason as above: keep S4Vectors dependencies to a minimum
-    > • I noted that `?ggplot2::fortify` states "Rather than using this function, I now recommend using the broom package, which implements a much wider range of methods. fortify() may be deprecated in the future." However, it is not clear to me what needs to be done in [broom](https://cran.r-project.org/web/packages/broom/index.html) (or [biobroom](https://bioconductor.org/packages/release/bioc/html/biobroom.html))
+> Hi there
+> 
+> TL;DR: This PR makes the following code possible:
+> 
+> ```
+> library(S4Vectors)
+> 
+> df <- DataFrame(
+>   x = 1:10,
+>   y = rnorm(10)
+> )
+> 
+> library(ggplot2)
+> 
+> ggplot(df, aes(x, y)) +
+>   geom_point()
+> 
+> # see also:
+> fortify(df)
+> ```
+> 
+> Without the need for `as.data.frame(df)` in the `ggplot()` call.
+> 
+> * * *
+> 
+> Context:
+> 
+> As per [https://community-bioc.slack.com/archives/C6KJHH0M9/p1690235172607369](https://community-bioc.slack.com/archives/C6KJHH0M9/p1690235172607369)
+> 
+> I've messed around `S4vectors` a bit to test feasibility, and somehow landed on my feet with something that seems to work.
+> 
+> I'll be honest, I'm not even sure why R allows me to do it, but it seems that I can `importFrom` a package that is listed in `Suggests` (i.e., not in `Depends`).
+> 
+> I added `ggplot2` to `Suggests` because I don't like the idea of having it under `Imports`. It just feels wrong to automatically install `ggplot2` and its own dependencies as a dependency of `S4Vectors`. `S4Vectors` should remain a lightweight package.
+> 
+> I suppose that if users have `ggplot2` installed, the import statement "just works", and if they don't have `ggplot2` installed.. well... they don't have any reason to call `ggplot()` on a `DataFrame` object :D
+> 
+> I'm aware that this PR is unlikely to be the final fix (if any is possible at all). I just aim to give a starting point to the discussion.
+> 
+> Also, I've considered other approaches, but run into chicken-and-egg issues:
+> 
+> • I suspect `ggplot2` will not accept to `Suggests: S4Vectors`, as I don't see any Bioconductor package in its existing Imports/Suggests ([https://cran.r-project.org/web/packages/ggplot2/index.html](https://cran.r-project.org/web/packages/ggplot2/index.html)) and `install.packages()` cannot see Bioconductor packages without messing with `options(repos)`.
+> • I suspect `S4Vectors` will not accept to `Imports: ggplot2`, to justify more cleanly `importFrom(ggplot2, fortify)`. Same reason as above: keep S4Vectors dependencies to a minimum
+> • I noted that `?ggplot2::fortify` states "Rather than using this function, I now recommend using the broom package, which implements a much wider range of methods. fortify() may be deprecated in the future." However, it is not clear to me what needs to be done in [broom](https://cran.r-project.org/web/packages/broom/index.html) (or [biobroom](https://bioconductor.org/packages/release/bioc/html/biobroom.html))
 
 **Kevin Rue-Albrecht** (09:45:42) (in thread):
 > but we can continue to discuss unofficially here:slightly_smiling_face:
@@ -10714,16 +11539,24 @@ format: gfm
 **Kevin Rue-Albrecht** (04:11:56) (in thread):
 > Building/installing S4Vectors fails if the generic “fortify” is not imported from ggplot2 when the method fortify.DataFrame is exported from S4Vectors
 
-*13:02:53 - @Jenny Drnevich has joined the channel*
+**Jenny Drnevich** (13:02:53):
+> @Jenny Drnevich has joined the channel
+
 
 ## 2023-07-28
 
-*13:47:16 - @Konstantinos Daniilidis has joined the channel*
-*15:59:00 - @Benjamin Yang has joined the channel*
+**Konstantinos Daniilidis** (13:47:16):
+> @Konstantinos Daniilidis has joined the channel
+
+**Benjamin Yang** (15:59:00):
+> @Benjamin Yang has joined the channel
+
 
 ## 2023-08-02
 
-*14:41:56 - @Jamin Liu has joined the channel*
+**Jamin Liu** (14:41:56):
+> @Jamin Liu has joined the channel
+
 
 ## 2023-08-03
 
@@ -10749,7 +11582,7 @@ format: gfm
 **Michael Love** (10:43:43) (in thread):
 > we have a workshop Friday at 10am[https://tidybiology.github.io/tidyomicsWorkshopBioc2023/articles/tidyGenomicsTranscriptomics.html](https://tidybiology.github.io/tidyomicsWorkshopBioc2023/articles/tidyGenomicsTranscriptomics.html)
   - Attachment (tidybiology.github.io): [Tidy genomic and transcriptomic single-cell analyses](https://tidybiology.github.io/tidyomicsWorkshopBioc2023/articles/tidyGenomicsTranscriptomics.html)
-    > tidyomicsWorkshopBioc2023
+> tidyomicsWorkshopBioc2023
 
 **Ellis Patrick** (10:44:03) (in thread):
 > This is exactly what I want
@@ -10757,16 +11590,24 @@ format: gfm
 **Michael Love** (10:44:32) (in thread):
 > Room 307, boguns welcome
 
-*11:21:33 - @Flávia E. Rius has joined the channel*
-*15:59:38 - @Ritika Giri has joined the channel*
+**Flávia E. Rius** (11:21:33):
+> @Flávia E. Rius has joined the channel
+
+**Ritika Giri** (15:59:38):
+> @Ritika Giri has joined the channel
+
 
 ## 2023-08-04
 
-*09:36:20 - @Trisha Timpug has joined the channel*
+**Trisha Timpug** (09:36:20):
+> @Trisha Timpug has joined the channel
+
 
 ## 2023-08-11
 
-*02:15:16 - @Hervé Pagès has joined the channel*
+**Hervé Pagès** (02:15:16):
+> @Hervé Pagès has joined the channel
+
 **Hervé Pagès** (02:24:51) (in thread):
 > Does anybody know why their default`fortify()`method (`ggplot2:::fortify.default()`) doesn't simply try to call`as.data.frame()`on the supplied object? Might be worth asking them. Would make`ggplot()`work on any object that supports`as.data.frame()`e.g. DataFrame, matrix, dgCMatrix, DelayedMatrix, SparseMatrix, etc... Why add the additional requirement that these objects must implement a`fortify()`method when all that is needed is that they support`as.data.frame()`?
 
@@ -10787,47 +11628,47 @@ format: gfm
 **Leo Lahti** (13:24:37) (in thread):
 > Ok I opened this issue in ggplot now:[https://github.com/tidyverse/ggplot2/issues/5390](https://github.com/tidyverse/ggplot2/issues/5390)
   - Attachment: [#5390 Support for formats other than data.frame](https://github.com/tidyverse/ggplot2/issues/5390)
-    > **Problem** Whereas *ggplot2* supports `data.frame`, many other data structures are available that could benefit from the ability to use ggplot2 functionality. Examples include e.g. DataFrame, matrix, dgCMatrix, DelayedMatrix, SparseMatrix, etc. Many of these classes support `as.data.frame()` and can be easily converted into a data.frame. However, the need to do this with every ggplot2 function call becomes rapidly very repetitive.
-    > 
-    > **Suggested solution** The default fortify() method, `ggplot2:::fortify.default()` could just try to call `as.data.frame()` on the supplied object. This would directly make `ggplot()` work on any object that supports `as.data.frame()` (e.g. DataFrame, matrix, dgCMatrix, DelayedMatrix, SparseMatrix, etc.)
-    > 
-    > [Bioconductor/S4Vectors#116](https://github.com/Bioconductor/S4Vectors/pull/116)
-    > 
-    > Let's load libraries and example data
-    > 
-    > ```
-    > library(S4Vectors)
-    > library(ggplot2)
-    > data(iris)
-    > ```
-    > 
-    > Usual data.frame works as expected:
-    > 
-    > ```
-    > ggplot(iris, aes(x=Sepal.Width, y=Sepal.Length)) + geom_point()
-    > ```
-    > 
-    > DataFrame does not work, and ggplot call throws and error:
-    > 
-    > ```
-    > ggplot(DataFrame(iris), aes(x=Sepal.Width, y=Sepal.Length)) + geom_point()
-    > ```
-    > 
-    > > Error in `fortify()`:  
-    > > ! `data` must be a <data.frame>, or an object coercible by `fortify()`,  
-    > > not a object.
-    > 
-    > At the moment our default solution has been to always add `as.data.frame()` around DataFrame objects, like:
-    > 
-    > ```
-    > ggplot(as.data.frame(d), aes(x, y)) + geom_point()
-    > ```
-    > 
-    > There was initial discussion that related to the challenges this adds to teaching standard plotting in ecosystems that rely on classes that are closely related to data.frame but not that.
-    > 
-    > Initial thought was to solve this in the S4Vectors class (for DataFrame), see the [PR](https://github.com/Bioconductor/S4Vectors/pull/116) by [@kevinrue](https://github.com/kevinrue) - then [@hpages](https://github.com/hpages) pointed out the more general solution described above.
-    > 
-    > -> Could ggplot add the `as.data.frame` check to extend the support to other formats than `data.frame`? If yes, we might be able to provide a PR.
+> **Problem** Whereas *ggplot2* supports `data.frame`, many other data structures are available that could benefit from the ability to use ggplot2 functionality. Examples include e.g. DataFrame, matrix, dgCMatrix, DelayedMatrix, SparseMatrix, etc. Many of these classes support `as.data.frame()` and can be easily converted into a data.frame. However, the need to do this with every ggplot2 function call becomes rapidly very repetitive.
+> 
+> **Suggested solution** The default fortify() method, `ggplot2:::fortify.default()` could just try to call `as.data.frame()` on the supplied object. This would directly make `ggplot()` work on any object that supports `as.data.frame()` (e.g. DataFrame, matrix, dgCMatrix, DelayedMatrix, SparseMatrix, etc.)
+> 
+> [Bioconductor/S4Vectors#116](https://github.com/Bioconductor/S4Vectors/pull/116)
+> 
+> Let's load libraries and example data
+> 
+> ```
+> library(S4Vectors)
+> library(ggplot2)
+> data(iris)
+> ```
+> 
+> Usual data.frame works as expected:
+> 
+> ```
+> ggplot(iris, aes(x=Sepal.Width, y=Sepal.Length)) + geom_point()
+> ```
+> 
+> DataFrame does not work, and ggplot call throws and error:
+> 
+> ```
+> ggplot(DataFrame(iris), aes(x=Sepal.Width, y=Sepal.Length)) + geom_point()
+> ```
+> 
+> > Error in `fortify()`:  
+> > ! `data` must be a <data.frame>, or an object coercible by `fortify()`,  
+> > not a object.
+> 
+> At the moment our default solution has been to always add `as.data.frame()` around DataFrame objects, like:
+> 
+> ```
+> ggplot(as.data.frame(d), aes(x, y)) + geom_point()
+> ```
+> 
+> There was initial discussion that related to the challenges this adds to teaching standard plotting in ecosystems that rely on classes that are closely related to data.frame but not that.
+> 
+> Initial thought was to solve this in the S4Vectors class (for DataFrame), see the [PR](https://github.com/Bioconductor/S4Vectors/pull/116) by [@kevinrue](https://github.com/kevinrue) - then [@hpages](https://github.com/hpages) pointed out the more general solution described above.
+> 
+> -> Could ggplot add the `as.data.frame` check to extend the support to other formats than `data.frame`? If yes, we might be able to provide a PR.
 
 **Hervé Pagès** (15:01:49) (in thread):
 > Thanks@Leo Lahti!
@@ -10835,27 +11676,39 @@ format: gfm
 
 ## 2023-08-18
 
-*12:35:38 - @Victor Yuan has joined the channel*
+**Victor Yuan** (12:35:38):
+> @Victor Yuan has joined the channel
+
 
 ## 2023-08-20
 
-*10:38:27 - @Jacques SERIZAY has joined the channel*
+**Jacques SERIZAY** (10:38:27):
+> @Jacques SERIZAY has joined the channel
+
 
 ## 2023-09-03
 
-*09:52:49 - @Lea Seep has joined the channel*
+**Lea Seep** (09:52:49):
+> @Lea Seep has joined the channel
+
 
 ## 2023-09-13
 
-*17:05:09 - @Christopher Chin has joined the channel*
+**Christopher Chin** (17:05:09):
+> @Christopher Chin has joined the channel
+
 
 ## 2023-09-15
 
-*04:56:30 - @Leo Lahti has joined the channel*
+**Leo Lahti** (04:56:30):
+> @Leo Lahti has joined the channel
+
 
 ## 2023-09-18
 
-*16:54:25 - @Krithika Bhuvanesh has joined the channel*
+**Krithika Bhuvanesh** (16:54:25):
+> @Krithika Bhuvanesh has joined the channel
+
 **Krithika Bhuvanesh** (16:54:36):
 > Has anyone used monocle3 in Bioconductor ?
 
@@ -10871,7 +11724,9 @@ format: gfm
 
 ## 2023-09-20
 
-*04:51:09 - @Alik Huseynov has joined the channel*
+**Alik Huseynov** (04:51:09):
+> @Alik Huseynov has joined the channel
+
 **Hervé Pagès** (12:06:58) (in thread):
 > This was finally merged:[https://github.com/tidyverse/ggplot2/pull/5404](https://github.com/tidyverse/ggplot2/pull/5404)Don't know how long it will take to make it to CRAN though.
 
@@ -10968,37 +11823,51 @@ format: gfm
 
 ## 2023-09-25
 
-*09:12:44 - @Kerim Secener has joined the channel*
+**Kerim Secener** (09:12:44):
+> @Kerim Secener has joined the channel
+
 
 ## 2023-11-02
 
-*10:52:04 - @Sunil Poudel has joined the channel*
+**Sunil Poudel** (10:52:04):
+> @Sunil Poudel has joined the channel
+
 **Sunil Poudel** (10:59:58):
 > Our next seminar on Mon, Nov 06, 3-4 AM ET, will feature Ricard Argelaguet, who will discuss[principles and challenges in single-cell data integration](https://www.nature.com/articles/s41587-021-00895-7). Join us under the zoom link provided in the flyer below!
   - Attachment (Nature): [Computational principles and challenges in single-cell data integration](https://www.nature.com/articles/s41587-021-00895-7)
-    > Nature Biotechnology - As the number of single-cell experiments with multiple data modalities increases, Argelaguet and colleagues review the concepts and challenges of data integration.
+> Nature Biotechnology - As the number of single-cell experiments with multiple data modalities increases, Argelaguet and colleagues review the concepts and challenges of data integration.
   - File (PDF): [CCB_SeminarFlyer_Ricard.pdf](https://community-bioc.slack.com/files/U34P8RS3B/F0642C9LBQU/ccb_seminarflyer_ricard.pdf)
 
 
 ## 2023-12-01
 
-*10:16:32 - @Tram Nguyen has joined the channel*
+**Tram Nguyen** (10:16:32):
+> @Tram Nguyen has joined the channel
+
 
 ## 2023-12-15
 
-*15:04:33 - @Zepeng QU has joined the channel*
+**Zepeng QU** (15:04:33):
+> @Zepeng QU has joined the channel
+
 
 ## 2024-01-10
 
-*15:04:33 - @Bernie Mulvey has joined the channel*
+**Bernie Mulvey** (15:04:33):
+> @Bernie Mulvey has joined the channel
+
 
 ## 2024-01-11
 
-*12:01:21 - @Nilesh Kumar has joined the channel*
+**Nilesh Kumar** (12:01:21):
+> @Nilesh Kumar has joined the channel
+
 
 ## 2024-01-22
 
-*11:45:49 - @Assa has left the channel*
+**Assa** (11:45:49):
+> @Assa has left the channel
+
 
 ## 2024-02-15
 
@@ -11093,7 +11962,9 @@ format: gfm
 
 ## 2024-03-05
 
-*01:32:40 - @Pratibha Panwar has joined the channel*
+**Pratibha Panwar** (01:32:40):
+> @Pratibha Panwar has joined the channel
+
 **Vince Carey** (14:29:32):
 > Intrepid souls who are working with the devel branch may wish to explore the newest version of scRNAseq.  One untoward event that needs explanation:
 > ```
@@ -11111,85 +11982,85 @@ format: gfm
 **Aaron Lun** (16:54:49):
 > see my response in[https://github.com/LTLA/scRNAseq/issues/44](https://github.com/LTLA/scRNAseq/issues/44)
   - Attachment: [#44 extreme value detection event with new PaulHSCData, not seen in legacy call](https://github.com/LTLA/scRNAseq/issues/44)
-    > ```
-    > > z = PaulHSCData(legacy=FALSE)
-    > The value -2^31 was detected in the dataset.
-    > This has been converted to NA within R.
-    > The value -2^31 was detected in the dataset.
-    > This has been converted to NA within R.
-    > ```
-    > 
-    > seen on windows and linux
-    > 
-    > ```
-    > > sessionInfo()
-    > R Under development (unstable) (2024-01-10 r85797)
-    > Platform: x86_64-pc-linux-gnu
-    > Running under: Ubuntu 22.04.4 LTS
-    > 
-    > Matrix products: default
-    > BLAS:   /home/vincent/R-4-4-dist/lib/R/lib/libRblas.so 
-    > LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
-    > 
-    > locale:
-    >  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
-    >  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
-    >  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
-    >  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
-    >  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-    > [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
-    > 
-    > time zone: America/New_York
-    > tzcode source: system (glibc)
-    > 
-    > attached base packages:
-    > [1] stats4    stats     graphics  grDevices utils     datasets  methods  
-    > [8] base     
-    > 
-    > other attached packages:
-    >  [1] scRNAseq_2.17.1             SingleCellExperiment_1.25.0
-    >  [3] SummarizedExperiment_1.33.3 Biobase_2.63.0             
-    >  [5] GenomicRanges_1.55.3        GenomeInfoDb_1.39.6        
-    >  [7] IRanges_2.37.1              S4Vectors_0.41.3           
-    >  [9] BiocGenerics_0.49.1         MatrixGenerics_1.15.0      
-    > [11] matrixStats_1.2.0           rmarkdown_2.25             
-    > 
-    > loaded via a namespace (and not attached):
-    >  [1] DBI_1.2.2                bitops_1.0-7             httr2_1.0.0             
-    >  [4] biomaRt_2.59.1           rlang_1.1.3              magrittr_2.0.3          
-    >  [7] gypsum_0.99.9            compiler_4.4.0           RSQLite_2.3.5           
-    > [10] GenomicFeatures_1.55.3   png_0.1-8                vctrs_0.6.5             
-    > [13] stringr_1.5.1            ProtGenerics_1.35.2      pkgconfig_2.0.3         
-    > [16] crayon_1.5.2             fastmap_1.1.1            dbplyr_2.4.0            
-    > [19] XVector_0.43.1           utf8_1.2.4               Rsamtools_2.19.3        
-    > [22] bit_4.0.5                xfun_0.42                aws.s3_0.3.21           
-    > [25] zlibbioc_1.49.0          cachem_1.0.8             jsonlite_1.8.8          
-    > [28] progress_1.2.3           blob_1.2.4               rhdf5filters_1.15.2     
-    > [31] DelayedArray_0.29.7      Rhdf5lib_1.25.1          BiocParallel_1.37.0     
-    > [34] parallel_4.4.0           prettyunits_1.2.0        R6_2.5.1                
-    > [37] stringi_1.8.3            rtracklayer_1.63.0       Rcpp_1.0.12             
-    > [40] knitr_1.45               base64enc_0.1-3          Matrix_1.6-4            
-    > [43] tidyselect_1.2.0         abind_1.4-5              yaml_2.3.8              
-    > [46] codetools_0.2-19         curl_5.2.0               lattice_0.22-5          
-    > [49] alabaster.sce_1.3.3      tibble_3.2.1             KEGGREST_1.43.0         
-    > [52] evaluate_0.23            BiocFileCache_2.11.1     alabaster.schemas_1.3.1 
-    > [55] xml2_1.3.6               ExperimentHub_2.11.1     Biostrings_2.71.2       
-    > [58] pillar_1.9.0             BiocManager_1.30.22      filelock_1.0.3          
-    > [61] generics_0.1.3           startup_0.21.0           RCurl_1.98-1.14         
-    > [64] BiocVersion_3.19.1       ensembldb_2.27.1         hms_1.1.3               
-    > [67] alabaster.base_1.3.20    alabaster.ranges_1.3.3   glue_1.7.0              
-    > [70] alabaster.matrix_1.3.12  lazyeval_0.2.2           tools_4.4.0             
-    > [73] AnnotationHub_3.11.1     BiocIO_1.13.0            GenomicAlignments_1.39.4
-    > [76] XML_3.99-0.16.1          rhdf5_2.47.4             grid_4.4.0              
-    > [79] AnnotationDbi_1.65.2     GenomeInfoDbData_1.2.11  HDF5Array_1.31.5        
-    > [82] restfulr_0.0.15          cli_3.6.2                rappdirs_0.3.3          
-    > [85] fansi_1.0.6              S4Arrays_1.3.4           dplyr_1.1.4             
-    > [88] AnnotationFilter_1.27.0  alabaster.se_1.3.4       digest_0.6.34           
-    > [91] SparseArray_1.3.4        rjson_0.2.21             memoise_2.0.1           
-    > [94] htmltools_0.5.7          lifecycle_1.0.4          httr_1.4.7              
-    > [97] aws.signature_0.6.0      bit64_4.0.5             
-    > > 
-    > ```
+> ```
+> > z = PaulHSCData(legacy=FALSE)
+> The value -2^31 was detected in the dataset.
+> This has been converted to NA within R.
+> The value -2^31 was detected in the dataset.
+> This has been converted to NA within R.
+> ```
+> 
+> seen on windows and linux
+> 
+> ```
+> > sessionInfo()
+> R Under development (unstable) (2024-01-10 r85797)
+> Platform: x86_64-pc-linux-gnu
+> Running under: Ubuntu 22.04.4 LTS
+> 
+> Matrix products: default
+> BLAS:   /home/vincent/R-4-4-dist/lib/R/lib/libRblas.so 
+> LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+> 
+> locale:
+>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+>  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+> 
+> time zone: America/New_York
+> tzcode source: system (glibc)
+> 
+> attached base packages:
+> [1] stats4    stats     graphics  grDevices utils     datasets  methods  
+> [8] base     
+> 
+> other attached packages:
+>  [1] scRNAseq_2.17.1             SingleCellExperiment_1.25.0
+>  [3] SummarizedExperiment_1.33.3 Biobase_2.63.0             
+>  [5] GenomicRanges_1.55.3        GenomeInfoDb_1.39.6        
+>  [7] IRanges_2.37.1              S4Vectors_0.41.3           
+>  [9] BiocGenerics_0.49.1         MatrixGenerics_1.15.0      
+> [11] matrixStats_1.2.0           rmarkdown_2.25             
+> 
+> loaded via a namespace (and not attached):
+>  [1] DBI_1.2.2                bitops_1.0-7             httr2_1.0.0             
+>  [4] biomaRt_2.59.1           rlang_1.1.3              magrittr_2.0.3          
+>  [7] gypsum_0.99.9            compiler_4.4.0           RSQLite_2.3.5           
+> [10] GenomicFeatures_1.55.3   png_0.1-8                vctrs_0.6.5             
+> [13] stringr_1.5.1            ProtGenerics_1.35.2      pkgconfig_2.0.3         
+> [16] crayon_1.5.2             fastmap_1.1.1            dbplyr_2.4.0            
+> [19] XVector_0.43.1           utf8_1.2.4               Rsamtools_2.19.3        
+> [22] bit_4.0.5                xfun_0.42                aws.s3_0.3.21           
+> [25] zlibbioc_1.49.0          cachem_1.0.8             jsonlite_1.8.8          
+> [28] progress_1.2.3           blob_1.2.4               rhdf5filters_1.15.2     
+> [31] DelayedArray_0.29.7      Rhdf5lib_1.25.1          BiocParallel_1.37.0     
+> [34] parallel_4.4.0           prettyunits_1.2.0        R6_2.5.1                
+> [37] stringi_1.8.3            rtracklayer_1.63.0       Rcpp_1.0.12             
+> [40] knitr_1.45               base64enc_0.1-3          Matrix_1.6-4            
+> [43] tidyselect_1.2.0         abind_1.4-5              yaml_2.3.8              
+> [46] codetools_0.2-19         curl_5.2.0               lattice_0.22-5          
+> [49] alabaster.sce_1.3.3      tibble_3.2.1             KEGGREST_1.43.0         
+> [52] evaluate_0.23            BiocFileCache_2.11.1     alabaster.schemas_1.3.1 
+> [55] xml2_1.3.6               ExperimentHub_2.11.1     Biostrings_2.71.2       
+> [58] pillar_1.9.0             BiocManager_1.30.22      filelock_1.0.3          
+> [61] generics_0.1.3           startup_0.21.0           RCurl_1.98-1.14         
+> [64] BiocVersion_3.19.1       ensembldb_2.27.1         hms_1.1.3               
+> [67] alabaster.base_1.3.20    alabaster.ranges_1.3.3   glue_1.7.0              
+> [70] alabaster.matrix_1.3.12  lazyeval_0.2.2           tools_4.4.0             
+> [73] AnnotationHub_3.11.1     BiocIO_1.13.0            GenomicAlignments_1.39.4
+> [76] XML_3.99-0.16.1          rhdf5_2.47.4             grid_4.4.0              
+> [79] AnnotationDbi_1.65.2     GenomeInfoDbData_1.2.11  HDF5Array_1.31.5        
+> [82] restfulr_0.0.15          cli_3.6.2                rappdirs_0.3.3          
+> [85] fansi_1.0.6              S4Arrays_1.3.4           dplyr_1.1.4             
+> [88] AnnotationFilter_1.27.0  alabaster.se_1.3.4       digest_0.6.34           
+> [91] SparseArray_1.3.4        rjson_0.2.21             memoise_2.0.1           
+> [94] htmltools_0.5.7          lifecycle_1.0.4          httr_1.4.7              
+> [97] aws.signature_0.6.0      bit64_4.0.5             
+> > 
+> ```
 
 
 ## 2024-03-07
@@ -11218,43 +12089,61 @@ format: gfm
 **Aaron Lun** (20:42:21):
 > thoughts of deprecation of asSparse= in *Pairs functions of the SCE:[https://github.com/drisso/SingleCellExperiment/issues/73#issuecomment-2019477191](https://github.com/drisso/SingleCellExperiment/issues/73#issuecomment-2019477191); comments welcome.
   - Attachment: [Comment on #73 `colPairs(x, asSparse = TRUE)` fails when there are no metadata columns](https://github.com/drisso/SingleCellExperiment/issues/73#issuecomment-2019477191)
-    > I'll take the PR since it's already been put together, but longer term, I am wondering whether it would be better to (i) deprecate the `asSparse=` and (ii) export the `.hits2mat` function (and its counterpart for converting a matrix to a `Hits` object). This would simplify the interface; the SCE only cares about `Hits` going in and out, and exactly how this is converted to/from a sparse matrix is up to the user/application outside of the SCE.
-    > 
-    > I don't ever use the `colPairs` and `rowPairs` functionality so I have no relevant experience/opinion on this matter, but happy to take thoughts from people who do use it.
+> I'll take the PR since it's already been put together, but longer term, I am wondering whether it would be better to (i) deprecate the `asSparse=` and (ii) export the `.hits2mat` function (and its counterpart for converting a matrix to a `Hits` object). This would simplify the interface; the SCE only cares about `Hits` going in and out, and exactly how this is converted to/from a sparse matrix is up to the user/application outside of the SCE.
+> 
+> I don't ever use the `colPairs` and `rowPairs` functionality so I have no relevant experience/opinion on this matter, but happy to take thoughts from people who do use it.
 
 
 ## 2024-03-27
 
-*05:45:05 - @abhich has joined the channel*
+**abhich** (05:45:05):
+> @abhich has joined the channel
+
 
 ## 2024-04-18
 
-*15:53:39 - @Weston Elison has joined the channel*
+**Weston Elison** (15:53:39):
+> @Weston Elison has joined the channel
+
 
 ## 2024-04-25
 
-*05:02:15 - @Mercedes Guerrero has joined the channel*
+**Mercedes Guerrero** (05:02:15):
+> @Mercedes Guerrero has joined the channel
+
 
 ## 2024-04-28
 
-*08:39:09 - @Danielle Callan has joined the channel*
+**Danielle Callan** (08:39:09):
+> @Danielle Callan has joined the channel
+
 
 ## 2024-04-29
 
-*08:29:13 - @Amarinder Singh Thind has joined the channel*
-*09:35:26 - @Samuel Gunz has joined the channel*
+**Amarinder Singh Thind** (08:29:13):
+> @Amarinder Singh Thind has joined the channel
+
+**Samuel Gunz** (09:35:26):
+> @Samuel Gunz has joined the channel
+
 
 ## 2024-05-06
 
-*11:56:25 - @Michal Kolář has joined the channel*
+**Michal Kolář** (11:56:25):
+> @Michal Kolář has joined the channel
+
 
 ## 2024-05-07
 
-*12:11:06 - @Carlo Pecoraro has joined the channel*
+**Carlo Pecoraro** (12:11:06):
+> @Carlo Pecoraro has joined the channel
+
 
 ## 2024-05-09
 
-*07:40:00 - @Philippe Laffont has joined the channel*
+**Philippe Laffont** (07:40:00):
+> @Philippe Laffont has joined the channel
+
 
 ## 2024-05-26
 
@@ -11282,24 +12171,30 @@ format: gfm
 **Aedin Culhane** (12:49:51):
 > Anyone interested in working with BD data?
 
-*13:27:25 - @Maria Doyle has joined the channel*
+**Maria Doyle** (13:27:25):
+> @Maria Doyle has joined the channel
+
 **Tim Triche** (20:54:21) (in thread):
 > Sort of.Have some AbSeq data lying around
 
 
 ## 2024-06-30
 
-*13:09:06 - @Nicolas Peterson has joined the channel*
+**Nicolas Peterson** (13:09:06):
+> @Nicolas Peterson has joined the channel
+
 
 ## 2024-07-05
 
-*04:37:33 - @Antonin Thiébaut has joined the channel*
+**Antonin Thiébaut** (04:37:33):
+> @Antonin Thiébaut has joined the channel
+
 
 ## 2024-07-08
 
 **Sean Davis** (09:24:29):
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C34NC134G/p1720444774815009)
-    > [https://github.com/seandavi/awesome-single-cell](https://github.com/seandavi/awesome-single-cell) still looking for updates. There is no Bioconductor section--would love to see that contribution!
+> [https://github.com/seandavi/awesome-single-cell](https://github.com/seandavi/awesome-single-cell) still looking for updates. There is no Bioconductor section--would love to see that contribution!
 
 **Pedro Sanchez** (09:58:45) (in thread):
 > Hi Sean! I have sort of an internal database about single-cell tools, so I may merge it with your repository! I’ll try to do it during my spare time during this summer
@@ -11307,7 +12202,7 @@ format: gfm
 **Pedro Sanchez** (09:59:53) (in thread):
 > However, I’d be interested in knowing what is the overlap with similar efforts such as[https://www.scrna-tools.org/](https://www.scrna-tools.org/). What’s your take on this?@Luke Zappia
   - Attachment (scrna-tools.org): [scRNA-tools](https://www.scrna-tools.org/)
-    > A catalogue of single-cell RNA-sequencing analysis tools
+> A catalogue of single-cell RNA-sequencing analysis tools
 
 **Luke Zappia** (11:04:54) (in thread):
 > There is some overlap (I tried to add tools from Sean's page) but I would say they are complementary. scRNA-tools both has more information on tools and is more restricted (only includes tools, not other single-cell stuff). FYI (if you didn't know already), scRNA-tools is now in "low-maintenance mode" which means I am no longer actively adding tools but will still make updates based on community contributions (similar to what Sean does).
@@ -11321,27 +12216,39 @@ format: gfm
 
 ## 2024-07-11
 
-*07:21:06 - @Hothri Moka has joined the channel*
+**Hothri Moka** (07:21:06):
+> @Hothri Moka has joined the channel
+
 
 ## 2024-07-30
 
-*17:48:03 - @Jorge Kageyama has joined the channel*
+**Jorge Kageyama** (17:48:03):
+> @Jorge Kageyama has joined the channel
+
 
 ## 2024-07-31
 
-*17:21:18 - @Zahraa W Alsafwani has joined the channel*
+**Zahraa W Alsafwani** (17:21:18):
+> @Zahraa W Alsafwani has joined the channel
+
 
 ## 2024-08-08
 
-*01:36:38 - @Zhu Yujia has joined the channel*
+**Zhu Yujia** (01:36:38):
+> @Zhu Yujia has joined the channel
+
 
 ## 2024-08-11
 
-*13:29:59 - @Lu Yang has joined the channel*
+**Lu Yang** (13:29:59):
+> @Lu Yang has joined the channel
+
 
 ## 2024-08-19
 
-*09:37:30 - @Rema Gesaka has joined the channel*
+**Rema Gesaka** (09:37:30):
+> @Rema Gesaka has joined the channel
+
 
 ## 2024-08-20
 
@@ -11414,23 +12321,33 @@ format: gfm
 
 ## 2024-08-21
 
-*08:58:04 - @Laura Symul has joined the channel*
+**Laura Symul** (08:58:04):
+> @Laura Symul has joined the channel
+
 
 ## 2024-08-26
 
-*22:50:04 - @Krithika Bhuvanesh has left the channel*
+**Krithika Bhuvanesh** (22:50:04):
+> @Krithika Bhuvanesh has left the channel
+
 
 ## 2024-09-10
 
-*03:46:35 - @Alex Qin has joined the channel*
+**Alex Qin** (03:46:35):
+> @Alex Qin has joined the channel
+
 
 ## 2024-09-20
 
-*09:30:17 - @Camille Guillermin has joined the channel*
+**Camille Guillermin** (09:30:17):
+> @Camille Guillermin has joined the channel
+
 
 ## 2024-10-18
 
-*11:11:37 - @Felipe ten Caten has joined the channel*
+**Felipe ten Caten** (11:11:37):
+> @Felipe ten Caten has joined the channel
+
 
 ## 2024-11-27
 
@@ -11446,7 +12363,9 @@ format: gfm
 
 ## 2025-01-09
 
-*11:40:51 - @Ammar Sabir Cheema has joined the channel*
+**Ammar Sabir Cheema** (11:40:51):
+> @Ammar Sabir Cheema has joined the channel
+
 
 ## 2025-01-27
 
@@ -11511,4 +12430,5 @@ format: gfm
 
 ## 2025-04-25
 
-*04:57:39 - @Marisa Loach has joined the channel*
+**Marisa Loach** (04:57:39):
+> @Marisa Loach has joined the channel

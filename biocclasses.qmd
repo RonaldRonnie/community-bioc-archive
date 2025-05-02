@@ -3,20 +3,29 @@ title: "#biocclasses"
 format: gfm
 ---
 
-
 ## 2023-02-10
 
-*09:13:03 - @Laurent Gatto has joined the channel*
+**Laurent Gatto** (09:13:03):
+> @Laurent Gatto has joined the channel
+
 **Laurent Gatto** (09:13:04):
 > set the channel description: Bioconductor Classes Working Group
 
 **Laurent Gatto** (09:15:36):
 > WG channel created: ping@Lori Shepherd@Dario Righelli@Malte Thodberg@Johannes Rainer@Marcel Ramos Pérez@Lluís Revilla
 
-*09:15:59 - @Lori Shepherd has joined the channel*
-*09:16:01 - @Lluís Revilla has joined the channel*
-*09:24:34 - @Marcel Ramos Pérez has joined the channel*
-*09:25:30 - @Malte Thodberg has joined the channel*
+**Lori Shepherd** (09:15:59):
+> @Lori Shepherd has joined the channel
+
+**Lluís Revilla** (09:16:01):
+> @Lluís Revilla has joined the channel
+
+**Marcel Ramos Pérez** (09:24:34):
+> @Marcel Ramos Pérez has joined the channel
+
+**Malte Thodberg** (09:25:30):
+> @Malte Thodberg has joined the channel
+
 **Laurent Gatto** (10:42:00):
 > Hi@Hervé Pagès- what
 
@@ -26,30 +35,36 @@ format: gfm
 **Laurent Gatto** (10:44:22):
 > For reference: notes of today's WG meeting[https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/3](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/3)
   - Attachment: [#3 WG meeting 2023-02-10](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/3)
-    > Where: [https://meet.jit.si/BiocClasses](https://meet.jit.si/BiocClasses)  
-    > Time: 2 pm (CET)
-    > 
-    > On the agenda:
-    > 
-    > • What are the 'official' classes? Any difference between common and promoted classes (from [#1](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/1)). What about low level classes (see [#2](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/2))?
-    > • What is the procedure to establish a new 'official' class?
-    > • To what extent should these be enforced during package review?
-    > 
-    > > In general, a package will not be accepted if it does not show interoperability with the current Bioconductor ecosystem.
-    > 
-    > • If not strictly enforced, should we at least require a wrapper function to convert to these? TAB: classes shouldn't strictly enforced.
-    > • Instead of enforcing, we should convince. What are the advantages of re-using existing (core) classes? Any volunteers to initiate a short document that could be added to the contributions guide and/or a blog post? See also [#1](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/1)
-    > • What improvements to S4 class development do we need (see [#2](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/2))? Possibly with a focus on Bioconductor needs?
+> Where: [https://meet.jit.si/BiocClasses](https://meet.jit.si/BiocClasses)  
+> Time: 2 pm (CET)
+> 
+> On the agenda:
+> 
+> • What are the 'official' classes? Any difference between common and promoted classes (from [#1](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/1)). What about low level classes (see [#2](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/2))?
+> • What is the procedure to establish a new 'official' class?
+> • To what extent should these be enforced during package review?
+> 
+> > In general, a package will not be accepted if it does not show interoperability with the current Bioconductor ecosystem.
+> 
+> • If not strictly enforced, should we at least require a wrapper function to convert to these? TAB: classes shouldn't strictly enforced.
+> • Instead of enforcing, we should convince. What are the advantages of re-using existing (core) classes? Any volunteers to initiate a short document that could be added to the contributions guide and/or a blog post? See also [#1](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/1)
+> • What improvements to S4 class development do we need (see [#2](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/2))? Possibly with a focus on Bioconductor needs?
 
-*10:57:13 - @Dario Righelli has joined the channel*
+**Dario Righelli** (10:57:13):
+> @Dario Righelli has joined the channel
+
 
 ## 2023-02-13
 
-*03:19:33 - @Johannes Rainer has joined the channel*
+**Johannes Rainer** (03:19:33):
+> @Johannes Rainer has joined the channel
+
 
 ## 2023-02-14
 
-*18:10:26 - @Hervé Pagès has joined the channel*
+**Hervé Pagès** (18:10:26):
+> @Hervé Pagès has joined the channel
+
 **Hervé Pagès** (18:19:14):
 > Unless you have a really really good reason to use a reference class (but I've never seen one), you should stay away from them. In general, in R, you wouldn't expect that`y <- foo(x)`will modify`x`but that could actually happen if`x`is a reference object. Even worse, you wouldn't expect that`x0 <- x; y <- foo(x)`will modify`x0`but it could! Your attempt at protecting`x0`from the change didn't work! You would need to do something like`x0 <- clone(x)`for this to work. This is really bad. There's a reason R uses a pass-by-value semantic. That's the paradygm we are used to. Reference classes break this paradygm.
 
@@ -77,33 +92,51 @@ format: gfm
 
 ## 2023-02-25
 
-*06:18:11 - @Ludwig Geistlinger has joined the channel*
-*06:55:34 - @Stephanie Hicks has joined the channel*
+**Ludwig Geistlinger** (06:18:11):
+> @Ludwig Geistlinger has joined the channel
+
+**Stephanie Hicks** (06:55:34):
+> @Stephanie Hicks has joined the channel
+
 
 ## 2023-02-26
 
-*15:40:58 - @Peter Hickey has joined the channel*
+**Peter Hickey** (15:40:58):
+> @Peter Hickey has joined the channel
+
 
 ## 2023-02-28
 
-*03:19:26 - @Vince Carey has joined the channel*
-*04:16:39 - @Federico Marini has joined the channel*
+**Vince Carey** (03:19:26):
+> @Vince Carey has joined the channel
+
+**Federico Marini** (04:16:39):
+> @Federico Marini has joined the channel
+
 
 ## 2023-03-02
 
-*10:47:37 - @Davide Risso has joined the channel*
+**Davide Risso** (10:47:37):
+> @Davide Risso has joined the channel
+
 
 ## 2023-03-12
 
-*11:02:22 - @Charlotte Soneson has joined the channel*
+**Charlotte Soneson** (11:02:22):
+> @Charlotte Soneson has joined the channel
+
 
 ## 2023-05-18
 
-*05:54:21 - @Oluwafemi Oyedele has joined the channel*
+**Oluwafemi Oyedele** (05:54:21):
+> @Oluwafemi Oyedele has joined the channel
+
 
 ## 2023-06-09
 
-*17:25:00 - @Aedin Culhane has joined the channel*
+**Aedin Culhane** (17:25:00):
+> @Aedin Culhane has joined the channel
+
 
 ## 2023-06-16
 
@@ -126,11 +159,15 @@ format: gfm
 
 ## 2023-06-19
 
-*05:09:30 - @Pierre-Paul Axisa has joined the channel*
+**Pierre-Paul Axisa** (05:09:30):
+> @Pierre-Paul Axisa has joined the channel
+
 
 ## 2023-06-27
 
-*13:20:08 - @Louis Le Nézet has joined the channel*
+**Louis Le Nézet** (13:20:08):
+> @Louis Le Nézet has joined the channel
+
 **Louis Le Nézet** (13:26:17):
 > Hi everyone,
 > I'm working on a pedigree package and the creator of the package was working with a S4 (i think) pedigree objects.
@@ -432,7 +469,7 @@ format: gfm
 **Lluís Revilla** (19:28:50) (in thread):
 > First time hearing about`parallel_slot_names`, is this documented somewhere? I couldn't find it in the manuals or CRAN. I found it in the S4Vectors package, but as an alias to Vector-class with no mention of the generic, and commented in the source:[https://code.bioconductor.org/browse/S4Vectors/blob/devel/R/Vector-class.R](https://code.bioconductor.org/browse/S4Vectors/blob/devel/R/Vector-class.R).
   - Attachment (code.bioconductor.org): [Bioconductor Code: Browse](https://code.bioconductor.org/browse/S4Vectors/blob/devel/R/Vector-class.R)
-    > Browse the content of Bioconductor software packages.
+> Browse the content of Bioconductor software packages.
 
 
 ## 2023-06-30
@@ -495,9 +532,9 @@ format: gfm
 **Lluís Revilla** (04:16:32):
 > I've answered the questions in[https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/7](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/7)
   - Attachment: [#7 Submit a package?](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/7)
-    > • Do I need to write a package? What about a workflow?
-    > • Do I need OO progamming in Bioc packages?
-    > • Do I need methods to use classes?
+> • Do I need to write a package? What about a workflow?
+> • Do I need OO progamming in Bioc packages?
+> • Do I need methods to use classes?
 
 
 ## 2023-07-18
@@ -737,11 +774,15 @@ format: gfm
 
 ## 2023-08-04
 
-*09:34:47 - @Trisha Timpug has joined the channel*
+**Trisha Timpug** (09:34:47):
+> @Trisha Timpug has joined the channel
+
 
 ## 2023-08-07
 
-*11:19:39 - @Jiaji George Chen has joined the channel*
+**Jiaji George Chen** (11:19:39):
+> @Jiaji George Chen has joined the channel
+
 
 ## 2023-08-16
 
@@ -840,13 +881,13 @@ format: gfm
 > Hi<!here>, I just opened a[new issue](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/12)related to the bioc classes and their interoperability, topic discussed during the interoperability BoF in Ghent at EuroBioc23.
 > I also noticed lots of new issues there,@Laurent Gattodo you think it could be a good idea to arrange a meeting for some discussions?
   - Attachment: [#12 Bioc Classes external interoperability](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/12)
-    > At EuroBioc23 this year, during the BoF about interoperability between Bioconductor and other external languages.
-    > 
-    > I think this is something we should consider in our discussions, like:
-    > 
-    > • collecting classes that are able to interoperate with external languages/frameworks, (i.e. python with AnnData or within R with Seurat)
-    > • open issues for existing classes in Bioc that still are not able to allow this interoperability (i.e. GenomicRanges ?)
-    > • do the interoperability efforts need to be made from the Bioc people also in other languages?
+> At EuroBioc23 this year, during the BoF about interoperability between Bioconductor and other external languages.
+> 
+> I think this is something we should consider in our discussions, like:
+> 
+> • collecting classes that are able to interoperate with external languages/frameworks, (i.e. python with AnnData or within R with Seurat)
+> • open issues for existing classes in Bioc that still are not able to allow this interoperability (i.e. GenomicRanges ?)
+> • do the interoperability efforts need to be made from the Bioc people also in other languages?
 
 
 ## 2023-10-11
@@ -863,7 +904,9 @@ format: gfm
 **Lluís Revilla** (06:07:58):
 > That is my primary concern and I think this working group should attempt to provide guidelines to address this: How to define these key classes, where to define them and how to maintain them...
 
-*14:05:03 - @Robert Shear has joined the channel*
+**Robert Shear** (14:05:03):
+> @Robert Shear has joined the channel
+
 
 ## 2023-10-24
 
@@ -885,30 +928,40 @@ format: gfm
 
 ## 2023-11-17
 
-*03:20:20 - @Francesc Català-Moll has joined the channel*
+**Francesc Català-Moll** (03:20:20):
+> @Francesc Català-Moll has joined the channel
+
 
 ## 2023-12-30
 
 **Aedin Culhane** (09:33:20):
   - Attachment (datascience.cancer.gov): [Sharing Cancer Research Software? NIH Wants to Hear from You! | CBIIT](https://datascience.cancer.gov/news-events/news/sharing-cancer-research-software-nih-wants-hear-you)
-    > Are you working with source codes, algorithms, workflows, and other software in your cancer research? NIH wants to hear from you! Respond today to help NIH develop new best-practice guidelines.
+> Are you working with source codes, algorithms, workflows, and other software in your cancer research? NIH wants to hear from you! Respond today to help NIH develop new best-practice guidelines.
 
 
 ## 2024-03-09
 
-*20:38:42 - @Cherishma Subhasa has joined the channel*
+**Cherishma Subhasa** (20:38:42):
+> @Cherishma Subhasa has joined the channel
+
 
 ## 2024-05-05
 
-*09:38:32 - @Ifra has joined the channel*
+**Ifra** (09:38:32):
+> @Ifra has joined the channel
+
 
 ## 2024-07-19
 
-*17:23:52 - @Sudipta Hazra has joined the channel*
+**Sudipta Hazra** (17:23:52):
+> @Sudipta Hazra has joined the channel
+
 
 ## 2024-07-29
 
-*17:08:29 - @JP Flores has joined the channel*
+**JP Flores** (17:08:29):
+> @JP Flores has joined the channel
+
 
 ## 2024-10-08
 
@@ -917,9 +970,11 @@ format: gfm
 > Also following up[this discussion on R7](https://community-bioc.slack.com/archives/CLUJWDQF4/p1726075488985569?thread_ts=1723648167.898039&cid=CLUJWDQF4),  it would be good to invite Micheal and Tim to join the group to discuss about possible future synergies.
 > Do we want to arrange a meeting for the end of the month?
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CLUJWDQF4/p1726075488985569?thread_ts=1723648167.898039&amp;cid=CLUJWDQF4)
-    > Anyone know the process for initiating such a group?
+> Anyone know the process for initiating such a group?
 
-*06:42:24 - @Dario Strbenac has joined the channel*
+**Dario Strbenac** (06:42:24):
+> @Dario Strbenac has joined the channel
+
 **Lori Shepherd** (07:09:34):
 > End of this month is the release so I might be tied up depending on the time that is decided but I would be interested in participating in conversations
 
@@ -929,7 +984,9 @@ format: gfm
 
 ## 2024-10-11
 
-*07:00:10 - @Levi Waldron has joined the channel*
+**Levi Waldron** (07:00:10):
+> @Levi Waldron has joined the channel
+
 **Laurent Gatto** (11:26:46):
 > @Dario Righelli- excellent idea, and thank you for following up. Might I suggest that you take the lead at organising the next meeting?
 
@@ -939,8 +996,12 @@ format: gfm
 
 ## 2024-10-14
 
-*10:37:33 - @Tim Triche has joined the channel*
-*10:37:33 - @Michael Lawrence has joined the channel*
+**Tim Triche** (10:37:33):
+> @Tim Triche has joined the channel
+
+**Michael Lawrence** (10:37:33):
+> @Michael Lawrence has joined the channel
+
 
 ## 2024-10-16
 
@@ -951,14 +1012,14 @@ format: gfm
 > Additionally, IMHO it would be good if could join Lluis to discuss about the work he made after our last meeting.
 > To anyone else interested, please give me any feedback on your possible thoughts/feedbacks.
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CLUJWDQF4/p1723641985192589)
-    > I was just browsing the R source code and discovered that this has been possible since at least 2013:
-    > ```> setClass("Foo", slots = c(foo = "character"))
-    > > `@<-.Foo` <- function(object, name, value) { attr(object, name) <- paste0(value, "."); object }
-    > > foo <- new("Foo")
-    > > foo@foo <- "bar"
-    > > foo@foo
-    > [1] "bar."```
-    > Maybe others new about this? It's interesting in that it allows for some degree of encapsulation of S4 slots. A simple framework could be devised that e.g. allows for per-slot validation, automatic coercion, etc.  `@()` was made generic during the S7 work last year. We made it skip S4 objects though, for obvious reasons.  I didn't realize that `@<-()` was dispatching even on S4 objects. Anyway, people should be migrating to S7 anyway, and it already supports this level of encapsulation.
+> I was just browsing the R source code and discovered that this has been possible since at least 2013:
+> ```> setClass("Foo", slots = c(foo = "character"))
+> > `@<-.Foo` <- function(object, name, value) { attr(object, name) <- paste0(value, "."); object }
+> > foo <- new("Foo")
+> > foo@foo <- "bar"
+> > foo@foo
+> [1] "bar."```
+> Maybe others new about this? It's interesting in that it allows for some degree of encapsulation of S4 slots. A simple framework could be devised that e.g. allows for per-slot validation, automatic coercion, etc.  `@()` was made generic during the S7 work last year. We made it skip S4 objects though, for obvious reasons.  I didn't realize that `@<-()` was dispatching even on S4 objects. Anyway, people should be migrating to S7 anyway, and it already supports this level of encapsulation.
 
 **Vince Carey** (09:41:36):
 > Sounds good Dario -- keep me posted.
@@ -978,11 +1039,15 @@ format: gfm
 
 ## 2024-10-22
 
-*00:11:12 - @Liyang Fei has joined the channel*
+**Liyang Fei** (00:11:12):
+> @Liyang Fei has joined the channel
+
 
 ## 2024-10-23
 
-*11:48:15 - @Sounkou Mahamane Toure has joined the channel*
+**Sounkou Mahamane Toure** (11:48:15):
+> @Sounkou Mahamane Toure has joined the channel
+
 
 ## 2024-10-25
 
@@ -1050,7 +1115,7 @@ format: gfm
 **Tim Triche** (09:23:43):
 > [https://contributions.bioconductor.org/important-bioconductor-package-development-features.html#reusebioc](https://contributions.bioconductor.org/important-bioconductor-package-development-features.html#reusebioc)
   - Attachment (contributions.bioconductor.org): [Chapter 4 Important Bioconductor Package Development Features | Bioconductor Packages: Development, Maintenance, and Peer Review](https://contributions.bioconductor.org/important-bioconductor-package-development-features.html#reusebioc)
-    > 4.1 biocViews Packages added to the Bioconductor Project require a biocViews: field in their DESCRIPTION file. The field name “biocViews” is case-sensitive and must begin with a lower-case ‘b’....
+> 4.1 biocViews Packages added to the Bioconductor Project require a biocViews: field in their DESCRIPTION file. The field name “biocViews” is case-sensitive and must begin with a lower-case ‘b’....
 
 **Tim Triche** (09:24:05):
 > there's a slug in the contributions guidebook for just such occasions
@@ -1112,7 +1177,7 @@ format: gfm
 **Laurent Gatto** (13:38:37):
 > Yes, the there's a different in flow and mass cytometry, but the stucture of the data is the same - 10s (flow) - 100s (mass) of markers in many 1e5 - 1e6 cells. I am not sure if raw mass cytometry data is also stored is FCS files (I'll check), but the quantitative data are equivalent, and can be stored in standard Bioconductor containers. The[HDCytoData](https://www.bioconductor.org/packages/release/data/experiment/html/HDCytoData.html)is a good example of such data.
   - Attachment (Bioconductor): [HDCytoData](https://www.bioconductor.org/packages/release/data/experiment/html/HDCytoData.html)
-    > Data package containing a set of publicly available high-dimensional cytometry benchmark datasets, formatted into SummarizedExperiment and flowSet Bioconductor object formats, including all required metadata. Row metadata includes sample IDs, group IDs, patient IDs, reference cell population or cluster labels (where available), and labels identifying 'spiked in' cells (where available). Column metadata includes channel names, protein marker names, and protein marker classes (cell type or cell state).
+> Data package containing a set of publicly available high-dimensional cytometry benchmark datasets, formatted into SummarizedExperiment and flowSet Bioconductor object formats, including all required metadata. Row metadata includes sample IDs, group IDs, patient IDs, reference cell population or cluster labels (where available), and labels identifying 'spiked in' cells (where available). Column metadata includes channel names, protein marker names, and protein marker classes (cell type or cell state).
 
 **Laurent Gatto** (13:43:27):
 > From the HDCytoData vignette:
@@ -1131,8 +1196,8 @@ format: gfm
 > Hi Everyone, we (Me,@Lori Shepherdand@Laurent Gatto) are attempting to have a meeting next December 4th 5-6pm (CET) / 11-12am (EST).
 > Following[last meeting](https://community-bioc.slack.com/archives/C04NVE8GARL/p1732195087906019)we were interested to understand who would be able to join to fix it or reschedule it.@Michael Lawrence@Vince Carey@Lluís Revilla@Marcel Ramos Pérez@Tim Triche@Malte ThodbergThanks everyone.
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C04NVE8GARL/p1732195087906019)
-    > [Agenda For Meetings](https://docs.google.com/document/d/1NFw33lJeYoPu2P8o0_SiHu3p3BIaokwbUk5MGMGcxNk/edit?usp=sharing)
-    > [GitHub for Collaboration](https://github.com/Bioconductor/BiocClassesWorkingGroup)
+> [Agenda For Meetings](https://docs.google.com/document/d/1NFw33lJeYoPu2P8o0_SiHu3p3BIaokwbUk5MGMGcxNk/edit?usp=sharing)
+> [GitHub for Collaboration](https://github.com/Bioconductor/BiocClassesWorkingGroup)
 
 **Lluís Revilla** (03:55:21) (in thread):
 > If we can schedule it one day sooner or later I will be able to join
@@ -1325,7 +1390,9 @@ format: gfm
 
 ## 2024-12-29
 
-*12:19:41 - @Andrew Su has joined the channel*
+**Andrew Su** (12:19:41):
+> @Andrew Su has joined the channel
+
 
 ## 2025-01-02
 
@@ -1363,8 +1430,8 @@ format: gfm
 > Hi@Michael Lawrence, sorry for the tag, this wants to be a simple reminder for the when2meet for this month.
 > The result of this poll will be used as a recurring monthly meeting.:slightly_smiling_face:[https://community-bioc.slack.com/archives/C04NVE8GARL/p1735923756957279](https://community-bioc.slack.com/archives/C04NVE8GARL/p1735923756957279)
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C04NVE8GARL/p1735923756957279)
-    > Here it is the when2meet link for the January meeting. If I remember correctly, @Michael Lawrence had a preference for the last two weeks of January, but I put also the next one for completeness. Michael, feel free to skip the next one, if you prefer so.
-    > [https://www.when2meet.com/?28156727-6xjmT](https://www.when2meet.com/?28156727-6xjmT)
+> Here it is the when2meet link for the January meeting. If I remember correctly, @Michael Lawrence had a preference for the last two weeks of January, but I put also the next one for completeness. Michael, feel free to skip the next one, if you prefer so.
+> [https://www.when2meet.com/?28156727-6xjmT](https://www.when2meet.com/?28156727-6xjmT)
 
 **Michael Lawrence** (18:12:10) (in thread):
 > I filled out the survey. Next week might be a little soon if I need to prepare a talk as we had discussed.
@@ -1391,25 +1458,39 @@ format: gfm
 
 ## 2025-01-15
 
-*06:00:36 - @Stevie Pederson has joined the channel*
+**Stevie Pederson** (06:00:36):
+> @Stevie Pederson has joined the channel
+
 **Malte Thodberg** (07:37:39) (in thread):
 > Added one more example for SimpleList:[https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/15#issuecomment-2592715458](https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/15#issuecomment-2592715458)
 
 
 ## 2025-01-28
 
-*12:51:41 - @Axel Klenk has joined the channel*
-*13:39:50 - @Lambda Moses has joined the channel*
-*13:43:42 - @Tuomas Borman has joined the channel*
-*13:54:57 - @Ilaria Billato has joined the channel*
+**Axel Klenk** (12:51:41):
+> @Axel Klenk has joined the channel
+
+**Lambda Moses** (13:39:50):
+> @Lambda Moses has joined the channel
+
+**Tuomas Borman** (13:43:42):
+> @Tuomas Borman has joined the channel
+
+**Ilaria Billato** (13:54:57):
+> @Ilaria Billato has joined the channel
+
 
 ## 2025-01-30
 
-*16:33:08 - @Maria Doyle has joined the channel*
+**Maria Doyle** (16:33:08):
+> @Maria Doyle has joined the channel
+
 
 ## 2025-02-05
 
-*12:02:20 - @Tobi Ogunbowale has joined the channel*
+**Tobi Ogunbowale** (12:02:20):
+> @Tobi Ogunbowale has joined the channel
+
 
 ## 2025-02-10
 
@@ -1445,7 +1526,7 @@ format: gfm
 **Laurent Gatto** (00:37:22):
 > We can use[https://meet.jit.si/BioconductorClasses](https://meet.jit.si/BioconductorClasses)- it's open to anyone who has the link. It might be possible to create a room with recording enables, but I'll have to test this. Let me know if this is needed.
   - Attachment (meet.jit.si): [Jitsi Meet](https://meet.jit.si/BioconductorClasses)
-    > Join a WebRTC video conference powered by the Jitsi Videobridge
+> Join a WebRTC video conference powered by the Jitsi Videobridge
 
 **Lluís Revilla** (03:32:29) (in thread):
 > Sorry I have a conflicting meeting at work. I have started asking around the CAB about what we could do to ease developers usage of Bioconductor classes. They also suggesting contacting with the reviewer team and the education team. I'll follow up with those two groups. Good luck
@@ -1474,7 +1555,9 @@ format: gfm
 
 ## 2025-03-09
 
-*13:32:39 - @Benjamin Yang has joined the channel*
+**Benjamin Yang** (13:32:39):
+> @Benjamin Yang has joined the channel
+
 
 ## 2025-03-10
 
@@ -1509,7 +1592,7 @@ format: gfm
 > 
 > Bioconductor core packages are maintained centrally by the Bioconductor team itself. As they are some of the most optimized and stable parts of Bioconductor (some packages are more than a decade old!), they are the best starting point for reusing classes.
 > 
-> The `r BiocStyle::Biocpkg("S4Vectors")` and `r BiocStyle::Biocpkg("IRanges")` package contain low-level S4-classes for simple types of data:
+> The `BiocStyle::Biocpkg("S4Vectors")` and `BiocStyle::Biocpkg("IRanges")` package contain low-level S4-classes for simple types of data:
 > 
 > - `DFrame`: Improved version of the base R `data.frame`, where columns can be any type and can have meta data attached.
 > - `List` and friends: Improved version of the base R `list`, where each element has to be the same type (`CharacterList`, `IntegerList`, `NumericList`, etc.)
@@ -1518,7 +1601,7 @@ format: gfm
 > - `Hits`: Storing "hits" or "overlaps" between two sets, e.g. overlap between two sets of genomic intervals
 > - `Views`: Accessing smaller parts of a large object, like a genome, without copying the large object itself. Many specialized classes for different use cases (`RleViews`, `XStringViews`, etc.)
 > 
-> The `r BiocStyle::Biocpkg("GenomicRanges")`, `r BiocStyle::Biocpkg("GenomeInfoDb")`, `r BiocStyle::Biocpkg("rtracklayer")` package contains S4-Classes for genomic intervals (as seen in BED, GTF or BigWig files):
+> The `BiocStyle::Biocpkg("GenomicRanges")`, `BiocStyle::Biocpkg("GenomeInfoDb")`, `BiocStyle::Biocpkg("rtracklayer")` package contains S4-Classes for genomic intervals (as seen in BED, GTF or BigWig files):
 > 
 > - `GRanges`: Genomic ranges with start and end coordinates. Also keeps information 
 > - `GRangesList`: Sets of `GRanges`.
@@ -1526,55 +1609,55 @@ format: gfm
 > - `GPos`: Single base pair genomic intervals.
 > - Import with `rtracklayer::import()`
 > 
-> `r BiocStyle::Biocpkg("SummarizedExperiment")` contains S4-Classes for count/expression matrices and associated meta data.
+> `BiocStyle::Biocpkg("SummarizedExperiment")` contains S4-Classes for count/expression matrices and associated meta data.
 > 
 > - `SummarizedExperiment`: Store on or more expression matrix with meta data for both columns and rows.
 > - `RangedSummarizedExp`eriment`: `SummarizedExperiment` with an attached `GRanges`.
-> - Many packages reuse `SummarizedExperiment` for more specialized cases, see for example `r BiocStyle::Biocpkg("RaggedExperiment")`. 
+> - Many packages reuse `SummarizedExperiment` for more specialized cases, see for example `BiocStyle::Biocpkg("RaggedExperiment")`. 
 > 
-> The `r BiocStyle::Biocpkg("Biostrings")` package contains S4-classes for biological strings (e.g. from FASTQ files):
+> The `BiocStyle::Biocpkg("Biostrings")` package contains S4-classes for biological strings (e.g. from FASTQ files):
 > 
 > - `DNAString`: DNA sequences
 > - `AAString`: Amino acid sequences
 > - `DNAStringSet`/`AAStringSet` and `DNAStringSetList`/`AAStringSetList`: Sets of sequences
 > - Import with `readDNAStringSet()` and `readAAStringSet()`
 > 
-> The `r BiocStyle::Biocpkg("GenomicAlignment")` and `r BiocStyle::Biocpkg("Rsamtools")` packages contains S4-classes for aligned reads (e.g. BAM-files)
+> The `BiocStyle::Biocpkg("GenomicAlignment")` and `BiocStyle::Biocpkg("Rsamtools")` packages contains S4-classes for aligned reads (e.g. BAM-files)
 > 
 > - `GAlignments`: Alignments of shorts reads to a reference genome.
 > - Large BAM-files can be imported with `scanBam()` or `readGAlignments`
 > 
-> `r BiocStyle::Biocpkg("VariantAnnotation")` package contains S4-classes for genetic variants:
+> `BiocStyle::Biocpkg("VariantAnnotation")` package contains S4-classes for genetic variants:
 > 
 > - `VCF`: Genotypes across individuals and associated meta data.
 > - `VRanges`: Location of genetic variants
 > - Import with `readVcf()`
 > 
-> `r BiocStyle::Biocpkg("BiocSets")` and `r BiocStyle::Biocpkg("GSEABase")` contains S4-classes for gene sets, e.g. Gene Ontology (GO)-terms and similar:
+> `BiocStyle::Biocpkg("BiocSets")` and `BiocStyle::Biocpkg("GSEABase")` contains S4-classes for gene sets, e.g. Gene Ontology (GO)-terms and similar:
 > 
 > - `GeneSet`: Gene set identifiers and metadata.
 > - `GeneSetCollection`: Sets of `GeneSet`
 > 
-> `r BiocStyle::Biocpkg("DelayedArray")` contains S4-classes for analyzing matrices that are too large to fit into memory:
+> `BiocStyle::Biocpkg("DelayedArray")` contains S4-classes for analyzing matrices that are too large to fit into memory:
 > 
 > - `DelayedArray`: Wrapper around data stored either in a highly efficent format (e.g. sparse) or on disk.
-> - Several specialized subclasses, including `RleMatrix` , `ConstantArray`, `r BiocStyle::Biocpkg("SparseArray")`, `r BiocStyle::Biocpkg("HDF5Array")`, `r BiocStyle::Biocpkg("ConstantArray")` and `r BiocStyle::Biocpkg("ScaledMatrix")`
+> - Several specialized subclasses, including `RleMatrix` , `ConstantArray`, `BiocStyle::Biocpkg("SparseArray")`, `BiocStyle::Biocpkg("HDF5Array")`, `BiocStyle::Biocpkg("ConstantArray")` and `BiocStyle::Biocpkg("ScaledMatrix")`
 > 
 > ## Widely used Bioconductor S4-classes.
 > 
 > Some Bioconductor package have implemented S4-Classes that have been widely adopted:
 > 
-> `r BiocStyle::Biocpkg("SingleCellExperiment")` for single cell datasets (e.g. scRNA-Seq), including single cell multi-omics (e.g. CITE-Seq).
+> `BiocStyle::Biocpkg("SingleCellExperiment")` for single cell datasets (e.g. scRNA-Seq), including single cell multi-omics (e.g. CITE-Seq).
 > 
-> `r BiocStyle::Biocpkg("SpatialExperiment")` for spatial -omics.
+> `BiocStyle::Biocpkg("SpatialExperiment")` for spatial -omics.
 > 
-> `r BiocStyle::Biocpkg("MultiAssayExperiment")` for complex multi-omics datasets with arbitrary patterns of mixing data.
+> `BiocStyle::Biocpkg("MultiAssayExperiment")` for complex multi-omics datasets with arbitrary patterns of mixing data.
 > 
-> `r BiocStyle::Biocpkg("Spectral")` for mass spec data
+> `BiocStyle::Biocpkg("Spectral")` for mass spec data
 > 
-> `r BiocStyle::Biocpkg("TBFSTools")` for analyzing transcription factor binding sites with Position Frequency Matrices (PFMs) and similar.
+> `BiocStyle::Biocpkg("TBFSTools")` for analyzing transcription factor binding sites with Position Frequency Matrices (PFMs) and similar.
 > 
-> `r BiocStyle::Biocpkg("limma")`, `r BiocStyle::Biocpkg("edgeR")` and `r BiocStyle::Biocpkg("DESeq2")` for differential expression (DE) analysis
+> `BiocStyle::Biocpkg("limma")`, `BiocStyle::Biocpkg("edgeR")` and `BiocStyle::Biocpkg("DESeq2")` for differential expression (DE) analysis
 > 
 > ## Extending Bioconductor S4-classes
 > 
@@ -1600,20 +1683,26 @@ format: gfm
 **Vince Carey** (09:18:06):
 > Without drilling further, I saw that[https://code.bioconductor.org/search/search?q=selectMethod](https://code.bioconductor.org/search/search?q=selectMethod)shows that selectMethod occurs fairly often and there are a couple of important packages that might be tested in the light of the proposed change, which I would expect to be innocuous.  [I understand (I think) that the issue pertains to a show method but the effects were presented in the context of selectMethod and I would not want to try an analysis of "show".]
   - Attachment (code.bioconductor.org): [Bioconductor Code: Search](https://code.bioconductor.org/search/search?q=selectMethod)
-    > Search source code across all Bioconductor packages
+> Search source code across all Bioconductor packages
 
 
 ## 2025-03-12
 
-*09:53:31 - @Mike Smith has joined the channel*
+**Mike Smith** (09:53:31):
+> @Mike Smith has joined the channel
+
 
 ## 2025-03-14
 
-*11:57:42 - @Pariksheet Nanda has joined the channel*
+**Pariksheet Nanda** (11:57:42):
+> @Pariksheet Nanda has joined the channel
+
 
 ## 2025-03-15
 
-*10:17:45 - @Lucio Queiroz has joined the channel*
+**Lucio Queiroz** (10:17:45):
+> @Lucio Queiroz has joined the channel
+
 
 ## 2025-03-18
 
@@ -1632,7 +1721,9 @@ format: gfm
 **Vince Carey** (11:48:02):
 > I will be about 30 min late, sorry but i have a conflict.
 
-*14:26:26 - @Andres Wokaty has joined the channel*
+**Andres Wokaty** (14:26:26):
+> @Andres Wokaty has joined the channel
+
 
 ## 2025-04-14
 
@@ -1675,7 +1766,7 @@ format: gfm
 **Dario Righelli** (04:08:37) (in thread):
 > yes, absolutely, we have a recurring meeting each third Tuesday of the month. We have a jitsi meeting link here:[https://meet.jit.si/BioconductorClasses](https://meet.jit.si/BioconductorClasses)
   - Attachment (meet.jit.si): [Jitsi Meet](https://meet.jit.si/BioconductorClasses)
-    > Join a WebRTC video conference powered by the Jitsi Videobridge
+> Join a WebRTC video conference powered by the Jitsi Videobridge
 
 **Dario Righelli** (04:09:39) (in thread):
 > Sorry Laurent but the 11/05 it’s a Sunday!:slightly_smiling_face:Do you mean Monday 12/05? I can try to reach out the others and see if it can work.
@@ -1696,7 +1787,9 @@ format: gfm
 > ops, you’re right! 15:00 UTC
 > Anyway you can stay up to date by following discussions on this channel:slightly_smiling_face:
 
-*16:19:15 - @dhvani solanki has joined the channel*
+**dhvani solanki** (16:19:15):
+> @dhvani solanki has joined the channel
+
 
 ## 2025-04-27
 

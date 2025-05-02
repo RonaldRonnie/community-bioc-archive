@@ -3,27 +3,34 @@ title: "#workflows"
 format: gfm
 ---
 
-
 ## 2018-04-03
 
-*11:03:34 - @Aaron Lun has joined the channel*
+**Aaron Lun** (11:03:34):
+> @Aaron Lun has joined the channel
+
 **Aaron Lun** (11:03:35):
 > set the channel description: To talk about the BioC workflows
 
 **Aaron Lun** (11:06:40):
 > @Lori ShepherdOnce downloaded, do the local**ExperimentHub**resources have the same base file name when they were created? This is because BAM files conventionally have index files with the same name, e.g.,`xxx.bam`and`xxx.bam.bai`. A lot of code (including mine, in**csaw**and**chipseqDB**) assumes that this is the case when searching for index files; would this still work in an ExperimentHub setting, if BAM files and their indices were available as resources?
 
-*11:06:43 - @Lori Shepherd has joined the channel*
-*12:10:34 - @Leonardo Collado Torres has joined the channel*
+**Lori Shepherd** (11:06:43):
+> @Lori Shepherd has joined the channel
+
+**Leonardo Collado Torres** (12:10:34):
+> @Leonardo Collado Torres has joined the channel
+
 
 ## 2018-04-06
 
 **Aaron Lun** (15:06:23):
 > Just noticed that**chipseqDB**is failing on[https://bioconductor.org/checkResults/devel/workflows-LATEST/chipseqDB/malbec2-buildsrc.html](https://bioconductor.org/checkResults/devel/workflows-LATEST/chipseqDB/malbec2-buildsrc.html)because of errors in`chipseq_db.Rmd`. However, this file no longer exists in the git repo (see[https://github.com/LTLA/chipseqDB/tree/master/vignettes](https://github.com/LTLA/chipseqDB/tree/master/vignettes), also checked with a  fresh clone from[https://git.bioconductor.org/packages/chipseqDB)](https://git.bioconductor.org/packages/chipseqDB)).@Nitesh TuragaAny ideas why?
   - Attachment (GitHub): [LTLA/chipseqDB](https://github.com/LTLA/chipseqDB/tree/master/vignettes)
-    > Clone of the Bioconductor repository for the chipseqDB workflow, see [https://bioconductor.org/help/workflows/chipseqDB/work-1-intro](https://bioconductor.org/help/workflows/chipseqDB/work-1-intro) for the compiled version.
+> Clone of the Bioconductor repository for the chipseqDB workflow, see [https://bioconductor.org/help/workflows/chipseqDB/work-1-intro](https://bioconductor.org/help/workflows/chipseqDB/work-1-intro) for the compiled version.
 
-*15:06:27 - @Nitesh Turaga has joined the channel*
+**Nitesh Turaga** (15:06:27):
+> @Nitesh Turaga has joined the channel
+
 
 ## 2018-04-10
 
@@ -76,7 +83,9 @@ format: gfm
 
 ## 2018-04-14
 
-*03:33:55 - @Hervé Pagès has joined the channel*
+**Hervé Pagès** (03:33:55):
+> @Hervé Pagès has joined the channel
+
 **Hervé Pagès** (03:42:11) (in thread):
 > For some reason the build system was failing to`git pull`on malbec2. I did a manual`git pull`which`git`wanted to turn into a merge even though I don't think there was anything to merge.  I finally deleted the local clone and re-cloned. No more`chipseq_db.Rmd`. History looks clean. Next workflows builds will run on Monday. I'll be out of office and off email for the next 9 days.
 
@@ -86,15 +95,17 @@ format: gfm
 
 ## 2018-04-16
 
-*04:34:12 - @Mike Smith has joined the channel*
+**Mike Smith** (04:34:12):
+> @Mike Smith has joined the channel
+
 **Mike Smith** (04:38:23):
 > Thanks for all the work in getting the workflow packages to this point. Can I suggest not requiring HTML tags in the section describing the R & Bioconductor versions.  Hopefully it is sufficient to go with this in markdown:
 > ```
-> ***R version***: `r R.version.string`
+> ***R version***: `R.version.string`
 >   
->   ***Bioconductor version***: `r BiocInstaller::biocVersion()`
+>   ***Bioconductor version***: `BiocInstaller::biocVersion()`
 >   
->   ***Package***: `r packageVersion("annotation")`
+>   ***Package***: `packageVersion("annotation")`
 > ```
 > Then anyone wanting to send the workflow to F1000Research as well (which requires LaTeX for submission) won't have to edit out the HTML tags.  This does put each line in a new paragraph, rather than separating them with line breaks, but the 'two or more spaces at the end of a line' syntax in Markdown isn't conducive to perfect copy/paste .
 
@@ -107,7 +118,7 @@ format: gfm
 **Mike Smith** (14:47:32):
 > We've been working on ways to write a single Rmd file ([https://f1000research.com/articles/7-431/v1](https://f1000research.com/articles/7-431/v1)) that you can submit to both BioC and F1000 with only a change to output field in the YAML, so I'm conscious of not including things specific to one document type.
   - Attachment (f1000research.com): [F1000Research Article: Authoring Bioconductor workflows with BiocWorkflowTools.](https://f1000research.com/articles/7-431/v1)
-    > Read the latest article version by Mike L. Smith, Andrzej K. Oleś, Wolfgang Huber, at F1000Research.
+> Read the latest article version by Mike L. Smith, Andrzej K. Oleś, Wolfgang Huber, at F1000Research.
 
 **Leonardo Collado Torres** (14:47:32):
 > ohh ok! I didn’t know about this change
@@ -145,7 +156,7 @@ format: gfm
 **Aaron Lun** (05:40:28):
 > Any thoughts on my request for a more consistent ordering for the vignettes on each landing page? Copy-pasting the comments from #bioc-git here:
 > > I wonder if it is possible to make the ordering on the website consistent with the ordering in which R builds the vignettes. It's quite awkward to have to keep track of the alphanumeric ordering of**both**the vignette file names as well as the vignette titles. I don't mind doing one or the other, but doing both seems unnecessary to me.
-> For example, the display order of the vignettes in[https://bioconductor.org/packages/devel/workflows/html/simpleSingleCell.html](https://bioconductor.org/packages/devel/workflows/html/simpleSingleCell.html)is pretty chaotic right now, despite being built in a very strictly controlled order. Yes, I could modify the titles, but it's hard to do anything when you need a word that sorts above "Analyzing". And prefixing the titles with numbers (e.g., "1. Introduction") seems redundant to me when the numbers are already present in the vignette file names; especially as it means I have to rename two things when adding new workflow files to the start/middle of the sequence.
+> > For example, the display order of the vignettes in[https://bioconductor.org/packages/devel/workflows/html/simpleSingleCell.html](https://bioconductor.org/packages/devel/workflows/html/simpleSingleCell.html)is pretty chaotic right now, despite being built in a very strictly controlled order. Yes, I could modify the titles, but it's hard to do anything when you need a word that sorts above "Analyzing". And prefixing the titles with numbers (e.g., "1. Introduction") seems redundant to me when the numbers are already present in the vignette file names; especially as it means I have to rename two things when adding new workflow files to the start/middle of the sequence.
 
 **Lori Shepherd** (09:06:03) (in thread):
 > I can look into this -  right now its automatically generated but I can look into it -  it might take a week or two to get to this as I'm still catching up on post-release tasks
@@ -250,7 +261,9 @@ format: gfm
 
 ## 2018-06-25
 
-*16:06:22 - @Elana Fertig has joined the channel*
+**Elana Fertig** (16:06:22):
+> @Elana Fertig has joined the channel
+
 
 ## 2018-07-02
 
@@ -278,20 +291,30 @@ format: gfm
 
 ## 2018-07-19
 
-*14:16:47 - @Brendan Innes has joined the channel*
-*16:49:07 - @Aedin Culhane has joined the channel*
+**Brendan Innes** (14:16:47):
+> @Brendan Innes has joined the channel
+
+**Aedin Culhane** (16:49:07):
+> @Aedin Culhane has joined the channel
+
 
 ## 2018-07-25
 
-*15:55:18 - @James Taylor has joined the channel*
+**James Taylor** (15:55:18):
+> @James Taylor has joined the channel
+
 
 ## 2018-07-26
 
-*08:52:36 - @Dario Righelli has joined the channel*
+**Dario Righelli** (08:52:36):
+> @Dario Righelli has joined the channel
+
 
 ## 2018-07-31
 
-*14:17:49 - @Frederick Tan has joined the channel*
+**Frederick Tan** (14:17:49):
+> @Frederick Tan has joined the channel
+
 
 ## 2018-08-03
 
@@ -313,7 +336,9 @@ format: gfm
 
 ## 2018-08-27
 
-*06:49:26 - @Malte Thodberg has joined the channel*
+**Malte Thodberg** (06:49:26):
+> @Malte Thodberg has joined the channel
+
 
 ## 2018-09-04
 
@@ -468,9 +493,11 @@ format: gfm
 **Aaron Lun** (07:00:46):
 > @Kevin Rue-Albrechtdo you reckon it's easy to set up a pkgdown site for my[https://github.com/LTLA/SingleCellThoughts](https://github.com/LTLA/SingleCellThoughts)
   - Attachment (GitHub): [LTLA/SingleCellThoughts](https://github.com/LTLA/SingleCellThoughts)
-    > Assorted thoughts, explanations and justifications for code in the scran package and the simpleSingleCell workflow. - LTLA/SingleCellThoughts
+> Assorted thoughts, explanations and justifications for code in the scran package and the simpleSingleCell workflow. - LTLA/SingleCellThoughts
 
-*07:00:50 - @Kevin Rue-Albrecht has joined the channel*
+**Kevin Rue-Albrecht** (07:00:50):
+> @Kevin Rue-Albrecht has joined the channel
+
 **Aaron Lun** (07:08:22):
 > Or maybe I should set one up in[https://github.com/LTLA/simpleSingleCell](https://github.com/LTLA/simpleSingleCell)itself... hm.
 
@@ -480,7 +507,9 @@ format: gfm
 **Kevin Rue-Albrecht** (07:14:15):
 > Probably want to invite@Federico Marinito comment on this one. I’ve only been providing feedback on his effort to set it up for iSEE
 
-*07:14:22 - @Federico Marini has joined the channel*
+**Federico Marini** (07:14:22):
+> @Federico Marini has joined the channel
+
 **Kevin Rue-Albrecht** (07:14:58):
 > but he said it’s easy, as per the`projsite`on our repo
 
@@ -514,7 +543,7 @@ format: gfm
 **Federico Marini** (08:33:26):
 > [https://github.com/robinsonlabuzh/robinsonlabuzh.github.io](https://github.com/robinsonlabuzh/robinsonlabuzh.github.io)
   - Attachment (GitHub): [robinsonlabuzh/robinsonlabuzh.github.io](https://github.com/robinsonlabuzh/robinsonlabuzh.github.io)
-    > Robinson Lab website. Contribute to robinsonlabuzh/robinsonlabuzh.github.io development by creating an account on GitHub.
+> Robinson Lab website. Contribute to robinsonlabuzh/robinsonlabuzh.github.io development by creating an account on GitHub.
 
 
 ## 2018-10-31
@@ -579,14 +608,16 @@ format: gfm
 
 ## 2018-11-18
 
-*14:28:33 - @Thomas Girke has joined the channel*
+**Thomas Girke** (14:28:33):
+> @Thomas Girke has joined the channel
+
 
 ## 2018-12-06
 
 **Aaron Lun** (19:31:20):
 > @Lori ShepherdDragging up some old history - some time ago I mentioned I wanted to add the[https://github.com/LTLA/chipseqDBData](https://github.com/LTLA/chipseqDBData)ExperimentData package, to add data for the chipseqDB workflow (and avoid the current ad-hoc solution we have for storing BAM files for that workflow). How would you like to do this? I should be able to upload the BAM files remotely.
   - Attachment (GitHub): [LTLA/chipseqDBData](https://github.com/LTLA/chipseqDBData)
-    > An Experiment data package for the chipseqDB workflow on Bioconductor. - LTLA/chipseqDBData
+> An Experiment data package for the chipseqDB workflow on Bioconductor. - LTLA/chipseqDBData
 
 **Aaron Lun** (19:41:51):
 > Ah, I remember the additional complication being that I need to download index files alongside the BAM files, and the index files need to have the same name as the BAM files (plus *.bai).
@@ -609,11 +640,15 @@ format: gfm
 
 ## 2018-12-28
 
-*12:46:21 - @Rene Welch has joined the channel*
+**Rene Welch** (12:46:21):
+> @Rene Welch has joined the channel
+
 
 ## 2018-12-30
 
-*14:39:10 - @Evan Biederstedt has joined the channel*
+**Evan Biederstedt** (14:39:10):
+> @Evan Biederstedt has joined the channel
+
 
 ## 2019-01-07
 
@@ -626,7 +661,9 @@ format: gfm
 
 ## 2019-01-08
 
-*02:03:27 - @Laurent Gatto has joined the channel*
+**Laurent Gatto** (02:03:27):
+> @Laurent Gatto has joined the channel
+
 
 ## 2019-01-09
 
@@ -761,7 +798,9 @@ format: gfm
 
 ## 2019-01-17
 
-*08:29:02 - @Kayla Interdonato has joined the channel*
+**Kayla Interdonato** (08:29:02):
+> @Kayla Interdonato has joined the channel
+
 **Aaron Lun** (14:22:25):
 > Hm. ExperimentHub for the BAM files seems to be taking an awfully long time.
 
@@ -852,7 +891,9 @@ format: gfm
 **Aaron Lun** (06:52:44):
 > Thanks. I ended up downsampling because I would have gone past the time limits anyway. But for curiosity's sake - is it 1 hour on 8 GB RAM?
 
-*19:40:09 - @Ming Tang has joined the channel*
+**Ming Tang** (19:40:09):
+> @Ming Tang has joined the channel
+
 
 ## 2019-01-28
 
@@ -877,7 +918,7 @@ format: gfm
 **Aaron Lun** (08:02:30):
 > I just went through this with chipseqDBData ([https://bioconductor.org/packages/devel/data/experiment/html/chipseqDBData.html](https://bioconductor.org/packages/devel/data/experiment/html/chipseqDBData.html)), it's pretty straightforward.
   - Attachment (Bioconductor): [chipseqDBData (development version)](https://bioconductor.org/packages/devel/data/experiment/html/chipseqDBData.html)
-    > Sorted and indexed BAM files for ChIP-seq libraries, for use in the chipseqDB workflow. BAM indices are also included.
+> Sorted and indexed BAM files for ChIP-seq libraries, for use in the chipseqDB workflow. BAM indices are also included.
 
 **Aaron Lun** (08:04:05):
 > The GH repo might also provide a good example:[https://github.com/LTLA/chipseqDBData](https://github.com/LTLA/chipseqDBData)
@@ -966,7 +1007,7 @@ format: gfm
 **Aaron Lun** (04:32:18):
 > @Lori ShepherdThe**csawUsersGuide**build successfully, which is good. It also means that there doesn't need to be an explicit reference to the csawUsersGuide on the**csaw**landing page itself ([http://bioconductor.org/packages/3.9/bioc/html/csaw.html](http://bioconductor.org/packages/3.9/bioc/html/csaw.html)). I've just removed the static PDF in**csaw**, is there anything that needs to be done to the website to remove the reference?
   - Attachment (Bioconductor): [csaw (development version)](http://bioconductor.org/packages/3.9/bioc/html/csaw.html)
-    > Detection of differentially bound regions in ChIP-seq data with sliding windows, with methods for normalization and proper FDR control.
+> Detection of differentially bound regions in ChIP-seq data with sliding windows, with methods for normalization and proper FDR control.
 
 **Lori Shepherd** (07:07:43):
 > I think it should be removed automatically after the build -  If it doesn't get removed by tomorrow let me know and I'll look into removing it on monday.
@@ -1045,19 +1086,27 @@ format: gfm
 
 ## 2019-04-15
 
-*12:27:25 - @Jon Bråte has joined the channel*
+**Jon Bråte** (12:27:25):
+> @Jon Bråte has joined the channel
+
 
 ## 2019-04-17
 
-*18:08:44 - @Zhi Yang has joined the channel*
+**Zhi Yang** (18:08:44):
+> @Zhi Yang has joined the channel
+
 
 ## 2019-05-20
 
-*05:28:36 - @Assa has joined the channel*
+**Assa** (05:28:36):
+> @Assa has joined the channel
+
 
 ## 2019-05-21
 
-*21:32:06 - @Jeff Gentry has joined the channel*
+**Jeff Gentry** (21:32:06):
+> @Jeff Gentry has joined the channel
+
 
 ## 2019-05-29
 
@@ -1073,7 +1122,9 @@ format: gfm
 
 ## 2019-05-30
 
-*18:50:56 - @FeiZhao has joined the channel*
+**FeiZhao** (18:50:56):
+> @FeiZhao has joined the channel
+
 
 ## 2019-05-31
 
@@ -1107,84 +1158,122 @@ format: gfm
 **Federico Marini** (03:24:44):
 > … refers to[https://yulab-smu.github.io/clusterProfiler-book/](https://yulab-smu.github.io/clusterProfiler-book/)
   - Attachment (yulab-smu.github.io): [clusterProfiler: universal enrichment tool for functional and comparative study](https://yulab-smu.github.io/clusterProfiler-book/)
-    > clusterProfiler: universal enrichment tool for functional and comparative study
+> clusterProfiler: universal enrichment tool for functional and comparative study
 
 
 ## 2019-06-20
 
-*17:38:23 - @Sanjeev Sariya has joined the channel*
-*19:39:42 - @Marko Zecevic has joined the channel*
+**Sanjeev Sariya** (17:38:23):
+> @Sanjeev Sariya has joined the channel
+
+**Marko Zecevic** (19:39:42):
+> @Marko Zecevic has joined the channel
+
 
 ## 2019-06-24
 
 **Mike Smith** (08:50:18) (in thread):
 > Have you given this a try Aaron?  I played around with a few suggestions I found on various Github issues, but they all either failed do anything or got stuck in an infinite recursion of`bookdown::render()`Would be cool to work something out as I'd like to get MSMB bundled into a package to make continuous integration easier.
 
-*09:23:49 - @Komal Rathi has joined the channel*
+**Komal Rathi** (09:23:49):
+> @Komal Rathi has joined the channel
+
 **Aaron Lun** (11:25:14) (in thread):
 > Nope, just ended up going with Rob’s book.
 
-*16:32:42 - @Kirk Reardon has joined the channel*
+**Kirk Reardon** (16:32:42):
+> @Kirk Reardon has joined the channel
+
 
 ## 2019-06-25
 
-*05:45:39 - @Charlotte Soneson has joined the channel*
+**Charlotte Soneson** (05:45:39):
+> @Charlotte Soneson has joined the channel
+
 
 ## 2019-06-26
 
-*13:25:08 - @Junhao Li has joined the channel*
+**Junhao Li** (13:25:08):
+> @Junhao Li has joined the channel
+
 
 ## 2019-06-28
 
-*03:20:35 - @Fotis E. Psomopoulos has joined the channel*
+**Fotis E. Psomopoulos** (03:20:35):
+> @Fotis E. Psomopoulos has joined the channel
+
 
 ## 2019-07-02
 
-*10:16:46 - @Grégoire de Streel has joined the channel*
+**Grégoire de Streel** (10:16:46):
+> @Grégoire de Streel has joined the channel
+
 
 ## 2019-07-05
 
-*05:31:45 - @Kevin Missault has joined the channel*
+**Kevin Missault** (05:31:45):
+> @Kevin Missault has joined the channel
+
 
 ## 2019-07-12
 
-*07:45:18 - @Jannik Buhr has joined the channel*
+**Jannik Buhr** (07:45:18):
+> @Jannik Buhr has joined the channel
+
 
 ## 2019-07-17
 
-*14:33:45 - @John Hutchinson has joined the channel*
+**John Hutchinson** (14:33:45):
+> @John Hutchinson has joined the channel
+
 
 ## 2019-08-02
 
-*14:31:37 - @Leo Lahti has joined the channel*
+**Leo Lahti** (14:31:37):
+> @Leo Lahti has joined the channel
+
 
 ## 2019-08-03
 
-*13:54:24 - @Mikhael Manurung has joined the channel*
+**Mikhael Manurung** (13:54:24):
+> @Mikhael Manurung has joined the channel
+
 
 ## 2019-11-15
 
-*08:47:49 - @Allison has joined the channel*
+**Allison** (08:47:49):
+> @Allison has joined the channel
+
 
 ## 2019-11-18
 
-*11:45:26 - @Siyuan Ma has joined the channel*
+**Siyuan Ma** (11:45:26):
+> @Siyuan Ma has joined the channel
+
 
 ## 2019-12-11
 
-*12:08:04 - @Christine Choirat has joined the channel*
+**Christine Choirat** (12:08:04):
+> @Christine Choirat has joined the channel
+
 
 ## 2019-12-22
 
-*16:08:14 - @Sara Fonseca Costa has joined the channel*
+**Sara Fonseca Costa** (16:08:14):
+> @Sara Fonseca Costa has joined the channel
+
 
 ## 2020-02-20
 
-*14:31:39 - @Joan has joined the channel*
+**Joan** (14:31:39):
+> @Joan has joined the channel
+
 
 ## 2020-02-24
 
-*11:47:01 - @Shraddha Pai has joined the channel*
+**Shraddha Pai** (11:47:01):
+> @Shraddha Pai has joined the channel
+
 
 ## 2020-03-16
 
@@ -1200,258 +1289,392 @@ format: gfm
 
 ## 2020-03-17
 
-*20:05:11 - @Jianhong has joined the channel*
+**Jianhong** (20:05:11):
+> @Jianhong has joined the channel
+
 
 ## 2020-04-17
 
-*14:33:44 - @Daniela Cassol has joined the channel*
+**Daniela Cassol** (14:33:44):
+> @Daniela Cassol has joined the channel
+
 
 ## 2020-05-04
 
-*06:28:13 - @Nitin Sharma has joined the channel*
+**Nitin Sharma** (06:28:13):
+> @Nitin Sharma has joined the channel
+
 
 ## 2020-05-10
 
-*09:29:59 - @Sangram Keshari Sahu has joined the channel*
+**Sangram Keshari Sahu** (09:29:59):
+> @Sangram Keshari Sahu has joined the channel
+
 
 ## 2020-06-06
 
-*19:57:56 - @Olagunju Abdulrahman has joined the channel*
+**Olagunju Abdulrahman** (19:57:56):
+> @Olagunju Abdulrahman has joined the channel
+
 
 ## 2020-06-11
 
-*13:30:00 - @Synnøve Yndestad has joined the channel*
+**Synnøve Yndestad** (13:30:00):
+> @Synnøve Yndestad has joined the channel
+
 
 ## 2020-06-30
 
-*06:22:07 - @Frank Rühle has joined the channel*
+**Frank Rühle** (06:22:07):
+> @Frank Rühle has joined the channel
+
 
 ## 2020-07-07
 
-*02:57:40 - @Vivek Das has joined the channel*
+**Vivek Das** (02:57:40):
+> @Vivek Das has joined the channel
+
 
 ## 2020-07-21
 
-*09:24:52 - @Will Arnold has joined the channel*
+**Will Arnold** (09:24:52):
+> @Will Arnold has joined the channel
+
 
 ## 2020-07-26
 
-*09:59:46 - @Reza Rezaei has joined the channel*
+**Reza Rezaei** (09:59:46):
+> @Reza Rezaei has joined the channel
+
 
 ## 2020-07-31
 
-*13:57:09 - @bogdan tanasa has joined the channel*
+**bogdan tanasa** (13:57:09):
+> @bogdan tanasa has joined the channel
+
 
 ## 2020-08-18
 
-*09:15:14 - @Stephany Orjuela has joined the channel*
+**Stephany Orjuela** (09:15:14):
+> @Stephany Orjuela has joined the channel
+
 
 ## 2020-09-17
 
-*13:31:45 - @rizoic has joined the channel*
+**rizoic** (13:31:45):
+> @rizoic has joined the channel
+
 
 ## 2020-09-21
 
-*20:20:01 - @Belinda Phipson has joined the channel*
+**Belinda Phipson** (20:20:01):
+> @Belinda Phipson has joined the channel
+
 
 ## 2020-10-10
 
-*04:10:18 - @Hervé Pagès has left the channel*
+**Hervé Pagès** (04:10:18):
+> @Hervé Pagès has left the channel
+
 
 ## 2020-10-11
 
-*21:42:56 - @Kozo Nishida has joined the channel*
+**Kozo Nishida** (21:42:56):
+> @Kozo Nishida has joined the channel
+
 
 ## 2020-10-23
 
-*08:18:45 - @Rebecca Howard has joined the channel*
+**Rebecca Howard** (08:18:45):
+> @Rebecca Howard has joined the channel
+
 
 ## 2020-11-23
 
-*08:38:53 - @Dominique Paul has joined the channel*
+**Dominique Paul** (08:38:53):
+> @Dominique Paul has joined the channel
+
 
 ## 2020-11-30
 
-*04:55:30 - @Roy Storey has joined the channel*
+**Roy Storey** (04:55:30):
+> @Roy Storey has joined the channel
+
 
 ## 2020-12-12
 
-*00:37:53 - @Huipeng Li has joined the channel*
+**Huipeng Li** (00:37:53):
+> @Huipeng Li has joined the channel
+
 
 ## 2020-12-14
 
-*08:56:42 - @Thomas Naake has joined the channel*
-*13:22:08 - @Nick Owen has joined the channel*
+**Thomas Naake** (08:56:42):
+> @Thomas Naake has joined the channel
+
+**Nick Owen** (13:22:08):
+> @Nick Owen has joined the channel
+
 
 ## 2021-01-01
 
-*14:07:17 - @Bernd has joined the channel*
+**Bernd** (14:07:17):
+> @Bernd has joined the channel
+
 
 ## 2021-01-22
 
-*15:46:41 - @Annajiat Alim Rasel has joined the channel*
+**Annajiat Alim Rasel** (15:46:41):
+> @Annajiat Alim Rasel has joined the channel
+
 
 ## 2021-01-29
 
-*04:19:17 - @Magali Michaut has joined the channel*
+**Magali Michaut** (04:19:17):
+> @Magali Michaut has joined the channel
+
 
 ## 2021-02-07
 
-*11:10:07 - @Mikhael Manurung has left the channel*
+**Mikhael Manurung** (11:10:07):
+> @Mikhael Manurung has left the channel
+
 
 ## 2021-02-12
 
-*15:53:27 - @Janani Ravi has joined the channel*
+**Janani Ravi** (15:53:27):
+> @Janani Ravi has joined the channel
+
 
 ## 2021-02-17
 
-*16:08:33 - @abdullah hanta has joined the channel*
+**abdullah hanta** (16:08:33):
+> @abdullah hanta has joined the channel
+
 
 ## 2021-03-20
 
-*01:58:38 - @watanabe_st has joined the channel*
+**watanabe_st** (01:58:38):
+> @watanabe_st has joined the channel
+
 
 ## 2021-03-23
 
-*23:06:32 - @Lambda Moses has joined the channel*
+**Lambda Moses** (23:06:32):
+> @Lambda Moses has joined the channel
+
 
 ## 2021-03-31
 
-*12:52:04 - @Lisa Cao has joined the channel*
+**Lisa Cao** (12:52:04):
+> @Lisa Cao has joined the channel
+
 
 ## 2021-04-28
 
-*08:06:56 - @Mahmoud Ahmed has joined the channel*
+**Mahmoud Ahmed** (08:06:56):
+> @Mahmoud Ahmed has joined the channel
+
 
 ## 2021-05-11
 
-*16:46:08 - @Megha Lal has joined the channel*
+**Megha Lal** (16:46:08):
+> @Megha Lal has joined the channel
+
 
 ## 2021-05-25
 
-*03:49:09 - @Enrica Calura has joined the channel*
+**Enrica Calura** (03:49:09):
+> @Enrica Calura has joined the channel
+
 
 ## 2021-06-04
 
-*05:52:44 - @Flavio Lombardo has joined the channel*
+**Flavio Lombardo** (05:52:44):
+> @Flavio Lombardo has joined the channel
+
 
 ## 2021-06-23
 
-*16:32:06 - @Stephen Mosher has joined the channel*
+**Stephen Mosher** (16:32:06):
+> @Stephen Mosher has joined the channel
+
 
 ## 2021-07-23
 
-*15:54:17 - @Batool Almarzouq has joined the channel*
+**Batool Almarzouq** (15:54:17):
+> @Batool Almarzouq has joined the channel
+
 
 ## 2021-07-26
 
-*08:56:12 - @Wes W has joined the channel*
+**Wes W** (08:56:12):
+> @Wes W has joined the channel
+
 
 ## 2021-10-27
 
-*11:03:05 - @Nicholas Cooley has joined the channel*
+**Nicholas Cooley** (11:03:05):
+> @Nicholas Cooley has joined the channel
+
 
 ## 2021-11-08
 
-*03:30:20 - @Paula Nieto García has joined the channel*
+**Paula Nieto García** (03:30:20):
+> @Paula Nieto García has joined the channel
+
 
 ## 2021-11-24
 
-*13:16:31 - @Helge Hecht has joined the channel*
+**Helge Hecht** (13:16:31):
+> @Helge Hecht has joined the channel
+
 
 ## 2021-11-26
 
-*06:47:51 - @Francesc Català has joined the channel*
+**Francesc Català** (06:47:51):
+> @Francesc Català has joined the channel
+
 
 ## 2022-01-03
 
-*17:05:39 - @Kurt Showmaker has joined the channel*
+**Kurt Showmaker** (17:05:39):
+> @Kurt Showmaker has joined the channel
+
 
 ## 2022-01-19
 
-*10:11:36 - @Stephany Orjuela has left the channel*
+**Stephany Orjuela** (10:11:36):
+> @Stephany Orjuela has left the channel
+
 
 ## 2022-02-15
 
-*12:01:53 - @Gene Cutler has joined the channel*
+**Gene Cutler** (12:01:53):
+> @Gene Cutler has joined the channel
+
 
 ## 2022-03-30
 
-*23:22:50 - @Sergio Oller has joined the channel*
+**Sergio Oller** (23:22:50):
+> @Sergio Oller has joined the channel
+
 
 ## 2022-04-26
 
-*04:17:22 - @Hans-Rudolf Hotz has joined the channel*
+**Hans-Rudolf Hotz** (04:17:22):
+> @Hans-Rudolf Hotz has joined the channel
+
 
 ## 2022-05-03
 
-*06:56:25 - @Ray Su has joined the channel*
+**Ray Su** (06:56:25):
+> @Ray Su has joined the channel
+
 
 ## 2022-06-07
 
-*13:02:59 - @Nitesh Mishra has joined the channel*
+**Nitesh Mishra** (13:02:59):
+> @Nitesh Mishra has joined the channel
+
 
 ## 2022-06-12
 
-*12:37:33 - @Karat Sidhu has joined the channel*
+**Karat Sidhu** (12:37:33):
+> @Karat Sidhu has joined the channel
+
 
 ## 2022-07-07
 
-*14:28:21 - @Clara Pereira has joined the channel*
+**Clara Pereira** (14:28:21):
+> @Clara Pereira has joined the channel
+
 
 ## 2022-07-28
 
-*13:53:21 - @Krithika Bhuvanesh has joined the channel*
-*14:09:49 - @Nicole Ortogero has joined the channel*
-*17:21:46 - @Mervin Fansler has joined the channel*
+**Krithika Bhuvanesh** (13:53:21):
+> @Krithika Bhuvanesh has joined the channel
+
+**Nicole Ortogero** (14:09:49):
+> @Nicole Ortogero has joined the channel
+
+**Mervin Fansler** (17:21:46):
+> @Mervin Fansler has joined the channel
+
 
 ## 2022-07-31
 
-*04:17:44 - @Arda Keles has joined the channel*
+**Arda Keles** (04:17:44):
+> @Arda Keles has joined the channel
+
 
 ## 2022-08-15
 
-*13:16:08 - @Michael Kaufman has joined the channel*
+**Michael Kaufman** (13:16:08):
+> @Michael Kaufman has joined the channel
+
 
 ## 2022-09-04
 
-*15:01:52 - @Gurpreet Kaur has joined the channel*
+**Gurpreet Kaur** (15:01:52):
+> @Gurpreet Kaur has joined the channel
+
 
 ## 2022-09-27
 
-*16:15:46 - @Jennifer Holmes has joined the channel*
+**Jennifer Holmes** (16:15:46):
+> @Jennifer Holmes has joined the channel
+
 
 ## 2022-11-06
 
-*11:21:48 - @Sherine Khalafalla Saber has joined the channel*
+**Sherine Khalafalla Saber** (11:21:48):
+> @Sherine Khalafalla Saber has joined the channel
+
 
 ## 2022-12-12
 
-*17:58:45 - @Umran has joined the channel*
-*18:00:04 - @Lexi Bounds has joined the channel*
-*18:58:31 - @Carlos José Ferreira da Silva has joined the channel*
+**Umran** (17:58:45):
+> @Umran has joined the channel
+
+**Lexi Bounds** (18:00:04):
+> @Lexi Bounds has joined the channel
+
+**Carlos José Ferreira da Silva** (18:58:31):
+> @Carlos José Ferreira da Silva has joined the channel
+
 
 ## 2022-12-13
 
-*08:58:56 - @Lea Seep has joined the channel*
-*09:01:58 - @Ana Cristina Guerra de Souza has joined the channel*
+**Lea Seep** (08:58:56):
+> @Lea Seep has joined the channel
+
+**Ana Cristina Guerra de Souza** (09:01:58):
+> @Ana Cristina Guerra de Souza has joined the channel
+
 
 ## 2022-12-14
 
-*19:38:48 - @Lijia Yu has joined the channel*
+**Lijia Yu** (19:38:48):
+> @Lijia Yu has joined the channel
+
 
 ## 2023-01-21
 
-*16:04:50 - @Hien has joined the channel*
+**Hien** (16:04:50):
+> @Hien has joined the channel
+
 
 ## 2023-02-01
 
 **Leonardo Collado Torres** (11:10:42):
 > FYI@Michael Loveat[http://bioconductor.org/packages/release/workflows/html/rnaseqGene.html](http://bioconductor.org/packages/release/workflows/html/rnaseqGene.html)the link to the vignette is not showing right now
   - Attachment (Bioconductor): [rnaseqGene](http://bioconductor.org/packages/release/workflows/html/rnaseqGene.html)
-    > Here we walk through an end-to-end gene-level RNA-seq differential expression workflow using Bioconductor packages. We will start from the FASTQ files, show how these were aligned to the reference genome, and prepare a count matrix which tallies the number of RNA-seq reads/fragments within each gene for each sample. We will perform exploratory data analysis (EDA) for quality assessment and to explore the relationship between samples, perform differential gene expression analysis, and visually explore the results.
+> Here we walk through an end-to-end gene-level RNA-seq differential expression workflow using Bioconductor packages. We will start from the FASTQ files, show how these were aligned to the reference genome, and prepare a count matrix which tallies the number of RNA-seq reads/fragments within each gene for each sample. We will perform exploratory data analysis (EDA) for quality assessment and to explore the relationship between samples, perform differential gene expression analysis, and visually explore the results.
 
-*11:10:52 - @Michael Love has joined the channel*
+**Michael Love** (11:10:52):
+> @Michael Love has joined the channel
+
 **Leonardo Collado Torres** (11:10:54):
   - File (PNG): [Screenshot 2023-02-01 at 10.10.47 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/F04MGJK8X4M/screenshot_2023-02-01_at_10.10.47_am.png)
 
@@ -1461,7 +1684,7 @@ format: gfm
 **Leonardo Collado Torres** (11:11:10):
 > [https://bioconductor.org/packages/devel/workflows/html/rnaseqGene.html](https://bioconductor.org/packages/devel/workflows/html/rnaseqGene.html)
   - Attachment (Bioconductor): [rnaseqGene (development version)](https://bioconductor.org/packages/devel/workflows/html/rnaseqGene.html)
-    > Here we walk through an end-to-end gene-level RNA-seq differential expression workflow using Bioconductor packages. We will start from the FASTQ files, show how these were aligned to the reference genome, and prepare a count matrix which tallies the number of RNA-seq reads/fragments within each gene for each sample. We will perform exploratory data analysis (EDA) for quality assessment and to explore the relationship between samples, perform differential gene expression analysis, and visually explore the results.
+> Here we walk through an end-to-end gene-level RNA-seq differential expression workflow using Bioconductor packages. We will start from the FASTQ files, show how these were aligned to the reference genome, and prepare a count matrix which tallies the number of RNA-seq reads/fragments within each gene for each sample. We will perform exploratory data analysis (EDA) for quality assessment and to explore the relationship between samples, perform differential gene expression analysis, and visually explore the results.
 
 **Leonardo Collado Torres** (11:11:23):
   - File (PNG): [Screenshot 2023-02-01 at 10.11.17 AM.png](https://community-bioc.slack.com/files/U34P8RS3B/F04M512CQG7/screenshot_2023-02-01_at_10.11.17_am.png)
@@ -1552,15 +1775,21 @@ format: gfm
 
 ## 2023-02-23
 
-*15:49:35 - @Claire Seibold has joined the channel*
+**Claire Seibold** (15:49:35):
+> @Claire Seibold has joined the channel
+
 
 ## 2023-02-25
 
-*06:18:37 - @Ludwig Geistlinger has joined the channel*
+**Ludwig Geistlinger** (06:18:37):
+> @Ludwig Geistlinger has joined the channel
+
 
 ## 2023-03-01
 
-*12:14:51 - @jeremymchacón has joined the channel*
+**jeremymchacón** (12:14:51):
+> @jeremymchacón has joined the channel
+
 **Sergio Oller** (12:51:59) (in thread):
 > Thanks a lot for the feedback! I will discuss with my colleagues and submit a workflow package with an ExperimentHub dataset. I believe we will aim to use some other infrastructure for hosting so Bioconductor doesn't need to front the costs.
 > Thanks for the explanations!
@@ -1568,55 +1797,81 @@ format: gfm
 
 ## 2023-03-10
 
-*15:28:44 - @Edel Aron has joined the channel*
+**Edel Aron** (15:28:44):
+> @Edel Aron has joined the channel
+
 
 ## 2023-05-03
 
-*16:54:33 - @Rebecca Butler has joined the channel*
+**Rebecca Butler** (16:54:33):
+> @Rebecca Butler has joined the channel
+
 
 ## 2023-05-18
 
-*05:54:48 - @Oluwafemi Oyedele has joined the channel*
+**Oluwafemi Oyedele** (05:54:48):
+> @Oluwafemi Oyedele has joined the channel
+
 
 ## 2023-05-19
 
-*23:37:07 - @Umar Ahmad has joined the channel*
+**Umar Ahmad** (23:37:07):
+> @Umar Ahmad has joined the channel
+
 
 ## 2023-05-25
 
-*17:14:54 - @Jacob Krol has joined the channel*
+**Jacob Krol** (17:14:54):
+> @Jacob Krol has joined the channel
+
 
 ## 2023-06-07
 
-*18:30:46 - @Alyssa Obermayer has joined the channel*
+**Alyssa Obermayer** (18:30:46):
+> @Alyssa Obermayer has joined the channel
+
 
 ## 2023-07-13
 
-*07:03:11 - @Brian Schilder has joined the channel*
+**Brian Schilder** (07:03:11):
+> @Brian Schilder has joined the channel
+
 
 ## 2023-07-28
 
-*15:59:12 - @Benjamin Yang has joined the channel*
+**Benjamin Yang** (15:59:12):
+> @Benjamin Yang has joined the channel
+
 
 ## 2023-08-02
 
-*08:21:26 - @Beth Cimini has joined the channel*
+**Beth Cimini** (08:21:26):
+> @Beth Cimini has joined the channel
+
 
 ## 2023-08-03
 
-*15:59:52 - @Ritika Giri has joined the channel*
+**Ritika Giri** (15:59:52):
+> @Ritika Giri has joined the channel
+
 
 ## 2023-08-04
 
-*10:52:10 - @Scott Norton has joined the channel*
+**Scott Norton** (10:52:10):
+> @Scott Norton has joined the channel
+
 
 ## 2023-08-20
 
-*10:38:44 - @Jacques SERIZAY has joined the channel*
+**Jacques SERIZAY** (10:38:44):
+> @Jacques SERIZAY has joined the channel
+
 
 ## 2023-08-24
 
-*01:21:20 - @Lachlan Baer has joined the channel*
+**Lachlan Baer** (01:21:20):
+> @Lachlan Baer has joined the channel
+
 
 ## 2023-09-12
 
@@ -1626,81 +1881,123 @@ format: gfm
 
 ## 2023-09-15
 
-*04:56:59 - @Leo Lahti has joined the channel*
+**Leo Lahti** (04:56:59):
+> @Leo Lahti has joined the channel
+
 
 ## 2023-09-21
 
-*16:40:20 - @Philippine Louail has joined the channel*
+**Philippine Louail** (16:40:20):
+> @Philippine Louail has joined the channel
+
 
 ## 2023-10-04
 
-*09:44:46 - @Amanda Hiser has joined the channel*
+**Amanda Hiser** (09:44:46):
+> @Amanda Hiser has joined the channel
+
 
 ## 2023-12-01
 
-*10:16:49 - @Tram Nguyen has joined the channel*
+**Tram Nguyen** (10:16:49):
+> @Tram Nguyen has joined the channel
+
 
 ## 2023-12-25
 
-*21:21:54 - @Cherishma Subhasa has joined the channel*
+**Cherishma Subhasa** (21:21:54):
+> @Cherishma Subhasa has joined the channel
+
 
 ## 2024-01-11
 
-*12:01:35 - @Nilesh Kumar has joined the channel*
+**Nilesh Kumar** (12:01:35):
+> @Nilesh Kumar has joined the channel
+
 
 ## 2024-03-11
 
-*10:12:29 - @Melysssa Minto has joined the channel*
+**Melysssa Minto** (10:12:29):
+> @Melysssa Minto has joined the channel
+
 
 ## 2024-04-04
 
-*09:37:02 - @Alexandru Mizeranschi has joined the channel*
-*23:39:11 - @Tung Trinh has joined the channel*
+**Alexandru Mizeranschi** (09:37:02):
+> @Alexandru Mizeranschi has joined the channel
+
+**Tung Trinh** (23:39:11):
+> @Tung Trinh has joined the channel
+
 
 ## 2024-04-12
 
-*12:14:36 - @Arnab Mukherjee has joined the channel*
+**Arnab Mukherjee** (12:14:36):
+> @Arnab Mukherjee has joined the channel
+
 
 ## 2024-04-17
 
-*10:59:06 - @Chenyue Lu has joined the channel*
+**Chenyue Lu** (10:59:06):
+> @Chenyue Lu has joined the channel
+
 
 ## 2024-04-18
 
-*03:02:31 - @Philipp Sergeev has joined the channel*
+**Philipp Sergeev** (03:02:31):
+> @Philipp Sergeev has joined the channel
+
 
 ## 2024-05-15
 
-*08:31:14 - @Sunil Nahata has joined the channel*
+**Sunil Nahata** (08:31:14):
+> @Sunil Nahata has joined the channel
+
 
 ## 2024-05-17
 
-*09:59:46 - @Michal Kolář has joined the channel*
+**Michal Kolář** (09:59:46):
+> @Michal Kolář has joined the channel
+
 
 ## 2024-06-11
 
-*04:37:03 - @Ziru Chen has joined the channel*
+**Ziru Chen** (04:37:03):
+> @Ziru Chen has joined the channel
+
 
 ## 2024-07-04
 
-*15:28:08 - @Sounkou Mahamane Toure has joined the channel*
+**Sounkou Mahamane Toure** (15:28:08):
+> @Sounkou Mahamane Toure has joined the channel
+
 
 ## 2024-07-05
 
-*12:29:30 - @Margherita has joined the channel*
+**Margherita** (12:29:30):
+> @Margherita has joined the channel
+
 
 ## 2024-07-10
 
 **Aedin Culhane** (12:10:42):
 > * @Michael Lovefor publishing of workflows, is workflow hub useful[https://workflowhub.eu](https://workflowhub.eu).@Maria Doyle@Stevie Pederson***Slack chat***:[#workflows on ](https://seek4science.slack.com/archives/CPLLVV94L)[seek4science.slack.com](http://seek4science.slack.com)([join](https://join.slack.com/t/seek4science/shared_invite/zt-csqh94qb-kf~kFbZxuHl1Hpxhbc8avw))
 
-*12:10:46 - @Maria Doyle has joined the channel*
-*12:10:46 - @Stevie Pederson has joined the channel*
+**Maria Doyle** (12:10:46):
+> @Maria Doyle has joined the channel
+
+**Stevie Pederson** (12:10:46):
+> @Stevie Pederson has joined the channel
+
 
 ## 2024-07-11
 
-*06:01:41 - @Sathish Kumar has joined the channel*
-*07:20:29 - @Hothri Moka has joined the channel*
+**Sathish Kumar** (06:01:41):
+> @Sathish Kumar has joined the channel
+
+**Hothri Moka** (07:20:29):
+> @Hothri Moka has joined the channel
+
 **Michael Love** (09:15:57):
 > @Aedin Culhanethis is a good point to bring up.
 > 
@@ -1729,7 +2026,9 @@ format: gfm
 > 
 > CC@Susan Holmes@Charlotte Soneson
 
-*09:16:00 - @Susan Holmes has joined the channel*
+**Susan Holmes** (09:16:00):
+> @Susan Holmes has joined the channel
+
 **Laurent Gatto** (14:24:35) (in thread):
 > Re naming, tutorials is typically for newcomers, manual for competent practitioners. Guide might be a good, more neutral choice.
 
@@ -1787,11 +2086,15 @@ format: gfm
 
 ## 2024-07-19
 
-*17:26:01 - @Sudipta Hazra has joined the channel*
+**Sudipta Hazra** (17:26:01):
+> @Sudipta Hazra has joined the channel
+
 
 ## 2024-07-29
 
-*17:08:55 - @JP Flores has joined the channel*
+**JP Flores** (17:08:55):
+> @JP Flores has joined the channel
+
 
 ## 2024-08-05
 
@@ -1868,7 +2171,7 @@ format: gfm
 **Laurent Gatto** (02:55:02):
 > Came across this, that seemed relevant[https://www.nature.com/articles/d41586-024-02577-1](https://www.nature.com/articles/d41586-024-02577-1)
   - Attachment (Nature): [A publishing platform that places code front and centre](https://www.nature.com/articles/d41586-024-02577-1)
-    > Curvenote creates interactive publications based on digital-coding notebooks and aims to increase the transparency and reproducibility of data science.
+> Curvenote creates interactive publications based on digital-coding notebooks and aims to increase the transparency and reproducibility of data science.
 
 **Stevie Pederson** (04:15:46):
 > Very interesting. Thanks Laurent. I do wonder if we're near one of those inflection points, where publishers aren't quite there yet, but the need is growing amongst researchers. Maybe in 5-10 years, that'll be far more common. Also ties in nicely with JJ Allaire's talk at last year's BioC in Boston.
@@ -1896,7 +2199,9 @@ format: gfm
 
 ## 2024-08-10
 
-*11:10:53 - @Vince Carey has joined the channel*
+**Vince Carey** (11:10:53):
+> @Vince Carey has joined the channel
+
 **Vince Carey** (11:24:18) (in thread):
 > This reminds me of Deborah Mayo's "statistics as severe testing".  A[review](https://ndpr.nd.edu/reviews/statistical-inference-as-severe-testing-how-to-get-beyond-the-statistics-wars/)... When I reviewed packages I tried to get authors to be clear about the specific advance that the package provides.  With a new technology there may not be much to compare to.  Will the reviewer always be able to identify fallacies, biased figures of merit, etc.?  If the general replicability crisis is real, it would seem that we will reliably identify flawed methods***mostly***by extensive use and determination that the findings are false, not by a priori demonstration.  Transparency in Bioc's approach to software curation does not solve the problem of "incorrectness" but it is a useful first step?  Of course when incorrectness is patent an issue should be filed immediately.
 
@@ -1906,7 +2211,9 @@ format: gfm
 
 ## 2024-08-19
 
-*09:41:24 - @Rema Gesaka has joined the channel*
+**Rema Gesaka** (09:41:24):
+> @Rema Gesaka has joined the channel
+
 
 ## 2024-08-25
 
@@ -2003,7 +2310,9 @@ format: gfm
 
 ## 2024-09-10
 
-*03:49:18 - @Alex Qin has joined the channel*
+**Alex Qin** (03:49:18):
+> @Alex Qin has joined the channel
+
 
 ## 2024-09-15
 
@@ -2055,19 +2364,27 @@ format: gfm
 
 ## 2024-09-20
 
-*09:30:04 - @Camille Guillermin has joined the channel*
+**Camille Guillermin** (09:30:04):
+> @Camille Guillermin has joined the channel
+
 
 ## 2024-09-23
 
-*07:12:30 - @Johannes Rainer has joined the channel*
+**Johannes Rainer** (07:12:30):
+> @Johannes Rainer has joined the channel
+
 
 ## 2024-09-24
 
-*22:49:48 - @Jasmine Baker has joined the channel*
+**Jasmine Baker** (22:49:48):
+> @Jasmine Baker has joined the channel
+
 
 ## 2024-10-02
 
-*19:08:11 - @Eva Hamrud has joined the channel*
+**Eva Hamrud** (19:08:11):
+> @Eva Hamrud has joined the channel
+
 
 ## 2024-10-14
 
@@ -2089,7 +2406,7 @@ format: gfm
 **Michael Love** (09:12:05):
 > [https://www.timebie.com/std/eastern.php?q=6](https://www.timebie.com/std/eastern.php?q=6)?
   - Attachment (timebie.com): [6:00 AM EST to Your Local Time Conversion -- TimeBie](https://www.timebie.com/std/eastern.php?q=6)
-    > 6 AM ( 6:00 ) Eastern Standard Time to Your Local Time and Worldwide Time Conversions
+> 6 AM ( 6:00 ) Eastern Standard Time to Your Local Time and Worldwide Time Conversions
 
 **Charlotte Soneson** (09:14:10) (in thread):
 > Right now, any time except 15-16 Central European time (we have the Bioc training meeting then)
@@ -2142,16 +2459,20 @@ format: gfm
 **Vince Carey** (12:04:16):
 > I added a couple of comments.  I think it could be submitted.  For this channel, I thought it could be interesting to consider where nf-core is ... it does reflect the concept of branch points, e.g., under "Documentation" at[https://nf-co.re/scrnaseq/2.7.1/](https://nf-co.re/scrnaseq/2.7.1/)... would anyone want to interact with that ecosystem to add, e.g.,  Bioc classes as output?
   - Attachment (nf-co.re): [scrnaseq: Introduction](https://nf-co.re/scrnaseq/2.7.1/)
-    > A single-cell RNAseq pipeline for 10X genomics data
+> A single-cell RNAseq pipeline for 10X genomics data
 
 
 ## 2024-11-08
 
-*01:01:34 - @Davide Risso has joined the channel*
+**Davide Risso** (01:01:34):
+> @Davide Risso has joined the channel
+
 **Davide Risso** (01:01:59):
 > @Ellis Patrick
 
-*01:02:02 - @Ellis Patrick has joined the channel*
+**Ellis Patrick** (01:02:02):
+> @Ellis Patrick has joined the channel
+
 **Michael Love** (08:21:21) (in thread):
 > FWIW tximeta can directly import Alevin into an SCE
 
@@ -2215,7 +2536,9 @@ format: gfm
 **Stevie Pederson** (07:47:53):
 > Just adding@Sean Davisto the channel as well.:slightly_smiling_face:
 
-*07:47:57 - @Sean Davis has joined the channel*
+**Sean Davis** (07:47:57):
+> @Sean Davis has joined the channel
+
 **Michael Love** (08:18:48):
 > I added another term "Analysis Workflow" to the proposal list
 > 
@@ -2331,7 +2654,7 @@ format: gfm
 **Davide Risso** (02:22:56):
 > Perhaps it's off-topic, but I came across this journal (Computo by the French Statistical Society) and it looks very similar to what I would imagine a Bioconductor journal would look like: they use OpenReview for reviews, require Github repos for every article (which is itself a Quarto document) and use Github actions to check that the code renders the article without issues at every push (which perhaps means that authors can update their article after publication?).[https://computo.sfds.asso.fr/](https://computo.sfds.asso.fr/)
   - Attachment (computo.sfds.asso.fr): [COMPUTO](https://computo.sfds.asso.fr/)
-    > A Journal of the French Statistical Society to promote reproducible Science
+> A Journal of the French Statistical Society to promote reproducible Science
 
 **Vince Carey** (08:34:07) (in thread):
 > This looks very nice.  Should we discuss at December TAB?  I can imagine a project converting a workflow to compliant quarto.   This[action](https://github.com/computorg/published-paper-tsne/blob/main/.github/workflows/build.yml)seems to accomplish a lot.  Would we want to consider teaming up with this journal to host workflows, possibly under distinct branding?
@@ -2360,8 +2683,12 @@ format: gfm
 > 
 > I can tell ahead that I’ll need to reschedule — i’ll be dropping kids off at school that day. Maybe we should ask who would like to attend a Dec meeting and then can pick a time on the clock that works for the majority of folks
 
-*10:59:44 - @Simple Poll has joined the channel*
-*10:59:44 - @Simple Poll has joined the channel*
+**Simple Poll** (10:59:44):
+> @Simple Poll has joined the channel
+
+**Simple Poll** (10:59:44):
+> @Simple Poll has joined the channel
+
 **Simple Poll** (10:59:47):
 > [Unsupported block type: section]
 > 
@@ -2471,7 +2798,7 @@ format: gfm
 > 
 > Should I also list this formally as a working group here?[https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html)
   - Attachment (workinggroups.bioconductor.org): [Chapter 2 Currently Active Working Groups / Committees | Bioconductor Working Groups: Guidelines and activities](https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html)
-    > The following describe currently active working groups listed in alphabetical order. If you are interested in becoming involved with one of these groups please contact the group leader(s). 2.1...
+> The following describe currently active working groups listed in alphabetical order. If you are interested in becoming involved with one of these groups please contact the group leader(s). 2.1...
 
 **Michael Love** (16:55:50):
 > Also I won't be able to do the 7am US East time reliably... we may have to resort to asynchronous work for a bit unless there's a better solution:man-shrugging:
@@ -2482,7 +2809,7 @@ format: gfm
 **Stevie Pederson** (06:37:04) (in thread):
 > Hi Michael & Happy New Year to you as well! I've been meaning to make a pull request about this group but just hadn't gotten to it yet. I checked in late last year with Susan & Sean & they're happy for this to become the Publication working group ([https://workinggroups.bioconductor.org/needed-working-groups-committees.html#publication](https://workinggroups.bioconductor.org/needed-working-groups-committees.html#publication)). I think they're still keen to have a role, if only a fairly passive one.
   - Attachment (workinggroups.bioconductor.org): [Chapter 3 Needed Working Groups / Committees | Bioconductor Working Groups: Guidelines and activities](https://workinggroups.bioconductor.org/needed-working-groups-committees.html#publication)
-    > This is a list of suggested working groups / committees with intended focus. These groups still need a lead to organize and move the project goals forwards. If you are interested in starting one...
+> This is a list of suggested working groups / committees with intended focus. These groups still need a lead to organize and move the project goals forwards. If you are interested in starting one...
 
 **Stevie Pederson** (06:38:55) (in thread):
 > I think in reality, we have two main tasks so maybe we just bite off one at a time:
@@ -2512,7 +2839,7 @@ format: gfm
 **Michael Love** (07:36:14) (in thread):
 > [https://computorg.github.io/about](https://computorg.github.io/about)
   - Attachment (computo.sfds.asso.fr): [About | COMPUTO](https://computorg.github.io/about)
-    > A Journal of the French Statistical Society to promote reproducible Science
+> A Journal of the French Statistical Society to promote reproducible Science
 
 **Michael Love** (07:37:18) (in thread):
 > However some Bioc packages wouldn't fit as stats or ML
@@ -2551,7 +2878,7 @@ format: gfm
 **Stevie Pederson** (06:54:31) (in thread):
 > I've just made a pull request to add this group as the clumsily titled "Workflows Working Group."[https://github.com/Bioconductor/BiocWorkingGroups/pull/47](https://github.com/Bioconductor/BiocWorkingGroups/pull/47)Do other people use Jira or Trello boards? I keep meaning to, but am wondering if we prepare one as a set of TODO action items?
   - Attachment: [#47 Added workflows working group](https://github.com/Bioconductor/BiocWorkingGroups/pull/47)
-    > I've included anyone who has made comments in the channel or the working document
+> I've included anyone who has made comments in the channel or the working document
 
 **Michael Love** (07:05:22) (in thread):
 > I've used GitHub project tracking which is  similar but am open to using any tool
@@ -2578,7 +2905,7 @@ format: gfm
 > I can't host/jointheUS 7am anymore,
 > hoping we can figure out a new time for a regular meeting[https://community-bioc.slack.com/archives/CA17HQDGE/p1736200550742909](https://community-bioc.slack.com/archives/CA17HQDGE/p1736200550742909)
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CA17HQDGE/p1736200550742909)
-    > Also I won't be able to do the 7am US East time reliably... we may have to resort to asynchronous work for a bit unless there's a better solution :man-shrugging:
+> Also I won't be able to do the 7am US East time reliably... we may have to resort to asynchronous work for a bit unless there's a better solution :man-shrugging:
 
 **Michael Love** (07:29:47) (in thread):
 > I don't know how it can be deleted by host but still on others calendar?
@@ -2722,9 +3049,9 @@ format: gfm
 > ```
 > TL;DR: one possibility would be to create a Bioconductor PCI and reuse Computo git-based framework (possibly with some customization) to have our own publishing system; or simply use the PCI platform to review the workflows with our editorial overseeing and perhaps partner with other journals for publication.
   - Attachment (computo.sfds.asso.fr): [COMPUTO](https://computo.sfds.asso.fr/)
-    > A Journal of the French Statistical Society to promote reproducible Science
+> A Journal of the French Statistical Society to promote reproducible Science
   - Attachment (Peer Community In): [Peer Community In - free peer review & validation of preprints of articles](https://peercommunityin.org/)
-    > PCI is a non-profit open science organization of scientists to evaluate, recommend and publish research preprints in free open access
+> PCI is a non-profit open science organization of scientists to evaluate, recommend and publish research preprints in free open access
 
 
 ## 2025-01-29
@@ -2792,12 +3119,17 @@ format: gfm
 
 ## 2025-03-05
 
-*22:31:51 - @Benjamin Hernandez Rodriguez has joined the channel*
+**Benjamin Hernandez Rodriguez** (22:31:51):
+> @Benjamin Hernandez Rodriguez has joined the channel
+
 
 ## 2025-03-18
 
-*15:01:17 - @Nicolo has joined the channel*
+**Nicolo** (15:01:17):
+> @Nicolo has joined the channel
+
 
 ## 2025-04-14
 
-*07:09:37 - @Saad Farooq has joined the channel*
+**Saad Farooq** (07:09:37):
+> @Saad Farooq has joined the channel

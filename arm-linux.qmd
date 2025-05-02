@@ -3,14 +3,17 @@ title: "#arm-linux"
 format: gfm
 ---
 
-
 ## 2023-01-05
 
-*07:05:26 - @Vince Carey has joined the channel*
+**Vince Carey** (07:05:26):
+> @Vince Carey has joined the channel
+
 **Vince Carey** (07:05:26):
 > set the channel description: How can bioc support arm-linux
 
-*07:11:13 - @Martin Grigorov has joined the channel*
+**Martin Grigorov** (07:11:13):
+> @Martin Grigorov has joined the channel
+
 **Martin Grigorov** (07:11:39):
 > :wave:Hello, team! Thanks for the invitation!
 
@@ -30,8 +33,12 @@ format: gfm
 **Vince Carey** (08:17:25):
 > @Andres Wokaty@Alex Mahmoudcan you comment here?  We have a bespoke system for building and reporting and distributing ... but are increasing integration with GHA and exploring other avenues.
 
-*08:17:29 - @Andres Wokaty has joined the channel*
-*08:17:29 - @Alex Mahmoud has joined the channel*
+**Andres Wokaty** (08:17:29):
+> @Andres Wokaty has joined the channel
+
+**Alex Mahmoud** (08:17:29):
+> @Alex Mahmoud has joined the channel
+
 
 ## 2023-01-06
 
@@ -47,12 +54,12 @@ format: gfm
 **Alex Mahmoud** (19:15:28) (in thread):
 > For the containerized side of things, I agree that building the docker image is now possible using rocker daily builds as a base, and I can add that to the list of things to do. Once the docker image exists, there will also be a path for building binaries for the packages with the containerized builder which is still a wip. I added the high level basic steps for the containerized environment to[https://github.com/Bioconductor/bioconductor_docker/issues/64#issuecomment-1378061482](https://github.com/Bioconductor/bioconductor_docker/issues/64#issuecomment-1378061482), happy to chat about it if you have the time and want to contribute. Otherwise, i'll probably get to it in the next few weeks or so
   - Attachment: [Comment on #64 Make an ARM image available](https://github.com/Bioconductor/bioconductor_docker/issues/64#issuecomment-1378061482)
-    > There is now feasible path to do this with the rocker daily builds for arm64 now available.  
-    > High level tasks:
-    > 
-    > ☐ Add arm64 build via [https://github.com/uraimo/run-on-arch-action/](https://github.com/uraimo/run-on-arch-action/) or `docker buildx`
-    > ☐ Use arm64 docker image as a new base to build binaries for packages via modified [gha-build](https://github.com/almahmoud/gha-build) (still WIP)
-    > ☐ Make `BiocManager/AnVIL::install` aware of architecture when picking binaries
+> There is now feasible path to do this with the rocker daily builds for arm64 now available.  
+> High level tasks:
+> 
+> ☐ Add arm64 build via [https://github.com/uraimo/run-on-arch-action/](https://github.com/uraimo/run-on-arch-action/) or `docker buildx`
+> ☐ Use arm64 docker image as a new base to build binaries for packages via modified [gha-build](https://github.com/almahmoud/gha-build) (still WIP)
+> ☐ Make `BiocManager/AnVIL::install` aware of architecture when picking binaries
 
 
 ## 2023-01-11
@@ -63,9 +70,9 @@ format: gfm
 **Martin Grigorov** (12:51:04) (in thread):
 > [https://github.com/Bioconductor/bioconductor_docker/pull/67](https://github.com/Bioconductor/bioconductor_docker/pull/67)
   - Attachment: [#67 Issue #64: Build Linux ARM64 image in addition to x86_64](https://github.com/Bioconductor/bioconductor_docker/pull/67)
-    > Build weekly images with ARM64
-    > 
-    > Signed-off-by: Martin Tzvetanov Grigorov <mailto:mgrigorov@apache.org|mgrigorov@apache.org>
+> Build weekly images with ARM64
+> 
+> Signed-off-by: Martin Tzvetanov Grigorov <mailto:mgrigorov@apache.org|mgrigorov@apache.org>
 
 **Alex Mahmoud** (13:16:28) (in thread):
 > I made a few changes to ensure that the right tags (`latest`vs`devel`are used for arm64 since rocker doesn't provide arm64`devel`tag yet), and made the PR only affect the GHCR build, then merged. Assuming this goes well, I can modify the weekly build script and the docker auto-build (setup on the dockerhub side) later, but figured getting the GHCR image out there asap will be good since it doesn't need anything else afaict, so I merged that part separately
@@ -148,7 +155,9 @@ format: gfm
 
 ## 2023-01-20
 
-*03:13:36 - @Yikun Jiang has joined the channel*
+**Yikun Jiang** (03:13:36):
+> @Yikun Jiang has joined the channel
+
 
 ## 2023-01-26
 
@@ -283,20 +292,20 @@ format: gfm
 **Martin Grigorov** (03:36:37) (in thread):
 > [https://github.com/LTLA/basilisk.utils/pull/7](https://github.com/LTLA/basilisk.utils/pull/7)
   - Attachment: [#7 Add support for Linux ARM64/aarch64](https://github.com/LTLA/basilisk.utils/pull/7)
-    > There is an ongoing initiative to add support for Linux ARM64: [https://stat.ethz.ch/pipermail/bioc-devel/2023-January/019398.html](https://stat.ethz.ch/pipermail/bioc-devel/2023-January/019398.html)
-    > 
-    > Currently [https://github.com/LTLA/basilisk](https://github.com/LTLA/basilisk) and  
-    > [https://github.com/theislab/zellkonverter](https://github.com/theislab/zellkonverter) fail with:
-    > 
-    > ```
-    > PREFIX=/home/biocbuild/.cache/R/basilisk/1.11.2/0
-    > Unpacking payload ...
-    > /home/biocbuild/.cache/R/basilisk/Miniconda3-py38_4.12.0-Linux-x86_64.sh: line 412: /home/biocbuild/.cache/R/basilisk/1.11.2/0/conda.exe: cannot execute binary file: Exec format error /home/biocbuild/.cache/R/basilisk/Miniconda3-py38_4.12.0-Linux-x86_64.sh: line 414: /home/biocbuild/.cache/R/basilisk/1.11.2/0/conda.exe: cannot execute binary file: Exec format error Quitting from lines 71-207 (motivation.Rmd)
-    > Error: processing vignette 'motivation.Rmd' failed with diagnostics: conda installation failed with status code '1'
-    > --- failed re-building 'motivation.Rmd'
-    > ```
-    > 
-    > Signed-off-by: Martin Tzvetanov Grigorov <mailto:mgrigorov@apache.org|mgrigorov@apache.org>
+> There is an ongoing initiative to add support for Linux ARM64: [https://stat.ethz.ch/pipermail/bioc-devel/2023-January/019398.html](https://stat.ethz.ch/pipermail/bioc-devel/2023-January/019398.html)
+> 
+> Currently [https://github.com/LTLA/basilisk](https://github.com/LTLA/basilisk) and  
+> [https://github.com/theislab/zellkonverter](https://github.com/theislab/zellkonverter) fail with:
+> 
+> ```
+> PREFIX=/home/biocbuild/.cache/R/basilisk/1.11.2/0
+> Unpacking payload ...
+> /home/biocbuild/.cache/R/basilisk/Miniconda3-py38_4.12.0-Linux-x86_64.sh: line 412: /home/biocbuild/.cache/R/basilisk/1.11.2/0/conda.exe: cannot execute binary file: Exec format error /home/biocbuild/.cache/R/basilisk/Miniconda3-py38_4.12.0-Linux-x86_64.sh: line 414: /home/biocbuild/.cache/R/basilisk/1.11.2/0/conda.exe: cannot execute binary file: Exec format error Quitting from lines 71-207 (motivation.Rmd)
+> Error: processing vignette 'motivation.Rmd' failed with diagnostics: conda installation failed with status code '1'
+> --- failed re-building 'motivation.Rmd'
+> ```
+> 
+> Signed-off-by: Martin Tzvetanov Grigorov <mailto:mgrigorov@apache.org|mgrigorov@apache.org>
 
 **Martin Grigorov** (06:33:44):
 > Hi! We have uploaded the first reports at[https://yikun.github.io/bioconductor/report/long-report.html](https://yikun.github.io/bioconductor/report/long-report.html)The common types of problems are summarized at[https://github.com/Bioconductor/BBS/pull/255#issuecomment-1407937082](https://github.com/Bioconductor/BBS/pull/255#issuecomment-1407937082)
@@ -338,7 +347,9 @@ format: gfm
 **Vince Carey** (11:03:11):
 > Let's see if I understand the situation.  The Bioconductor approach to tiledb is to use an ubuntu package for it and required runtimes.  But if the BBS built tiledb from source then you would be in a better position to configure the tiledb package for R as needed by ARM64.  I have to ask@Hervé Pagèsto weigh in here, I think he has looked at the tiledb situation previously.  I think eventually we could build tiledb infrastructure from source for linux ... not sure.
 
-*11:03:16 - @Hervé Pagès has joined the channel*
+**Hervé Pagès** (11:03:16):
+> @Hervé Pagès has joined the channel
+
 **Hervé Pagès** (15:12:58):
 > Just to clarify no Ubuntu package is needed to install***tiledb***on Intel Linux. Pre-built TileDB Embedded libraries get downloaded from GitHub at installation time. This is what I get on my Ubuntu 20.04 LTS (Intel) laptop:
 > ```
@@ -363,17 +374,19 @@ format: gfm
 **Hervé Pagès** (15:25:32):
 > Just posted a shorter version of the above here:[https://github.com/Yikun/BBS/issues/26#issuecomment-1431980654](https://github.com/Yikun/BBS/issues/26#issuecomment-1431980654)
   - Attachment: [Comment on #26 tiledb.install](https://github.com/Yikun/BBS/issues/26#issuecomment-1431980654)
-    > > It would be lovely if TileDB could be built from source so that the R package can be more fully-featured.
-    > 
-    > Sure but from a Bioconductor build system perspective we only need the **tiledb** package on the build machines to support Bioconductor package **TileDBArray**, so lack of AWS S3 support would only be a problem if the vignettes/examples/unit tests in **TileDBArray** need that feature. And I don't know if that's the case so we'll see.
-    > 
-    > In other words, as long as using `libtiledb-dev` allows **tiledb** to install *and* **TileDBArray** to pass BUILD and CHECK, then we're good. :smiley:
-    > 
-    > BTW any idea if/when TileDB-Inc will provide pre-built TileDB Embedded libraries for aarch64?
-    > 
-    > Thanks!
+> > It would be lovely if TileDB could be built from source so that the R package can be more fully-featured.
+> 
+> Sure but from a Bioconductor build system perspective we only need the **tiledb** package on the build machines to support Bioconductor package **TileDBArray**, so lack of AWS S3 support would only be a problem if the vignettes/examples/unit tests in **TileDBArray** need that feature. And I don't know if that's the case so we'll see.
+> 
+> In other words, as long as using `libtiledb-dev` allows **tiledb** to install *and* **TileDBArray** to pass BUILD and CHECK, then we're good. :smiley:
+> 
+> BTW any idea if/when TileDB-Inc will provide pre-built TileDB Embedded libraries for aarch64?
+> 
+> Thanks!
 
-*22:05:06 - @Tom Lin has joined the channel*
+**Tom Lin** (22:05:06):
+> @Tom Lin has joined the channel
+
 
 ## 2023-02-16
 
@@ -389,11 +402,11 @@ format: gfm
 **Martin Grigorov** (03:00:50):
 > There is something strange though.[https://yikun.github.io/bioconductor-0223/report/Rbowtie2/kunpeng1-install.html](https://yikun.github.io/bioconductor-0223/report/Rbowtie2/kunpeng1-install.html)still fails about missing`simde`although it has been fixed with[https://github.com/wzthu/Rbowtie2/pull/8](https://github.com/wzthu/Rbowtie2/pull/8)and[https://code.bioconductor.org/browse/Rbowtie2/commits/master](https://code.bioconductor.org/browse/Rbowtie2/commits/master)I have the feeling that BBS does not clone git submodules
   - Attachment: [#8 Add 'simde' as a Git submodule](https://github.com/wzthu/Rbowtie2/pull/8)
-    > Fixes [#7](https://github.com/wzthu/Rbowtie2/issues/7)
-    > 
-    > Used the following command to add the submodule:
-    > 
-    > `git submodule add --name simde -b master [https://github.com/simd-everywhere/simde-no-tests.git](https://github.com/simd-everywhere/simde-no-tests.git) src/bowtie2-2.4.4/third_party/simde`
+> Fixes [#7](https://github.com/wzthu/Rbowtie2/issues/7)
+> 
+> Used the following command to add the submodule:
+> 
+> `git submodule add --name simde -b master [https://github.com/simd-everywhere/simde-no-tests.git](https://github.com/simd-everywhere/simde-no-tests.git) src/bowtie2-2.4.4/third_party/simde`
 
 **Martin Grigorov** (03:02:05) (in thread):
 > [https://github.com/Bioconductor/BBS/blob/3908dbd4f5b1927f197d2dd57ba52a266be07847/bbs/gitutils.py#L78-L86](https://github.com/Bioconductor/BBS/blob/3908dbd4f5b1927f197d2dd57ba52a266be07847/bbs/gitutils.py#L78-L86)
@@ -453,9 +466,9 @@ format: gfm
 **Hervé Pagès** (15:24:00) (in thread):
 > Done:[https://github.com/wzthu/Rbowtie2/pull/8#issuecomment-1442382699](https://github.com/wzthu/Rbowtie2/pull/8#issuecomment-1442382699)
   - Attachment: [Comment on #8 Add 'simde' as a Git submodule](https://github.com/wzthu/Rbowtie2/pull/8#issuecomment-1442382699)
-    > Unfortunately Bioconductor doesn't support git submodules at the moment so the simde-no-tests source tree would need to be copied to **Rbowtie2**.
-    > 
-    > (BTW note that something seems to be wrong in how the "simde" submodule is currently registered in **Rbowtie2** anyways, because `git clone --recurse-submodules [https://github.com/wzthu/Rbowtie2](https://github.com/wzthu/Rbowtie2)` ignores it.)
+> Unfortunately Bioconductor doesn't support git submodules at the moment so the simde-no-tests source tree would need to be copied to **Rbowtie2**.
+> 
+> (BTW note that something seems to be wrong in how the "simde" submodule is currently registered in **Rbowtie2** anyways, because `git clone --recurse-submodules [https://github.com/wzthu/Rbowtie2](https://github.com/wzthu/Rbowtie2)` ignores it.)
 
 
 ## 2023-02-24
@@ -469,7 +482,9 @@ format: gfm
 
 ## 2023-03-09
 
-*09:30:28 - @Michael Love has joined the channel*
+**Michael Love** (09:30:28):
+> @Michael Love has joined the channel
+
 **Michael Love** (09:32:01):
 > hi@Martin Grigorovthanks for the detailed instructions. Could you try a quick change and then if that doesn’t work I will go with #3 or #2
 > 
@@ -604,11 +619,15 @@ format: gfm
 **Martin Grigorov** (06:46:52):
 > Hi! We have uploaded a new report based on 3.18 at[https://yikun.github.io/bioconductor-0510/report/long-report.html](https://yikun.github.io/bioconductor-0510/report/long-report.html)I also wrote a short article how to build and test Bioc packages with the Docker ARM64 image on x86_64 host:[https://martin-grigorov.medium.com/emulated-building-and-testing-of-bioconductor-projects-for-linux-arm64-501c1f854dc1](https://martin-grigorov.medium.com/emulated-building-and-testing-of-bioconductor-projects-for-linux-arm64-501c1f854dc1)It should be useful to package maintainers to debug issues !
 
-*08:26:34 - @Michael Love has left the channel*
+**Michael Love** (08:26:34):
+> @Michael Love has left the channel
+
 
 ## 2023-05-18
 
-*05:54:28 - @Oluwafemi Oyedele has joined the channel*
+**Oluwafemi Oyedele** (05:54:28):
+> @Oluwafemi Oyedele has joined the channel
+
 
 ## 2023-05-29
 
@@ -624,9 +643,9 @@ format: gfm
 > There is some interest from the community at[https://github.com/Bioconductor/BBS/pull/255#issuecomment-1554418244](https://github.com/Bioconductor/BBS/pull/255#issuecomment-1554418244)!:tada:I will run a new report on Ubuntu 22.04 and add a comment with a link to the latest results.
 > I won't be able to answer them when/whether Linux ARM64 will become a member of the official report runners but I'd be very happy if this is in your plans for 3.18 !
   - Attachment: [Comment on #255 Add a Linux ARM64 builder node](https://github.com/Bioconductor/BBS/pull/255#issuecomment-1554418244)
-    > I want to thank all people involved in adding support for Linux ARM64!  
-    > In our department we are moving to ARM64 to reduce the expenses and so far everything works quite good!  
-    > I hope to see this PR merged and Linux ARM64 being part of the official test reports soon!
+> I want to thank all people involved in adding support for Linux ARM64!  
+> In our department we are moving to ARM64 to reduce the expenses and so far everything works quite good!  
+> I hope to see this PR merged and Linux ARM64 being part of the official test reports soon!
 
 
 ## 2023-05-31
@@ -646,34 +665,34 @@ format: gfm
 **Hervé Pagès** (20:53:02) (in thread):
 > Hi@Martin Grigorov, this is ready. See[https://github.com/Bioconductor/BBS/issues/292](https://github.com/Bioconductor/BBS/issues/292)
   - Attachment: [#292 Add Linux ARM64 builder as a node that participates to the BioC daily builds](https://github.com/Bioconductor/BBS/issues/292)
-    > Hi [@martin-g](https://github.com/martin-g), [@Yikun](https://github.com/Yikun)
-    > 
-    > As mentioned on our community Slack (#arm-linux channel) yesterday, your build machine will need to be configured as an "external build node" for that. This is a first for us. Yesterday and today I worked on modifying BBS to support the new "external build node" case. Make sure to pull the latest version.
-    > 
-    > I also updated [`Prepare-Ubuntu-22.04-HOWTO.md`](https://github.com/Bioconductor/BBS/blob/devel/Doc/Prepare-Ubuntu-22.04-HOWTO.md) to document the specificities of the "external build node" setup. This is a lighter/simpler setup than for a *standalone* builder. I believe that your machine is already set up as the latter so you don't have to change anything to your current setup. However, please check sections "2.5 Add software builds to biocbuild's crontab" and "2.6 First build report". This will probably be new for you.
-    > 
-    > Also your machine would need to be added to our nodes database (in `BBS/nodes/`), and build configuration files and scripts for it would need to be added to `BBS/3.18/bioc/`. More precisely, here are the changes that would need to be done to BBS:
-    > 
-    > 1. Add your machine to our nodes database:
-    >     
-    >     This consists in adding a new entry for it to `BBS/nodes/nodespecs.py`. See the entry I added at the bottom of the file for fake "external node" xps15, and add a similar entry for your machine after it.
-    >     
-    >     You will also need to add a new subfolder in `BBS/nodes/` for your machine, with a `local-settings.sh`  
-    >     file in it. See the `BBS/nodes/xps15/` subfolder for an example (adapt the paths in `local-settings.sh` to reflect where things are on your machine).
-    > 2. Add build configuration files and scripts for your machine:
-    >     
-    >     This consists in adding a new subfolder for your machine in `BBS/3.18/bioc/`. See the `BBS/3.18/bioc/xps15/` subfolder for an example and adapt.
-    > 
-    > Please submit a PR whenever this is ready.
-    > 
-    > Finally, once your machine is properly set up and was able to complete its first build run as an "external node", we will need to discuss a way for us to retrieve the content of the `~~/bbs-3.18-bioc/products-out/` folder from it. This is where BBS will drop all the build products during the builds. We'll need to be able to access this daily in order to include your build results in our daily report. This could typically be done via `rsync` i.e. think of `~~/bbs-3.18-bioc/products-out/` as something that we'd like to be able to mirror on our central builder.
-    > 
-    > Thanks for helping Bioconductor improve its support for Linux ARM64.
-    > 
-    > Let me know if you have questions.
-    > 
-    > Best,  
-    > H.
+> Hi [@martin-g](https://github.com/martin-g), [@Yikun](https://github.com/Yikun)
+> 
+> As mentioned on our community Slack (#arm-linux channel) yesterday, your build machine will need to be configured as an "external build node" for that. This is a first for us. Yesterday and today I worked on modifying BBS to support the new "external build node" case. Make sure to pull the latest version.
+> 
+> I also updated [`Prepare-Ubuntu-22.04-HOWTO.md`](https://github.com/Bioconductor/BBS/blob/devel/Doc/Prepare-Ubuntu-22.04-HOWTO.md) to document the specificities of the "external build node" setup. This is a lighter/simpler setup than for a *standalone* builder. I believe that your machine is already set up as the latter so you don't have to change anything to your current setup. However, please check sections "2.5 Add software builds to biocbuild's crontab" and "2.6 First build report". This will probably be new for you.
+> 
+> Also your machine would need to be added to our nodes database (in `BBS/nodes/`), and build configuration files and scripts for it would need to be added to `BBS/3.18/bioc/`. More precisely, here are the changes that would need to be done to BBS:
+> 
+> 1. Add your machine to our nodes database:
+>     
+>     This consists in adding a new entry for it to `BBS/nodes/nodespecs.py`. See the entry I added at the bottom of the file for fake "external node" xps15, and add a similar entry for your machine after it.
+>     
+>     You will also need to add a new subfolder in `BBS/nodes/` for your machine, with a `local-settings.sh`  
+>     file in it. See the `BBS/nodes/xps15/` subfolder for an example (adapt the paths in `local-settings.sh` to reflect where things are on your machine).
+> 2. Add build configuration files and scripts for your machine:
+>     
+>     This consists in adding a new subfolder for your machine in `BBS/3.18/bioc/`. See the `BBS/3.18/bioc/xps15/` subfolder for an example and adapt.
+> 
+> Please submit a PR whenever this is ready.
+> 
+> Finally, once your machine is properly set up and was able to complete its first build run as an "external node", we will need to discuss a way for us to retrieve the content of the `~~/bbs-3.18-bioc/products-out/` folder from it. This is where BBS will drop all the build products during the builds. We'll need to be able to access this daily in order to include your build results in our daily report. This could typically be done via `rsync` i.e. think of `~~/bbs-3.18-bioc/products-out/` as something that we'd like to be able to mirror on our central builder.
+> 
+> Thanks for helping Bioconductor improve its support for Linux ARM64.
+> 
+> Let me know if you have questions.
+> 
+> Best,  
+> H.
 
 
 ## 2023-06-02
@@ -1176,7 +1195,9 @@ format: gfm
 > > If set to a true value, running examples, tests and vignettes is done with a temporary library directory populated by all the Depends/Imports/Suggests packages. (As exceptions, packages in a ‘VignetteBuilder’ field are always made available.) Default: false (but true for CRAN submission checks: some of the regular checks use true and some use false).
 > I'd say the temporary library directory should be populated with all the Depends/Imports/LinkingTo/Suggests packages. It doesn't make much sense to not include packages listed in the LinkingTo field. So to me`*R_CHECK_SUGGESTS_ONLY*`is conceptually flawed at the moment. Maybe using this setting for our builds is not such a good idea after all:disappointed:@Henrik BengtssonAny idea?
 
-*16:40:55 - @Henrik Bengtsson has joined the channel*
+**Henrik Bengtsson** (16:40:55):
+> @Henrik Bengtsson has joined the channel
+
 
 ## 2023-07-26
 
@@ -1207,7 +1228,9 @@ format: gfm
 
 ## 2023-08-16
 
-*17:56:20 - @Mervin Fansler has joined the channel*
+**Mervin Fansler** (17:56:20):
+> @Mervin Fansler has joined the channel
+
 
 ## 2023-09-22
 
@@ -1302,10 +1325,10 @@ format: gfm
 > [https://github.com/christpa/DMRScan/pull/15#issuecomment-1736795809](https://github.com/christpa/DMRScan/pull/15#issuecomment-1736795809)It appears that`kunpeng2`uses a newer Pandoc (v3.1.2) while all other builders use v2.7.3.
 > Should I downgrade Pandoc in`kunpeng2`or the other builders will upgrade it soon (e.g. for 3.19) ?
   - Attachment: [Comment on #15 Update DMRScan_vignette.Rmd YAML to not use leading spaces](https://github.com/christpa/DMRScan/pull/15#issuecomment-1736795809)
-    > > Pandoc seems to be involved. Could this be because the various Bioconductor build machines use different versions of Pandoc?
-    > 
-    > Yes! This might be the reason!  
-    > All build nodes but `kunpeng2` use Pandoc 2.7.3, while `kunpeng2` uses Pandoc 3.1.2!
+> > Pandoc seems to be involved. Could this be because the various Bioconductor build machines use different versions of Pandoc?
+> 
+> Yes! This might be the reason!  
+> All build nodes but `kunpeng2` use Pandoc 2.7.3, while `kunpeng2` uses Pandoc 3.1.2!
 
 **Andres Wokaty** (09:50:32) (in thread):
 > There's no immediate plan to upgrade. Maybe downgrade if possible, especially if it's causing a lot of errors.
@@ -1354,7 +1377,9 @@ format: gfm
 
 ## 2023-10-18
 
-*13:20:27 - @Odigiri Great Alume has joined the channel*
+**Odigiri Great Alume** (13:20:27):
+> @Odigiri Great Alume has joined the channel
+
 
 ## 2023-10-19
 
@@ -1385,7 +1410,7 @@ format: gfm
 **Andres Wokaty** (13:22:02):
 > @Martin GrigorovI apologize for not coordinating better, but I'm going to switch to the new RELEASE_3_18 branch. I merged[https://github.com/Bioconductor/BBS/pull/348](https://github.com/Bioconductor/BBS/pull/348)so you'll just need to`git pull`on kungpeng2.
   - Attachment: [#348 Initial change from devel to RELEASE_3_18](https://github.com/Bioconductor/BBS/pull/348)
-    > Close [#344](https://github.com/Bioconductor/BBS/issues/344)
+> Close [#344](https://github.com/Bioconductor/BBS/issues/344)
 
 **Martin Grigorov** (13:22:47) (in thread):
 > Yes, I noticed!Thanks!
@@ -1513,13 +1538,13 @@ format: gfm
 **Andres Wokaty** (13:10:04) (in thread):
 > @Martin GrigorovCan you also remove`maptools`and`rgeos`if they're still installed? They were removed from CRAN last month:[https://github.com/Bioconductor/BBS/issues/300](https://github.com/Bioconductor/BBS/issues/300).
   - Attachment: [#300 Remove rgeos and maptools from builders](https://github.com/Bioconductor/BBS/issues/300)
-    > CRAN will archive rgeos, maptools, rgdal October 2023: [https://stat.ethz.ch/pipermail/r-packages/2023/001825.html](https://stat.ethz.ch/pipermail/r-packages/2023/001825.html). The following packages import or declared one of these as a dependency and were initially contacted June 2023:
-    > 
-    > • GEOExplorer
-    > • GateFinder
-    > • flowDensity
-    > 
-    > As of June 2023, rgdal isn't installed on the builders; however, rgeos and maptools are, but they should be removed before the release.
+> CRAN will archive rgeos, maptools, rgdal October 2023: [https://stat.ethz.ch/pipermail/r-packages/2023/001825.html](https://stat.ethz.ch/pipermail/r-packages/2023/001825.html). The following packages import or declared one of these as a dependency and were initially contacted June 2023:
+> 
+> • GEOExplorer
+> • GateFinder
+> • flowDensity
+> 
+> As of June 2023, rgdal isn't installed on the builders; however, rgeos and maptools are, but they should be removed before the release.
 
 **Hervé Pagès** (13:11:26) (in thread):
 > Starting with a fresh R 4.4 install should take care of that.
@@ -2016,79 +2041,79 @@ format: gfm
 **Martin Grigorov** (05:30:39) (in thread):
 > [https://github.com/TomKellyGenetics/leiden/issues/26](https://github.com/TomKellyGenetics/leiden/issues/26)- it seems it is not failing only on Linux ARM64
   - Attachment: [#26 Package installation segfault error on CentOS](https://github.com/TomKellyGenetics/leiden/issues/26)
-    > Hi there, I'm attempting to install `leiden` on CentOS 7.9.2009 and have encountered the following installation error. Would appreciate any assistance. Thanks!
-    > 
-    > ```
-    > > install.packages("leiden")
-    > Installing package into ‘/home/an252/R-4.2.1/library’
-    > (as ‘lib’ is unspecified)
-    > trying URL '[https://mirrors.nics.utk.edu/cran/src/contrib/leiden_0.4.3.tar.gz](https://mirrors.nics.utk.edu/cran/src/contrib/leiden_0.4.3.tar.gz)'
-    > Content type 'application/x-gzip' length 3246718 bytes (3.1 MB)
-    > ==================================================
-    > downloaded 3.1 MB
-    > 
-    > * installing **source** package ‘leiden’ ...
-    > **** package ‘leiden’ successfully unpacked and MD5 sums checked
-    > **** using staged installation
-    > **** R
-    > **** inst
-    > **** byte-compile and prepare package for lazy loading
-    > **** help
-    > ***** installing help indices
-    > **** building package indices
-    > **** installing vignettes
-    > **** testing if installed package can be loaded from temporary location
-    > sh: line 1: 15516 Segmentation fault      R_TESTS= '/n/app/R/4.2.1-gcc-9.2.0/lib64/R/bin/R' --no-save --no-restore --no-echo 2>&1 < '/tmp/Rtmpz2zILL/file3c7f4ff851a1'
-    > 
-    >  ***** caught segfault *****
-    > address 0x90, cause 'memory not mapped'
-    > 
-    > Traceback:
-    >  1: py_initialize(config$python, config$libpython, config$pythonhome,     config$virtualenv_activate, config$version >= "3.0", interactive(),     numpy_load_error)
-    >  2: (function() {    Sys.setenv(PYTHONPATH = newpythonpath)    on.exit(Sys.setenv(PYTHONPATH = oldpythonpath), add = TRUE)    py_initialize(config$python, config$libpython, config$pythonhome,         config$virtualenv_activate, config$version >= "3.0",         interactive(), numpy_load_error)})()
-    >  3: doTryCatch(return(expr), name, parentenv, handler)
-    >  4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-    >  5: tryCatchList(expr, classes, parentenv, handlers)
-    >  6: tryCatch({    oldpythonpath <- Sys.getenv("PYTHONPATH")    newpythonpath <- Sys.getenv("RETICULATE_PYTHONPATH", unset = paste(config$pythonpath,         system.file("python", package = "reticulate"), sep = .Platform$path.sep))    local({        Sys.setenv(PYTHONPATH = newpythonpath)        on.exit(Sys.setenv(PYTHONPATH = oldpythonpath), add = TRUE)        py_initialize(config$python, config$libpython, config$pythonhome,             config$virtualenv_activate, config$version >= "3.0",             interactive(), numpy_load_error)    })}, error = function(e) {    Sys.setenv(PATH = oldpath)    if ([is.na](http://is.na)(curr_session_env)) {        Sys.unsetenv("R_SESSION_INITIALIZED")    }    else {        Sys.setenv(R_SESSION_INITIALIZED = curr_session_env)    }    stop(e)})
-    >  7: initialize_python(required_module, use_environment)
-    >  8: ensure_python_initialized(required_module = module)
-    >  9: import(module)
-    > 10: doTryCatch(return(expr), name, parentenv, handler)
-    > 11: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-    > 12: tryCatchList(expr, classes, parentenv, handlers)
-    > 13: tryCatch({    import(module)    TRUE}, error = clear_error_handler(FALSE))
-    > 14: reticulate::py_module_available("pandas")
-    > 15: fun(libname, pkgname)
-    > 16: doTryCatch(return(expr), name, parentenv, handler)
-    > 17: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-    > 18: tryCatchList(expr, classes, parentenv, handlers)
-    > 19: tryCatch(fun(libname, pkgname), error = identity)
-    > 20: runHook(".onAttach", ns, dirname(nspath), nsname)
-    > 21: attachNamespace(ns, pos = pos, deps, exclude, include.only)
-    > 22: doTryCatch(return(expr), name, parentenv, handler)
-    > 23: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-    > 24: tryCatchList(expr, classes, parentenv, handlers)
-    > 25: tryCatch({    attr(package, "LibPath") [is.na](- which.lib.loc    ns <- loadNamespace(package, lib.loc)    env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)}, error = function(e) {    P <- if (!is.null(cc <- conditionCall(e)))         paste(" in", deparse(cc)[1L])    else ""    msg <- gettextf("package or namespace load failed for %s%s:\n %s",         sQuote(package), P, conditionMessage(e))    if (logical.return && !quietly)         message(paste("Error:", msg), domain = NA)    else stop(msg, call. = FALSE, domain = NA)})
-    > 26: library(pkg_name, lib.loc = lib, character.only = TRUE, logical.return = TRUE)
-    > 27: withCallingHandlers(expr, packageStartupMessage = function(c) tryInvokeRestart("muffleMessage"))
-    > 28: suppressPackageStartupMessages(library(pkg_name, lib.loc = lib,     character.only = TRUE, logical.return = TRUE))
-    > 29: doTryCatch(return(expr), name, parentenv, handler)
-    > 30: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-    > 31: tryCatchList(expr, classes, parentenv, handlers)
-    > 32: tryCatch(expr, error = function(e) {    call <- conditionCall(e)    if (!is.null(call)) {        if (identical(call[[1L]], quote(doTryCatch)))             call <- sys.call(-4L)        dcall <- deparse(call, nlines = 1L)        prefix <- paste("Error in", dcall, ": ")        LONG <- 75L        sm <- strsplit(conditionMessage(e), "\n")[[1L]]        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")        if ([http://is.na)(w))             w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L],                 type = "b")        if (w ](http://is.na)(w))             w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L],                 type = "b")        if (w ) LONG)             prefix <- paste0(prefix, "\n  ")    }    else prefix <- "Error : "    msg <- paste0(prefix, conditionMessage(e), "\n")    .Internal(seterrmessage(msg[1L]))    if (!silent && isTRUE(getOption("show.error.messages"))) {        cat(msg, file = outFile)        .Internal(printDeferredWarnings())    }    invisible(structure(msg, class = "try-error", condition = e))})
-    > 33: try(suppressPackageStartupMessages(library(pkg_name, lib.loc = lib,     character.only = TRUE, logical.return = TRUE)))
-    > 34: tools:::.test_load_package("leiden", "/home/an252/R-4.2.1/library/00LOCK-leiden/00new")
-    > An irrecoverable exception occurred. R is aborting now ...
-    > ERROR: loading failed
-    > * removing ‘/home/an252/R-4.2.1/library/leiden’
-    > 
-    > The downloaded source packages are in
-    > 	‘/tmp/Rtmp6ZFOiM/downloaded_packages’
-    > Warning message:
-    > In install.packages("leiden") :
-    >   installation of package ‘leiden’ had non-zero exit status
-    > > 
-    > ```
+> Hi there, I'm attempting to install `leiden` on CentOS 7.9.2009 and have encountered the following installation error. Would appreciate any assistance. Thanks!
+> 
+> ```
+> > install.packages("leiden")
+> Installing package into ‘/home/an252/R-4.2.1/library’
+> (as ‘lib’ is unspecified)
+> trying URL '[https://mirrors.nics.utk.edu/cran/src/contrib/leiden_0.4.3.tar.gz](https://mirrors.nics.utk.edu/cran/src/contrib/leiden_0.4.3.tar.gz)'
+> Content type 'application/x-gzip' length 3246718 bytes (3.1 MB)
+> ==================================================
+> downloaded 3.1 MB
+> 
+> * installing **source** package ‘leiden’ ...
+> **** package ‘leiden’ successfully unpacked and MD5 sums checked
+> **** using staged installation
+> **** R
+> **** inst
+> **** byte-compile and prepare package for lazy loading
+> **** help
+> ***** installing help indices
+> **** building package indices
+> **** installing vignettes
+> **** testing if installed package can be loaded from temporary location
+> sh: line 1: 15516 Segmentation fault      R_TESTS= '/n/app/R/4.2.1-gcc-9.2.0/lib64/R/bin/R' --no-save --no-restore --no-echo 2>&1 < '/tmp/Rtmpz2zILL/file3c7f4ff851a1'
+> 
+>  ***** caught segfault *****
+> address 0x90, cause 'memory not mapped'
+> 
+> Traceback:
+>  1: py_initialize(config$python, config$libpython, config$pythonhome,     config$virtualenv_activate, config$version >= "3.0", interactive(),     numpy_load_error)
+>  2: (function() {    Sys.setenv(PYTHONPATH = newpythonpath)    on.exit(Sys.setenv(PYTHONPATH = oldpythonpath), add = TRUE)    py_initialize(config$python, config$libpython, config$pythonhome,         config$virtualenv_activate, config$version >= "3.0",         interactive(), numpy_load_error)})()
+>  3: doTryCatch(return(expr), name, parentenv, handler)
+>  4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+>  5: tryCatchList(expr, classes, parentenv, handlers)
+>  6: tryCatch({    oldpythonpath <- Sys.getenv("PYTHONPATH")    newpythonpath <- Sys.getenv("RETICULATE_PYTHONPATH", unset = paste(config$pythonpath,         system.file("python", package = "reticulate"), sep = .Platform$path.sep))    local({        Sys.setenv(PYTHONPATH = newpythonpath)        on.exit(Sys.setenv(PYTHONPATH = oldpythonpath), add = TRUE)        py_initialize(config$python, config$libpython, config$pythonhome,             config$virtualenv_activate, config$version >= "3.0",             interactive(), numpy_load_error)    })}, error = function(e) {    Sys.setenv(PATH = oldpath)    if ([is.na](http://is.na)(curr_session_env)) {        Sys.unsetenv("R_SESSION_INITIALIZED")    }    else {        Sys.setenv(R_SESSION_INITIALIZED = curr_session_env)    }    stop(e)})
+>  7: initialize_python(required_module, use_environment)
+>  8: ensure_python_initialized(required_module = module)
+>  9: import(module)
+> 10: doTryCatch(return(expr), name, parentenv, handler)
+> 11: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+> 12: tryCatchList(expr, classes, parentenv, handlers)
+> 13: tryCatch({    import(module)    TRUE}, error = clear_error_handler(FALSE))
+> 14: reticulate::py_module_available("pandas")
+> 15: fun(libname, pkgname)
+> 16: doTryCatch(return(expr), name, parentenv, handler)
+> 17: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+> 18: tryCatchList(expr, classes, parentenv, handlers)
+> 19: tryCatch(fun(libname, pkgname), error = identity)
+> 20: runHook(".onAttach", ns, dirname(nspath), nsname)
+> 21: attachNamespace(ns, pos = pos, deps, exclude, include.only)
+> 22: doTryCatch(return(expr), name, parentenv, handler)
+> 23: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+> 24: tryCatchList(expr, classes, parentenv, handlers)
+> 25: tryCatch({    attr(package, "LibPath") [is.na](- which.lib.loc    ns <- loadNamespace(package, lib.loc)    env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)}, error = function(e) {    P <- if (!is.null(cc <- conditionCall(e)))         paste(" in", deparse(cc)[1L])    else ""    msg <- gettextf("package or namespace load failed for %s%s:\n %s",         sQuote(package), P, conditionMessage(e))    if (logical.return && !quietly)         message(paste("Error:", msg), domain = NA)    else stop(msg, call. = FALSE, domain = NA)})
+> 26: library(pkg_name, lib.loc = lib, character.only = TRUE, logical.return = TRUE)
+> 27: withCallingHandlers(expr, packageStartupMessage = function(c) tryInvokeRestart("muffleMessage"))
+> 28: suppressPackageStartupMessages(library(pkg_name, lib.loc = lib,     character.only = TRUE, logical.return = TRUE))
+> 29: doTryCatch(return(expr), name, parentenv, handler)
+> 30: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+> 31: tryCatchList(expr, classes, parentenv, handlers)
+> 32: tryCatch(expr, error = function(e) {    call <- conditionCall(e)    if (!is.null(call)) {        if (identical(call[[1L]], quote(doTryCatch)))             call <- sys.call(-4L)        dcall <- deparse(call, nlines = 1L)        prefix <- paste("Error in", dcall, ": ")        LONG <- 75L        sm <- strsplit(conditionMessage(e), "\n")[[1L]]        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")        if ([http://is.na)(w))             w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L],                 type = "b")        if (w ](http://is.na)(w))             w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L],                 type = "b")        if (w ) LONG)             prefix <- paste0(prefix, "\n  ")    }    else prefix <- "Error : "    msg <- paste0(prefix, conditionMessage(e), "\n")    .Internal(seterrmessage(msg[1L]))    if (!silent && isTRUE(getOption("show.error.messages"))) {        cat(msg, file = outFile)        .Internal(printDeferredWarnings())    }    invisible(structure(msg, class = "try-error", condition = e))})
+> 33: try(suppressPackageStartupMessages(library(pkg_name, lib.loc = lib,     character.only = TRUE, logical.return = TRUE)))
+> 34: tools:::.test_load_package("leiden", "/home/an252/R-4.2.1/library/00LOCK-leiden/00new")
+> An irrecoverable exception occurred. R is aborting now ...
+> ERROR: loading failed
+> * removing ‘/home/an252/R-4.2.1/library/leiden’
+> 
+> The downloaded source packages are in
+> 	‘/tmp/Rtmp6ZFOiM/downloaded_packages’
+> Warning message:
+> In install.packages("leiden") :
+>   installation of package ‘leiden’ had non-zero exit status
+> > 
+> ```
 
 **Martin Grigorov** (05:43:35) (in thread):
 > ```
@@ -2159,7 +2184,7 @@ format: gfm
 **Andres Wokaty** (09:51:22) (in thread):
 > It also has the`'weave'`error that masks other issues. Thanks for pointing it out. I made an issue to look into it later:[https://github.com/Bioconductor/BBS/issues/366](https://github.com/Bioconductor/BBS/issues/366)
   - Attachment: [#366 Investigate basics failures](https://github.com/Bioconductor/BBS/issues/366)
-    > basics fails on all builders, passes on x86_64 linux with errors. See [https://bioconductor.org/checkResults/3.19/bioc-LATEST/BASiCS/nebbiolo1-install.html](https://bioconductor.org/checkResults/3.19/bioc-LATEST/BASiCS/nebbiolo1-install.html)
+> basics fails on all builders, passes on x86_64 linux with errors. See [https://bioconductor.org/checkResults/3.19/bioc-LATEST/BASiCS/nebbiolo1-install.html](https://bioconductor.org/checkResults/3.19/bioc-LATEST/BASiCS/nebbiolo1-install.html)
 
 **Hervé Pagès** (11:45:05) (in thread):
 > I'm not surprised!
@@ -2167,7 +2192,9 @@ format: gfm
 
 ## 2024-01-11
 
-*11:43:34 - @Lori Shepherd has joined the channel*
+**Lori Shepherd** (11:43:34):
+> @Lori Shepherd has joined the channel
+
 **Lori Shepherd** (11:50:06) (in thread):
 > sorry didnt realize this channel existed and I wasn't notified because of it.  The index is created as part of the initial download of the hub.  You can try to fix it as documented in the recommended vignette section[https://bioconductor.org/packages/release/bioc/vignettes/AnnotationHub/inst/doc/TroubleshootingTheCache.html#index-file](https://bioconductor.org/packages/release/bioc/vignettes/AnnotationHub/inst/doc/TroubleshootingTheCache.html#index-file)but likely better to remove the cache and reset completely
 
@@ -2177,27 +2204,27 @@ format: gfm
 **Andres Wokaty** (10:53:45):
 > Hi@Martin Grigorov, Happy new year! I'm going to update the devel builders today because there's some new behavior related to[https://github.com/RcppCore/Rcpp/issues/1287](https://github.com/RcppCore/Rcpp/issues/1287)that is only on more recent R devel. When you have time, can you update the R on kunpeng2? Thank you.
   - Attachment: [#1287 A fresh -Wformat-security issue under r-devel](https://github.com/RcppCore/Rcpp/issues/1287)
-    > **Update 2023-11-28:** If you came here because of a similar message in your package please read on and see particularly <https://github.com/RcppCore/Rcpp/issues/1287#issuecomment-1829886024|this comment below> for the fairly simple fix.
-    > 
-    > * * *
-    > 
-    > While working on an update for `RQuantLib` with a few r-devel discovered minor changes, CRAN and I both came across a new nag this time from `-Wformat-security.`. Our glue code in `src/attributes.cpp` does
-    > 
-    > ```
-    >                      << "    if (rcpp_isError_gen) {" << std::endl
-    >                      << "        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);" << std::endl
-    >                      << "        UNPROTECT(1);" << std::endl
-    >                      << "        Rf_error(CHAR(rcpp_msgSEXP_gen));" << std::endl
-    >                      << "    }" << std::endl
-    > ```
-    > 
-    > and the `Rf_error(someCharvariablehere)` now makes the compiler bark under `-Wformat-security`:
-    > 
-    > ```
-    > RcppExports.cpp:180:18: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
-    > ```
-    > 
-    > The fix is pretty easy: add a `"%s"`. I will take care of that shortly.
+> **Update 2023-11-28:** If you came here because of a similar message in your package please read on and see particularly <https://github.com/RcppCore/Rcpp/issues/1287#issuecomment-1829886024|this comment below> for the fairly simple fix.
+> 
+> * * *
+> 
+> While working on an update for `RQuantLib` with a few r-devel discovered minor changes, CRAN and I both came across a new nag this time from `-Wformat-security.`. Our glue code in `src/attributes.cpp` does
+> 
+> ```
+>                      << "    if (rcpp_isError_gen) {" << std::endl
+>                      << "        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);" << std::endl
+>                      << "        UNPROTECT(1);" << std::endl
+>                      << "        Rf_error(CHAR(rcpp_msgSEXP_gen));" << std::endl
+>                      << "    }" << std::endl
+> ```
+> 
+> and the `Rf_error(someCharvariablehere)` now makes the compiler bark under `-Wformat-security`:
+> 
+> ```
+> RcppExports.cpp:180:18: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+> ```
+> 
+> The fix is pretty easy: add a `"%s"`. I will take care of that shortly.
 
 **Martin Grigorov** (11:50:09):
 > Happy new year,@Andres Wokaty!I’llupdate it tomorrow!
@@ -2214,7 +2241,9 @@ format: gfm
 
 ## 2024-01-20
 
-*15:21:26 - @Michael Kaufman has joined the channel*
+**Michael Kaufman** (15:21:26):
+> @Michael Kaufman has joined the channel
+
 
 ## 2024-02-01
 
@@ -2395,13 +2424,15 @@ format: gfm
 
 ## 2024-04-26
 
-*13:10:59 - @Robert Castelo has joined the channel*
+**Robert Castelo** (13:10:59):
+> @Robert Castelo has joined the channel
+
 **Robert Castelo** (13:16:11):
 > Hi everyone, one of the packages I maintain,[GenomicScores](https://bioconductor.org/packages/GenomicScores), is not building in kungpeng2 (see report[here](https://bioconductor.org/checkResults/3.19/bioc-LATEST/GenomicScores/kunpeng2-buildsrc.html)) because it is missing the annotation package MafH5.gnomAD.v4.0.GRCh38, which we added during this devel cycle and which GenomicScores uses in its vignette. Lori advised me to ask here that somebody please installs[MafH5.gnomAD.v4.0.GRCh38](https://bioconductor.org/packages/MafH5.gnomAD.v4.0.GRCh38)manually in kungpeng2. Is it that possible? Thanks!!
   - Attachment (Bioconductor): [GenomicScores](https://bioconductor.org/packages/GenomicScores)
-    > Provide infrastructure to store and access genomewide position-specific scores within R and Bioconductor.
+> Provide infrastructure to store and access genomewide position-specific scores within R and Bioconductor.
   - Attachment (Bioconductor): [MafH5.gnomAD.v4.0.GRCh38 (development version)](https://bioconductor.org/packages/MafH5.gnomAD.v4.0.GRCh38)
-    > Store minor allele frequency data from the Genome Aggregation Database (gnomAD version 4.0) for the human genome version GRCh38.
+> Store minor allele frequency data from the Genome Aggregation Database (gnomAD version 4.0) for the human genome version GRCh38.
 
 **Andres Wokaty** (17:34:41):
 > @Martin GrigorovI apologize that in my previous message[https://community-bioc.slack.com/archives/CEQ04GKEC/p1713463375556859?thread_ts=1711501233.971639&cid=CEQ04GKEC](https://community-bioc.slack.com/archives/CEQ04GKEC/p1713463375556859?thread_ts=1711501233.971639&cid=CEQ04GKEC)when you asked about removing the cache because kunpeng2 has  a`database disk image is malformed`error that I only gave you information about reinstating the AnnotationHub cache but not the ExperimentHub cache. When you remove these two caches, it's better to reinstate them both with:
@@ -2412,10 +2443,10 @@ format: gfm
 > eh <- ExperiementHub()
 > ```
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CEQ04GKEC/p1713463375556859?thread_ts=1711501233.971639&amp;cid=CEQ04GKEC)
-    > @Martin Grigorov I am not very familiar with the `database disk image is malformed` error. If you remove the `AnnotationHub` cache, can you reinstate it in `R` with
-    > 
-    > ```library(AnnotationHub)
-    > ah <- AnnotationHub()```
+> @Martin Grigorov I am not very familiar with the `database disk image is malformed` error. If you remove the `AnnotationHub` cache, can you reinstate it in `R` with
+> 
+> ```library(AnnotationHub)
+> ah <- AnnotationHub()```
 
 
 ## 2024-04-27
@@ -2753,7 +2784,9 @@ format: gfm
 
 ## 2024-05-19
 
-*12:52:42 - @David Rach has joined the channel*
+**David Rach** (12:52:42):
+> @David Rach has joined the channel
+
 
 ## 2024-05-22
 
@@ -3064,7 +3097,9 @@ format: gfm
 
 ## 2024-07-11
 
-*06:05:41 - @Sathish Kumar has joined the channel*
+**Sathish Kumar** (06:05:41):
+> @Sathish Kumar has joined the channel
+
 **Martin Grigorov** (08:04:37) (in thread):
 > the support team confirmed that there is a problem but there is no solution yet
 
@@ -3074,9 +3109,9 @@ format: gfm
 **Martin Grigorov** (02:58:57) (in thread):
 > [https://serverfault.com/a/670081](https://serverfault.com/a/670081)- this seems to fixed the connectivity issue! I've started a build!
   - Attachment (Server Fault): [Cannot SSH: debug1: expecting SSH2_MSG_KEX_DH_GEX_REPLY](https://serverfault.com/a/670081)
-    > We have a server on Amazon EC2 running SSH is on a standard (22) port.
-    > I placed my public key at the <username>/.ssh/authorized_keys file.
-    > The fun thing is that yesterday it was working great...
+> We have a server on Amazon EC2 running SSH is on a standard (22) port.
+> I placed my public key at the <username>/.ssh/authorized_keys file.
+> The fun thing is that yesterday it was working great...
 
 
 ## 2024-07-24
@@ -3241,7 +3276,9 @@ format: gfm
 
 ## 2024-10-14
 
-*01:42:58 - @Charlotte Soneson has joined the channel*
+**Charlotte Soneson** (01:42:58):
+> @Charlotte Soneson has joined the channel
+
 **Charlotte Soneson** (01:52:47):
 > At the moment I'm seeing this error during vignette building for several of our`basilisk`-using packages (e.g.`sketchR`,`velociraptor`) on`kunpeng2`:
 > ```
@@ -3415,7 +3452,9 @@ format: gfm
 > * Perhaps`reticulate::py_last_error()$r_trace$full_call`will give some more ideas
 > * And maybe trying the same with the code in the`velociraptor`vignette will give some more hints - it also raises the same kind of error, but doesn't have either`geosketch`or`scsampler`in the environment (there are many other shared python though).
 
-*07:01:06 - @Michael Stadler has joined the channel*
+**Michael Stadler** (07:01:06):
+> @Michael Stadler has joined the channel
+
 
 ## 2024-10-22
 
@@ -4074,18 +4113,22 @@ format: gfm
 
 ## 2024-12-28
 
-*07:54:56 - @Pascal-Onaho has joined the channel*
+**Pascal-Onaho** (07:54:56):
+> @Pascal-Onaho has joined the channel
+
 
 ## 2024-12-29
 
-*04:01:27 - @Yahya Jahun has joined the channel*
+**Yahya Jahun** (04:01:27):
+> @Yahya Jahun has joined the channel
+
 
 ## 2024-12-30
 
 **Martin Grigorov** (04:31:37) (in thread):
 > [https://github.com/Bioconductor/BBS/pull/432](https://github.com/Bioconductor/BBS/pull/432)- a PR adding the details of the new VM and updating the ones for kunpeng2
   - Attachment: [#432 Add a build node named `taishan` for 3.20 on Linux ARM64](https://github.com/Bioconductor/BBS/pull/432)
-    > As agreed at Slack ([https://community-bioc.slack.com/archives/C04HZMP49LH/p1735226974631609?thread_ts=1734628436.266339&cid=C04HZMP49LH](https://community-bioc.slack.com/archives/C04HZMP49LH/p1735226974631609?thread_ts=1734628436.266339&cid=C04HZMP49LH))
+> As agreed at Slack ([https://community-bioc.slack.com/archives/C04HZMP49LH/p1735226974631609?thread_ts=1734628436.266339&cid=C04HZMP49LH](https://community-bioc.slack.com/archives/C04HZMP49LH/p1735226974631609?thread_ts=1734628436.266339&cid=C04HZMP49LH))
 
 **Martin Grigorov** (04:33:20) (in thread):
 > I am currently running a full build (`run.sh`) on the new VM (`taishan`) . I'll let you know once it finishes successfully !
@@ -4223,7 +4266,9 @@ format: gfm
 
 ## 2025-01-25
 
-*10:26:47 - @Rahman Nurudeen has joined the channel*
+**Rahman Nurudeen** (10:26:47):
+> @Rahman Nurudeen has joined the channel
+
 
 ## 2025-02-07
 
@@ -4297,7 +4342,7 @@ format: gfm
 **Andres Wokaty** (11:35:32):
 > Hi@Martin GrigorovWe had to undo some commits to basilisk on devel. On kunpeng2, I recommend deleting the basilisk directory in`meat`and I also removed the basilisk cache. You can see[https://community-bioc.slack.com/archives/CLUJWDQF4/p1742502429060189](https://community-bioc.slack.com/archives/CLUJWDQF4/p1742502429060189)for a little more context and you could opt to do that instead.
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CLUJWDQF4/p1742502429060189)
-    > For developers who use basilisk: I prematurely merged a PR to the sources that makes a transition to virtual environment management of python infrastructure.  This change has been reverted and the current devel version of 1.19.3 is in the intended state.  If you have a checkout of basilisk source code from git, you may have to use the commands `git fetch && git reset --hard origin/devel` to get a clean source checkout.  Feel free to DM me with concerns, and I will summarize back as appropriate.
+> For developers who use basilisk: I prematurely merged a PR to the sources that makes a transition to virtual environment management of python infrastructure.  This change has been reverted and the current devel version of 1.19.3 is in the intended state.  If you have a checkout of basilisk source code from git, you may have to use the commands `git fetch && git reset --hard origin/devel` to get a clean source checkout.  Feel free to DM me with concerns, and I will summarize back as appropriate.
 
 **Martin Grigorov** (11:39:48) (in thread):
 > OK.I will do it tomorrow!

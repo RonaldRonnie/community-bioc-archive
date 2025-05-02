@@ -3,18 +3,29 @@ title: "#sc-signature"
 format: gfm
 ---
 
-
 ## 2018-11-20
 
-*14:52:35 - @Kevin Rue-Albrecht has joined the channel*
+**Kevin Rue-Albrecht** (14:52:35):
+> @Kevin Rue-Albrecht has joined the channel
+
 **Kevin Rue-Albrecht** (14:52:36):
 > set the channel description: Extraction and application of cell "type" signatures
 
-*14:52:36 - @Aaron Lun has joined the channel*
-*14:52:36 - @Vince Carey has joined the channel*
-*14:52:36 - @Raphael Gottardo has joined the channel*
-*14:52:37 - @Peter Hickey has joined the channel*
-*14:52:37 - @Rob Amezquita has joined the channel*
+**Aaron Lun** (14:52:36):
+> @Aaron Lun has joined the channel
+
+**Vince Carey** (14:52:36):
+> @Vince Carey has joined the channel
+
+**Raphael Gottardo** (14:52:36):
+> @Raphael Gottardo has joined the channel
+
+**Peter Hickey** (14:52:37):
+> @Peter Hickey has joined the channel
+
+**Rob Amezquita** (14:52:37):
+> @Rob Amezquita has joined the channel
+
 **Kevin Rue-Albrecht** (14:52:42):
 > set the channel topic: Extraction and application of cell "type" signatures
 
@@ -24,7 +35,9 @@ format: gfm
 **Rob Amezquita** (14:55:13):
 > was reading through your comments Kevin, I definitely think an orthogonal container to SCE would be a good way to go. I also like your idea of leveraging Immgen/etc. to create DE signatures, it would be nice to get away from just lists and retain rank in defining gene lists
 
-*14:55:19 - @Valentin Voillet has joined the channel*
+**Valentin Voillet** (14:55:19):
+> @Valentin Voillet has joined the channel
+
 **Kevin Rue-Albrecht** (14:57:13):
 > I've been using this  for my training set (mouse[https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109125](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109125))
 > ```
@@ -34,7 +47,7 @@ format: gfm
 > }
 > ```
   - Attachment (ncbi.nlm.nih.gov): [GEO Accession viewer](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109125)
-    > NCBI's Gene Expression Omnibus (GEO) is a public archive and resource for gene expression data.
+> NCBI's Gene Expression Omnibus (GEO) is a public archive and resource for gene expression data.
 
 **Peter Hickey** (15:02:01):
 > yeah for the immgen data that gets you the counts but not the metadata. below is some code i wrote to get the metadata from GEO and tidy it up some. but i want to just write`query(ExperimentHub(), "ImmGen")`and get something immediately useful:slightly_smiling_face:#lazybioinf
@@ -98,7 +111,7 @@ format: gfm
 > we spoke last week about making this resource available through BioC
 > I don’t think they have a formal web API but they do have bucketloads of experience in wrangling of mouse & human haematopoietic bulk RNA-seq & microarray data and making it into a resource. and the count matrices + metadata already exist, so getting a DGEList/SE-type thing should be straightforward
   - Attachment (haemosphere.org): [Haemosphere](https://www.haemosphere.org/)
-    > Gene Expression Analysis Tool
+> Gene Expression Analysis Tool
 
 **Rob Amezquita** (15:12:12):
 > thats awesome peter! thanks for the link
@@ -159,7 +172,7 @@ format: gfm
 **Kevin Rue-Albrecht** (16:28:46):
 > shortest answer: the README of iSEE still very much resembles what we wrote on commit #1: a list of desired functionalities (see the green ticks acting as bullet points)[https://github.com/csoneson/iSEE](https://github.com/csoneson/iSEE)
   - Attachment (GitHub): [csoneson/iSEE](https://github.com/csoneson/iSEE)
-    > R/shiny interface for interactive visualization of data in objects derived from the SummarizedExperiment class - csoneson/iSEE
+> R/shiny interface for interactive visualization of data in objects derived from the SummarizedExperiment class - csoneson/iSEE
 
 **Kevin Rue-Albrecht** (16:29:15):
 > they only became  green ticks as we progressively  completed them
@@ -167,7 +180,7 @@ format: gfm
 **Kevin Rue-Albrecht** (16:30:28):
 > i.e., it could all just start with a blank repo ([https://github.com/csoneson/iSEE/commit/2550b701088add87235d004ce4c42bb94e955264](https://github.com/csoneson/iSEE/commit/2550b701088add87235d004ce4c42bb94e955264)) that a bunch of enthusiasts start filling up and refactoring over the next 11 months:wink:
   - Attachment (GitHub): [Initial commit · csoneson/iSEE@2550b70](https://github.com/csoneson/iSEE/commit/2550b701088add87235d004ce4c42bb94e955264)
-    > R/shiny interface for interactive visualization of data in objects derived from the SummarizedExperiment class - csoneson/iSEE
+> R/shiny interface for interactive visualization of data in objects derived from the SummarizedExperiment class - csoneson/iSEE
 
 **Kevin Rue-Albrecht** (16:31:35):
 > uh. i forgot that#isee's first name was just`SEE`
@@ -240,9 +253,9 @@ format: gfm
 > }
 > ```
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CE8AB163W/p1542744907019200?thread_ts=1542744907019200&cid=CE8AB163W)
-    > 1) pulling down data from repo (ImmGen, Haemo, etc.) -> essentially a counts matrix with proper cell labels; labels can be parseable to be the major cell type (broad) ~~to narrow cell type (minor) [drawing these distinctions is not super easy, as theres lots of overlap in minor cell types but oh well]~~
-    > 
-    > 2) running the classification - how we actually predict the cell type from an SCE object, e.g. `predict(sce, cell_type_signature_training_data)`. Some methods details here need to be worked out, for example might be better to work with clusters of cells vs classifying single cells; outputting confidence estimates etc.
+> 1) pulling down data from repo (ImmGen, Haemo, etc.) -> essentially a counts matrix with proper cell labels; labels can be parseable to be the major cell type (broad) ~~to narrow cell type (minor) [drawing these distinctions is not super easy, as theres lots of overlap in minor cell types but oh well]~~
+> 
+> 2) running the classification - how we actually predict the cell type from an SCE object, e.g. `predict(sce, cell_type_signature_training_data)`. Some methods details here need to be worked out, for example might be better to work with clusters of cells vs classifying single cells; outputting confidence estimates etc.
 
 **Kevin Rue-Albrecht** (16:43:46):
 > my naive idea (working to certain extent) being that one could then throw both pseudobulk and reference bulks into a common PCA and look for nearest neighbours.
@@ -250,7 +263,9 @@ format: gfm
 **Kevin Rue-Albrecht** (16:43:59):
 > Worked fine to some extent, but full of caveats too
 
-*16:44:18 - @Federico Marini has joined the channel*
+**Federico Marini** (16:44:18):
+> @Federico Marini has joined the channel
+
 **Kevin Rue-Albrecht** (16:53:00):
 > here, found the first time we fleshed out the README (commit 3)[https://github.com/csoneson/iSEE/tree/021e3e20cfdb194e511f8097ed544329bd46bcd6](https://github.com/csoneson/iSEE/tree/021e3e20cfdb194e511f8097ed544329bd46bcd6)
 
@@ -496,7 +511,7 @@ format: gfm
 **Kevin Rue-Albrecht** (10:06:07):
 > nice, I've starred the repo (everyone:[https://github.com/vjcitn/ontoProc](https://github.com/vjcitn/ontoProc)). I'll have to play with the examples to get a better sense of functionalities, but I like the idea of having a toolkit like this (e.g.`stopWords`)
   - Attachment (GitHub): [vjcitn/ontoProc](https://github.com/vjcitn/ontoProc)
-    > RDF ontology processing for Bioconductor. Contribute to vjcitn/ontoProc development by creating an account on GitHub.
+> RDF ontology processing for Bioconductor. Contribute to vjcitn/ontoProc development by creating an account on GitHub.
 
 **Kevin Rue-Albrecht** (10:06:52):
 > I'll just drop out Slack again, as I've got some md5sum to run and a journal club article to skim
@@ -504,7 +519,9 @@ format: gfm
 **Kevin Rue-Albrecht** (10:08:05):
 > if noone gets to it first, I might kick off tonight the Google Docs that we mentioned yesterday
 
-*10:19:54 - @Aaron Lun has left the channel*
+**Aaron Lun** (10:19:54):
+> @Aaron Lun has left the channel
+
 **Kevin Rue-Albrecht** (15:30:50):
 > Started a GoogleDocs here:[https://docs.google.com/document/d/1pxUJ0OipoRPglWA8KPMo4Zoa5w3KOH08Tc5xZVOnZdo/edit?usp=sharing](https://docs.google.com/document/d/1pxUJ0OipoRPglWA8KPMo4Zoa5w3KOH08Tc5xZVOnZdo/edit?usp=sharing)My plan is currently just to record our conversation so far, if anyone feels like scrolling up and adding to the doc
   - File (Google Docs): [Hancock: MVP](https://community-bioc.slack.com/files/U34P8RS3B/FE9NFSJBX/_mvp)
@@ -518,7 +535,7 @@ format: gfm
 **Rob Amezquita** (17:51:38):
 > @Kevin Rue-Albrechtand I had a great video call conversation about what a minimum viable product might look like - more details are in the Google Doc, but I think we managed to distill it down to:
 > > Prediction of Cell Types - MVP!
-> Simplest method - write a package that wraps around existing approaches using an example reference dataset (a matrix) to annotate an experimental dataset with the columns of reference (basically a wrapper/platform benchmarking existing methods, and later our own ) that utilizes the SingleCellExperiment container
+> > Simplest method - write a package that wraps around existing approaches using an example reference dataset (a matrix) to annotate an experimental dataset with the columns of reference (basically a wrapper/platform benchmarking existing methods, and later our own ) that utilizes the SingleCellExperiment container
 
 **Rob Amezquita** (17:52:41):
 > it might be best to split out certain aspects into separate efforts/packages - for example, manual/curated gene lists could be a more "crowdsourced" approach, and pulling down data via APIs and munging could be its own thing altogether
@@ -532,7 +549,7 @@ format: gfm
 **Kevin Rue-Albrecht** (03:58:42):
 > For those like me, rediscovering flow cytometry as part of the conversation, here is  an awesome resource for (protein) markers of immune cell types:[https://www.abcam.com/protocols/flow-cytometry-immunophenotyping](https://www.abcam.com/protocols/flow-cytometry-immunophenotyping)
   - Attachment (abcam.com): [Flow cytometry immunophenotyping | Abcam](https://www.abcam.com/protocols/flow-cytometry-immunophenotyping)
-    > A detailed description of flow cytometry immunophenotyping, including links to information on CD markers.
+> A detailed description of flow cytometry immunophenotyping, including links to information on CD markers.
 
 **Kevin Rue-Albrecht** (04:40:34):
 > @Vince Careyfollowing on the chat with@Rob Amezquitayesterday, I just have the following points buzzing in my mind:
@@ -644,7 +661,9 @@ format: gfm
 **Vince Carey** (08:35:20):
 > apropos ExperimentHub Shweta Gopaulakrishnan@Shweta Gopalin my group has some experience with the ExperimentHub and can help ... I think you have to put it in a bucket and some documentation/provenance forms have to be filled out
 
-*08:35:24 - @Shweta Gopal has joined the channel*
+**Shweta Gopal** (08:35:24):
+> @Shweta Gopal has joined the channel
+
 **Kevin Rue-Albrecht** (08:44:21):
 > cool - just having lunch now, but feel free to use the gist that I linked above. i'll chime back in later today
 
@@ -669,7 +688,9 @@ format: gfm
 **Kevin Rue-Albrecht** (10:30:15):
 > I like  (gene1+)(gene2+) -> (cell type). Handles 'inheritance' of markers and the n:n relationship between genes and cell types
 
-*10:39:45 - @Charlotte Soneson has joined the channel*
+**Charlotte Soneson** (10:39:45):
+> @Charlotte Soneson has joined the channel
+
 **Kevin Rue-Albrecht** (12:23:22):
 > I've kicked off a Travis build with basic method, vignette, and unit tests. At least that'll help identify the technical glitches that need fixing before we move into the real thing[https://travis-ci.org/kevinrue/Hancock](https://travis-ci.org/kevinrue/Hancock)Also, here's my dummy approach to using the signatures declared in the Seurat tutorial:[https://gist.github.com/kevinrue/f0f26e4585b075caf6420f5453976d01](https://gist.github.com/kevinrue/f0f26e4585b075caf6420f5453976d01)
 
@@ -688,12 +709,18 @@ format: gfm
 **Vince Carey** (06:26:03):
 > Two aspects of GSEABase that I find compelling are a) the capacity to import from existing 'list-like' set sources, and b) the capacity to annotate each set or set-collection with significant metadata.   We should look around for other set annotation approaches, incorporate advances if such are found, and consider whether GSEABase needs an extension to incorporate gene networks.  Interoperation with NDEx could be a plus for certain NCI projects supporting Bioconductor ([www.ndexbio.org](http://www.ndexbio.org)).@Ludwig Geistlinger@Levi Waldronworked on the orchestrating single cell draft at the GSEA level and may have comments.
 
-*06:26:09 - @Ludwig Geistlinger has joined the channel*
-*06:26:09 - @Levi Waldron has joined the channel*
+**Ludwig Geistlinger** (06:26:09):
+> @Ludwig Geistlinger has joined the channel
+
+**Levi Waldron** (06:26:09):
+> @Levi Waldron has joined the channel
+
 **Kevin Rue-Albrecht** (06:42:22):
 > I’m keen to have a discussion with anyone interested in agreeing on a “core” (yet generalisable) representation of gene signatures,**before**we dive too far into algorithms to learn/apply said signatures. I’d like to avoid heavy refactoring later on (i.e. changing the representation of signatures multiple times).
 
-*06:44:24 - @Fabiola Curion has joined the channel*
+**Fabiola Curion** (06:44:24):
+> @Fabiola Curion has joined the channel
+
 **Charlotte Soneson** (09:22:43):
 > This looks like a great initiative!@Kevin Rue-Albrecht, I'd be happy to join at least the conceptual discussion of the signature representation if that would be ok. A combinatorial approach with a set of markers whose absence/presence identify a cell type, as you have discussed above, seems like a good idea (I like to think of it as a kind of decision tree, with possibly multiple alternative/equivalent/redundant genes in each node - such "at least one of" relationships may be useful to be able to encode, in particular for sparse single-cell data).
 
@@ -704,7 +731,7 @@ format: gfm
 > Happy to see you interested in the effort@Charlotte Soneson!
 > Check out the draft section on “relative and absolute cell type markers” in the draft of vignette that I started this weekend (yes, there’s going to be a lot of “draft” in the conversation for a while, I expect)[https://github.com/kevinrue/Hancock/blob/master/vignettes/concepts.Rmd](https://github.com/kevinrue/Hancock/blob/master/vignettes/concepts.Rmd)
   - Attachment (GitHub): [kevinrue/Hancock](https://github.com/kevinrue/Hancock/blob/master/vignettes/concepts.Rmd)
-    > Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
+> Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
 
 **Charlotte Soneson** (09:26:26):
 > Ah, sorry, I missed the vignette:slightly_smiling_face:thanks!
@@ -718,20 +745,20 @@ format: gfm
 **Kevin Rue-Albrecht** (09:31:59):
 > Also, I agree with the use of positive**and**negative markers in signatures.
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CE8AB163W/p1542879921100500)
-    > With that in mind, I was wondering whether an ontology already exists for the following scenario, illustrated by simple `list` here,
-    > ```
-    > hancocks <- list(
-    >     thymocyte = c("CD3"=TRUE, "CD2"=TRUE, "CD19"=FALSE),
-    >     th_cell   = c("CD3"=TRUE, "CD2"=TRUE, "CD19"=FALSE, "CD4"=TRUE),
-    > )
-    > ```
-    > Namely, representing sets of signatures for cell types with a relationship `<th_cell> is a <thymocyte> (thus, inherits all its markers) additionally characterized by the presence of CD4`, something akin to:
-    > ```
-    > hancocks <- list(
-    >     thymocyte = c("CD3"=TRUE, "CD2"=TRUE, "CD19"=FALSE),
-    >     th_cell   = c(thymocyte, "CD4"=TRUE),
-    > )
-    > ```
+> With that in mind, I was wondering whether an ontology already exists for the following scenario, illustrated by simple `list` here,
+> ```
+> hancocks <- list(
+>     thymocyte = c("CD3"=TRUE, "CD2"=TRUE, "CD19"=FALSE),
+>     th_cell   = c("CD3"=TRUE, "CD2"=TRUE, "CD19"=FALSE, "CD4"=TRUE),
+> )
+> ```
+> Namely, representing sets of signatures for cell types with a relationship `<th_cell> is a <thymocyte> (thus, inherits all its markers) additionally characterized by the presence of CD4`, something akin to:
+> ```
+> hancocks <- list(
+>     thymocyte = c("CD3"=TRUE, "CD2"=TRUE, "CD19"=FALSE),
+>     th_cell   = c(thymocyte, "CD4"=TRUE),
+> )
+> ```
 
 **Charlotte Soneson** (09:34:23):
 > Yeah, that was the post I was thinking of - I guess my point was that depending on how you define a "marker" gene, it becomes important to see these as a**set**, rather than a list of  genes that are all, separately, indicative of a given cell type.
@@ -903,7 +930,7 @@ format: gfm
 **Kevin Rue-Albrecht** (12:41:14):
 > @Rob Amezquitamake sure you get yourself familiar with GSEABase. Vince made several good points earlier in the channel
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CE8AB163W/p1543231563145000)
-    > Two aspects of GSEABase that I find compelling are a) the capacity to import from existing 'list-like' set sources, and b) the capacity to annotate each set or set-collection with significant metadata.   We should look around for other set annotation approaches, incorporate advances if such are found, and consider whether GSEABase needs an extension to incorporate gene networks.  Interoperation with NDEx could be a plus for certain NCI projects supporting Bioconductor ([www.ndexbio.org](http://www.ndexbio.org)).  @Ludwig Geistlinger @Levi Waldron worked on the orchestrating single cell draft at the GSEA level and may have comments.
+> Two aspects of GSEABase that I find compelling are a) the capacity to import from existing 'list-like' set sources, and b) the capacity to annotate each set or set-collection with significant metadata.   We should look around for other set annotation approaches, incorporate advances if such are found, and consider whether GSEABase needs an extension to incorporate gene networks.  Interoperation with NDEx could be a plus for certain NCI projects supporting Bioconductor ([www.ndexbio.org](http://www.ndexbio.org)).  @Ludwig Geistlinger @Levi Waldron worked on the orchestrating single cell draft at the GSEA level and may have comments.
 
 **Kevin Rue-Albrecht** (12:45:16):
 > not sure how many things we can pin to the channel before it becomes counter-efficient:stuck_out_tongue_winking_eye:
@@ -923,7 +950,7 @@ format: gfm
 **Kevin Rue-Albrecht** (12:50:56) (in thread):
 > [https://www.thermofisher.com/us/en/home/life-science/lab-equipment/cold-storage/tsx-freezers-refrigerators.html?gclid=CjwKCAiA0O7fBRASEiwAYI9QAu5fGkSON_Bfqkt2D4Ylqq91JQX7k67N8sLIicdS4BNr3xiFqalNthoCaAcQAvD_BwE&cid=lpd_ctt_cs_lrf_ULT-neg-80-exact_adwords&s_kwcid=AL!3652!3!203373626821!e!!g!!minus%2080%20freezer&ef_id=W-wyegAABdvzsdI5:20181126175050:s&s_kwcid=AL!3652!3!203373626821!e!!g!!minus%2080%20freezer](https://www.thermofisher.com/us/en/home/life-science/lab-equipment/cold-storage/tsx-freezers-refrigerators.html?gclid=CjwKCAiA0O7fBRASEiwAYI9QAu5fGkSON_Bfqkt2D4Ylqq91JQX7k67N8sLIicdS4BNr3xiFqalNthoCaAcQAvD_BwE&cid=lpd_ctt_cs_lrf_ULT-neg-80-exact_adwords&s_kwcid=AL!3652!3!203373626821!e!!g!!minus%2080%20freezer&ef_id=W-wyegAABdvzsdI5:20181126175050:s&s_kwcid=AL!3652!3!203373626821!e!!g!!minus%2080%20freezer)
   - Attachment (thermofisher.com): [TSX Freezers & Refrigerators | Thermo Fisher Scientific - US](https://www.thermofisher.com/us/en/home/life-science/lab-equipment/cold-storage/tsx-freezers-refrigerators.html?gclid=CjwKCAiA0O7fBRASEiwAYI9QAu5fGkSON_Bfqkt2D4Ylqq91JQX7k67N8sLIicdS4BNr3xiFqalNthoCaAcQAvD_BwE&amp;cid=lpd_ctt_cs_lrf_ULT-neg-80-exact_adwords&amp;s_kwcid=AL!3652!3!203373626821!e!!g!!minus%2080%20freezer&amp;ef_id=W-wyegAABdvzsdI5:20181126175050:s&amp;s_kwcid=AL!3652!3!203373626821!e!!g!!minus%2080%20freezer)
-    > Thermo Scientific TSX Series ultra-low freezers, high-performance refrigerators and freezers are designed with features that support sustainability objectives without compromising performance.
+> Thermo Scientific TSX Series ultra-low freezers, high-performance refrigerators and freezers are designed with features that support sustainability objectives without compromising performance.
 
 **Rob Amezquita** (12:53:57) (in thread):
 > d'oh. obviously have been away from the wet lab too long!
@@ -931,14 +958,16 @@ format: gfm
 **Vince Carey** (13:17:39) (in thread):
 > There are a couple of papers on ontology and marker and signature concepts well worth a look.  I am trying to digest them for the single-cell paper by Stephanie and Rob.[https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1977-1](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1977-1)[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5946857/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5946857/)
   - Attachment (BMC Bioinformatics): [Cell type discovery and representation in the era of high-content single cell phenotyping](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1977-1)
-    > A fundamental characteristic of multicellular organisms is the specialization of functional cell types through the process of differentiation. These specialized cell types not only characterize the normal functioning of different organs and tissues, they can also be used as cellular biomarkers of a variety of different disease states and therapeutic/vaccine responses. In order to serve as a reference for cell type representation, the Cell Ontology has been developed to provide a standard nomenclature of defined cell types for comparative analysis and biomarker discovery. Historically, these cell types have been defined based on unique cellular shapes and structures, anatomic locations, and marker protein expression. However, we are now experiencing a revolution in cellular characterization resulting from the application of new high-throughput, high-content cytometry and sequencing technologies. The resulting explosion in the number of distinct cell types being identified is challenging the current paradigm for cell type definition in the Cell Ontology. In this paper, we provide examples of state-of-the-art cellular biomarker characterization using high-content cytometry and single cell RNA sequencing, and present strategies for standardized cell type representations based on the data outputs from these cutting-edge technologies, including “context annotations” in the form of standardized experiment metadata about the specimen source analyzed and marker genes that serve as the most useful features in machine learning-based cell type classification models. We also propose a statistical strategy for comparing new experiment data to these standardized cell type representations. The advent of high-throughput/high-content single cell technologies is leading to an explosion in the number of distinct cell types being identified. It will be critical for the bioinformatics community to develop and adopt data standard conventions that will be compatible with these new technologies and support the data representation needs of the research community. The proposals enumerated here will serve as a useful starting point to address these challenges.
+> A fundamental characteristic of multicellular organisms is the specialization of functional cell types through the process of differentiation. These specialized cell types not only characterize the normal functioning of different organs and tissues, they can also be used as cellular biomarkers of a variety of different disease states and therapeutic/vaccine responses. In order to serve as a reference for cell type representation, the Cell Ontology has been developed to provide a standard nomenclature of defined cell types for comparative analysis and biomarker discovery. Historically, these cell types have been defined based on unique cellular shapes and structures, anatomic locations, and marker protein expression. However, we are now experiencing a revolution in cellular characterization resulting from the application of new high-throughput, high-content cytometry and sequencing technologies. The resulting explosion in the number of distinct cell types being identified is challenging the current paradigm for cell type definition in the Cell Ontology. In this paper, we provide examples of state-of-the-art cellular biomarker characterization using high-content cytometry and single cell RNA sequencing, and present strategies for standardized cell type representations based on the data outputs from these cutting-edge technologies, including “context annotations” in the form of standardized experiment metadata about the specimen source analyzed and marker genes that serve as the most useful features in machine learning-based cell type classification models. We also propose a statistical strategy for comparing new experiment data to these standardized cell type representations. The advent of high-throughput/high-content single cell technologies is leading to an explosion in the number of distinct cell types being identified. It will be critical for the bioinformatics community to develop and adopt data standard conventions that will be compatible with these new technologies and support the data representation needs of the research community. The proposals enumerated here will serve as a useful starting point to address these challenges.
   - Attachment (PubMed Central (PMC)): [Cell type discovery using single-cell transcriptomics: implications for ontological representation](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5946857/)
-    > Cells are fundamental function units of multicellular organisms, with different cell types playing distinct physiological roles in the body. The recent advent of single-cell transcriptional profiling using RNA sequencing is producing ‘big data’, ...
+> Cells are fundamental function units of multicellular organisms, with different cell types playing distinct physiological roles in the body. The recent advent of single-cell transcriptional profiling using RNA sequencing is producing ‘big data’, ...
 
 **Kevin Rue-Albrecht** (13:22:34) (in thread):
 > thanks for the references: they look really interesting!
 
-*13:24:23 - @Lada Koneva has joined the channel*
+**Lada Koneva** (13:24:23):
+> @Lada Koneva has joined the channel
+
 **Rob Amezquita** (16:41:08) (in thread):
 > i wonder if it would be possible to nest different results within a given method...that would be interesting!
 
@@ -949,7 +978,9 @@ format: gfm
 > Hey all, I've updated the scripts to set up the "challenge" data set (Seurat PBMC 3k tutorial). Please refer to the links listed in "Toy examples" section of the Google Doc pinned to this channel.
 >  Thanks to some advice from@Rob Amezquitaand@Stephanie Hicksthe setup script now uses the`TENxPBMCData`package to cache the data set (instead of my homemade use of`BiocFileCache`). Results are exactly the same, so no biggie.
 
-*17:06:56 - @Stephanie Hicks has joined the channel*
+**Stephanie Hicks** (17:06:56):
+> @Stephanie Hicks has joined the channel
+
 
 ## 2018-11-28
 
@@ -958,9 +989,9 @@ format: gfm
 > Just to let you know that I'm moving away from the Gist method and I set up a "proper" GitHub repository for test notebooks:[https://github.com/kevinrue/Hancock2018](https://github.com/kevinrue/Hancock2018)In addition, thanks to@Vince Carey’s feedback on`GSEABase`, my "proportion of signatures by cluster" notebook is now using`GeneSetCollection`to store the signatures.
 > See[https://github.com/kevinrue/Hancock2018/blob/master/1-proportion_signature.Rmd](https://github.com/kevinrue/Hancock2018/blob/master/1-proportion_signature.Rmd)
   - Attachment (GitHub): [kevinrue/Hancock2018](https://github.com/kevinrue/Hancock2018)
-    > Test notebooks. Contribute to kevinrue/Hancock2018 development by creating an account on GitHub.
+> Test notebooks. Contribute to kevinrue/Hancock2018 development by creating an account on GitHub.
   - Attachment (GitHub): [kevinrue/Hancock2018](https://github.com/kevinrue/Hancock2018/blob/master/1-proportion_signature.Rmd)
-    > Test notebooks. Contribute to kevinrue/Hancock2018 development by creating an account on GitHub.
+> Test notebooks. Contribute to kevinrue/Hancock2018 development by creating an account on GitHub.
 
 **Federico Marini** (15:55:57):
 > :wave:signature peeps - I guess some of you might have seen this one already…
@@ -987,7 +1018,7 @@ format: gfm
 > Hi@Peter HickeyI've just added a small code chunk in the vignette to show how simple lists of gene names (identifiers, whatever) can be packaged into`GSEABase::GeneSetCollection`.
 > I'm not sure what web queries to Haemo, ImmGen,  ... would exactly return (JSON, ...?)  but if it's anything like a list, would that help you get started?[https://github.com/kevinrue/Hancock/blob/master/vignettes/concepts.Rmd#L106](https://github.com/kevinrue/Hancock/blob/master/vignettes/concepts.Rmd#L106)
   - Attachment (GitHub): [kevinrue/Hancock](https://github.com/kevinrue/Hancock/blob/master/vignettes/concepts.Rmd#L106)
-    > Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
+> Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
 
 **Kevin Rue-Albrecht** (07:57:08):
 > That said, I wonder whether such web-query code would live in`Hancock`,`GSEABase`, or its own package. I’d suggest the latter; my reasoning:
@@ -1001,7 +1032,7 @@ format: gfm
 **Vince Carey** (13:18:08):
 > should we use[https://dice-database.org/downloads](https://dice-database.org/downloads)to build putative signatures for immune cell types?[https://www.sciencedirect.com/science/article/pii/S009286741831331X](https://www.sciencedirect.com/science/article/pii/S009286741831331X)
   - Attachment (sciencedirect.com): [Impact of Genetic Polymorphisms on Human Immune Cell Gene Expression](https://www.sciencedirect.com/science/article/pii/S009286741831331X)
-    > While many genetic variants have been associated with risk for human diseases, how these variants affect gene expression in various cell types remains…
+> While many genetic variants have been associated with risk for human diseases, how these variants affect gene expression in various cell types remains…
 
 **Vince Carey** (13:19:43):
 > perhaps considering the possibility of "eQTL-free" genes as an element of robustness
@@ -1015,7 +1046,7 @@ format: gfm
 **Levi Waldron** (23:40:13):
 > FYI in case it is useful to you,[http://bioconductor.org/packages/CellMapper/](http://bioconductor.org/packages/CellMapper/). It uses some tens of thousands of human and mouse microarrays and one or more known cell type-specific “query” genes to identify additional cell type-specific genes by correlation, and it works well.
   - Attachment (Bioconductor): [CellMapper](http://bioconductor.org/packages/CellMapper/)
-    > Infers cell type-specific expression based on co-expression similarity with known cell type marker genes. Can make accurate predictions using publicly available expression data, even when a cell type has not been isolated before.
+> Infers cell type-specific expression based on co-expression similarity with known cell type marker genes. Can make accurate predictions using publicly available expression data, even when a cell type has not been isolated before.
 
 
 ## 2018-11-30
@@ -1029,7 +1060,7 @@ format: gfm
 **Kevin Rue-Albrecht** (03:09:40):
 > [https://twitter.com/mritchieau/status/1068297808988450816?s=12](https://twitter.com/mritchieau/status/1068297808988450816?s=12)Reminder to self. Add to GDoc
   - Attachment (twitter): [Attachment](https://twitter.com/mritchieau/status/1068297808988450816?s=12)
-    > ⁦[@trashystats](https://twitter.com/trashystats)⁩ tells us about the dtangle #rstats package for deconvolving cell type mixing proportions in bulk samples #BioCAsia #abacbs2018 [https://pbs.twimg.com/media/DtNbMiEVYAAzmvb.jpg](https://pbs.twimg.com/media/DtNbMiEVYAAzmvb.jpg)
+> ⁦[@trashystats](https://twitter.com/trashystats)⁩ tells us about the dtangle #rstats package for deconvolving cell type mixing proportions in bulk samples #BioCAsia #abacbs2018 [https://pbs.twimg.com/media/DtNbMiEVYAAzmvb.jpg](https://pbs.twimg.com/media/DtNbMiEVYAAzmvb.jpg)
 
 **Rob Amezquita** (17:22:00):
 > hi all, i've started a companion package that splits out the reference/curated genesets aspect so that`Hancock`can focus on methods/applications of pre-defined signatures. happy to accept contributions of manual genesets and start looking at expanding the scope to including web-api/online databases as discussed above (e.g. dice, etc.)
@@ -1037,12 +1068,14 @@ format: gfm
 **Rob Amezquita** (17:22:01):
 > [https://github.com/robertamezquita/Inkwell](https://github.com/robertamezquita/Inkwell)
   - Attachment (GitHub): [robertamezquita/Inkwell](https://github.com/robertamezquita/Inkwell)
-    > Curated cell-type specific markers for manual classification. - robertamezquita/Inkwell
+> Curated cell-type specific markers for manual classification. - robertamezquita/Inkwell
 
 **Rob Amezquita** (18:05:18):
 > @Vince Carey@Martin Morganwould love to hear your thoughts on how we might extend`GeneSetCollections`/`GeneSets`to facilitate such usage!
 
-*19:14:11 - @Martin Morgan has joined the channel*
+**Martin Morgan** (19:14:11):
+> @Martin Morgan has joined the channel
+
 
 ## 2018-12-01
 
@@ -1059,12 +1092,12 @@ format: gfm
 **Kevin Rue-Albrecht** (12:11:01):
 > Available at:[https://github.com/kevinrue/Hancock/tree/predict](https://github.com/kevinrue/Hancock/tree/predict)See runnable example at`?predict.GeneSetCollection`In particular, have a look at`metadata(...)`and`colData(...)[, "Hancock"]`of the output object
   - Attachment (GitHub): [kevinrue/Hancock](https://github.com/kevinrue/Hancock/tree/predict)
-    > Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
+> Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
 
 **Kevin Rue-Albrecht** (14:40:54):
 > Alright, I'm about to merge`predict`to`master`. I'm pretty satisfied of the result, especially considering how streamlined the demo notebook looks now:[https://github.com/kevinrue/Hancock2018/blob/master/1-proportion_signature.Rmd](https://github.com/kevinrue/Hancock2018/blob/master/1-proportion_signature.Rmd)
   - Attachment (GitHub): [kevinrue/Hancock2018](https://github.com/kevinrue/Hancock2018/blob/master/1-proportion_signature.Rmd)
-    > Companion notebooks for the Hancock package. Contribute to kevinrue/Hancock2018 development by creating an account on GitHub.
+> Companion notebooks for the Hancock package. Contribute to kevinrue/Hancock2018 development by creating an account on GitHub.
 
 **Kevin Rue-Albrecht** (15:14:34):
 > The updated package code is now on the`master`branch. It is compatible with the notebook above.
@@ -1090,12 +1123,12 @@ format: gfm
 **Kevin Rue-Albrecht** (05:05:34):
 > Not sure if GitHub sends notification about that kind of stuff, but I've extended the`CONTRIBUTING.md`file:[https://github.com/kevinrue/Hancock/blob/master/CONTRIBUTING.md](https://github.com/kevinrue/Hancock/blob/master/CONTRIBUTING.md)
   - Attachment (GitHub): [kevinrue/Hancock](https://github.com/kevinrue/Hancock/blob/master/CONTRIBUTING.md)
-    > Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
+> Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
 
 **Vince Carey** (06:58:37):
 > I filed an issue at[https://github.com/Bioconductor/GSEABase/issues/3](https://github.com/Bioconductor/GSEABase/issues/3)to see about adding metadata flexibility for GeneSet and top level metadata concept for GeneSetCollection.  I could start a PR but maybe we should discuss a little bit.    My thought is that we should allow longDescription in GeneSet to be type ANY (for now) so that something like Biobase's MIAME could be used to give detailed provenance of any given signature assertion.  How a GeneSetCollection will be used is not totally clear to me, but some top-level metadata component seems unobjectionable and useful.
   - Attachment (GitHub): [increasing metadata flexibility/availability? · Issue #3 · Bioconductor/GSEABase](https://github.com/Bioconductor/GSEABase/issues/3)
-    > [https://github.com/kevinrue/Hancock/blob/master/vignettes/concepts.Rmd](https://github.com/kevinrue/Hancock/blob/master/vignettes/concepts.Rmd) by @kevinrue shows how GeneSet and GeneSetCollection can play roles in definition of cell type signatures. It might be desirab...
+> [https://github.com/kevinrue/Hancock/blob/master/vignettes/concepts.Rmd](https://github.com/kevinrue/Hancock/blob/master/vignettes/concepts.Rmd) by @kevinrue shows how GeneSet and GeneSetCollection can play roles in definition of cell type signatures. It might be desirab...
 
 **Kevin Rue-Albrecht** (08:24:54):
 > Thanks for that@Vince Carey!
@@ -1104,7 +1137,7 @@ format: gfm
 **Kevin Rue-Albrecht** (14:39:04):
 > Hi@Vince CareyYou'll probably appreciate the extension of the concepts vignette to include`GeneColorSet`[https://github.com/kevinrue/Hancock/pull/12](https://github.com/kevinrue/Hancock/pull/12)
   - Attachment (GitHub): [Extend concept vignette to discuss negative markers by kevinrue · Pull Request #12 · kevinrue/Hancock](https://github.com/kevinrue/Hancock/pull/12)
-    > demonstrate the use of the GeneColorSet class.
+> demonstrate the use of the GeneColorSet class.
 
 **Kevin Rue-Albrecht** (14:43:14):
 > I must say that it gets a bit confusing when dealing with`phenotype`,`geneColor`, and`phenotypeColor`.
@@ -1121,21 +1154,25 @@ format: gfm
 
 ## 2018-12-03
 
-*09:23:51 - @Frederick Tan has joined the channel*
+**Frederick Tan** (09:23:51):
+> @Frederick Tan has joined the channel
+
 
 ## 2018-12-04
 
-*10:52:04 - @Kayla Interdonato has joined the channel*
+**Kayla Interdonato** (10:52:04):
+> @Kayla Interdonato has joined the channel
+
 **Kayla Interdonato** (10:56:50):
 > We are working on expanding the gene set representation idea at[https://github.com/Kayla-Morrell/GeneSet](https://github.com/Kayla-Morrell/GeneSet). The main motivation is more efficient representation of large data sets and a more familiar tibble like frame work. From the conversation above, it seems like 3 useful features we could add include Entrez (and similar) identifiers, color gene sets, and adding gene and gene set metadata. Any feedback welcome!
   - Attachment (GitHub): [Kayla-Morrell/GeneSet](https://github.com/Kayla-Morrell/GeneSet)
-    > Contribute to Kayla-Morrell/GeneSet development by creating an account on GitHub.
+> Contribute to Kayla-Morrell/GeneSet development by creating an account on GitHub.
 
 **Kevin Rue-Albrecht** (11:03:47):
 > Hi@Kayla Interdonato. Thanks for the message!
 > I’m just looking at[https://github.com/Kayla-Morrell/GeneSet/compare/master...tibble_implement](https://github.com/Kayla-Morrell/GeneSet/compare/master...tibble_implement)and I already like seeing thing like`import.gmt <- function(path)`:grin:Did you already have any discussion with the`GSEABase`team? This looks like a replacement solution rather than an extension, and I’m just curious about what to expect if both packages are meant to co-exist.
   - Attachment (GitHub): [Kayla-Morrell/GeneSet](https://github.com/Kayla-Morrell/GeneSet/compare/master...tibble_implement)
-    > Contribute to Kayla-Morrell/GeneSet development by creating an account on GitHub.
+> Contribute to Kayla-Morrell/GeneSet development by creating an account on GitHub.
 
 **Kevin Rue-Albrecht** (11:17:29):
 > Also, re: Entrez and other identifiers, I do like the`GSEABase`sub-classes that implicitly declare the type of gene identifier they contain. See:
@@ -1169,12 +1206,12 @@ format: gfm
 > While I don’t like the implementation of the`SingleR`package, their preprint (see pinned Google Doc) attracts some interesting discussion points in their Github issues (e.g.[https://github.com/dviraran/SingleR/issues/11](https://github.com/dviraran/SingleR/issues/11))
 > Point is, there is something to learn from the questions of prospective users with respect to what and how package functionality should be documented
   - Attachment (GitHub): [Single cells' CellType prediction (Signature genes for the cell types) · Issue #11 · dviraran/SingleR](https://github.com/dviraran/SingleR/issues/11)
-    > Hi, I am working on the Single cell analysis using Seurat. I am new to the SingleR, It is really very useful for the single cell level cell type prediction. I have read the SingleR documentation, b...
+> Hi, I am working on the Single cell analysis using Seurat. I am new to the SingleR, It is really very useful for the single cell level cell type prediction. I have read the SingleR documentation, b...
 
 **Ludwig Geistlinger** (05:04:32):
 > BTW: just out of interest, how much proof-of-concept is there actually that these gene signatures allow distinction of cell types? It reminds me a bit of the times when people were hunting for cancer signatures, eventually finding that those gene signatures often imply more informativeness than they actually have:[https://www.ncbi.nlm.nih.gov/pubmed/22028643](https://www.ncbi.nlm.nih.gov/pubmed/22028643)
   - Attachment (ncbi.nlm.nih.gov): [Most random gene expression signatures are significantly associated with breast cancer outcome.  - PubMed - NCBI](https://www.ncbi.nlm.nih.gov/pubmed/22028643)
-    > PLoS Comput Biol. 2011 Oct;7(10):e1002240. doi: 10.1371/journal.pcbi.1002240. Epub 2011 Oct 20. Research Support, Non-U.S. Gov't
+> PLoS Comput Biol. 2011 Oct;7(10):e1002240. doi: 10.1371/journal.pcbi.1002240. Epub 2011 Oct 20. Research Support, Non-U.S. Gov't
 
 **Ludwig Geistlinger** (05:08:17) (in thread):
 > It also seems surprising to me to build this upon`tibble`instead of an`S4Vectors`-derivative@Kayla Interdonato?
@@ -1198,11 +1235,11 @@ format: gfm
 **Ludwig Geistlinger** (07:18:15):
 > This clarification helps already. When it comes to #sc-signature-data, I think a lot of inspiration can be drawn from existing work on how to extract such signatures from data and literature:[https://www.ncbi.nlm.nih.gov/pubmed/26771021](https://www.ncbi.nlm.nih.gov/pubmed/26771021)[https://www.ncbi.nlm.nih.gov/pubmed/21546393](https://www.ncbi.nlm.nih.gov/pubmed/21546393)[https://www.ncbi.nlm.nih.gov/pubmed/22110038](https://www.ncbi.nlm.nih.gov/pubmed/22110038)When it comes to #sc-signature-software it seems to currently mostly focus around how to best represent gene signatures (in Bioc) - if I understood correctly?
   - Attachment (ncbi.nlm.nih.gov): [The Molecular Signatures Database (MSigDB) hallmark gene set collection.  - PubMed - NCBI](https://www.ncbi.nlm.nih.gov/pubmed/26771021)
-    > Cell Syst. 2015 Dec 23;1(6):417-425.
+> Cell Syst. 2015 Dec 23;1(6):417-425.
   - Attachment (ncbi.nlm.nih.gov): [Molecular signatures database (MSigDB) 3.0.  - PubMed - NCBI](https://www.ncbi.nlm.nih.gov/pubmed/21546393)
-    > Bioinformatics. 2011 Jun 15;27(12):1739-40. doi: 10.1093/bioinformatics/btr260. Epub 2011 May 5. Research Support, N.I.H., Extramural
+> Bioinformatics. 2011 Jun 15;27(12):1739-40. doi: 10.1093/bioinformatics/btr260. Epub 2011 May 5. Research Support, N.I.H., Extramural
   - Attachment (ncbi.nlm.nih.gov): [GeneSigDB: a manually curated database and resource for analysis of gene expression signatures.  - PubMed - NCBI](https://www.ncbi.nlm.nih.gov/pubmed/22110038)
-    > Nucleic Acids Res. 2012 Jan;40(Database issue):D1060-6. doi: 10.1093/nar/gkr901. Epub 2011 Nov 21. Research Support, N.I.H., Extramural; Research Support, Non-U.S. Gov't
+> Nucleic Acids Res. 2012 Jan;40(Database issue):D1060-6. doi: 10.1093/nar/gkr901. Epub 2011 Nov 21. Research Support, N.I.H., Extramural; Research Support, Non-U.S. Gov't
 
 **Kevin Rue-Albrecht** (07:20:53):
 > Absolutely. Good references, and thanks for sharing them. If you feel like it, feel free to add them in the pinned Google Doc in the relevant section “Sources of curated signatures”. Otherwise I’ll try and do it later.
@@ -1210,7 +1247,7 @@ format: gfm
 **Kevin Rue-Albrecht** (12:02:28):
 > @Rob AmezquitaI think Hancock has got a shot at this one!!!:smile:
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C34NC134G/p1544026021004000)
-    > Please vote for your favorite `BioC 2019` sticker here: [https://github.com/Bioconductor/BiocStickers/issues/74](https://github.com/Bioconductor/BiocStickers/issues/74)
+> Please vote for your favorite `BioC 2019` sticker here: [https://github.com/Bioconductor/BiocStickers/issues/74](https://github.com/Bioconductor/BiocStickers/issues/74)
 
 **Rob Amezquita** (12:03:15):
 > aha i clicked on it literally thinking "best sticker" but turns out its the Bioc2019 meeting sticker vote!
@@ -1236,11 +1273,15 @@ format: gfm
 
 ## 2018-12-10
 
-*15:21:44 - @Mark Robinson has joined the channel*
+**Mark Robinson** (15:21:44):
+> @Mark Robinson has joined the channel
+
 
 ## 2018-12-13
 
-*12:52:56 - @Matt Ritchie has joined the channel*
+**Matt Ritchie** (12:52:56):
+> @Matt Ritchie has joined the channel
+
 
 ## 2018-12-18
 
@@ -1251,19 +1292,21 @@ format: gfm
 **Kevin Rue-Albrecht** (16:27:14):
 > Still not sure how much effort I should expect to put in for supporting both`GeneSetCollection`and`tbl_geneset`in the future, but so far it's still manageable for my simple use case (only gene sets, no accompanying qualitative nor quantitative information)
 
-*18:36:45 - @Davis McCarthy has joined the channel*
+**Davis McCarthy** (18:36:45):
+> @Davis McCarthy has joined the channel
+
 
 ## 2018-12-19
 
 **Kevin Rue-Albrecht** (07:21:57):
 > Here’s a fun parallel:[https://github.com/longhowlam/flowermodel](https://github.com/longhowlam/flowermodel)
   - Attachment (GitHub): [longhowlam/flowermodel](https://github.com/longhowlam/flowermodel)
-    > shiny app to predict flower species. Contribute to longhowlam/flowermodel development by creating an account on GitHub.
+> shiny app to predict flower species. Contribute to longhowlam/flowermodel development by creating an account on GitHub.
 
 **Kevin Rue-Albrecht** (07:23:55):
 > Source:[https://www.r-bloggers.com/an-r-shiny-app-to-recognize-flower-species/](https://www.r-bloggers.com/an-r-shiny-app-to-recognize-flower-species/)
   - Attachment (R-bloggers): [An R Shiny app to recognize flower species](https://www.r-bloggers.com/an-r-shiny-app-to-recognize-flower-species/)
-    > Introduction Playing around with PyTorch and R Shiny resulted in a simple Shiny app where the user can upload a flower image, the system will then predict the flower species. Steps that I took Download labeled flower data from the … Continue reading →
+> Introduction Playing around with PyTorch and R Shiny resulted in a simple Shiny app where the user can upload a flower image, the system will then predict the flower species. Steps that I took Download labeled flower data from the … Continue reading →
 
 **Peter Hickey** (18:31:10) (in thread):
 > (delayed  follow up). there's no web API or plans for one. it's unclear to me how much easier this makes things since i don't have any real web programming/resource packaging experience
@@ -1271,9 +1314,9 @@ format: gfm
 **Kevin Rue-Albrecht** (18:43:14):
 > For anyone curious, the first "learning method" is pushed on branch`learn`([https://github.com/kevinrue/Hancock/tree/learn](https://github.com/kevinrue/Hancock/tree/learn)) and demonstrated here ([https://github.com/kevinrue/Hancock2018/blob/master/2-learn-signatures.Rmd](https://github.com/kevinrue/Hancock2018/blob/master/2-learn-signatures.Rmd))
   - Attachment (GitHub): [kevinrue/Hancock](https://github.com/kevinrue/Hancock/tree/learn)
-    > Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
+> Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
   - Attachment (GitHub): [kevinrue/Hancock2018](https://github.com/kevinrue/Hancock2018/blob/master/2-learn-signatures.Rmd)
-    > Companion notebooks for the Hancock package. Contribute to kevinrue/Hancock2018 development by creating an account on GitHub.
+> Companion notebooks for the Hancock package. Contribute to kevinrue/Hancock2018 development by creating an account on GitHub.
 
 **Kevin Rue-Albrecht** (18:52:02):
 > (merged to`master`now)
@@ -1284,7 +1327,7 @@ format: gfm
 **Kevin Rue-Albrecht** (05:00:34):
 > Updated “Contributing.md” guidelines with a new section on methods to**learn**signatures:[https://github.com/kevinrue/Hancock/blob/master/CONTRIBUTING.md#new-learning-methods](https://github.com/kevinrue/Hancock/blob/master/CONTRIBUTING.md#new-learning-methods)
   - Attachment (GitHub): [kevinrue/Hancock](https://github.com/kevinrue/Hancock/blob/master/CONTRIBUTING.md#new-learning-methods)
-    > Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
+> Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
 
 
 ## 2019-01-02
@@ -1329,7 +1372,7 @@ format: gfm
 **Kevin Rue-Albrecht** (18:19:30):
 > On a somewhat unrelated note, specifically@Federico Marini, if you're missing our`iSEE`entertainment, I've added a mini Shiny app to`Hancock`. Best enjoyed with[https://github.com/kevinrue/Hancock2018/blob/master/2-learn-signatures.Rmd](https://github.com/kevinrue/Hancock2018/blob/master/2-learn-signatures.Rmd)
   - Attachment (GitHub): [kevinrue/Hancock2018](https://github.com/kevinrue/Hancock2018/blob/master/2-learn-signatures.Rmd)
-    > Companion notebooks for the Hancock package. Contribute to kevinrue/Hancock2018 development by creating an account on GitHub.
+> Companion notebooks for the Hancock package. Contribute to kevinrue/Hancock2018 development by creating an account on GitHub.
 
 **Kevin Rue-Albrecht** (18:25:45):
 > For the record, I've tracked down the Travis issue to line 51 of`R/version.R`in the`utils`package (the one distributed with base R, not`R.utils`)
@@ -1364,7 +1407,9 @@ format: gfm
 **Kevin Rue-Albrecht** (03:49:04) (in thread):
 > Thanks!:+1:
 
-*08:56:29 - @Lluís Revilla has joined the channel*
+**Lluís Revilla** (08:56:29):
+> @Lluís Revilla has joined the channel
+
 
 ## 2019-01-04
 
@@ -1383,7 +1428,9 @@ format: gfm
 
 ## 2019-01-06
 
-*03:03:48 - @Aaron Lun has joined the channel*
+**Aaron Lun** (03:03:48):
+> @Aaron Lun has joined the channel
+
 **Aaron Lun** (03:03:57):
 > Hit me up with some truth@Kevin Rue-Albrecht
 
@@ -1448,7 +1495,7 @@ format: gfm
 **Kevin Rue-Albrecht** (04:30:00):
 > Perhaps code makes more sense:[https://github.com/kevinrue/Hancock/blob/master/R/markerDetection-methods.R#L74](https://github.com/kevinrue/Hancock/blob/master/R/markerDetection-methods.R#L74)
   - Attachment (GitHub): [kevinrue/Hancock](https://github.com/kevinrue/Hancock/blob/master/R/markerDetection-methods.R#L74)
-    > Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
+> Cell signatures, with confidence. Contribute to kevinrue/Hancock development by creating an account on GitHub.
 
 **Aaron Lun** (04:30:19):
 > I’m looking at the code now. I know what it**does**.
@@ -1483,7 +1530,7 @@ format: gfm
 **Kevin Rue-Albrecht** (04:54:29):
 > [https://github.com/Kayla-Morrell/GeneSet](https://github.com/Kayla-Morrell/GeneSet), see#gseabase
   - Attachment (GitHub): [Kayla-Morrell/GeneSet](https://github.com/Kayla-Morrell/GeneSet)
-    > Contribute to Kayla-Morrell/GeneSet development by creating an account on GitHub.
+> Contribute to Kayla-Morrell/GeneSet development by creating an account on GitHub.
 
 **Aaron Lun** (04:55:43):
 > Great. More tidyverse stuff. Just what I need.
@@ -1492,7 +1539,7 @@ format: gfm
 > Well, from what I gather, discussion is still fairly open with Kayla and Martin in terms of final implementation.
 > I'm not very well placed to support of criticize the tidyverse. I neither rely on it nor avoid it.
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CEK3JDXFV/p1546524066009400)
-    > I had kind of hoped that the tibble column would suffice, but you're right that the duplicate genes is problematic (but that's just tidy data, right?). Similarly for set-level data. I think 'externally' the information could be represented as a single tibble, but internally maintain three tables -- gene / set mapping; gene annotation; set annotation.
+> I had kind of hoped that the tibble column would suffice, but you're right that the duplicate genes is problematic (but that's just tidy data, right?). Similarly for set-level data. I think 'externally' the information could be represented as a single tibble, but internally maintain three tables -- gene / set mapping; gene annotation; set annotation.
 
 **Aaron Lun** (05:36:21):
 > Two general package comments:
@@ -1554,7 +1601,7 @@ format: gfm
 **Federico Marini** (05:18:08):
 > ->[https://www.biorxiv.org/content/early/2019/01/04/512434?rss=1](https://www.biorxiv.org/content/early/2019/01/04/512434?rss=1)might be of interest to the channel
   - Attachment (bioRxiv): [A pitfall for machine learning methods aiming to predict across cell types](https://www.biorxiv.org/content/early/2019/01/04/512434?rss=1)
-    > Machine learning models to predict phenomena such as gene expression, enhancer activity, transcription factor binding, or chromatin conformation are most useful when they can generalize to make accurate predictions across cell types. In this situation, a natural strategy is to train the model on experimental data from some cell types and evaluate performance on one or more held-out cell types. In this work, we show that, when the training set contains examples derived from the same genomic loci across multiple cell types, then the resulting model can be susceptible to a particular form of bias related to memorizing the average activity associated with each genomic locus. Consequently, the trained model may appear to perform well when evaluated on the genomic loci that it was trained on but tends to perform poorly on loci that it was not trained on. We demonstrate this phenomenon by using epigenomic measurements and nucleotide sequence to predict gene expression and chromatin domain boundaries, and we suggest methods to diagnose and avoid the pitfall. We anticipate that, as more data and computing resources become available, future projects will increasingly risk suffering from this issue.
+> Machine learning models to predict phenomena such as gene expression, enhancer activity, transcription factor binding, or chromatin conformation are most useful when they can generalize to make accurate predictions across cell types. In this situation, a natural strategy is to train the model on experimental data from some cell types and evaluate performance on one or more held-out cell types. In this work, we show that, when the training set contains examples derived from the same genomic loci across multiple cell types, then the resulting model can be susceptible to a particular form of bias related to memorizing the average activity associated with each genomic locus. Consequently, the trained model may appear to perform well when evaluated on the genomic loci that it was trained on but tends to perform poorly on loci that it was not trained on. We demonstrate this phenomenon by using epigenomic measurements and nucleotide sequence to predict gene expression and chromatin domain boundaries, and we suggest methods to diagnose and avoid the pitfall. We anticipate that, as more data and computing resources become available, future projects will increasingly risk suffering from this issue.
 
 **Aaron Lun** (05:33:44):
 > Don’t see the big deal from the abstract. Is it that surprising that the choice of training set determines performance?
@@ -1598,7 +1645,7 @@ format: gfm
 **Stephanie Hicks** (04:28:19):
 > This seems like it should be added to the google doc:[https://github.com/irrationone/cellassign](https://github.com/irrationone/cellassign)
   - Attachment (GitHub): [Irrationone/cellassign](https://github.com/irrationone/cellassign)
-    > Automated, probabilistic assignment of cell types in scRNA-seq data - Irrationone/cellassign
+> Automated, probabilistic assignment of cell types in scRNA-seq data - Irrationone/cellassign
 
 **Kevin Rue-Albrecht** (04:57:05):
 > Done. Thanks!
@@ -1661,11 +1708,13 @@ format: gfm
 
 ## 2019-01-24
 
-*13:56:49 - @Steve Lianoglou has joined the channel*
+**Steve Lianoglou** (13:56:49):
+> @Steve Lianoglou has joined the channel
+
 **Stephanie Hicks** (14:51:55):
 > not sure if this has already come across your desk@Kevin Rue-Albrecht, but just in case not[https://www.biorxiv.org/content/10.1101/508085v1](https://www.biorxiv.org/content/10.1101/508085v1)
   - Attachment (bioRxiv): [SingleCellNet: a computational tool to classify single cell RNA-Seq data across platforms and across species](https://www.biorxiv.org/content/10.1101/508085v1)
-    > Single cell RNA-Seq has emerged as a powerful tool in diverse applications, ranging from determining the cell-type composition of tissues to uncovering the regulators of developmental programs. A near-universal step in the analysis of single cell RNA-Seq data is to hypothesize the identity of each cell. Often, this is achieved by finding cells that express combinations of marker genes that had previously been implicated as being cell-type specific, an approach that is not quantitative and does not explicitly take advantage of other single cell RNA-Seq studies. Here, we describe our tool, SingleCellNet, which addresses these issues and enables the classification of query single cell RNA-Seq data in comparison to reference single cell RNA-Seq data. SingleCellNet compares favorably to other methods, and it is notably able to make sensitive and accurate classifications across platforms and species. We demonstrate how SingleCellNet can be used to classify previously undetermined cells, and how it can be used to assess the outcome of cell fate engineering experiments.
+> Single cell RNA-Seq has emerged as a powerful tool in diverse applications, ranging from determining the cell-type composition of tissues to uncovering the regulators of developmental programs. A near-universal step in the analysis of single cell RNA-Seq data is to hypothesize the identity of each cell. Often, this is achieved by finding cells that express combinations of marker genes that had previously been implicated as being cell-type specific, an approach that is not quantitative and does not explicitly take advantage of other single cell RNA-Seq studies. Here, we describe our tool, SingleCellNet, which addresses these issues and enables the classification of query single cell RNA-Seq data in comparison to reference single cell RNA-Seq data. SingleCellNet compares favorably to other methods, and it is notably able to make sensitive and accurate classifications across platforms and species. We demonstrate how SingleCellNet can be used to classify previously undetermined cells, and how it can be used to assess the outcome of cell fate engineering experiments.
 
 **Kevin Rue-Albrecht** (16:41:35):
 > Awesome thanks! I’m buried in so many things right now that I’ve fallen behind on reading
@@ -1679,7 +1728,7 @@ format: gfm
 **Stephanie Hicks** (05:14:20):
 > [https://www.biorxiv.org/content/10.1101/532093v1](https://www.biorxiv.org/content/10.1101/532093v1)
   - Attachment (bioRxiv): [Automated identification of Cell Types in Single Cell RNA Sequencing](https://www.biorxiv.org/content/10.1101/532093v1)
-    > Cell type identification is one of the major goals in single cell RNA sequencing (scRNA-seq). Current methods for assigning cell types typically involve the use of unsupervised clustering, the identification of signature genes in each cluster, followed by a manual lookup of these genes in the literature and databases to assign cell types. However, there are several limitations associated with these approaches, such as unwanted sources of variation that influence clustering and a lack of canonical markers for certain cell types. Here, we present ACTINN (Automated Cell Type Identification using Neural Networks), which employs a neural network with 3 hidden layers, trains on datasets with predefined cell types, and predicts cell types for other datasets based on the trained parameters. We trained the neural network on a mouse cell type atlas (Tabula Muris Atlas) and a human immune cell dataset, and used it to predict cell types for mouse leukocytes, human PBMCs and human T cell sub types. The results showed that our neural network is fast and accurate, and should therefore be a useful tool to complement existing scRNA-seq pipelines.
+> Cell type identification is one of the major goals in single cell RNA sequencing (scRNA-seq). Current methods for assigning cell types typically involve the use of unsupervised clustering, the identification of signature genes in each cluster, followed by a manual lookup of these genes in the literature and databases to assign cell types. However, there are several limitations associated with these approaches, such as unwanted sources of variation that influence clustering and a lack of canonical markers for certain cell types. Here, we present ACTINN (Automated Cell Type Identification using Neural Networks), which employs a neural network with 3 hidden layers, trains on datasets with predefined cell types, and predicts cell types for other datasets based on the trained parameters. We trained the neural network on a mouse cell type atlas (Tabula Muris Atlas) and a human immune cell dataset, and used it to predict cell types for mouse leukocytes, human PBMCs and human T cell sub types. The results showed that our neural network is fast and accurate, and should therefore be a useful tool to complement existing scRNA-seq pipelines.
 
 **Kevin Rue-Albrecht** (05:15:53):
 > We know the 2019 fashion choice for new methods:sweat_smile:
@@ -1693,14 +1742,16 @@ format: gfm
 
 ## 2019-01-30
 
-*10:44:25 - @Davide Risso has joined the channel*
+**Davide Risso** (10:44:25):
+> @Davide Risso has joined the channel
+
 
 ## 2019-02-05
 
 **Kevin Rue-Albrecht** (03:17:17):
 > [https://twitter.com/coletrapnell/status/1092577935838433280?s=12](https://twitter.com/coletrapnell/status/1092577935838433280?s=12)They’re everywhere:space_invader::alien:
   - Attachment (twitter): [Attachment](https://twitter.com/coletrapnell/status/1092577935838433280?s=12)
-    > Very proud to announce "Garnett", a software system for rapidly annotating cells according to type in single-cell RNA-seq.  Written by [@HPliner](https://twitter.com/HPliner) with [@JShendure](https://twitter.com/JShendure). Software: [https://cole-trapnell-lab.github.io/garnett/](https://cole-trapnell-lab.github.io/garnett/) and preprint: [https://www.biorxiv.org/content/10.1101/538652v1](https://www.biorxiv.org/content/10.1101/538652v1)
+> Very proud to announce "Garnett", a software system for rapidly annotating cells according to type in single-cell RNA-seq.  Written by [@HPliner](https://twitter.com/HPliner) with [@JShendure](https://twitter.com/JShendure). Software: [https://cole-trapnell-lab.github.io/garnett/](https://cole-trapnell-lab.github.io/garnett/) and preprint: [https://www.biorxiv.org/content/10.1101/538652v1](https://www.biorxiv.org/content/10.1101/538652v1)
 
 **Federico Marini** (03:31:48):
 > :mushroom::mushroom::mushroom::mushroom::mushroom::mushroom::mushroom::mushroom::mushroom::mushroom:
@@ -1774,59 +1825,83 @@ format: gfm
 
 ## 2019-02-18
 
-*06:23:48 - @Lukas Weber has joined the channel*
-*23:16:58 - @Diego Diez has joined the channel*
+**Lukas Weber** (06:23:48):
+> @Lukas Weber has joined the channel
+
+**Diego Diez** (23:16:58):
+> @Diego Diez has joined the channel
+
 
 ## 2019-04-10
 
 **Stephanie Hicks** (15:09:06):
 > seems relevant for this channel, but not sure if you guys have already seen it[https://www.ncbi.nlm.nih.gov/pubmed/30289549/](https://www.ncbi.nlm.nih.gov/pubmed/30289549/)
   - Attachment (ncbi.nlm.nih.gov): [CellMarker: a manually curated resource of cell markers in human and mouse.  - PubMed - NCBI](https://www.ncbi.nlm.nih.gov/pubmed/30289549/)
-    > Nucleic Acids Res. 2019 Jan 8;47(D1):D721-D728. doi: 10.1093/nar/gky900.
+> Nucleic Acids Res. 2019 Jan 8;47(D1):D721-D728. doi: 10.1093/nar/gky900.
 
 
 ## 2019-05-21
 
-*06:37:31 - @Almut has joined the channel*
+**Almut** (06:37:31):
+> @Almut has joined the channel
+
 
 ## 2019-06-23
 
-*22:09:20 - @Ameya Kulkarni has joined the channel*
+**Ameya Kulkarni** (22:09:20):
+> @Ameya Kulkarni has joined the channel
+
 
 ## 2019-06-24
 
-*09:23:42 - @Komal Rathi has joined the channel*
+**Komal Rathi** (09:23:42):
+> @Komal Rathi has joined the channel
+
 
 ## 2019-06-26
 
-*13:30:30 - @Junhao Li has joined the channel*
+**Junhao Li** (13:30:30):
+> @Junhao Li has joined the channel
+
 
 ## 2019-06-28
 
-*15:57:19 - @Aedin Culhane has joined the channel*
+**Aedin Culhane** (15:57:19):
+> @Aedin Culhane has joined the channel
+
 
 ## 2019-07-30
 
-*09:34:08 - @Friederike Dündar has joined the channel*
+**Friederike Dündar** (09:34:08):
+> @Friederike Dündar has joined the channel
+
 
 ## 2019-08-03
 
-*13:54:43 - @Mikhael Manurung has joined the channel*
+**Mikhael Manurung** (13:54:43):
+> @Mikhael Manurung has joined the channel
+
 
 ## 2019-08-08
 
 **Aaron Lun** (12:25:16):
 > For want of a better place to talk about this, let’s use this channel, becuase SingleR sort-of does annotation-y stuff and I don’t want to start a new channel just for it unless there’s a need to.
 
-*12:25:55 - @Dan Bunis has joined the channel*
-*12:25:55 - @Jared Andrews has joined the channel*
+**Dan Bunis** (12:25:55):
+> @Dan Bunis has joined the channel
+
+**Jared Andrews** (12:25:55):
+> @Jared Andrews has joined the channel
+
 **Aaron Lun** (12:27:00):
 > Adding@Friederike Dündarmanually, as slack doesn’t seem to want to add you.
 
 **Aaron Lun** (12:27:09):
 > Oh, wait, you’re already here. Whoops.
 
-*12:27:11 - @Dvir Aran has joined the channel*
+**Dvir Aran** (12:27:11):
+> @Dvir Aran has joined the channel
+
 **Jared Andrews** (12:34:10):
 > Are there any plans for additional changes beyond what's described in:[https://github.com/LTLA/SingleR/issues/1](https://github.com/LTLA/SingleR/issues/1)
 
@@ -2496,7 +2571,7 @@ format: gfm
 **Friederike Dündar** (09:36:23):
 > e.g.[http://dx.doi.org/10.6084/m9.figshare.1416210](http://dx.doi.org/10.6084/m9.figshare.1416210)
   - Attachment (figshare): [Metadata for a highly replicated two-condition yeast RNAseq experiment.](http://dx.doi.org/10.6084/m9.figshare.1416210)
-    > This datafile contains metadata associated with the European Nucleotide Archive (ENA) entry ERP004763 (see below for link). The ENA entry has 672 fastq files which are from a two-condition 48 biological and 7 technical replicate experiment. However, the metadata are a little unclear at ENA. This file should help disambiguate the information. The experiment is described in two pre-prints on arXiv linked below and has been published in Bioinformatics.
+> This datafile contains metadata associated with the European Nucleotide Archive (ENA) entry ERP004763 (see below for link). The ENA entry has 672 fastq files which are from a two-condition 48 biological and 7 technical replicate experiment. However, the metadata are a little unclear at ENA. This file should help disambiguate the information. The experiment is described in two pre-prints on arXiv linked below and has been published in Bioinformatics.
 
 **Friederike Dündar** (09:37:21):
 > snapshot from the xls file related to the mouse "bulk" rna-seq ref data set -- which, it turns out, is not just based on bulk, but also lots of scRNA-seq samples
@@ -2852,7 +2927,7 @@ format: gfm
 > Oh yeah, all green.
 
 **Aaron Lun** (01:20:45):
-> Fix Fred's umlaut, and note the use of`r Biocpkg("SingleR"`.
+> Fix Fred's umlaut, and note the use of`Biocpkg("SingleR"`.
 
 **Aaron Lun** (01:39:30):
 > As in to say, no need for the e after the funny u.
@@ -3005,7 +3080,7 @@ format: gfm
 **Aaron Lun** (02:43:06):
 > I'd like something like in Figure 2A here:[https://www.ncbi.nlm.nih.gov/pubmed/28504682](https://www.ncbi.nlm.nih.gov/pubmed/28504682)
   - Attachment (ncbi.nlm.nih.gov): [Testing for differential abundance in mass cytometry data.  - PubMed - NCBI](https://www.ncbi.nlm.nih.gov/pubmed/28504682)
-    > Nat Methods. 2017 Jul;14(7):707-709. doi: 10.1038/nmeth.4295. Epub 2017 May 15.
+> Nat Methods. 2017 Jul;14(7):707-709. doi: 10.1038/nmeth.4295. Epub 2017 May 15.
 
 **Aaron Lun** (02:43:14):
 > Yes, I drew those manually.
@@ -3271,7 +3346,7 @@ format: gfm
 **Jared Andrews** (16:01:19):
 > Specifically, the old DMAP database and maybe this study:[https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE107011](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE107011)
   - Attachment (ncbi.nlm.nih.gov): [GEO Accession viewer](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE107011)
-    > NCBI's Gene Expression Omnibus (GEO) is a public archive and resource for gene expression data.
+> NCBI's Gene Expression Omnibus (GEO) is a public archive and resource for gene expression data.
 
 **Friederike Dündar** (16:01:31) (in thread):
 > yes, that seems cleaner. This would have to be done at the level of`inst/scripts/make-data.Rmd`, I guess
@@ -3511,7 +3586,9 @@ format: gfm
 **Aedin Culhane** (18:08:55):
 > In the meantime.. I was looking for kidney related sc markers.  I have some that I had compiled and was trying to find others:wink:
 
-*18:22:48 - @Tim Triche has joined the channel*
+**Tim Triche** (18:22:48):
+> @Tim Triche has joined the channel
+
 
 ## 2019-08-17
 
@@ -3571,7 +3648,9 @@ format: gfm
 > “[color content]” “[color content]" “[color content]” “[color content]" “[color content]” “[color content]" “[color content]” “[color content]" “[color content]” “[color content]" “[color content]” “[color content]" “[color content]” “[color content]" “[color content]” “[color content]” “[color content]” “[color content]” “[color content]” “[color content]" “[color content]” “[color content]" “[color content]” “[color content]”
 > which should I add to plotScoreHeatmap?  I want to add color control for others like us!
 
-*07:43:17 - @Laurent Gatto has joined the channel*
+**Laurent Gatto** (07:43:17):
+> @Laurent Gatto has joined the channel
+
 **Dan Bunis** (14:57:43):
 > PR pushed to make annotation of pruneScores in plotScoreHeatmap easier + combinable with clustering and other annotations.  I’ll update the code provided above once merged in to the main prune branch.
 
@@ -3597,7 +3676,7 @@ format: gfm
 **Dan Bunis** (15:17:23):
 > I think my updates to the heatmap function are worth pushing to the prune branch even before the utility of scoring is determined because it’s a good immediate check of the pruneScores.  Also it doesn’t change the default nature of the function.
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CE8AB163W/p1566068348462000)
-    > Right. Probably table that for now, let's make sure the pruning makes scientific sense in the first place.
+> Right. Probably table that for now, let's make sure the pruning makes scientific sense in the first place.
 
 **Friederike Dündar** (20:34:23) (in thread):
 > I'll leave you free reign here, I think we're pretty much on the same page anyway:slightly_smiling_face:
@@ -3657,7 +3736,7 @@ format: gfm
 
 **Jared Andrews** (01:29:32):
 > > PhD students 
-> free time
+> > free time
 
 **Jared Andrews** (01:29:51):
 > Excellent joke tbh.
@@ -3734,7 +3813,7 @@ format: gfm
 **Friederike Dündar** (08:01:48):
 > I've lost it somewhere in that thread what that paper would be about? Basically a workflow advertising the recent move of SingleR to BioC?
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CE8AB163W/p1566106628002800)
-    > Dan, interested in tag teaming an F1000 paper or something? Seems like a workflow via Aaron's test repository might be enough for that.
+> Dan, interested in tag teaming an F1000 paper or something? Seems like a workflow via Aaron's test repository might be enough for that.
 
 **Friederike Dündar** (08:17:36):
 > I can contribute, but it's difficult for me to predict how much I'll be able to do after my next child's born at the end of September
@@ -3763,7 +3842,7 @@ format: gfm
 **Friederike Dündar** (11:11:40):
 > as for contenders: I recently saw there's a tool from the Trapnell Lab that tries something similar:[https://cole-trapnell-lab.github.io/garnett/](https://cole-trapnell-lab.github.io/garnett/)
   - Attachment (cole-trapnell-lab.github.io): [Garnett](https://cole-trapnell-lab.github.io/garnett/)
-    > Garnett - Automated cell type identification
+> Garnett - Automated cell type identification
 
 **Friederike Dündar** (11:16:05):
 > [https://www.biorxiv.org/content/10.1101/538652v1](https://www.biorxiv.org/content/10.1101/538652v1)
@@ -3812,7 +3891,7 @@ format: gfm
 > 
 > I'll add better descriptions and link it here some time in the next few days.
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CE8AB163W/p1566223717035600)
-    > @Dan Bunis You mentioned you already had collected some data sets -- which ones did you pick and why?
+> @Dan Bunis You mentioned you already had collected some data sets -- which ones did you pick and why?
 
 **Jared Andrews** (12:34:12) (in thread):
 > It seems to do fairly well from what I've been seeing. This cancer has relatively well-defined late-disease cell type signatures that are being pulled out in patients where we expect as much.
@@ -3825,7 +3904,7 @@ format: gfm
 **Dan Bunis** (12:36:31):
 > Datasets in here are probably also useful@Friederike Dündar:grin:
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CE8AB163W/p1566068452463600)
-    > I have a few things like that in my code, e.g., [https://github.com/LTLA/HVGDetection2018/tree/master/real](https://github.com/LTLA/HVGDetection2018/tree/master/real) will run through my HVG modelling functions and apply them on a whole bunch of different datasets to make sure that they are giving sensible and robust results.
+> I have a few things like that in my code, e.g., [https://github.com/LTLA/HVGDetection2018/tree/master/real](https://github.com/LTLA/HVGDetection2018/tree/master/real) will run through my HVG modelling functions and apply them on a whole bunch of different datasets to make sure that they are giving sensible and robust results.
 
 **Jared Andrews** (12:37:43) (in thread):
 > :man-shrugging:
@@ -3881,11 +3960,15 @@ format: gfm
 **Dan Bunis** (14:32:48):
 > oh wonderful, thanks!  Adding it to my list for now.  I’ll poke into that before the brainstorm.  Might be all we’d need, though we’d have to get access to use it.
 
-*17:12:06 - @Ben Johnson has joined the channel*
+**Ben Johnson** (17:12:06):
+> @Ben Johnson has joined the channel
+
 **Ben Johnson** (17:14:21) (in thread):
 > are there additional identifying features to pick out these datasets in (for instance) the SRA run selector?
 
-*17:53:18 - @Kin Lau has joined the channel*
+**Kin Lau** (17:53:18):
+> @Kin Lau has joined the channel
+
 **Friederike Dündar** (17:54:41):
 > if people are more comfortable with another way of brainstorming, I'm totally up for it --anyone has a preferred platform?
 
@@ -4011,7 +4094,7 @@ format: gfm
 **Tim Triche** (08:28:39):
 > @Stephanie Hicksmaybe of interest: DrONC-seq, Drop-Seq, and 10X on the same mouse kidneys:[https://jasn.asnjournals.org/content/30/1/23](https://jasn.asnjournals.org/content/30/1/23)
   - Attachment (American Society of Nephrology): [Advantages of Single-Nucleus over Single-Cell RNA Sequencing of Adult Kidney: Rare Cell Types and Novel Cell States Revealed in Fibrosis](https://jasn.asnjournals.org/content/30/1/23)
-    > Background A challenge for single-cell genomic studies in kidney and other solid tissues is generating a high-quality single-cell suspension that contains rare or difficult-to-dissociate cell types and is free of both RNA degradation and artifactual transcriptional stress responses. Methods We compared single-cell RNA sequencing (scRNA-seq) using the DropSeq platform with single-nucleus RNA sequencing (snRNA-seq) using sNuc-DropSeq, DroNc-seq, and 10X Chromium platforms on adult mouse kidney. We validated snRNA-seq on fibrotic kidney from mice 14 days after unilateral ureteral obstruction (UUO) surgery. Results A total of 11,391 transcriptomes were generated in the comparison phase. We identified ten clusters in the scRNA-seq dataset, but glomerular cell types were absent, and one cluster consisted primarily of artifactual dissociation – induced stress response genes. By contrast, snRNA-seq from all three platforms captured a diversity of kidney cell types that were not represented in the scRNA-seq dataset, including glomerular podocytes, mesangial cells, and endothelial cells. No stress response genes were detected. Our snRNA-seq protocol yielded 20-fold more podocytes compared with published scRNA-seq datasets (2.4% versus 0.12%, respectively). Unexpectedly, single-cell and single-nucleus platforms had equivalent gene detection sensitivity. For validation, analysis of frozen day 14 UUO kidney revealed rare juxtaglomerular cells, novel activated proximal tubule and fibroblast cell states, and previously unidentified tubulointerstitial signaling pathways. Conclusions snRNA-seq achieves comparable gene detection to scRNA-seq in adult kidney, and it also has substantial advantages, including reduced dissociation bias, compatibility with frozen samples, elimination of dissociation-induced transcriptional stress responses, and successful performance on inflamed fibrotic kidney.
+> Background A challenge for single-cell genomic studies in kidney and other solid tissues is generating a high-quality single-cell suspension that contains rare or difficult-to-dissociate cell types and is free of both RNA degradation and artifactual transcriptional stress responses. Methods We compared single-cell RNA sequencing (scRNA-seq) using the DropSeq platform with single-nucleus RNA sequencing (snRNA-seq) using sNuc-DropSeq, DroNc-seq, and 10X Chromium platforms on adult mouse kidney. We validated snRNA-seq on fibrotic kidney from mice 14 days after unilateral ureteral obstruction (UUO) surgery. Results A total of 11,391 transcriptomes were generated in the comparison phase. We identified ten clusters in the scRNA-seq dataset, but glomerular cell types were absent, and one cluster consisted primarily of artifactual dissociation – induced stress response genes. By contrast, snRNA-seq from all three platforms captured a diversity of kidney cell types that were not represented in the scRNA-seq dataset, including glomerular podocytes, mesangial cells, and endothelial cells. No stress response genes were detected. Our snRNA-seq protocol yielded 20-fold more podocytes compared with published scRNA-seq datasets (2.4% versus 0.12%, respectively). Unexpectedly, single-cell and single-nucleus platforms had equivalent gene detection sensitivity. For validation, analysis of frozen day 14 UUO kidney revealed rare juxtaglomerular cells, novel activated proximal tubule and fibroblast cell states, and previously unidentified tubulointerstitial signaling pathways. Conclusions snRNA-seq achieves comparable gene detection to scRNA-seq in adult kidney, and it also has substantial advantages, including reduced dissociation bias, compatibility with frozen samples, elimination of dissociation-induced transcriptional stress responses, and successful performance on inflamed fibrotic kidney.
 
 **Stephanie Hicks** (08:30:04):
 > Thanks@Tim Triche
@@ -4052,7 +4135,7 @@ format: gfm
 **Aedin Culhane** (11:27:46):
 > [https://www.nature.com/articles/s41586-019-0969-x](https://www.nature.com/articles/s41586-019-0969-x)
   - Attachment (Nature): [The single-cell transcriptional landscape of mammalian organogenesis](https://www.nature.com/articles/s41586-019-0969-x)
-    > Data from single-cell combinatorial-indexing RNA-sequencing analysis of 2 million cells from mouse embryos between embryonic days 9.5 and 13.5 are compiled in a cell atlas of mouse organogenesis, which provides a global view of developmental processes occurring during this critical period.
+> Data from single-cell combinatorial-indexing RNA-sequencing analysis of 2 million cells from mouse embryos between embryonic days 9.5 and 13.5 are compiled in a cell atlas of mouse organogenesis, which provides a global view of developmental processes occurring during this critical period.
 
 **Tim Triche** (11:28:54):
 > cool beans -- do you know if the GTEx scRNA data is similarly published somewhere?
@@ -4072,12 +4155,12 @@ format: gfm
 **Aedin Culhane** (11:33:25):
 > Anyone played with the scRNA data in the GXA at EBI...[https://www.ebi.ac.uk/gxa/sc/home](https://www.ebi.ac.uk/gxa/sc/home)
   - Attachment (ebi.ac.uk): [Home](https://www.ebi.ac.uk/gxa/sc/home)
-    > EMBL-EBI Single Cell Expression Atlas, an open public repository of single cell gene expression data
+> EMBL-EBI Single Cell Expression Atlas, an open public repository of single cell gene expression data
 
 **Aedin Culhane** (11:34:50):
 > They have a tool called "marker Genes", what are they using  ?[https://www.ebi.ac.uk/gxa/sc/experiments/E-MTAB-6701/results/marker-genes?markerGeneK=21&k=21&colourBy=clusters](https://www.ebi.ac.uk/gxa/sc/experiments/E-MTAB-6701/results/marker-genes?markerGeneK=21&k=21&colourBy=clusters)
   - Attachment (ebi.ac.uk): [Experiment](https://www.ebi.ac.uk/gxa/sc/experiments/E-MTAB-6701/results/marker-genes?markerGeneK=21&amp;k=21&amp;colourBy=clusters)
-    > EMBL-EBI Single Cell Expression Atlas, an open public repository of single cell gene expression data
+> EMBL-EBI Single Cell Expression Atlas, an open public repository of single cell gene expression data
 
 **Aedin Culhane** (11:35:57) (in thread):
 > Kristin Ardlie and Orit Rosen at the broad should know
@@ -4175,7 +4258,7 @@ format: gfm
 **Friederike Dündar** (17:55:42) (in thread):
 > btw,[https://www.uctoday.com/collaboration/video-conferencing/zoom-security-issue-uc-unicorns-arent-invincible/](https://www.uctoday.com/collaboration/video-conferencing/zoom-security-issue-uc-unicorns-arent-invincible/)
   - Attachment (UC Today): [Zoom Security Issue: UC Unicorns Aren't Invincible - UC Today](https://www.uctoday.com/collaboration/video-conferencing/zoom-security-issue-uc-unicorns-arent-invincible/)
-    > UC Today reports on the latest technology news from around the globe. Read similar Video Conferencing news to 'Zoom Security Issue: UC Unicorns Aren't Invincible' here
+> UC Today reports on the latest technology news from around the globe. Read similar Video Conferencing news to 'Zoom Security Issue: UC Unicorns Aren't Invincible' here
 
 **Aaron Lun** (17:55:44) (in thread):
 > I’m out for two hours starting now, but otherwise should make every other time.
@@ -4382,7 +4465,7 @@ format: gfm
 **Jared Andrews** (17:24:23) (in thread):
 > Unrelated to SingleR, but I thought you might find this paper interesting given what you were talking about:[https://www.nature.com/articles/s41467-019-11591-1](https://www.nature.com/articles/s41467-019-11591-1)
   - Attachment (Nature Communications): [A general approach for detecting expressed mutations in AML cells usin](https://www.nature.com/articles/s41467-019-11591-1)
-    > The advent of single-cell RNA sequencing has revealed significant transcriptional heterogeneity in cancer, but its relationship to genomic heterogeneity remains unclear. Focusing on acute myeloid leukemia samples, the authors describe a general approach for linking mutation-containing cells to their transcriptional phenotypes using single-cell RNA sequencing data.
+> The advent of single-cell RNA sequencing has revealed significant transcriptional heterogeneity in cancer, but its relationship to genomic heterogeneity remains unclear. Focusing on acute myeloid leukemia samples, the authors describe a general approach for linking mutation-containing cells to their transcriptional phenotypes using single-cell RNA sequencing data.
 
 **Tim Triche** (17:35:09) (in thread):
 > yep, packaged up that one on Sunday afternoon.  Tidbit: 3 of those 5 patients are TCGA LAML and have corresponding bulk RNA, WGS, and miRNA.
@@ -4641,7 +4724,7 @@ format: gfm
 **Dvir Aran** (21:18:55):
 > Seaurat has some simple functions for cell cycle scores[https://satijalab.org/seurat/v3.0/cell_cycle_vignette.html](https://satijalab.org/seurat/v3.0/cell_cycle_vignette.html)
   - Attachment (satijalab.org): [Satija Lab](https://satijalab.org/seurat/v3.0/cell_cycle_vignette.html)
-    > Lab Webpage ---
+> Lab Webpage ---
 
 **Aaron Lun** (22:24:00):
 > Yes, I was wondering whether I should invest some time in making something quick and simple that works directly off an SCE. But if no one's going to use it... I wouldn't bother.
@@ -5119,8 +5202,6 @@ format: gfm
 > maybe we should just collect a couple of testimonials instead of bothering with a publication?:wink:
 
 **Unknown User** (15:40:27):
-> (No message text)
-
 **Rob Amezquita** (16:06:07):
 > so far ive been using the`BlueprintEncodeData()`reference mostly, as it has pretty much every major cell type i want, but, im mentoring a student who has a mouse prostate cancer model, so we're actually gonna try taking a human scRNA-seq dataset that has been manually labeled and using it to classify the mouse prostate cancer
 
@@ -5163,7 +5244,7 @@ format: gfm
 **Martin Morgan** (16:30:25):
 > [https://bioconductor.org/packages/SingleR](https://bioconductor.org/packages/SingleR)
   - Attachment (Bioconductor): [SingleR (development version)](https://bioconductor.org/packages/SingleR)
-    > Performs unbiased cell type recognition from single-cell RNA sequencing data, by leveraging reference transcriptomic datasets of pure cell types to infer the cell of origin of each single cell independently.
+> Performs unbiased cell type recognition from single-cell RNA sequencing data, by leveraging reference transcriptomic datasets of pure cell types to infer the cell of origin of each single cell independently.
 
 **Aaron Lun** (17:04:02):
 > Quick, everyone download it to bump up our rank.
@@ -5231,8 +5312,8 @@ format: gfm
 **Kevin Rue-Albrecht** (16:20:56):
 > Spreading the Twitter love ...
 > > An important note for everyone on here discussing of all the flashy new cell type prediction tools today:
->  a general SVM still outperforms literally all of them in terms of both speed and accuracy @ahmedElkoussy
-> "A comparison of automatic cell identification methods for single-cell RNA-sequencing data"
+> >  a general SVM still outperforms literally all of them in terms of both speed and accuracy @ahmedElkoussy
+> > "A comparison of automatic cell identification methods for single-cell RNA-sequencing data"
 > [https://www.biorxiv.org/content/10.1101/644435v1](https://www.biorxiv.org/content/10.1101/644435v1)
 
 **Aaron Lun** (16:21:23):
@@ -5815,7 +5896,7 @@ format: gfm
 **Friederike Dündar** (21:19:41):
 > [https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1795-z/tables/1](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1795-z/tables/1)
   - Attachment (Genome Biology): [A comparison of automatic cell identification methods for single-cell RNA sequencing data](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1795-z/tables/1)
-    > Single-cell transcriptomics is rapidly advancing our understanding of the cellular composition of complex tissues and organisms. A major limitation in most analysis pipelines is the reliance on manual annotations to determine cell identities, which are time-consuming and irreproducible. The exponential growth in the number of cells and samples has prompted the adaptation and development of supervised classification methods for automatic cell identification. Here, we benchmarked 22 classification methods that automatically assign cell identities including single-cell-specific and general-purpose classifiers. The performance of the methods is evaluated using 27 publicly available single-cell RNA sequencing datasets of different sizes, technologies, species, and levels of complexity. We use 2 experimental setups to evaluate the performance of each method for within dataset predictions (intra-dataset) and across datasets (inter-dataset) based on accuracy, percentage of unclassified cells, and computation time. We further evaluate the methods’ sensitivity to the input features, number of cells per population, and their performance across different annotation levels and datasets. We find that most classifiers perform well on a variety of datasets with decreased accuracy for complex datasets with overlapping classes or deep annotations. The general-purpose support vector machine classifier has overall the best performance across the different experiments. We present a comprehensive evaluation of automatic cell identification methods for single-cell RNA sequencing data. All the code used for the evaluation is available on GitHub ( [https://github.com/tabdelaal/scRNAseq_Benchmark](https://github.com/tabdelaal/scRNAseq_Benchmark) ). Additionally, we provide a Snakemake workflow to facilitate the benchmarking and to support the extension of new methods and new datasets.
+> Single-cell transcriptomics is rapidly advancing our understanding of the cellular composition of complex tissues and organisms. A major limitation in most analysis pipelines is the reliance on manual annotations to determine cell identities, which are time-consuming and irreproducible. The exponential growth in the number of cells and samples has prompted the adaptation and development of supervised classification methods for automatic cell identification. Here, we benchmarked 22 classification methods that automatically assign cell identities including single-cell-specific and general-purpose classifiers. The performance of the methods is evaluated using 27 publicly available single-cell RNA sequencing datasets of different sizes, technologies, species, and levels of complexity. We use 2 experimental setups to evaluate the performance of each method for within dataset predictions (intra-dataset) and across datasets (inter-dataset) based on accuracy, percentage of unclassified cells, and computation time. We further evaluate the methods’ sensitivity to the input features, number of cells per population, and their performance across different annotation levels and datasets. We find that most classifiers perform well on a variety of datasets with decreased accuracy for complex datasets with overlapping classes or deep annotations. The general-purpose support vector machine classifier has overall the best performance across the different experiments. We present a comprehensive evaluation of automatic cell identification methods for single-cell RNA sequencing data. All the code used for the evaluation is available on GitHub ( [https://github.com/tabdelaal/scRNAseq_Benchmark](https://github.com/tabdelaal/scRNAseq_Benchmark) ). Additionally, we provide a Snakemake workflow to facilitate the benchmarking and to support the extension of new methods and new datasets.
 
 **Aaron Lun** (22:30:44):
 > These are the SVM guys, right?
@@ -6183,7 +6264,9 @@ format: gfm
 
 ## 2019-10-01
 
-*04:40:07 - @Matteo Calgaro has joined the channel*
+**Matteo Calgaro** (04:40:07):
+> @Matteo Calgaro has joined the channel
+
 
 ## 2019-10-07
 
@@ -6235,7 +6318,9 @@ format: gfm
 
 ## 2019-10-14
 
-*15:32:58 - @Kathy Sivils has joined the channel*
+**Kathy Sivils** (15:32:58):
+> @Kathy Sivils has joined the channel
+
 **Aaron Lun** (18:27:06):
 > Next release is aiming to include openMP functionality for close-to-the-metal parallelization with minimal overhead. But in the meantime, people should just do the best they can with**BiocParallel**.
 
@@ -6321,7 +6406,7 @@ format: gfm
 > ```
 > Are all 'fast' because a reference to the shared object is being serialized, rather than object itself.
   - Attachment (Bioconductor): [SharedObject (development version)](https://bioconductor.org/packages/SharedObject)
-    > This package is developed for facilitating parallel computing in R. It is capable to create an R object in the shared memory space and share the data across multiple R processes. It avoids the overhead of memory dulplication and data transfer, which make sharing big data object across many clusters possible.
+> This package is developed for facilitating parallel computing in R. It is capable to create an R object in the shared memory space and share the data across multiple R processes. It avoids the overhead of memory dulplication and data transfer, which make sharing big data object across many clusters possible.
 
 **Martin Morgan** (05:10:26):
 > Turns out there's a limit to the size of a slack post, and the above is just there!
@@ -6499,7 +6584,7 @@ format: gfm
 **Aaron Lun** (20:50:35):
 > [https://bioconductor.org/packages/release/bioc/html/SingleR.html](https://bioconductor.org/packages/release/bioc/html/SingleR.html)
   - Attachment (Bioconductor): [SingleR](https://bioconductor.org/packages/release/bioc/html/SingleR.html)
-    > Performs unbiased cell type recognition from single-cell RNA sequencing data, by leveraging reference transcriptomic datasets of pure cell types to infer the cell of origin of each single cell independently.
+> Performs unbiased cell type recognition from single-cell RNA sequencing data, by leveraging reference transcriptomic datasets of pure cell types to infer the cell of origin of each single cell independently.
 
 **Aaron Lun** (20:51:07):
 > Pretty good download stats for what had previously been a devel-onlhy package.
@@ -6684,7 +6769,9 @@ format: gfm
 
 ## 2019-11-04
 
-*07:57:51 - @Izaskun Mallona has joined the channel*
+**Izaskun Mallona** (07:57:51):
+> @Izaskun Mallona has joined the channel
+
 **Jared Andrews** (09:33:16):
 > @Aaron LunI will write this tonight.[https://github.com/LTLA/SingleR/issues/54#issuecomment-549245527](https://github.com/LTLA/SingleR/issues/54#issuecomment-549245527)
 
@@ -6742,11 +6829,15 @@ format: gfm
 
 ## 2019-11-07
 
-*11:24:31 - @Kevin Blighe has joined the channel*
+**Kevin Blighe** (11:24:31):
+> @Kevin Blighe has joined the channel
+
 
 ## 2019-11-08
 
-*11:59:43 - @Brendan Innes has joined the channel*
+**Brendan Innes** (11:59:43):
+> @Brendan Innes has joined the channel
+
 
 ## 2019-11-09
 
@@ -6966,7 +7057,9 @@ format: gfm
 **Aaron Lun** (00:17:32):
 > time for some more finishing of the fight.
 
-*09:09:18 - @Komal Rathi has left the channel*
+**Komal Rathi** (09:09:18):
+> @Komal Rathi has left the channel
+
 **Jared Andrews** (11:07:23):
 > Yeah, added some tests. Let me know if you think anything else should be covered.
 
@@ -7069,8 +7162,12 @@ format: gfm
 
 ## 2019-12-10
 
-*05:41:40 - @Robert Ivánek has joined the channel*
-*09:34:04 - @Chris Vanderaa has joined the channel*
+**Robert Ivánek** (05:41:40):
+> @Robert Ivánek has joined the channel
+
+**Chris Vanderaa** (09:34:04):
+> @Chris Vanderaa has joined the channel
+
 
 ## 2019-12-11
 
@@ -7147,7 +7244,9 @@ format: gfm
 
 ## 2019-12-16
 
-*09:48:29 - @Federico Agostinis has joined the channel*
+**Federico Agostinis** (09:48:29):
+> @Federico Agostinis has joined the channel
+
 **Dan Bunis** (13:14:56):
 > @Aaron Lunis there an explanation of the differences between Ensembl / Symbol / Entrez IDs and how to convert between them in the OSCA book?  Or a link to something with that?  If not, it might be nice to include.  (I can repost this in the#osca-bookif you’d like.)
 
@@ -7341,9 +7440,9 @@ format: gfm
 > 
 > For example, maybe[https://www.ebi.ac.uk/ols/ontologies/efo/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCL_0000934&viewMode=All&siblings=false](https://www.ebi.ac.uk/ols/ontologies/efo/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCL_0000934&viewMode=All&siblings=false)is too specific for you, but we can just ratchet it up to[https://www.ebi.ac.uk/ols/ontologies/efo/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCL_0000084&viewMode=All&siblings=false](https://www.ebi.ac.uk/ols/ontologies/efo/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCL_0000084&viewMode=All&siblings=false).
   - Attachment (ebi.ac.uk): [monocyte](https://www.ebi.ac.uk/ols/ontologies/efo/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCL_0000576)
-    > [Myeloid mononuclear recirculating leukocyte that can act as a precursor of tissue macrophages, osteoclasts and some populations of tissue dendritic cells., A mononuclear phagocytic leukocyte, 13 to 25 mm in diameter, with an ovoid or kidney-shaped nucleus, containing lacy, linear chromatin and abundant gray-blue cytoplasm filled with fine reddish and azurophilic granules. Formed in the bone marrow from promonocytes, monocytes are transported to tissues such as the lung and liver, where they develop into macrophages.]
+> [Myeloid mononuclear recirculating leukocyte that can act as a precursor of tissue macrophages, osteoclasts and some populations of tissue dendritic cells., A mononuclear phagocytic leukocyte, 13 to 25 mm in diameter, with an ovoid or kidney-shaped nucleus, containing lacy, linear chromatin and abundant gray-blue cytoplasm filled with fine reddish and azurophilic granules. Formed in the bone marrow from promonocytes, monocytes are transported to tissues such as the lung and liver, where they develop into macrophages.]
   - Attachment (ebi.ac.uk): [T cell](https://www.ebi.ac.uk/ols/ontologies/efo/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCL_0000084&amp;viewMode=All&amp;siblings=false)
-    > [A type of lymphocyte whose defining characteristic is the expression of a T cell receptor complex.]
+> [A type of lymphocyte whose defining characteristic is the expression of a T cell receptor complex.]
 
 **Aaron Lun** (19:15:42):
 > This requires a bit of skill to know which of our informally named cell types match up with the things in the ontology, but it would allow us to replace our “broad” and “fine” labels with a single suite of labels that can be dynamically adjusted by the user; this would provide a solution to problems such as those discussed in[https://github.com/LTLA/SingleR/issues/68](https://github.com/LTLA/SingleR/issues/68).
@@ -7456,7 +7555,7 @@ format: gfm
 **Aaron Lun** (22:25:09):
 > LOL[https://www.ebi.ac.uk/ols/ontologies/cl/terms?iri=http://purl.obolibrary.org/obo/CL_0000325](https://www.ebi.ac.uk/ols/ontologies/cl/terms?iri=http://purl.obolibrary.org/obo/CL_0000325)
   - Attachment (ebi.ac.uk): [stuff accumulating cell](https://www.ebi.ac.uk/ols/ontologies/cl/terms?iri=http://purl.obolibrary.org/obo/CL_0000325)
-    > [A cell that is specialised to accumulate a particular substance(s).]
+> [A cell that is specialised to accumulate a particular substance(s).]
 
 **Aaron Lun** (22:27:57):
 > The comprehensiveness of these ontologies is pretty insane.
@@ -7470,12 +7569,12 @@ format: gfm
 **Aaron Lun** (22:29:06):
 > [https://www.ebi.ac.uk/ols/ontologies/cl/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCL_1001608](https://www.ebi.ac.uk/ols/ontologies/cl/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCL_1001608)
   - Attachment (ebi.ac.uk): [foreskin fibroblast](https://www.ebi.ac.uk/ols/ontologies/cl/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCL_1001608)
-    > [Fibroblast from foreskin.]
+> [Fibroblast from foreskin.]
 
 **Aaron Lun** (22:29:30):
 > [https://www.ebi.ac.uk/ols/ontologies/cl/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCL_0000972](https://www.ebi.ac.uk/ols/ontologies/cl/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCL_0000972)
   - Attachment (ebi.ac.uk): [class switched memory B cell](https://www.ebi.ac.uk/ols/ontologies/cl/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCL_0000972)
-    > [A class switched memory B cell is a memory B cell that has undergone Ig class switching and therefore is IgM-negative on the cell surface. These cells are CD27-positive and have either IgG, IgE, or IgA on the cell surface.]
+> [A class switched memory B cell is a memory B cell that has undergone Ig class switching and therefore is IgM-negative on the cell surface. These cells are CD27-positive and have either IgG, IgE, or IgA on the cell surface.]
 
 **Aaron Lun** (22:30:09):
 > Anyway, blueprint ENCODE was a pleasure to map; lots of unambiguous assignments and it only took me 30 minutes.
@@ -7549,7 +7648,7 @@ format: gfm
 **Vince Carey** (12:26:11):
 > Just for fun:[https://www.ncbi.nlm.nih.gov/pubmed/20643952](https://www.ncbi.nlm.nih.gov/pubmed/20643952)
   - Attachment (ncbi.nlm.nih.gov): [Mapping the first stages of mesoderm commitment during differentiation of human embryonic stem cells.  - PubMed - NCBI](https://www.ncbi.nlm.nih.gov/pubmed/20643952)
-    > Proc Natl Acad Sci U S A. 2010 Aug 3;107(31):13742-7. doi: 10.1073/pnas.1002077107. Epub 2010 Jul 19. Research Support, Non-U.S. Gov't
+> Proc Natl Acad Sci U S A. 2010 Aug 3;107(31):13742-7. doi: 10.1073/pnas.1002077107. Epub 2010 Jul 19. Research Support, Non-U.S. Gov't
 
 **Aaron Lun** (12:28:52):
 > Well, yes, I would have assumed that it was important to**somebody**, otherwise the sample wouldn’t have been generated. But clearly it wasn’t important enough to warrant its own ontology term, or I wasn’t able to find its correct synonym.
@@ -7770,8 +7869,12 @@ format: gfm
 **Raphael Gottardo** (10:49:33):
 > @Greg Finak@Ju Yeong KimLook at the discussion above.
 
-*10:49:36 - @Greg Finak has joined the channel*
-*10:49:36 - @Ju Yeong Kim has joined the channel*
+**Greg Finak** (10:49:36):
+> @Greg Finak has joined the channel
+
+**Ju Yeong Kim** (10:49:36):
+> @Ju Yeong Kim has joined the channel
+
 
 ## 2020-01-29
 
@@ -8008,7 +8111,9 @@ format: gfm
 
 ## 2020-02-04
 
-*08:28:06 - @Matt N Tran has joined the channel*
+**Matt N Tran** (08:28:06):
+> @Matt N Tran has joined the channel
+
 **Peter Hickey** (22:48:56):
 > [https://www.biorxiv.org/content/10.1101/810234v2](https://www.biorxiv.org/content/10.1101/810234v2)
 
@@ -8101,7 +8206,7 @@ format: gfm
 **Dan Bunis** (19:02:28):
 > I’ve found[http://www.brainrnaseq.org/](http://www.brainrnaseq.org/)and I believe their data comes from here[https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE73721](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE73721)
   - Attachment (ncbi.nlm.nih.gov): [GEO Accession viewer](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE73721)
-    > NCBI's Gene Expression Omnibus (GEO) is a public archive and resource for gene expression data.
+> NCBI's Gene Expression Omnibus (GEO) is a public archive and resource for gene expression data.
 
 **Dan Bunis** (19:04:16):
 > I’ll look through scRNAseq.  I think my labmate will probably fall to some non-SingleR gene-signature based method if there isn’t something ready-made.
@@ -8120,7 +8225,7 @@ format: gfm
 > 
 > (1) The Mathys et al. snRNA-seq alzheimer's dataset:[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6865822/#!po=59.3750](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6865822/#!po=59.3750)(2) The single cell genesets from msigdb:[https://www.gsea-msigdb.org/gsea/msigdb/supplementary_genesets.jsp#SCSig](https://www.gsea-msigdb.org/gsea/msigdb/supplementary_genesets.jsp#SCSig)
   - Attachment (PubMed Central (PMC)): [Single-cell transcriptomic analysis of Alzheimer’s disease](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6865822/#!po=59.3750)
-    > Alzheimer’s disease (AD) is a pervasive neurodegenerative disorder, the molecular and cellular complexity of which remains poorly understood. Here, we profiled and analysed 80,660 single-nucleus transcriptomes from prefrontal cortex of 48 individuals ...
+> Alzheimer’s disease (AD) is a pervasive neurodegenerative disorder, the molecular and cellular complexity of which remains poorly understood. Here, we profiled and analysed 80,660 single-nucleus transcriptomes from prefrontal cortex of 48 individuals ...
 
 **Dan Bunis** (20:23:06):
 > (1) happens to be the dataset that we are hoping to re-analyze & re-annotate.
@@ -8158,7 +8263,9 @@ format: gfm
 
 ## 2020-02-14
 
-*05:10:03 - @Andrew Skelton has joined the channel*
+**Andrew Skelton** (05:10:03):
+> @Andrew Skelton has joined the channel
+
 
 ## 2020-02-19
 
@@ -8315,7 +8422,9 @@ format: gfm
 **Dan Bunis** (12:01:02):
 > same
 
-*12:58:38 - @Alan O'C has joined the channel*
+**Alan O'C** (12:58:38):
+> @Alan O'C has joined the channel
+
 **Dan Bunis** (15:17:47):
 > One of my colleagues just asked me about a new potential reference set that she wants to use, and that we might want to add to SingleR.  The main “drawback” may be that it’s HUGE.  But I put that in quotes because really this also means we have a potential test set for`aggregateReference`
   - File (PNG): [image (2).png](https://community-bioc.slack.com/files/U34P8RS3B/FUJRDTA2X/image__2_.png)
@@ -8323,7 +8432,7 @@ format: gfm
 **Dan Bunis** (15:18:35):
 > Comes from[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6434952/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6434952/)
   - Attachment (PubMed Central (PMC)): [The single cell transcriptional landscape of mammalian organogenesis](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6434952/)
-    > Mammalian organogenesis is an astonishing process. Within a short window of time, the cells of the three germ layers transform into an embryo that includes most major internal and external organs. Here we set out to investigate the transcriptional dynamics ...
+> Mammalian organogenesis is an astonishing process. Within a short window of time, the cells of the three germ layers transform into an embryo that includes most major internal and external organs. Here we set out to investigate the transcriptional dynamics ...
 
 **Aaron Lun** (15:22:02):
 > If it’s a sc dataset, seems like it should go into scRNAseq
@@ -8337,7 +8446,7 @@ format: gfm
 **Aaron Lun** (15:26:05):
 > If it’s really that big, one might also consider creating an entirely new EHub package for its retrieval. e.g.,[https://bioconductor.org/packages/release/data/experiment/html/MouseGastrulationData.html](https://bioconductor.org/packages/release/data/experiment/html/MouseGastrulationData.html)
   - Attachment (Bioconductor): [MouseGastrulationData](https://bioconductor.org/packages/release/data/experiment/html/MouseGastrulationData.html)
-    > Provides processed and raw count matrices for single-cell RNA sequencing data from a timecourse of mouse gastrulation and early organogenesis.
+> Provides processed and raw count matrices for single-cell RNA sequencing data from a timecourse of mouse gastrulation and early organogenesis.
 
 **Aaron Lun** (15:31:40):
 > Oh wait. I just recognized what dataset you were referring to.
@@ -8466,7 +8575,9 @@ format: gfm
 **Jared Andrews** (14:39:41):
 > Same. For really fine-grained subsets, like T cells, clusters can bleed pretty hard, so per cell info is really helpful.
 
-*14:54:10 - @Pierre-Luc Germain has joined the channel*
+**Pierre-Luc Germain** (14:54:10):
+> @Pierre-Luc Germain has joined the channel
+
 
 ## 2020-03-08
 
@@ -8971,7 +9082,9 @@ format: gfm
 **Jared Andrews** (09:25:26):
 > Nice, thanks. Having fixed the cluster stuff, it is still quicker for me by 15-20%, though I'm running "single" mode and "cluster" mode sequentially.
 
-*09:49:04 - @Aaron Wolen has joined the channel*
+**Aaron Wolen** (09:49:04):
+> @Aaron Wolen has joined the channel
+
 **Aaron Lun** (16:08:38):
 > Not sure what that last bit meant.
 
@@ -9260,7 +9373,9 @@ format: gfm
 **Jared Andrews** (18:54:33):
 > Would you change your opinion if it was a non-profit, open-access journal?
 
-*22:01:17 - @Giuseppe D'Agostino has joined the channel*
+**Giuseppe D'Agostino** (22:01:17):
+> @Giuseppe D'Agostino has joined the channel
+
 **Giuseppe D'Agostino** (22:14:25):
 > hi all, regarding human brain "type" annotation in scRNAseq data: it's something I've been working on these days in a very naive way (bear with me for I have a wet lab background). I have collected markers, however they were identified, from these publications: Lake (the 2018 "update"), Schirmer 2019 (Multiple Sclerosis snRNAseq), Jäkel 2019 (same as Schirmer but with a focus on oligodendrocytes) and the BRETIGEA markers. If you do hierarchical clustering on the pairwise Jaccard index you can define broad sets - up to you to define where to cut the tree obviously - but they seem to make sense most of the time if you take the union. Obviously you lose granularity in terms of, for instance in excitatory neurons, what sort of cortical layer they belong to, but I would say it's a good starting point.
 
@@ -9298,18 +9413,22 @@ format: gfm
 
 ## 2020-03-19
 
-*13:29:07 - @Somesh has joined the channel*
+**Somesh** (13:29:07):
+> @Somesh has joined the channel
+
 
 ## 2020-03-23
 
-*12:07:02 - @Peter Allen has joined the channel*
+**Peter Allen** (12:07:02):
+> @Peter Allen has joined the channel
+
 
 ## 2020-03-24
 
 **Ludwig Geistlinger** (18:07:06):
 > One question: I want to annotate cell cyle phase to my**human**ovarian cancer scRNA-seq dataset (10X).  I am reading[https://osca.bioconductor.org/cell-cycle-assignment.html#using-reference-profiles](https://osca.bioconductor.org/cell-cycle-assignment.html#using-reference-profiles)for the SingleR approach, that demonstrates the functionality using the Buettner15 dataset as reference (**mouse**ESCs with known cell cycle phases). Can you recommend a specific reference dataset when working with human data instead?
   - Attachment (osca.bioconductor.org): [Chapter 16 Cell cycle assignment | Orchestrating Single-Cell Analysis with Bioconductor](https://osca.bioconductor.org/cell-cycle-assignment.html#using-reference-profiles)
-    > Online companion to ‘Orchestrating Single-Cell Analysis with Bioconductor’ manuscript by the Bioconductor team.
+> Online companion to ‘Orchestrating Single-Cell Analysis with Bioconductor’ manuscript by the Bioconductor team.
 
 **Aaron Lun** (18:08:01):
 > Think there’s a dataset named “Leng Something something” in scRNAseq.
@@ -9389,7 +9508,7 @@ format: gfm
 **Jared Andrews** (22:53:29):
 > Who wants the fun process of turning this into a reference:smiling_imp:[https://www.nature.com/articles/s41586-020-2157-4](https://www.nature.com/articles/s41586-020-2157-4)
   - Attachment (Nature): [Construction of a human cell landscape at single-cell level](https://www.nature.com/articles/s41586-020-2157-4)
-    > Construction of a human cell landscape at single-cell level
+> Construction of a human cell landscape at single-cell level
 
 **Jared Andrews** (22:54:06):
 > 700k cells from 60 tissues, fetal and adult. All human. A few cultured stem cell populations as well.
@@ -9538,7 +9657,9 @@ format: gfm
 
 ## 2020-04-06
 
-*13:54:52 - @Anna Lorenc has joined the channel*
+**Anna Lorenc** (13:54:52):
+> @Anna Lorenc has joined the channel
+
 
 ## 2020-04-07
 
@@ -9736,7 +9857,9 @@ format: gfm
 **Aaron Lun** (00:27:44):
 > Users are like water; they will flow in the directions that are available. And also seep through any cracks in your API and mess with your function internals.
 
-*02:05:31 - @Al J Abadi has joined the channel*
+**Al J Abadi** (02:05:31):
+> @Al J Abadi has joined the channel
+
 
 ## 2020-04-17
 
@@ -10529,7 +10652,9 @@ format: gfm
 **Jared Andrews** (08:46:26):
 > Neat.
 
-*10:21:52 - @Martin Morgan has left the channel*
+**Martin Morgan** (10:21:52):
+> @Martin Morgan has left the channel
+
 
 ## 2020-04-22
 
@@ -10776,7 +10901,7 @@ format: gfm
 **Aaron Lun** (02:48:09):
 > Let's get the ball rolling.[https://ltla.github.io/SingleRBook/](https://ltla.github.io/SingleRBook/)
   - Attachment (ltla.github.io): [Assigning cell types with SingleR](https://ltla.github.io/SingleRBook/)
-    > The SingleR book. Because sometimes, a vignette just isn’t enough.
+> The SingleR book. Because sometimes, a vignette just isn’t enough.
 
 **Dan Bunis** (13:43:24):
 > ^^^ Pretty great already!  For anyone that might be able to contribute, is the raw form hosted somewhere?
@@ -10805,7 +10930,9 @@ format: gfm
 
 ## 2020-04-29
 
-*03:50:58 - @Anthony Sonrel has joined the channel*
+**Anthony Sonrel** (03:50:58):
+> @Anthony Sonrel has joined the channel
+
 
 ## 2020-04-30
 
@@ -10827,7 +10954,9 @@ format: gfm
 
 ## 2020-05-01
 
-*05:26:09 - @Charlotte Rich-Griffin has joined the channel*
+**Charlotte Rich-Griffin** (05:26:09):
+> @Charlotte Rich-Griffin has joined the channel
+
 **Dan Bunis** (13:19:34) (in thread):
 > thanks for the reminder!
 
@@ -10864,7 +10993,9 @@ format: gfm
 
 ## 2020-05-03
 
-*11:01:40 - @Nitin Sharma has joined the channel*
+**Nitin Sharma** (11:01:40):
+> @Nitin Sharma has joined the channel
+
 **Nitin Sharma** (12:18:10):
 > Hello everyone, I  have created a channel#singlecell-queriesfor more general queries regarding single-cell analysis.
 
@@ -10875,7 +11006,9 @@ format: gfm
 > > Third, have you compared 10x data to Smartseq data. I was trying to use data from SmartSeq as my reference data but the correlations are fairly low and are about the same regardless of the cell type, so I was wondering if due to the nature of Smartseq being full length transcripts, you can’t do a direct comparison to 10x data. Do you have any recommendations for ways to compare these 2 types of single cell data in SingleR?
 > Any thoughts on this? Hadn't really thought about it previously. Asked for more info as to whether label assignment still makes sense despite low scores.
 
-*11:54:00 - @Alan O'C has left the channel*
+**Alan O'C** (11:54:00):
+> @Alan O'C has left the channel
+
 **Aaron Lun** (12:05:29):
 > Smart-seq2 is pretty close to bulk and we’re doing it all the time.
 
@@ -11098,7 +11231,7 @@ format: gfm
 **Kevin Rue-Albrecht** (15:06:21):
 > [https://kevinrue.github.io/post/transiton-from-travis-ci-to-github-actions/](https://kevinrue.github.io/post/transiton-from-travis-ci-to-github-actions/)
   - Attachment (Kevin Rue-Albrecht): [Transiton from Travis CI to GitHub Actions | Kevin Rue-Albrecht](https://kevinrue.github.io/post/transiton-from-travis-ci-to-github-actions/)
-    > Overview The recent introduction of GitHub Actions makes a lot of our Travis CI build configurations redundant. In particular, the examples actions include: R-CMD-check using rcmdcheck::rcmdcheck() to check the package.
+> Overview The recent introduction of GitHub Actions makes a lot of our Travis CI build configurations redundant. In particular, the examples actions include: R-CMD-check using rcmdcheck::rcmdcheck() to check the package.
 
 **Kevin Rue-Albrecht** (15:06:34):
 > Still working on my writing and formatting skills ;)
@@ -11214,7 +11347,7 @@ format: gfm
 **Aaron Lun** (13:13:46):
 > See for example[http://bioconductor.org/packages/release/data/experiment/html/TabulaMurisData.html](http://bioconductor.org/packages/release/data/experiment/html/TabulaMurisData.html)
   - Attachment (Bioconductor): [TabulaMurisData](http://bioconductor.org/packages/release/data/experiment/html/TabulaMurisData.html)
-    > Access to processed 10x (droplet) and SmartSeq2 (on FACS-sorted cells) single-cell RNA-seq data from the Tabula Muris consortium ([http://tabula-muris.ds.czbiohub.org/](http://tabula-muris.ds.czbiohub.org/)).
+> Access to processed 10x (droplet) and SmartSeq2 (on FACS-sorted cells) single-cell RNA-seq data from the Tabula Muris consortium ([http://tabula-muris.ds.czbiohub.org/](http://tabula-muris.ds.czbiohub.org/)).
 
 **Aaron Lun** (13:14:02):
 > Now THAT would be a good place to start.
@@ -11231,7 +11364,7 @@ format: gfm
 **Jared Andrews** (13:18:55):
 > Huge number of single cell sets here, though labels are likely quite hit and miss:[https://panglaodb.se/samples.html](https://panglaodb.se/samples.html)
   - Attachment (panglaodb.se): [Samples | PanglaoDB](https://panglaodb.se/samples.html)
-    > Single cell RNA sequencing data.
+> Single cell RNA sequencing data.
 
 **Jared Andrews** (13:19:03):
 > Lots of "Unknown" labels.
@@ -11305,7 +11438,7 @@ format: gfm
 **Dan Bunis** (17:16:29):
 > I also have a large run going right now that is taking a pretty long time.  60k cells (mostly from Covid-patient bronchioalveolar lavage fluid,[https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE145926](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE145926))  with`ref = HPCA+BlueprintEncode``main.labels`then`fine.labels`is going on 3 hours now.  Running on an AWS e2 instance, but I’m not sure if I set up utilization of all cores.
   - Attachment (ncbi.nlm.nih.gov): [GEO Accession viewer](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE145926)
-    > NCBI's Gene Expression Omnibus (GEO) is a public archive and resource for gene expression data.
+> NCBI's Gene Expression Omnibus (GEO) is a public archive and resource for gene expression data.
 
 **Aaron Lun** (17:18:56):
 > What`BPPARAM`did you use?
@@ -11423,7 +11556,7 @@ format: gfm
 **Aaron Lun** (04:15:06):
 > [https://ltla.github.io/SingleRBook/](https://ltla.github.io/SingleRBook/)
   - Attachment (ltla.github.io): [Assigning cell types with SingleR](https://ltla.github.io/SingleRBook/)
-    > The SingleR book. Because sometimes, a vignette just isn’t enough.
+> The SingleR book. Because sometimes, a vignette just isn’t enough.
 
 **Aaron Lun** (04:16:55):
 > Some work to do all over the place, but most of the bits have been transferred.
@@ -11467,7 +11600,7 @@ format: gfm
 **Dvir Aran** (19:25:18):
 > Also, if anyone interested -[https://aran-lab.com](https://aran-lab.com)
   - Attachment (aran-lab.com): [Aran Lab @ Technion](https://aran-lab.com)
-    > Assistant Professor
+> Assistant Professor
 
 **Dvir Aran** (19:26:38):
 > Send to your friends. Great place, the Israel version of MIT. Terrible PI, but what can I do...
@@ -11665,7 +11798,7 @@ format: gfm
 **Aaron Lun** (18:24:18):
 > @Vince Careycheck out the latest chapter at[https://ltla.github.io/SingleRBook/exploiting-the-cell-ontology.html](https://ltla.github.io/SingleRBook/exploiting-the-cell-ontology.html). Lots of functions there that could find homes in ontoProc.
   - Attachment (ltla.github.io): [Chapter 6 Exploiting the cell ontology | Assigning cell types with SingleR](https://ltla.github.io/SingleRBook/exploiting-the-cell-ontology.html)
-    > The SingleR book. Because sometimes, a vignette just isn’t enough.
+> The SingleR book. Because sometimes, a vignette just isn’t enough.
 
 **Aaron Lun** (18:25:16):
 > Also, maybe it would be worth caching these files in ExperimentHub so that we have a guaranteed version of each set of ontologies to go with the package version. Otherwise if those remote resources update, our scripts will not be reproducible.
@@ -11720,7 +11853,9 @@ format: gfm
 **Jared Andrews** (03:35:09):
 > Mappings on that one are weird though, I don't care much for it. Included it because colleagues use it for myeloid stuff.
 
-*06:43:39 - @Helena L. Crowell has joined the channel*
+**Helena L. Crowell** (06:43:39):
+> @Helena L. Crowell has joined the channel
+
 **Peter Hickey** (19:20:29):
 > Thanks, I appreciate the advice
 
@@ -11766,7 +11901,7 @@ format: gfm
 **Stephanie Hicks** (12:59:38):
 > [https://twitter.com/tangming2005/status/1270037566910332929](https://twitter.com/tangming2005/status/1270037566910332929)
   - Attachment (twitter): [Attachment](https://twitter.com/tangming2005/status/1270037566910332929)
-    > is there an easy way to get the marker genes for each cell type used by SingleR [https://bioconductor.org/packages/devel/bioc/vignettes/SingleR/inst/doc/SingleR.html](https://bioconductor.org/packages/devel/bioc/vignettes/SingleR/inst/doc/SingleR.html) e.g., Monaco dataset.
+> is there an easy way to get the marker genes for each cell type used by SingleR [https://bioconductor.org/packages/devel/bioc/vignettes/SingleR/inst/doc/SingleR.html](https://bioconductor.org/packages/devel/bioc/vignettes/SingleR/inst/doc/SingleR.html) e.g., Monaco dataset.
 
 **Aaron Lun** (13:00:17):
 > I don’t have a twitter account.
@@ -11846,7 +11981,7 @@ format: gfm
 **Aaron Lun** (16:15:13):
 > [https://ltla.github.io/SingleRBook/](https://ltla.github.io/SingleRBook/)Hopefully we can arrange to get something under the[bioconductor.org](http://bioconductor.org)domain.
   - Attachment (ltla.github.io): [Assigning cell types with SingleR](https://ltla.github.io/SingleRBook/)
-    > The SingleR book. Because sometimes, a vignette just isn’t enough.
+> The SingleR book. Because sometimes, a vignette just isn’t enough.
 
 **Dvir Aran** (17:59:24) (in thread):
 > This is turning out really great. So many gems here.
@@ -12021,7 +12156,7 @@ format: gfm
 **Dvir Aran** (12:38:00) (in thread):
 > [https://www.eddjberry.com/post/writing-your-thesis-with-bookdown/](https://www.eddjberry.com/post/writing-your-thesis-with-bookdown/)
   - Attachment (Ed Berry): [Writing your thesis with bookdown](https://www.eddjberry.com/post/writing-your-thesis-with-bookdown/)
-    > This post details some tips and tricks for writing a thesis/dissertation using the bookdown R package by Yihui Xie. The idea of this post is to supplement the fantastic book that Xie has written about bookdown, which can be found here. I will assume that readers know a bit about R Markdown; a decent knowledge of R Markdown is going to be essential to using bookdown. The first thing to highlight is that I’m not a pandoc or LaTeX expert.
+> This post details some tips and tricks for writing a thesis/dissertation using the bookdown R package by Yihui Xie. The idea of this post is to supplement the fantastic book that Xie has written about bookdown, which can be found here. I will assume that readers know a bit about R Markdown; a decent knowledge of R Markdown is going to be essential to using bookdown. The first thing to highlight is that I’m not a pandoc or LaTeX expert.
 
 **Aaron Lun** (21:44:18):
 > Nice. HDF5Array with 30k cells run against an aggregated Tabula Muris in 15 minutes on 10 cores. Quite happy with that, all things considered.
@@ -12132,7 +12267,7 @@ format: gfm
 **Federico Marini** (03:22:27):
 > This Giuseppe?[https://twitter.com/gdagstn/status/1271844248535445504](https://twitter.com/gdagstn/status/1271844248535445504)
   - Attachment (twitter): [Attachment](https://twitter.com/gdagstn/status/1271844248535445504)
-    > [@AllenInstitute](https://twitter.com/AllenInstitute)'s brain voxel data + Duncan Murdoch's rgl + [@zarquon42b](https://twitter.com/zarquon42b)'s Rvcg + [@tylermorganwall](https://twitter.com/tylermorganwall)'s rayrender + some tinkering, tweaking and learning = a not so useful but admittedly cool brain rendering, all in #RStats
+> [@AllenInstitute](https://twitter.com/AllenInstitute)'s brain voxel data + Duncan Murdoch's rgl + [@zarquon42b](https://twitter.com/zarquon42b)'s Rvcg + [@tylermorganwall](https://twitter.com/tylermorganwall)'s rayrender + some tinkering, tweaking and learning = a not so useful but admittedly cool brain rendering, all in #RStats
 
 **Giuseppe D'Agostino** (03:23:53):
 > yes that’s me
@@ -12152,14 +12287,16 @@ format: gfm
 **Dan Bunis** (02:02:25):
 > I really like the tinder-phage (and the brain)!!
 
-*16:09:51 - @Andrew Jaffe has joined the channel*
+**Andrew Jaffe** (16:09:51):
+> @Andrew Jaffe has joined the channel
+
 
 ## 2020-06-19
 
 **Aaron Lun** (22:31:38):
 > [https://bioconductor.org/packages/devel/data/experiment/html/celldex.html](https://bioconductor.org/packages/devel/data/experiment/html/celldex.html)
   - Attachment (Bioconductor): [celldex (development version)](https://bioconductor.org/packages/devel/data/experiment/html/celldex.html)
-    > Provides a collection of reference expression datasets with curated cell type labels, for use in procedures like automated annotation of single-cell data or deconvolution of bulk RNA-seq.
+> Provides a collection of reference expression datasets with curated cell type labels, for use in procedures like automated annotation of single-cell data or deconvolution of bulk RNA-seq.
 
 
 ## 2020-06-26
@@ -12170,7 +12307,7 @@ format: gfm
 **Aaron Lun** (15:35:08):
 > I’ve only got one half-finished one in there:[https://ltla.github.io/SingleRBook/cross-annotating-pancreas.html](https://ltla.github.io/SingleRBook/cross-annotating-pancreas.html)
   - Attachment (ltla.github.io): [Chapter 8 Cross-annotating pancreas | Assigning cell types with SingleR](https://ltla.github.io/SingleRBook/cross-annotating-pancreas.html)
-    > The SingleR book. Because sometimes, a vignette just isn't enough.
+> The SingleR book. Because sometimes, a vignette just isn't enough.
 
 **Aaron Lun** (15:41:14):
 > If you have a dataset that you ran through SingleR and did some interpretation of the results, then we can stick it in here.
@@ -12618,7 +12755,7 @@ format: gfm
 **Aaron Lun** (00:40:11):
 > [https://ltla.github.io/SingleRBook/using-multiple-references.html#manual-label-harmonization](https://ltla.github.io/SingleRBook/using-multiple-references.html#manual-label-harmonization)
   - Attachment (ltla.github.io): [Chapter 5 Using multiple references | Assigning cell types with SingleR](https://ltla.github.io/SingleRBook/using-multiple-references.html#manual-label-harmonization)
-    > The SingleR book. Because sometimes, a vignette just isn't enough.
+> The SingleR book. Because sometimes, a vignette just isn't enough.
 
 **Giuseppe D'Agostino** (00:42:58):
 > I reckon that with low probabilities one has to dig in further to see what's up
@@ -12647,7 +12784,9 @@ format: gfm
 **Aaron Lun** (01:25:42):
 > I mean, what I really don't understand is why clustree is on CRAN and not on BioC.@Luke Zappia
 
-*01:25:46 - @Luke Zappia has joined the channel*
+**Luke Zappia** (01:25:46):
+> @Luke Zappia has joined the channel
+
 **Aaron Lun** (01:37:11):
 > I was going to suggest that clustree could auto-determine the sequence based on a MST from pairwise rand indices rather than relying on the sequence of user-specified resolutions. But then that would require a`Suggests`into***scran***, and then you're well on your way to just being a Bioc package in all but name.
 
@@ -12660,9 +12799,11 @@ format: gfm
 **Davide Risso** (11:15:40) (in thread):
 > It seems that what you proposed could be done with the Dune package by@Hector Roux de Bézieux[https://bioconductor.org/packages/devel/bioc/html/Dune.html](https://bioconductor.org/packages/devel/bioc/html/Dune.html)
   - Attachment (Bioconductor): [Dune (development version)](https://bioconductor.org/packages/devel/bioc/html/Dune.html)
-    > Given a set of clustering labels, Dune merges pairs of clusters to increase mean ARI between labels, improving replicability.
+> Given a set of clustering labels, Dune merges pairs of clusters to increase mean ARI between labels, improving replicability.
 
-*11:15:44 - @Hector Roux de Bézieux has joined the channel*
+**Hector Roux de Bézieux** (11:15:44):
+> @Hector Roux de Bézieux has joined the channel
+
 **Aaron Lun** (11:16:23) (in thread):
 > not quite the same, but related.
 
@@ -12675,7 +12816,7 @@ format: gfm
 **Federico Marini** (15:44:00) (in thread):
 > Sure![https://www.stickermule.com/erum20](https://www.stickermule.com/erum20)
   - Attachment (Sticker Mule): [e-Rum 2020](https://www.stickermule.com/erum20)
-    > Special Offer, 10 stickers 2" x 2" for only €1
+> Special Offer, 10 stickers 2" x 2" for only €1
 
 **Federico Marini** (15:44:15) (in thread):
 > it is just for an appetizer
@@ -12797,7 +12938,7 @@ format: gfm
 **Aaron Lun** (23:24:36):
 > behold the sweet new color scheme at[https://ltla.github.io/SingleRBook/](https://ltla.github.io/SingleRBook/), courtesy of@Kevin Rue-Albrecht.
   - Attachment (ltla.github.io): [Assigning cell types with SingleR](https://ltla.github.io/SingleRBook/)
-    > The SingleR book. Because sometimes, a vignette just isn’t enough.
+> The SingleR book. Because sometimes, a vignette just isn’t enough.
 
 
 ## 2020-07-10
@@ -12917,7 +13058,7 @@ format: gfm
 **Aaron Lun** (00:58:44):
 > [https://ltla.github.io/SingleRBook/](https://ltla.github.io/SingleRBook/)
   - Attachment (ltla.github.io): [Assigning cell types with SingleR](https://ltla.github.io/SingleRBook/)
-    > The SingleR book. Because sometimes, a vignette just isn’t enough.
+> The SingleR book. Because sometimes, a vignette just isn’t enough.
 
 **Kevin Rue-Albrecht** (03:38:47):
 > i guess you're just missing ads on the right now
@@ -12928,7 +13069,7 @@ format: gfm
 **Kevin Rue-Albrecht** (08:47:17):
 > you mean like this?[https://isee.github.io/iSEE-book/](https://isee.github.io/iSEE-book/)
   - Attachment (isee.github.io): [Extending iSEE](https://isee.github.io/iSEE-book/)
-    > This book describes how to use the Bioconductor iSEE package to create web-applications for exploring data stored in SummarizedExperiment objects.
+> This book describes how to use the Bioconductor iSEE package to create web-applications for exploring data stored in SummarizedExperiment objects.
 
 **Kevin Rue-Albrecht** (08:52:24) (in thread):
 > 1. Go to[https://realfavicongenerator.net/](https://realfavicongenerator.net/)
@@ -12940,7 +13081,7 @@ format: gfm
 > favicon: "favicon_package_v0.16/favicon.ico"
 > ```
   - Attachment (RealFaviconGenerator.net): [Favicon Generator for perfect icons on all browsers](https://realfavicongenerator.net/)
-    > The ultimate favicon generator. Design your icons platform per platform and make them look great everywhere. Including in Google results pages.
+> The ultimate favicon generator. Design your icons platform per platform and make them look great everywhere. Including in Google results pages.
 
 **Aaron Lun** (13:45:06) (in thread):
 > I was hoping to not have to add more PNGs to the repo, but oh well.
@@ -12982,7 +13123,9 @@ format: gfm
 **Aaron Lun** (11:10:11):
 > oh. I changed the SingleR colors to something a bit different.
 
-*19:34:44 - @Russ Bainer has joined the channel*
+**Russ Bainer** (19:34:44):
+> @Russ Bainer has joined the channel
+
 
 ## 2020-07-22
 
@@ -13203,7 +13346,9 @@ format: gfm
 **Kevin Rue-Albrecht** (11:17:33) (in thread):
 > yeah:slightly_smiling_face:unfortunately, this applet doesn't give you the script like iSEE does, so you'll have to extract the code from the repo if you want to do things in a console:[https://github.com/kevinrue/magick-profile](https://github.com/kevinrue/magick-profile)
 
-*14:47:50 - @Sonali has joined the channel*
+**Sonali** (14:47:50):
+> @Sonali has joined the channel
+
 **Dvir Aran** (20:09:27):
 > Congrats@Aaron Lunfor the BioC community award. This award should have your name on it.
 
@@ -13219,7 +13364,9 @@ format: gfm
 **Dvir Aran** (21:19:10):
 > How many ways is it possible to pronounce a three letters name?
 
-*21:34:17 - @Brianna Barry has joined the channel*
+**Brianna Barry** (21:34:17):
+> @Brianna Barry has joined the channel
+
 **Peter Hickey** (21:39:17):
 > I'm now worried I buggered up your surname@Aaron Lunin my recorded workshop (I definitely butchered Hervé Pagès, to my shame)
 
@@ -13268,11 +13415,15 @@ format: gfm
 
 ## 2020-07-31
 
-*14:06:29 - @bogdan tanasa has joined the channel*
+**bogdan tanasa** (14:06:29):
+> @bogdan tanasa has joined the channel
+
 
 ## 2020-08-05
 
-*13:46:32 - @shr19818 has joined the channel*
+**shr19818** (13:46:32):
+> @shr19818 has joined the channel
+
 
 ## 2020-08-12
 
@@ -13309,7 +13460,7 @@ format: gfm
 **Jared Andrews** (11:11:01):
 > Dataset, basically. I haven't dug into the metadata much. They provide it by either median or trimmed means, e.g:[https://portal.brain-map.org/atlases-and-data/rnaseq/human-multiple-cortical-areas-smart-seq](https://portal.brain-map.org/atlases-and-data/rnaseq/human-multiple-cortical-areas-smart-seq)
   - Attachment (portal.brain-map.org): [Human Multiple Cortical Areas SMART-seq - brain-map.org](https://portal.brain-map.org/atlases-and-data/rnaseq/human-multiple-cortical-areas-smart-seq)
-    > None
+> None
 
 **Aaron Lun** (11:11:34):
 > good enough for me.
@@ -13374,8 +13525,12 @@ format: gfm
 
 ## 2020-08-14
 
-*04:44:17 - @Roye Rozov has joined the channel*
-*05:28:24 - @Kasper D. Hansen has joined the channel*
+**Roye Rozov** (04:44:17):
+> @Roye Rozov has joined the channel
+
+**Kasper D. Hansen** (05:28:24):
+> @Kasper D. Hansen has joined the channel
+
 
 ## 2020-08-15
 
@@ -13421,7 +13576,7 @@ format: gfm
 **Dan Bunis** (16:20:42):
 > Also[DeconRNASeq](https://www.bioconductor.org/packages/DeconRNASeq/)
   - Attachment (Bioconductor): [DeconRNASeq](https://www.bioconductor.org/packages/DeconRNASeq/)
-    > DeconSeq is an R package for deconvolution of heterogeneous tissues based on mRNA-Seq data. It modeled expression levels from heterogeneous cell populations in mRNA-Seq as the weighted average of expression from different constituting cell types and predicted cell type proportions of single expression profiles.
+> DeconSeq is an R package for deconvolution of heterogeneous tissues based on mRNA-Seq data. It modeled expression levels from heterogeneous cell populations in mRNA-Seq as the weighted average of expression from different constituting cell types and predicted cell type proportions of single expression profiles.
 
 **Federico Marini** (16:25:43):
 > and quantiseq
@@ -13487,15 +13642,21 @@ format: gfm
 
 ## 2020-08-18
 
-*09:08:52 - @Will Macnair has joined the channel*
+**Will Macnair** (09:08:52):
+> @Will Macnair has joined the channel
+
 
 ## 2020-08-19
 
-*12:25:33 - @Yi Wang has joined the channel*
+**Yi Wang** (12:25:33):
+> @Yi Wang has joined the channel
+
 
 ## 2020-08-24
 
-*07:57:00 - @Jose Alquicira has joined the channel*
+**Jose Alquicira** (07:57:00):
+> @Jose Alquicira has joined the channel
+
 
 ## 2020-08-26
 
@@ -13529,7 +13690,9 @@ format: gfm
 
 ## 2020-09-04
 
-*08:24:50 - @Goutham Atla has joined the channel*
+**Goutham Atla** (08:24:50):
+> @Goutham Atla has joined the channel
+
 
 ## 2020-09-16
 
@@ -13599,7 +13762,7 @@ format: gfm
 **Aaron Lun** (04:31:59):
 > FYI[http://bioconductor.org/books/devel/SingleRBook/](http://bioconductor.org/books/devel/SingleRBook/)
   - Attachment (bioconductor.org): [Assigning cell types with SingleR](http://bioconductor.org/books/devel/SingleRBook/)
-    > The SingleR book. Because sometimes, a vignette just isn’t enough.
+> The SingleR book. Because sometimes, a vignette just isn’t enough.
 
 **Aaron Lun** (04:32:54):
 > old links will redirect here for a while, probably until 3.13.
@@ -13779,7 +13942,7 @@ format: gfm
 **Dan Bunis** (16:44:45):
 > ([https://bioconductor.org/books/3.12/SingleRBook/contributors.html](https://bioconductor.org/books/3.12/SingleRBook/contributors.html))
   - Attachment (bioconductor.org): [Chapter 10 Contributors | Assigning cell types with SingleR](https://bioconductor.org/books/3.12/SingleRBook/contributors.html)
-    > The SingleR book. Because sometimes, a vignette just isn’t enough.
+> The SingleR book. Because sometimes, a vignette just isn’t enough.
 
 **Jared Andrews** (16:53:48):
 > I'll take eldritch horrorscape to square off the year, sounds like an interesting demise as far as apocalyptic events go.
@@ -13787,7 +13950,9 @@ format: gfm
 
 ## 2020-11-04
 
-*11:57:45 - @ImranF has joined the channel*
+**ImranF** (11:57:45):
+> @ImranF has joined the channel
+
 
 ## 2020-11-05
 
@@ -13806,11 +13971,15 @@ format: gfm
 
 ## 2020-11-13
 
-*14:42:12 - @brian capaldo has joined the channel*
+**brian capaldo** (14:42:12):
+> @brian capaldo has joined the channel
+
 
 ## 2020-11-19
 
-*08:31:26 - @Kevin Blighe has joined the channel*
+**Kevin Blighe** (08:31:26):
+> @Kevin Blighe has joined the channel
+
 
 ## 2020-12-07
 
@@ -13838,31 +14007,45 @@ format: gfm
 
 ## 2020-12-12
 
-*00:38:29 - @Huipeng Li has joined the channel*
+**Huipeng Li** (00:38:29):
+> @Huipeng Li has joined the channel
+
 
 ## 2020-12-13
 
-*13:42:09 - @Kelly Eckenrode has joined the channel*
+**Kelly Eckenrode** (13:42:09):
+> @Kelly Eckenrode has joined the channel
+
 
 ## 2020-12-14
 
-*13:21:48 - @Nick Owen has joined the channel*
+**Nick Owen** (13:21:48):
+> @Nick Owen has joined the channel
+
 
 ## 2021-01-01
 
-*14:06:40 - @Bernd has joined the channel*
+**Bernd** (14:06:40):
+> @Bernd has joined the channel
+
 
 ## 2021-01-22
 
-*15:45:24 - @Annajiat Alim Rasel has joined the channel*
+**Annajiat Alim Rasel** (15:45:24):
+> @Annajiat Alim Rasel has joined the channel
+
 
 ## 2021-02-28
 
-*17:45:07 - @Alexander Toenges has joined the channel*
+**Alexander Toenges** (17:45:07):
+> @Alexander Toenges has joined the channel
+
 
 ## 2021-05-11
 
-*16:45:49 - @Megha Lal has joined the channel*
+**Megha Lal** (16:45:49):
+> @Megha Lal has joined the channel
+
 
 ## 2021-05-14
 
@@ -13933,7 +14116,7 @@ format: gfm
 **Friederike Dündar** (15:10:04):
 > [https://doi.org/10.1016/j.stem.2016.03.012](https://doi.org/10.1016/j.stem.2016.03.012)
   - Attachment (sciencedirect.com): [Expression Analysis Highlights AXL as a Candidate Zika Virus Entry Receptor in Neural Stem Cells](https://doi.org/10.1016/j.stem.2016.03.012)
-    > The recent outbreak of Zika virus (ZIKV) in Brazil has been linked to substantial increases in fetal abnormalities and microcephaly. However, informat…
+> The recent outbreak of Zika virus (ZIKV) in Brazil has been linked to substantial increases in fetal abnormalities and microcephaly. However, informat…
 
 **Friederike Dündar** (15:11:11) (in thread):
 > are you looking for all tissues of the mouse foetus?
@@ -13969,7 +14152,7 @@ format: gfm
 **Kevin Blighe** (23:26:04):
 > In relation to the above (foetal mouse heart macrophages), GSEA picked up this signature in a few of the clusters in the data:[https://www.gsea-msigdb.org/gsea/msigdb/geneset_page.jsp?geneSetName=CUI_DEVELOPING_HEART_C8_MACROPHAGE](https://www.gsea-msigdb.org/gsea/msigdb/geneset_page.jsp?geneSetName=CUI_DEVELOPING_HEART_C8_MACROPHAGE)Relating to:[https://pubmed.ncbi.nlm.nih.gov/30759401/](https://pubmed.ncbi.nlm.nih.gov/30759401/)
   - Attachment (PubMed): [Single-Cell Transcriptome Analysis Maps the Developmental Track of the Human Heart - PubMed](https://pubmed.ncbi.nlm.nih.gov/30759401/)
-    > The heart is the central organ of the circulatory system, and its proper development is vital for maintaining human life. Here, we used single-cell RNA sequencing to profile the gene expression landscapes of ∼4,000 cardiac cells from human embryos and identified four major types of cells: cardiomyoc …
+> The heart is the central organ of the circulatory system, and its proper development is vital for maintaining human life. Here, we used single-cell RNA sequencing to profile the gene expression landscapes of ∼4,000 cardiac cells from human embryos and identified four major types of cells: cardiomyoc …
 
 **Kevin Blighe** (23:26:45):
 > That's pretty cool the way that GSEA led me to a possible reference set for SingleR, courtesy of Broad Inst's manual curation team
@@ -13977,26 +14160,36 @@ format: gfm
 
 ## 2021-08-05
 
-*17:58:49 - @Manojkumar Selvaraju has joined the channel*
+**Manojkumar Selvaraju** (17:58:49):
+> @Manojkumar Selvaraju has joined the channel
+
 
 ## 2021-09-06
 
-*08:23:31 - @Eddie has joined the channel*
+**Eddie** (08:23:31):
+> @Eddie has joined the channel
+
 
 ## 2021-09-09
 
-*01:59:25 - @Julien Roux has joined the channel*
+**Julien Roux** (01:59:25):
+> @Julien Roux has joined the channel
+
 
 ## 2021-10-15
 
-*11:01:21 - @Wes W has joined the channel*
+**Wes W** (11:01:21):
+> @Wes W has joined the channel
+
 
 ## 2021-10-18
 
 **Wes W** (14:14:26):
 > in response to a very old message by@Federico Mariniand@Davide Risso, we sequenced 25 patients t cells by 10X and just shy of 240,000 cells after clean up. SingleR had no issues... that paper is wack yo
 
-*19:34:54 - @Qirong Lin has joined the channel*
+**Qirong Lin** (19:34:54):
+> @Qirong Lin has joined the channel
+
 
 ## 2021-10-19
 
@@ -14006,11 +14199,15 @@ format: gfm
 
 ## 2021-10-29
 
-*13:22:21 - @Enrico Ferrero has joined the channel*
+**Enrico Ferrero** (13:22:21):
+> @Enrico Ferrero has joined the channel
+
 
 ## 2021-11-08
 
-*03:29:33 - @Paula Nieto García has joined the channel*
+**Paula Nieto García** (03:29:33):
+> @Paula Nieto García has joined the channel
+
 
 ## 2021-11-09
 
@@ -14024,56 +14221,80 @@ format: gfm
 > > The fastest method appears to be scmap-cluster, and the other fast methods include SCINA, SingleCellNet, SciBet, SingleR and scHPL
 > [https://www.sciencedirect.com/science/article/pii/S2001037021004499?via%3Dihub](https://www.sciencedirect.com/science/article/pii/S2001037021004499?via%3Dihub)
   - Attachment (sciencedirect.com): [Automatic cell type identification methods for single-cell RNA sequencing](https://www.sciencedirect.com/science/article/pii/S2001037021004499?via%3Dihub)
-    > Single-cell RNA sequencing (scRNA-seq) has become a powerful tool for scientists of many research disciplines due to its ability to elucidate the hete…
+> Single-cell RNA sequencing (scRNA-seq) has become a powerful tool for scientists of many research disciplines due to its ability to elucidate the hete…
 
 
 ## 2022-01-28
 
-*11:14:38 - @Megha Lal has left the channel*
+**Megha Lal** (11:14:38):
+> @Megha Lal has left the channel
+
 
 ## 2022-02-01
 
-*20:24:58 - @Stephanie Hicks has left the channel*
+**Stephanie Hicks** (20:24:58):
+> @Stephanie Hicks has left the channel
+
 
 ## 2022-02-15
 
-*12:01:32 - @Gene Cutler has joined the channel*
+**Gene Cutler** (12:01:32):
+> @Gene Cutler has joined the channel
+
 
 ## 2022-03-21
 
-*05:02:41 - @Pedro Sanchez has joined the channel*
+**Pedro Sanchez** (05:02:41):
+> @Pedro Sanchez has joined the channel
+
 
 ## 2022-05-18
 
-*06:23:40 - @Vince Carey has left the channel*
+**Vince Carey** (06:23:40):
+> @Vince Carey has left the channel
+
 
 ## 2022-07-28
 
-*17:21:02 - @Mervin Fansler has joined the channel*
+**Mervin Fansler** (17:21:02):
+> @Mervin Fansler has joined the channel
+
 
 ## 2022-08-11
 
-*17:16:14 - @Rene Welch has joined the channel*
+**Rene Welch** (17:16:14):
+> @Rene Welch has joined the channel
+
 
 ## 2022-08-15
 
-*13:15:46 - @Michael Kaufman has joined the channel*
+**Michael Kaufman** (13:15:46):
+> @Michael Kaufman has joined the channel
+
 
 ## 2022-10-20
 
-*01:24:01 - @Connie Li Wai Suen has joined the channel*
+**Connie Li Wai Suen** (01:24:01):
+> @Connie Li Wai Suen has joined the channel
+
 
 ## 2022-11-06
 
-*11:21:21 - @Sherine Khalafalla Saber has joined the channel*
+**Sherine Khalafalla Saber** (11:21:21):
+> @Sherine Khalafalla Saber has joined the channel
+
 
 ## 2022-12-13
 
-*09:01:20 - @Ana Cristina Guerra de Souza has joined the channel*
+**Ana Cristina Guerra de Souza** (09:01:20):
+> @Ana Cristina Guerra de Souza has joined the channel
+
 
 ## 2022-12-20
 
-*10:41:27 - @Jennifer Foltz has joined the channel*
+**Jennifer Foltz** (10:41:27):
+> @Jennifer Foltz has joined the channel
+
 
 ## 2023-01-08
 
@@ -14089,89 +14310,134 @@ format: gfm
 
 ## 2023-01-27
 
-*11:21:36 - @Yu Zhang has joined the channel*
+**Yu Zhang** (11:21:36):
+> @Yu Zhang has joined the channel
+
 
 ## 2023-02-28
 
-*15:30:42 - @Ramin has joined the channel*
+**Ramin** (15:30:42):
+> @Ramin has joined the channel
+
 
 ## 2023-03-01
 
-*12:14:26 - @jeremymchacón has joined the channel*
+**jeremymchacón** (12:14:26):
+> @jeremymchacón has joined the channel
+
 
 ## 2023-05-12
 
-*13:33:15 - @Aaron Lun has left the channel*
+**Aaron Lun** (13:33:15):
+> @Aaron Lun has left the channel
+
 
 ## 2023-06-08
 
-*04:46:25 - @Pierre-Luc Germain has left the channel*
+**Pierre-Luc Germain** (04:46:25):
+> @Pierre-Luc Germain has left the channel
+
 
 ## 2023-06-19
 
-*05:12:19 - @Pierre-Paul Axisa has joined the channel*
+**Pierre-Paul Axisa** (05:12:19):
+> @Pierre-Paul Axisa has joined the channel
+
 
 ## 2023-07-12
 
-*19:33:46 - @Axel Klenk has joined the channel*
+**Axel Klenk** (19:33:46):
+> @Axel Klenk has joined the channel
+
 
 ## 2023-07-28
 
-*13:47:47 - @Konstantinos Daniilidis has joined the channel*
-*15:58:55 - @Benjamin Yang has joined the channel*
+**Konstantinos Daniilidis** (13:47:47):
+> @Konstantinos Daniilidis has joined the channel
+
+**Benjamin Yang** (15:58:55):
+> @Benjamin Yang has joined the channel
+
 
 ## 2023-07-31
 
-*17:51:13 - @Chenyue Lu has joined the channel*
+**Chenyue Lu** (17:51:13):
+> @Chenyue Lu has joined the channel
+
 
 ## 2023-09-01
 
-*09:34:56 - @Chris Vanderaa has left the channel*
+**Chris Vanderaa** (09:34:56):
+> @Chris Vanderaa has left the channel
+
 
 ## 2023-09-03
 
-*09:52:44 - @Lea Seep has joined the channel*
+**Lea Seep** (09:52:44):
+> @Lea Seep has joined the channel
+
 
 ## 2023-09-13
 
-*17:05:01 - @Christopher Chin has joined the channel*
+**Christopher Chin** (17:05:01):
+> @Christopher Chin has joined the channel
+
 
 ## 2023-12-13
 
-*09:45:43 - @Paul Myers has joined the channel*
+**Paul Myers** (09:45:43):
+> @Paul Myers has joined the channel
+
 
 ## 2023-12-14
 
-*15:40:00 - @Marc Elosua has joined the channel*
+**Marc Elosua** (15:40:00):
+> @Marc Elosua has joined the channel
+
 
 ## 2023-12-27
 
-*14:37:37 - @Cindy Reichel has joined the channel*
+**Cindy Reichel** (14:37:37):
+> @Cindy Reichel has joined the channel
+
 
 ## 2024-03-27
 
-*05:46:24 - @abhich has joined the channel*
+**abhich** (05:46:24):
+> @abhich has joined the channel
+
 
 ## 2024-04-25
 
-*05:02:45 - @Mercedes Guerrero has joined the channel*
+**Mercedes Guerrero** (05:02:45):
+> @Mercedes Guerrero has joined the channel
+
 
 ## 2024-05-06
 
-*11:58:05 - @Michal Kolář has joined the channel*
+**Michal Kolář** (11:58:05):
+> @Michal Kolář has joined the channel
+
 
 ## 2024-07-02
 
-*10:59:39 - @Diána Pejtsik has joined the channel*
+**Diána Pejtsik** (10:59:39):
+> @Diána Pejtsik has joined the channel
+
 
 ## 2024-07-31
 
-*17:24:57 - @Zahraa W Alsafwani has joined the channel*
+**Zahraa W Alsafwani** (17:24:57):
+> @Zahraa W Alsafwani has joined the channel
+
 
 ## 2024-08-19
 
-*09:41:07 - @Rema Gesaka has joined the channel*
+**Rema Gesaka** (09:41:07):
+> @Rema Gesaka has joined the channel
+
 
 ## 2024-11-23
 
-*18:00:47 - @Umar Ahmad has joined the channel*
+**Umar Ahmad** (18:00:47):
+> @Umar Ahmad has joined the channel

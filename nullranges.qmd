@@ -3,19 +3,26 @@ title: "#nullranges"
 format: gfm
 ---
 
-
 ## 2018-08-14
 
-*09:09:38 - @Michael Love has joined the channel*
-*09:09:38 - @Kasper D. Hansen has joined the channel*
-*09:09:38 - @Hervé Pagès has joined the channel*
+**Michael Love** (09:09:38):
+> @Michael Love has joined the channel
+
+**Kasper D. Hansen** (09:09:38):
+> @Kasper D. Hansen has joined the channel
+
+**Hervé Pagès** (09:09:38):
+> @Hervé Pagès has joined the channel
+
 **Michael Love** (09:11:58):
 > instead of copy pasting code, what do you think about starting a github repo where we each can work on different implementations?
 
 **Michael Love** (09:13:00):
 > if this becomes a new Bioc package, what's the umbrella purpose: shuffling ranges?`bedtools`has a`shuffle`command, so it seems that word is probably known to the bioinf community, whereas "block bootstrap" or "stationary bootstrap" is probably opaque to many
 
-*09:13:29 - @Ben Johnson has joined the channel*
+**Ben Johnson** (09:13:29):
+> @Ben Johnson has joined the channel
+
 **Kasper D. Hansen** (10:21:32):
 > well the goal is to compute null distributions for various problems expressed in ranges
 
@@ -58,22 +65,26 @@ format: gfm
 **Michael Love** (12:51:13):
 > For reference, here’s the existing function:
 > > randomizeRegions Randomize Regions
-> Description
-> Given a set of regions A and a genome, this function returns a new set of regions randomly dis- tributted in the genome.
-> Usage
-> randomizeRegions(A, genome="hg19", mask=NULL, allow.overlaps=TRUE, per.chromosome=FALSE, ...)
-> Arguments
-> A The set of regions to randomize. A region set in any of the accepted formats by toGRanges (GenomicRanges, data.frame, etc...)
-> genome The reference genome to use. A valid genome object. Either a GenomicRanges or data.frame containing one region per whole chromosome or a character uniquely identifying a genome in BSgenome (e.g. "hg19", "mm10",... but not "hg"). Internally it uses getGenomeAndMask.
-> mask The set of regions specifying where a random region can not be (centromeres, repetitive regions, unmappable regions...). A region set in any of the accepted formats by toGRanges (GenomicRanges,data.frame, ...). If NULL it will try to derive a mask from the genome (currently only works if the genome is a character string). If NA it gives, explicitly, an empty mask.
-> allow.overlaps A boolean stating whether the random regions can overlap (FALSE) or not (TRUE).
-> per.chromosome Boolean. If TRUE, the regions will be created in a per chromosome maner - every region in A will be moved into a random position at the same chromosome where it was originally-.
-> ... further arguments to be passed to or from methods. Details
-> The new set of regions will be created with the same sizes of the original ones, and optionally placed in the same chromosomes.
-> In addition, they can be made explicitly non overlapping and a mask can be provided so no regions fall in an undesirable part of the genome.
+> > Description
+> > Given a set of regions A and a genome, this function returns a new set of regions randomly dis- tributted in the genome.
+> > Usage
+> > randomizeRegions(A, genome="hg19", mask=NULL, allow.overlaps=TRUE, per.chromosome=FALSE, ...)
+> > Arguments
+> > A The set of regions to randomize. A region set in any of the accepted formats by toGRanges (GenomicRanges, data.frame, etc...)
+> > genome The reference genome to use. A valid genome object. Either a GenomicRanges or data.frame containing one region per whole chromosome or a character uniquely identifying a genome in BSgenome (e.g. "hg19", "mm10",... but not "hg"). Internally it uses getGenomeAndMask.
+> > mask The set of regions specifying where a random region can not be (centromeres, repetitive regions, unmappable regions...). A region set in any of the accepted formats by toGRanges (GenomicRanges,data.frame, ...). If NULL it will try to derive a mask from the genome (currently only works if the genome is a character string). If NA it gives, explicitly, an empty mask.
+> > allow.overlaps A boolean stating whether the random regions can overlap (FALSE) or not (TRUE).
+> > per.chromosome Boolean. If TRUE, the regions will be created in a per chromosome maner - every region in A will be moved into a random position at the same chromosome where it was originally-.
+> > ... further arguments to be passed to or from methods. Details
+> > The new set of regions will be created with the same sizes of the original ones, and optionally placed in the same chromosomes.
+> > In addition, they can be made explicitly non overlapping and a mask can be provided so no regions fall in an undesirable part of the genome.
 
-*15:01:55 - @Tim Triche has joined the channel*
-*15:01:55 - @Michael Hoffman has joined the channel*
+**Tim Triche** (15:01:55):
+> @Tim Triche has joined the channel
+
+**Michael Hoffman** (15:01:55):
+> @Michael Hoffman has joined the channel
+
 **Michael Love** (16:32:11):
 > Hervé posted a solution that works but uses lapply
 
@@ -83,15 +94,21 @@ format: gfm
 
 ## 2020-01-22
 
-*01:33:22 - @Stuart Lee has joined the channel*
+**Stuart Lee** (01:33:22):
+> @Stuart Lee has joined the channel
+
 
 ## 2020-07-17
 
-*13:20:11 - @Hervé Pagès has left the channel*
+**Hervé Pagès** (13:20:11):
+> @Hervé Pagès has left the channel
+
 
 ## 2020-07-31
 
-*16:15:56 - @Dr Awala Fortune O. has joined the channel*
+**Dr Awala Fortune O.** (16:15:56):
+> @Dr Awala Fortune O. has joined the channel
+
 
 ## 2020-11-18
 
@@ -113,15 +130,15 @@ format: gfm
 **Stuart Lee** (18:19:19):
 > great! your old blog comes up as one of the first hits on google for block bootstrap genomics[https://mikelove.wordpress.com/2012/07/28/block-bootstrap/](https://mikelove.wordpress.com/2012/07/28/block-bootstrap/)but the code link doesn't work for me:disappointed:
   - Attachment (Mike Love's blog): [Block bootstrap](https://mikelove.wordpress.com/2012/07/28/block-bootstrap/)
-    > In looking at sequential data (e.g. time-series or genomic data), any inference comparing different sequences needs to take into account local correlations within a sequence.  For example, you might want to know how often is it raining in two cities at the same time, and if this is more than expected by chance.  But it is more likely to rain on a given day if it was raining the day before, and this dependence will change the  distribution of overlap expected by chance.  In stochastics, this is a question of whether the process is ‘stationary‘.
-    > One way out of the problem of estimating the distribution of overlap of two process by chance is the block bootstrap.  Instead of randomly shifting features in the sequence (what I call naive permutation), you randomly build new sequences from large blocks of the original sequence.  Then a distribution can be formed of overlap of features by chance.  Here is a single bootstrap sample (top sequence) constructed in this manner from the data (bottom sequence).
-    > 
-    > 
-    > Here are histograms demonstrating various ways of estimating the null distribution of overlaps between two sequences, with the true null on top (the clusters of features are of size 20).  The block bootstrap can do a much better job of estimating the mean and variance of the null distribution.  Knowing how large of a block to define is another problem, and Politis and Romano (below) explore the effect of using randomly sized blocks over fixed size blocks.
-    > 
-    > a reference for this problem in genomic inference is: Peter Bickel Boley N, Brown JB, Huang H and Zhang NR, Non-Parametric Methods for Genomic Inference, 2010, 
-    > and a more general reference is Dimitris N. Politis and Joseph P. Romano, The Stationary Bootstrap, Journal of the American Statistical Association, Vol. 89, No. 428 (Dec., 1994), pp. 1303-1313, 
-    > The R code for this example is here.
+> In looking at sequential data (e.g. time-series or genomic data), any inference comparing different sequences needs to take into account local correlations within a sequence.  For example, you might want to know how often is it raining in two cities at the same time, and if this is more than expected by chance.  But it is more likely to rain on a given day if it was raining the day before, and this dependence will change the  distribution of overlap expected by chance.  In stochastics, this is a question of whether the process is ‘stationary‘.
+> One way out of the problem of estimating the distribution of overlap of two process by chance is the block bootstrap.  Instead of randomly shifting features in the sequence (what I call naive permutation), you randomly build new sequences from large blocks of the original sequence.  Then a distribution can be formed of overlap of features by chance.  Here is a single bootstrap sample (top sequence) constructed in this manner from the data (bottom sequence).
+> 
+> 
+> Here are histograms demonstrating various ways of estimating the null distribution of overlaps between two sequences, with the true null on top (the clusters of features are of size 20).  The block bootstrap can do a much better job of estimating the mean and variance of the null distribution.  Knowing how large of a block to define is another problem, and Politis and Romano (below) explore the effect of using randomly sized blocks over fixed size blocks.
+> 
+> a reference for this problem in genomic inference is: Peter Bickel Boley N, Brown JB, Huang H and Zhang NR, Non-Parametric Methods for Genomic Inference, 2010, 
+> and a more general reference is Dimitris N. Politis and Joseph P. Romano, The Stationary Bootstrap, Journal of the American Statistical Association, Vol. 89, No. 428 (Dec., 1994), pp. 1303-1313, 
+> The R code for this example is here.
 
 **Stuart Lee** (18:33:04):
 > Also I imagine the package API would basically have a generic say`shuffle`or`shuffle_ranges`or`generate`that takes as input a`Ranges`and null generator function (of which we could have say the block bootstrap etc.) and returns a`Ranges`or`RangesList`back. I think we would want to abstract out the null generating mechanism (i.e. not using  the words block or stationary bootstrap as they aren't super expressive imo).
@@ -163,11 +180,15 @@ format: gfm
 **Michael Love** (16:54:25):
 > has renamed the channel from "blockboot" to "nullranges"
 
-*17:19:45 - @Eric Davis has joined the channel*
+**Eric Davis** (17:19:45):
+> @Eric Davis has joined the channel
+
 
 ## 2020-12-20
 
-*23:06:32 - @Wancen Mu has joined the channel*
+**Wancen Mu** (23:06:32):
+> @Wancen Mu has joined the channel
+
 
 ## 2020-12-22
 
@@ -304,11 +325,15 @@ format: gfm
 
 ## 2021-01-22
 
-*15:44:48 - @Annajiat Alim Rasel has joined the channel*
+**Annajiat Alim Rasel** (15:44:48):
+> @Annajiat Alim Rasel has joined the channel
+
 
 ## 2021-01-23
 
-*20:29:50 - @Mikhail Dozmorov has joined the channel*
+**Mikhail Dozmorov** (20:29:50):
+> @Mikhail Dozmorov has joined the channel
+
 
 ## 2021-01-30
 
@@ -548,7 +573,9 @@ format: gfm
 **Michael Love** (21:52:32) (in thread):
 > i think people can attend whichever works or both
 
-*21:53:25 - @Doug Phanstiel has joined the channel*
+**Doug Phanstiel** (21:53:25):
+> @Doug Phanstiel has joined the channel
+
 **Michael Love** (21:53:38):
 > :wave:
 
@@ -609,7 +636,7 @@ format: gfm
 **Mikhail Dozmorov** (20:20:03):
 > Gene density segmentation will be great. I’m playing with the[gr.dist](https://rdrr.io/github/mskilab/gUtils/man/gr.dist.html)function to create a distance matrix among regions on a chromosome, and cluster them using DBSCAN. Can be applied to genes, cluster them into gene-dense regions. We can discuss Friday.
   - Attachment (rdrr.io): [gr.dist: Pairwise distance between two 'GRanges' in mskilab/gUtils: R Package Providing Additional Capabilities and Speed for GenomicRanges Operations](https://rdrr.io/github/mskilab/gUtils/man/gr.dist.html)
-    > Computes matrix of pairwise distance between elements of two GRanges objects of length n and m. Distances are computed as follows:
+> Computes matrix of pairwise distance between elements of two GRanges objects of length n and m. Distances are computed as follows:
 
 **Michael Love** (20:29:18):
 > Thanks Mikhail! Wancen has tried segmentation by gene density using HMM or circular binary segmentation, both could be options. Giemsa bands / pre-baked ChromHMM / TAD boundaries / early vs late replication could definitely be supplied as well
@@ -786,10 +813,10 @@ format: gfm
 **Michael Love** (11:09:10):
 > BTW in addition to the abstract i might submit a birds-of-feather on this topic, e.g. infrastructure in Bioc for enrichment analysis[https://twitter.com/Bioconductor/status/1367467661576327170](https://twitter.com/Bioconductor/status/1367467661576327170)
   - Attachment (twitter): [Attachment](https://twitter.com/Bioconductor/status/1367467661576327170)
-    > Submit an abstract for a talk, demo, long workshop, digital poster, or Birds-of-a-feather session at #Bioc2021 on Aug 4-6! The conference will be virtual this year.
-    > [https://bioc2021.bioconductor.org/submissions/](https://bioc2021.bioconductor.org/submissions/)  
-    > Deadline to submit is March 9. 
-    > #bioconductor #bioinformatics #conference
+> Submit an abstract for a talk, demo, long workshop, digital poster, or Birds-of-a-feather session at #Bioc2021 on Aug 4-6! The conference will be virtual this year.
+> [https://bioc2021.bioconductor.org/submissions/](https://bioc2021.bioconductor.org/submissions/)  
+> Deadline to submit is March 9. 
+> #bioconductor #bioinformatics #conference
 
 
 ## 2021-03-07
@@ -797,15 +824,15 @@ format: gfm
 **Mikhail Dozmorov** (13:46:30):
 > The abstract looks great! Found the Bickel 2010 paper, will read. And the[old blog post](https://mikelove.wordpress.com/2012/07/28/block-bootstrap/)with a good illustration of block bootstrapping. Added suggestion to use TAD boundaries as blocks to the Google doc.
   - Attachment (Mike Love's blog): [Block bootstrap](https://mikelove.wordpress.com/2012/07/28/block-bootstrap/)
-    > In looking at sequential data (e.g. time-series or genomic data), any inference comparing different sequences needs to take into account local correlations within a sequence.  For example, you might want to know how often is it raining in two cities at the same time, and if this is more than expected by chance.  But it is more likely to rain on a given day if it was raining the day before, and this dependence will change the  distribution of overlap expected by chance.  In stochastics, this is a question of whether the process is ‘stationary‘.
-    > One way out of the problem of estimating the distribution of overlap of two process by chance is the block bootstrap.  Instead of randomly shifting features in the sequence (what I call naive permutation), you randomly build new sequences from large blocks of the original sequence.  Then a distribution can be formed of overlap of features by chance.  Here is a single bootstrap sample (top sequence) constructed in this manner from the data (bottom sequence).
-    > 
-    > 
-    > Here are histograms demonstrating various ways of estimating the null distribution of overlaps between two sequences, with the true null on top (the clusters of features are of size 20).  The block bootstrap can do a much better job of estimating the mean and variance of the null distribution.  Knowing how large of a block to define is another problem, and Politis and Romano (below) explore the effect of using randomly sized blocks over fixed size blocks.
-    > 
-    > a reference for this problem in genomic inference is: Peter Bickel Boley N, Brown JB, Huang H and Zhang NR, Non-Parametric Methods for Genomic Inference, 2010, 
-    > and a more general reference is Dimitris N. Politis and Joseph P. Romano, The Stationary Bootstrap, Journal of the American Statistical Association, Vol. 89, No. 428 (Dec., 1994), pp. 1303-1313, 
-    > The R code for this example is here.
+> In looking at sequential data (e.g. time-series or genomic data), any inference comparing different sequences needs to take into account local correlations within a sequence.  For example, you might want to know how often is it raining in two cities at the same time, and if this is more than expected by chance.  But it is more likely to rain on a given day if it was raining the day before, and this dependence will change the  distribution of overlap expected by chance.  In stochastics, this is a question of whether the process is ‘stationary‘.
+> One way out of the problem of estimating the distribution of overlap of two process by chance is the block bootstrap.  Instead of randomly shifting features in the sequence (what I call naive permutation), you randomly build new sequences from large blocks of the original sequence.  Then a distribution can be formed of overlap of features by chance.  Here is a single bootstrap sample (top sequence) constructed in this manner from the data (bottom sequence).
+> 
+> 
+> Here are histograms demonstrating various ways of estimating the null distribution of overlaps between two sequences, with the true null on top (the clusters of features are of size 20).  The block bootstrap can do a much better job of estimating the mean and variance of the null distribution.  Knowing how large of a block to define is another problem, and Politis and Romano (below) explore the effect of using randomly sized blocks over fixed size blocks.
+> 
+> a reference for this problem in genomic inference is: Peter Bickel Boley N, Brown JB, Huang H and Zhang NR, Non-Parametric Methods for Genomic Inference, 2010, 
+> and a more general reference is Dimitris N. Politis and Joseph P. Romano, The Stationary Bootstrap, Journal of the American Statistical Association, Vol. 89, No. 428 (Dec., 1994), pp. 1303-1313, 
+> The R code for this example is here.
 
 **Michael Love** (14:39:53):
 > sounds good, I think abstract went in yesterday but we will definitely include TAD as among things to allow segementation on
@@ -816,7 +843,7 @@ format: gfm
 **Michael Love** (10:59:36):
 > Aaron Quinlan sent me this review paper which is relevant for the bootstrapping paper:[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4271068/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4271068/)(it references Bickel, Wancen I added it to sciwheel already)
   - Attachment (PubMed Central (PMC)): [The dilemma of choosing the ideal permutation strategy while estimating statistical significance of genome-wide enrichment](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4271068/)
-    > Integrative analyses of genomic, epigenomic and transcriptomic features for human and various model organisms have revealed that many such features are nonrandomly distributed in the genome. Significant enrichment (or depletion) of genomic features is ...
+> Integrative analyses of genomic, epigenomic and transcriptomic features for human and various model organisms have revealed that many such features are nonrandomly distributed in the genome. Significant enrichment (or depletion) of genomic features is ...
 
 **Michael Love** (11:00:43):
 > i'm chatting with Aaron to hear what his plans are wrt bedtools shuffle, which is an independent software for computing and evaluating overlap stats
@@ -844,7 +871,7 @@ format: gfm
 **Mikhail Dozmorov** (21:43:31):
 > Thought to share a couple references about DNA segmentation, learned from the review paper,[https://doi.org/10.1186/1471-2105-8-171](https://doi.org/10.1186/1471-2105-8-171)and[https://doi.org/10.1214/ss/1028905933](https://doi.org/10.1214/ss/1028905933)- reading now.
   - Attachment (EUCLID): [Statistical methods for DNA sequence segmentation](https://doi.org/10.1214/ss/1028905933)
-    > This article examines methods, issues and controversies that have arisen over the last decade in the effort to organize sequences of DNA base information into homogeneous segments. An array of different models and techniques have been considered and applied. We demonstrate that most approaches can be embedded into a suitable version of the multiple change-point problem, and we review the various methods in this light. We also propose and discuss a promising local segmentation method, namely, the application of split local polynomial fitting. The genome of bacteriophage $\lambda$ serves as an example sequence throughout the paper.
+> This article examines methods, issues and controversies that have arisen over the last decade in the effort to organize sequences of DNA base information into homogeneous segments. An array of different models and techniques have been considered and applied. We demonstrate that most approaches can be embedded into a suitable version of the multiple change-point problem, and we review the various methods in this light. We also propose and discuss a promising local segmentation method, namely, the application of split local polynomial fitting. The genome of bacteriophage $\lambda$ serves as an example sequence throughout the paper.
 
 **Michael Love** (22:04:18) (in thread):
 > good luck to student:slightly_smiling_face:
@@ -1339,178 +1366,178 @@ format: gfm
 **Tim Triche** (08:35:33) (in thread):
 > [https://github.com/ttriche/dotfiles/blob/master/.Rprofile](https://github.com/ttriche/dotfiles/blob/master/.Rprofile)
   - Attachment: [.Rprofile](https://github.com/ttriche/dotfiles/blob/master/.Rprofile)
-    > ```
-    > # tim's .Rprofile
-    > #
-    > .First <- function() {
-    > 
-    >   # since I'm always on Linux this is a gimme
-    >   Sys.setenv("R_PDFVIEWER"="/usr/bin/evince")
-    > 
-    >   # use basilisk for this type of stuff going forward 
-    >   # Sys.setenv(TENSORFLOW_PYTHON="/usr/bin/python3.6")
-    > 
-    >   # choosing a repo gets old in a hurry
-    >   options("repos" = c(CRAN = "[http://cran.rstudio.com/](http://cran.rstudio.com/)"),
-    >                       browserNLdisabled = TRUE,
-    >                       deparse.max.lines = 2)
-    > 
-    >   # for new package automation:
-    >   options("skeletor.email"="<mailto:trichelab@gmail.com|trichelab@gmail.com>")
-    >   options("skeletor.name"="Tim Triche, Jr.")
-    >   options("skeletor.github"="trichelab")
-    > 
-    >   # notes below on why this is done
-    >   if (dir.exists("~/.Rscripts")) {
-    >     for (i in list.files("~/.Rscripts")) {
-    >       # phelp, lsos, print.data.frame, ... 
-    >       source(paste("~/.Rscripts/", i, sep="/"))
-    >     }
-    >   }
-    > 
-    >   # bootstrap functions for getting packages set up 
-    >   req <- function(p) require(p, character.only=TRUE) 
-    >   reqInstall <- function(p) { if (!req(p)) install.packages(p); req(p) }
-    > 
-    >   # if there's a user:
-    >   if (interactive()) {
-    > 
-    >     reqInstall("utils")
-    >     reqInstall("BiocManager")
-    >    
-    >     # bridge to system package management
-    >     library(bspm) # binary packages
-    >     suppressMessages(bspm::enable())
-    > 
-    >     # "Packages I'd rather not work without" 
-    >     pkgs <- c("tidyverse","knitr","useful","gtools","skeletor","S4Vectors")
-    >     BiocManager::install(setdiff(pkgs, unique(rownames(installed.packages()))))
-    > 
-    >     # fix shortcomings
-    >     for (p in pkgs) reqInstall(p)
-    >   
-    >     # color-code output
-    >     require("colorout") # BiocManager::install("jalvesaq/colorout")
-    >     
-    >     # all set  
-    >     cat("\nWelcome to", R.version.string, "\n")
-    > 
-    >     # for roxygenise()
-    >     rox <<- roxygen2::roxygenise
-    >     dox <<- devtools::document
-    > 
-    >     # change some defaults
-    >     options("digits"=9)
-    >     options("max.print"=9999)
-    >     options("pdfviewer"="/usr/bin/evince")
-    >     options("browser"="/opt/google/chrome/chrome")
-    >     options("scipen" = 9999)
-    >     options("prompt"="R> ")
-    >   
-    >     ## tab-complete libraries
-    >     rc.settings(ipck=TRUE)
-    > 
-    >     # should always be the case IMHO
-    >     options("stringsAsFactors" = FALSE)
-    >     options("useFancyQuotes" = FALSE)
-    > 
-    >     # many thanks to Duncan Murdoch and Ivo Welch
-    >     message("Set options('warn'=2) to stop on warnings...")
-    >     options("warn"=0) ## or =2 to stop on warnings
-    > 
-    >     # set up bigrquery 
-    >     # library("bigrquery")
-    >     # billing_project <- is set in ~/.Rscripts/bigquery.R
-    > 
-    >     # set up plotly 
-    >     # library("plotly")
-    >     # plotly_api_key <- is set in ~/.Rscripts/plotly.R
-    > 
-    >     library(BiocManager)
-    >     biocLite <- BiocManager::install
-    > 
-    >   }
-    > }
-    >  
-    > # I like syntax highlighting, too
-    > if (interactive()) {
-    >   lrda <- function(...) list.files(pattern="rda$", ...)
-    >   lrds <- function(...) list.files(pattern="rds$", ...)
-    > 
-    >   setHook(packageEvent("grDevices", "onLoad"),
-    >           function(...) grDevices::X11.options(type='cairo'))
-    >   options(device='x11')
-    > 
-    >   local({ 
-    >     options(editor="vim") 
-    >   })
-    >   # options(contrasts=c("contr.sum","contr.poly"))
-    >   # for RM-ANOVA and so forth
-    > 
-    >   ## like magrittr, but better:
-    >   `|` ["
-    >       return( or(x, y) )
-    >     }
-    >   }
-    > 
-    >   # get or set the DISPLAY environment variable
-    >   getDisp <- function() Sys.getenv("DISPLAY")
-    >   setDisp <- function(x) Sys.setenv("DISPLAY"=x)
-    > 
-    >   # quote words, like in perl
-    >   qw <- function(...) sapply(match.call()\[-1\], deparse)
-    > 
-    > # Now in its own script in ~/.Rscripts/phelp.R 
-    > #
-    > # phelp <- function(...) { # {{{ get help for a package
-    > #   help(package=as.character(sapply(match.call()\[-1\], deparse)\[1\]))
-    > # } # }}}
-    > #
-    > 
-    > # Now in its own script in ~/.Rscripts/lsos.R
-    > #
-    > # lsos <- function(..., n=10) { 
-    > #   .ls.objects(..., <http://order.by|order.by](- function(x, y) {
-    >     if(is.data.frame(x)) {
-    >       return(eval(call("%.%", substitute(x), substitute(y)), 
-    >                   envir=parent.frame()))
-    >     } else {
-    >       or <- base::")="Size", decreasing=TRUE, head=TRUE, n=n)
-    > # }
-    > 
-    >   latexify <- function(filebase, pgf=TRUE) { # {{{
-    >     filebase <- gsub(".Rnw","",filebase)
-    >     filebase <- gsub(".rnw","",filebase)
-    >     filebase <- gsub(".tex","",filebase)
-    >     if(pgf) {
-    >       require(pgfSweave)
-    >       pgfSweave(paste(filebase, "Rnw", sep="."))
-    >     } else {
-    >       Sweave(paste(filebase, "Rnw", sep="."))
-    >     }
-    >     system(paste("LaTeXify", paste(filebase, "tex", sep=".")))
-    >   } # }}}
-    > 
-    > # Now in its own script in ~/.Rscripts/print.data.frame.R
-    > #
-    > # print.data.frame <- function(df) { # {{{
-    > #   if (ncol(df) > 0 && require("IRanges")) {
-    > #     prev.max.print <- getOption("max.print")
-    > #     on.exit(options(max.print=prev.max.print))
-    > #     options(max.print=ncol(df) * 20)
-    > #     x <- capture.output(print(as(df, "DataFrame")))
-    > #     cat(sub("DataFrame", "data frame", x[[1]]), x[-1], sep="\n")
-    > #   } else {
-    > #     base::print.data.frame(df)
-    > #   }
-    > # } # }}}
-    > 
-    >   # AWS stuff now in ~/.Rscripts/AWS.R
-    > 
-    >   host <- function() system2("hostname", stdout=T)
-    > }
-    > 
-    > ```
+> ```
+> # tim's .Rprofile
+> #
+> .First <- function() {
+> 
+>   # since I'm always on Linux this is a gimme
+>   Sys.setenv("R_PDFVIEWER"="/usr/bin/evince")
+> 
+>   # use basilisk for this type of stuff going forward 
+>   # Sys.setenv(TENSORFLOW_PYTHON="/usr/bin/python3.6")
+> 
+>   # choosing a repo gets old in a hurry
+>   options("repos" = c(CRAN = "[http://cran.rstudio.com/](http://cran.rstudio.com/)"),
+>                       browserNLdisabled = TRUE,
+>                       deparse.max.lines = 2)
+> 
+>   # for new package automation:
+>   options("skeletor.email"="<mailto:trichelab@gmail.com|trichelab@gmail.com>")
+>   options("skeletor.name"="Tim Triche, Jr.")
+>   options("skeletor.github"="trichelab")
+> 
+>   # notes below on why this is done
+>   if (dir.exists("~/.Rscripts")) {
+>     for (i in list.files("~/.Rscripts")) {
+>       # phelp, lsos, print.data.frame, ... 
+>       source(paste("~/.Rscripts/", i, sep="/"))
+>     }
+>   }
+> 
+>   # bootstrap functions for getting packages set up 
+>   req <- function(p) require(p, character.only=TRUE) 
+>   reqInstall <- function(p) { if (!req(p)) install.packages(p); req(p) }
+> 
+>   # if there's a user:
+>   if (interactive()) {
+> 
+>     reqInstall("utils")
+>     reqInstall("BiocManager")
+>    
+>     # bridge to system package management
+>     library(bspm) # binary packages
+>     suppressMessages(bspm::enable())
+> 
+>     # "Packages I'd rather not work without" 
+>     pkgs <- c("tidyverse","knitr","useful","gtools","skeletor","S4Vectors")
+>     BiocManager::install(setdiff(pkgs, unique(rownames(installed.packages()))))
+> 
+>     # fix shortcomings
+>     for (p in pkgs) reqInstall(p)
+>   
+>     # color-code output
+>     require("colorout") # BiocManager::install("jalvesaq/colorout")
+>     
+>     # all set  
+>     cat("\nWelcome to", R.version.string, "\n")
+> 
+>     # for roxygenise()
+>     rox <<- roxygen2::roxygenise
+>     dox <<- devtools::document
+> 
+>     # change some defaults
+>     options("digits"=9)
+>     options("max.print"=9999)
+>     options("pdfviewer"="/usr/bin/evince")
+>     options("browser"="/opt/google/chrome/chrome")
+>     options("scipen" = 9999)
+>     options("prompt"="R> ")
+>   
+>     ## tab-complete libraries
+>     rc.settings(ipck=TRUE)
+> 
+>     # should always be the case IMHO
+>     options("stringsAsFactors" = FALSE)
+>     options("useFancyQuotes" = FALSE)
+> 
+>     # many thanks to Duncan Murdoch and Ivo Welch
+>     message("Set options('warn'=2) to stop on warnings...")
+>     options("warn"=0) ## or =2 to stop on warnings
+> 
+>     # set up bigrquery 
+>     # library("bigrquery")
+>     # billing_project <- is set in ~/.Rscripts/bigquery.R
+> 
+>     # set up plotly 
+>     # library("plotly")
+>     # plotly_api_key <- is set in ~/.Rscripts/plotly.R
+> 
+>     library(BiocManager)
+>     biocLite <- BiocManager::install
+> 
+>   }
+> }
+>  
+> # I like syntax highlighting, too
+> if (interactive()) {
+>   lrda <- function(...) list.files(pattern="rda$", ...)
+>   lrds <- function(...) list.files(pattern="rds$", ...)
+> 
+>   setHook(packageEvent("grDevices", "onLoad"),
+>           function(...) grDevices::X11.options(type='cairo'))
+>   options(device='x11')
+> 
+>   local({ 
+>     options(editor="vim") 
+>   })
+>   # options(contrasts=c("contr.sum","contr.poly"))
+>   # for RM-ANOVA and so forth
+> 
+>   ## like magrittr, but better:
+>   `|` ["
+>       return( or(x, y) )
+>     }
+>   }
+> 
+>   # get or set the DISPLAY environment variable
+>   getDisp <- function() Sys.getenv("DISPLAY")
+>   setDisp <- function(x) Sys.setenv("DISPLAY"=x)
+> 
+>   # quote words, like in perl
+>   qw <- function(...) sapply(match.call()\[-1\], deparse)
+> 
+> # Now in its own script in ~/.Rscripts/phelp.R 
+> #
+> # phelp <- function(...) { # {{{ get help for a package
+> #   help(package=as.character(sapply(match.call()\[-1\], deparse)\[1\]))
+> # } # }}}
+> #
+> 
+> # Now in its own script in ~/.Rscripts/lsos.R
+> #
+> # lsos <- function(..., n=10) { 
+> #   .ls.objects(..., <http://order.by|order.by](- function(x, y) {
+>     if(is.data.frame(x)) {
+>       return(eval(call("%.%", substitute(x), substitute(y)), 
+>                   envir=parent.frame()))
+>     } else {
+>       or <- base::")="Size", decreasing=TRUE, head=TRUE, n=n)
+> # }
+> 
+>   latexify <- function(filebase, pgf=TRUE) { # {{{
+>     filebase <- gsub(".Rnw","",filebase)
+>     filebase <- gsub(".rnw","",filebase)
+>     filebase <- gsub(".tex","",filebase)
+>     if(pgf) {
+>       require(pgfSweave)
+>       pgfSweave(paste(filebase, "Rnw", sep="."))
+>     } else {
+>       Sweave(paste(filebase, "Rnw", sep="."))
+>     }
+>     system(paste("LaTeXify", paste(filebase, "tex", sep=".")))
+>   } # }}}
+> 
+> # Now in its own script in ~/.Rscripts/print.data.frame.R
+> #
+> # print.data.frame <- function(df) { # {{{
+> #   if (ncol(df) > 0 && require("IRanges")) {
+> #     prev.max.print <- getOption("max.print")
+> #     on.exit(options(max.print=prev.max.print))
+> #     options(max.print=ncol(df) * 20)
+> #     x <- capture.output(print(as(df, "DataFrame")))
+> #     cat(sub("DataFrame", "data frame", x[[1]]), x[-1], sep="\n")
+> #   } else {
+> #     base::print.data.frame(df)
+> #   }
+> # } # }}}
+> 
+>   # AWS stuff now in ~/.Rscripts/AWS.R
+> 
+>   host <- function() system2("hostname", stdout=T)
+> }
+> 
+> ```
 
 **Doug Phanstiel** (08:36:02):
 > Ok.  I am not familiar enough with how one would implement the resample=FALSE situation but we will keep that in mind
@@ -1533,271 +1560,271 @@ format: gfm
 **Tim Triche** (08:41:59):
 > [https://github.com/wch/r-source/blob/7cb7c00cf338acd56d8b24f4d4b080624b2f6b77/src/main/unique.c](https://github.com/wch/r-source/blob/7cb7c00cf338acd56d8b24f4d4b080624b2f6b77/src/main/unique.c)
   - Attachment: [src/main/unique.c](https://github.com/wch/r-source/blob/7cb7c00cf338acd56d8b24f4d4b080624b2f6b77/src/main/unique.c)
-    > ```
-    > /*
-    >  *  R : A Computer Language for Statistical Data Analysis
-    >  *  Copyright (C) 1997--2020  The R Core Team
-    >  *  Copyright (C) 1995, 1996  Robert Gentleman and Ross Ihaka
-    >  *
-    >  *  This program is free software; you can redistribute it and/or modify
-    >  *  it under the terms of the GNU General Public License as published by
-    >  *  the Free Software Foundation; either version 2 of the License, or
-    >  *  (at your option) any later version.
-    >  *
-    >  *  This program is distributed in the hope that it will be useful,
-    >  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-    >  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    >  *  GNU General Public License for more details.
-    >  *
-    >  *  You should have received a copy of the GNU General Public License
-    >  *  along with this program; if not, a copy is available at
-    >  *  [https://www.R-project.org/Licenses/](https://www.R-project.org/Licenses/)
-    >  */
-    > 
-    > /* This is currently restricted to vectors of length < 2^30 */
-    > 
-    > #ifdef HAVE_CONFIG_H
-    > #include <config.h>
-    > #endif
-    > 
-    > #define R_USE_SIGNALS 1
-    > #include <Defn.h>
-    > #include <Internal.h>
-    > 
-    > #define NIL -1
-    > #define ARGUSED(x) LEVELS(x)
-    > #define SET_ARGUSED(x,v) SETLEVELS(x,v)
-    > 
-    > /* interval at which to check interrupts */
-    > #define NINTERRUPT 1000000
-    > 
-    > typedef size_t hlen;
-    > 
-    > /* Hash function and equality test for keys */
-    > typedef struct _HashData HashData;
-    > 
-    > struct _HashData {
-    >     int K;
-    >     hlen M;
-    >     R_xlen_t nmax;
-    > #ifdef LONG_VECTOR_SUPPORT
-    >     Rboolean isLong;
-    > #endif
-    >     hlen (*hash)(SEXP, R_xlen_t, HashData *);
-    >     int (*equal)(SEXP, R_xlen_t, SEXP, R_xlen_t);
-    >     SEXP HashTable;
-    > 
-    >     int nomatch;
-    >     Rboolean useUTF8;
-    >     Rboolean useCache;
-    > };
-    > 
-    > #define HTDATA_INT(d) (INTEGER0((d)->HashTable))
-    > #define HTDATA_DBL(d) (REAL0((d)->HashTable))
-    > 
-    > 
-    > /*
-    >    Integer keys are hashed via a random number generator
-    >    based on Knuth's recommendations.  The high order K bits
-    >    are used as the hash code.
-    > 
-    >    NB: lots of this code relies on M being a power of two and
-    >    on silent integer overflow mod 2^32.
-    > 
-    >    <FIXME> Integer keys are wasteful for logical and raw vectors, but
-    >    the tables are small in that case.  It would be much easier to
-    >    implement long vectors, though.
-    > */
-    > 
-    > /*  Currently the hash table is implemented as a (signed) integer
-    >     array.  So there are two 31-bit restrictions, the length of the
-    >     array and the values.  The values are initially NIL (-1).  O-based
-    >     indices are inserted by isDuplicated, and invalidated by setting
-    >     to NA_INTEGER.
-    > */
-    > 
-    > static hlen scatter(unsigned int key, HashData *d)
-    > {
-    >     return 3141592653U * key >> (32 - d->K);
-    > }
-    > 
-    > static hlen lhash(SEXP x, R_xlen_t indx, HashData *d)
-    > {
-    >     int xi = LOGICAL_ELT(x, indx);
-    >     if (xi == NA_LOGICAL) return 2U;
-    >     return (hlen) xi;
-    > }
-    > 
-    > static R_INLINE hlen ihash(SEXP x, R_xlen_t indx, HashData *d)
-    > {
-    >     int xi = INTEGER_ELT(x, indx);
-    >     if (xi == NA_INTEGER) return 0;
-    >     return scatter((unsigned int) xi, d);
-    > }
-    > 
-    > /* We use unions here because Solaris gcc -O2 has trouble with
-    >    casting + incrementing pointers.  We use tests here, but R currently
-    >    assumes int is 4 bytes and double is 8 bytes.
-    >  */
-    > union foo {
-    >     double d;
-    >     unsigned int u[2];
-    > };
-    > 
-    > static R_INLINE hlen rhash(SEXP x, R_xlen_t indx, HashData *d)
-    > {
-    >     /* There is a problem with signed 0s under IEC60559 */
-    >     double xi = REAL_ELT(x, indx);
-    >     double tmp = (xi == 0.0) ? 0.0 : xi;
-    >     /* need to use both 32-byte chunks or endianness is an issue */
-    >     /* we want all NaNs except NA equal, and all NAs equal */
-    >     if (R_IsNA(tmp)) tmp = NA_REAL;
-    >     else if (R_IsNaN(tmp)) tmp = R_NaN;
-    > #if 2*SIZEOF_INT == SIZEOF_DOUBLE
-    >     {
-    > 	union foo tmpu;
-    > 	tmpu.d = tmp;
-    > 	return scatter(tmpu.u[0] + tmpu.u[1], d);
-    >     }
-    > #else
-    >     return scatter(*((unsigned int *) (&tmp)), d);
-    > #endif
-    > }
-    > 
-    > static Rcomplex unify_complex_na(Rcomplex z) {
-    >     Rcomplex ans;
-    >     ans.r = (z.r == 0.0) ? 0.0 : z.r;
-    >     ans.i = (z.i == 0.0) ? 0.0 : z.i;
-    >     if (R_IsNA(ans.r) || R_IsNA(ans.i))
-    > 	ans.r = ans.i = NA_REAL;
-    >     else if (R_IsNaN(ans.r) || R_IsNaN(ans.i))
-    > 	ans.r = ans.i = R_NaN;
-    >     return ans;
-    > }
-    > 
-    > static hlen chash(SEXP x, R_xlen_t indx, HashData *d)
-    > {
-    >     Rcomplex tmp = unify_complex_na(COMPLEX_ELT(x, indx));
-    > 
-    > #if 2*SIZEOF_INT == SIZEOF_DOUBLE
-    >     {
-    > 	unsigned int u;
-    > 	union foo tmpu;
-    > 	tmpu.d = tmp.r;
-    > 	u = tmpu.u[0] ^ tmpu.u[1];
-    > 	tmpu.d = tmp.i;
-    > 	u ^= tmpu.u[0] ^ tmpu.u[1];
-    > 	return scatter(u, d);
-    >     }
-    > #else
-    > 	return scatter((*((unsigned int *)(&tmp.r)) ^
-    > 			(*((unsigned int *)(&tmp.i)))), d);
-    > #endif
-    > }
-    > 
-    > /* Hash CHARSXP by address.  Hash values are int, For 64bit pointers,
-    >  * we do (upper ^ lower) */
-    > static R_INLINE hlen cshash(SEXP x, R_xlen_t indx, HashData *d)
-    > {
-    >     intptr_t z = (intptr_t) STRING_ELT(x, indx);
-    >     unsigned int z1 = (unsigned int)(z & 0xffffffff), z2 = 0;
-    > #if SIZEOF_LONG == 8
-    >     z2 = (unsigned int)(z/0x100000000L);
-    > #endif
-    >     return scatter(z1 ^ z2, d);
-    > }
-    > 
-    > static R_INLINE hlen shash(SEXP x, R_xlen_t indx, HashData *d)
-    > {
-    >     unsigned int k;
-    >     const char *p;
-    >     if(!d->useUTF8 && d->useCache) return cshash(x, indx, d);
-    >     const void *vmax = vmaxget();
-    >     /* Not having d->useCache really should not happen anymore. */
-    >     p = translateCharUTF8(STRING_ELT(x, indx));
-    >     k = 0;
-    >     while (*p++)
-    > 	k = 11 * k + (unsigned int) **p; /** was 8 but 11 isn't a power of 2 */
-    >     vmaxset(vmax); /* discard any memory used by translateChar */
-    >     return scatter(k, d);
-    > }
-    > 
-    > static int lequal(SEXP x, R_xlen_t i, SEXP y, R_xlen_t j)
-    > {
-    >     if (i < 0 || j < 0) return 0;
-    >     return (LOGICAL_ELT(x, i) == LOGICAL_ELT(y, j));
-    > }
-    > 
-    > 
-    > static R_INLINE int iequal(SEXP x, R_xlen_t i, SEXP y, R_xlen_t j)
-    > {
-    >     if (i < 0 || j < 0) return 0;
-    >     return (INTEGER_ELT(x, i) == INTEGER_ELT(y, j));
-    > }
-    > 
-    > /* BDR 2002-1-17  We don't want NA and other NaNs to be equal */
-    > static R_INLINE int requal(SEXP x, R_xlen_t i, SEXP y, R_xlen_t j)
-    > {
-    >     if (i < 0 || j < 0) return 0;
-    >     double xi = REAL_ELT(x, i);
-    >     double yj = REAL_ELT(y, j);
-    >     if (!ISNAN(xi) && !ISNAN(yj))
-    > 	return (xi == yj);
-    >     else if (R_IsNA(xi) && R_IsNA(yj)) return 1;
-    >     else if (R_IsNaN(xi) && R_IsNaN(yj)) return 1;
-    >     else return 0;
-    > }
-    > 
-    > /* This is differentiating {NA,1}, {NA,0}, {NA, NaN}, {NA, NA},
-    >  * but R's print() and format()  render all as "NA" */
-    > static int cplx_eq(Rcomplex x, Rcomplex y)
-    > {
-    >     if (!ISNAN(x.r) && !ISNAN(x.i) && !ISNAN(y.r) && !ISNAN(y.i))
-    > 	return x.r == y.r && x.i == y.i;
-    >     else if (R_IsNA(x.r) || R_IsNA(x.i)) // x is NA
-    > 	return (R_IsNA(y.r) || R_IsNA(y.i)) ? 1 : 0;
-    >     else if (R_IsNA(y.r) || R_IsNA(y.i)) // y is NA but x is not
-    > 	return 0;
-    >     // else : none is NA but there's at least one NaN;  hence  ISNAN(.) == R_IsNaN(.)
-    >     return
-    > 	(((ISNAN(x.r) && ISNAN(y.r)) || (!ISNAN(x.r) && !ISNAN(y.r) && x.r == y.r)) && // Re
-    > 	 ((ISNAN(x.i) && ISNAN(y.i)) || (!ISNAN(x.i) && !ISNAN(y.i) && x.i == y.i))    // Im
-    > 	    ) ? 1 : 0;
-    > }
-    > 
-    > static int cequal(SEXP x, R_xlen_t i, SEXP y, R_xlen_t j)
-    > {
-    >     if (i < 0 || j < 0) return 0;
-    >     return cplx_eq(COMPLEX_ELT(x, i), COMPLEX_ELT(y, j));
-    > }
-    > 
-    > static R_INLINE int sequal(SEXP x, R_xlen_t i, SEXP y, R_xlen_t j)
-    > {
-    >     if (i < 0 || j < 0) return 0;
-    >     SEXP xi = STRING_ELT(x, i);
-    >     SEXP yj = STRING_ELT(y, j);
-    >     /* Two strings which have the same address must be the same,
-    >        so avoid looking at the contents */
-    >     if (xi == yj) return 1;
-    >     /* Then if either is NA the other cannot be */
-    >     /* Once all CHARSXPs are cached, Seql will handle this */
-    >     if (xi == NA_STRING || yj == NA_STRING)
-    > 	return 0;
-    >     /* another pre-test to avoid the call to Seql */
-    >     if (IS_CACHED(xi) && IS_CACHED(yj) && ENC_KNOWN(xi) == ENC_KNOWN(yj))
-    > 	return 0;
-    >     return Seql(xi, yj);
-    > }
-    > 
-    > static hlen rawhash(SEXP x, R_xlen_t indx, HashData *d)
-    > {
-    >     return (hlen) RAW_ELT(x, indx);
-    > }
-    > 
-    > static int rawequal(SEXP x, R_xlen_t i, SEXP y, R_xlen_t j)
-    > {
-    >     if (i < 0 || j < 0) return 0;
-    >     return (RAW_ELT(x, i) == RAW_ELT(y…
+> ```
+> /*
+>  *  R : A Computer Language for Statistical Data Analysis
+>  *  Copyright (C) 1997--2020  The R Core Team
+>  *  Copyright (C) 1995, 1996  Robert Gentleman and Ross Ihaka
+>  *
+>  *  This program is free software; you can redistribute it and/or modify
+>  *  it under the terms of the GNU General Public License as published by
+>  *  the Free Software Foundation; either version 2 of the License, or
+>  *  (at your option) any later version.
+>  *
+>  *  This program is distributed in the hope that it will be useful,
+>  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+>  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+>  *  GNU General Public License for more details.
+>  *
+>  *  You should have received a copy of the GNU General Public License
+>  *  along with this program; if not, a copy is available at
+>  *  [https://www.R-project.org/Licenses/](https://www.R-project.org/Licenses/)
+>  */
+> 
+> /* This is currently restricted to vectors of length < 2^30 */
+> 
+> #ifdef HAVE_CONFIG_H
+> #include <config.h>
+> #endif
+> 
+> #define R_USE_SIGNALS 1
+> #include <Defn.h>
+> #include <Internal.h>
+> 
+> #define NIL -1
+> #define ARGUSED(x) LEVELS(x)
+> #define SET_ARGUSED(x,v) SETLEVELS(x,v)
+> 
+> /* interval at which to check interrupts */
+> #define NINTERRUPT 1000000
+> 
+> typedef size_t hlen;
+> 
+> /* Hash function and equality test for keys */
+> typedef struct _HashData HashData;
+> 
+> struct _HashData {
+>     int K;
+>     hlen M;
+>     R_xlen_t nmax;
+> #ifdef LONG_VECTOR_SUPPORT
+>     Rboolean isLong;
+> #endif
+>     hlen (*hash)(SEXP, R_xlen_t, HashData *);
+>     int (*equal)(SEXP, R_xlen_t, SEXP, R_xlen_t);
+>     SEXP HashTable;
+> 
+>     int nomatch;
+>     Rboolean useUTF8;
+>     Rboolean useCache;
+> };
+> 
+> #define HTDATA_INT(d) (INTEGER0((d)->HashTable))
+> #define HTDATA_DBL(d) (REAL0((d)->HashTable))
+> 
+> 
+> /*
+>    Integer keys are hashed via a random number generator
+>    based on Knuth's recommendations.  The high order K bits
+>    are used as the hash code.
+> 
+>    NB: lots of this code relies on M being a power of two and
+>    on silent integer overflow mod 2^32.
+> 
+>    <FIXME> Integer keys are wasteful for logical and raw vectors, but
+>    the tables are small in that case.  It would be much easier to
+>    implement long vectors, though.
+> */
+> 
+> /*  Currently the hash table is implemented as a (signed) integer
+>     array.  So there are two 31-bit restrictions, the length of the
+>     array and the values.  The values are initially NIL (-1).  O-based
+>     indices are inserted by isDuplicated, and invalidated by setting
+>     to NA_INTEGER.
+> */
+> 
+> static hlen scatter(unsigned int key, HashData *d)
+> {
+>     return 3141592653U * key >> (32 - d->K);
+> }
+> 
+> static hlen lhash(SEXP x, R_xlen_t indx, HashData *d)
+> {
+>     int xi = LOGICAL_ELT(x, indx);
+>     if (xi == NA_LOGICAL) return 2U;
+>     return (hlen) xi;
+> }
+> 
+> static R_INLINE hlen ihash(SEXP x, R_xlen_t indx, HashData *d)
+> {
+>     int xi = INTEGER_ELT(x, indx);
+>     if (xi == NA_INTEGER) return 0;
+>     return scatter((unsigned int) xi, d);
+> }
+> 
+> /* We use unions here because Solaris gcc -O2 has trouble with
+>    casting + incrementing pointers.  We use tests here, but R currently
+>    assumes int is 4 bytes and double is 8 bytes.
+>  */
+> union foo {
+>     double d;
+>     unsigned int u[2];
+> };
+> 
+> static R_INLINE hlen rhash(SEXP x, R_xlen_t indx, HashData *d)
+> {
+>     /* There is a problem with signed 0s under IEC60559 */
+>     double xi = REAL_ELT(x, indx);
+>     double tmp = (xi == 0.0) ? 0.0 : xi;
+>     /* need to use both 32-byte chunks or endianness is an issue */
+>     /* we want all NaNs except NA equal, and all NAs equal */
+>     if (R_IsNA(tmp)) tmp = NA_REAL;
+>     else if (R_IsNaN(tmp)) tmp = R_NaN;
+> #if 2*SIZEOF_INT == SIZEOF_DOUBLE
+>     {
+> 	union foo tmpu;
+> 	tmpu.d = tmp;
+> 	return scatter(tmpu.u[0] + tmpu.u[1], d);
+>     }
+> #else
+>     return scatter(*((unsigned int *) (&tmp)), d);
+> #endif
+> }
+> 
+> static Rcomplex unify_complex_na(Rcomplex z) {
+>     Rcomplex ans;
+>     ans.r = (z.r == 0.0) ? 0.0 : z.r;
+>     ans.i = (z.i == 0.0) ? 0.0 : z.i;
+>     if (R_IsNA(ans.r) || R_IsNA(ans.i))
+> 	ans.r = ans.i = NA_REAL;
+>     else if (R_IsNaN(ans.r) || R_IsNaN(ans.i))
+> 	ans.r = ans.i = R_NaN;
+>     return ans;
+> }
+> 
+> static hlen chash(SEXP x, R_xlen_t indx, HashData *d)
+> {
+>     Rcomplex tmp = unify_complex_na(COMPLEX_ELT(x, indx));
+> 
+> #if 2*SIZEOF_INT == SIZEOF_DOUBLE
+>     {
+> 	unsigned int u;
+> 	union foo tmpu;
+> 	tmpu.d = tmp.r;
+> 	u = tmpu.u[0] ^ tmpu.u[1];
+> 	tmpu.d = tmp.i;
+> 	u ^= tmpu.u[0] ^ tmpu.u[1];
+> 	return scatter(u, d);
+>     }
+> #else
+> 	return scatter((*((unsigned int *)(&tmp.r)) ^
+> 			(*((unsigned int *)(&tmp.i)))), d);
+> #endif
+> }
+> 
+> /* Hash CHARSXP by address.  Hash values are int, For 64bit pointers,
+>  * we do (upper ^ lower) */
+> static R_INLINE hlen cshash(SEXP x, R_xlen_t indx, HashData *d)
+> {
+>     intptr_t z = (intptr_t) STRING_ELT(x, indx);
+>     unsigned int z1 = (unsigned int)(z & 0xffffffff), z2 = 0;
+> #if SIZEOF_LONG == 8
+>     z2 = (unsigned int)(z/0x100000000L);
+> #endif
+>     return scatter(z1 ^ z2, d);
+> }
+> 
+> static R_INLINE hlen shash(SEXP x, R_xlen_t indx, HashData *d)
+> {
+>     unsigned int k;
+>     const char *p;
+>     if(!d->useUTF8 && d->useCache) return cshash(x, indx, d);
+>     const void *vmax = vmaxget();
+>     /* Not having d->useCache really should not happen anymore. */
+>     p = translateCharUTF8(STRING_ELT(x, indx));
+>     k = 0;
+>     while (*p++)
+> 	k = 11 * k + (unsigned int) **p; /** was 8 but 11 isn't a power of 2 */
+>     vmaxset(vmax); /* discard any memory used by translateChar */
+>     return scatter(k, d);
+> }
+> 
+> static int lequal(SEXP x, R_xlen_t i, SEXP y, R_xlen_t j)
+> {
+>     if (i < 0 || j < 0) return 0;
+>     return (LOGICAL_ELT(x, i) == LOGICAL_ELT(y, j));
+> }
+> 
+> 
+> static R_INLINE int iequal(SEXP x, R_xlen_t i, SEXP y, R_xlen_t j)
+> {
+>     if (i < 0 || j < 0) return 0;
+>     return (INTEGER_ELT(x, i) == INTEGER_ELT(y, j));
+> }
+> 
+> /* BDR 2002-1-17  We don't want NA and other NaNs to be equal */
+> static R_INLINE int requal(SEXP x, R_xlen_t i, SEXP y, R_xlen_t j)
+> {
+>     if (i < 0 || j < 0) return 0;
+>     double xi = REAL_ELT(x, i);
+>     double yj = REAL_ELT(y, j);
+>     if (!ISNAN(xi) && !ISNAN(yj))
+> 	return (xi == yj);
+>     else if (R_IsNA(xi) && R_IsNA(yj)) return 1;
+>     else if (R_IsNaN(xi) && R_IsNaN(yj)) return 1;
+>     else return 0;
+> }
+> 
+> /* This is differentiating {NA,1}, {NA,0}, {NA, NaN}, {NA, NA},
+>  * but R's print() and format()  render all as "NA" */
+> static int cplx_eq(Rcomplex x, Rcomplex y)
+> {
+>     if (!ISNAN(x.r) && !ISNAN(x.i) && !ISNAN(y.r) && !ISNAN(y.i))
+> 	return x.r == y.r && x.i == y.i;
+>     else if (R_IsNA(x.r) || R_IsNA(x.i)) // x is NA
+> 	return (R_IsNA(y.r) || R_IsNA(y.i)) ? 1 : 0;
+>     else if (R_IsNA(y.r) || R_IsNA(y.i)) // y is NA but x is not
+> 	return 0;
+>     // else : none is NA but there's at least one NaN;  hence  ISNAN(.) == R_IsNaN(.)
+>     return
+> 	(((ISNAN(x.r) && ISNAN(y.r)) || (!ISNAN(x.r) && !ISNAN(y.r) && x.r == y.r)) && // Re
+> 	 ((ISNAN(x.i) && ISNAN(y.i)) || (!ISNAN(x.i) && !ISNAN(y.i) && x.i == y.i))    // Im
+> 	    ) ? 1 : 0;
+> }
+> 
+> static int cequal(SEXP x, R_xlen_t i, SEXP y, R_xlen_t j)
+> {
+>     if (i < 0 || j < 0) return 0;
+>     return cplx_eq(COMPLEX_ELT(x, i), COMPLEX_ELT(y, j));
+> }
+> 
+> static R_INLINE int sequal(SEXP x, R_xlen_t i, SEXP y, R_xlen_t j)
+> {
+>     if (i < 0 || j < 0) return 0;
+>     SEXP xi = STRING_ELT(x, i);
+>     SEXP yj = STRING_ELT(y, j);
+>     /* Two strings which have the same address must be the same,
+>        so avoid looking at the contents */
+>     if (xi == yj) return 1;
+>     /* Then if either is NA the other cannot be */
+>     /* Once all CHARSXPs are cached, Seql will handle this */
+>     if (xi == NA_STRING || yj == NA_STRING)
+> 	return 0;
+>     /* another pre-test to avoid the call to Seql */
+>     if (IS_CACHED(xi) && IS_CACHED(yj) && ENC_KNOWN(xi) == ENC_KNOWN(yj))
+> 	return 0;
+>     return Seql(xi, yj);
+> }
+> 
+> static hlen rawhash(SEXP x, R_xlen_t indx, HashData *d)
+> {
+>     return (hlen) RAW_ELT(x, indx);
+> }
+> 
+> static int rawequal(SEXP x, R_xlen_t i, SEXP y, R_xlen_t j)
+> {
+>     if (i < 0 || j < 0) return 0;
+>     return (RAW_ELT(x, i) == RAW_ELT(y…
 
 **Tim Triche** (08:42:11):
 > me personally I'd do it in C or C++
@@ -1823,7 +1850,7 @@ format: gfm
 **Tim Triche** (08:46:29):
 > [https://support.rstudio.com/hc/en-us/articles/218221837-Profiling-with-RStudio](https://support.rstudio.com/hc/en-us/articles/218221837-Profiling-with-RStudio)
   - Attachment (RStudio Support): [Profiling with RStudio](https://support.rstudio.com/hc/en-us/articles/218221837-Profiling-with-RStudio)
-    > Getting started Using the profiler Using the flame graph Using the data viewer Profiling examples Profiling time example Profiling memory example Frequently Asked Questions Additional Resou...
+> Getting started Using the profiler Using the flame graph Using the data viewer Profiling examples Profiling time example Profiling memory example Frequently Asked Questions Additional Resou...
 
 **Tim Triche** (08:47:02):
 > if not, don't bother.  or if you can use Rcppannoy for the index, or BiocNeighbors, or whatever, then let someone else deal with the hassle of that
@@ -2529,11 +2556,11 @@ format: gfm
 **Michael Love** (07:52:55):
 > i’m moving RcppHMM and DNAcopy to`Suggests`and following a paradigm i use often in other packages:[https://github.com/nullranges/nullranges/blob/main/R/segment_density.R#L38-L40](https://github.com/nullranges/nullranges/blob/main/R/segment_density.R#L38-L40)
   - Attachment: [R/segment_density.R:38-40](https://github.com/nullranges/nullranges/blob/main/R/segment_density.R#L38-L40)
-    > ```
-    >     if (!requireNamespace("DNAcopy", quietly=TRUE)) {
-    >       stop("type='cbs' requires installing the Bioconductor package 'DNAcopy'")
-    >     }
-    > ```
+> ```
+>     if (!requireNamespace("DNAcopy", quietly=TRUE)) {
+>       stop("type='cbs' requires installing the Bioconductor package 'DNAcopy'")
+>     }
+> ```
 
 **Michael Love** (07:57:58):
 > i’m just going over the imports and depends to try to reduce our dependencies
@@ -2734,10 +2761,10 @@ format: gfm
 **Michael Love** (15:58:51) (in thread):
 > [https://en.wikipedia.org/wiki/Rangeland](https://en.wikipedia.org/wiki/Rangeland)
   - Attachment: [Rangeland](https://en.wikipedia.org/wiki/Rangeland)
-    > Rangelands are grasslands, shrublands, woodlands, wetlands, and deserts that are grazed by domestic livestock or wild animals. Types of rangelands include tallgrass and shortgrass prairies, desert grasslands and shrublands, woodlands, savannas, chaparrals, steppes, and tundras. Rangelands do not include forests lacking grazable understory vegetation, barren desert, farmland, or land covered by solid rock, concrete and/or glaciers.
-    > Rangelands are distinguished from pasture lands because they grow primarily native vegetation, rather than plants established by humans. Rangelands are also managed principally with practices such as managed livestock grazing and prescribed fire rather than more intensive agricultural practices of seeding, irrigation, and the use of fertilizers.
-    > Grazing is an important use of rangelands but the term rangeland is not synonymous with grazingland. Livestock grazing can be used to manage rangelands by harvesting forage to produce livestock, changing plant composition, or reducing fuel loads.
-    > Fire is also an important regulator of range vegetation, whether set by humans or resulting from lightning. Fires tend to reduce the abundance of woody plants and promote herbaceous plants including grasses, forbs, and grass-like plants. The suppression or reduction of periodic wildfires from desert shrublands, savannas, or woodlands frequently invites the dominance of trees and shrubs to the near exclusion of grasses and forbs.
+> Rangelands are grasslands, shrublands, woodlands, wetlands, and deserts that are grazed by domestic livestock or wild animals. Types of rangelands include tallgrass and shortgrass prairies, desert grasslands and shrublands, woodlands, savannas, chaparrals, steppes, and tundras. Rangelands do not include forests lacking grazable understory vegetation, barren desert, farmland, or land covered by solid rock, concrete and/or glaciers.
+> Rangelands are distinguished from pasture lands because they grow primarily native vegetation, rather than plants established by humans. Rangelands are also managed principally with practices such as managed livestock grazing and prescribed fire rather than more intensive agricultural practices of seeding, irrigation, and the use of fertilizers.
+> Grazing is an important use of rangelands but the term rangeland is not synonymous with grazingland. Livestock grazing can be used to manage rangelands by harvesting forage to produce livestock, changing plant composition, or reducing fuel loads.
+> Fire is also an important regulator of range vegetation, whether set by humans or resulting from lightning. Fires tend to reduce the abundance of woody plants and promote herbaceous plants including grasses, forbs, and grass-like plants. The suppression or reduction of periodic wildfires from desert shrublands, savannas, or woodlands frequently invites the dominance of trees and shrubs to the near exclusion of grasses and forbs.
 
 **Mikhail Dozmorov** (15:59:22) (in thread):
 > Great analogy!
@@ -2745,203 +2772,203 @@ format: gfm
 **Eric Davis** (17:06:37):
 > I made a new branch for developing that stratified method and put the testing code in`inst/script/dev-strat_method.R`(which I will delete once incorporated into the package). The new section starts at “Develop new stratified matching method”. Here is a link[https://github.com/nullranges/nullranges/blob/dev-strat_method/inst/script/dev-strat_method.R](https://github.com/nullranges/nullranges/blob/dev-strat_method/inst/script/dev-strat_method.R)
   - Attachment: [inst/script/dev-strat_method.R](https://github.com/nullranges/nullranges/blob/dev-strat_method/inst/script/dev-strat_method.R)
-    > ```
-    > ## Load packages and data ----------------------------------------------------------------
-    > 
-    > library(nullranges)
-    > library(nullrangesData)
-    > library(hictoolsr)
-    > library(magrittr)
-    > library(GenomicRanges)
-    > library(speedglm)
-    > 
-    > 
-    > ## Load enh-prom pairs (and shorten the name)
-    > data("enhPromContactFreqHg19")
-    > epp <- enhPromContactFreqHg19
-    > 
-    > ## Load loops
-    > loops <- fread(system.file("extdata/hic/MOMA_SIP_10kbLoops_Merged.txt",
-    >                            package = 'nullrangesData')) %>% as_ginteractions()
-    > 
-    > ## Annotate looped and unlooped enh-prom pairs
-    > epp$loopedEP <- FALSE
-    > epp$loopedEP[countOverlaps(epp, loops) > 0] <- TRUE
-    > 
-    > ## Prepare data for new method -----------------------------------------------------------
-    > 
-    > ## Define sample.vec to handle vectors of varying length
-    > sample.vec <- function(x, ...) x[sample(length(x), ...)]
-    > 
-    > ## Define focal, pool and covar
-    > # focal <- mcols(epp[epp$epDistance <= 40e03])
-    > # pool  <- mcols(epp[epp$epDistance >= 40e03])
-    > # covar <- ~loopedEP
-    > # covar <- ~contactFreq
-    > # covar <- ~anchor1.peakStrength
-    > # covar <- ~loopedEP + contactFreq
-    > # covar <- ~loopedEP + contactFreq + anchor1.peakStrength
-    > 
-    > focal <- mcols(epp[epp$loopedEP == TRUE])
-    > pool  <- mcols(epp[epp$loopedEP == FALSE])
-    > # covar <- ~epDistance
-    > # covar <- ~contactFreq
-    > # covar <- ~anchor1.peakStrength
-    > # covar <- ~epDistance + contactFreq
-    > covar <- ~epDistance + contactFreq + anchor1.peakStrength
-    > 
-    > method <- 'stratified'
-    > replace <- FALSE
-    > 
-    > ## Extract covariates from formula as character vector
-    > covars <- nullranges:::parseFormula(covar)
-    > 
-    > ## Check that all covariates are in both focal and pool
-    > if (!(all(covars %in% colnames(focal)) &
-    >       all(covars %in% colnames(pool)))) {
-    >   stop("All variables in covar must be columns in both focal and pool.")
-    > }
-    > 
-    > ## Check method and replace arguments
-    > method <- match.arg(method, choices = c('nearest', 'rejection', 'stratified'))
-    > 
-    > if (isFALSE(replace) & nrow(focal) >= nrow(pool)) 
-    >   stop("focal must be <= pool when replace = FALSE.")
-    > 
-    > if (method == 'nearest' & isFALSE(replace))
-    >   stop("nearest neighbor matching without replacement not available.")
-    > 
-    > ## Create data table with covariate data
-    > covarData <- as.data.table(cbind(id = factor(c(rep(1, nrow(focal)),
-    >                                                rep(0, nrow(pool)))),
-    >                                  rbind(focal[covars], pool[covars])))
-    > 
-    > ## Assemble covariate formula
-    > f <- as.formula(paste("id ~", paste(covars, collapse = "+")))
-    > 
-    > ## Run glm model
-    > model <- speedglm(formula = f, data = covarData,
-    >                   family = binomial("logit"), fitted = TRUE, model = TRUE)
-    > 
-    > ## Get propensity scores of focal and pool groups as vectors
-    > psData <- data.table(ps = predict(model, type = "response"), id = model$model$id)
-    > fps <- psData[id == 1, ps]
-    > pps <- psData[id == 0, ps]
-    > 
-    > ## Add propensity scores to covarData
-    > covarData$ps <- psData$ps
-    > 
-    > ## Develop new stratified matching method ------------------------------------------------
-    > 
-    > ## Helper function to assign fps and pps to n bins
-    > stratify <- function(fm, pm, n) {
-    >   
-    >   ## Define breaks using fps and pps
-    >   mn <- min(c(fm$fps, pm$pps))
-    >   mx <- max(c(fm$fps, pm$pps))
-    >   br <- seq(from=mn, to=mx, by=(mx-mn)/n)
-    >   
-    >   ## Assign fps and pps to bin
-    >   fm$bin <- cut(fm$fps, breaks = br, include.lowest = TRUE)
-    >   pm$bin <- cut(pm$pps, breaks = br, include.lowest = TRUE)
-    >   
-    >   ## Assign indices to bins
-    >   fpsBins <- fm[, .(fpsN = .N, fpsIndices = list(fpsIndex)), by = bin]
-    >   ppsBins <- pm[, .(ppsN = .N, ppsIndices = list(ppsIndex)), by = bin]
-    >   
-    >   ## Define strata by joining fps and pps on bins
-    >   strata <- fpsBins[ppsBins, on = 'bin']
-    >   
-    >   return(strata)
-    >   
-    > }
-    > 
-    > ## Initialize result, fpsOptions and ppsOptions
-    > results <- data.table(bin=integer(), fpsIndex=integer(), ppsIndex=integer())
-    > fpsOptions <- data.table(fps, val = fps, fpsIndex = seq_along(fps))
-    > ppsOptions <- data.table(pps, val = pps, ppsIndex = seq_along(pps))
-    > i <- 1
-    > 
-    > while (nrow(results) != nrow(focal)) {
-    >   
-    >   ## Update n definition
-    >   n <- length(unique(fpsOptions$fps, ppsOptions$pps))
-    >   
-    >   ## Stratify ps by bins and match focal and pool
-    >   strata <- stratify(fpsOptions, ppsOptions, n)
-    >   
-    >   ## If all fpsN > ppsN, set binsize to 1
-    >   if (nrow(strata[![is.na](http://is.na)(fpsN) & fpsN <= ppsN]) == 0)
-    >     strata <- stratify(fpsOptions, ppsOptions, 1)
-    >   
-    >   ## Assign indices that can be sampled
-    >   set.seed(123)
-    >   result [is.na](-
-    >     strata[!<http://is.na)(fpsN) & fpsN <= ppsN,
-    >            .(fpsIndex = unlist(fpsIndices),
-    >              ppsIndex = sample.vec(unlist(ppsIndices), fpsN, replace = replace)),
-    >            by = bin]
-    >   
-    >   ## Append to results
-    >   results <- rbind(results, result)
-    >   
-    >   ## Remove assigned indices from options
-    >   fpsOptions <- fpsOptions[!fpsIndex %in% result$fpsIndex]
-    >   ppsOptions <- ppsOptions[!ppsIndex %in% result$ppsIndex]
-    >   
-    >   print(sprintf("iteration %s: %s %% complete, %s bin(s)", i, 
-    >                 round(nrow(results)/nrow(focal) * 100, 2), n))
-    >   i <- i + 1
-    >   # if (nrow(results) == nrow(focal)) break
-    >   
-    > }
-    > 
-    > ## Reorder by fpsIndex
-    > results <- results[order(results$fpsIndex)]
-    > 
-    > ## Assemble matched data table
-    > mdt <- data.table(fps = fps[results$fpsIndex],
-    >                   ppsIndex = results$ppsIndex,
-    >                   fpsIndex = results$fpsIndex)
-    > 
-    > ## Assemble information by group
-    > matchedData <- rbind(
-    >   covarData[id == 1, c(.SD, group = 'focal')],
-    >   covarData[id == 0][mdt$ppsIndex, c(.SD, group = 'matched')],
-    >   covarData[id == 0, c(.SD, group = 'pool')],
-    >   covarData[id == 0][!mdt$ppsIndex, c(.SD, group = 'unmatched')]
-    > )
-    > 
-    > ## Matched indicies
-    > matchedIndex <- mdt$ppsIndex
-    > 
-    > 
-    > 
-    > ## Combine information in Matched object
-    > obj <- nullranges:::Matched(matchedData = matchedData,
-    >                             matchedIndex = matchedIndex,
-    >                             covar = covars)
-    > 
-    > ## Look at results -----------------------------------------------------------------------
-    > 
-    > overview(obj)
-    > covariates(obj)
-    > 
-    > table(matchedData(obj)[group == 'focal']$loopedEP)
-    > table(matchedData(obj)[group == 'matched']$loopedEP)
-    > 
-    > plot(obj, type = 'lines')
-    > plot(obj, type = 'lines') + ggplot2::xlim(c(0, 0.02))
-    > plot(obj, type = 'lines') + ggplot2::scale_x_log10()
-    > 
-    > plotCovariates(obj, type = 'lines')
-    > plotCovariates(obj, type = 'lines', logTransform = TRUE)
-    > 
-    > plotCovariates(obj, covar = "epDistance", type = 'lines', logTransform = FALSE)
-    > plotCovariates(obj, covar = "contactFreq", type = 'lines', logTransform = TRUE)
-    > plotCovariates(obj, covar = "anchor1.peakStrength", type = 'lines', logTransform = TRUE)
-    > 
-    > ```
+> ```
+> ## Load packages and data ----------------------------------------------------------------
+> 
+> library(nullranges)
+> library(nullrangesData)
+> library(hictoolsr)
+> library(magrittr)
+> library(GenomicRanges)
+> library(speedglm)
+> 
+> 
+> ## Load enh-prom pairs (and shorten the name)
+> data("enhPromContactFreqHg19")
+> epp <- enhPromContactFreqHg19
+> 
+> ## Load loops
+> loops <- fread(system.file("extdata/hic/MOMA_SIP_10kbLoops_Merged.txt",
+>                            package = 'nullrangesData')) %>% as_ginteractions()
+> 
+> ## Annotate looped and unlooped enh-prom pairs
+> epp$loopedEP <- FALSE
+> epp$loopedEP[countOverlaps(epp, loops) > 0] <- TRUE
+> 
+> ## Prepare data for new method -----------------------------------------------------------
+> 
+> ## Define sample.vec to handle vectors of varying length
+> sample.vec <- function(x, ...) x[sample(length(x), ...)]
+> 
+> ## Define focal, pool and covar
+> # focal <- mcols(epp[epp$epDistance <= 40e03])
+> # pool  <- mcols(epp[epp$epDistance >= 40e03])
+> # covar <- ~loopedEP
+> # covar <- ~contactFreq
+> # covar <- ~anchor1.peakStrength
+> # covar <- ~loopedEP + contactFreq
+> # covar <- ~loopedEP + contactFreq + anchor1.peakStrength
+> 
+> focal <- mcols(epp[epp$loopedEP == TRUE])
+> pool  <- mcols(epp[epp$loopedEP == FALSE])
+> # covar <- ~epDistance
+> # covar <- ~contactFreq
+> # covar <- ~anchor1.peakStrength
+> # covar <- ~epDistance + contactFreq
+> covar <- ~epDistance + contactFreq + anchor1.peakStrength
+> 
+> method <- 'stratified'
+> replace <- FALSE
+> 
+> ## Extract covariates from formula as character vector
+> covars <- nullranges:::parseFormula(covar)
+> 
+> ## Check that all covariates are in both focal and pool
+> if (!(all(covars %in% colnames(focal)) &
+>       all(covars %in% colnames(pool)))) {
+>   stop("All variables in covar must be columns in both focal and pool.")
+> }
+> 
+> ## Check method and replace arguments
+> method <- match.arg(method, choices = c('nearest', 'rejection', 'stratified'))
+> 
+> if (isFALSE(replace) & nrow(focal) >= nrow(pool)) 
+>   stop("focal must be <= pool when replace = FALSE.")
+> 
+> if (method == 'nearest' & isFALSE(replace))
+>   stop("nearest neighbor matching without replacement not available.")
+> 
+> ## Create data table with covariate data
+> covarData <- as.data.table(cbind(id = factor(c(rep(1, nrow(focal)),
+>                                                rep(0, nrow(pool)))),
+>                                  rbind(focal[covars], pool[covars])))
+> 
+> ## Assemble covariate formula
+> f <- as.formula(paste("id ~", paste(covars, collapse = "+")))
+> 
+> ## Run glm model
+> model <- speedglm(formula = f, data = covarData,
+>                   family = binomial("logit"), fitted = TRUE, model = TRUE)
+> 
+> ## Get propensity scores of focal and pool groups as vectors
+> psData <- data.table(ps = predict(model, type = "response"), id = model$model$id)
+> fps <- psData[id == 1, ps]
+> pps <- psData[id == 0, ps]
+> 
+> ## Add propensity scores to covarData
+> covarData$ps <- psData$ps
+> 
+> ## Develop new stratified matching method ------------------------------------------------
+> 
+> ## Helper function to assign fps and pps to n bins
+> stratify <- function(fm, pm, n) {
+>   
+>   ## Define breaks using fps and pps
+>   mn <- min(c(fm$fps, pm$pps))
+>   mx <- max(c(fm$fps, pm$pps))
+>   br <- seq(from=mn, to=mx, by=(mx-mn)/n)
+>   
+>   ## Assign fps and pps to bin
+>   fm$bin <- cut(fm$fps, breaks = br, include.lowest = TRUE)
+>   pm$bin <- cut(pm$pps, breaks = br, include.lowest = TRUE)
+>   
+>   ## Assign indices to bins
+>   fpsBins <- fm[, .(fpsN = .N, fpsIndices = list(fpsIndex)), by = bin]
+>   ppsBins <- pm[, .(ppsN = .N, ppsIndices = list(ppsIndex)), by = bin]
+>   
+>   ## Define strata by joining fps and pps on bins
+>   strata <- fpsBins[ppsBins, on = 'bin']
+>   
+>   return(strata)
+>   
+> }
+> 
+> ## Initialize result, fpsOptions and ppsOptions
+> results <- data.table(bin=integer(), fpsIndex=integer(), ppsIndex=integer())
+> fpsOptions <- data.table(fps, val = fps, fpsIndex = seq_along(fps))
+> ppsOptions <- data.table(pps, val = pps, ppsIndex = seq_along(pps))
+> i <- 1
+> 
+> while (nrow(results) != nrow(focal)) {
+>   
+>   ## Update n definition
+>   n <- length(unique(fpsOptions$fps, ppsOptions$pps))
+>   
+>   ## Stratify ps by bins and match focal and pool
+>   strata <- stratify(fpsOptions, ppsOptions, n)
+>   
+>   ## If all fpsN > ppsN, set binsize to 1
+>   if (nrow(strata[![is.na](http://is.na)(fpsN) & fpsN <= ppsN]) == 0)
+>     strata <- stratify(fpsOptions, ppsOptions, 1)
+>   
+>   ## Assign indices that can be sampled
+>   set.seed(123)
+>   result [is.na](-
+>     strata[!<http://is.na)(fpsN) & fpsN <= ppsN,
+>            .(fpsIndex = unlist(fpsIndices),
+>              ppsIndex = sample.vec(unlist(ppsIndices), fpsN, replace = replace)),
+>            by = bin]
+>   
+>   ## Append to results
+>   results <- rbind(results, result)
+>   
+>   ## Remove assigned indices from options
+>   fpsOptions <- fpsOptions[!fpsIndex %in% result$fpsIndex]
+>   ppsOptions <- ppsOptions[!ppsIndex %in% result$ppsIndex]
+>   
+>   print(sprintf("iteration %s: %s %% complete, %s bin(s)", i, 
+>                 round(nrow(results)/nrow(focal) * 100, 2), n))
+>   i <- i + 1
+>   # if (nrow(results) == nrow(focal)) break
+>   
+> }
+> 
+> ## Reorder by fpsIndex
+> results <- results[order(results$fpsIndex)]
+> 
+> ## Assemble matched data table
+> mdt <- data.table(fps = fps[results$fpsIndex],
+>                   ppsIndex = results$ppsIndex,
+>                   fpsIndex = results$fpsIndex)
+> 
+> ## Assemble information by group
+> matchedData <- rbind(
+>   covarData[id == 1, c(.SD, group = 'focal')],
+>   covarData[id == 0][mdt$ppsIndex, c(.SD, group = 'matched')],
+>   covarData[id == 0, c(.SD, group = 'pool')],
+>   covarData[id == 0][!mdt$ppsIndex, c(.SD, group = 'unmatched')]
+> )
+> 
+> ## Matched indicies
+> matchedIndex <- mdt$ppsIndex
+> 
+> 
+> 
+> ## Combine information in Matched object
+> obj <- nullranges:::Matched(matchedData = matchedData,
+>                             matchedIndex = matchedIndex,
+>                             covar = covars)
+> 
+> ## Look at results -----------------------------------------------------------------------
+> 
+> overview(obj)
+> covariates(obj)
+> 
+> table(matchedData(obj)[group == 'focal']$loopedEP)
+> table(matchedData(obj)[group == 'matched']$loopedEP)
+> 
+> plot(obj, type = 'lines')
+> plot(obj, type = 'lines') + ggplot2::xlim(c(0, 0.02))
+> plot(obj, type = 'lines') + ggplot2::scale_x_log10()
+> 
+> plotCovariates(obj, type = 'lines')
+> plotCovariates(obj, type = 'lines', logTransform = TRUE)
+> 
+> plotCovariates(obj, covar = "epDistance", type = 'lines', logTransform = FALSE)
+> plotCovariates(obj, covar = "contactFreq", type = 'lines', logTransform = TRUE)
+> plotCovariates(obj, covar = "anchor1.peakStrength", type = 'lines', logTransform = TRUE)
+> 
+> ```
 
 **Michael Love** (17:13:24):
   - File (PNG): [Screen Shot 2021-04-28 at 5.13.13 PM.png](https://community-bioc.slack.com/files/U34P8RS3B/F02099DSJ2H/screen_shot_2021-04-28_at_5.13.13_pm.png)
@@ -2973,7 +3000,7 @@ format: gfm
 > * thanks@Eric Davisfor the BentoBox code, happy to use that instead! looks way better already
 > * Discussion on twitter with Spencer and how they select`control`regions[https://twitter.com/NystromSpencer/status/1387737327791915011](https://twitter.com/NystromSpencer/status/1387737327791915011)
   - Attachment (twitter): [Attachment](https://twitter.com/NystromSpencer/status/1387737327791915011)
-    > [@mikelove](https://twitter.com/mikelove) [@anshulkundaje](https://twitter.com/anshulkundaje) Absolutely. Both sound great. In some cases, TSS distance may be less good than % promoter. For example, most Drosophila genes are very close together and while there are long distance contacts, they're not on the same scale as mammals, in this case % promoters may be ideal.
+> [@mikelove](https://twitter.com/mikelove) [@anshulkundaje](https://twitter.com/anshulkundaje) Absolutely. Both sound great. In some cases, TSS distance may be less good than % promoter. For example, most Drosophila genes are very close together and while there are long distance contacts, they're not on the same scale as mammals, in this case % promoters may be ideal.
 
 **Eric Davis** (08:20:54) (in thread):
 > It would be interesting to test out selecting background regions w/nullranges for Spencer’s package. We could try out a variety of Mike’s suggestions. Could be a neat vignette/use case. What do others think?
@@ -3108,7 +3135,7 @@ format: gfm
 **Tim Triche** (09:42:25) (in thread):
 > this will motivate a comparison with chromVAR ([https://www.nature.com/articles/nmeth.4401#Sec3](https://www.nature.com/articles/nmeth.4401#Sec3))
   - Attachment (Nature Methods): [chromVAR: inferring transcription-factor-associated accessibility from single-cell epigenomic data](https://www.nature.com/articles/nmeth.4401#Sec3)
-    > ChromVar infers transcription-factor-associated accessibility from low-coverage or single-cell chromatin-accessibility data, thus enabling the clustering of cells and analysis of regulatory sequence motifs from sparse data sets.
+> ChromVar infers transcription-factor-associated accessibility from low-coverage or single-cell chromatin-accessibility data, thus enabling the clustering of cells and analysis of regulatory sequence motifs from sparse data sets.
 
 **Kasper D. Hansen** (09:42:43):
 > I forgot to write this, and I did not think about your bootstrapping procedure, but in our old paper JP used some tricks to get really fast bootstraps of a principal component.,
@@ -3119,7 +3146,9 @@ format: gfm
 **Tim Triche** (09:43:37):
 > especially given the way that they help to perform a multiscale "damping" trick (the "unsharp mask" approach to finding boundaries)
 
-*09:46:57 - @Lauren Harmon has joined the channel*
+**Lauren Harmon** (09:46:57):
+> @Lauren Harmon has joined the channel
+
 **Tim Triche** (10:06:23) (in thread):
 > @Ben Johnsonplease note:smile:
 
@@ -3165,7 +3194,7 @@ format: gfm
 **Michael Love** (19:39:06):
 > [https://nullranges.github.io/nullranges/](https://nullranges.github.io/nullranges/)Note: I've added Stuart, Mikhail and Tim as contributors, which also populates the`authors.html`page. Feel free to add/change your person info, ORCID,`href`tag (in`_pkgdown.yaml`) etc.[https://github.com/nullranges/nullranges/blob/main/DESCRIPTION](https://github.com/nullranges/nullranges/blob/main/DESCRIPTION)As we go forward, code develops, people join project, etc. we can move things around as needed of course. I just had to start putting down`Authors@R`as we have a website now:slightly_smiling_face:
   - Attachment (nullranges.github.io): [Generation of null ranges via bootstrapping or covariate matching](https://nullranges.github.io/nullranges/)
-    > Modular package for generation of sets of ranges representing the null hypothesis. These can take the form of bootstrap samples of ranges (using the block bootstrap framework of Bickel et al 2010), or set of control ranges that are matched across one or more covariates. nullranges is designed to be inter-operable with other packages for analysis of genomic overlap enrichment, including the plyranges Bioconductor package.
+> Modular package for generation of sets of ranges representing the null hypothesis. These can take the form of bootstrap samples of ranges (using the block bootstrap framework of Bickel et al 2010), or set of control ranges that are matched across one or more covariates. nullranges is designed to be inter-operable with other packages for analysis of genomic overlap enrichment, including the plyranges Bioconductor package.
 
 **Michael Love** (19:41:32):
 > the website is good because it helps reveal the holes and need to do more bridging across the branches of the project (this is primarily my job). while i like`functions_with_underscore()`and i think these are ok to remain like this internally, for the user facing functions of a BioC package we need to move to`bootstrapRanges()`and`segBootstrapRanges()`etc.
@@ -3530,7 +3559,9 @@ format: gfm
 **Doug Phanstiel** (07:22:44):
 > Looks great
 
-*16:45:17 - @Megha Lal has joined the channel*
+**Megha Lal** (16:45:17):
+> @Megha Lal has joined the channel
+
 **Eric Davis** (16:57:32):
 > I am working on building an example for the matchRanges vignette that uses CTCF peak calls. Does anyone have a preference between these files from AnnotationHub?
 > ```
@@ -3652,7 +3683,7 @@ format: gfm
 **Michael Love** (00:41:42) (in thread):
 > there are some interesting references here. i hadn’t seen GAT:[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3722528/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3722528/)
   - Attachment (PubMed Central (PMC)): [GAT: a simulation framework for testing the association of genomic intervals](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3722528/)
-    > Motivation: A common question in genomic analysis is whether two sets of genomic intervals overlap significantly. This question arises, for example, when interpreting ChIP-Seq or RNA-Seq data in functional terms. Because genome organization is complex, ...
+> Motivation: A common question in genomic analysis is whether two sets of genomic intervals overlap significantly. This question arises, for example, when interpreting ChIP-Seq or RNA-Seq data in functional terms. Because genome organization is complex, ...
 
 **Michael Love** (00:42:25) (in thread):
 > > GAT implements a null model that the two sets of intervals are placed independently of one another, but allows each set’s density to depend on external variables, for example, isochore structure or chromosome identity.
@@ -3661,7 +3692,7 @@ format: gfm
 **Michael Love** (00:43:17) (in thread):
 > another nice reference i hadn’t seen:[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6499241/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6499241/)
   - Attachment (PubMed Central (PMC)): [Colocalization analyses of genomic elements: approaches, recommendations and challenges](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6499241/)
-    > Many high-throughput methods produce sets of genomic regions as one of their main outputs. Scientists often use genomic colocalization analysis to interpret such region sets, for example to identify interesting enrichments and to understand the interplay ...
+> Many high-throughput methods produce sets of genomic regions as one of their main outputs. Scientists often use genomic colocalization analysis to interpret such region sets, for example to identify interesting enrichments and to understand the interplay ...
 
 **Michael Love** (05:34:12):
 > I’ve winnowed the package check WARNINGS down to the following:
@@ -4090,9 +4121,9 @@ format: gfm
 **Stuart Lee** (20:21:19) (in thread):
 > Another approach would be to use parallel coordinates <[https://en.wikipedia.org/wiki/Parallel_coordinates](https://en.wikipedia.org/wiki/Parallel_coordinates)> or even a heatmap
   - Attachment: [Parallel coordinates](https://en.wikipedia.org/wiki/Parallel_coordinates)
-    > Parallel coordinates are a common way of visualizing and analyzing high-dimensional datasets.
-    > To show a set of points in an n-dimensional space, a backdrop is drawn consisting of n parallel lines, typically vertical and equally spaced. A point in n-dimensional space is represented as a polyline with vertices on the parallel axes; the position of the vertex on the i-th axis corresponds to the i-th coordinate of the point.
-    > This visualization is closely related to time series visualization, except that it is applied to data where the axes do not correspond to points in time, and therefore do not have a natural order. Therefore, different axis arrangements may be of interest.
+> Parallel coordinates are a common way of visualizing and analyzing high-dimensional datasets.
+> To show a set of points in an n-dimensional space, a backdrop is drawn consisting of n parallel lines, typically vertical and equally spaced. A point in n-dimensional space is represented as a polyline with vertices on the parallel axes; the position of the vertex on the i-th axis corresponds to the i-th coordinate of the point.
+> This visualization is closely related to time series visualization, except that it is applied to data where the axes do not correspond to points in time, and therefore do not have a natural order. Therefore, different axis arrangements may be of interest.
 
 **Stuart Lee** (20:22:16) (in thread):
 > Would be interesting to see if there's already a literature on this
@@ -4128,7 +4159,7 @@ format: gfm
 **Eric Davis** (06:35:44) (in thread):
 > Noah wrote a package called`cobalt`for assessing covariate balance[https://cran.r-project.org/web/packages/cobalt/index.html](https://cran.r-project.org/web/packages/cobalt/index.html)
   - Attachment (cran.r-project.org): [cobalt: Covariate Balance Tables and Plots](https://cran.r-project.org/web/packages/cobalt/index.html)
-    > Generate balance tables and plots for covariates of groups preprocessed through matching, weighting or subclassification, for example, using propensity scores. Includes integration with 'MatchIt', 'twang', 'Matching', 'optmatch', 'CBPS', 'ebal', 'WeightIt', 'cem', 'sbw', and 'designmatch' for assessing balance on the output of their preprocessing functions. Users can also specify data for balance assessment not generated through the above packages. Also included are methods for assessing balance in clustered or multiply imputed data sets or data sets with longitudinal treatments.
+> Generate balance tables and plots for covariates of groups preprocessed through matching, weighting or subclassification, for example, using propensity scores. Includes integration with 'MatchIt', 'twang', 'Matching', 'optmatch', 'CBPS', 'ebal', 'WeightIt', 'cem', 'sbw', and 'designmatch' for assessing balance on the output of their preprocessing functions. Users can also specify data for balance assessment not generated through the above packages. Also included are methods for assessing balance in clustered or multiply imputed data sets or data sets with longitudinal treatments.
 
 **Michael Love** (07:51:26) (in thread):
 > could we hook into that somehow? maybe we could output a table that can be used directly into one of those tables/plots?
@@ -4163,7 +4194,7 @@ format: gfm
 **Michael Love** (16:16:15):
 > I just noticed Aaron has[http://bioconductor.org/packages/BiocNeighbors](http://bioconductor.org/packages/BiocNeighbors)for fast exact/approx nearest neighbor matching
   - Attachment (Bioconductor): [BiocNeighbors](http://bioconductor.org/packages/BiocNeighbors)
-    > Implements exact and approximate methods for nearest neighbor detection, in a framework that allows them to be easily switched within Bioconductor packages or workflows. Exact searches can be performed using the k-means for k-nearest neighbors algorithm or with vantage point trees. Approximate searches can be performed using the Annoy or HNSW libraries. Searching on either Euclidean or Manhattan distances is supported. Parallelization is achieved for all methods by using BiocParallel. Functions are also provided to search for all neighbors within a given distance.
+> Implements exact and approximate methods for nearest neighbor detection, in a framework that allows them to be easily switched within Bioconductor packages or workflows. Exact searches can be performed using the k-means for k-nearest neighbors algorithm or with vantage point trees. Approximate searches can be performed using the Annoy or HNSW libraries. Searching on either Euclidean or Manhattan distances is supported. Parallelization is achieved for all methods by using BiocParallel. Functions are also provided to search for all neighbors within a given distance.
 
 
 ## 2021-05-24
@@ -4246,7 +4277,7 @@ format: gfm
 **Mikhail Dozmorov** (13:10:33):
 > There’s createRandomRagions function in regioneR,[https://rdrr.io/bioc/regioneR/man/createRandomRegions.html](https://rdrr.io/bioc/regioneR/man/createRandomRegions.html). Doesn’t have denyRegions though.
   - Attachment (rdrr.io): [createRandomRegions: Create Random Regions in regioneR: Association analysis of genomic regions based on permutation tests](https://rdrr.io/bioc/regioneR/man/createRandomRegions.html)
-    > Creates a set of random regions with a given mean size and standard deviation.
+> Creates a set of random regions with a given mean size and standard deviation.
 
 **Michael Love** (14:01:39):
 > that + removing overlaps works
@@ -4538,9 +4569,9 @@ format: gfm
 > 4. A cohesive “Using matchRanges with GInteractions” vignette.
 > I hope to have these updates ready for next weeks meeting.
   - Attachment (nullranges.github.io): [Function for generating an example matchRanges or Matched dataset — makeExampleMatchedDataSet](https://nullranges.github.io/nullranges/reference/makeExampleMatchedDataSet.html)
-    > This function will generate an example dataset as either 1) input for matchRanges() (when matched = TRUE) or 2) a Matched Object (when matched = FALSE).
+> This function will generate an example dataset as either 1) input for matchRanges() (when matched = TRUE) or 2) a Matched Object (when matched = FALSE).
   - Attachment (nullranges.github.io): [Covariate plotting for Matched objects — plotCovariate](https://nullranges.github.io/nullranges/reference/plotCovariate.html)
-    > This function plots the distributions of a covariate from each matched set of a Matched object.
+> This function plots the distributions of a covariate from each matched set of a Matched object.
 
 **Doug Phanstiel** (10:34:35):
 > This looks great. Minor comment on colors and line types.  For`plotCovariate`with type == 'lines' it can often be hard to distinguish the matched/focal and pool/unmatched lines.  Perhaps make matched and unmatched dashed lines (on bring them to the front) so that you can more easily see when they overlap.
@@ -4658,7 +4689,7 @@ format: gfm
 **Michael Love** (01:58:57):
 > this is an option:[https://cran.r-project.org/web/packages/kdensity/index.html](https://cran.r-project.org/web/packages/kdensity/index.html)
   - Attachment (cran.r-project.org): [kdensity: Kernel Density Estimation with Parametric Starts and Asymmetric Kernels](https://cran.r-project.org/web/packages/kdensity/index.html)
-    > Handles univariate non-parametric density estimation with parametric starts and asymmetric kernels in a simple and flexible way. Kernel density estimation with parametric starts involves fitting a parametric density to the data before making a correction with kernel density estimation, see Hjort & Glad (1995) [doi:10.1214/aos/1176324627]([https://doi.org/10.1214%2Faos%2F1176324627)](https://doi.org/10.1214%2Faos%2F1176324627)). Asymmetric kernels make kernel density estimation more efficient on bounded intervals such as (0, 1) and the positive half-line. Supported asymmetric kernels are the gamma kernel of Chen (2000) [doi:10.1023/A:1004165218295]([https://doi.org/10.1023%2FA%3A1004165218295)](https://doi.org/10.1023%2FA%3A1004165218295)), the beta kernel of Chen (1999) [doi:10.1016/S0167-9473(99)00010-9]([https://doi.org/10.1016%2FS0167-9473%2899%2900010-9)](https://doi.org/10.1016%2FS0167-9473%2899%2900010-9)), and the copula kernel of Jones & Henderson (2007) [doi:10.1093/biomet/asm068]([https://doi.org/10.1093%2Fbiomet%2Fasm068)](https://doi.org/10.1093%2Fbiomet%2Fasm068)). User-supplied kernels, parametric starts, and bandwidths are supported.
+> Handles univariate non-parametric density estimation with parametric starts and asymmetric kernels in a simple and flexible way. Kernel density estimation with parametric starts involves fitting a parametric density to the data before making a correction with kernel density estimation, see Hjort & Glad (1995) [doi:10.1214/aos/1176324627]([https://doi.org/10.1214%2Faos%2F1176324627)](https://doi.org/10.1214%2Faos%2F1176324627)). Asymmetric kernels make kernel density estimation more efficient on bounded intervals such as (0, 1) and the positive half-line. Supported asymmetric kernels are the gamma kernel of Chen (2000) [doi:10.1023/A:1004165218295]([https://doi.org/10.1023%2FA%3A1004165218295)](https://doi.org/10.1023%2FA%3A1004165218295)), the beta kernel of Chen (1999) [doi:10.1016/S0167-9473(99)00010-9]([https://doi.org/10.1016%2FS0167-9473%2899%2900010-9)](https://doi.org/10.1016%2FS0167-9473%2899%2900010-9)), and the copula kernel of Jones & Henderson (2007) [doi:10.1093/biomet/asm068]([https://doi.org/10.1093%2Fbiomet%2Fasm068)](https://doi.org/10.1093%2Fbiomet%2Fasm068)). User-supplied kernels, parametric starts, and bandwidths are supported.
 
 **Stuart Lee** (02:04:56):
 > There might be options in the multivariate task view on CRAN too[https://cran.r-project.org/web/views/Multivariate.html](https://cran.r-project.org/web/views/Multivariate.html)
@@ -4832,7 +4863,9 @@ format: gfm
 **Wancen Mu** (09:39:49) (in thread):
 > I think we can also provide "ranges" plot if there is no mcols. Like all segment in one horizontal line. How do you think?
 
-*10:11:33 - @Vince Carey has joined the channel*
+**Vince Carey** (10:11:33):
+> @Vince Carey has joined the channel
+
 **Michael Love** (10:14:00) (in thread):
 > yes excactly
 
@@ -4848,12 +4881,18 @@ format: gfm
 **Wancen Mu** (10:19:44) (in thread):
 > Okay, I will add mcols to the output of segmentDensity and fix the plots:ok_hand:
 
-*11:03:06 - @Aedin Culhane has joined the channel*
+**Aedin Culhane** (11:03:06):
+> @Aedin Culhane has joined the channel
+
 
 ## 2021-06-03
 
-*12:05:49 - @Laurent Gatto has joined the channel*
-*12:06:26 - @Stephanie Hicks has joined the channel*
+**Laurent Gatto** (12:05:49):
+> @Laurent Gatto has joined the channel
+
+**Stephanie Hicks** (12:06:26):
+> @Stephanie Hicks has joined the channel
+
 
 ## 2021-06-14
 
@@ -4961,7 +5000,7 @@ format: gfm
 **Eric Davis** (08:48:53) (in thread):
 > These might need to be changed to lowercase (or change the code to document them in uppercase) and then moved in a way that git will track them correctly like this[https://stackoverflow.com/questions/17683458/how-do-i-commit-case-sensitive-only-filename-changes-in-git](https://stackoverflow.com/questions/17683458/how-do-i-commit-case-sensitive-only-filename-changes-in-git)
   - Attachment (Stack Overflow): [How do I commit case-sensitive only filename changes in Git?](https://stackoverflow.com/questions/17683458/how-do-i-commit-case-sensitive-only-filename-changes-in-git)
-    > I have changed a few files name by de-capitalize the first letter, as in Name.jpg to name.jpg. Git does not recognize this changes and I had to delete the files and upload them again. Is there a way
+> I have changed a few files name by de-capitalize the first letter, as in Name.jpg to name.jpg. Git does not recognize this changes and I had to delete the files and upload them again. Is there a way
 
 **Michael Love** (08:59:56) (in thread):
 > ah i see, yeah i’ve had issues before with capitalization of man pages
@@ -5009,7 +5048,7 @@ format: gfm
 **Mikhail Dozmorov** (08:06:53):
 > At the end of gh-pages vignette[https://nullranges.github.io/nullranges/articles/matching_ginteractions.html](https://nullranges.github.io/nullranges/articles/matching_ginteractions.html), there are warning messages and NAs, instead of means on n_sites. devtools::build_vignettes() build it correctly locally. Not sure why the gh-pages rendering fails.
   - Attachment (nullranges.github.io): [Case study II: CTCF orientation](https://nullranges.github.io/nullranges/articles/matching_ginteractions.html)
-    > nullranges
+> nullranges
 
 **Eric Davis** (08:19:21) (in thread):
 > Ah yes, I am planning to remove that section. I’ve updated the data object in nullrangesData so that n_sites is a factor instead of numeric. If you rebuild nullrangesData locally it should produce the same output as ghpages
@@ -5120,7 +5159,7 @@ format: gfm
 **Mikhail Dozmorov** (19:34:53):
 > Instructions from last year, but they don’t specify dimensions. Fairly open-ended “feel free to be creative”![https://bioc2020.bioconductor.org/instructions-for-presenters](https://bioc2020.bioconductor.org/instructions-for-presenters)
   - Attachment (bioc2020.bioconductor.org): [BioC 2020](https://bioc2020.bioconductor.org/instructions-for-presenters)
-    > Where Software and Biology Connect. July 27 - 31, Boston, USA.
+> Where Software and Biology Connect. July 27 - 31, Boston, USA.
 
 **Eric Davis** (19:38:56):
 > Thanks! I’ll go with the 16:9 format then
@@ -5193,10 +5232,10 @@ format: gfm
 **Eric Davis** (11:16:56) (in thread):
 > Thanks all! Would this be a more gentle introduction?
 > > When performing statistical analysis on a set of genomic regions with different features (e.g., region length, signal strength), it is often important to compare it to null sets that preserve these potential covariate features.
-> 
-> To address this need, the nullranges package implements matchRanges(), an efficient and convenient tool for selecting a subset of covariate-matched null hypothesis ranges from a pool of background ranges. 
-> 
-> The package provides a host of functions for assessing, visualizing, and extracting matched data that integrates seamlessly into existing Bioconductor workflows.
+> > 
+> > To address this need, the nullranges package implements matchRanges(), an efficient and convenient tool for selecting a subset of covariate-matched null hypothesis ranges from a pool of background ranges. 
+> > 
+> > The package provides a host of functions for assessing, visualizing, and extracting matched data that integrates seamlessly into existing Bioconductor workflows.
 
 **Mikhail Dozmorov** (13:05:21) (in thread):
 > Reads very clear.
@@ -5262,7 +5301,7 @@ format: gfm
 **Eric Davis** (18:44:03):
 > Posting some resources suggested by poster visitors![https://github.com/leekgroup/enrichedRanges](https://github.com/leekgroup/enrichedRanges)[https://www.biorxiv.org/content/10.1101/2020.11.11.378554v2](https://www.biorxiv.org/content/10.1101/2020.11.11.378554v2)[http://code.databio.org/GenomicDistributions/articles/intro.html](http://code.databio.org/GenomicDistributions/articles/intro.html)
   - Attachment (code.databio.org): [Getting started with GenomicDistributions](http://code.databio.org/GenomicDistributions/articles/intro.html)
-    > GenomicDistributions
+> GenomicDistributions
 
 **Michael Love** (18:55:58):
 > cool, I’d seen Bedshift and GenomicDistributions — i think we can actually integrate with the latter one in a useful way
@@ -5282,7 +5321,9 @@ format: gfm
 **Michael Love** (18:59:10):
 > hmm, maybe I can just ask@Leonardo Collado Torreshimself — Leo can you sketch out what happens in`enrichedRanges`? Is it similar conceptually to shuffleBed (uniform start positions)? Or is it block sampling?
 
-*18:59:15 - @Leonardo Collado Torres has joined the channel*
+**Leonardo Collado Torres** (18:59:15):
+> @Leonardo Collado Torres has joined the channel
+
 **Leonardo Collado Torres** (19:15:17):
 > err, I hadn’t looked inside the package since well, 2014 I think:stuck_out_tongue:
 
@@ -5295,14 +5336,16 @@ format: gfm
 **Leonardo Collado Torres** (19:17:31):
 > @Andrew Jaffewrote most if it back in the day and I put into an R package form
 
-*19:17:35 - @Andrew Jaffe has joined the channel*
+**Andrew Jaffe** (19:17:35):
+> @Andrew Jaffe has joined the channel
+
 **Leonardo Collado Torres** (19:18:50):
 > Like I told@Eric Davis, I’m looking forward to a tweet with the poster and making a little joke about the RStudio cheatsheets:wink:I really liked the poster format!! ^^
 
 **Leonardo Collado Torres** (19:20:19):
 > we did use`enrichedRanges`in a few papers, I think most notably in[https://pubmed.ncbi.nlm.nih.gov/25501035/](https://pubmed.ncbi.nlm.nih.gov/25501035/)
   - Attachment (PubMed): [Developmental regulation of human cortex transcription and its clinical relevance at single base resolution - PubMed](https://pubmed.ncbi.nlm.nih.gov/25501035/)
-    > Transcriptome analysis of human brain provides fundamental insight into development and disease, but it largely relies on existing annotation. We sequenced transcriptomes of 72 prefrontal cortex samples across six life stages and identified 50,650 differentially expression regions (DERs) associated …
+> Transcriptome analysis of human brain provides fundamental insight into development and disease, but it largely relies on existing annotation. We sequenced transcriptomes of 72 prefrontal cortex samples across six life stages and identified 50,650 differentially expression regions (DERs) associated …
 
 **Leonardo Collado Torres** (19:20:28):
 > but we never published the R package independently
@@ -5617,7 +5660,7 @@ format: gfm
 **Michael Love** (11:22:31):
 > Paper of interest for@Wancen Muand perhaps also for@Eric Davis(in terms of how to write up a methods paper that examines choice of setting up analysis and how it will affect results)[https://pubmed.ncbi.nlm.nih.gov/33259518/](https://pubmed.ncbi.nlm.nih.gov/33259518/)
   - Attachment (PubMed): [The impact of different negative training data on regulatory sequence predictions - PubMed](https://pubmed.ncbi.nlm.nih.gov/33259518/)
-    > Regulatory regions, like promoters and enhancers, cover an estimated 5-15% of the human genome. Changes to these sequences are thought to underlie much of human phenotypic variation and a substantial proportion of genetic causes of disease. However, our understanding of their functional encoding in …
+> Regulatory regions, like promoters and enhancers, cover an estimated 5-15% of the human genome. Changes to these sequences are thought to underlie much of human phenotypic variation and a substantial proportion of genetic causes of disease. However, our understanding of their functional encoding in …
 
 **Michael Love** (11:22:57):
 > > By training gkm-SVM and CNN models on open chromatin data and corresponding negative training dataset, both learners and two approaches for negative training data are compared. Negative sets use either genomic background sequences or sequence shuffles of the positive sequences. Model performance was evaluated on three different tasks: predicting elements active in a cell-type, predicting cell-type specific elements, and predicting elements’ relative activity as measured from independent experimental data. Our results indicate strong effects of the negative training data, with genomic backgrounds showing overall best results. Specifically, models trained on highly shuffled sequences perform worse on the complex tasks of tissue-specific activity and quantitative activity prediction, and seem to learn features of artificial sequences rather than regulatory activity.
@@ -5800,7 +5843,7 @@ format: gfm
 > 
 > Warning seems trivial:
 > > * checking for unstated dependencies in examples ... WARNING
-> no parsed files found
+> > no parsed files found
 
 **Michael Love** (14:04:30) (in thread):
 > [http://bioconductor.org/spb_reports/excluderanges_buildreport_20210910092916.html](http://bioconductor.org/spb_reports/excluderanges_buildreport_20210910092916.html)
@@ -6227,7 +6270,9 @@ format: gfm
 **Michael Love** (20:50:09) (in thread):
 > it's like some fraction of the total R bootstrap samples
 
-*22:35:24 - @Stephanie Hicks has left the channel*
+**Stephanie Hicks** (22:35:24):
+> @Stephanie Hicks has left the channel
+
 
 ## 2021-11-05
 
@@ -6332,7 +6377,7 @@ format: gfm
 **Michael Love** (08:28:49):
 > starting things off here -[https://nullranges.github.io/tidy-ranges-tutorial/](https://nullranges.github.io/tidy-ranges-tutorial/)
   - Attachment (nullranges.github.io): [Tidy Ranges Tutorial](https://nullranges.github.io/tidy-ranges-tutorial/)
-    > Basic examples of computing tidy operations on ranges.
+> Basic examples of computing tidy operations on ranges.
 
 **Michael Love** (08:29:09) (in thread):
 > ok, made a hello world bookdown there
@@ -6473,7 +6518,7 @@ format: gfm
 **Michael Love** (07:43:05):
 > Been playing around with some tutorial material, just posted this to twitter to see what people have to say[https://nullranges.github.io/tidy-ranges-tutorial/bootstrap-overlap.html](https://nullranges.github.io/tidy-ranges-tutorial/bootstrap-overlap.html)
   - Attachment (nullranges.github.io): [Chapter 4 Bootstrap overlap | Tidy Ranges Tutorial](https://nullranges.github.io/tidy-ranges-tutorial/bootstrap-overlap.html)
-    > Basic examples of computing operations on genomic ranges using the tidy data philosophy.
+> Basic examples of computing operations on genomic ranges using the tidy data philosophy.
 
 
 ## 2021-12-15
@@ -6581,7 +6626,7 @@ format: gfm
 **Eric Davis** (16:55:32) (in thread):
 > Code for this is in the vignette:[https://nullranges.github.io/nullranges/articles/matching_ranges.html#nearest-neighbor-matching](https://nullranges.github.io/nullranges/articles/matching_ranges.html#nearest-neighbor-matching)
   - Attachment (nullranges.github.io): [Overview of matchRanges](https://nullranges.github.io/nullranges/articles/matching_ranges.html#nearest-neighbor-matching)
-    > nullranges
+> nullranges
 
 **Michael Love** (17:07:43) (in thread):
 > I was doing nearest with replacement, then tried stratified w/o replacement (same problem), then finally back to nearest with the downsampling idea
@@ -6770,7 +6815,7 @@ format: gfm
 > > Submissions to present at Bioc2022 are now open. The deadline to submit is Wednesday March 9th, 2022. Please see[https://bioc2022.bioconductor.org/submissions/](https://bioc2022.bioconductor.org/submissions/)for more details.
 > Maybe a nullranges software demo (30-45 min)? We could combine efforts instead of splitting up like last time
   - Attachment (bioc2022.bioconductor.org): [Submissions](https://bioc2022.bioconductor.org/submissions/)
-    > Submissions
+> Submissions
 
 **Mikhail Dozmorov** (09:31:04) (in thread):
 > Presenting - certainly. Not sure what’s the difference btw splitting or combining efforts.
@@ -6781,9 +6826,9 @@ format: gfm
 **Michael Love** (09:39:52) (in thread):
 > here’s the story on that:[https://community-bioc.slack.com/archives/CC88GP2F4/p1641498104000100?thread_ts=1636549415.042200&cid=CC88GP2F4](https://community-bioc.slack.com/archives/CC88GP2F4/p1641498104000100?thread_ts=1636549415.042200&cid=CC88GP2F4)
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CC88GP2F4/p1641498104000100?thread_ts=1636549415.042200&amp;cid=CC88GP2F4)
-    > hi all, I’m looking to add the new objects to Bioc but i can’t work with the GitHub repo bc it seems to have 100Mb of data in its git history, and that doesn’t agree with the Bioc repo (which is a slim 100k)
-    > 
-    > I’m going to rename the GitHub repository to `nullrangeDataArchived` and just deprecate it
+> hi all, I’m looking to add the new objects to Bioc but i can’t work with the GitHub repo bc it seems to have 100Mb of data in its git history, and that doesn’t agree with the Bioc repo (which is a slim 100k)
+> 
+> I’m going to rename the GitHub repository to `nullrangeDataArchived` and just deprecate it
 
 **Michael Love** (09:41:13) (in thread):
 > we shouldn’t really put data objects into GH bc it makes it hard to sync with Bioc where repos are not supposed to have data objects
@@ -6808,7 +6853,9 @@ format: gfm
 
 ## 2022-01-28
 
-*11:13:52 - @Megha Lal has left the channel*
+**Megha Lal** (11:13:52):
+> @Megha Lal has left the channel
+
 
 ## 2022-02-04
 
@@ -6818,7 +6865,7 @@ format: gfm
 **Michael Love** (12:24:16) (in thread):
 > [https://nullranges.github.io/nullranges/articles/segmented_boot_ranges.html#use-with-plyranges](https://nullranges.github.io/nullranges/articles/segmented_boot_ranges.html#use-with-plyranges)
   - Attachment (nullranges.github.io): [Segmented block bootstrap](https://nullranges.github.io/nullranges/articles/segmented_boot_ranges.html#use-with-plyranges)
-    > nullranges
+> nullranges
 
 **Michael Love** (12:24:27) (in thread):
 > this is how we solved the 0 overlap case
@@ -6826,7 +6873,7 @@ format: gfm
 **Michael Love** (12:25:17) (in thread):
 > another code example here[https://nullranges.github.io/tidy-ranges-tutorial/bootstrap-overlap.html](https://nullranges.github.io/tidy-ranges-tutorial/bootstrap-overlap.html)
   - Attachment (nullranges.github.io): [Chapter 4 Bootstrap overlap | Tidy Ranges Tutorial](https://nullranges.github.io/tidy-ranges-tutorial/bootstrap-overlap.html)
-    > Basic examples of computing operations on genomic ranges using the tidy data philosophy.
+> Basic examples of computing operations on genomic ranges using the tidy data philosophy.
 
 **Wancen Mu** (12:28:20) (in thread):
 > Aha, thank u! Didn't notice the vignette has been updated!
@@ -6898,8 +6945,8 @@ format: gfm
 **Michael Love** (16:50:53):
 > @Eric Davis@Wancen Muwant to submit an abstract for nullranges? I’d be happy to help draft[https://community-bioc.slack.com/archives/CC88GP2F4/p1643029953016000](https://community-bioc.slack.com/archives/CC88GP2F4/p1643029953016000)
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CC88GP2F4/p1643029953016000)
-    > > Submissions to present at Bioc2022 are now open. The deadline to submit is Wednesday March 9th, 2022. Please see [https://bioc2022.bioconductor.org/submissions/](https://bioc2022.bioconductor.org/submissions/) for more details.
-    > Maybe a nullranges software demo (30-45 min)? We could combine efforts instead of splitting up like last time
+> > Submissions to present at Bioc2022 are now open. The deadline to submit is Wednesday March 9th, 2022. Please see [https://bioc2022.bioconductor.org/submissions/](https://bioc2022.bioconductor.org/submissions/) for more details.
+> Maybe a nullranges software demo (30-45 min)? We could combine efforts instead of splitting up like last time
 
 **Michael Love** (16:57:46):
 > just starting to draft here, please anyone feel free to edit as you like
@@ -7017,8 +7064,8 @@ format: gfm
 **Wancen Mu** (11:40:02) (in thread):
 > Eric, did you see below?
 > > - Email Erica Feick ([efeick@ds.dfci.harvard.edu](mailto:efeick@ds.dfci.harvard.edu)) no later than May 7 indicating your name, that you are a speaker, the number of your submission in OpenReview, and whether you would like to attend in-person or virtually. You will be notified on May 16th if you have an in-person ticket. Please note the registration fees for in-person attendance are 400 for faculty and staff and
-> 250 for students and postdocs. If you need travel assistance, please go to this form to apply ([https://forms.gle/YotNvDzx8qWjnQ3D7](https://forms.gle/YotNvDzx8qWjnQ3D7)). 
-> - If you are attending virtually, please register now at the following link:[https://bioc2022.eventbrite.com/](https://bioc2022.eventbrite.com/)
+> > 250 for students and postdocs. If you need travel assistance, please go to this form to apply ([https://forms.gle/YotNvDzx8qWjnQ3D7](https://forms.gle/YotNvDzx8qWjnQ3D7)). 
+> > - If you are attending virtually, please register now at the following link:[https://bioc2022.eventbrite.com/](https://bioc2022.eventbrite.com/)
 
 **Michael Love** (11:46:38) (in thread):
 > so I should pay for registration for everyone — but email Erica to mention that you are an in person speaker
@@ -7361,7 +7408,9 @@ format: gfm
 **Michael Love** (17:51:12):
   - File (PNG): [Screen Shot 2022-07-27 at 5.51.09 PM.png](https://community-bioc.slack.com/files/U34P8RS3B/F03R7EWQ0NR/screen_shot_2022-07-27_at_5.51.09_pm.png)
 
-*17:51:22 - @Sean Davis has joined the channel*
+**Sean Davis** (17:51:22):
+> @Sean Davis has joined the channel
+
 **Michael Love** (17:51:40):
 > but feel free to ask her more about it … ok Tim is now:slightly_smiling_face:
 
@@ -7375,7 +7424,7 @@ format: gfm
 **Leonardo Collado Torres** (17:53:17):
 > I was just reading the rendered HTML vignette, well, blindly running the code. I didn’t open the Rmd file:stuck_out_tongue:[https://community-bioc.slack.com/archives/CC88GP2F4/p1658958640309079](https://community-bioc.slack.com/archives/CC88GP2F4/p1658958640309079)
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CC88GP2F4/p1658958640309079)
-    > i think it’s some eval=FALSE
+> i think it’s some eval=FALSE
 
 **Michael Love** (17:54:05):
 > BTW, this last bit of code is doing some interesting stuff — she is computing correlations across pseudo-bulk cell types for enhancer ATAC and promoter RNA, based on proximity of peak to gene
@@ -7395,7 +7444,7 @@ format: gfm
 **Doug Phanstiel** (08:01:30):
 > matchRanges preprint is up![https://www.biorxiv.org/content/10.1101/2022.08.05.502985v1](https://www.biorxiv.org/content/10.1101/2022.08.05.502985v1)
   - Attachment (bioRxiv): [matchRanges: Generating null hypothesis genomic ranges via covariate-matched sampling](https://www.biorxiv.org/content/10.1101/2022.08.05.502985v1)
-    > Deriving biological insights from genomic data commonly requires comparing attributes of selected genomic loci to a null set of loci. The selection of this null set is non trivial, as it requires careful consideration of potential covariates, a problem that is exacerbated by the non-uniform distribution of genomic features including genes, enhancers, and transcription factor binding sites. Propensity score-based covariate matching methods allow selection of null sets from a pool of possible items while controlling for multiple covariates; however, existing packages do not operate on genomic data classes and can be slow for large data sets making them difficult to integrate into genomic workflows. To address this, we developed matchRanges, a propensity score-based covariate matching method for the efficient and convenient generation of matched null ranges from a set of background ranges within the Bioconductor framework. ### Competing Interest Statement The authors have declared no competing interest.
+> Deriving biological insights from genomic data commonly requires comparing attributes of selected genomic loci to a null set of loci. The selection of this null set is non trivial, as it requires careful consideration of potential covariates, a problem that is exacerbated by the non-uniform distribution of genomic features including genes, enhancers, and transcription factor binding sites. Propensity score-based covariate matching methods allow selection of null sets from a pool of possible items while controlling for multiple covariates; however, existing packages do not operate on genomic data classes and can be slow for large data sets making them difficult to integrate into genomic workflows. To address this, we developed matchRanges, a propensity score-based covariate matching method for the efficient and convenient generation of matched null ranges from a set of background ranges within the Bioconductor framework. ### Competing Interest Statement The authors have declared no competing interest.
 
 **Doug Phanstiel** (08:04:33) (in thread):
 > Two suggestions (that I should have thought of prior to submission:rolling_on_the_floor_laughing:)
@@ -7443,25 +7492,27 @@ format: gfm
 **Michael Love** (09:12:05):
 > A tweetorial for matchRanges preprint:[https://twitter.com/mikelove/status/1557334149459021826](https://twitter.com/mikelove/status/1557334149459021826)
   - Attachment (twitter): [Attachment](https://twitter.com/mikelove/status/1557334149459021826)
-    > New preprint led by [@ericscottdavis1](https://twitter.com/ericscottdavis1) of [@dphansti](https://twitter.com/dphansti) lab describing `matchRanges`, a tool for efficiently generating covariate-matched sets of genomic ranges from a pool of background ranges.
-    > 
-    > :thread: below:
-    > 
-    > [https://www.biorxiv.org/content/10.1101/2022.08.05.502985v1](https://www.biorxiv.org/content/10.1101/2022.08.05.502985v1)
-    > 
-    > Funded by [@cziscience](https://twitter.com/cziscience) #EOSS [https://pbs.twimg.com/media/FZy-N_5XgAAspHQ.jpg](https://pbs.twimg.com/media/FZy-N_5XgAAspHQ.jpg)
+> New preprint led by [@ericscottdavis1](https://twitter.com/ericscottdavis1) of [@dphansti](https://twitter.com/dphansti) lab describing `matchRanges`, a tool for efficiently generating covariate-matched sets of genomic ranges from a pool of background ranges.
+> 
+> :thread: below:
+> 
+> [https://www.biorxiv.org/content/10.1101/2022.08.05.502985v1](https://www.biorxiv.org/content/10.1101/2022.08.05.502985v1)
+> 
+> Funded by [@cziscience](https://twitter.com/cziscience) #EOSS [https://pbs.twimg.com/media/FZy-N_5XgAAspHQ.jpg](https://pbs.twimg.com/media/FZy-N_5XgAAspHQ.jpg)
 
 
 ## 2022-08-11
 
-*17:15:46 - @Rene Welch has joined the channel*
+**Rene Welch** (17:15:46):
+> @Rene Welch has joined the channel
+
 
 ## 2022-09-07
 
 **Michael Love** (08:22:02):
 > Wancen on:hiking_boot:ranges:[https://twitter.com/wancenm/status/1567486685562417153?s=46&t=upDsOKD9YHMz9nTJ-dp2Cg](https://twitter.com/wancenm/status/1567486685562417153?s=46&t=upDsOKD9YHMz9nTJ-dp2Cg)
   - Attachment (twitter): [Attachment](https://twitter.com/wancenm/status/1567486685562417153?s=46&amp;t=upDsOKD9YHMz9nTJ-dp2Cg)
-    > Announcing a new preprint! We developed `bootRanges` to generate bootstrapped genomic ranges for hypothesis testing in enrichment analysis. Bootstrap preserves typical clumping of ranges and provides reliable null set. Biggest thank you to [@mikelove](https://twitter.com/mikelove):thread:below [https://www.biorxiv.org/content/10.1101/2022.09.02.506382v1](https://www.biorxiv.org/content/10.1101/2022.09.02.506382v1)
+> Announcing a new preprint! We developed `bootRanges` to generate bootstrapped genomic ranges for hypothesis testing in enrichment analysis. Bootstrap preserves typical clumping of ranges and provides reliable null set. Biggest thank you to [@mikelove](https://twitter.com/mikelove):thread:below [https://www.biorxiv.org/content/10.1101/2022.09.02.506382v1](https://www.biorxiv.org/content/10.1101/2022.09.02.506382v1)
 
 **Michael Love** (09:49:27):
 > I’m working on fixing the class name to BootRanges, but im stuck bc DNAcopy doesn’t want to run on my Mac (rosetta install). It breaks as binary or when i install from source code… i’ll have to continue on a different machine
@@ -7499,7 +7550,7 @@ format: gfm
 **Michael Love** (14:25:02):
 > [https://community-bioc.slack.com/archives/C34NC134G/p1659017032375929?thread_ts=1628275010.047100&cid=C34NC134G](https://community-bioc.slack.com/archives/C34NC134G/p1659017032375929?thread_ts=1628275010.047100&cid=C34NC134G)
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/C34NC134G/p1659017032375929?thread_ts=1628275010.047100&amp;cid=C34NC134G)
-    > I’ve been building a workshop for BioC on my M1 mac using Rosetta and had a speed quoted for one step at 40 seconds. I was testing on the conference machines and the same version of code runs in ~2 seconds on Linux. I just reproduced this on my cluster as well.. i’m pretty surprised…
+> I’ve been building a workshop for BioC on my M1 mac using Rosetta and had a speed quoted for one step at 40 seconds. I was testing on the conference machines and the same version of code runs in ~2 seconds on Linux. I just reproduced this on my cluster as well.. i’m pretty surprised…
 
 **Kasper D. Hansen** (14:35:05):
 > In contrast to this, Brian Ripley reported that all standard tests in R executed under rosetta is faster than on Intel.
@@ -7571,9 +7622,9 @@ format: gfm
 **Michael Love** (08:28:09):
 > hi nullrangers, I’m going to run a short online tutorial session with Stefano Mangiola on tidy-in-Bioc:[https://community-bioc.slack.com/archives/CEQD45CHK/p1669123640377819](https://community-bioc.slack.com/archives/CEQD45CHK/p1669123640377819)
   - Attachment: [Attachment](https://community-bioc.slack.com/archives/CEQD45CHK/p1669123640377819)
-    > @stefano mangiola and I have been discussing doing an tidy-in-Bioc online tutorial in mid-December. Details cross-posted to birdsite and oldelephantsite
-    > • [https://twitter.com/mikelove/status/1595038783371706369](https://twitter.com/mikelove/status/1595038783371706369)
-    > • [https://genomic.social/@mikelove/109387583769396088](https://genomic.social/@mikelove/109387583769396088)
+> @stefano mangiola and I have been discussing doing an tidy-in-Bioc online tutorial in mid-December. Details cross-posted to birdsite and oldelephantsite
+> • [https://twitter.com/mikelove/status/1595038783371706369](https://twitter.com/mikelove/status/1595038783371706369)
+> • [https://genomic.social/@mikelove/109387583769396088](https://genomic.social/@mikelove/109387583769396088)
 
 
 ## 2022-11-28
@@ -7856,7 +7907,9 @@ format: gfm
 
 ## 2022-12-15
 
-*08:07:56 - @Assa has joined the channel*
+**Assa** (08:07:56):
+> @Assa has joined the channel
+
 
 ## 2022-12-19
 
@@ -7889,7 +7942,7 @@ format: gfm
 **Eric Davis** (10:34:37) (in thread):
 > Thanks for catching that Mikhail! If you want to modify/add content here is the open PR:[https://github.com/nullranges/nullranges/pull/22](https://github.com/nullranges/nullranges/pull/22)
   - Attachment: [#22 Vignette for creating a pool for matchRanges](https://github.com/nullranges/nullranges/pull/22)
-    > More detailed vignette using data from AnnotationHub to show an example of creating a pool set and performing matching & covariate balance.
+> More detailed vignette using data from AnnotationHub to show an example of creating a pool set and performing matching & covariate balance.
 
 **Eric Davis** (10:34:46) (in thread):
 > If not I can try to incorporate your suggestions
@@ -7962,7 +8015,9 @@ format: gfm
 
 ## 2023-01-21
 
-*16:03:37 - @Hien has joined the channel*
+**Hien** (16:03:37):
+> @Hien has joined the channel
+
 
 ## 2023-02-06
 
@@ -8064,12 +8119,14 @@ format: gfm
 > * this following PR depends on mariner, if i remember correctly? or it was breaking build for some reason, I can’t remember. let’s address this before pushing to Bioc[https://github.com/nullranges/nullranges/pull/24](https://github.com/nullranges/nullranges/pull/24)
 > * also the default match method issue in plotgardener --> these vignette chunks are still`eval=FALSE`
   - Attachment: [#24 matchitToMatched function](https://github.com/nullranges/nullranges/pull/24)
-    > Function to convert `matchit` objects to `Matched` objects. Combines the power of `MatchIt` with the genomics workflow benefits of `matchRanges()`.
+> Function to convert `matchit` objects to `Matched` objects. Combines the power of `MatchIt` with the genomics workflow benefits of `matchRanges()`.
 
 
 ## 2023-03-08
 
-*01:16:20 - @Unyime William has joined the channel*
+**Unyime William** (01:16:20):
+> @Unyime William has joined the channel
+
 
 ## 2023-03-14
 
@@ -8262,23 +8319,27 @@ format: gfm
 **Michael Love** (15:46:49) (in thread):
 > seems fine[https://nullranges.github.io/nullranges/](https://nullranges.github.io/nullranges/)
   - Attachment (nullranges.github.io): [Generation of null ranges via bootstrapping or covariate matching](https://nullranges.github.io/nullranges/)
-    > Modular package for generation of sets of ranges
-    >  representing the null hypothesis. These can take the form
-    >  of bootstrap samples of ranges (using the block bootstrap
-    >  framework of Bickel et al 2010), or sets of control ranges
-    >  that are matched across one or more covariates. nullranges
-    >  is designed to be inter-operable with other packages for
-    >  analysis of genomic overlap enrichment, including the
-    >  plyranges Bioconductor package.
+> Modular package for generation of sets of ranges
+>  representing the null hypothesis. These can take the form
+>  of bootstrap samples of ranges (using the block bootstrap
+>  framework of Bickel et al 2010), or sets of control ranges
+>  that are matched across one or more covariates. nullranges
+>  is designed to be inter-operable with other packages for
+>  analysis of genomic overlap enrichment, including the
+>  plyranges Bioconductor package.
 
 
 ## 2023-06-19
 
-*05:11:42 - @Pierre-Paul Axisa has joined the channel*
+**Pierre-Paul Axisa** (05:11:42):
+> @Pierre-Paul Axisa has joined the channel
+
 
 ## 2023-07-28
 
-*15:58:06 - @Benjamin Yang has joined the channel*
+**Benjamin Yang** (15:58:06):
+> @Benjamin Yang has joined the channel
+
 
 ## 2024-05-14
 

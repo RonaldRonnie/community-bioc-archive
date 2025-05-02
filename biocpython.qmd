@@ -3,34 +3,59 @@ title: "#biocpython"
 format: gfm
 ---
 
-
 ## 2023-05-05
 
-*00:19:50 - @Kozo Nishida has joined the channel*
-*00:20:55 - @Vince Carey has joined the channel*
-*00:20:55 - @Isaac Virshup has joined the channel*
-*00:20:55 - @Jayaram Kancherla has joined the channel*
-*00:21:36 - @Johannes Rainer has joined the channel*
-*00:34:37 - @Martin Morgan has joined the channel*
-*00:39:41 - @Charlotte Soneson has joined the channel*
+**Kozo Nishida** (00:19:50):
+> @Kozo Nishida has joined the channel
+
+**Vince Carey** (00:20:55):
+> @Vince Carey has joined the channel
+
+**Isaac Virshup** (00:20:55):
+> @Isaac Virshup has joined the channel
+
+**Jayaram Kancherla** (00:20:55):
+> @Jayaram Kancherla has joined the channel
+
+**Johannes Rainer** (00:21:36):
+> @Johannes Rainer has joined the channel
+
+**Martin Morgan** (00:34:37):
+> @Martin Morgan has joined the channel
+
+**Charlotte Soneson** (00:39:41):
+> @Charlotte Soneson has joined the channel
+
 **Kozo Nishida** (00:45:59):
 > First I am interested in sharing Bioconductor's data resources (== AnnotationHub, ExperimentHub) with Python.
 > Can data from *Hub already be imported into Python?
 
-*00:47:12 - @Lori Shepherd has joined the channel*
+**Lori Shepherd** (00:47:12):
+> @Lori Shepherd has joined the channel
+
 **Jayaram Kancherla** (01:34:25):
 > that is exactly why we started the BioPy effort. We have a system called ArtifactDB that stores genomic data in language agnostic formats and allows analysts to easily transition between languages. In addition, we developed[rds2py](https://github.com/BiocPy/rds2py)package, that can directly read serialized rds files in python. we might need to add translators and support more classes, but it currently demonstrates how one can read MAE's, SE and SCE's
 
-*02:53:04 - @Tuomas Borman has joined the channel*
-*05:30:30 - @Kayla Interdonato has joined the channel*
-*07:04:35 - @Stephanie Hicks has joined the channel*
+**Tuomas Borman** (02:53:04):
+> @Tuomas Borman has joined the channel
+
+**Kayla Interdonato** (05:30:30):
+> @Kayla Interdonato has joined the channel
+
+**Stephanie Hicks** (07:04:35):
+> @Stephanie Hicks has joined the channel
+
 **Isaac Virshup** (07:11:28) (in thread):
 > Depends on the data. Some is in serialized R objects, some is in text based files, some may even be custom text based files.
 > 
 > In`genomic-features`we have some code for looking through the files here:[https://github.com/scverse/genomic-features/blob/main/src/genomic_features/ensembl/ensembldb.py#L64-L112](https://github.com/scverse/genomic-features/blob/main/src/genomic_features/ensembl/ensembldb.py#L64-L112)But you can also do this from the annotationhub web interface
 
-*07:12:26 - @irem Kahveci has joined the channel*
-*08:46:54 - @Brian Schilder has joined the channel*
+**irem Kahveci** (07:12:26):
+> @irem Kahveci has joined the channel
+
+**Brian Schilder** (08:46:54):
+> @Brian Schilder has joined the channel
+
 **Brian Schilder** (09:05:01):
 > Hi everyone, excited to see lots on discussion on this. A couple of thoughts:
 > * I’m the maintainer of the[rworkflows](https://github.com/neurogenomics/rworkflows)R package + GitHub Action. I’ve thought for a while it would be great to have an equivalent of this but for python, that could install, test, document and containerise any python package through CI. The[cookiecutter-scverse](https://github.com/scverse/cookiecutter-scverse/blob/6a4338030e0c83a9034d607ed66abeff83e18840/%7B%7Bcookiecutter.project_name%7D%7D/.github/workflows/test.yaml#L30)workflow seems to be a step in the right direction, though it would be even better to see a implementation that relies on a centrally maintainer GH action (which would make it much easier to distribute fixes/upgrades to all users of that workflow). This is the strategy that rworkflows adopts, such that users of the rworkflows action only have to supply a short workflow script that calls the action with certain arguments selected.
@@ -38,13 +63,19 @@ format: gfm
 > * I’m also a huge fan of anndata, both in its python and R implementations. I’ve extended some of anndatas functionality in my other R package[scKirby](https://github.com/neurogenomics/scKirby)which aims to ingest/convert any single-cell object format, including from python to R (and vice versa).
 > Just wanted to post these here in case anyone finds them helpful. Happy to answer any questions, or if anyone has feedback on how to improve these projects.
 
-*09:37:46 - @Gregor Sturm has joined the channel*
+**Gregor Sturm** (09:37:46):
+> @Gregor Sturm has joined the channel
+
 **Gregor Sturm** (09:41:26) (in thread):
 > > though it would be even better to see a implementation that relies on a centrally maintainer GH action (which would make it much easier to distribute fixes/upgrades to all users of that workflow)
 > Note that we have a mechanism in place to automatically create pull requests to all repos using the template should an update be required.
 
-*09:51:58 - @Danila has joined the channel*
-*09:55:34 - @Frederick Tan has joined the channel*
+**Danila** (09:51:58):
+> @Danila has joined the channel
+
+**Frederick Tan** (09:55:34):
+> @Frederick Tan has joined the channel
+
 **Martin Morgan** (10:05:06) (in thread):
 > @Brian Schildera recent scverse hackathon activity tried to unite the current 'n' AnnData interfaces in R to a single one; it is probably still at the 'n + 1' stage, but still has momentum and might be worth while to make sure that scKirby's needs are being met so that scKirby does not provide an 'n + 2' (I didn't know about scKirby beforehand...) solution:wink:. The github repository is currently at[https://github.com/scverse/anndataR](https://github.com/scverse/anndataR). Contact Robrecht Cannoodt to participate more.
 
@@ -52,33 +83,51 @@ format: gfm
 > very cool, hadnt heard of this! i’ll be sure to reach out to Robrecht.
 > currently scKirby heavily relies on this[anndata](https://github.com/dynverse/anndata)R package, so it’s great to hear there’s been further development on this
 
-*13:30:15 - @Robert Shear has joined the channel*
-*14:06:42 - @Steve Lianoglou has joined the channel*
-*15:30:24 - @Mark Keller has joined the channel*
+**Robert Shear** (13:30:15):
+> @Robert Shear has joined the channel
+
+**Steve Lianoglou** (14:06:42):
+> @Steve Lianoglou has joined the channel
+
+**Mark Keller** (15:30:24):
+> @Mark Keller has joined the channel
+
 
 ## 2023-05-08
 
-*08:55:43 - @Sebastian Lobentanzer has joined the channel*
+**Sebastian Lobentanzer** (08:55:43):
+> @Sebastian Lobentanzer has joined the channel
+
 
 ## 2023-05-10
 
-*08:42:08 - @Thiago Britto-Borges has joined the channel*
+**Thiago Britto-Borges** (08:42:08):
+> @Thiago Britto-Borges has joined the channel
+
 
 ## 2023-05-11
 
-*03:28:24 - @Noriaki Sato has joined the channel*
+**Noriaki Sato** (03:28:24):
+> @Noriaki Sato has joined the channel
+
 
 ## 2023-05-12
 
-*07:35:38 - @Aljes Binkevich has joined the channel*
+**Aljes Binkevich** (07:35:38):
+> @Aljes Binkevich has joined the channel
+
 
 ## 2023-05-17
 
-*11:55:47 - @Hassan Kehinde Ajulo has joined the channel*
+**Hassan Kehinde Ajulo** (11:55:47):
+> @Hassan Kehinde Ajulo has joined the channel
+
 
 ## 2023-06-09
 
-*17:25:01 - @Aedin Culhane has joined the channel*
+**Aedin Culhane** (17:25:01):
+> @Aedin Culhane has joined the channel
+
 
 ## 2023-06-21
 
@@ -88,7 +137,7 @@ format: gfm
 **Vince Carey** (06:03:17):
 > On a recent TAB call we discussed interop via basilisk in relation to a relatively recent Config/reticulate field in DESCRIPTION as noted under "Format" at[https://rstudio.github.io/reticulate/articles/python_dependencies.html](https://rstudio.github.io/reticulate/articles/python_dependencies.html).
   - Attachment (rstudio.github.io): [Managing an R Package's Python Dependencies](https://rstudio.github.io/reticulate/articles/python_dependencies.html)
-    > reticulate
+> reticulate
 
 **Vince Carey** (06:12:31):
 > One question that arose concerned the weight of basilisk's retention of version-specific conda environments for basilisk-using packages.  I recently experimented with upgrading the version of hail used in BiocHail and noted
@@ -119,7 +168,9 @@ format: gfm
 **Jayaram Kancherla** (10:31:13):
 > `conda clean --all`is usually what i do to remove unused packages across all my conda environments. I don’t see an explicit function from reticulate to perform this but that should help clean up some of these files.
 
-*14:33:08 - @Andres Wokaty has joined the channel*
+**Andres Wokaty** (14:33:08):
+> @Andres Wokaty has joined the channel
+
 
 ## 2023-06-22
 
@@ -133,42 +184,66 @@ format: gfm
 
 ## 2023-06-29
 
-*12:51:14 - @ChiaSin has joined the channel*
+**ChiaSin** (12:51:14):
+> @ChiaSin has joined the channel
+
 
 ## 2023-06-30
 
-*13:20:26 - @Aaron Lun has joined the channel*
+**Aaron Lun** (13:20:26):
+> @Aaron Lun has joined the channel
+
 **Aaron Lun** (13:21:09):
 > basilisk has bumped its default versions of python and miniconda. Downstream authors should not be affected if they pinned their required versions of python, otherwise they may see some resolution errors.
 
 
 ## 2023-07-13
 
-*07:01:51 - @Brian Schilder has joined the channel*
+**Brian Schilder** (07:01:51):
+> @Brian Schilder has joined the channel
+
 
 ## 2023-07-24
 
-*10:59:17 - @Ludwig Geistlinger has joined the channel*
-*10:59:37 - @Davide Risso has joined the channel*
-*11:09:41 - @Pedro Sanchez has joined the channel*
-*13:10:35 - @Alan O'C has joined the channel*
-*17:31:36 - @Peter Hickey has joined the channel*
+**Ludwig Geistlinger** (10:59:17):
+> @Ludwig Geistlinger has joined the channel
+
+**Davide Risso** (10:59:37):
+> @Davide Risso has joined the channel
+
+**Pedro Sanchez** (11:09:41):
+> @Pedro Sanchez has joined the channel
+
+**Alan O'C** (13:10:35):
+> @Alan O'C has joined the channel
+
+**Peter Hickey** (17:31:36):
+> @Peter Hickey has joined the channel
+
 
 ## 2023-07-25
 
-*02:47:20 - @Luke Zappia has joined the channel*
+**Luke Zappia** (02:47:20):
+> @Luke Zappia has joined the channel
+
 
 ## 2023-07-27
 
-*19:29:02 - @Jacques SERIZAY has joined the channel*
+**Jacques SERIZAY** (19:29:02):
+> @Jacques SERIZAY has joined the channel
+
 
 ## 2023-08-02
 
-*08:20:15 - @Beth Cimini has joined the channel*
+**Beth Cimini** (08:20:15):
+> @Beth Cimini has joined the channel
+
 
 ## 2023-08-04
 
-*09:34:52 - @Trisha Timpug has joined the channel*
+**Trisha Timpug** (09:34:52):
+> @Trisha Timpug has joined the channel
+
 
 ## 2023-08-11
 
@@ -191,7 +266,9 @@ format: gfm
 
 ## 2023-08-15
 
-*05:59:21 - @Marcel Ramos Pérez has joined the channel*
+**Marcel Ramos Pérez** (05:59:21):
+> @Marcel Ramos Pérez has joined the channel
+
 **Vince Carey** (06:06:01) (in thread):
 > Thanks for the details.  Here's a situation that would be nice to avoid:  Upon`pip install biocpy`with a very informally managed python ecosystem (apparently python 3.9) on my ubuntu 20.04 laptop, I have
 > ```
@@ -226,14 +303,18 @@ format: gfm
 
 ## 2023-08-16
 
-*14:38:15 - @Alex Mahmoud has joined the channel*
+**Alex Mahmoud** (14:38:15):
+> @Alex Mahmoud has joined the channel
+
 
 ## 2023-11-01
 
 **Jayaram Kancherla** (19:17:20):
 > @Hervé PagèsI remember when I presented the biocpy work at the TAB, you mentioned about reusing the c functionality from the IRanges package. Would you be interested in making the c code its own library so we can reuse the same functionality in both R and Python? We already do this a lot for@Aaron Lun’s C++ code; especially tatami representations and the scran single cell methods.
 
-*19:17:27 - @Hervé Pagès has joined the channel*
+**Hervé Pagès** (19:17:27):
+> @Hervé Pagès has joined the channel
+
 **Aaron Lun** (19:19:33) (in thread):
 > :+1:it would be very interesting to have BioC core "officially" share its C code for re-use elsewhere
 
@@ -269,7 +350,9 @@ format: gfm
 
 ## 2023-11-06
 
-*02:36:05 - @Michael Stadler has joined the channel*
+**Michael Stadler** (02:36:05):
+> @Michael Stadler has joined the channel
+
 **Michael Stadler** (02:44:40):
 > @Aaron LunGood idea! I have tried to move the`library()`call from 206 before the`.activate_condaenv`on 202, but I get the same error:
 > ```
@@ -352,9 +435,9 @@ format: gfm
 **Michael Stadler** (07:19:12):
 > We have created a PR for`basilisk`[here](https://github.com/LTLA/basilisk/pull/30)that implements@Martin Morgan’s suggestion. When testing locally, this seems to work.
   - Attachment: [#30 load reticulate on fallback earlier and w/o env](https://github.com/LTLA/basilisk/pull/30)
-    > This is related to the bioc slack discussion starting with [https://community-bioc.slack.com/archives/C056CEJTH5Z/p1698998329036819](https://community-bioc.slack.com/archives/C056CEJTH5Z/p1698998329036819) from [@csoneson](https://github.com/csoneson)
-    > 
-    > By loading `reticulate` on the fallback process earlier and using a function defined in `.GlobalEnv`, the fallback R process does not inherit the parent's `reticulate` namespace anymore, which otherwise leads to an error in Bioconductor 3.18 and onwards.
+> This is related to the bioc slack discussion starting with [https://community-bioc.slack.com/archives/C056CEJTH5Z/p1698998329036819](https://community-bioc.slack.com/archives/C056CEJTH5Z/p1698998329036819) from [@csoneson](https://github.com/csoneson)
+> 
+> By loading `reticulate` on the fallback process earlier and using a function defined in `.GlobalEnv`, the fallback R process does not inherit the parent's `reticulate` namespace anymore, which otherwise leads to an error in Bioconductor 3.18 and onwards.
 
 **Vince Carey** (14:18:00):
 > question: is there anything analogous to sessionInfo in python?
@@ -379,7 +462,7 @@ format: gfm
 **Charlotte Soneson** (14:27:55) (in thread):
 > Maybe[https://pypi.org/project/sinfo/](https://pypi.org/project/sinfo/)?
   - Attachment (PyPI): [sinfo](https://pypi.org/project/sinfo/)
-    > sinfo outputs version information for modules loaded in the current session, Python, and the OS.
+> sinfo outputs version information for modules loaded in the current session, Python, and the OS.
 
 
 ## 2023-11-08
@@ -801,7 +884,7 @@ format: gfm
 **Alex Mahmoud** (15:17:40) (in thread):
 > Rocker comment implies it's needed for[https://cran.r-project.org/web/packages/redland/index.html](https://cran.r-project.org/web/packages/redland/index.html)not sure if we care for it nor do I know if there is another package for which it was added to the list. Beyond fixing this specific issue though, it does raise an interesting question about conflicting dependencies especially for bioc2u where everything is done through apt
   - Attachment (cran.r-project.org): [redland: RDF Library Bindings in R](https://cran.r-project.org/web/packages/redland/index.html)
-    > Provides methods to parse, query and serialize information stored in the Resource Description Framework (RDF). RDF is described at [https://www.w3.org/TR/rdf-primer/]([https://www.w3.org/TR/rdf-primer/)](https://www.w3.org/TR/rdf-primer/)). This package supports RDF by implementing an R interface to the Redland RDF C library, described at [https://librdf.org/docs/api/index.html]([https://librdf.org/docs/api/index.html)](https://librdf.org/docs/api/index.html)). In brief, RDF provides a structured graph consisting of Statements composed of Subject, Predicate, and Object Nodes.
+> Provides methods to parse, query and serialize information stored in the Resource Description Framework (RDF). RDF is described at [https://www.w3.org/TR/rdf-primer/]([https://www.w3.org/TR/rdf-primer/)](https://www.w3.org/TR/rdf-primer/)). This package supports RDF by implementing an R interface to the Redland RDF C library, described at [https://librdf.org/docs/api/index.html]([https://librdf.org/docs/api/index.html)](https://librdf.org/docs/api/index.html)). In brief, RDF provides a structured graph consisting of Statements composed of Subject, Predicate, and Object Nodes.
 
 **Hervé Pagès** (15:29:12) (in thread):
 > Well, my understanding is that**in theory**`libcurl4-gnutls-dev`and`libcurl4-openssl-dev`should be interchangeable. So maybe the only problem we're having here is that the latest update to`libcurl4-gnutls-dev`(from Oct 3) introduced the suspicious symlinks in`/lib/x86_64-linux-gnu/`that seem to break things (see my comment above from yesterday about this). I'm going to check with the maintainer of`libcurl4-gnutls-dev`about those symlinks.
@@ -851,11 +934,15 @@ format: gfm
 
 ## 2023-12-29
 
-*10:00:27 - @Manvi Yaduvanshi has joined the channel*
+**Manvi Yaduvanshi** (10:00:27):
+> @Manvi Yaduvanshi has joined the channel
+
 
 ## 2024-01-10
 
-*15:04:01 - @Bernie Mulvey has joined the channel*
+**Bernie Mulvey** (15:04:01):
+> @Bernie Mulvey has joined the channel
+
 **Stephanie Hicks** (15:07:34):
 > hi@Bernie Mulvey-- I wanted to connect / introduce you to the wonderful@Luke Zappiawho is the lead developer of zellkonverter.
 
@@ -912,164 +999,164 @@ format: gfm
 > 
 > I completely wiped Anaconda and R and am reinstalling R, all of my packages, then Rstudio, then anaconda, so we’ll see what happens then..[https://github.com/theislab/zellkonverter/issues/108](https://github.com/theislab/zellkonverter/issues/108)
   - Attachment: [#108 Segfaults with CRAN R, BioC 3.18, and fresh Anaconda Install](https://github.com/theislab/zellkonverter/issues/108)
-    > Hi,
-    > 
-    > After several months of not utilizing the zellkonverter package for no particular reason, I came back to some code I had previously used and began encountering segfaults on my personal computer. The datasets I was trying to load were moderately large (though well within the 32GB RAM + 500GB swap allocated to my R session).
-    > 
-    > I have already tried the following things, most comprehensively in this order:  
-    > •Run basilisk.utils::clearExternalDir()  
-    > •remove.packages(c("basilisk","reticulate","zellkonverter")  
-    > •reinstalling baslisk, reticulate, zellkonverter individually, with or without type set to "source"  
-    > •reinstalling only zellkonverter and letting the installer handle the reticulate/basilisk dependencies  
-    > •remove ~/anaconda3 , ~/.anaconda , ~/.conda , ~/.miniconda , ~/mambaforge directories and reinstall Anaconda for Mac, followed by both tries at R package reinstallations above  
-    > •manually initializing a basilisk environment before running zellkonverter for the "first" time using basilisk::setupBasiliskEnv()  
-    > •removing opt/homebrew/bin from $PATH entirely to prevent conflicts with brew's python  
-    > •placing opt/homebrew/bin at the very end of $PATH to include homebrew but guarantee other python binaries supercede homebrew
-    > 
-    > Regardless, I get this segfault at most or a total crash of R and RStudio (I can get the segfault messages reliably running R from a command line window):
-    > 
-    > Minimal example:
-    > 
-    > ```
-    > library(zellkonverter)
-    > example(SCE2AnnData)
-    > ```
-    > 
-    > Example output (after package loading messages, etc):
-    > 
-    > ```
-    > ***** caught segfault *****
-    > address 0x40, cause 'invalid permissions'
-    >  ***** caught segfault *****
-    >  ***** caught segfault *****
-    > address 0x18, cause 'invalid permissions'
-    >  ***** caught segfault *****
-    > address 0x30, cause 'invalid permissions'
-    >  ***** caught segfault *****
-    > address 0x0, cause 'invalid permissions'
-    >  ***** caught segfault *****
-    > address 0x48, cause 'invalid permissions'
-    > Error in match(attrnames, specials) : 
-    >  2 arguments passed to .Internal(match) which requires 4
-    >  ***** caught segfault *****
-    > address 0x58, cause 'invalid permissions'
-    >  ***** caught segfault *****
-    >  ***** caught segfault *****
-    > address 0x50, cause 'invalid permissions'
-    > address 0x10, cause 'invalid permissions'
-    > address 0x28, cause 'invalid permissions'
-    >  ***** caught segfault *****
-    > Error: no more error handlers available (recursive errors?); invoking 'abort' restart
-    > Error: no more error handlers available (recursive errors?); invoking 'abort' restart
-    >  ***** caught segfault *****
-    > Error: no more error handlers available (recursive errors?); invoking 'abort' restart
-    > Error: no more error handlers available (recursive errors?); invoking 'abort' restart
-    > address 0x38, cause 'invalid permissions'
-    > address 0x8, cause 'invalid permissions'
-    > Traceback:
-    >  1: Error: no more error handlers available (recursive errors?); invoking 'abort' restart
-    > Traceback:
-    > Traceback:
-    >  1: structure(list(message = as.character(message), call = call),   class = class)
-    >  2: simpleError(msg, call)
-    >  3: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-    >  4: tryCatchList(expr, classes, parentenv, handlers)
-    >  5: tryCatch({  oldpythonpath <- Sys.getenv("PYTHONPATH")  newpythonpath <- Sys.getenv("RETICULATE_PYTHONPATH", unset = paste(config$pythonpath,     system.file("python", package = "reticulate"), sep = .Platform$path.sep))  local({
-    >  ***** caught segfault *****
-    >  1: example(SCE2AnnData)
-    > Possible actions:
-    > 1: abort (with core dump, if enabled)
-    > 2: normal R exit
-    > 3: exit R without saving workspace
-    > 4: exit R saving workspace
-    >     Sys.setenv(PYTHONPATH = newpythonpath)structure(list(message = as.character(message), call = call),   class = class)
-    >  2: simpleError(msg, call)
-    >  3: pairlist(NULL, NULL, NULL)
-    >  4: tryCatchList(expr, classes, parentenv, handlers)
-    >  5: tryCatch({  oldpythonpath <- Sys.getenv("PYTHONPATH")  newpythonpath <- Sys.getenv("RETICULATE_PYTHONPATH", unset = paste(config$pythonpath,     system.file("python", package = "reticulate"), sep = .Platform$path.sep))  local({    Sys.setenv(PYTHONPATH = newpythonpath)    on.exit(Sys.setenv(PYTHONPATH = oldpythonpath), add = TRUE)    py_initialize(config$python, config$libpython, config$pythonhome, address 0x20, cause 'invalid permissions'
-    >     on.exit(Sys.setenv(PYTHONPATH = oldpythonpath), add = TRUE)      config$virtualenv_activate, config$version >= "3.0", 
-    > Traceback:
-    >  1: example(SCE2AnnData)
-    > Possible actions:
-    > 1: abort (with core dump, if enabled)
-    > 2: normal R exit
-    > 3: exit R without saving workspace
-    > 4: exit R saving workspace
-    > Traceback:
-    >       interactive(), numpy_load_error)  })Selection:  1:     py_initialize(config$python, config$libpython, config$pythonhome,       config$virtualenv_activate, config$version >= "3.0",       interactive(), numpy_load_error)example(SCE2AnnData)
-    > Selection: 
-    > Possible actions:
-    > 1: abort (with core dump, if enabled)
-    > 2: normal R exit
-    > 3: exit R without saving workspace
-    > 4: exit R saving workspace
-    > Selection:   })}, error = function(e) {  Sys.setenv(PATH = oldpath)  if ([[is.na](http://is.na)]([http://is.na/](http://is.na/))(curr_session_env)) {    Sys.unsetenv("R_SESSION_INITIALIZED")  }  else {    Sys.setenv(R_SESSION_INITIALIZED = curr_session_env)  }  stop(e)})
-    >  6: initialize_python()
-    > }, error = function(e) {  Sys.setenv(PATH = oldpath)  if ([[is.na](http://is.na)]([http://is.na/](http://is.na/))(curr_session_env)) {    Sys.unsetenv("R_SESSION_INITIALIZED")  }  else {    Sys.setenv(R_SESSION_INITIALIZED = curr_session_env)  }  stop(e)})
-    >  6: initialize_python()
-    >  7: ensure_python_initialized()
-    >  8: py_config()
-    >  9: useBasiliskEnv("python", package = "reticulate")
-    > 10: basiliskStart(env, full.activation = full.activation, fork = fork,   shared = shared, testload = testload)
-    > 11: basiliskRun(fun = function(sce) {  adata <- zellkonverter::SCE2AnnData(sce)  zellkonverter::AnnData2SCE(adata)}, env = zellkonverterAnnDataEnv(), sce = seger)
-    > 12: eval(ei, envir)
-    > 13: eval(ei, envir)
-    > 14: withVisible(eval(ei, envir))
-    > 15: source(tf, local, echo = echo, prompt.echo = paste0(prompt.prefix,   getOption("prompt")), continue.echo = paste0(prompt.prefix,   getOption("continue")), verbose = verbose, max.deparse.length = Inf,   encoding = "UTF-8", skip.echo = skips, keep.source = TRUE)
-    > 16: example(SCE2AnnData)
-    > Possible actions:
-    > 1: abort (with core dump, if enabled)
-    > 2: normal R exit
-    > 3: exit R without saving workspace
-    > 4: exit R saving workspace
-    > Selection:  7: ensure_python_initialized()
-    >  8: py_config()
-    >  9: useBasiliskEnv(envpath, full.activation)
-    > 10: basiliskStart(env, full.activation = full.activation, fork = fork,   shared = shared, testload = testload)
-    > 11: basiliskRun(fun = function(sce) {  adata <- zellkonverter::SCE2AnnData(sce)  zellkonverter::AnnData2SCE(adata)}, env = zellkonverterAnnDataEnv(), sce = seger)
-    > 12: eval(ei, envir)
-    > 13: eval(ei, envir)
-    > 14: withVisible(eval(ei, envir))
-    > 15: source(tf, local, echo = echo, prompt.echo = paste0(prompt.prefix,   getOption("prompt")), continue.echo = paste0(prompt.prefix,   getOption("continue")), verbose = verbose, max.deparse.length = Inf,   encoding = "UTF-8", skip.echo = skips, keep.source = TRUE)
-    > 16: example(SCE2AnnData)
-    > ```
-    > 
-    > Then, bizarrely at this point, I get several errors before/while I try and choose a “possible action” before I can actually send a response:
-    > 
-    > ```
-    > Possible actions:
-    > 1: abort (with core dump, if enabled)
-    > 2: normal R exit
-    > 3: exit R without saving workspace
-    > 4: exit R saving workspace
-    > Selection: 
-    >  ***** caught bus error *****
-    > address 0x411000006, cause 'invalid alignment'
-    > Traceback:
-    >  1: example(SCE2AnnData)
-    > Possible actions:
-    > 1: abort (with core dump, if enabled)
-    > 2: normal R exit
-    > 3: exit R without saving workspace
-    > 4: exit R saving workspace
-    > Selection: 
-    >  ***** caught bus error *****
-    > address 0x156031808, cause 'invalid alignment'
-    > Traceback:
-    >  1: example(SCE2AnnData)
-    > Possible actions:
-    > 1: abort (with core dump, if enabled)
-    > 2: normal R exit
-    > 3: exit R without saving workspace
-    > 4: exit R saving workspace
-    > Selection: 
-    >  ***** caught bus error *****
-    > address 0xfffffe67ae584000, cause 'invalid alignment'
-    > Traceback:
-    >  1: example(SCE2AnnData)
-    > Possible actions:
-    > 1: abort (with core dump, if enabled)
-    > 2: normal R …
+> Hi,
+> 
+> After several months of not utilizing the zellkonverter package for no particular reason, I came back to some code I had previously used and began encountering segfaults on my personal computer. The datasets I was trying to load were moderately large (though well within the 32GB RAM + 500GB swap allocated to my R session).
+> 
+> I have already tried the following things, most comprehensively in this order:  
+> •Run basilisk.utils::clearExternalDir()  
+> •remove.packages(c("basilisk","reticulate","zellkonverter")  
+> •reinstalling baslisk, reticulate, zellkonverter individually, with or without type set to "source"  
+> •reinstalling only zellkonverter and letting the installer handle the reticulate/basilisk dependencies  
+> •remove ~/anaconda3 , ~/.anaconda , ~/.conda , ~/.miniconda , ~/mambaforge directories and reinstall Anaconda for Mac, followed by both tries at R package reinstallations above  
+> •manually initializing a basilisk environment before running zellkonverter for the "first" time using basilisk::setupBasiliskEnv()  
+> •removing opt/homebrew/bin from $PATH entirely to prevent conflicts with brew's python  
+> •placing opt/homebrew/bin at the very end of $PATH to include homebrew but guarantee other python binaries supercede homebrew
+> 
+> Regardless, I get this segfault at most or a total crash of R and RStudio (I can get the segfault messages reliably running R from a command line window):
+> 
+> Minimal example:
+> 
+> ```
+> library(zellkonverter)
+> example(SCE2AnnData)
+> ```
+> 
+> Example output (after package loading messages, etc):
+> 
+> ```
+> ***** caught segfault *****
+> address 0x40, cause 'invalid permissions'
+>  ***** caught segfault *****
+>  ***** caught segfault *****
+> address 0x18, cause 'invalid permissions'
+>  ***** caught segfault *****
+> address 0x30, cause 'invalid permissions'
+>  ***** caught segfault *****
+> address 0x0, cause 'invalid permissions'
+>  ***** caught segfault *****
+> address 0x48, cause 'invalid permissions'
+> Error in match(attrnames, specials) : 
+>  2 arguments passed to .Internal(match) which requires 4
+>  ***** caught segfault *****
+> address 0x58, cause 'invalid permissions'
+>  ***** caught segfault *****
+>  ***** caught segfault *****
+> address 0x50, cause 'invalid permissions'
+> address 0x10, cause 'invalid permissions'
+> address 0x28, cause 'invalid permissions'
+>  ***** caught segfault *****
+> Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+> Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+>  ***** caught segfault *****
+> Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+> Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+> address 0x38, cause 'invalid permissions'
+> address 0x8, cause 'invalid permissions'
+> Traceback:
+>  1: Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+> Traceback:
+> Traceback:
+>  1: structure(list(message = as.character(message), call = call),   class = class)
+>  2: simpleError(msg, call)
+>  3: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+>  4: tryCatchList(expr, classes, parentenv, handlers)
+>  5: tryCatch({  oldpythonpath <- Sys.getenv("PYTHONPATH")  newpythonpath <- Sys.getenv("RETICULATE_PYTHONPATH", unset = paste(config$pythonpath,     system.file("python", package = "reticulate"), sep = .Platform$path.sep))  local({
+>  ***** caught segfault *****
+>  1: example(SCE2AnnData)
+> Possible actions:
+> 1: abort (with core dump, if enabled)
+> 2: normal R exit
+> 3: exit R without saving workspace
+> 4: exit R saving workspace
+>     Sys.setenv(PYTHONPATH = newpythonpath)structure(list(message = as.character(message), call = call),   class = class)
+>  2: simpleError(msg, call)
+>  3: pairlist(NULL, NULL, NULL)
+>  4: tryCatchList(expr, classes, parentenv, handlers)
+>  5: tryCatch({  oldpythonpath <- Sys.getenv("PYTHONPATH")  newpythonpath <- Sys.getenv("RETICULATE_PYTHONPATH", unset = paste(config$pythonpath,     system.file("python", package = "reticulate"), sep = .Platform$path.sep))  local({    Sys.setenv(PYTHONPATH = newpythonpath)    on.exit(Sys.setenv(PYTHONPATH = oldpythonpath), add = TRUE)    py_initialize(config$python, config$libpython, config$pythonhome, address 0x20, cause 'invalid permissions'
+>     on.exit(Sys.setenv(PYTHONPATH = oldpythonpath), add = TRUE)      config$virtualenv_activate, config$version >= "3.0", 
+> Traceback:
+>  1: example(SCE2AnnData)
+> Possible actions:
+> 1: abort (with core dump, if enabled)
+> 2: normal R exit
+> 3: exit R without saving workspace
+> 4: exit R saving workspace
+> Traceback:
+>       interactive(), numpy_load_error)  })Selection:  1:     py_initialize(config$python, config$libpython, config$pythonhome,       config$virtualenv_activate, config$version >= "3.0",       interactive(), numpy_load_error)example(SCE2AnnData)
+> Selection: 
+> Possible actions:
+> 1: abort (with core dump, if enabled)
+> 2: normal R exit
+> 3: exit R without saving workspace
+> 4: exit R saving workspace
+> Selection:   })}, error = function(e) {  Sys.setenv(PATH = oldpath)  if ([[is.na](http://is.na)]([http://is.na/](http://is.na/))(curr_session_env)) {    Sys.unsetenv("R_SESSION_INITIALIZED")  }  else {    Sys.setenv(R_SESSION_INITIALIZED = curr_session_env)  }  stop(e)})
+>  6: initialize_python()
+> }, error = function(e) {  Sys.setenv(PATH = oldpath)  if ([[is.na](http://is.na)]([http://is.na/](http://is.na/))(curr_session_env)) {    Sys.unsetenv("R_SESSION_INITIALIZED")  }  else {    Sys.setenv(R_SESSION_INITIALIZED = curr_session_env)  }  stop(e)})
+>  6: initialize_python()
+>  7: ensure_python_initialized()
+>  8: py_config()
+>  9: useBasiliskEnv("python", package = "reticulate")
+> 10: basiliskStart(env, full.activation = full.activation, fork = fork,   shared = shared, testload = testload)
+> 11: basiliskRun(fun = function(sce) {  adata <- zellkonverter::SCE2AnnData(sce)  zellkonverter::AnnData2SCE(adata)}, env = zellkonverterAnnDataEnv(), sce = seger)
+> 12: eval(ei, envir)
+> 13: eval(ei, envir)
+> 14: withVisible(eval(ei, envir))
+> 15: source(tf, local, echo = echo, prompt.echo = paste0(prompt.prefix,   getOption("prompt")), continue.echo = paste0(prompt.prefix,   getOption("continue")), verbose = verbose, max.deparse.length = Inf,   encoding = "UTF-8", skip.echo = skips, keep.source = TRUE)
+> 16: example(SCE2AnnData)
+> Possible actions:
+> 1: abort (with core dump, if enabled)
+> 2: normal R exit
+> 3: exit R without saving workspace
+> 4: exit R saving workspace
+> Selection:  7: ensure_python_initialized()
+>  8: py_config()
+>  9: useBasiliskEnv(envpath, full.activation)
+> 10: basiliskStart(env, full.activation = full.activation, fork = fork,   shared = shared, testload = testload)
+> 11: basiliskRun(fun = function(sce) {  adata <- zellkonverter::SCE2AnnData(sce)  zellkonverter::AnnData2SCE(adata)}, env = zellkonverterAnnDataEnv(), sce = seger)
+> 12: eval(ei, envir)
+> 13: eval(ei, envir)
+> 14: withVisible(eval(ei, envir))
+> 15: source(tf, local, echo = echo, prompt.echo = paste0(prompt.prefix,   getOption("prompt")), continue.echo = paste0(prompt.prefix,   getOption("continue")), verbose = verbose, max.deparse.length = Inf,   encoding = "UTF-8", skip.echo = skips, keep.source = TRUE)
+> 16: example(SCE2AnnData)
+> ```
+> 
+> Then, bizarrely at this point, I get several errors before/while I try and choose a “possible action” before I can actually send a response:
+> 
+> ```
+> Possible actions:
+> 1: abort (with core dump, if enabled)
+> 2: normal R exit
+> 3: exit R without saving workspace
+> 4: exit R saving workspace
+> Selection: 
+>  ***** caught bus error *****
+> address 0x411000006, cause 'invalid alignment'
+> Traceback:
+>  1: example(SCE2AnnData)
+> Possible actions:
+> 1: abort (with core dump, if enabled)
+> 2: normal R exit
+> 3: exit R without saving workspace
+> 4: exit R saving workspace
+> Selection: 
+>  ***** caught bus error *****
+> address 0x156031808, cause 'invalid alignment'
+> Traceback:
+>  1: example(SCE2AnnData)
+> Possible actions:
+> 1: abort (with core dump, if enabled)
+> 2: normal R exit
+> 3: exit R without saving workspace
+> 4: exit R saving workspace
+> Selection: 
+>  ***** caught bus error *****
+> address 0xfffffe67ae584000, cause 'invalid alignment'
+> Traceback:
+>  1: example(SCE2AnnData)
+> Possible actions:
+> 1: abort (with core dump, if enabled)
+> 2: normal R …
 
 **Bernie Mulvey** (14:57:16) (in thread):
 > @Luke Zappia@Vince CareyI somehow managed to resolve this — and I don’t think completely reinstalling R and Rstudio and all my packages was ultimately necessary to do it. Posted my solution on the git issue — and am completely mystified as to how the approach I took finally resolved the problem.
@@ -1305,10 +1392,10 @@ format: gfm
 **Alan O'C** (13:00:18) (in thread):
 > Means dropping support for Windows, no? Aaron previously updated and it broke every dependency on that platform[https://github.com/LTLA/basilisk/issues/24](https://github.com/LTLA/basilisk/issues/24)
   - Attachment: [#24 Error in installConda() : conda installation failed with status code '2'](https://github.com/LTLA/basilisk/issues/24)
-    > Hello, thank you very much for developing this software. I encountered the following error while running writeH5AD locally. How can I correct it?
-    > 
-    > > writeH5AD(sce, file = 'D:/filtered_featured_bc_matrix.h5ad')  
-    > > Error in installConda() : conda installation failed with status code '2'
+> Hello, thank you very much for developing this software. I encountered the following error while running writeH5AD locally. How can I correct it?
+> 
+> > writeH5AD(sce, file = 'D:/filtered_featured_bc_matrix.h5ad')  
+> > Error in installConda() : conda installation failed with status code '2'
 
 
 ## 2024-01-19
@@ -1330,37 +1417,37 @@ format: gfm
 **Vince Carey** (06:36:33) (in thread):
 > Is it worth revisiting[https://conda.io/projects/conda/en/latest/user-guide/install/windows.html#installing-in-silent-mode](https://conda.io/projects/conda/en/latest/user-guide/install/windows.html#installing-in-silent-mode)?  I see some negative findings in the issues at[https://github.com/conda/conda/issues/10611](https://github.com/conda/conda/issues/10611)but some time has passed ...
   - Attachment: [#10611 Miniconda installation fails](https://github.com/conda/conda/issues/10611)
-    > **Current Behavior**
-    > 
-    > In our company, we have a "software kiosk" for installing Miniconda silently on Windows 10 machines. For some people it does not work. As there are no installation logs, the software delivery team started to make some analysis of its own. What is observed that for the people for whom the installation does not work, the installer is blocked from forking subprocesses.  
-    > Is this a known issue? Of course, we do not know if Windows is blocking or if it is something with the installer, if some can instruct on how I can provide more information, I would definitively like to do so. I also tried to ask here: [https://stackoverflow.com/questions/66744993/miniconda-only-installs-partially-how-can-i-find-the-error](https://stackoverflow.com/questions/66744993/miniconda-only-installs-partially-how-can-i-find-the-error), but unfortunately there has not be an answer that could resolve the issue.
-    > 
-    > **Steps to Reproduce**
-    > 
-    > ```
-    > C:\WINDOWS\ccmcache\32\Files\Miniconda3-py39_4.9.2-Windows-x86_64.exe /InstallationType=AllUsers /AddToPath=1 /RegisterPython=1 /S /D=C:\Company\Miniconda
-    > ```
-    > 
-    > **Expected Behavior**
-    > 
-    > The installer should be able to install Miniconda.
-    > 
-    > **Environment Information**
-    > `` `conda info` ``
-    > 
-    > ```
-    > Not Applicable (i.e. does not work, as conda does not get installed)
-    > ```
-    > `` `conda config --show-sources` ``
-    > 
-    > ```
-    > Not Applicable (i.e. does not work, as conda does not get installed)
-    > ```
-    > `` `conda list --show-channel-urls` ``
-    > 
-    > ```
-    > Not Applicable (i.e. does not work, as conda does not get installed)
-    > ```
+> **Current Behavior**
+> 
+> In our company, we have a "software kiosk" for installing Miniconda silently on Windows 10 machines. For some people it does not work. As there are no installation logs, the software delivery team started to make some analysis of its own. What is observed that for the people for whom the installation does not work, the installer is blocked from forking subprocesses.  
+> Is this a known issue? Of course, we do not know if Windows is blocking or if it is something with the installer, if some can instruct on how I can provide more information, I would definitively like to do so. I also tried to ask here: [https://stackoverflow.com/questions/66744993/miniconda-only-installs-partially-how-can-i-find-the-error](https://stackoverflow.com/questions/66744993/miniconda-only-installs-partially-how-can-i-find-the-error), but unfortunately there has not be an answer that could resolve the issue.
+> 
+> **Steps to Reproduce**
+> 
+> ```
+> C:\WINDOWS\ccmcache\32\Files\Miniconda3-py39_4.9.2-Windows-x86_64.exe /InstallationType=AllUsers /AddToPath=1 /RegisterPython=1 /S /D=C:\Company\Miniconda
+> ```
+> 
+> **Expected Behavior**
+> 
+> The installer should be able to install Miniconda.
+> 
+> **Environment Information**
+> `` `conda info` ``
+> 
+> ```
+> Not Applicable (i.e. does not work, as conda does not get installed)
+> ```
+> `` `conda config --show-sources` ``
+> 
+> ```
+> Not Applicable (i.e. does not work, as conda does not get installed)
+> ```
+> `` `conda list --show-channel-urls` ``
+> 
+> ```
+> Not Applicable (i.e. does not work, as conda does not get installed)
+> ```
 
 **Alan O'C** (07:26:52) (in thread):
 > I wouldn't be keen to have the conda versions mismatched so widely, but if there's a workaround it'd be fine
@@ -1371,7 +1458,9 @@ format: gfm
 
 ## 2024-01-21
 
-*05:16:57 - @stefano mangiola has joined the channel*
+**stefano mangiola** (05:16:57):
+> @stefano mangiola has joined the channel
+
 **Vince Carey** (05:18:03) (in thread):
 > Yes, go ahead with the transfer.
 
@@ -1387,7 +1476,9 @@ format: gfm
 **stefano mangiola** (18:51:46):
 > @Michael Milton, this is the biocPython channel I was mentioning to you.@Michael Miltonis very versed in both R and Python
 
-*18:51:49 - @Michael Milton has joined the channel*
+**Michael Milton** (18:51:49):
+> @Michael Milton has joined the channel
+
 
 ## 2024-01-23
 
@@ -1442,135 +1533,137 @@ format: gfm
 
 ## 2024-01-29
 
-*23:52:49 - @Saga has joined the channel*
+**Saga** (23:52:49):
+> @Saga has joined the channel
+
 
 ## 2024-01-31
 
 **Bernie Mulvey** (14:21:30) (in thread):
 > @Luke Zappiajust an update here--I found another issue that was getting between me and successfully installing/using the environment, namely relating to  DYLD_FALLBACK_LIBRARY_PATH being set.[https://github.com/rstudio/rstudio/issues/13967](https://github.com/rstudio/rstudio/issues/13967)
   - Attachment: [#13967 Mac + Reticulate + RStudio 2023.09.0 or later](https://github.com/rstudio/rstudio/issues/13967)
-    > **System details**
-    > 
-    > ```
-    > RStudio Edition : Desktop
-    > RStudio Version : RStudio 2023.09.0 / 2023.09.1
-    > OS Version      : Mac OS 14.1.1
-    > R Version       : 2023-11-20 r85569
-    > ```
-    > 
-    > **Steps to reproduce the problem**
-    > 
-    > Python is installed via home brew. The path is passed to Reticulate as follows.
-    > 
-    > ```
-    > Sys.setenv(RETICULATE_PYTHON = "/opt/Homebrew/Cellar/python@3.11/3.11.6_1/bin/python3")
-    > Sys.setenv(TENSORFLOW_PYTHON = "/opt/Homebrew/Cellar/python@3.11/3.11.6_1/bin/python3")
-    > library(reticulate)
-    > ```
-    > 
-    > In RStudio versions prior to Desert Sunflower, when I import umap, it works as expected.
-    > 
-    > ```
-    > > reticulate::repl_python()
-    > Python 3.11.6 (/opt/homebrew/Cellar/python@3.11/3.11.6_1/bin/python3)
-    > Reticulate 1.34.0 REPL -- A Python interpreter in R.
-    > Enter 'exit' or 'quit' to exit the REPL and return to R.
-    > >>> import numpy as np
-    > >>> import pandas as pd
-    > >>> import umap.umap_ as umap
-    > ```
-    > 
-    > No issues here.
-    > 
-    > **Describe the problem in detail**
-    > 
-    > In 2023.09.0 and later (including the current version -- 2023.09.1), the correct Python is picked up but then I get an error:
-    > 
-    > ```
-    > > reticulate::repl_python()
-    > Python 3.11.6 (/opt/homebrew/Cellar/python@3.11/3.11.6_1/bin/python3)
-    > Reticulate 1.34.0 REPL -- A Python interpreter in R.
-    > Enter 'exit' or 'quit' to exit the REPL and return to R.
-    > >>> import numpy as np
-    > >>> import pandas as pd
-    > >>> import umap.umap_ as umap
-    > Traceback (most recent call last):
-    >   File "<python_lib_path>/site-packages/llvmlite/binding/ffi.py", line 134, in *_getattr_*
-    >     return self._fntab[name]
-    >            ~~~~~~~~~~~~~~~~~~~~~^^^^^^
-    > KeyError: 'LLVMPY_AddSymbol'
-    > 
-    > During handling of the above exception, another exception occurred:
-    > 
-    > Traceback (most recent call last):
-    >   File "<python_lib_path>/site-packages/llvmlite/binding/ffi.py", line 115, in _load_lib
-    >     self._lib_handle = ctypes.CDLL(str(lib_path))
-    >                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
-    >   File "<python_lib_path>/lib/python3.11/ctypes/*_init_*.py", line 376, in *_init_*
-    >     self._handle = _dlopen(self._name, mode)
-    >                    ^^^^^^^^^^^^^^^^^^^^^^^^^
-    > OSError: dlopen(<python_lib_path>/site-packages/llvmlite/binding/libllvmlite.dylib, 0x0006): Library not loaded: @rpath/libz.1.dylib
-    >   Referenced from: <dynamic_library_path> /site-packages/llvmlite/binding/libllvmlite.dylib
-    >   Reason: tried: '<other_paths>'
-    > 
-    > The above exception was the direct cause of the following exception:
-    > 
-    > Traceback (most recent call last):
-    >   File "<stdin>", line 1, in <module>
-    >   File "<python_lib_path>/site-packages/umap/umap_.py", line 29, in <module>
-    >     import numba
-    >   File "<r_library_path>/python/rpytools/loader.py", line 119, in _find_and_load_hook
-    >     return _run_hook(name, _hook)
-    >            ^^^^^^^^^^^^^^^^^^^^^^
-    >   ... [repeated stack trace omitted for brevity]
-    >   File "<python_lib_path>/site-packages/llvmlite/binding/*_init_*.py", line 4, in <module>
-    >     from .dylib import *
-    >   File "<r_library_path>/python/rpytools/loader.py", line 119, in _find_and_load_hook
-    >     return _run_hook(name, _hook)
-    >            ^^^^^^^^^^^^^^^^^^^^^^
-    >   ... [repeated stack trace omitted for brevity]
-    >   File "<python_lib_path>/site-packages/llvmlite/binding/dylib.py", line 36, in <module>
-    >     ffi.lib.LLVMPY_AddSymbol.argtypes = [
-    >     ^^^^^^^^^^^^^^^^^^^^^^^^
-    >   File "<python_lib_path>/site-packages/llvmlite/binding/ffi.py", line 137, in *_getattr_*
-    >     cfn = getattr(self._lib, name)
-    >                   ^^^^^^^^^
-    >   File "<python_lib_path>/site-packages/llvmlite/binding/ffi.py", line 129, in _lib
-    >     self._load_lib()
-    >   File "<python_lib_path>/site-packages/llvmlite/binding/ffi.py", line 123, in _load_lib
-    >     raise OSError("Could not find/load shared object file") from e
-    > OSError: Could not find/load shared object file
-    > ```
-    > 
-    > I trimmed the output to anonymise but I hope the details are clear.
-    > 
-    > I installed and uninstalled RStudio leaving all other libraries (including R, Python, and umap the same) and I was able to replicate this behavior whereby there is no error with prior versions of RStudio and an error with a newer version of RStudio. In addition, if I launch Python through terminal, I do not get an error. Finally, many other Python modules load ok but umap always leads to the same error.
-    > 
-    > All of this suggests that some change in Desert Sunflower broke the configuration in my system. I suspect this has to do with the change in the handling of `DYLD_FALLBACK_LIBRARY_PATH`.
-    > 
-    > I have installed and reinstalled reticulate and all other R and Python libraries but nothing seems to help. It is only when I revert to the old version of RStudio that the error goes away.
-    > 
-    > I also get this error if I try to import numba when running Python through Reticulate in the newer version of RStudio but not otherwise. As numba is used by umap, I suspect that this may be interrelated or even the source of the error. However, I am clueless beyond that.
-    > 
-    > My system is a bit cruddy and has old libraries. Something could have been left behind that is causing the issue or it may be the path. However, the fact that the older version of RStudio and running Python directly on Terminal gives me the expected behavior makes me pretty sure some change in the new version is key to this.
-    > 
-    > If this is replicable then the following steps "should" replicate it.
-    > 
-    > 1. Install Python 3.11 using home brew.
-    > 2. Install umap-learn using pip.
-    > 3. Set Python path, run the interpreter, and load the library.
-    > 4. Import umap or numba.
-    > 
-    > **Describe the behavior you expected**
-    > 
-    > Reticulate + Python in newer versions of RStudio should be the same as Python on terminal and Reticulate + Python on older versions of RStudio.
-    > 
-    > For now, I am going to simply use an older version of RStudio but I am happy to help debug if anyone has specific questions. I must admit I am unsure of where to start as its quite a specific error, but I am happy to report specifics from both prior and new versions if you tell me what specifics to report.
-    > 
-    > • [X ] I have read the guide for [submitting good bug reports](https://github.com/rstudio/rstudio/wiki/Writing-Good-Bug-Reports).
-    > • [X ] I have installed the latest version of RStudio, and confirmed that the issue still persists.
-    > • [ X] If I am reporting an RStudio crash, I have included a [diagnostics report](https://support.posit.co/hc/en-us/articles/200321257-Running-a-Diagnostics-Report).
-    > • [X ] I have done my best to include a minimal, self-contained set of instructions for consistently reproducing the issue.
+> **System details**
+> 
+> ```
+> RStudio Edition : Desktop
+> RStudio Version : RStudio 2023.09.0 / 2023.09.1
+> OS Version      : Mac OS 14.1.1
+> R Version       : 2023-11-20 r85569
+> ```
+> 
+> **Steps to reproduce the problem**
+> 
+> Python is installed via home brew. The path is passed to Reticulate as follows.
+> 
+> ```
+> Sys.setenv(RETICULATE_PYTHON = "/opt/Homebrew/Cellar/python@3.11/3.11.6_1/bin/python3")
+> Sys.setenv(TENSORFLOW_PYTHON = "/opt/Homebrew/Cellar/python@3.11/3.11.6_1/bin/python3")
+> library(reticulate)
+> ```
+> 
+> In RStudio versions prior to Desert Sunflower, when I import umap, it works as expected.
+> 
+> ```
+> > reticulate::repl_python()
+> Python 3.11.6 (/opt/homebrew/Cellar/python@3.11/3.11.6_1/bin/python3)
+> Reticulate 1.34.0 REPL -- A Python interpreter in R.
+> Enter 'exit' or 'quit' to exit the REPL and return to R.
+> >>> import numpy as np
+> >>> import pandas as pd
+> >>> import umap.umap_ as umap
+> ```
+> 
+> No issues here.
+> 
+> **Describe the problem in detail**
+> 
+> In 2023.09.0 and later (including the current version -- 2023.09.1), the correct Python is picked up but then I get an error:
+> 
+> ```
+> > reticulate::repl_python()
+> Python 3.11.6 (/opt/homebrew/Cellar/python@3.11/3.11.6_1/bin/python3)
+> Reticulate 1.34.0 REPL -- A Python interpreter in R.
+> Enter 'exit' or 'quit' to exit the REPL and return to R.
+> >>> import numpy as np
+> >>> import pandas as pd
+> >>> import umap.umap_ as umap
+> Traceback (most recent call last):
+>   File "<python_lib_path>/site-packages/llvmlite/binding/ffi.py", line 134, in *_getattr_*
+>     return self._fntab[name]
+>            ~~~~~~~~~~~~~~~~~~~~~^^^^^^
+> KeyError: 'LLVMPY_AddSymbol'
+> 
+> During handling of the above exception, another exception occurred:
+> 
+> Traceback (most recent call last):
+>   File "<python_lib_path>/site-packages/llvmlite/binding/ffi.py", line 115, in _load_lib
+>     self._lib_handle = ctypes.CDLL(str(lib_path))
+>                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+>   File "<python_lib_path>/lib/python3.11/ctypes/*_init_*.py", line 376, in *_init_*
+>     self._handle = _dlopen(self._name, mode)
+>                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+> OSError: dlopen(<python_lib_path>/site-packages/llvmlite/binding/libllvmlite.dylib, 0x0006): Library not loaded: @rpath/libz.1.dylib
+>   Referenced from: <dynamic_library_path> /site-packages/llvmlite/binding/libllvmlite.dylib
+>   Reason: tried: '<other_paths>'
+> 
+> The above exception was the direct cause of the following exception:
+> 
+> Traceback (most recent call last):
+>   File "<stdin>", line 1, in <module>
+>   File "<python_lib_path>/site-packages/umap/umap_.py", line 29, in <module>
+>     import numba
+>   File "<r_library_path>/python/rpytools/loader.py", line 119, in _find_and_load_hook
+>     return _run_hook(name, _hook)
+>            ^^^^^^^^^^^^^^^^^^^^^^
+>   ... [repeated stack trace omitted for brevity]
+>   File "<python_lib_path>/site-packages/llvmlite/binding/*_init_*.py", line 4, in <module>
+>     from .dylib import *
+>   File "<r_library_path>/python/rpytools/loader.py", line 119, in _find_and_load_hook
+>     return _run_hook(name, _hook)
+>            ^^^^^^^^^^^^^^^^^^^^^^
+>   ... [repeated stack trace omitted for brevity]
+>   File "<python_lib_path>/site-packages/llvmlite/binding/dylib.py", line 36, in <module>
+>     ffi.lib.LLVMPY_AddSymbol.argtypes = [
+>     ^^^^^^^^^^^^^^^^^^^^^^^^
+>   File "<python_lib_path>/site-packages/llvmlite/binding/ffi.py", line 137, in *_getattr_*
+>     cfn = getattr(self._lib, name)
+>                   ^^^^^^^^^
+>   File "<python_lib_path>/site-packages/llvmlite/binding/ffi.py", line 129, in _lib
+>     self._load_lib()
+>   File "<python_lib_path>/site-packages/llvmlite/binding/ffi.py", line 123, in _load_lib
+>     raise OSError("Could not find/load shared object file") from e
+> OSError: Could not find/load shared object file
+> ```
+> 
+> I trimmed the output to anonymise but I hope the details are clear.
+> 
+> I installed and uninstalled RStudio leaving all other libraries (including R, Python, and umap the same) and I was able to replicate this behavior whereby there is no error with prior versions of RStudio and an error with a newer version of RStudio. In addition, if I launch Python through terminal, I do not get an error. Finally, many other Python modules load ok but umap always leads to the same error.
+> 
+> All of this suggests that some change in Desert Sunflower broke the configuration in my system. I suspect this has to do with the change in the handling of `DYLD_FALLBACK_LIBRARY_PATH`.
+> 
+> I have installed and reinstalled reticulate and all other R and Python libraries but nothing seems to help. It is only when I revert to the old version of RStudio that the error goes away.
+> 
+> I also get this error if I try to import numba when running Python through Reticulate in the newer version of RStudio but not otherwise. As numba is used by umap, I suspect that this may be interrelated or even the source of the error. However, I am clueless beyond that.
+> 
+> My system is a bit cruddy and has old libraries. Something could have been left behind that is causing the issue or it may be the path. However, the fact that the older version of RStudio and running Python directly on Terminal gives me the expected behavior makes me pretty sure some change in the new version is key to this.
+> 
+> If this is replicable then the following steps "should" replicate it.
+> 
+> 1. Install Python 3.11 using home brew.
+> 2. Install umap-learn using pip.
+> 3. Set Python path, run the interpreter, and load the library.
+> 4. Import umap or numba.
+> 
+> **Describe the behavior you expected**
+> 
+> Reticulate + Python in newer versions of RStudio should be the same as Python on terminal and Reticulate + Python on older versions of RStudio.
+> 
+> For now, I am going to simply use an older version of RStudio but I am happy to help debug if anyone has specific questions. I must admit I am unsure of where to start as its quite a specific error, but I am happy to report specifics from both prior and new versions if you tell me what specifics to report.
+> 
+> • [X ] I have read the guide for [submitting good bug reports](https://github.com/rstudio/rstudio/wiki/Writing-Good-Bug-Reports).
+> • [X ] I have installed the latest version of RStudio, and confirmed that the issue still persists.
+> • [ X] If I am reporting an RStudio crash, I have included a [diagnostics report](https://support.posit.co/hc/en-us/articles/200321257-Running-a-Diagnostics-Report).
+> • [X ] I have done my best to include a minimal, self-contained set of instructions for consistently reproducing the issue.
 
 
 ## 2024-02-05
@@ -1581,7 +1674,9 @@ format: gfm
 
 ## 2024-02-08
 
-*03:08:00 - @Julien Roux has joined the channel*
+**Julien Roux** (03:08:00):
+> @Julien Roux has joined the channel
+
 
 ## 2024-02-09
 
@@ -1613,7 +1708,7 @@ format: gfm
 **Sebastian Lobentanzer** (05:59:43) (in thread):
 > There is also pixi:[https://prefix.dev](https://prefix.dev)
   - Attachment (prefix.dev): [prefix.dev – solving software package management](https://prefix.dev)
-    > The software package management platform for Python, C++, R, Rust and more
+> The software package management platform for Python, C++, R, Rust and more
 
 
 ## 2024-02-16
@@ -1627,11 +1722,11 @@ format: gfm
 **Jayaram Kancherla** (09:35:06) (in thread):
 > just ran into this on twitter -[https://x.com/charliermarsh/status/1758216803275149389?s=46&t=M-P74_YozEAT_CQxRpkAjQ](https://x.com/charliermarsh/status/1758216803275149389?s=46&t=M-P74_YozEAT_CQxRpkAjQ)
   - Attachment (X (formerly Twitter)): [Charlie Marsh (@charliermarsh) on X](https://x.com/charliermarsh/status/1758216803275149389?s=46&amp;t=M-P74_YozEAT_CQxRpkAjQ)
-    > Announcing uv: an extremely fast Python package installer and resolver, written in Rust.
-    > 
-    > uv is designed as a drop-in alternative to pip, pip-tools, and virtualenv.
-    > 
-    > With a warm cache, uv installs are near-instant. Here, it's > 75x faster than pip and pip-tools.
+> Announcing uv: an extremely fast Python package installer and resolver, written in Rust.
+> 
+> uv is designed as a drop-in alternative to pip, pip-tools, and virtualenv.
+> 
+> With a warm cache, uv installs are near-instant. Here, it's > 75x faster than pip and pip-tools.
 
 
 ## 2024-02-17
@@ -1642,7 +1737,9 @@ format: gfm
 
 ## 2024-02-28
 
-*08:45:41 - @Maria Doyle has joined the channel*
+**Maria Doyle** (08:45:41):
+> @Maria Doyle has joined the channel
+
 
 ## 2024-03-06
 
@@ -1663,29 +1760,35 @@ format: gfm
 **Aaron Lun** (00:35:50):
 > @Vince Careysee[https://github.com/Bioconductor/basilisk/pull/38](https://github.com/Bioconductor/basilisk/pull/38); perhaps more general coordination across the project to remove`defaults`would be helpful.
   - Attachment: [#38 Commented on the licensing problems with the defaults channel.](https://github.com/Bioconductor/basilisk/pull/38)
-    > The `defaults` packages haven't been free to use for a long time, which makes it difficult to use any default-dependent Bioconductor packages in commercial settings. Perhaps a more general notification to affected packages (e.g., FLAMES) would also be helpful if they can be persuaded to drop `defaults`.
+> The `defaults` packages haven't been free to use for a long time, which makes it difficult to use any default-dependent Bioconductor packages in commercial settings. Perhaps a more general notification to affected packages (e.g., FLAMES) would also be helpful if they can be persuaded to drop `defaults`.
 
 
 ## 2024-03-25
 
-*17:22:24 - @Tim Triche has joined the channel*
+**Tim Triche** (17:22:24):
+> @Tim Triche has joined the channel
+
 
 ## 2024-03-27
 
-*13:20:42 - @David Rach has joined the channel*
+**David Rach** (13:20:42):
+> @David Rach has joined the channel
+
 
 ## 2024-03-29
 
-*06:16:59 - @Manisha Nair has joined the channel*
+**Manisha Nair** (06:16:59):
+> @Manisha Nair has joined the channel
+
 
 ## 2024-04-04
 
 **Aaron Lun** (13:54:37):
 > @Vince Careysee[https://github.com/Bioconductor/basilisk.utils/pull/11](https://github.com/Bioconductor/basilisk.utils/pull/11), conda's non-OSS license is coming back to bite
   - Attachment: [#11 Provide an option to use mamba-forge instead of Miniconda.](https://github.com/Bioconductor/basilisk.utils/pull/11)
-    > This has an actual, proper, open-source license compared to Anaconda, which makes it a lot safer to use in commercial environments that would otherwise be restricted by Anaconda's ToS.
-    > 
-    > This option is currently not set as the default as it is liable to break a whole bunch of downstream packages. I'd guess that BioC may want to set it as the default as the license is more in line with BioC's OSS goals, but this would require at least one release's worth of break-fixes, e.g., for all of the packages that pull from `defaults`.
+> This has an actual, proper, open-source license compared to Anaconda, which makes it a lot safer to use in commercial environments that would otherwise be restricted by Anaconda's ToS.
+> 
+> This option is currently not set as the default as it is liable to break a whole bunch of downstream packages. I'd guess that BioC may want to set it as the default as the license is more in line with BioC's OSS goals, but this would require at least one release's worth of break-fixes, e.g., for all of the packages that pull from `defaults`.
 
 **Vince Carey** (13:55:51):
 > Thanks for the tip.  We'll have to tackle this soon.
@@ -1702,28 +1805,32 @@ format: gfm
 
 ## 2024-04-28
 
-*08:19:47 - @Danielle Callan has joined the channel*
+**Danielle Callan** (08:19:47):
+> @Danielle Callan has joined the channel
+
 
 ## 2024-04-29
 
-*23:57:16 - @Julie Iskander has joined the channel*
+**Julie Iskander** (23:57:16):
+> @Julie Iskander has joined the channel
+
 
 ## 2024-05-09
 
 **Vince Carey** (07:12:04):
 > [https://github.com/conda/conda/issues/10611#issuecomment-2102421331](https://github.com/conda/conda/issues/10611#issuecomment-2102421331)may be a path to achieving windows support when upgrading the miniconda selection in basilisk
   - Attachment: [Comment on #10611 Miniconda installation fails](https://github.com/conda/conda/issues/10611#issuecomment-2102421331)
-    > From the documentation:
-    > 
-    > [grafik](https://private-user-images.githubusercontent.com/1835397/329218229-477fcf59-e3b1-498f-98d2-dcc1b69b3a93.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTUyNTM0MjUsIm5iZiI6MTcxNTI1MzEyNSwicGF0aCI6Ii8xODM1Mzk3LzMyOTIxODIyOS00NzdmY2Y1OS1lM2IxLTQ5OGYtOThkMi1kY2MxYjY5YjNhOTMucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDUwOSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA1MDlUMTExMjA1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZWMxMGZiNjM4OThkMjg3ZWQ1MTJiYWE4NzNiNmMyMTY5NDhhZDBhMmVlZWQ5ZTcyMDA0ZDNkZDQyNmQwNmZmNiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.eyl9iOr1LDd9MqttStIDj0JhPJ_cPy8xUBC5L8siBbo)
-    > 
-    > That means, using `/S` requieres `/D` as well. This is what the documentation says, but from my testing (with a Windows 11 sandbox) this is not needed.
-    > 
-    > It seems to fail only when it cannot write to the destination, I suggest to run silent uninstall first.
-    > 
-    > ```
-    > miniconda3\Uninstall-Miniconda3.exe /S
-    > ```
+> From the documentation:
+> 
+> [grafik](https://private-user-images.githubusercontent.com/1835397/329218229-477fcf59-e3b1-498f-98d2-dcc1b69b3a93.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTUyNTM0MjUsIm5iZiI6MTcxNTI1MzEyNSwicGF0aCI6Ii8xODM1Mzk3LzMyOTIxODIyOS00NzdmY2Y1OS1lM2IxLTQ5OGYtOThkMi1kY2MxYjY5YjNhOTMucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDUwOSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA1MDlUMTExMjA1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZWMxMGZiNjM4OThkMjg3ZWQ1MTJiYWE4NzNiNmMyMTY5NDhhZDBhMmVlZWQ5ZTcyMDA0ZDNkZDQyNmQwNmZmNiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.eyl9iOr1LDd9MqttStIDj0JhPJ_cPy8xUBC5L8siBbo)
+> 
+> That means, using `/S` requieres `/D` as well. This is what the documentation says, but from my testing (with a Windows 11 sandbox) this is not needed.
+> 
+> It seems to fail only when it cannot write to the destination, I suggest to run silent uninstall first.
+> 
+> ```
+> miniconda3\Uninstall-Miniconda3.exe /S
+> ```
 
 
 ## 2024-05-31
@@ -1734,7 +1841,9 @@ format: gfm
 
 ## 2024-07-11
 
-*06:03:43 - @Sathish Kumar has joined the channel*
+**Sathish Kumar** (06:03:43):
+> @Sathish Kumar has joined the channel
+
 
 ## 2024-07-23
 
@@ -1744,9 +1853,9 @@ format: gfm
 **Jacques SERIZAY** (23:22:53) (in thread):
 > @Aaron Lundoes that mean that mamba is available to use now? I have not followed the development of`basilisk`over the past few months. I just found this issue ([https://github.com/Bioconductor/basilisk.utils/pull/11](https://github.com/Bioconductor/basilisk.utils/pull/11)) which seems to suggest that it is, but I don't find any information in the doc/manual? Is everything happening under the hood?
   - Attachment: [#11 Provide an option to use miniforge instead of Miniconda.](https://github.com/Bioconductor/basilisk.utils/pull/11)
-    > This has an actual, proper, open-source license compared to Anaconda, which makes it a lot safer to use in commercial environments that would otherwise be restricted by Anaconda's ToS.
-    > 
-    > This option is currently not set as the default as it is liable to break a whole bunch of downstream packages. I'd guess that BioC may want to set it as the default as the license is more in line with BioC's OSS goals, but this would require at least one release's worth of break-fixes, e.g., for all of the packages that pull from `defaults`.
+> This has an actual, proper, open-source license compared to Anaconda, which makes it a lot safer to use in commercial environments that would otherwise be restricted by Anaconda's ToS.
+> 
+> This option is currently not set as the default as it is liable to break a whole bunch of downstream packages. I'd guess that BioC may want to set it as the default as the license is more in line with BioC's OSS goals, but this would require at least one release's worth of break-fixes, e.g., for all of the packages that pull from `defaults`.
 
 
 ## 2024-07-24
@@ -1757,7 +1866,7 @@ format: gfm
 **Aaron Lun** (18:51:22) (in thread):
 > I believe that the latest versions of conda use libmamba (the C++ library underneath mamba) for resolution, see[here](https://conda.org/blog/2023-11-06-conda-23-10-0-release/). We're using the very latest release miniforge (24.3.0-0 as of writing) so I would expect it to effectively be the same as using mamba under the hood. Indeed I see some "mamba" mentions popping up in the installation stdout, so I assume that it's involved somewhere.
   - Attachment (conda.org): [Conda 23.10.0: libmamba is now the default solver | conda.org](https://conda.org/blog/2023-11-06-conda-23-10-0-release/)
-    > :bullettrain_side: The speedy conda-libmamba-solver becomes the default solver in the Conda 23.10.0 release. Please fasten your seat belts.
+> :bullettrain_side: The speedy conda-libmamba-solver becomes the default solver in the Conda 23.10.0 release. Please fasten your seat belts.
 
 **Jacques SERIZAY** (23:23:42) (in thread):
 > Thanks Aaron, nice to hear about this. I think I have not been playing with latest conda for a while, so I had probably missed this!
@@ -1772,15 +1881,21 @@ format: gfm
 
 ## 2024-09-12
 
-*12:09:50 - @Philippa Doherty has joined the channel*
+**Philippa Doherty** (12:09:50):
+> @Philippa Doherty has joined the channel
+
 
 ## 2024-09-13
 
-*09:17:18 - @H. Emre has joined the channel*
+**H. Emre** (09:17:18):
+> @H. Emre has joined the channel
+
 
 ## 2024-09-20
 
-*09:29:37 - @Camille Guillermin has joined the channel*
+**Camille Guillermin** (09:29:37):
+> @Camille Guillermin has joined the channel
+
 
 ## 2024-09-24
 
@@ -1793,26 +1908,42 @@ format: gfm
 
 ## 2024-10-04
 
-*02:05:36 - @Monisa Hasnain has joined the channel*
+**Monisa Hasnain** (02:05:36):
+> @Monisa Hasnain has joined the channel
+
 
 ## 2024-10-23
 
-*16:59:36 - @Abdullah Al Nahid has joined the channel*
-*17:25:18 - @Juan Henao has joined the channel*
-*17:44:34 - @Hong Qin has joined the channel*
+**Abdullah Al Nahid** (16:59:36):
+> @Abdullah Al Nahid has joined the channel
+
+**Juan Henao** (17:25:18):
+> @Juan Henao has joined the channel
+
+**Hong Qin** (17:44:34):
+> @Hong Qin has joined the channel
+
 
 ## 2024-10-29
 
-*06:14:25 - @Maximilian has joined the channel*
+**Maximilian** (06:14:25):
+> @Maximilian has joined the channel
+
 
 ## 2024-11-07
 
-*22:09:36 - @Malvika Kharbanda has joined the channel*
+**Malvika Kharbanda** (22:09:36):
+> @Malvika Kharbanda has joined the channel
+
 
 ## 2024-11-11
 
-*12:40:37 - @Jared Andrews has joined the channel*
-*12:42:24 - @Josh Steier has joined the channel*
+**Jared Andrews** (12:40:37):
+> @Jared Andrews has joined the channel
+
+**Josh Steier** (12:42:24):
+> @Josh Steier has joined the channel
+
 **Josh Steier** (13:03:39):
 > Hi everyone,
 > I have a background in computational biology(MS applied math and stats degree from Stony Brook University), and a strong background in machine learning, where I currently work as a machine learning engineer.
@@ -1820,7 +1951,9 @@ format: gfm
 > I'm eager to contribute to Bioconductor and don't know where to start, can someone help me with that?
 > Thank you!
 
-*13:06:39 - @Mikhail Dozmorov has joined the channel*
+**Mikhail Dozmorov** (13:06:39):
+> @Mikhail Dozmorov has joined the channel
+
 **Jayaram Kancherla** (14:00:12) (in thread):
 > Hi Josh, Thank you for your interest in contributing to Bioconductor.
 > 
@@ -1847,25 +1980,39 @@ format: gfm
 
 ## 2024-11-12
 
-*08:31:55 - @Kylie Bemis has joined the channel*
-*09:05:25 - @Matteo Tiberti has joined the channel*
-*22:34:16 - @Marouen Ben Guebila has joined the channel*
+**Kylie Bemis** (08:31:55):
+> @Kylie Bemis has joined the channel
+
+**Matteo Tiberti** (09:05:25):
+> @Matteo Tiberti has joined the channel
+
+**Marouen Ben Guebila** (22:34:16):
+> @Marouen Ben Guebila has joined the channel
+
 
 ## 2024-11-13
 
-*17:32:15 - @Dharmesh Dinesh Bhuva has joined the channel*
+**Dharmesh Dinesh Bhuva** (17:32:15):
+> @Dharmesh Dinesh Bhuva has joined the channel
+
 
 ## 2024-11-15
 
-*15:01:21 - @Louise has joined the channel*
+**Louise** (15:01:21):
+> @Louise has joined the channel
+
 
 ## 2024-11-19
 
-*09:56:16 - @Ritika Giri has joined the channel*
+**Ritika Giri** (09:56:16):
+> @Ritika Giri has joined the channel
+
 
 ## 2024-11-25
 
-*17:51:44 - @Sergius Nyah has joined the channel*
+**Sergius Nyah** (17:51:44):
+> @Sergius Nyah has joined the channel
+
 **Sergius Nyah** (17:52:46) (in thread):
 > Thanks for this, Jay!
 > Would begin contributing as well!
@@ -1888,7 +2035,9 @@ format: gfm
 
 ## 2024-12-21
 
-*00:08:20 - @hcorrada has joined the channel*
+**hcorrada** (00:08:20):
+> @hcorrada has joined the channel
+
 
 ## 2024-12-23
 
@@ -1913,20 +2062,30 @@ format: gfm
 
 ## 2024-12-28
 
-*05:24:17 - @Tejaswi Velugapally has joined the channel*
-*07:55:04 - @Pascal-Onaho has joined the channel*
+**Tejaswi Velugapally** (05:24:17):
+> @Tejaswi Velugapally has joined the channel
+
+**Pascal-Onaho** (07:55:04):
+> @Pascal-Onaho has joined the channel
+
 
 ## 2024-12-29
 
-*04:01:39 - @Yahya Jahun has joined the channel*
+**Yahya Jahun** (04:01:39):
+> @Yahya Jahun has joined the channel
+
 
 ## 2025-01-02
 
-*11:01:13 - @Najuma Najeem has joined the channel*
+**Najuma Najeem** (11:01:13):
+> @Najuma Najeem has joined the channel
+
 
 ## 2025-01-09
 
-*07:17:39 - @Ouma Ronald has joined the channel*
+**Ouma Ronald** (07:17:39):
+> @Ouma Ronald has joined the channel
+
 
 ## 2025-01-13
 
@@ -1940,12 +2099,18 @@ format: gfm
 
 ## 2025-01-14
 
-*10:19:21 - @neslihan oztas has joined the channel*
+**neslihan oztas** (10:19:21):
+> @neslihan oztas has joined the channel
+
 
 ## 2025-01-16
 
-*09:07:37 - @David Akwuru has joined the channel*
-*09:07:57 - @Jeremiah Akintomide has joined the channel*
+**David Akwuru** (09:07:37):
+> @David Akwuru has joined the channel
+
+**Jeremiah Akintomide** (09:07:57):
+> @Jeremiah Akintomide has joined the channel
+
 
 ## 2025-01-22
 
@@ -1958,31 +2123,41 @@ format: gfm
 
 ## 2025-01-29
 
-*09:33:26 - @apekshya kandel has joined the channel*
+**apekshya kandel** (09:33:26):
+> @apekshya kandel has joined the channel
+
 
 ## 2025-02-11
 
-*15:21:03 - @Kevin has joined the channel*
+**Kevin** (15:21:03):
+> @Kevin has joined the channel
+
 **Aaron Lun** (16:33:12):
 > basilisk updated to use miniforge 24.11.3-0 and reticulate 1.40.0 in the fallback.
 
 
 ## 2025-02-14
 
-*20:19:55 - @Sarah has joined the channel*
+**Sarah** (20:19:55):
+> @Sarah has joined the channel
+
 
 ## 2025-02-25
 
-*10:56:36 - @Artür Manukyan has joined the channel*
+**Artür Manukyan** (10:56:36):
+> @Artür Manukyan has joined the channel
+
 
 ## 2025-02-27
 
 **Vince Carey** (05:44:30):
 > We put significant effort into interoperation with scverse/spatialdata, but conditions with dask (and with synchronization for other modules) have proven problematic.  The issues connected with[this comment](https://github.com/dask/dask/issues/11146#issuecomment-2474418364)are illustrative and are an opportunity for an interested reader to go in and make a PR to dask.
   - Attachment: [Comment on #11146 Dask 2024.5.1 removed `.attrs`](https://github.com/dask/dask/issues/11146#issuecomment-2474418364)
-    > I currently don't have enough bandwidth to take this on. This would need someone from the community taking a look at it and providing a first PR for it.
+> I currently don't have enough bandwidth to take this on. This would need someone from the community taking a look at it and providing a first PR for it.
 
-*09:28:47 - @Luca Marconato has joined the channel*
+**Luca Marconato** (09:28:47):
+> @Luca Marconato has joined the channel
+
 **Jayaram Kancherla** (10:51:27) (in thread):
 > This happened a couple of times for us as we started writing biocpy classes. It's one of our reasons we wrote[BiocFrame](https://github.com/BiocPy/BiocFrame)(& provide coercions back and forth from pandas and polars). A short term solution is, you may want to explicitly & strictly version the set of packages needed for spatialdata to work. something similar but not as robust as your[comment](https://github.com/HelenaLC/SpatialData.data/issues/4#issuecomment-2661036200)in the R/spatial data package
 
@@ -2022,7 +2197,9 @@ format: gfm
 
 ## 2025-04-17
 
-*21:26:21 - @Khanh has joined the channel*
+**Khanh** (21:26:21):
+> @Khanh has joined the channel
+
 
 ## 2025-04-25
 

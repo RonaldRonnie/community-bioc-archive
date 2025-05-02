@@ -3,20 +3,35 @@ title: "#rhdf5client"
 format: gfm
 ---
 
-
 ## 2018-02-08
 
-*12:41:50 - @Vince Carey has joined the channel*
+**Vince Carey** (12:41:50):
+> @Vince Carey has joined the channel
+
 **Vince Carey** (12:41:50):
 > set the channel description: discuss R interface to HDF Server and HSDS
 
-*12:41:50 - @Mike Jiang has joined the channel*
-*12:41:51 - @Samuela Pollack has joined the channel*
-*12:41:51 - @Shweta Gopal has joined the channel*
-*12:41:51 - @Raphael Gottardo has joined the channel*
-*12:41:51 - @Mike Smith has joined the channel*
-*12:41:51 - @John Readey has joined the channel*
-*12:41:51 - @Aedin Culhane has joined the channel*
+**Mike Jiang** (12:41:50):
+> @Mike Jiang has joined the channel
+
+**Samuela Pollack** (12:41:51):
+> @Samuela Pollack has joined the channel
+
+**Shweta Gopal** (12:41:51):
+> @Shweta Gopal has joined the channel
+
+**Raphael Gottardo** (12:41:51):
+> @Raphael Gottardo has joined the channel
+
+**Mike Smith** (12:41:51):
+> @Mike Smith has joined the channel
+
+**John Readey** (12:41:51):
+> @John Readey has joined the channel
+
+**Aedin Culhane** (12:41:51):
+> @Aedin Culhane has joined the channel
+
 **Vince Carey** (12:48:59):
 > Some quick comments:  1) we have a longrunning server[h5s.channingremotedata.org:5000](http://h5s.channingremotedata.org:5000)where an HDF Server instance has a number of data resources available
 > 
@@ -51,13 +66,15 @@ format: gfm
 **Vince Carey** (13:17:25):
 > The release version of rhdf5client is 1.0.6, vignette at[http://bioconductor.org/packages/release/bioc/vignettes/rhdf5client/inst/doc/rhdf5client.pdf](http://bioconductor.org/packages/release/bioc/vignettes/rhdf5client/inst/doc/rhdf5client.pdf)-- this version of the package only addresses use of h5serv.  Much effort was devoted to capturing the structure of server content, exposing concepts of groups, links and datasets, sufficient to get relatively simple access to slices of a dense matrix.  The devel version, 1.1.6, includes code that works with HSDS, detecting the type of back end early on and using appropriate queries, again focusing on interacting with dense matrices.  We have added code to a companion package, restfulSE, that implements the DelayedArray ([http://bioconductor.org/packages/devel/bioc/html/DelayedArray.html](http://bioconductor.org/packages/devel/bioc/html/DelayedArray.html)) protocol for remote HDF5 matrices.  I think this works for both h5serv and HSDS but we have not explored this fully.  We are meeting today to flesh out next steps.
   - Attachment (Bioconductor): [DelayedArray (development version)](http://bioconductor.org/packages/devel/bioc/html/DelayedArray.html)
-    > Wrapping an array-like object (typically an on-disk object) in a DelayedArray object allows one to perform common array operations on it without loading the object in memory. In order to reduce memory usage and optimize performance, operations on the object are either delayed or executed using a block processing mechanism. Note that this also works on in-memory array-like objects like DataFrame objects (typically with Rle columns), Matrix objects, and ordinary arrays and data frames.
+> Wrapping an array-like object (typically an on-disk object) in a DelayedArray object allows one to perform common array operations on it without loading the object in memory. In order to reduce memory usage and optimize performance, operations on the object are either delayed or executed using a block processing mechanism. Note that this also works on in-memory array-like objects like DataFrame objects (typically with Rle columns), Matrix objects, and ordinary arrays and data frames.
 
-*13:18:26 - @Martin Morgan has joined the channel*
+**Martin Morgan** (13:18:26):
+> @Martin Morgan has joined the channel
+
 **Mike Jiang** (13:44:36):
 > @Vince CareyMostly we are interested in`random_slicing`and`point_selection`[https://github.com/RGLab/cytopy/blob/master/benchmark/h5IO.py#L24-L37](https://github.com/RGLab/cytopy/blob/master/benchmark/h5IO.py#L24-L37)
   - Attachment (GitHub): [RGLab/cytopy](https://github.com/RGLab/cytopy/blob/master/benchmark/h5IO.py#L24-L37)
-    > Contribute to cytopy development by creating an account on GitHub.
+> Contribute to cytopy development by creating an account on GitHub.
 
 **Mike Jiang** (13:51:48):
 > `random_slicing`is similar to fancy indexing in numpy.  h5py currently has some restrictions on this type of operation ([http://docs.h5py.org/en/latest/high/dataset.html#reading-writing-data](http://docs.h5py.org/en/latest/high/dataset.html#reading-writing-data)), which may be due to the nature of local H5 file. But we hope the new rhdf5client will not have these restrictions
@@ -65,7 +82,9 @@ format: gfm
 
 ## 2018-02-09
 
-*10:55:39 - @Sean Davis has joined the channel*
+**Sean Davis** (10:55:39):
+> @Sean Davis has joined the channel
+
 
 ## 2018-02-15
 
@@ -84,7 +103,7 @@ format: gfm
 **John Readey** (13:34:29):
 > I was looking at Seurat:[http://satijalab.org/seurat/pbmc3k_tutorial.html](http://satijalab.org/seurat/pbmc3k_tutorial.html)
   - Attachment (satijalab.org): [Satija Lab](http://satijalab.org/seurat/pbmc3k_tutorial.html)
-    > Lab Webpage ---
+> Lab Webpage ---
 
 **John Readey** (13:35:00):
 > Would it be possible to hook Seurat up with HSDS via rhdf5client?
@@ -113,7 +132,7 @@ format: gfm
 **John Readey** (17:05:59):
 > BTW as a test methodology for h5pyd, I run the same test code with h5py and h5pyd (by switching the import statement).  This is helpful to catch regressions where we are not maintaining compatibility.  Here's an example test:[https://github.com/HDFGroup/h5pyd/blob/master/test/test_dataset_scalar.py](https://github.com/HDFGroup/h5pyd/blob/master/test/test_dataset_scalar.py)
   - Attachment (GitHub): [HDFGroup/h5pyd](https://github.com/HDFGroup/h5pyd/blob/master/test/test_dataset_scalar.py)
-    > h5pyd - h5py distributed - Python client library for HDF Rest API
+> h5pyd - h5py distributed - Python client library for HDF Rest API
 
 **John Readey** (17:07:49):
 > If there's an intended difference (e.g. as with line 54 in the above test), it verifies which package the test is running against.
@@ -121,7 +140,7 @@ format: gfm
 **Mike Jiang** (17:22:36):
 > [https://github.com/grimbough/rhdf5](https://github.com/grimbough/rhdf5)
   - Attachment (GitHub): [grimbough/rhdf5](https://github.com/grimbough/rhdf5)
-    > rhdf5 - Package providing an interface between HDF5 and R
+> rhdf5 - Package providing an interface between HDF5 and R
 
 **John Readey** (17:26:22):
 > Thanks for the link.
@@ -147,11 +166,15 @@ format: gfm
 
 ## 2018-02-26
 
-*18:11:02 - @Peter Hickey has joined the channel*
+**Peter Hickey** (18:11:02):
+> @Peter Hickey has joined the channel
+
 
 ## 2018-02-28
 
-*15:18:25 - @Daniel Van Twisk has joined the channel*
+**Daniel Van Twisk** (15:18:25):
+> @Daniel Van Twisk has joined the channel
+
 
 ## 2018-03-03
 
@@ -382,7 +405,9 @@ format: gfm
 
 ## 2018-03-09
 
-*10:12:34 - @Elizabeth Purdom has joined the channel*
+**Elizabeth Purdom** (10:12:34):
+> @Elizabeth Purdom has joined the channel
+
 **Martin Morgan** (18:30:40):
 > one reason to use hdf5 as a back-end is to facilitate interoperability with other programming paradigms, so it doesn't necessarily do much good to invent our own idiosyncratic schemes or implement features that are only narrowly applicable; this is why loom seemed like something to get behind a bit, maybe in the rhdf5client world, too
 
@@ -395,12 +420,14 @@ format: gfm
 **Vince Carey** (07:50:22):
 > [https://github.com/vjcitn/lihc450k](https://github.com/vjcitn/lihc450k)illustrates the use of HDF Object Store, BiocFileCache, and local HDF5 to deal with some 450k data that are somewhat challenging to work with in standard serialization ... the vignette is very terse
   - Attachment (GitHub): [vjcitn/lihc450k](https://github.com/vjcitn/lihc450k)
-    > lihc450k - demonstrate HDF5 object store backed SE for LIHC 450k data
+> lihc450k - demonstrate HDF5 object store backed SE for LIHC 450k data
 
 
 ## 2018-03-14
 
-*10:49:13 - @Davide Risso has joined the channel*
+**Davide Risso** (10:49:13):
+> @Davide Risso has joined the channel
+
 
 ## 2018-03-15
 
@@ -410,7 +437,7 @@ format: gfm
 **Martin Morgan** (11:25:44):
 > @Vince Careylooks great; FWIW`path(assay(lihcTM, "lihc450k"))`can be used at[https://github.com/vjcitn/lihc450k/blame/master/vignettes/hybrid.Rmd#L117](https://github.com/vjcitn/lihc450k/blame/master/vignettes/hybrid.Rmd#L117)
   - Attachment (GitHub): [vjcitn/lihc450k](https://github.com/vjcitn/lihc450k/blame/master/vignettes/hybrid.Rmd#L117)
-    > lihc450k - demonstrate HDF5 object store backed SE for LIHC 450k data
+> lihc450k - demonstrate HDF5 object store backed SE for LIHC 450k data
 
 **Vince Carey** (12:45:57):
 > thanks, that was indeed some seedy code.
@@ -470,103 +497,153 @@ format: gfm
 
 ## 2018-05-03
 
-*13:52:00 - @Loyal has joined the channel*
+**Loyal** (13:52:00):
+> @Loyal has joined the channel
+
 
 ## 2018-07-30
 
-*13:48:29 - @Samuela Pollack has joined the channel*
+**Samuela Pollack** (13:48:29):
+> @Samuela Pollack has joined the channel
+
 
 ## 2018-08-16
 
-*17:00:24 - @Marcus Kinsella has joined the channel*
+**Marcus Kinsella** (17:00:24):
+> @Marcus Kinsella has joined the channel
+
 
 ## 2018-10-09
 
-*13:56:21 - @BJ Stubbs has joined the channel*
+**BJ Stubbs** (13:56:21):
+> @BJ Stubbs has joined the channel
+
 
 ## 2018-12-17
 
-*06:57:17 - @Vladimir Kiselev has joined the channel*
+**Vladimir Kiselev** (06:57:17):
+> @Vladimir Kiselev has joined the channel
+
 
 ## 2018-12-21
 
-*12:04:02 - @Laurent Gatto has joined the channel*
+**Laurent Gatto** (12:04:02):
+> @Laurent Gatto has joined the channel
+
 
 ## 2019-05-01
 
-*09:20:08 - @Samuela Pollack has left the channel*
+**Samuela Pollack** (09:20:08):
+> @Samuela Pollack has left the channel
+
 
 ## 2019-05-24
 
-*13:10:59 - @Nicholas Knoblauch has joined the channel*
+**Nicholas Knoblauch** (13:10:59):
+> @Nicholas Knoblauch has joined the channel
+
 
 ## 2019-06-25
 
-*15:40:00 - @Daniela Cassol has joined the channel*
+**Daniela Cassol** (15:40:00):
+> @Daniela Cassol has joined the channel
+
 
 ## 2019-06-26
 
-*13:28:49 - @Junhao Li has joined the channel*
+**Junhao Li** (13:28:49):
+> @Junhao Li has joined the channel
+
 
 ## 2019-07-30
 
-*09:33:41 - @Friederike Dündar has joined the channel*
+**Friederike Dündar** (09:33:41):
+> @Friederike Dündar has joined the channel
+
 
 ## 2020-02-08
 
-*05:55:41 - @Sara Ballouz has joined the channel*
+**Sara Ballouz** (05:55:41):
+> @Sara Ballouz has joined the channel
+
 
 ## 2020-06-11
 
-*03:12:59 - @Kozo Nishida has joined the channel*
+**Kozo Nishida** (03:12:59):
+> @Kozo Nishida has joined the channel
+
 
 ## 2020-11-03
 
-*11:40:13 - @Pablo Rodriguez has joined the channel*
+**Pablo Rodriguez** (11:40:13):
+> @Pablo Rodriguez has joined the channel
+
 
 ## 2020-12-12
 
-*00:38:47 - @Huipeng Li has joined the channel*
+**Huipeng Li** (00:38:47):
+> @Huipeng Li has joined the channel
+
 
 ## 2020-12-16
 
-*15:09:12 - @Thomas Naake has joined the channel*
+**Thomas Naake** (15:09:12):
+> @Thomas Naake has joined the channel
+
 
 ## 2021-01-22
 
-*15:46:18 - @Annajiat Alim Rasel has joined the channel*
+**Annajiat Alim Rasel** (15:46:18):
+> @Annajiat Alim Rasel has joined the channel
+
 
 ## 2021-05-11
 
-*16:45:33 - @Megha Lal has joined the channel*
+**Megha Lal** (16:45:33):
+> @Megha Lal has joined the channel
+
 
 ## 2021-05-28
 
-*10:16:06 - @Izaskun Mallona has joined the channel*
+**Izaskun Mallona** (10:16:06):
+> @Izaskun Mallona has joined the channel
+
 
 ## 2022-01-28
 
-*11:14:23 - @Megha Lal has left the channel*
+**Megha Lal** (11:14:23):
+> @Megha Lal has left the channel
+
 
 ## 2022-05-18
 
-*06:24:44 - @Vince Carey has left the channel*
+**Vince Carey** (06:24:44):
+> @Vince Carey has left the channel
+
 
 ## 2022-08-11
 
-*17:16:07 - @Rene Welch has joined the channel*
+**Rene Welch** (17:16:07):
+> @Rene Welch has joined the channel
+
 
 ## 2023-03-17
 
-*00:48:47 - @Michael Milton has joined the channel*
+**Michael Milton** (00:48:47):
+> @Michael Milton has joined the channel
+
 
 ## 2023-05-03
 
-*16:18:14 - @Rebecca Butler has joined the channel*
+**Rebecca Butler** (16:18:14):
+> @Rebecca Butler has joined the channel
+
 
 ## 2023-05-08
 
-*09:00:43 - @Axel Klenk has joined the channel*
+**Axel Klenk** (09:00:43):
+> @Axel Klenk has joined the channel
+
 
 ## 2024-05-14
 
