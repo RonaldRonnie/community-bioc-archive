@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#biocasia – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2019-04-02</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2019-04-03</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2019-04-04</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2019-04-18</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2019-05-02</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2019-05-06</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2019-05-24</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2019-05-26</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2019-10-09</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2019-11-29</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2019-12-04</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2019-12-17</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2020-05-15</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2020-06-11</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2020-07-31</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2020-08-12</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2020-10-02</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2020-10-16</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2020-11-05</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2021-01-22</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2021-02-12</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2021-05-11</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2021-07-16</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2021-07-23</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2022-01-28</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2022-02-10</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2022-02-15</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2022-02-28</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2022-03-01</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2022-03-02</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2022-03-04</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2022-03-07</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2022-03-12</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2022-03-16</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2022-03-18</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2022-03-23</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2022-03-26</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2022-03-29</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2022-04-01</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2022-05-02</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2022-05-03</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2022-05-16</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2022-06-08</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2022-07-14</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2022-07-29</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2022-11-14</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2022-11-15</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2022-11-16</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2023-02-28</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2023-05-18</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2023-08-08</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2023-09-04</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2023-09-07</a></li>
+  <li><a href="#section-53" id="toc-section-53" class="nav-link" data-scroll-target="#section-53">2023-09-09</a></li>
+  <li><a href="#section-54" id="toc-section-54" class="nav-link" data-scroll-target="#section-54">2024-04-03</a></li>
+  <li><a href="#section-55" id="toc-section-55" class="nav-link" data-scroll-target="#section-55">2024-04-09</a></li>
+  <li><a href="#section-56" id="toc-section-56" class="nav-link" data-scroll-target="#section-56">2024-05-03</a></li>
+  <li><a href="#section-57" id="toc-section-57" class="nav-link" data-scroll-target="#section-57">2024-05-14</a></li>
+  <li><a href="#section-58" id="toc-section-58" class="nav-link" data-scroll-target="#section-58">2024-05-19</a></li>
+  <li><a href="#section-59" id="toc-section-59" class="nav-link" data-scroll-target="#section-59">2024-05-23</a></li>
+  <li><a href="#section-60" id="toc-section-60" class="nav-link" data-scroll-target="#section-60">2024-05-24</a></li>
+  <li><a href="#section-61" id="toc-section-61" class="nav-link" data-scroll-target="#section-61">2024-06-03</a></li>
+  <li><a href="#section-62" id="toc-section-62" class="nav-link" data-scroll-target="#section-62">2024-06-04</a></li>
+  <li><a href="#section-63" id="toc-section-63" class="nav-link" data-scroll-target="#section-63">2024-06-06</a></li>
+  <li><a href="#section-64" id="toc-section-64" class="nav-link" data-scroll-target="#section-64">2024-06-09</a></li>
+  <li><a href="#section-65" id="toc-section-65" class="nav-link" data-scroll-target="#section-65">2024-06-13</a></li>
+  <li><a href="#section-66" id="toc-section-66" class="nav-link" data-scroll-target="#section-66">2024-06-16</a></li>
+  <li><a href="#section-67" id="toc-section-67" class="nav-link" data-scroll-target="#section-67">2024-07-08</a></li>
+  <li><a href="#section-68" id="toc-section-68" class="nav-link" data-scroll-target="#section-68">2024-07-24</a></li>
+  <li><a href="#section-69" id="toc-section-69" class="nav-link" data-scroll-target="#section-69">2024-07-25</a></li>
+  <li><a href="#section-70" id="toc-section-70" class="nav-link" data-scroll-target="#section-70">2024-07-29</a></li>
+  <li><a href="#section-71" id="toc-section-71" class="nav-link" data-scroll-target="#section-71">2024-08-22</a></li>
+  <li><a href="#section-72" id="toc-section-72" class="nav-link" data-scroll-target="#section-72">2024-08-27</a></li>
+  <li><a href="#section-73" id="toc-section-73" class="nav-link" data-scroll-target="#section-73">2024-08-28</a></li>
+  <li><a href="#section-74" id="toc-section-74" class="nav-link" data-scroll-target="#section-74">2024-09-11</a></li>
+  <li><a href="#section-75" id="toc-section-75" class="nav-link" data-scroll-target="#section-75">2024-11-06</a></li>
+  <li><a href="#section-76" id="toc-section-76" class="nav-link" data-scroll-target="#section-76">2024-11-08</a></li>
+  <li><a href="#section-77" id="toc-section-77" class="nav-link" data-scroll-target="#section-77">2024-11-10</a></li>
+  <li><a href="#section-78" id="toc-section-78" class="nav-link" data-scroll-target="#section-78">2025-03-17</a></li>
+  <li><a href="#section-79" id="toc-section-79" class="nav-link" data-scroll-target="#section-79">2025-04-08</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#biocasia</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2019-04-02</h2>
+<p><strong>Stevie Pederson</strong> (01:08:31): &gt; <span class="citation" data-cites="Stevie">@Stevie</span> Pederson has joined the channel</p>
+<p><strong>Peter Hickey</strong> (01:08:31): &gt; <span class="citation" data-cites="Peter">@Peter</span> Hickey has joined the channel</p>
+<p><strong>Stevie Pederson</strong> (01:08:32): &gt; set the channel description: Chat about &amp; plan the event</p>
+<p><strong>saskia</strong> (02:11:07): &gt; <span class="citation" data-cites="saskia">@saskia</span> has joined the channel</p>
+<p><strong>saskia</strong> (02:11:23): &gt; :wave:</p>
+<p><strong>saskia</strong> (04:52:41): &gt; i think the easiest might be to go with precision medicine</p>
+<p><strong>saskia</strong> (04:52:46): &gt; cause that could be anything</p>
+<p><strong>Dario Strbenac</strong> (07:04:54): &gt; <span class="citation" data-cites="Dario">@Dario</span> Strbenac has joined the channel</p>
+<p><strong>Stevie Pederson</strong> (23:38:34): &gt; Yeah, it’s a tough call. I’m thinking that if we do the developer day Thursday then we can clash with whatever.</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2019-04-03</h2>
+<p><strong>saskia</strong> (20:37:30): &gt; anyway we probably need to respond, right?<span class="citation" data-cites="Peter">@Peter</span> Hickey</p>
+<p><strong>Peter Hickey</strong> (21:28:10): &gt; sorry, yeah we do</p>
+<p><strong>Peter Hickey</strong> (21:28:13): &gt; i’ve been stupid busy</p>
+<p><strong>Peter Hickey</strong> (21:28:57): &gt; my random thoughts</p>
+<p><strong>Peter Hickey</strong> (21:29:12): &gt; i don’t think mass spec will work. yes, there’s stuff in bioc but none of us (I think) have any expertise</p>
+<p><strong>Peter Hickey</strong> (21:29:52): &gt; precision medicine - well i don’t really know what they mean. … but, as you say@saskia, that could be good cause we can make it whatever we want it to mean</p>
+<p><strong>Peter Hickey</strong> (21:34:10): &gt; if either of you have time this week to write that more coherently to send on our behalf to Jean, it’d be much appreciated. otherwise i will try to do on the weekend</p>
+<p><strong>Peter Hickey</strong> (21:35:06): &gt; and yeah,<span class="citation" data-cites="Stevie">@Stevie</span> Pederson, i’m also happy to clash with whatever on thursday to get a developer-focused day happening. &gt; we should find out what other (inter)national speakers they’re inviting and see who might be good to invite along (e.g., John Marioni)</p>
+<p><strong>saskia</strong> (21:40:24): &gt; I am happy to write the email</p>
+<p><strong>Peter Hickey</strong> (22:21:17): &gt; legend, thanks for that sas</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2019-04-04</h2>
+<p><strong>Stevie Pederson</strong> (09:08:27): &gt; Great work@saskia. Thought I had a reasonable week but then it went nuts. Thanks for taking the lead on that one</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2019-04-18</h2>
+<p><strong>Yoon, Tae-Hyun</strong> (02:29:36): &gt; <span class="citation" data-cites="Yoon">@Yoon</span>, Tae-Hyun has joined the channel</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2019-05-02</h2>
+<p><strong>Dario Strbenac</strong> (20:00:13): &gt; What are the next tasks to do?</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2019-05-06</h2>
+<p><strong>Peter Hickey</strong> (23:48:50): &gt; Hi Dario, I’ll set up some tasks during the week (I got back today from 3 weeks leave)</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2019-05-24</h2>
+<p><strong>Dario Strbenac</strong> (04:00:07): &gt; Jean will also book a room for Thursday in the guise of a stream of BioInfoSummer, so there’s not much to do about room bookings.</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2019-05-26</h2>
+<p><strong>Peter Hickey</strong> (03:05:52): &gt; Great, thanks Dario!</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2019-10-09</h2>
+<p><strong>Helena L. Crowell</strong> (08:57:04): &gt; <span class="citation" data-cites="Helena">@Helena</span> L. Crowell has joined the channel</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2019-11-29</h2>
+<p><strong>koki</strong> (15:41:33): &gt; <span class="citation" data-cites="koki">@koki</span> has joined the channel</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2019-12-04</h2>
+<p><strong>Jonathan Carroll</strong> (17:37:53): &gt; <span class="citation" data-cites="Jonathan">@Jonathan</span> Carroll has joined the channel</p>
+<p><strong>Stuart Lee</strong> (18:34:15): &gt; <span class="citation" data-cites="Stuart">@Stuart</span> Lee has joined the channel</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2019-12-17</h2>
+<p><strong>Jean Yang</strong> (02:39:31): &gt; <span class="citation" data-cites="Jean">@Jean</span> Yang has joined the channel</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2020-05-15</h2>
+<p><strong>Giuseppe D’Agostino</strong> (05:13:02): &gt; <span class="citation" data-cites="Giuseppe">@Giuseppe</span> D’Agostino has joined the channel</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2020-06-11</h2>
+<p><strong>Kozo Nishida</strong> (03:12:19): &gt; <span class="citation" data-cites="Kozo">@Kozo</span> Nishida has joined the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2020-07-31</h2>
+<p><strong>Isha Goel</strong> (12:47:00): &gt; <span class="citation" data-cites="Isha">@Isha</span> Goel has joined the channel</p>
+<p><strong>Dr Awala Fortune O.</strong> (16:16:13): &gt; <span class="citation" data-cites="Dr">@Dr</span> Awala Fortune O. has joined the channel</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2020-08-12</h2>
+<p><strong>Maria Doyle</strong> (23:36:17): &gt; <span class="citation" data-cites="Maria">@Maria</span> Doyle has joined the channel</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2020-10-02</h2>
+<p><strong>Paul Harrison</strong> (03:22:58): &gt; <span class="citation" data-cites="Paul">@Paul</span> Harrison has joined the channel</p>
+<p><strong>Paul Harrison</strong> (03:23:39): &gt; <span class="citation" data-cites="Paul">@Paul</span> Harrison has left the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2020-10-16</h2>
+<p><strong>bogdan tanasa</strong> (02:57:18): &gt; <span class="citation" data-cites="bogdan">@bogdan</span> tanasa has joined the channel</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2020-11-05</h2>
+<p><strong>Aedin Culhane</strong> (11:55:02): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2021-01-22</h2>
+<p><strong>Annajiat Alim Rasel</strong> (15:41:54): &gt; <span class="citation" data-cites="Annajiat">@Annajiat</span> Alim Rasel has joined the channel</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2021-02-12</h2>
+<p><strong>Janani Ravi</strong> (15:52:01): &gt; <span class="citation" data-cites="Janani">@Janani</span> Ravi has joined the channel</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2021-05-11</h2>
+<p><strong>Megha Lal</strong> (16:44:02): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has joined the channel</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2021-07-16</h2>
+<p><strong>Nitesh Turaga</strong> (10:43:50): &gt; <span class="citation" data-cites="Nitesh">@Nitesh</span> Turaga has joined the channel</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2021-07-23</h2>
+<p><strong>Batool Almarzouq</strong> (15:51:50): &gt; <span class="citation" data-cites="Batool">@Batool</span> Almarzouq has joined the channel</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2022-01-28</h2>
+<p><strong>Megha Lal</strong> (11:11:59): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has left the channel</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2022-02-10</h2>
+<p><strong>Janani Ravi</strong> (18:47:49): &gt; &lt;!channel&gt;:tada:AsiaR is now on Twitter (<a href="https://twitter.com/AsiaR_comm"><span class="citation" data-cites="AsiaR_comm">@AsiaR_comm</span></a>| follow us) &amp; we posted our first official tweet announcing our first exciting meetup!:confetti_ball: &gt; &gt; <strong><em>How to build inclusive communities</em></strong>featuring the amazing <span class="citation" data-cites="Yanina">@Yanina</span> Bellini Saibene@Heather Turner@Iman Al-Hasani!:calendar:Come join us on Feb 19, 2022, 11a UTC |<a href="https://bit.ly/asiar_feb2022">local time</a>RSVP:<a href="https://forms.gle/YdpiRqRroiTFN6GV6">https://forms.gle/YdpiRqRroiTFN6GV6</a> &gt; :repeat:Please RT:<a href="https://twitter.com/AsiaR_comm/status/1491916831522639876">https://twitter.com/AsiaR_comm/status/1491916831522639876</a>Want to host the next event or the one after that? &gt; Please sign up here:<a href="https://bit.ly/asiar_host_2022">https://bit.ly/asiar_host_2022</a>Most importantly, bring your fellow AsiaR useRs to Slack and help us build &amp; grow this inclusive community!:raised_hands:<em>See you all next week! </em>:wave:* <strong>[Qs? Please DM me *<span class="citation" data-cites="Janani">@Janani</span> Ravi**]</strong></p>
+<p><strong>Heather Turner</strong> (18:47:57): &gt; <span class="citation" data-cites="Heather">@Heather</span> Turner has joined the channel</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2022-02-15</h2>
+<p><strong>Dario Strbenac</strong> (00:00:00): &gt; Is the symposium still looking for volunteers for the organising committee for this year’s event?</p>
+<p><strong>Peter Hickey</strong> (00:04:20): &gt; very much so</p>
+<p><strong>Dario Strbenac</strong> (00:20:19): &gt; How may I participate again this year?</p>
+<p><strong>Peter Hickey</strong> (00:26:23): &gt; there’s been no planning meetings since last year’s conference and I don’t know of any expressions of interest to host. &gt; are you interested in hosting in Sydney or just in general organisation?</p>
+<p><strong>Dario Strbenac</strong> (00:45:16): &gt; Just a general organisation once the hosting institution is selected.</p>
+<p><strong>Kozo Nishida</strong> (05:00:44): &gt; Hi@Dario Strbenac. &gt; Do you mean<code>the symposium</code>== BioCAsia2022 ? &gt; (Let me check it just in case.)</p>
+<p><strong>Dario Strbenac</strong> (05:05:02): &gt; I do.</p>
+<p><strong>Kozo Nishida</strong> (05:20:25): &gt; Thank you for the information. &gt; Thank you again for your interest in volunteering. &gt; I will check how you can join the BioCAsia2022 organising committee.</p>
+<p><strong>Kozo Nishida</strong> (05:23:07): &gt; <span class="citation" data-cites="Dario">@Dario</span> StrbenacI also understand that you are interested in joining the committee after the hosting organization has been selected. &gt; (Thanks for asking that,<span class="citation" data-cites="Peter">@Peter</span> Hickey)</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2022-02-28</h2>
+<p><strong>Peter Hickey</strong> (17:42:27): &gt; Is anyone interested in hosting BioC Asia in 2022, particularly those outside of Australia? &gt; This could be a hybrid meeting with an in-person component or fully virtual. &gt; &gt; An alternative is that we have been approached by the Australian Bioinformatics and Computational Biology Society (ABACBS) about again having BioC Asia as a satellite event for the annual ABABCS conference (to be held in November, 2022). &gt; This would likely be a hybrid meeting.</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2022-03-01</h2>
+<p><strong>Kozo Nishida</strong> (02:11:02): &gt; <span class="citation" data-cites="Dario">@Dario</span> StrbenacSorry for my late reply. &gt; The BioCAsia2022 hosting organization has not yet been decided, but you can get involved in the organizing committee. &gt; The work of the organizing committee includes the following. &gt; Let me know if you are interested in any of these. &gt; * <strong><em>Schedule and host organization decisions</em></strong> &gt; * <strong><em>local or virtual platform organizing</em></strong> &gt; &gt; * website (see also<a href="https://bioc2022.bioconductor.org/">https://bioc2022.bioconductor.org/</a>) &gt; * registration &gt; * sponsorship &gt; * contact with invited speakers &gt; * community activities (BOF program) &gt; * competitive decisions (talks, workshops) &gt; * workshops technical aspects &gt; * code of conduct &gt; * scholarships &gt; * stickers &gt; * post-conference materials organization</p>
+<p><strong>Kozo Nishida</strong> (02:13:39): &gt; Of course, if the first “Schedule and host organization decisions” have not been decided, it may not be clear which one to take charge of. &gt; We will push forward it as Peter messaged it.</p>
+<p><strong>Kozo Nishida</strong> (02:15:50): &gt; <span class="citation" data-cites="Dario">@Dario</span> StrbenacIf you are interested in deciding on a host organization, please help “<strong><em>Schedule and host organization decisions</em></strong>”. &gt; If you are interested in inviting keynote speakers instead, please help “contact with invited speakers”.</p>
+<p><strong>Kozo Nishida</strong> (02:18:16) (in thread): &gt; Thanks for the message. &gt; I also ask the AsiaR community about it.</p>
+<p><strong>Kozo Nishida</strong> (02:38:37): &gt; In the future, AsiaR will continue to hold meet-ups on various themes. &gt; (In it,) I’m considering introducing BioC Asia and calling for this year’s host organization.<a href="https://docs.google.com/spreadsheets/d/1EFKoFceB9EwPpeD93giFRyGLbZ92I5CCZPcWMc0aSpk/edit?usp=sharing">https://docs.google.com/spreadsheets/d/1EFKoFceB9EwPpeD93giFRyGLbZ92I5CCZPcWMc0aSpk/edit?usp=sharing</a>I’m going to create (and share) the introductory slides for calling host organization(/institution). - File (Google Sheets): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F0354NWKAJG/asiar_meetup_volunteers">AsiaR_meetup_volunteers</a></p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2022-03-02</h2>
+<p><strong>Peter Hickey</strong> (00:12:26): &gt; it’s a good idea to speak with AsiaR. Can you please let me know when you will present. I will probably need to respond to the ABACBS president soon about what our plans our but it’s fine to tell him that we’re still thinking about where to host this year’s meeting</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2022-03-04</h2>
+<p><strong>Kozo Nishida</strong> (02:30:54) (in thread): &gt; &gt; Can you please let me know when you will present. &gt; Yes, I will do it as early as this month and as late as April. &gt; &gt; I will probably need to respond to the ABACBS president soon about what our plans our but it’s fine to tell him that we’re still thinking about where to host this year’s meeting &gt; Thank you for the information. &gt; I keep in mind that we need to work with ABACBS again this year. &gt; (I will also let people know about it.) &gt; I’m sorry but please respond to the president that we haven’t made a plan yet.</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2022-03-07</h2>
+<p><strong>Peter Hickey</strong> (18:00:10): &gt; no problem</p>
+<p><strong>Peter Hickey</strong> (21:17:59): &gt; Today I joined the monthly ABACBS executive meeting. &gt; The annual ABACBS conference is planned to be held in November at Monash University in Victoria, Australia (Monash’s main campus is ~1 hour outside Victoria’s capital city of Melbourne). &gt; The proposal from ABACBS is to have BioC Asia as one of a small number (1-5) of satellite events to the ABACBS conference (likely after the main meeting). &gt; We have run BioC Asia in conjunction with ABACBS on a few occasions.</p>
+<p><strong>Peter Hickey</strong> (21:18:35): &gt; At Monash, there will be technical capacity for running this as a hybrid meeting which would allow those who can’t be in-person to participate online</p>
+<p><strong>Peter Hickey</strong> (21:22:54): &gt; I indicated to ABACBS that we have not yet decided about how, where, and when to run Bioc Asia 2022. &gt; I also mentioned that Kozo is discussing seeking interest from the AsiaR community. &gt; However, I told ABACBS that what they suggest sounds like a good proposal and I think right now it is probably our most likely choice.</p>
+<p><strong>Peter Hickey</strong> (21:23:12): &gt; I told them that we would give them a definitive answer by next month’s meeting, so I will organise a call for a couple of week’s time for us to discuss. Please indicate here if you are interested in joining this call</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2022-03-12</h2>
+<p><strong>Janani Ravi</strong> (12:47:18): &gt; <span class="citation" data-cites="Peter">@Peter</span> Hickey@Kozo Nishidawhat would be needed/what would it entail to host either a ‘full’ BioCAsia or a satellite spin-off from ABACBS this Nov 2022? I ask this to find out what we need in terms of infrastructure, sponsorships, personnel, invited speakers, call for abstracts, etc. Please let us know and we will take it back to AsiaR folks. thank you!</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2022-03-16</h2>
+<p><strong>Peter Hickey</strong> (02:28:23): &gt; &lt;!channel&gt;If you are interested in being involved in organising BioC Asia 2022, we’ll have an initial planning meeting next week on Zoom. &gt; I’d like to keep this &lt; 30 mins. &gt; Please vote for your preferred time:<a href="https://doodle.com/meeting/participate/id/Ddw6p8zb">https://doodle.com/meeting/participate/id/Ddw6p8zb</a>I’ll send out an invitation at the end of the week - Attachment (doodle.com): <a href="https://doodle.com/meeting/participate/id/Ddw6p8zb">Doodle</a> &gt; Doodle is the simplest way to schedule meetings with clients, colleagues, or friends. Find the best time for one-to-ones and team meetings with our user-friendly calendar tool. Get started today!</p>
+<p><strong>Peter Hickey</strong> (02:29:39) (in thread): &gt; Hi Janani, hopefully you’ll be able to join our initial meeting next week (see below). I plan to explain how past meetings have been run and discuss options for this year, which will cover these topics</p>
+<p><strong>Janani Ravi</strong> (13:25:23) (in thread): &gt; I’ve shared this with AsiaR folks, Peter.</p>
+<p><strong>Peter Hickey</strong> (18:20:46) (in thread): &gt; thanks!</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2022-03-18</h2>
+<p><strong>Peter Hickey</strong> (18:55:52): &gt; Thanks to those who responded and apologies to for whom the time doesn’t suit. We’ll post a summary/minutes back to the channel</p>
+<p><strong>Peter Hickey</strong> (18:55:54): &gt; <strong><em>Zoom meeting on Mar 22, 2022 10:00 AM Australia/Melbourne</em></strong>Join from PC, Mac, iOS or Android:<a href="https://unimelb.zoom.us/j/84021526185?pwd=VXRpMStjZFI1TW42b3V1M1o3SEY5Zz09">https://unimelb.zoom.us/j/84021526185?pwd=VXRpMStjZFI1TW42b3V1M1o3SEY5Zz09</a>Password: 596853 &gt; &gt; Need to dial-in instead? Enter the meeting ID: 840 2152 6185 via &gt; Australia:<a href="tel:+61370182005">+61 3 7018 2005</a>or<a href="tel:+61280156011">+61 2 8015 6011</a>Hong Kong:<a href="tel:+85258086088">+852 5808 6088</a>or<a href="tel:+85258033730">+852 5803 3730</a>US:<a href="tel:+16699006833">+1 669 900 6833</a>or<a href="tel:+16468769923">+1 646 876 9923</a>Additional international numbers:<a href="https://unimelb.zoom.us/u/kdRsNDLvI6">https://unimelb.zoom.us/u/kdRsNDLvI6</a>Or join from a H.323/SIP room system: &gt; Dial:<a href="mailto:84021526185@global.zoomcrc.com">84021526185@global.zoomcrc.com</a>| or SIP:<a href="mailto:84021526185@zmau.us">84021526185@zmau.us</a>| or 103.122.166.55 &gt; with meeting ID: 84021526185 and password: 596853</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2022-03-23</h2>
+<p><strong>Kozo Nishida</strong> (04:37:25): &gt; <span class="citation" data-cites="Peter">@Peter</span> Hickey@Janani RaviI’m sorry, I’ve been busy lately and couldn’t reply to you. &gt; I will check your document(s) from now on.</p>
+<p><strong>Peter Hickey</strong> (18:37:00) (in thread): &gt; No problem Kozo</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2022-03-26</h2>
+<p><strong>Jayaram Kancherla</strong> (21:17:14): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla has joined the channel</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2022-03-29</h2>
+<p><strong>Mahmoud Ahmed</strong> (10:25:17): &gt; <span class="citation" data-cites="Mahmoud">@Mahmoud</span> Ahmed has joined the channel</p>
+<p><strong>Mahmoud Ahmed</strong> (10:36:19): &gt; I saw the call for volunteers for organizing the conference this year on another channel. Sorry I missed the first meeting. Is there a date set for the next meeting, or something I can help with meanwhile?</p>
+<p><strong>Peter Hickey</strong> (17:39:27) (in thread): &gt; Thanks, Mahmoud. I’ll DM you a link to a working document.</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2022-04-01</h2>
+<p><strong>Jayaram Kancherla</strong> (00:45:54) (in thread): &gt; <span class="citation" data-cites="Peter">@Peter</span> HickeyI also missed the first meeting but I’m happy to help</p>
+<p><strong>Peter Hickey</strong> (00:52:24) (in thread): &gt; Thanks, Jayaram. I’ve emailed you a link to the working document (using the email address in your bioc slack profile)</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2022-05-02</h2>
+<p><strong>Peter Hickey</strong> (20:22:32): &gt; <a href="https://twitter.com/AsiaR_comm/status/1521281303043186688">https://twitter.com/AsiaR_comm/status/1521281303043186688</a><span class="citation" data-cites="Kozo">@Kozo</span> NishidaSorry I can’t join this event on the weekend - Attachment (twitter): <a href="https://twitter.com/AsiaR_comm/status/1521281303043186688">Attachment</a> &gt; :loudspeaker:Join our next #AsiaR meetup on &gt; ‘Introduction to BioC Asia and how to use {targets} for effective workflows in R’ &gt; &gt; Speakers #JapanR &gt; <a href="https://twitter.com/kozo2"><span class="citation" data-cites="kozo2">@kozo2</span></a> &amp; <a href="https://twitter.com/joel_nitta"><span class="citation" data-cites="joel_nitta">@joel_nitta</span></a> &gt; &gt; Material <a href="https://github.com/AsiaR-community/2022-bioCasia_targets">https://github.com/AsiaR-community/2022-bioCasia_targets</a> &gt; &gt; May 7 ’22 | 8a UTC | <a href="https://bit.ly/asiar_may2022">https://bit.ly/asiar_may2022</a> &gt; RSVP: <a href="https://forms.gle/jkw4dfQj6hdtAuhi9">https://forms.gle/jkw4dfQj6hdtAuhi9</a> &gt; #rstats #rladies <a href="https://pbs.twimg.com/media/FRyrbGHVkAA0MDe.jpg">https://pbs.twimg.com/media/FRyrbGHVkAA0MDe.jpg</a></p>
+<p><strong>Kozo Nishida</strong> (22:14:09) (in thread): &gt; I’m sorry too. &gt; Sorry for the delay in contacting you and Janani. &gt; I have stopped discussing the BioC Asia 2022 host organization. &gt; I understand that you (<span class="citation" data-cites="Peter">@Peter</span> Hickey) are considering hosting it in ABACBS and@Janani Raviwants to do it in some way related with AsiaR. &gt; Is my understanding of this correct?</p>
+<p><strong>Janani Ravi</strong> (22:18:14) (in thread): &gt; I haven’t had a chance to follow-up on this yet!</p>
+<p><strong>Kozo Nishida</strong> (22:18:36) (in thread): &gt; If the above is correct, I haven’t yet come up with the best way to adjust it. &gt; I also don’t know if it’s okay to call on host organizations other than ABACBS in my AsiaR presentation above. &gt; Anyway, I will create the BioC Asia introduction slide ASAP and share it with everyone in this workspace. &gt; (And I will ask for your opinions.)</p>
+<p><strong>Peter Hickey</strong> (22:19:31) (in thread): &gt; We had a meeting a couple of weekes ago and decided to run BioC Asia 2022 as a hybrid event as part of ABACBS in November. &gt; I’m meeting with the ABACBS organisers this week to make further plans to ensure it’ll be a successful hybrid event</p>
+<p><strong>Kozo Nishida</strong> (22:23:08) (in thread): &gt; Thank you Peter. I think it’s good for me and the Japanese people. &gt; Because Japan is still very strict to re-enter the country due to pandemic.</p>
+<p><strong>Janani Ravi</strong> (22:23:56) (in thread): &gt; It would make sense to invite AsiaR folks from different countries to partake but since we are coming out of the pandemic, it’s increasingly difficult to rally support &amp; get people to make any kind of time or $$ commitment. We may need to ease into it for 2023!</p>
+<p><strong>Peter Hickey</strong> (22:36:42) (in thread): &gt; We will hopefully have some funding available to support in-person attendance, but we also know that international travel may still essentially be impossible for people from many countries. &gt; Promoting the event to the wider AsiaR network and giving people from that network an opportunity to present is high on my list of aims for this meeting. &gt; We will be seeking ideas to ensure that online attendees don’t feel like ‘second class citizens’ (bad choice of words, I know) to those in-person attendees.</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2022-05-03</h2>
+<p><strong>Janani Ravi</strong> (13:51:44): &gt; Not sure if there’s a better channel to announce events! &gt; ——————- &gt; We are excited to announce our next AsiaR meetup! &gt; Please join us this Saturday &amp; help spread the word.<strong><em>Introduction to BioC Asia and how to use {targets} for effective workflows in R</em><em>Companion repo</em></strong>:<a href="https://github.com/AsiaR-community/2022-bioCasia_targets">https://github.com/AsiaR-community/2022-bioCasia_targets</a>:speech_balloon:* On Twitter<em>?<a href="https://twitter.com/AsiaR_comm/status/1521281303043186688">Please RT</a>.</em><strong>Featured speakers</strong><em><span class="citation" data-cites="Kozo">@Kozo</span> Nishida|<a href="https://github.com/kozo2">https://github.com/kozo2</a>- Joel Nitta |<a href="https://www.joelnitta.com">https://www.joelnitta.com</a>|<a href="https://github.com/joelnitta">https://github.com/joelnitta</a></em><strong>Event details</strong><em>May 7, 2022 | 8a UTC / 5p JST | Check your local time:<a href="https://bit.ly/asiar_may2022">https://bit.ly/asiar_may2022</a>:star2:</em>*** How to participate<strong>:star2:1. Fill out the Google Form:<a href="https://forms.gle/jkw4dfQj6hdtAuhi9">https://forms.gle/jkw4dfQj6hdtAuhi9</a>2. A zoom link will be sent to your email by</strong><em>May 6, 2022</em><strong>. Please join via Zoom.:loudspeaker:</strong>*** Want to host an event in the future?***********Ple******ase sign up here:<a href="https://bit.ly/asiar_host_2022">https://bit.ly/asiar_host_2022</a>——————–<strong><em>About the Event</em><em>Part I: </em></strong>******Introduction to **********<code>BioC Asia</code>******Are you interested in biology and R? R has a package repository for biology called Bioconductor. Bioconductor holds annual conferences in Asia (BioC Asia), Europe (EuroBioC), and the United States (BioC).<strong>Kozo Nishida</strong>will introduce you to what ‘BioC Asia’ looks like in ~10–15 minutes.<strong><em>Part II: </em></strong>******How to use {************<code>targets</code>************} for effective workflows in R******Have you ever returned to an analysis in R and can’t remember which scripts you need to run and in what order to make things work? Do you want to speed up your analyses with parallelization? Do you want to ensure other people can run your code? The {targets} R package (<a href="https://docs.ropensci.org/targets/">https://docs.ropensci.org/targets/</a>) can help! {targets} is increasingly becoming the de-facto standard in R for reproducible workflows but can be intimidating for new users to get started.<strong>Joel Nitta</strong>will conduct a short (~1 hr) interactive workshop to introduce participants to the {targets} package for managing workflows in R. Joel has published several analyses (papers) using {targets} and now uses it on a near-daily basis (<a href="https://github.com/joelnitta">https://github.com/joelnitta</a>). The workshop materials are also available in Japanese (<a href="https://togotv.dbcls.jp/20220331.html">https://togotv.dbcls.jp/20220331.html</a>).<strong>Prerequisites</strong>: Basic familiarity with R. If you plan to follow along during live coding, please install R, RStudio, and {targets}. &gt; ——————–</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2022-05-16</h2>
+<p><strong>Batool Almarzouq</strong> (19:22:22): &gt; <span class="citation" data-cites="Batool">@Batool</span> Almarzouq has left the channel</p>
+<p><strong>Batool Almarzouq</strong> (19:22:25): &gt; <span class="citation" data-cites="Batool">@Batool</span> Almarzouq has joined the channel</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2022-06-08</h2>
+<p><strong>Kozo Nishida</strong> (04:26:05): &gt; <span class="citation" data-cites="Dario">@Dario</span> StrbenacSorry for contacting you late. ABACBS will be the hosting institution for this year’s BioC Asia. &gt; And now you can join the organizing committee. &gt; I made a draft list of the roles. &gt; If you have a role that you are interested in, please sign up this Slack post. - File (Canvas): <a href="https://community-bioc.slack.com/docs/T35G93A5T/F03JR7FHVQB">BioCAsia2022 organizing committee</a></p>
+<p><strong>Kozo Nishida</strong> (04:29:45) (in thread): &gt; If anyone is interested in becoming the BioC Asia 2022 organizing committee, feel free to sign up the Slack post.</p>
+<p><strong>Kozo Nishida</strong> (04:33:21): &gt; The “website” and “registration” are expected to be almost the same as last year’s BioC Asia (See also<a href="https://bioc2022.bioconductor.org/">https://bioc2022.bioconductor.org/</a>and<a href="https://biocasia2021.bioconductor.org/">https://biocasia2021.bioconductor.org/</a>). &gt; So I and@Peter Hickey, who are the same persons as last year, are assigned in the post. &gt; But if anyone wants to take on these roles, feel free to sign up those fields. - Attachment (biocasia2021.bioconductor.org): <a href="https://biocasia2021.bioconductor.org/">BioC Asia 2021</a> &gt; Site template made by devcows using hugo</p>
+<p><strong>Kozo Nishida</strong> (04:41:49) (in thread): &gt; <span class="citation" data-cites="Dario">@Dario</span> StrbenacSorry for the delay in replying to you from this message.</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2022-07-14</h2>
+<p><strong>Xueyi Dong</strong> (10:59:35): &gt; <span class="citation" data-cites="Xueyi">@Xueyi</span> Dong has joined the channel</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2022-07-29</h2>
+<p><strong>Alex Mahmoud</strong> (16:54:47): &gt; <span class="citation" data-cites="Alex">@Alex</span> Mahmoud has joined the channel</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2022-11-14</h2>
+<p><strong>Stevie Pederson</strong> (23:58:55): &gt; Hi&lt;!channel&gt;. I thought I might get organised &amp; print off some stickers for my packages this year. Is there a recommended hex sticker printer other BiocAsia people have used?</p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2022-11-15</h2>
+<p><strong>Peter Hickey</strong> (00:07:06): &gt; In Melbourne, we’ve used<a href="https://classic-colour.com.au/">https://classic-colour.com.au/</a>for some BioC Asia stuff back in 2019.@Matt Ritchiemight have a more up-to-date recommendation</p>
+<p><strong>Matt Ritchie</strong> (00:07:21): &gt; <span class="citation" data-cites="Matt">@Matt</span> Ritchie has joined the channel</p>
+<p><strong>Peter Hickey</strong> (00:11:51): &gt; which reminds me to get stickers printed for this year!</p>
+<p><strong>Stevie Pederson</strong> (01:20:38): &gt; Thanks Peter. I’ll given them a try.</p>
+<p><strong>Kozo Nishida</strong> (02:14:48): &gt; By the way, this year’s BioCAsia sticker by Kathleen Zeglinski is<a href="https://github.com/Bioconductor/BiocStickers/tree/master/events/BiocAsia2022">https://github.com/Bioconductor/BiocStickers/tree/master/events/BiocAsia2022</a>. &gt; (I think that the svg file can create a more beautiful print.)</p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2022-11-16</h2>
+<p><strong>Matt Ritchie</strong> (18:53:30) (in thread): &gt; I went to the same place to get some other stickers printed recently (they’ve moved to East Brunswick though, which is still pretty close by)</p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2023-02-28</h2>
+<p><strong>Luyi Tian</strong> (21:59:08): &gt; <span class="citation" data-cites="Luyi">@Luyi</span> Tian has joined the channel</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2023-05-18</h2>
+<p><strong>Oluwafemi Oyedele</strong> (05:54:39): &gt; <span class="citation" data-cites="Oluwafemi">@Oluwafemi</span> Oyedele has joined the channel</p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2023-08-08</h2>
+<p><strong>Ellis Patrick</strong> (16:41:22): &gt; <span class="citation" data-cites="Ellis">@Ellis</span> Patrick has joined the channel</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2023-09-04</h2>
+<p><strong>Kozo Nishida</strong> (13:10:09): - Attachment: <a href="https://community-bioc.slack.com/archives/C024SNHU8A3/p1693847396304119">Attachment</a> &gt; For those of you in the Asian time zone and in non-English-speaking regions, &gt; I’m considering holding a (Carpentries) community session to translate <a href="https://github.com/carpentries-incubator/bioc-intro">https://github.com/carpentries-incubator/bioc-intro</a> into your native languages starting at 13:00 Japan time on the Sep 13th. &gt; Is anyone interested? &gt; I would like to know how many people are interested and whether it might be necessary to reschedule</p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2023-09-07</h2>
+<p><strong>Ellis Patrick</strong> (17:58:28): - Attachment: <a href="https://community-bioc.slack.com/archives/C35G93GJH/p1693496640080559?thread_ts=1693496640.080559&amp;cid=C35G93GJH">Attachment</a> &gt; :mega: BioCAsia2023 abstract submission now open !</p>
+</section>
+<section id="section-53" class="level2">
+<h2 class="anchored" data-anchor-id="section-53">2023-09-09</h2>
+<p><strong>Kozo Nishida</strong> (05:00:18): - Attachment: <a href="https://community-bioc.slack.com/archives/C024SNHU8A3/p1694249987376869?thread_ts=1693847396.304119&amp;cid=C024SNHU8A3">Attachment</a> &gt; &gt; For those of you in the Asian time zone and in non-English-speaking regions, &gt; &gt; I’m considering holding a (Carpentries) community session to translate <a href="https://github.com/carpentries-incubator/bioc-intro">https://github.com/carpentries-incubator/bioc-intro</a> into your native languages starting at 13:00 Japan time on the Sep 13th. &gt; &gt; Is anyone interested? &gt; I have decided to postpone this event. (I’m sorry :pray:) &gt; &gt; However, the system to support translation (Crowdin+DeepL+GitHub) is almost fully set up, &gt; • <a href="https://bioconductor.crowdin.com/bioc-intro">https://bioconductor.crowdin.com/bioc-intro</a> &gt; • <a href="https://github.com/bioconductor-translations/bioc-intro-translation/blob/main/crowdin.yml">https://github.com/bioconductor-translations/bioc-intro-translation/blob/main/crowdin.yml</a> &gt; • <a href="https://github.com/bioconductor-translations/bioc-intro-translation/tree/l10n_main">https://github.com/bioconductor-translations/bioc-intro-translation/tree/l10n_main</a> &gt; and all that’s left is to automate the building website (from the translated text). &gt; &gt; If anyone is interested in or wants to try out this translation system, please feel free to reach out to me.</p>
+</section>
+<section id="section-54" class="level2">
+<h2 class="anchored" data-anchor-id="section-54">2024-04-03</h2>
+<p><strong>Kozo Nishida</strong> (11:44:56): &gt; Hi all, &gt; Does anyone know who will host BioCAsia2024? &gt; (If it hasn’t been decided yet, ) I would like to ask<a href="https://www.apbjc.asia/">https://www.apbjc.asia/</a>if they would consider co-hosting BioCAsia2024 with us. - Attachment (apbjc.asia): <a href="https://www.apbjc.asia/">1st Asia &amp; Paciﬁc Bioinformatics Joint Conference ～JSBi, GIW, InCoB, APBC, and ISCB-Asia～ (APBJC 2024)</a> &gt; Dates: 22Tue -25Fri October 2024　Venue: Okinawa, JAPAN　Conference Chairs: Wataru Iwasaki (The University of Tokyo), Kiyoko F. Aoki-Kinoshita (Soka University)</p>
+</section>
+<section id="section-55" class="level2">
+<h2 class="anchored" data-anchor-id="section-55">2024-04-09</h2>
+<p><strong>Dario Strbenac</strong> (01:00:01): &gt; It will be co-hosted with A.B.A.CB.S. in Sydney, Australia. It would be great to see it in Japan soon, though.</p>
+<p><strong>Stevie Pederson</strong> (03:00:31) (in thread): &gt; Oh thanks Dario. That’s really good to know. Are you the convenor, or is Ellis heading it up again?</p>
+<p><strong>Dario Strbenac</strong> (03:00:52) (in thread): &gt; Ellis.</p>
+<p><strong>Stevie Pederson</strong> (03:01:55) (in thread): &gt; He’s gonna be busy then:joy:</p>
+<p><strong>Kozo Nishida</strong> (04:57:20) (in thread): &gt; Thank you for the information, Dario.:pray:</p>
+</section>
+<section id="section-56" class="level2">
+<h2 class="anchored" data-anchor-id="section-56">2024-05-03</h2>
+<p><strong>stefano mangiola</strong> (05:04:36): &gt; <span class="citation" data-cites="stefano">@stefano</span> mangiola has joined the channel</p>
+</section>
+<section id="section-57" class="level2">
+<h2 class="anchored" data-anchor-id="section-57">2024-05-14</h2>
+<p><strong>Ellis Patrick</strong> (01:04:32) (in thread): &gt; Are you volunteering@Stevie Pederson?</p>
+<p><strong>Ellis Patrick</strong> (01:05:24) (in thread): &gt; Arguably, apbjc might be a great option to provide BioC visability</p>
+<p><strong>Ellis Patrick</strong> (01:07:41) (in thread): &gt; We can run some bioconductor workshops + developer meet-up at ABACBS without it being the official biocasia2024</p>
+<p><strong>Stevie Pederson</strong> (01:40:37) (in thread): &gt; Hmm. Timeline might be a bit tight for a Japan Bioc24. I probably wouldn’t have the travel budget to go to Japan but it would be great to see if it’s viable. Any thoughts@Kozo Nishida? &gt; &gt; The CAB has been intermittently discussing the idea of workshops at conferences too so running some with ABACBS is definitely worth exploring if the conference goes to Japan. &gt; &gt; Happy to join the organising group too if you’re recruiting…</p>
+</section>
+<section id="section-58" class="level2">
+<h2 class="anchored" data-anchor-id="section-58">2024-05-19</h2>
+<p><strong>Ellis Patrick</strong> (17:23:46) (in thread): &gt; <span class="citation" data-cites="stefano">@stefano</span> mangiolatagging you here:slightly_smiling_face:</p>
+<p><strong>stefano mangiola</strong> (18:10:36) (in thread): &gt; I could definitely help with the organisation of Bioc workshop session.</p>
+</section>
+<section id="section-59" class="level2">
+<h2 class="anchored" data-anchor-id="section-59">2024-05-23</h2>
+<p><strong>stefano mangiola</strong> (23:12:39) (in thread): &gt; <span class="citation" data-cites="Stevie">@Stevie</span> Pedersondo you want to have a short chat about all this?</p>
+</section>
+<section id="section-60" class="level2">
+<h2 class="anchored" data-anchor-id="section-60">2024-05-24</h2>
+<p><strong>Stevie Pederson</strong> (02:37:47) (in thread): &gt; Sounds good. Next week sometime?</p>
+<p><strong>stefano mangiola</strong> (02:56:13) (in thread): &gt; Tue 2PM?</p>
+<p><strong>Stevie Pederson</strong> (03:03:09) (in thread): &gt; Yep! Abbots &amp; Kinney across the road?</p>
+</section>
+<section id="section-61" class="level2">
+<h2 class="anchored" data-anchor-id="section-61">2024-06-03</h2>
+<p><strong>Stevie Pederson</strong> (22:42:40): &gt; Hi&lt;!channel&gt;. The BiocAsia conference organising group is currently being put together. We’d absolutely love for anyone who’s keen to help to be involved. The 2024 event is likely to be held in Sydney, this November. Please contact@stefano mangiola@Ellis Patrickor@Stevie Pedersonif you’re keen to help out.</p>
+</section>
+<section id="section-62" class="level2">
+<h2 class="anchored" data-anchor-id="section-62">2024-06-04</h2>
+<p><strong>Tuomas Borman</strong> (01:29:06): &gt; <span class="citation" data-cites="Tuomas">@Tuomas</span> Borman has joined the channel</p>
+<p><strong>stefano mangiola</strong> (03:19:33): &gt; tagging@Jiya Chaudharywho is an intern at Bioconductor and expressed interest in contributing to the organisation of BiocAsia</p>
+<p><strong>Jiya Chaudhary</strong> (03:19:46): &gt; <span class="citation" data-cites="Jiya">@Jiya</span> Chaudhary has joined the channel</p>
+<p><strong>Peace Sandy</strong> (06:41:50): &gt; <span class="citation" data-cites="Peace">@Peace</span> Sandy has joined the channel</p>
+<p><strong>irem Kahveci</strong> (07:58:22): &gt; <span class="citation" data-cites="irem">@irem</span> Kahveci has joined the channel</p>
+</section>
+<section id="section-63" class="level2">
+<h2 class="anchored" data-anchor-id="section-63">2024-06-06</h2>
+<p><strong>Jiya Chaudhary</strong> (02:15:31): &gt; Hello all, excited to be a part of BiocAsia :))</p>
+</section>
+<section id="section-64" class="level2">
+<h2 class="anchored" data-anchor-id="section-64">2024-06-09</h2>
+<p><strong>Saejeong Park</strong> (10:23:36): &gt; <span class="citation" data-cites="Saejeong">@Saejeong</span> Park has joined the channel</p>
+</section>
+<section id="section-65" class="level2">
+<h2 class="anchored" data-anchor-id="section-65">2024-06-13</h2>
+<p><strong>Shinji Tokunaga</strong> (01:48:38): &gt; <span class="citation" data-cites="Shinji">@Shinji</span> Tokunaga has joined the channel</p>
+</section>
+<section id="section-66" class="level2">
+<h2 class="anchored" data-anchor-id="section-66">2024-06-16</h2>
+<p><strong>Kozo Nishida</strong> (04:40:58) (in thread): &gt; Sorry for the late reply. &gt; It does not look like I can organize a Bioconductor workshop [instead of BioCAsia] at apbjc. &gt; (I have been quite busy recently and have not been able to reply to this community…) &gt; Instead of the above, &gt; I would like to submit a talk abstract [about#education-and-training]to<a href="https://www.apbjc.asia/call-for-submission.html">https://www.apbjc.asia/call-for-submission.html</a>. &gt; Bioconductor plans to make the Carpentries-style teaching materials available in multiple languages and to provide education in local languages.</p>
+</section>
+<section id="section-67" class="level2">
+<h2 class="anchored" data-anchor-id="section-67">2024-07-08</h2>
+<p><strong>Maria Doyle</strong> (16:54:34): &gt; Hi everyone, &gt; &gt; I wanted to share an opportunity to participate in the Australian Outpost of the ELIXIR BioHackathon, happening this November 4-8. This international event brings together bioinformatics professionals to enhance the interoperability, accessibility, and reusability of bioinformatics tools. &gt; &gt; Australian BioCommons wants to support people in Australia who can’t attend the BioHackathon in person in Barcelona to still contribute meaningfully, including to our project on increasing the findability of Bioconductor packages and improving EDAM ontology. Our project is one of the identified projects for the Australian Outpost. &gt; &gt; Even if you’re not based in Australia, you might know someone who could be interested. Additionally, remote participation from outside Australia is also possible. Note this event coincides with the ABACBS conference dates (November 5-6) and associated satellite events. &gt; &gt; If you’re interested or know someone who might be, please let me know! More info about the call for participation:<a href="https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.biocommons.org.au%2Fnews%2Fbiohack-call2024&amp;data=05%7C02%7CMaria.Doyle%40ul.ie%7C9243b7fb051a411e62c408dc9cb0180c%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638557527339032332%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0%7C%7C%7C&amp;sdata=rIZzk9ylEScnvTODRWKFDauU63e8egZBYtOwEIrtLvA%3D&amp;reserved=0">BioHackathon Europe Call 2024</a>. The deadline is<strong><em>August 9th</em></strong>. &gt; &gt; Happy to answer any questions or provide more details. - Attachment (Australian BioCommons): <a href="https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.biocommons.org.au%2Fnews%2Fbiohack-call2024&amp;data=05%7C02%7CMaria.Doyle%40ul.ie%7C9243b7fb051a411e62c408dc9cb0180c%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638557527339032332%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0%7C%7C%7C&amp;sdata=rIZzk9ylEScnvTODRWKFDauU63e8egZBYtOwEIrtLvA%3D&amp;reserved=0">Join the Australian Outpost of BioHackathon Europe 2024! — Australian BioCommons</a> &gt; Are you interested in joining this year’s BioHackathon Europe, but can’t face the long haul flights? You should join the Australian Outpost team who will gather to work locally, while checking in regularly with our international colleagues.</p>
+</section>
+<section id="section-68" class="level2">
+<h2 class="anchored" data-anchor-id="section-68">2024-07-24</h2>
+<p><strong>Kozo Nishida</strong> (03:31:14) (in thread): &gt; I am interested in participating in it remotely. &gt; What actions, if any, should I take to do it?</p>
+</section>
+<section id="section-69" class="level2">
+<h2 class="anchored" data-anchor-id="section-69">2024-07-25</h2>
+<p><strong>Maria Doyle</strong> (16:44:41) (in thread): &gt; Great Kozo, you can register to attend the BioHackathon virtually through this page<a href="https://biohackathon-europe.org/registration/">https://biohackathon-europe.org/registration/</a></p>
+</section>
+<section id="section-70" class="level2">
+<h2 class="anchored" data-anchor-id="section-70">2024-07-29</h2>
+<p><strong>Kozo Nishida</strong> (04:37:04) (in thread): &gt; Thanks Maria, I registered through that page.</p>
+</section>
+<section id="section-71" class="level2">
+<h2 class="anchored" data-anchor-id="section-71">2024-08-22</h2>
+<p><strong>Maria Doyle</strong> (04:50:52): &gt; :mega:<strong><em>BioCAsia 2024 Abstract Deadline - August 26th</em></strong>Hi everyone, Just a quick heads-up that the abstract submission deadline for BioCAsia 2024 is approaching soon. If you’re planning to present your research at the conference in Sydney, Australia:flag-au:, on November 7-8, make sure to submit your abstract by<strong><em>this Monday, August 26th, at 11:59 PM (AEST)</em></strong>. &gt; &gt; You can submit your abstract here:<a href="https://biocasia2024.bioconductor.org/submissions/">BioCAsia 2024 Submission Page</a>. &gt; &gt; Looking forward to seeing your contributions!</p>
+</section>
+<section id="section-72" class="level2">
+<h2 class="anchored" data-anchor-id="section-72">2024-08-27</h2>
+<p><strong>Maria Doyle</strong> (08:06:25): &gt; :mega:𝗥𝗲𝗴𝗶𝘀𝘁𝗿𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿 𝗕𝗶𝗼𝗖𝗔𝘀𝗶𝗮 𝟮𝟬𝟮𝟰 𝗶𝘀 𝗻𝗼𝘄 𝗼𝗽𝗲𝗻! &gt; &gt; Join a key event connecting the bioinformatics community.:point_right:Register here:<a href="https://buff.ly/4cEmcIj">https://buff.ly/4cEmcIj</a><strong>Note: BioCAsia registration is available separately if you’re not attending ABACBS. If attending ABACBS, select ‘ABACBS Full’ or ‘ABACBS Student’ to add BioCAsia during the process.</strong>Feel free to share the<a href="https://www.linkedin.com/posts/bioconductor_biocasia2024-bioinformatics-rstats-activity-7234168024713342976-jiIO">LinkedIn</a>or<a href="https://genomic.social/@bioconductor/113033872307553730">Mastodon</a>posts.</p>
+</section>
+<section id="section-73" class="level2">
+<h2 class="anchored" data-anchor-id="section-73">2024-08-28</h2>
+<p><strong>Maria Doyle</strong> (07:08:38) (in thread): &gt; :money_with_wings:Just a heads-up! The “Conference Access Award” is available to help cover your BioCAsia registration fee. If you’re presenting or participating and need support, consider applying here:<a href="https://biocasia2024.bioconductor.org/submissions/">https://biocasia2024.bioconductor.org/submissions/</a></p>
+</section>
+<section id="section-74" class="level2">
+<h2 class="anchored" data-anchor-id="section-74">2024-09-11</h2>
+<p><strong>Alex Qin</strong> (19:48:42): &gt; <span class="citation" data-cites="Alex">@Alex</span> Qin has joined the channel</p>
+</section>
+<section id="section-75" class="level2">
+<h2 class="anchored" data-anchor-id="section-75">2024-11-06</h2>
+<p><strong>Davide Risso</strong> (02:20:12): &gt; <span class="citation" data-cites="Davide">@Davide</span> Risso has joined the channel</p>
+<p><strong>Ellis Patrick</strong> (21:38:07): &gt; If anyone wants to zoom in you can join by this link<a href="https://uni-sydney.zoom.us/j/87583095352">https://uni-sydney.zoom.us/j/87583095352</a></p>
+<p><strong>Ellis Patrick</strong> (21:38:15): &gt; &lt;!here&gt;</p>
+<p><strong>Kozo Nishida</strong> (21:41:15) (in thread): &gt; Hi Ellis, &gt; that Zoom link requires a University of Sydney sign-in, so it seems that the general public won’t be able to join.</p>
+<p><strong>Ellis Patrick</strong> (21:48:45) (in thread): &gt; Are you sure it requires a sign in? You should just need to input the same email that you are using to sign into zoom.</p>
+<p><strong>Kozo Nishida</strong> (21:54:32) (in thread): &gt; Is that the email that is used to register for BioCAsia? If so, I don’t think I registered.</p>
+<p><strong>Ellis Patrick</strong> (21:55:02) (in thread): &gt; No, the email of your zoom account.</p>
+<p><strong>Michael Nakai</strong> (21:58:05): &gt; <span class="citation" data-cites="Michael">@Michael</span> Nakai has joined the channel</p>
+<p><strong>Kozo Nishida</strong> (21:59:30) (in thread): &gt; Ah, sorry, I hadn’t signed in to my Zoom account yet. &gt; Therefore, I was not able to proceed to the step where I input the email. &gt; Now I can access BioCAsia Zoom without any problems. Apologies for the trouble.</p>
+<p><strong>Shila Ghazanfar</strong> (22:08:01): &gt; <span class="citation" data-cites="Shila">@Shila</span> Ghazanfar has joined the channel</p>
+<p><strong>Sam El-Kamand</strong> (22:08:27): &gt; <span class="citation" data-cites="Sam">@Sam</span> El-Kamand has joined the channel</p>
+<p><strong>Pratibha Panwar</strong> (22:09:06): &gt; <span class="citation" data-cites="Pratibha">@Pratibha</span> Panwar has joined the channel</p>
+</section>
+<section id="section-76" class="level2">
+<h2 class="anchored" data-anchor-id="section-76">2024-11-08</h2>
+<p><strong>Kozo Nishida</strong> (08:24:57): &gt; This is the Google Slides I used in my BioCAsia talk today.<a href="https://docs.google.com/presentation/d/1Fi7tuhGHh1xkl3zOs4Hf4vL6kSXj7A702R5UdVmTxHQ/edit?usp=sharing">https://docs.google.com/presentation/d/1Fi7tuhGHh1xkl3zOs4Hf4vL6kSXj7A702R5UdVmTxHQ/edit?usp=sharing</a> - File (Google Slides): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F08027XHMMG/carpentries_to_promote_bioconductor__biocasia2024_">Carpentries to promote Bioconductor (BioCAsia2024)</a></p>
+</section>
+<section id="section-77" class="level2">
+<h2 class="anchored" data-anchor-id="section-77">2024-11-10</h2>
+<p><strong>Connie Li Wai Suen</strong> (18:13:58): &gt; <span class="citation" data-cites="Connie">@Connie</span> Li Wai Suen has joined the channel</p>
+<p><strong>Connie Li Wai Suen</strong> (18:16:03): &gt; <span class="citation" data-cites="Connie">@Connie</span> Li Wai Suen has left the channel</p>
+</section>
+<section id="section-78" class="level2">
+<h2 class="anchored" data-anchor-id="section-78">2025-03-17</h2>
+<p><strong>stefano mangiola</strong> (02:19:35): &gt; <strong><em>Hello Everyone,</em></strong>This morning, we had a great chat with@Stevie Pedersonabout the exciting future of the<strong><em>BiocAsia community</em></strong>. We discussed the importance of having an organised effort to boost community engagement and thought giving it an official name would help highlight its significance:<strong><em>BiocAsia Engagement Initiative</em></strong>As a first practical goal (with a 1-month timeline), we suggest identifying 1–2 enthusiastic**** “Engagement Champions”****from each major region in Asia-Pacific, such as: &gt; • Japan &gt; • China &gt; • India &gt; • Singapore &gt; • South-east Asia &gt; • New Zealand &gt; • Hong Kong &gt; • Australia (though we’re already quite active!) &gt; •<strong>(Feel free to propose more!)</strong>These Engagement Champions would help drive community engagement with clear responsibilities we can define together. Some initial ideas include: &gt; • Gathering participation and outreach across local institutions &gt; • Defining requirements for digital platforms &gt; • Identifying potential sponsors for the BiocAsia conference &gt; &gt; Once we collectively agree on these roles, we can begin identifying community members interested in taking on this meaningful, long-term commitment. &gt; &gt; We’d love your thoughts on this! Please share your feedback and any additional suggestions you may have.</p>
+<p><strong>stefano mangiola</strong> (18:38:39) (in thread): &gt; Tagging@Vince Careyfor knowledge and feedback</p>
+</section>
+<section id="section-79" class="level2">
+<h2 class="anchored" data-anchor-id="section-79">2025-04-08</h2>
+<p><strong>Lijia Yu</strong> (09:13:55): &gt; <span class="citation" data-cites="Lijia">@Lijia</span> Yu has joined the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

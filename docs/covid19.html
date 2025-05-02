@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#covid19 – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2020-03-20</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2020-03-22</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2020-03-23</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2020-03-24</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2020-03-25</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2020-03-26</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2020-03-30</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2020-03-31</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2020-04-05</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2020-04-06</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2020-04-07</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2020-04-09</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2020-04-11</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2020-04-12</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2020-04-18</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2020-04-20</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2020-04-22</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2020-04-23</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2020-04-24</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2020-04-27</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2020-04-30</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2020-05-01</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2020-05-04</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2020-05-05</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2020-05-06</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2020-05-23</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2020-06-06</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2020-06-07</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2020-06-22</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2020-06-28</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2020-07-03</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2020-07-29</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2020-07-31</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2020-08-31</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2020-09-16</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2020-11-04</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2020-12-12</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2021-01-22</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2021-03-05</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2021-03-20</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2021-03-23</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2021-05-11</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2021-05-23</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2021-06-08</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2021-11-08</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2022-01-28</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2022-07-22</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2022-07-28</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2022-07-29</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2023-01-18</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2023-08-03</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2024-02-05</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2024-05-14</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#covid19</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2020-03-20</h2>
+<p><strong>Vince Carey</strong> (07:47:59): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+<p><strong>Vince Carey</strong> (07:48:00): &gt; set the channel description: Discuss software/data related to COVID-19</p>
+<p><strong>Sean Davis</strong> (07:48:09): &gt; <span class="citation" data-cites="Sean">@Sean</span> Davis has joined the channel</p>
+<p><strong>Levi Waldron</strong> (07:49:35): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldron has joined the channel</p>
+<p><strong>Levi Waldron</strong> (09:23:10): &gt; I’ve wondered if I could contribute something to the public health response to COVID-19, or whether I would just be duplicating efforts by people more involved than me in infectious disease epidemiology. For example, the Italy dataset that seems to be in use (<a href="https://github.com/pcm-dpc/COVID-19">https://github.com/pcm-dpc/COVID-19</a>) could be enriched by adding the dates of public health interventions and age structure per region / province. But do we have a line on what analyses are really in need right now?</p>
+<p><strong>Levi Waldron</strong> (09:23:27): &gt; And whether something like that has been done already?</p>
+<p><strong>Sean Davis</strong> (12:31:44): &gt; <a href="https://twitter.com/seandavis12/status/1241028865679646726">https://twitter.com/seandavis12/status/1241028865679646726</a> - Attachment (twitter): <a href="https://twitter.com/seandavis12/status/1241028865679646726">Attachment</a> &gt; Looking for #DataScience projects involving #COVID19, this #AwesomeList on <a href="https://twitter.com/github"><span class="citation" data-cites="github">@github</span></a> from <a href="https://twitter.com/soroushchehresa"><span class="citation" data-cites="soroushchehresa">@soroushchehresa</span></a> contains a nice set of data resources. &gt; &gt; <a href="https://github.com/soroushchehresa/awesome-coronavirus">https://github.com/soroushchehresa/awesome-coronavirus</a> &gt; &gt; #Coronavirus #SARSCoV2 #github &gt; &gt; cc <a href="https://twitter.com/Bioconductor"><span class="citation" data-cites="Bioconductor">@Bioconductor</span></a> <a href="https://twitter.com/NIH"><span class="citation" data-cites="NIH">@NIH</span></a> <a href="https://twitter.com/CDCgov"><span class="citation" data-cites="CDCgov">@CDCgov</span></a> <a href="https://twitter.com/US_FDA"><span class="citation" data-cites="US_FDA">@US_FDA</span></a> <a href="https://pbs.twimg.com/media/ETkD8_7WkAAd1wR.jpg">https://pbs.twimg.com/media/ETkD8_7WkAAd1wR.jpg</a></p>
+<p><strong>Sean Davis</strong> (12:33:13): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey, do you want to “announce” the#covid19channel on#general? People may not find it otherwise. Alternatively, we can keep it quiet for the time being.</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2020-03-22</h2>
+<p><strong>Vince Carey</strong> (11:28:46): &gt; 1. Kaggle called CORD-19:<a href="https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge">https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge</a>. Tasks, what is of interest to extract:<a href="https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge/tasks">https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge/tasks</a>2. Oak Ridge National Lab effort:<a href="https://chemrxiv.org/articles/Repurposing_Therapeutics_for_the_Wuhan_Coronavirus_nCov-2019_Supercomputer-Based_Docking_to_the_Viral_S_Protein_and_Human_ACE2_Interface/11871402/3">https://chemrxiv.org/articles/Repurposing_Therapeutics_for_the_Wuhan_Coronavirus_nCov-2019_Supercomputer-Based_Docking_to_the_Viral_S_Protein_and_Human_ACE2_Interface/11871402/3</a>3. OHDSI effort:<a href="https://forums.ohdsi.org/t/ohdsi-virtual-study-a-thon-to-support-covid-19-response-to-take-place-26-29mar2020-collaborators-wanted/9810">https://forums.ohdsi.org/t/ohdsi-virtual-study-a-thon-to-support-covid-19-response-to-take-place-26-29mar2020-collaborators-wanted/9810</a> - Attachment (kaggle.com): <a href="https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge">COVID-19 Open Research Dataset Challenge (CORD-19)</a> &gt; An AI challenge with AI2, CZI, MSR, Georgetown, NIH &amp; The White House - Attachment (kaggle.com): <a href="https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge/tasks">COVID-19 Open Research Dataset Challenge (CORD-19)</a> &gt; An AI challenge with AI2, CZI, MSR, Georgetown, NIH &amp; The White House - Attachment (figshare): <a href="https://chemrxiv.org/articles/Repurposing_Therapeutics_for_the_Wuhan_Coronavirus_nCov-2019_Supercomputer-Based_Docking_to_the_Viral_S_Protein_and_Human_ACE2_Interface/11871402/3">Repurposing Therapeutics for COVID-19: Supercomputer-Based Docking to the SARS-CoV-2 Viral Spike Protein and Viral Spike Protein-Human ACE2 Interface</a> &gt; The novel Wuhan coronavirus (SARS-CoV-2) has been sequenced, and the virus shares substantial similarity with SARS-CoV. Here, using a computational model of the spike protein (S-protein) of SARS-CoV-2 interacting with the human ACE2 receptor, we make use of the world’s most powerful supercomputer, SUMMIT, to enact an ensemble docking virtual high-throughput screening campaign and identify small-molecules which bind to either the isolated Viral S-protein at its host receptor region or to the S protein-human ACE2 interface. We hypothesize the identified small-molecules may be repurposed to limit viral recognition of host cells and/or disrupt host-virus interactions. A ranked list of compounds is given that can be tested experimentally. - Attachment (OHDSI Forums): <a href="https://forums.ohdsi.org/t/ohdsi-virtual-study-a-thon-to-support-covid-19-response-to-take-place-26-29mar2020-collaborators-wanted/9810">OHDSI virtual study-a-thon to support COVID-19 response, to take place 26-29Mar2020…Collaborators wanted!</a> &gt; Team: In light of the current uncertainty around COVID-19, we have decided to cancel the in-person OHDSI EU Symposium, which was scheduled to take place 27-29Marc2020 in Oxford, UK. An announcement about this is available here. In lieu of this large meeting event, we have decided to coordinate a virtual OHDSI study-a-thon to take place over the same period that will be focused on generating real-world evidence that can inform the current COVID-19 pandemic response. We expect there are many …</p>
+<p><strong>Aedin Culhane</strong> (16:39:22): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+<p><strong>Aedin Culhane</strong> (16:39:52): &gt; This looks useful<a href="https://github.com/wikipathways/cord-19">https://github.com/wikipathways/cord-19</a></p>
+<p><strong>Aedin Culhane</strong> (16:56:10): &gt; Is there a db of scRNAseq related to covid?</p>
+<p><strong>Aedin Culhane</strong> (17:11:05): &gt; There is a called for RFA in Boston</p>
+<p><strong>Aedin Culhane</strong> (17:11:48): &gt; Dear HMS and HSDM Faculty: &gt; &nbsp; &gt; The outbreak of COVID-19 can be considered the single most threatening pandemic to arise in the last century, and we have taken action accordingly to safeguard our community. However, as a leading medical school with clinical and research faculty throughout a large hospital ecosystem, we also have the ability to actively combat the outbreak by executing critical and timely research relevant to the pandemic. &gt; &nbsp; &gt; Many of you are aware of a workshop that took place on March 2, which&nbsp;gathered 80 members of the greater Boston biomedical research community to determine how to&nbsp;collectively respond to the COVID-19 outbreak. That community has solidified into the Greater Boston Consortium on Pathogen Readiness (GBCPR), led by Faculty Co-Directors Arlene Sharpe and Bruce Walker. The consortium has received its initial funding from Harvard University based on generous support from the China Evergrande Group in partnership with the Guangzhou Institute of Respiratory Health in Guangzhou, China. &gt; &nbsp; &gt; Through this email I am announcing a Request for Proposals for the Evergrande COVID-19 Response Fund Awards, administered by the GBCPR. We are compressing the typical RFP schedule, with<strong><em>two-page proposals due March 24, 2020,</em></strong>and funding beginning as soon as possible in April 2020. Awards will be made in the $50,000 to $500,000 range, which includes total costs per project cumulatively across all budget years. Areas of research include epidemiology, pathogenesis, diagnostics, therapeutics, vaccines and clinical management related to COVID-19. &gt; &nbsp; &gt; Tenure-track faculty members at the level of assistant, associate, or full professor at Harvard University (HMS, FAS, HCSPH, HSDM, SEAS), MIT, Boston University School of Medicine, Tufts University School of Medicine, University of Massachusetts Medical School and hospitals and research institutes affiliated with these four medical schools are eligible to apply as lead PIs. Senior scientists from biotechnology and pharmaceutical companies are eligible as co-PIs.&nbsp;&nbsp;&nbsp; &gt; &nbsp; &gt; Proposals should be submitted by email to<a href="mailto:gbcpr@hms.harvard.edu">gbcpr@hms.harvard.edu</a>. More information can be found on the consortium<a href="http://links.mkt3779.com/ctt?kn=3&amp;ms=MjMwMTkzMTIS1&amp;r=MTg1OTAxOTc3NDkwS0&amp;b=0&amp;j=MTcwMTA3NDYyNwS2&amp;mt=1&amp;rt=0">website</a>. &gt; &nbsp; &gt; We encourage all researchers who work on these topics to apply, particularly those whose research is directly applicable to address the current urgent needs of the COVID-19 outbreak. &gt; &nbsp; &gt; If you are wondering why we are announcing this RFP at the same time as we are curtailing much of our in-person laboratory activities, the answer is simple: Our laboratories are being shut down for one set of public health reasons (i.e., the safety of our lab personnel and reducing the spread of the disease in our community), while COVID-19 research is being ramped up for a different set of public health reasons (i.e., to achieve short- and long-term control of the viral illness at the individual patient level and control of this pandemic and future pandemics at the population level).&nbsp;Both sets of activities serve our mission to alleviate suffering and improve health and well-being for all. &gt; &nbsp; &gt; Please feel free to forward this RFP to eligible colleagues throughout the Commonwealth, as we expand our community of researchers to combat the pandemic. &gt; &gt; Sincerely, &gt; &nbsp; &gt; George Q. Daley &gt; Dean of the Faculty of Medicine &gt; Harvard University - Attachment (gbcpr.hms.harvard.edu): <a href="http://links.mkt3779.com/ctt?kn=3&amp;ms=MjMwMTkzMTIS1&amp;r=MTg1OTAxOTc3NDkwS0&amp;b=0&amp;j=MTcwMTA3NDYyNwS2&amp;mt=1&amp;rt=0">Greater Boston Consortium on Pathogen Readiness</a> &gt; Greater Boston Consortium on Pathogen Readiness</p>
+<p><strong>Aedin Culhane</strong> (17:12:10): &gt; Deadline is Tuesday 5pm EST. No grants sign off needed.</p>
+<p><strong>Aedin Culhane</strong> (17:13:34): &gt; I am talking lab colleagues about a possible proposal. I am trying to gather info on state of the field and is moving v fast</p>
+<p><strong>Sean Davis</strong> (20:28:07): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey, I’ll take a stab at adding to your 2pp tomorrow.</p>
+<p><strong>Sean Davis</strong> (20:29:37): &gt; Do you all know the approximate resources?</p>
+<p><strong>Sean Davis</strong> (20:30:19): &gt; Ah. Found it.</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2020-03-23</h2>
+<p><strong>Sean Davis</strong> (10:12:48): &gt; COVID-19 dataset from JHU augmented with country metadata. Useful for joining to financial and other data resources. - File (Excel Spreadsheet): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F0106GM8WKC/covid_19_data.xlsx">covid_19_data.xlsx</a></p>
+<p><strong>Aedin Culhane</strong> (14:48:27): &gt; 2pm tomorrow??????</p>
+<p><strong>Lauren Hsu</strong> (15:43:45): &gt; <span class="citation" data-cites="Lauren">@Lauren</span> Hsu has joined the channel</p>
+<p><strong>Sean Davis</strong> (16:09:33): &gt; 2 pager (2pp),<span class="citation" data-cites="Aedin">@Aedin</span> Culhane. Using@Vince Careyterminology.:slightly_smiling_face:</p>
+<p><strong>Aedin Culhane</strong> (16:27:52): &gt; <a href="https://www.ebi.ac.uk/ena/pathogens/covid-19">https://www.ebi.ac.uk/ena/pathogens/covid-19</a></p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2020-03-24</h2>
+<p><strong>Sean Davis</strong> (16:27:35): &gt; <a href="https://covid19challenge.mit.edu/">https://covid19challenge.mit.edu/</a></p>
+<p><strong>Sean Davis</strong> (16:27:43): &gt; &lt;!channel&gt;, any interest in participating?</p>
+<p><strong>Aedin Culhane</strong> (19:25:15): &gt; Have you seen OHDSI hackathon<a href="https://forums.ohdsi.org/t/ohdsi-cov19-community-update-24march2020-logistics-for-ohdsi-covid19-study-a-thon/10092">https://forums.ohdsi.org/t/ohdsi-cov19-community-update-24march2020-logistics-for-ohdsi-covid19-study-a-thon/10092</a> - Attachment (OHDSI Forums): <a href="https://forums.ohdsi.org/t/ohdsi-cov19-community-update-24march2020-logistics-for-ohdsi-covid19-study-a-thon/10092">[OHDSI Cov19] Community Update 24March2020: Logistics for OHDSI COVID19 Study-a-thon</a> &gt; Team: T minus 2 days until the kick-off of the OHDSI COVID-19 study-a-thon. This update provides you details of the logistics for those who registered about how you can participate in the activities. Thanks to the ~300 individuals in ~30 countries who have signed up to join this journey with us. We will be using Microsoft Teams as our collaboration platform for the OHDSI COVID-19 study-a-thon. Thanks to Peter and ErasmusMC for ‘hosting’ this event on their account. Either today or tomorrow…</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2020-03-25</h2>
+<p><strong>Aedin Culhane</strong> (01:30:09): &gt; Sean have you looked at mark handleys tracking<a href="http://nrg.cs.ucl.ac.uk/mjh/covid19/">http://nrg.cs.ucl.ac.uk/mjh/covid19/</a></p>
+<p><strong>Sean Davis</strong> (12:15:43): &gt; Yes. Looks fantastic. I particularly like the contest that he provides.</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2020-03-26</h2>
+<p><strong>Steve Lianoglou</strong> (13:24:24): &gt; <span class="citation" data-cites="Steve">@Steve</span> Lianoglou has joined the channel</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2020-03-30</h2>
+<p><strong>Sean Davis</strong> (12:50:28): &gt; <a href="https://seandavi.github.io/sars2pack/">https://seandavi.github.io/sars2pack/</a> - Attachment (seandavi.github.io): <a href="https://seandavi.github.io/sars2pack/">sars2pack</a> &gt; The sars2pack package includes COVID-19 data resources, analysis tools, and workflows in R.</p>
+<p><strong>Sean Davis</strong> (12:50:46): &gt; <a href="https://github.com/seandavi/sars2pack">https://github.com/seandavi/sars2pack</a></p>
+<p><strong>Sean Davis</strong> (12:52:05): &gt; <span class="citation" data-cites="Vince">@Vince</span> Careykicked this off.&lt;!channel&gt;, we’d be happy to have some contributors of Rmarkdown vignettes or additional data resources. The datasets are highly amenable to dplyr, ggplot2, and other exploratory data analysis tasks.</p>
+<p><strong>Sean Davis</strong> (12:54:16): &gt; For folks with students who would be interested in contributing, perhaps consider inviting them here. There are about 10 more datasets that I’d like to add via relatively straightforward acccessor/caching mechanisms.</p>
+<p><strong>Kevin Blighe</strong> (14:12:04): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Blighe has joined the channel</p>
+<p><strong>Tiago C. Silva</strong> (14:26:04): &gt; <span class="citation" data-cites="Tiago">@Tiago</span> C. Silva has joined the channel</p>
+<p><strong>Jared Andrews</strong> (14:58:22): &gt; <span class="citation" data-cites="Jared">@Jared</span> Andrews has joined the channel</p>
+<p><strong>Sean Davis</strong> (15:54:13): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> BligheWell, the sars2pack work is our little work-in-progress contribution. That said, I think the problem is large enough for additional projects, discussions, contributions, and collaborations.</p>
+<p><strong>Sean Davis</strong> (15:55:11): &gt; Let’s keep discussion open here; Bioconductor has a lot to bring to the table.</p>
+<p><strong>Kevin Rue-Albrecht</strong> (16:06:35): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht has joined the channel</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2020-03-31</h2>
+<p><strong>Paula Beati</strong> (11:37:52): &gt; <span class="citation" data-cites="Paula">@Paula</span> Beati has joined the channel</p>
+<p><strong>Jenny Drnevich</strong> (13:58:36): &gt; <span class="citation" data-cites="Jenny">@Jenny</span> Drnevich has joined the channel</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2020-04-05</h2>
+<p><strong>Sean Davis</strong> (15:31:15): &gt; <a href="https://seandavi.github.io/COVID19Book/">https://seandavi.github.io/COVID19Book/</a> - Attachment (seandavi.github.io): <a href="https://seandavi.github.io/COVID19Book/">Understanding the COVID-19 pandemic</a> &gt; Understanding the COVID-19 pandemic</p>
+<p><strong>Sean Davis</strong> (15:31:42): &gt; Work-in-progress. Anyone is welcome to contribute.</p>
+<p><strong>Sean Davis</strong> (15:32:09): &gt; <a href="https://github.com/seandavi/COVID19Book">https://github.com/seandavi/COVID19Book</a></p>
+<p><strong>Kevin Rue-Albrecht</strong> (16:46:41): &gt; For the interactive maps section, I’ve got<a href="https://kevinrue.github.io/COVID-19-website/csse_covid_19_map_latest.html">https://kevinrue.github.io/COVID-19-website/csse_covid_19_map_latest.html</a></p>
+<p><strong>Sean Davis</strong> (22:02:07): &gt; That is a sweet site,<span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht! I hope you don’t mind if I steal some of your plots as examplars (with attribution, of course).</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2020-04-06</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (02:52:29): &gt; No worries. At the moment, it’s probably more efficient that you take from me, with a quick reference / link. &gt; I’ve looked at the covid book and the JHU part of<code>sars2pack</code>, and I’ve got a few ideas, but I can’t promise when exactly I can contribute back. It’ll be bite-size contributions here and there. I’ll let you know when it happens.</p>
+<p><strong>Anna Lorenc</strong> (13:52:27): &gt; <span class="citation" data-cites="Anna">@Anna</span> Lorenc has joined the channel</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2020-04-07</h2>
+<p><strong>Aedin Culhane</strong> (00:05:36): &gt; First papers from OHDSI studies will be submitted tomorrow. exicting. Galaxy has a hackathon on covid19 next week<a href="https://covid19.galaxyproject.org/">https://covid19.galaxyproject.org/</a> - Attachment (covid19.galaxyproject.org): <a href="https://covid19.galaxyproject.org/">COVID-19 analysis on usegalaxy.★</a> &gt; This repo serves as a companion to our study describing the analysis of early COVID-19 data: No more business as usual: agile and effective responses to emerging pathogen threats require open data and open analytics. <a href="http://usegalaxy.org">usegalaxy.org</a>, <a href="http://usegalaxy.eu">usegalaxy.eu</a>, <a href="http://usegalaxy.org.au">usegalaxy.org.au</a>, <a href="http://usegalaxy.be">usegalaxy.be</a> and <a href="http://hyphy.org">hyphy.org</a> development teams, Anton Nekrutenko, Sergei L Kosakovsky Pond. bioRxiv 2020.02.21.959973; doi: <a href="https://doi.org/10.1101/2020.02.21.959973">https://doi.org/10.1101/2020.02.21.959973</a></p>
+<p><strong>Aedin Culhane</strong> (00:09:31): &gt; Bioc could consider a hackathon possible to develop frameworks to support covid19. Need to consider how we’d get papers from it (people need sugar to participate) Possible things that could be added to Bioc to support COVID19 research 1) build curated scRNAseq of lung, kidney, blood and publish on ACE2 expression and related pathways - aka build immune annotation 2) support phylogenetics and viral/bacterial genomes 3) support for EHR records, connections to OHDSI (both on R), support for OMOP<a href="https://www.ohdsi.org/data-standardization/the-common-data-model/">https://www.ohdsi.org/data-standardization/the-common-data-model/</a></p>
+<p><strong>Kevin Rue-Albrecht</strong> (02:25:46): &gt; Interesting point in the news about reporting (and thus using) actual dates of events: &gt; &gt; Many hospitals will not report deaths that happened over the weekend until the middle of the following week. &gt; &gt; Over the weekend, NHS England released new figures broken down by the actual date of death. &gt; <a href="https://www.bbc.co.uk/news/health-52167016">https://www.bbc.co.uk/news/health-52167016</a> - Attachment (BBC News): <a href="https://www.bbc.co.uk/news/health-52167016">Warning over daily coronavirus death figures</a> &gt; Spikes or dips may in part reflect bottlenecks in the reporting system, rather than real changes in the trend.</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2020-04-09</h2>
+<p><strong>Sean Davis</strong> (07:33:29): &gt; <a href="https://www.nytimes.com/2020/04/08/science/new-york-coronavirus-cases-europe-genomes.html">https://www.nytimes.com/2020/04/08/science/new-york-coronavirus-cases-europe-genomes.html</a> - Attachment (The New York Times): <a href="https://www.nytimes.com/2020/04/08/science/new-york-coronavirus-cases-europe-genomes.html">Most New York Coronavirus Cases Came From Europe, Genomes Show</a> &gt; Travelers seeded multiple cases starting as early as mid-February, genomes show.</p>
+<p><strong>Sean Davis</strong> (11:23:12) (in thread): &gt; Yep. That would make a really cool analysis for someone here to try to replicate, though I won’t be the one to do so.</p>
+<p><strong>Federico Marini</strong> (17:52:03): &gt; <span class="citation" data-cites="Federico">@Federico</span> Marini has joined the channel</p>
+<p><strong>Federico Marini</strong> (17:53:14) (in thread): &gt; I’m just picturing the results combined with all the goodies contained in the newest version of the<code>mapdeck</code>package. A relief for the eyes would that be:slightly_smiling_face:</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2020-04-11</h2>
+<p><strong>Aedin Culhane</strong> (18:03:17): &gt; Last minute I know, but its only a short google form with 500 words, deadline is Sunday. Fast Grants are $10k to $500k and decisions are made in under 48 hours<a href="https://fastgrants.org/?fbclid=IwAR0qyUFfme14qr0P3FlIEuh6jZhcRIYTEavfxXcviMdw_WadpbS6h5dUOpk">https://fastgrants.org/?fbclid=IwAR0qyUFfme14qr0P3FlIEuh6jZhcRIYTEavfxXcviMdw_WadpbS6h5dUOpk</a> - Attachment (fastgrants.org): <a href="https://fastgrants.org/?fbclid=IwAR0qyUFfme14qr0P3FlIEuh6jZhcRIYTEavfxXcviMdw_WadpbS6h5dUOpk">Fast Grants</a> &gt; Funding for scientists at academic institutions working on COVID-19 related projects.</p>
+<p><strong>Aedin Culhane</strong> (18:04:43): &gt; Could Bioconductor build out tools that would facilitate COVID-19 research and could be described in 500 words??</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2020-04-12</h2>
+<p><strong>FelixErnst</strong> (06:45:58): &gt; <span class="citation" data-cites="FelixErnst">@FelixErnst</span> has joined the channel</p>
+<p><strong>Vince Carey</strong> (16:43:13): &gt; Is it a hard deadline? My reading is that they will review the bolus submitted Sunday within a fixed period. But one could submit subsequently.</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2020-04-18</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (15:10:25): &gt; A use of<code>sars2pack::jhu_data()</code>:<a href="https://github.com/kevinrue/COVID-19-website/blob/master/csse_covid_19_time_series_cumulative_cases_week.Rmd">https://github.com/kevinrue/COVID-19-website/blob/master/csse_covid_19_time_series_cumulative_cases_week.Rmd</a> &gt; ```</p>
+<blockquote class="blockquote">
+
+</blockquote>
+<blockquote class="blockquote">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>csse_table <span class="ot">&lt;-</span> <span class="fu">jhu_data</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</blockquote>
+<blockquote class="blockquote">
+<p>``` Resulting page here:<a href="https://kevinrue.github.io/COVID-19-website/csse_covid_19_time_series_cumulative_cases_week.html">https://kevinrue.github.io/COVID-19-website/csse_covid_19_time_series_cumulative_cases_week.html</a></p>
+</blockquote>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2020-04-20</h2>
+<p><strong>Mohamed Gunady</strong> (01:31:41): &gt; <span class="citation" data-cites="Mohamed">@Mohamed</span> Gunady has joined the channel</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2020-04-22</h2>
+<p><strong>Aedin Culhane</strong> (11:44:16): &gt; Dear ITCR Investigators, &gt; &gt; This may be of interest to some of you: &gt; &gt; &gt; The National Library of Medicine (NLM) at the National Institutes of Health is hosting a free webinar for researchers to learn how to share, discover, and cite COVID-19 data and code in generalist repositories on April 24 from 2:00-3:45 p.m. ET. &gt; The biomedical research community’s understanding of the novel coronavirus and the associated coronavirus disease (COVID-19) is rapidly evolving. Open science and the timely sharing of research data have played a critical role in advancing our understanding of COVID-19 and accelerating the pace of discovery. Researchers will have an opportunity to hear from multiple generalist repositories about the ways each repository is supporting discoverability and reusability of COVID-19 data and associated code. The NLM will also provide an overview of available COVID-19 literature. &gt; The webinar will be available via NIH VideoCast:<a href="http://ow.ly/Ec5750zkz22">http://ow.ly/Ec5750zkz22</a>and instructions on submitting questions will be made available closer to the webinar. Interested participants are encouraged to bookmark this page for the latest updates and follow #NIHdata on Twitter. The webinar will be recorded and available a week after the live event. &gt; See the agenda:<a href="http://ow.ly/IL3R50zkyZg">http://ow.ly/IL3R50zkyZg</a>Individuals with disabilities who need sign language interpreting and/or other reasonable accommodations to participate in this event should contact Tara Mowery at<a href="mailto:tara.mowery@nih.gov">tara.mowery@nih.gov</a>and/or the Federal Relay at 1-800-877-8339. Requests should be made five days in advance. &gt; Questions - Please contact Dr.&nbsp;Lisa Federer -<a href="mailto:lisa.federer@nih.gov">lisa.federer@nih.gov</a>, 301-827-4399 &gt; &gt; &gt; ######################################################################## - Attachment (videocast.nih.gov): <a href="http://ow.ly/Ec5750zkz22">NIH VideoCast - NIH Webinar on Sharing, Discovering, and Citing COVID-19 Data and Code</a> &gt; NIH Webinar on Sharing, Discovering, and Citing COVID-19 Data and Code</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2020-04-23</h2>
+<p><strong>Sean Davis</strong> (11:45:21): &gt; I added the Apple Mobility dataset which provides city and country-level daily index of auto, pedestrian, and public transport activity at one-day resolution. It is kind of addictive to play with IMHO.<a href="https://seandavi.github.io/sars2pack/reference/apple_mobility_data.html">https://seandavi.github.io/sars2pack/reference/apple_mobility_data.html</a> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F012E8122SF/image.png">image.png</a></p>
+<p><strong>Sean Davis</strong> (11:45:31): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F012E81F075/image.png">image.png</a></p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2020-04-24</h2>
+<p><strong>Sean Davis</strong> (15:46:08): &gt; <a href="https://www.biorxiv.org/content/10.1101/2020.04.19.049254v2">https://www.biorxiv.org/content/10.1101/2020.04.19.049254v2</a></p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2020-04-27</h2>
+<p><strong>Aedin Culhane</strong> (11:18:57): &gt; Love the heatmap of the mobility data. Do people in most cities do more walking at the weekend and less on Mondays???</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2020-04-30</h2>
+<p><strong>Sean Davis</strong> (13:05:14): &gt; <a href="https://www.nsf.gov/pubs/2020/nsf20052/nsf20052.jsp">https://www.nsf.gov/pubs/2020/nsf20052/nsf20052.jsp</a></p>
+<p><strong>Sean Davis</strong> (13:05:25): &gt; funding opportunity</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2020-05-01</h2>
+<p><strong>Charlotte Rich-Griffin</strong> (05:25:04): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Rich-Griffin has joined the channel</p>
+<p><strong>Sean Davis</strong> (20:20:24): &gt; Some non-map-based geospatial visualizations from recent contributors to sars2pack:<a href="https://seandavi.github.io/sars2pack/articles/more_visualization.html">https://seandavi.github.io/sars2pack/articles/more_visualization.html</a> - Attachment (seandavi.github.io): <a href="https://seandavi.github.io/sars2pack/articles/more_visualization.html">Visualizing geographic COVID-19 trends without maps</a> &gt; sars2pack</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2020-05-04</h2>
+<p><strong>Sean Davis</strong> (17:42:51): &gt; 62 genomes available via nextstrain_case_data() from sars2pack and then this: &gt; <code>&gt; &gt; library(genbankr) &gt; &gt; gba = GBAccession("MT007544") &gt; &gt; gba &gt; GenBank Accession Number(s):  MT007544 &gt; &gt; gbk = readGenBank(gba) &gt; Loading required namespace: rentrez &gt; Annotations don't have 'locus_tag' label, using 'gene' as gene_id column &gt; Annotations don't have 'locus_tag' label, using 'gene' as gene_id column &gt; No exons read from genbank file. Assuming sections of CDS are full exons &gt; No transcript features (mRNA) found, using spans of CDSs &gt; &gt; gbk &gt; GenBank Annotations &gt; Severe acute respiratory syndrome coronavirus 2 isolate Australia/VIC01/2020, complete genome. &gt; Accession: MT007544 &gt; 1 Sequence(s) with total length length: 29893 &gt; 10 genes &gt; 10 transcripts &gt; 11 exons/cds elements &gt; 0 variations &gt; 2 other features &gt;  &gt; &gt; getSeq(gbk) &gt;   A DNAStringSet instance of length 1 &gt;     width seq                                                                                                                                                                                           names &gt; [1] 29893 ATTAAAGGTTTATACCTTCCCAGGTAACAAACCAACCAACTTTCGATCTCTTGTAGATCTGTTCTCTAAACGAACTTTAAAATCTGTGTGGCT...TAAAATTAATTTTAGTAGTGCTATCCCCATGTGATTTTAATAGCTTCTTAGGAGAATGACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA Severe acute resp... &gt;</code></p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2020-05-05</h2>
+<p><strong>Devika Agarwal</strong> (09:55:58): &gt; <span class="citation" data-cites="Devika">@Devika</span> Agarwal has joined the channel</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2020-05-06</h2>
+<p><strong>Sean Davis</strong> (10:08:54): &gt; Immune cell profiling of COVID-19 patients in the recovery stage by single-cell sequencing<a href="https://www.nature.com/articles/s41421-020-0168-9">https://www.nature.com/articles/s41421-020-0168-9</a> - Attachment (Cell Discovery): <a href="https://www.nature.com/articles/s41421-020-0168-9">Immune cell profiling of COVID-19 patients in the recovery stage by si</a> &gt; Immune cell profiling of COVID-19 patients in the recovery stage by single-cell sequencing</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2020-05-23</h2>
+<p><strong>Sean Davis</strong> (10:47:24): &gt; <a href="https://www.imperial.ac.uk/media/imperial-college/medicine/mrc-gida/2020-05-21-COVID19-Report-23.pdf">https://www.imperial.ac.uk/media/imperial-college/medicine/mrc-gida/2020-05-21-COVID19-Report-23.pdf</a></p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2020-06-06</h2>
+<p><strong>Olagunju Abdulrahman</strong> (19:57:12): &gt; <span class="citation" data-cites="Olagunju">@Olagunju</span> Abdulrahman has joined the channel</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2020-06-07</h2>
+<p><strong>Tanzeel Tagalsir</strong> (06:27:28): &gt; <span class="citation" data-cites="Tanzeel">@Tanzeel</span> Tagalsir has joined the channel</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2020-06-22</h2>
+<p><strong>USLACKBOT</strong> (09:11:34): &gt; This message was deleted.</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2020-06-28</h2>
+<p><strong>Vince Carey</strong> (06:59:10) (in thread): &gt; Thanks for posting this. I’ll place a toe into potentially dangerous water. The scope of questioning is nice but excludes any concern with effects on political engagement. Because public health scientists have been directly muzzled (in the USA at least), it is clearly important that processes begin to reduce political control over government scientists. Steps need to be taken to reduce the chances that anti-science individuals are in positions to control public health policy. But lack of time and perception of likely intimidation probably conspire to reduce scientists’ willingness to engage in political action. Would survey questions along these lines only be relevant in the context of the USA, or would they be of interest more broadly?</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2020-07-03</h2>
+<p><strong>Sean Davis</strong> (12:49:51): &gt; <a href="https://clades.nextstrain.org/">https://clades.nextstrain.org/</a> - Attachment (Nextclade): <a href="https://clades.nextstrain.org/">Nextclade</a> &gt; Clade assignment, mutation calling, and quality control right inside your browser</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2020-07-29</h2>
+<p><strong>Riyue Sunny Bao</strong> (17:37:17): &gt; <span class="citation" data-cites="Riyue">@Riyue</span> Sunny Bao has joined the channel</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2020-07-31</h2>
+<p><strong>Dr Awala Fortune O.</strong> (16:23:59): &gt; <span class="citation" data-cites="Dr">@Dr</span> Awala Fortune O. has joined the channel</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2020-08-31</h2>
+<p><strong>Sean Davis</strong> (09:15:39): &gt; <a href="https://www.biorxiv.org/content/10.1101/2020.08.30.273235v1">https://www.biorxiv.org/content/10.1101/2020.08.30.273235v1</a></p>
+<p><strong>Sean Davis</strong> (09:16:15): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F019ZC3R11S/image.png">image.png</a></p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2020-09-16</h2>
+<p><strong>Mike Morgan</strong> (11:02:26): &gt; <span class="citation" data-cites="Mike">@Mike</span> Morgan has joined the channel</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2020-11-04</h2>
+<p><strong>Krutika</strong> (11:58:56): &gt; <span class="citation" data-cites="Krutika">@Krutika</span> has joined the channel</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2020-12-12</h2>
+<p><strong>Huipeng Li</strong> (00:40:32): &gt; <span class="citation" data-cites="Huipeng">@Huipeng</span> Li has joined the channel</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2021-01-22</h2>
+<p><strong>Annajiat Alim Rasel</strong> (15:43:31): &gt; <span class="citation" data-cites="Annajiat">@Annajiat</span> Alim Rasel has joined the channel</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2021-03-05</h2>
+<p><strong>Jim Hunter</strong> (05:01:19): &gt; <span class="citation" data-cites="Jim">@Jim</span> Hunter has joined the channel</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2021-03-20</h2>
+<p><strong>watanabe_st</strong> (01:57:15): &gt; <span class="citation" data-cites="watanabe_st">@watanabe_st</span> has joined the channel</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2021-03-23</h2>
+<p><strong>Lambda Moses</strong> (23:04:44): &gt; <span class="citation" data-cites="Lambda">@Lambda</span> Moses has joined the channel</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2021-05-11</h2>
+<p><strong>Megha Lal</strong> (16:44:43): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has joined the channel</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2021-05-23</h2>
+<p><strong>Jonas Schulte-Schrepping</strong> (08:10:08): &gt; <span class="citation" data-cites="Jonas">@Jonas</span> Schulte-Schrepping has joined the channel</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2021-06-08</h2>
+<p><strong>Lorenzo Bonaguro</strong> (08:49:19): &gt; <span class="citation" data-cites="Lorenzo">@Lorenzo</span> Bonaguro has joined the channel</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2021-11-08</h2>
+<p><strong>Paula Nieto García</strong> (03:26:31): &gt; <span class="citation" data-cites="Paula">@Paula</span> Nieto García has joined the channel</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2022-01-28</h2>
+<p><strong>Megha Lal</strong> (11:12:19): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has left the channel</p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2022-07-22</h2>
+<p><strong>Gary Sieling</strong> (14:48:11): &gt; <span class="citation" data-cites="Gary">@Gary</span> Sieling has joined the channel</p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2022-07-28</h2>
+<p><strong>Krithika Bhuvanesh</strong> (13:50:25): &gt; <span class="citation" data-cites="Krithika">@Krithika</span> Bhuvanesh has joined the channel</p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2022-07-29</h2>
+<p><strong>Ryan C. Thompson</strong> (15:41:44): &gt; <span class="citation" data-cites="Ryan">@Ryan</span> C. Thompson has joined the channel</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2023-01-18</h2>
+<p><strong>José Basílio</strong> (13:09:38): &gt; <span class="citation" data-cites="José">@José</span> Basílio has joined the channel</p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2023-08-03</h2>
+<p><strong>Ritika Giri</strong> (15:57:20): &gt; <span class="citation" data-cites="Ritika">@Ritika</span> Giri has joined the channel</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2024-02-05</h2>
+<p><strong>Manuel Barrios Izás</strong> (17:37:25): &gt; <span class="citation" data-cites="Manuel">@Manuel</span> Barrios Izás has joined the channel</p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2024-05-14</h2>
+<p><strong>Lori Shepherd</strong> (10:43:16): &gt; archived the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

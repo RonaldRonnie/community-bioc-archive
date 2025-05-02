@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#palmtree – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2018-07-26</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2018-07-27</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2018-08-03</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2018-10-04</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2018-10-05</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2018-10-24</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2018-10-29</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2018-10-31</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2018-11-01</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2018-11-04</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2018-11-05</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2018-11-06</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2018-11-10</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2018-12-10</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2019-02-12</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2019-02-17</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2019-06-20</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2019-11-28</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2020-01-08</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2020-01-23</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2020-12-12</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2021-01-22</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2021-05-11</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2022-01-28</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2022-05-05</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2024-02-09</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#palmtree</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2018-07-26</h2>
+<p><strong>hcorrada</strong> (16:06:19): &gt; <span class="citation" data-cites="hcorrada">@hcorrada</span> has joined the channel</p>
+<p><strong>Davide Risso</strong> (16:06:41): &gt; <span class="citation" data-cites="Davide">@Davide</span> Risso has joined the channel</p>
+<p><strong>Stephanie Hicks</strong> (16:06:55): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks has joined the channel</p>
+<p><strong>Jayaram Kancherla</strong> (16:07:18): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla has joined the channel</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2018-07-27</h2>
+<p><strong>Stephanie Hicks</strong> (08:48:47): &gt; :palm_tree:</p>
+<p><strong>Davide Risso</strong> (08:50:48): &gt; did we create a github repo?</p>
+<p><strong>Stephanie Hicks</strong> (08:51:09): &gt; This the 68K PBMC dataset in txt file format (<a href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/1.1.0/fresh_68k_pbmc_donor_a">https://support.10xgenomics.com/single-cell-gene-expression/datasets/1.1.0/fresh_68k_pbmc_donor_a</a>), but if I remember@Davide Rissosays he has the object in SCE object</p>
+<p><strong>Stephanie Hicks</strong> (08:52:04) (in thread): &gt; not that I know of, but@Hervé Pagèsmight not have gotten to it yet.</p>
+<p><strong>Davide Risso</strong> (09:22:28): &gt; I have the data as a SCE object: in dense matrix format is 11GB, sparse format 460MB</p>
+<p><strong>Davide Risso</strong> (09:22:42): &gt; I’m currently saving it in hdf5</p>
+<p><strong>Davide Risso</strong> (09:23:07): &gt; do we want all three?</p>
+<p><strong>Stephanie Hicks</strong> (09:25:11): &gt; didn’t aaron say that saving a sparse hdf5 was a bad idea?</p>
+<p><strong>Stephanie Hicks</strong> (09:25:19): &gt; (just trying to remember)</p>
+<p><strong>Davide Risso</strong> (09:26:18): &gt; yes, I’m saving the dense matrix into a hdf5 file</p>
+<p><strong>Davide Risso</strong> (09:26:35): &gt; all three I meant: dense in memory, sparse in memory, dense on disk</p>
+<p><strong>Stephanie Hicks</strong> (09:27:16): &gt; I think it would be good for testing purposes while building the heatmap infrastructure</p>
+<p><strong>Stephanie Hicks</strong> (09:28:13): &gt; If I remember what@hcorradasaid, the case for dense in memory is easy because that’s similar to the metagenome data (just transposed). I’m less clear on the other two cases</p>
+<p><strong>hcorrada</strong> (09:31:57): &gt; We haven’t touched hdf5 yet so all formats are equivalent at this point. Ie I’ll take as many as you have</p>
+<p><strong>Davide Risso</strong> (09:32:05): &gt; Mmm.. I just noted that all my matrices are stored as<code>double</code></p>
+<p><strong>hcorrada</strong> (09:32:10): &gt; <a href="https://obj.umiacs.umd.edu/obj/bucket/palmtree/edit/">https://obj.umiacs.umd.edu/obj/bucket/palmtree/edit/</a></p>
+<p><strong>Davide Risso</strong> (09:32:14): &gt; turning them to integers might save a lot of space</p>
+<p><strong>hcorrada</strong> (09:32:24): &gt; We can share data there</p>
+<p><strong>Davide Risso</strong> (09:32:54): &gt; BTW these are raw data, we probably want some filtering + normalization before visualization?</p>
+<p><strong>hcorrada</strong> (09:32:55): &gt; <span class="citation" data-cites="jkanche">@jkanche</span> can you give Davide and Stephanie write permission?</p>
+<p><strong>hcorrada</strong> (09:33:13) (in thread): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla</p>
+<p><strong>hcorrada</strong> (09:33:54) (in thread): &gt; Definitely. Point me to your preferred protocol</p>
+<p><strong>Davide Risso</strong> (09:39:35) (in thread): &gt; Not necessarily my favorite, but one option is described here:<a href="https://bioconductor.org/packages/release/bioc/vignettes/scran/inst/doc/scran.html">https://bioconductor.org/packages/release/bioc/vignettes/scran/inst/doc/scran.html</a></p>
+<p><strong>hcorrada</strong> (09:42:17) (in thread): &gt; Got it</p>
+<p><strong>Jayaram Kancherla</strong> (09:42:43) (in thread): &gt; <span class="citation" data-cites="hcorradai">@hcorradai</span> don’t have permission to access that bucket either.</p>
+<p><strong>hcorrada</strong> (09:43:45) (in thread): &gt; Oops. Now you do</p>
+<p><strong>Davide Risso</strong> (09:43:48): &gt; If it’s easier than transferring data, here’s the code that I used to download the data and create the objects - File (R): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FBXFB2VA4/pbmc_createsce.r">pbmc_createSCE.R</a></p>
+<p><strong>Jayaram Kancherla</strong> (09:57:35) (in thread): &gt; Hi@Davide Risso&amp;<span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks, I requested a umiacs collaborator account to access the object store. Can you please send me your umiacs id after you create an account. Thank you!</p>
+<p><strong>Davide Risso</strong> (10:06:26) (in thread): &gt; My id is drisso</p>
+<p><strong>Jayaram Kancherla</strong> (10:24:42) (in thread): &gt; <span class="citation" data-cites="Davide">@Davide</span> Rissoyou should now have access to the object store. let me know if you don’t</p>
+<p><strong>Stephanie Hicks</strong> (10:24:59) (in thread): &gt; my id is shicks</p>
+<p><strong>Jayaram Kancherla</strong> (10:27:12) (in thread): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicksadded you to the store. let me know if you can’t access the obj store.</p>
+<p><strong>Stephanie Hicks</strong> (10:48:53): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks pinned a message to this channel.</p>
+<p><strong>Jayaram Kancherla</strong> (11:56:15): &gt; I ran this script on our cluster and copied over the files to the object box</p>
+<p><strong>Davide Risso</strong> (12:01:26): &gt; Awesome! Thanks!!</p>
+<p><strong>Davide Risso</strong> (12:02:49): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherlahow do I access the object box?</p>
+<p><strong>Jayaram Kancherla</strong> (12:05:31): &gt; <a href="https://obj.umiacs.umd.edu/obj/bucket/palmtree/view/">https://obj.umiacs.umd.edu/obj/bucket/palmtree/view/</a></p>
+<p><strong>Jayaram Kancherla</strong> (12:05:50): &gt; you might have to login to see the files</p>
+<p><strong>Davide Risso</strong> (12:06:44): &gt; Oh ok, sorry I completely forgot about the previous link!</p>
+<p><strong>Davide Risso</strong> (12:06:56): &gt; Thanks!</p>
+<p><strong>Stephanie Hicks</strong> (12:07:23): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks pinned a message to this channel.</p>
+<p><strong>Stephanie Hicks</strong> (12:07:29): &gt; I’ve pinned the link</p>
+<p><strong>Davide Risso</strong> (14:10:43): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherlasorry would it be possible to re-run this new version of the script?</p>
+<p><strong>Davide Risso</strong> (14:11:02): - File (R): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FBYGWLKGD/pbmc_createsce.r">pbmc_createSCE.R</a></p>
+<p><strong>Davide Risso</strong> (14:11:21): &gt; I forgot to save the in-memory versions of the singlecellexperiment object</p>
+<p><strong>Davide Risso</strong> (14:11:44): &gt; now this should save two additional rds files (one for sparse and one for dense)</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2018-08-03</h2>
+<p><strong>Davide Risso</strong> (14:11:24): &gt; <span class="citation" data-cites="hcorradaif">@hcorradaif</span> you send me your github id I can add you as collaborator on the github repo that I just created</p>
+<p><strong>Davide Risso</strong> (14:11:55): &gt; also@Jayaram Kancherla</p>
+<p><strong>Jayaram Kancherla</strong> (16:14:45): &gt; my github id is<code>jkanche</code></p>
+<p><strong>hcorrada</strong> (17:31:53): &gt; Great! hcorrada</p>
+<p><strong>Davide Risso</strong> (17:55:50): &gt; Invited you both!</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2018-10-04</h2>
+<p><strong>Stephanie Hicks</strong> (20:41:53): &gt; hi@Davide Risso@hcorrada, it’s been a while since we talked at BioC and wanted to check in if we wanted to set up a time to discuss this project? It’s something I was really excited about at bioc 2018 and would be very much interested in helping it progress in any way I can.</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2018-10-05</h2>
+<p><strong>hcorrada</strong> (13:13:29): &gt; Hi@Stephanie Hickssorry we haven’t updated. Things are going a little slower than expected. 1) We are using Oshlack’s clusTree package to get hierarchy of cell clusters from seurat output (this is described in her paper).@Jayaram Kancherlahas done that successfully now. So, in that sense we have all the data and data structures we need to implement the hierarchical navigation idea. 2) We need to rewrite a little bit of how we use our FacetZoom navigation tool. So far we use it to navigate over a feature (gene) hierarchy, in this case we need to navigate a sample (cell) hierarchy. We have done this in the past in ad-hoc manner, we need to make it a bit more robust. It shouldn’t take much time. 3) I have a PhD student rotating into my group who will be working on this. She’s starting in the 15th and we want to have the pieces ready for her so she can finish putting our first cut implementation in place. So, I suggest we meet once she is up to speed and we have something to show which I estimate will be the last week of october.</p>
+<p><strong>hcorrada</strong> (13:13:31): &gt; Thoughts?</p>
+<p><strong>Stephanie Hicks</strong> (14:28:27): &gt; That all sounds great@hcorrada! I’m happy to talk at the end of Oct.&nbsp;If there’s anything I can help with between now and then, please reach out</p>
+<p><strong>Davide Risso</strong> (14:33:10): &gt; Happy to talk as well!</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2018-10-24</h2>
+<p><strong>Jayaram Kancherla</strong> (08:27:13): &gt; Hello&lt;!channel&gt;, an update on our progress, We are reusing our Graph class from the<code>metavizr</code>package that manages feature hierarchy for metagenomic datasets. Given a tree level and node selections, the graph class groups nodes and their indices to aggregate the counts. Our plan is to create a new class that extends<code>SummarizedExperiment</code>where rowData and colData slots are the Graph class objects. This supports datasets that have rows as hierarchy (metagenomics) or columns as hierarchy (single cell) or both. This is kind of similar to what we tried to do with<code>MicrobiomeExperiment</code>class with@Levi WaldronAny thoughts on what we should name our new class that extends<code>SummarizedExperiment</code>?<span class="citation" data-cites="Martin">@Martin</span> Morgan</p>
+<p><strong>Martin Morgan</strong> (08:30:39): &gt; <span class="citation" data-cites="Martin">@Martin</span> Morgan has joined the channel</p>
+<p><strong>Martin Morgan</strong> (08:33:04): &gt; It would be interesting to see the functionality demonstrated somewhere? Was also wondering whether the lesson from the<code>assay()</code>part of SummarizedExperiment – that there’s a huge value to ‘duck-typing’ (if it looks like a duck and quacks like a duck… anything with 2-D<code>[</code>,<code>dim()</code>, and<code>dimnames()</code>can be an assay, including a SummarizedExperiment) – could be applied here, i.e., could your graph representations just be used in place of colData / rowData ? Probably some revision of SummarizedExperiment would be required…</p>
+<p><strong>Levi Waldron</strong> (08:48:41): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldron has joined the channel</p>
+<p><strong>Levi Waldron</strong> (08:50:30): &gt; Where does the name palmtree come from? :D</p>
+<p><strong>Levi Waldron</strong> (08:59:24) (in thread): &gt; Interesting idea. Without any change to<code>SummarizedExperiment, the</code>Graph<code>vector could go in the rowData of the</code>rowData<code>and</code>colData`<code>DataFrame</code>objects, maybe using an extension of<code>DataFrame</code>. But this sounds a little over-complicated if you don’t intend to use the<code>DataFrame</code>, and you would have a simpler design if you could just put any 2-D object in the rowData and colData.</p>
+<p><strong>Davide Risso</strong> (10:30:53): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicksand I are running with the beach theme started by@Aaron Lunwith beachmat</p>
+<p><strong>Davide Risso</strong> (10:31:13): &gt; we had a beachball project that we sadly had to rename</p>
+<p><strong>Levi Waldron</strong> (10:31:23): &gt; hehe nice</p>
+<p><strong>Davide Risso</strong> (10:31:26): &gt; and now since hierarchies are trees -&gt; palmtree:smile:</p>
+<p><strong>Levi Waldron</strong> (10:31:46): &gt; How about a<code>PalmtreeExperiment</code>?</p>
+<p><strong>Levi Waldron</strong> (10:32:03): &gt; of course you know that palms aren’t real trees though right?</p>
+<p><strong>Levi Waldron</strong> (10:32:11): &gt; they’re monocots -&gt; grasses</p>
+<p><strong>Levi Waldron</strong> (10:32:29): &gt; you’re speaking to a forestry PhD here</p>
+<p><strong>Davide Risso</strong> (10:32:46): &gt; :beach_with_umbrella::palm_tree:</p>
+<p><strong>Davide Risso</strong> (10:33:40): &gt; can they be found on beaches at least?</p>
+<p><strong>Davide Risso</strong> (10:34:00): &gt; otherwise the whole thing is falling apart:sob:</p>
+<p><strong>Davide Risso</strong> (10:34:21): &gt; MonocotExperiment doesn’t sound right…</p>
+<p><strong>Davide Risso</strong> (12:05:37): &gt; <span class="citation" data-cites="Martin">@Martin</span> Morganis there a potential overlap with / reuse of the<code>LoomExperiment</code>class for this?</p>
+<p><strong>Davide Risso</strong> (12:05:57): &gt; I vaguely remember it’s essentially a<code>SummarizedExperiment</code>with graphs</p>
+<p><strong>hcorrada</strong> (12:38:22) (in thread): &gt; This is what I was trying to remember… How mature/stable/in-use is LoomExperiment?</p>
+<p><strong>Martin Morgan</strong> (12:39:42) (in thread): &gt; It’s just going through final stages of review, for this release@Daniel Van Twisk<a href="https://github.com/Bioconductor/Contributions/issues/791">https://github.com/Bioconductor/Contributions/issues/791</a>It implements graphs via S4Vectors::Hits-class - Attachment (GitHub): <a href="https://github.com/Bioconductor/Contributions/issues/791">LoomExperiment · Issue #791 · Bioconductor/Contributions</a> &gt; Update the following URL to point to the GitHub repository of the package you wish to submit to Bioconductor Repository: <a href="https://github.com/Bioconductor/LoomExperiment">https://github.com/Bioconductor/LoomExperiment</a> Confirm the following by edit…</p>
+<p><strong>hcorrada</strong> (12:41:33) (in thread): &gt; Cool! Will take a look!</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2018-10-29</h2>
+<p><strong>Stephanie Hicks</strong> (20:28:58): &gt; hi@hcorrada, just wanted to ping you to see if you are still interested in talking this week with@Davide Risso?</p>
+<p><strong>hcorrada</strong> (20:46:55): &gt; Hi, we are cleaning up a couple of things here (e.g., see discussion above) would you mind if we set something up for early next week?</p>
+<p><strong>hcorrada</strong> (20:47:04): &gt; Thanks for following up!</p>
+<p><strong>Stephanie Hicks</strong> (21:41:08): &gt; sure thing!</p>
+<p><strong>Stephanie Hicks</strong> (21:42:25): &gt; btw, for the#hca_rfa, I added some text that@Davide Rissowrote in our initial proposal last year for interactive graphics. I wasn’t sure if you were still interested in the project so I will gladly defer the interactive graphics proposal to you if you are still interested in applying with us?</p>
+<p><strong>Stephanie Hicks</strong> (21:42:53): &gt; I mentioned to@Davide Rissoearlier today that we could easily shift some of the things he wrote to be something I can work on instead</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2018-10-31</h2>
+<p><strong>Ruizhu HUANG</strong> (04:38:47): &gt; <span class="citation" data-cites="Ruizhu">@Ruizhu</span> HUANG has joined the channel</p>
+<p><strong>Charlotte Soneson</strong> (06:27:44): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+<p><strong>Charlotte Soneson</strong> (06:40:00): &gt; Hi! I just saw this channel (is it related somehow to#tree-like-se?), and I don’t know if I have fully grasped what the capabilities of<code>palmtree</code>will be, but it seems related to what@Ruizhu HUANGhas been working on recently for her<code>treeAGG</code>package (<a href="https://github.com/markrobinsonuzh/treeAGG">https://github.com/markrobinsonuzh/treeAGG</a>, under review for Bioc). Basically, part of what she does there is to implement a framework for representing, aggregating and analyzing data with a hierarchical structure (e.g., OTUs, hierarchically clustered single cell types). If this seems like something that’s overlapping what you are doing here, it might be useful to exchange ideas and experiences to avoid duplicating work and/or classes and to end up with the best broadly applicable solution. Fiona can explain more about her approach if you want (see summary below), and we’d also be interested in hearing more about your ideas:slightly_smiling_face: - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FDTSM3UA2/screen_shot_2018-10-31_at_11.20.11.png">Screen Shot 2018-10-31 at 11.20.11.png</a></p>
+<p><strong>hcorrada</strong> (07:44:20): &gt; Very much related thanks for the pointer…. Also related to what we have done in metavizr package and what we are looking to do here. This is extremely helpful. We are in the middle of doing something like tree-like-se, except we are allowing trees for either (or both) rows or columns data</p>
+<p><strong>hcorrada</strong> (07:49:08): &gt; The implementation of aggregation over tree we did for metavizr is based on data.table package which (we think) can help with efficiency (since we are using this to support interactive visualziation). It would be very useful to have a discussion so we can combine efforts.</p>
+<p><strong>hcorrada</strong> (07:50:18): &gt; In general I think something like tree-like-se should be available in a standalone package.</p>
+<p><strong>hcorrada</strong> (07:58:47): &gt; Would be people be available for a chat this Friday?</p>
+<p><strong>Levi Waldron</strong> (08:44:17): &gt; This week is bad for me but I’d try to join whenever you are meeting. Next week is better.</p>
+<p><strong>Martin Morgan</strong> (09:22:15): &gt; I’d like to join to if possible; next week also works for me; it might be good to have short presentations of everyone’s approach to help those of us with limited reading comprehension:wink:</p>
+<p><strong>Charlotte Soneson</strong> (09:28:43): &gt; Sounds great! At least someone from our side should be able to join for a call next week (I’m guessing this will be late-ish afternoon/early evening European time).</p>
+<p><strong>hcorrada</strong> (09:39:13): &gt; <a href="https://www.when2meet.com/?7255023-8qYQc">https://www.when2meet.com/?7255023-8qYQc</a>I list times in the afternoon EST but please ignore as appropriate@Charlotte Soneson</p>
+<p><strong>Daniel Van Twisk</strong> (10:27:54): &gt; <span class="citation" data-cites="Daniel">@Daniel</span> Van Twisk has joined the channel</p>
+<p><strong>Davide Risso</strong> (11:02:23): &gt; I’ll try to join as well!</p>
+<p><strong>Stephanie Hicks</strong> (13:20:38): &gt; me too!</p>
+<p><strong>Daniel Van Twisk</strong> (16:07:27): &gt; Just a quick sales pitch. &gt; The<code>LoomExperiment</code>package is available on the most recent Biocondcutor release. It facilitates importing and exporting files in the Loom File Format to<code>LoomExperiment</code>family of classes. These classes extend the functionality of the<code>SummarziedExperiment</code>family of classes.<code>LoomExperiment</code>objects contain row and column graphs as well.</p>
+<p><strong>Jayaram Kancherla</strong> (16:16:10): &gt; also another correction, when i say graphs in my original post, its a tree structure stored as data tables to make aggregations at different levels.</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2018-11-01</h2>
+<p><strong>Stephanie Hicks</strong> (08:28:47): &gt; Looks like 11am EST on Tues or Wed works? Shall we select a time?</p>
+<p><strong>Charlotte Soneson</strong> (13:44:57): &gt; Yes! Both are equally doable for me, so if anyone has a preference I’m fine with that.</p>
+<p><strong>hcorrada</strong> (13:54:05): &gt; Ok ;et</p>
+<p><strong>hcorrada</strong> (13:54:15): &gt; let’s set 11EST on Tuesday</p>
+<p><strong>hcorrada</strong> (13:58:34): &gt; <a href="https://umd.webex.com/umd/j.php?MTID=m45dc437b062f982c977c49bb9a209fe5">https://umd.webex.com/umd/j.php?MTID=m45dc437b062f982c977c49bb9a209fe5</a> - Attachment (Cisco Webex Site): <a href="https://umd.webex.com/umd/j.php?MTID=m45dc437b062f982c977c49bb9a209fe5">Cisco Webex Meetings</a> &gt; Simple, modern video meetings for the global workforce. Join from anywhere, including your desktop, browser, mobile device, or video room device.</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2018-11-04</h2>
+<p><strong>Levi Waldron</strong> (19:04:13): &gt; I’ll be there!<span class="citation" data-cites="C">@C</span>. Mirzayi (please do not tag this account)<span class="citation" data-cites="Lucas">@Lucas</span> Schiffer@Marcel Ramos Pérezfyi.</p>
+<p><strong>C. Mirzayi (please do not tag this account)</strong> (19:04:26): &gt; <span class="citation" data-cites="C">@C</span>. Mirzayi (please do not tag this account) has joined the channel</p>
+<p><strong>Lucas Schiffer</strong> (19:04:26): &gt; <span class="citation" data-cites="Lucas">@Lucas</span> Schiffer has joined the channel</p>
+<p><strong>Marcel Ramos Pérez</strong> (19:04:26): &gt; <span class="citation" data-cites="Marcel">@Marcel</span> Ramos Pérez has joined the channel</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2018-11-05</h2>
+<p><strong>Federico Marini</strong> (08:14:48): &gt; <span class="citation" data-cites="Federico">@Federico</span> Marini has joined the channel</p>
+<p><strong>Federico Marini</strong> (08:15:02): &gt; Hi channel:wave:</p>
+<p><strong>Federico Marini</strong> (08:15:43): &gt; I figured out thanks to@Davide Rissothe upcoming conference call was a nice spot to briefly bring the point of interactive graphics for the upcoming HCA call</p>
+<p><strong>Federico Marini</strong> (08:16:03): &gt; So, I’ll be honored and happy to join the conversation</p>
+<p><strong>Levi Waldron</strong> (08:17:01): &gt; Hi Frederico! Looking forward to the discussion.</p>
+<p><strong>Federico Marini</strong> (08:18:00): &gt; with the tl;dr message of “we have<code>iSEE</code>as a basis for exploring anything which is in SummarizedExperiment objects; no need to reinvent a wheel that can be nicely spinning; we can accommodate an instance of iSEE for the preview hca data”</p>
+<p><strong>Federico Marini</strong> (08:19:22): &gt; (for the ones new to the tool, here’s a preview in action:<a href="https://marionilab.cruk.cam.ac.uk/iSEE_pbmc4k/">https://marionilab.cruk.cam.ac.uk/iSEE_pbmc4k/</a>)</p>
+<p><strong>Levi Waldron</strong> (08:21:12): &gt; I like iSEE a lot. Have you thought about extending to MultiAssayExperiment?</p>
+<p><strong>Levi Waldron</strong> (08:22:54): &gt; I suppose it might just be a switcher to run iSEE for any contained SummarizedExperiment, but there is also the overall colData and map</p>
+<p><strong>Federico Marini</strong> (08:25:39): &gt; Did think already, did not implement it yet. But it seems a nice natural development step</p>
+<p><strong>Federico Marini</strong> (08:26:19): &gt; probably worth a separate package, but it might be because I am not so close to MAE as a class</p>
+<p><strong>Federico Marini</strong> (08:26:43): &gt; Yet, I might be using it soon for storing, for the same dataset: gene level info, tx level, exon level, …</p>
+<p><strong>Levi Waldron</strong> (08:27:11): &gt; Yes It would probably be scope creep</p>
+<p><strong>Jayaram Kancherla</strong> (14:40:02): &gt; Proposed Agenda for tomorrows meeting at 11:00 AM EST. Please feel free to add to this document.<a href="https://docs.google.com/document/d/1iIetcYJXnwwMLpKZwQOIl_7wmJsDKdcRd2D4AFqLqpw/edit?usp=sharing">https://docs.google.com/document/d/1iIetcYJXnwwMLpKZwQOIl_7wmJsDKdcRd2D4AFqLqpw/edit?usp=sharing</a></p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2018-11-06</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (04:18:45): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht has joined the channel</p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:53:00): &gt; what the strategy for the conference call? Hangout?</p>
+<p><strong>Charlotte Soneson</strong> (10:53:29): &gt; There’s a Webex link a bit up in the channel</p>
+<p><strong>Federico Marini</strong> (10:53:40): &gt; <a href="https://umd.webex.com/umd/j.php?MTID=m45dc437b062f982c977c49bb9a209fe5">https://umd.webex.com/umd/j.php?MTID=m45dc437b062f982c977c49bb9a209fe5</a> - Attachment (Cisco Webex Site): <a href="https://umd.webex.com/umd/j.php?MTID=m45dc437b062f982c977c49bb9a209fe5">Cisco Webex Meetings</a> &gt; Simple, modern video meetings for the global workforce. Join from anywhere, including your desktop, browser, mobile device, or video room device.</p>
+<p><strong>Federico Marini</strong> (10:54:07): &gt; Do we need any installing or does it work also outside slack?</p>
+<p><strong>Charlotte Soneson</strong> (10:55:36): &gt; I’m able to join right now without problems</p>
+<p><strong>Ruizhu HUANG</strong> (10:56:53): &gt; I see Charlotte now.</p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:57:01): &gt; what do you call “join”? I can get to the page, but the “Join meeting” button is greyed out</p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:57:08): &gt; oh wait, a couple of fields showed up</p>
+<p><strong>Charlotte Soneson</strong> (10:57:22): &gt; You have to fill your name and email, then the Join meeting becomes green</p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:57:38): &gt; Yep. Now it looks good. Ok hang on a minute, I’ll find a quiet spot</p>
+<p><strong>Jayaram Kancherla</strong> (11:01:23): &gt; Hector just got back from his class and well be there in a min.</p>
+<p><strong>Federico Marini</strong> (11:01:53): &gt; I should be in</p>
+<p><strong>Stephanie Hicks</strong> (11:02:02): &gt; is there supposed to be video?</p>
+<p><strong>Federico Marini</strong> (11:02:43): &gt; Probably? If so, I had a small screencast I can do live</p>
+<p><strong>Kevin Rue-Albrecht</strong> (11:03:28): &gt; There should definitely be some video, I got the popup “allow to use camera”</p>
+<p><strong>Federico Marini</strong> (11:05:08): &gt; I see something but hear nothing (yet)</p>
+<p><strong>Kevin Rue-Albrecht</strong> (11:06:40): &gt; I had to “allow microphone” to hear anything</p>
+<p><strong>Kevin Rue-Albrecht</strong> (11:06:45): &gt; sure you didn’t miss a popup?</p>
+<p><strong>Federico Marini</strong> (11:06:56): &gt; switching browser</p>
+<p><strong>Stephanie Hicks</strong> (11:07:05): &gt; yeah, switching browsers worked for me:slightly_smiling_face:</p>
+<p><strong>Federico Marini</strong> (11:07:39): &gt; I’m on firefox now - was safari</p>
+<p><strong>Charlotte Soneson</strong> (11:07:49): &gt; Chrome works</p>
+<p><strong>Kevin Rue-Albrecht</strong> (11:07:53): &gt; safari’s good for me:stuck_out_tongue:</p>
+<p><strong>Federico Marini</strong> (11:08:38): &gt; I’ve got a loading spinner for audio &amp; video</p>
+<p><strong>Federico Marini</strong> (11:08:52): &gt; but not much progress from there</p>
+<p><strong>Stephanie Hicks</strong> (11:08:54): &gt; Chrome worked for me</p>
+<p><strong>Federico Marini</strong> (11:11:34): &gt; same also for chrome:disappointed:</p>
+<p><strong>Marcel Ramos Pérez</strong> (11:12:55): &gt; Firefox worked for me</p>
+<p><strong>Federico Marini</strong> (11:13:41): &gt; Trying to switch pc, sorry for the noise</p>
+<p><strong>Kevin Rue-Albrecht</strong> (11:14:19): &gt; try restarting the first pc in the meantime:slightly_smiling_face:</p>
+<p><strong>Federico Marini</strong> (11:17:34): &gt; I had an instance of iSEE running, bummer</p>
+<p><strong>Kevin Rue-Albrecht</strong> (11:28:01): &gt; how you doing@Federico Marini?</p>
+<p><strong>Federico Marini</strong> (11:28:26): &gt; I keep on sucking - even after restart</p>
+<p><strong>Federico Marini</strong> (11:49:00): &gt; I see a perennial “connecting to audio”</p>
+<p><strong>Federico Marini</strong> (11:49:16): &gt; might be due to some firewall setting here, being a uni medical center?</p>
+<p><strong>Federico Marini</strong> (11:49:26): &gt; Our IT is not in house now</p>
+<p><strong>Stephanie Hicks</strong> (11:49:41): &gt; treeSE slides<a href="https://docs.google.com/presentation/d/16lLpiQL4ulMRjSr0nVRVcVpGBUTog41O0yLQq_uY2Gg/edit?usp=sharing">https://docs.google.com/presentation/d/16lLpiQL4ulMRjSr0nVRVcVpGBUTog41O0yLQq_uY2Gg/edit?usp=sharing</a></p>
+<p><strong>Federico Marini</strong> (11:49:57): &gt; thanks stephanie</p>
+<p><strong>Federico Marini</strong> (11:50:16): &gt; I see the screencast, but do not hear. nor I can connect the audio</p>
+<p><strong>Davide Risso</strong> (12:22:30): &gt; Sorry I had to leave, but I’ll check this channel for next steps!</p>
+<p><strong>Marcel Ramos Pérez</strong> (12:29:32): &gt; set the channel topic: Visualization</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2018-11-10</h2>
+<p><strong>Levi Waldron</strong> (08:20:14) (in thread): &gt; Does this pinning prevent the message from being hidden when there are 10k newer ones?</p>
+<p><strong>Stephanie Hicks</strong> (08:28:31) (in thread): &gt; I believe so, but could be wrong</p>
+<p><strong>Kevin Rue-Albrecht</strong> (12:19:56) (in thread): &gt; I’m pretty sure it does. I recently cleared pinned messages on the iSEE channel that dated from the start of 2018</p>
+<p><strong>Levi Waldron</strong> (12:24:51) (in thread): &gt; Oh that’s nice, thanks both of you!</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2018-12-10</h2>
+<p><strong>Mark Robinson</strong> (11:25:35): &gt; <span class="citation" data-cites="Mark">@Mark</span> Robinson has joined the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2019-02-12</h2>
+<p><strong>Davide Risso</strong> (05:01:47): &gt; Interactive heatmap based on 1d tsne projection:<a href="https://github.com/KlugerLab/t-SNE-Heatmaps">https://github.com/KlugerLab/t-SNE-Heatmaps</a></p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2019-02-17</h2>
+<p><strong>Domenick Braccia</strong> (20:30:36): &gt; <span class="citation" data-cites="Domenick">@Domenick</span> Braccia has joined the channel</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2019-06-20</h2>
+<p><strong>Sanjeev Sariya</strong> (17:38:53): &gt; <span class="citation" data-cites="Sanjeev">@Sanjeev</span> Sariya has joined the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2019-11-28</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (07:18:37): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht has left the channel</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2020-01-08</h2>
+<p><strong>Stephanie Hicks</strong> (12:09:03): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks has left the channel</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2020-01-23</h2>
+<p><strong>Charlotte Soneson</strong> (04:09:15): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has left the channel</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2020-12-12</h2>
+<p><strong>Huipeng Li</strong> (00:39:18): &gt; <span class="citation" data-cites="Huipeng">@Huipeng</span> Li has joined the channel</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2021-01-22</h2>
+<p><strong>Annajiat Alim Rasel</strong> (15:44:59): &gt; <span class="citation" data-cites="Annajiat">@Annajiat</span> Alim Rasel has joined the channel</p>
+<p><strong>Annajiat Alim Rasel</strong> (15:45:02): &gt; <span class="citation" data-cites="Annajiat">@Annajiat</span> Alim Rasel has left the channel</p>
+<p><strong>Annajiat Alim Rasel</strong> (15:46:59): &gt; <span class="citation" data-cites="Annajiat">@Annajiat</span> Alim Rasel has joined the channel</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2021-05-11</h2>
+<p><strong>Megha Lal</strong> (16:45:23): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has joined the channel</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2022-01-28</h2>
+<p><strong>Megha Lal</strong> (11:14:05): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has left the channel</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2022-05-05</h2>
+<p><strong>Aedin Culhane</strong> (12:22:51): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2024-02-09</h2>
+<p><strong>Marcel Ramos Pérez</strong> (10:18:54): &gt; archived the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

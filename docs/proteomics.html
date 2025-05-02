@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#proteomics – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2020-03-23</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2020-03-26</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2020-04-06</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2020-04-19</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2020-06-06</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2020-06-12</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2020-07-07</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2020-07-15</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2020-07-16</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2020-07-24</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2020-07-30</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2020-07-31</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2020-08-05</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2020-08-06</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2020-10-19</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2020-10-23</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2020-11-19</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2020-12-02</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2020-12-12</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2020-12-14</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2020-12-17</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2020-12-18</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2021-01-18</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2021-01-22</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2021-01-29</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2021-02-17</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2021-02-19</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2021-02-24</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2021-02-25</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2021-03-16</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2021-03-17</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2021-03-18</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2021-03-19</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2021-03-20</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2021-04-01</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2021-04-07</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2021-04-08</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2021-04-28</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2021-05-11</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2021-05-22</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2021-05-24</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2021-05-25</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2021-05-29</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2021-06-04</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2021-06-20</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2021-07-16</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2021-07-18</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2021-07-23</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2021-08-04</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2021-08-26</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2021-09-09</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2021-10-04</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2022-01-03</a></li>
+  <li><a href="#section-53" id="toc-section-53" class="nav-link" data-scroll-target="#section-53">2022-01-28</a></li>
+  <li><a href="#section-54" id="toc-section-54" class="nav-link" data-scroll-target="#section-54">2022-02-10</a></li>
+  <li><a href="#section-55" id="toc-section-55" class="nav-link" data-scroll-target="#section-55">2022-03-30</a></li>
+  <li><a href="#section-56" id="toc-section-56" class="nav-link" data-scroll-target="#section-56">2022-05-05</a></li>
+  <li><a href="#section-57" id="toc-section-57" class="nav-link" data-scroll-target="#section-57">2022-05-16</a></li>
+  <li><a href="#section-58" id="toc-section-58" class="nav-link" data-scroll-target="#section-58">2022-06-12</a></li>
+  <li><a href="#section-59" id="toc-section-59" class="nav-link" data-scroll-target="#section-59">2022-07-22</a></li>
+  <li><a href="#section-60" id="toc-section-60" class="nav-link" data-scroll-target="#section-60">2022-07-28</a></li>
+  <li><a href="#section-61" id="toc-section-61" class="nav-link" data-scroll-target="#section-61">2022-08-01</a></li>
+  <li><a href="#section-62" id="toc-section-62" class="nav-link" data-scroll-target="#section-62">2022-08-30</a></li>
+  <li><a href="#section-63" id="toc-section-63" class="nav-link" data-scroll-target="#section-63">2022-09-27</a></li>
+  <li><a href="#section-64" id="toc-section-64" class="nav-link" data-scroll-target="#section-64">2022-12-13</a></li>
+  <li><a href="#section-65" id="toc-section-65" class="nav-link" data-scroll-target="#section-65">2022-12-15</a></li>
+  <li><a href="#section-66" id="toc-section-66" class="nav-link" data-scroll-target="#section-66">2023-01-10</a></li>
+  <li><a href="#section-67" id="toc-section-67" class="nav-link" data-scroll-target="#section-67">2023-02-28</a></li>
+  <li><a href="#section-68" id="toc-section-68" class="nav-link" data-scroll-target="#section-68">2023-03-01</a></li>
+  <li><a href="#section-69" id="toc-section-69" class="nav-link" data-scroll-target="#section-69">2023-06-23</a></li>
+  <li><a href="#section-70" id="toc-section-70" class="nav-link" data-scroll-target="#section-70">2023-06-29</a></li>
+  <li><a href="#section-71" id="toc-section-71" class="nav-link" data-scroll-target="#section-71">2023-06-30</a></li>
+  <li><a href="#section-72" id="toc-section-72" class="nav-link" data-scroll-target="#section-72">2023-07-17</a></li>
+  <li><a href="#section-73" id="toc-section-73" class="nav-link" data-scroll-target="#section-73">2023-07-27</a></li>
+  <li><a href="#section-74" id="toc-section-74" class="nav-link" data-scroll-target="#section-74">2023-07-28</a></li>
+  <li><a href="#section-75" id="toc-section-75" class="nav-link" data-scroll-target="#section-75">2023-08-03</a></li>
+  <li><a href="#section-76" id="toc-section-76" class="nav-link" data-scroll-target="#section-76">2023-09-03</a></li>
+  <li><a href="#section-77" id="toc-section-77" class="nav-link" data-scroll-target="#section-77">2023-09-13</a></li>
+  <li><a href="#section-78" id="toc-section-78" class="nav-link" data-scroll-target="#section-78">2023-09-15</a></li>
+  <li><a href="#section-79" id="toc-section-79" class="nav-link" data-scroll-target="#section-79">2023-11-21</a></li>
+  <li><a href="#section-80" id="toc-section-80" class="nav-link" data-scroll-target="#section-80">2023-12-27</a></li>
+  <li><a href="#section-81" id="toc-section-81" class="nav-link" data-scroll-target="#section-81">2024-02-12</a></li>
+  <li><a href="#section-82" id="toc-section-82" class="nav-link" data-scroll-target="#section-82">2024-03-11</a></li>
+  <li><a href="#section-83" id="toc-section-83" class="nav-link" data-scroll-target="#section-83">2024-03-26</a></li>
+  <li><a href="#section-84" id="toc-section-84" class="nav-link" data-scroll-target="#section-84">2024-04-28</a></li>
+  <li><a href="#section-85" id="toc-section-85" class="nav-link" data-scroll-target="#section-85">2024-07-02</a></li>
+  <li><a href="#section-86" id="toc-section-86" class="nav-link" data-scroll-target="#section-86">2024-07-11</a></li>
+  <li><a href="#section-87" id="toc-section-87" class="nav-link" data-scroll-target="#section-87">2024-07-18</a></li>
+  <li><a href="#section-88" id="toc-section-88" class="nav-link" data-scroll-target="#section-88">2024-07-20</a></li>
+  <li><a href="#section-89" id="toc-section-89" class="nav-link" data-scroll-target="#section-89">2024-07-23</a></li>
+  <li><a href="#section-90" id="toc-section-90" class="nav-link" data-scroll-target="#section-90">2024-08-01</a></li>
+  <li><a href="#section-91" id="toc-section-91" class="nav-link" data-scroll-target="#section-91">2024-08-15</a></li>
+  <li><a href="#section-92" id="toc-section-92" class="nav-link" data-scroll-target="#section-92">2024-08-16</a></li>
+  <li><a href="#section-93" id="toc-section-93" class="nav-link" data-scroll-target="#section-93">2024-08-19</a></li>
+  <li><a href="#section-94" id="toc-section-94" class="nav-link" data-scroll-target="#section-94">2024-08-20</a></li>
+  <li><a href="#section-95" id="toc-section-95" class="nav-link" data-scroll-target="#section-95">2024-10-10</a></li>
+  <li><a href="#section-96" id="toc-section-96" class="nav-link" data-scroll-target="#section-96">2024-10-18</a></li>
+  <li><a href="#section-97" id="toc-section-97" class="nav-link" data-scroll-target="#section-97">2024-10-21</a></li>
+  <li><a href="#section-98" id="toc-section-98" class="nav-link" data-scroll-target="#section-98">2024-10-22</a></li>
+  <li><a href="#section-99" id="toc-section-99" class="nav-link" data-scroll-target="#section-99">2024-11-21</a></li>
+  <li><a href="#section-100" id="toc-section-100" class="nav-link" data-scroll-target="#section-100">2024-12-11</a></li>
+  <li><a href="#section-101" id="toc-section-101" class="nav-link" data-scroll-target="#section-101">2024-12-27</a></li>
+  <li><a href="#section-102" id="toc-section-102" class="nav-link" data-scroll-target="#section-102">2024-12-28</a></li>
+  <li><a href="#section-103" id="toc-section-103" class="nav-link" data-scroll-target="#section-103">2025-01-09</a></li>
+  <li><a href="#section-104" id="toc-section-104" class="nav-link" data-scroll-target="#section-104">2025-02-11</a></li>
+  <li><a href="#section-105" id="toc-section-105" class="nav-link" data-scroll-target="#section-105">2025-03-11</a></li>
+  <li><a href="#section-106" id="toc-section-106" class="nav-link" data-scroll-target="#section-106">2025-03-18</a></li>
+  <li><a href="#section-107" id="toc-section-107" class="nav-link" data-scroll-target="#section-107">2025-04-18</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#proteomics</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2020-03-23</h2>
+<p><strong>Sean Davis</strong> (10:23:09): &gt; <span class="citation" data-cites="Sean">@Sean</span> Davis has joined the channel</p>
+<p><strong>Sean Davis</strong> (10:23:09): &gt; set the channel description: Discuss all things protein and bioc related</p>
+<p><strong>Sean Davis</strong> (10:24:53): &gt; <a href="https://pdc.cancer.gov/">https://pdc.cancer.gov/</a> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F0107T542SX/image.png">image.png</a></p>
+<p><strong>Sean Davis</strong> (10:26:19): &gt; set the channel description: Discuss all things bioconductor proteomics related</p>
+<p><strong>Kevin Blighe</strong> (10:26:24): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Blighe has joined the channel</p>
+<p><strong>kipper fletez-brant</strong> (10:42:55): &gt; <span class="citation" data-cites="kipper">@kipper</span> fletez-brant has joined the channel</p>
+<p><strong>Laurent Gatto</strong> (11:31:13): &gt; <span class="citation" data-cites="Laurent">@Laurent</span> Gatto has joined the channel</p>
+<p><strong>Lukas Weber</strong> (11:44:38): &gt; <span class="citation" data-cites="Lukas">@Lukas</span> Weber has joined the channel</p>
+<p><strong>Mikhail Dozmorov</strong> (12:41:45): &gt; <span class="citation" data-cites="Mikhail">@Mikhail</span> Dozmorov has joined the channel</p>
+<p><strong>Sergi Sayols</strong> (17:49:05): &gt; <span class="citation" data-cites="Sergi">@Sergi</span> Sayols has joined the channel</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2020-03-26</h2>
+<p><strong>olga tsiouri</strong> (14:35:34): &gt; <span class="citation" data-cites="olga">@olga</span> tsiouri has joined the channel</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2020-04-06</h2>
+<p><strong>Chong Tang</strong> (11:28:54): &gt; <span class="citation" data-cites="Chong">@Chong</span> Tang has joined the channel</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2020-04-19</h2>
+<p><strong>Shubham Gupta</strong> (11:19:24): &gt; <span class="citation" data-cites="Shubham">@Shubham</span> Gupta has joined the channel</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2020-06-06</h2>
+<p><strong>Olagunju Abdulrahman</strong> (19:58:30): &gt; <span class="citation" data-cites="Olagunju">@Olagunju</span> Abdulrahman has joined the channel</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2020-06-12</h2>
+<p><strong>Johannes Rainer</strong> (09:50:47): &gt; <span class="citation" data-cites="Johannes">@Johannes</span> Rainer has joined the channel</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2020-07-07</h2>
+<p><strong>Vivek Das</strong> (02:57:15): &gt; <span class="citation" data-cites="Vivek">@Vivek</span> Das has joined the channel</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2020-07-15</h2>
+<p><strong>wmuehlhaeuser</strong> (09:21:33): &gt; <span class="citation" data-cites="wmuehlhaeuser">@wmuehlhaeuser</span> has joined the channel</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2020-07-16</h2>
+<p><strong>Pedro Baldoni</strong> (04:10:54): &gt; <span class="citation" data-cites="Pedro">@Pedro</span> Baldoni has joined the channel</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2020-07-24</h2>
+<p><strong>Isha Goel</strong> (07:46:35): &gt; <span class="citation" data-cites="Isha">@Isha</span> Goel has joined the channel</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2020-07-30</h2>
+<p><strong>Antonio Colaprico</strong> (16:29:35): &gt; <span class="citation" data-cites="Antonio">@Antonio</span> Colaprico has joined the channel</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2020-07-31</h2>
+<p><strong>Saulius Lukauskas</strong> (03:16:13): &gt; <span class="citation" data-cites="Saulius">@Saulius</span> Lukauskas has joined the channel</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2020-08-05</h2>
+<p><strong>shr19818</strong> (13:45:51): &gt; <span class="citation" data-cites="shr19818">@shr19818</span> has joined the channel</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2020-08-06</h2>
+<p><strong>Nitesh Mani</strong> (03:18:10): &gt; <span class="citation" data-cites="Nitesh">@Nitesh</span> Mani has joined the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2020-10-19</h2>
+<p><strong>Lukas Weber</strong> (08:41:25): &gt; <span class="citation" data-cites="Lukas">@Lukas</span> Weber has left the channel</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2020-10-23</h2>
+<p><strong>Rebecca Howard</strong> (08:18:20): &gt; <span class="citation" data-cites="Rebecca">@Rebecca</span> Howard has joined the channel</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2020-11-19</h2>
+<p><strong>Kevin Blighe</strong> (08:30:31): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Blighe has joined the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2020-12-02</h2>
+<p><strong>Konstantinos Geles (Constantinos Yeles)</strong> (05:43:50): &gt; <span class="citation" data-cites="Konstantinos">@Konstantinos</span> Geles (Constantinos Yeles) has joined the channel</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2020-12-12</h2>
+<p><strong>Huipeng Li</strong> (00:38:59): &gt; <span class="citation" data-cites="Huipeng">@Huipeng</span> Li has joined the channel</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2020-12-14</h2>
+<p><strong>Thomas Naake</strong> (08:56:13): &gt; <span class="citation" data-cites="Thomas">@Thomas</span> Naake has joined the channel</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2020-12-17</h2>
+<p><strong>James MacDonald</strong> (11:13:23): &gt; <span class="citation" data-cites="James">@James</span> MacDonald has joined the channel</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2020-12-18</h2>
+<p><strong>Olly Crook</strong> (15:45:40): &gt; <span class="citation" data-cites="Olly">@Olly</span> Crook has joined the channel</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2021-01-18</h2>
+<p><strong>Robert Castelo</strong> (05:21:14): &gt; <span class="citation" data-cites="Robert">@Robert</span> Castelo has joined the channel</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2021-01-22</h2>
+<p><strong>Annajiat Alim Rasel</strong> (15:45:11): &gt; <span class="citation" data-cites="Annajiat">@Annajiat</span> Alim Rasel has joined the channel</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2021-01-29</h2>
+<p><strong>mariadermit</strong> (04:48:28): &gt; <span class="citation" data-cites="mariadermit">@mariadermit</span> has joined the channel</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2021-02-17</h2>
+<p><strong>abdullah hanta</strong> (16:07:50): &gt; <span class="citation" data-cites="abdullah">@abdullah</span> hanta has joined the channel</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2021-02-19</h2>
+<p><strong>Robert Castelo</strong> (11:53:20): &gt; hi, i guess i can use this channel for the following kind of question. i’m playing around with peptide identification from RAW data of an Obitrap instrument. After converting the a RAW file into an mzML file using the<a href="https://github.com/compomics/ThermoRawFileParser">ThermoRawFileParser</a>i ran a peptide search using the<a href="https://bioconductor.org/packages/MSGFplus">MSGFplus</a>package and its function<code>runMSGF()</code>, which returns an<code>mzID</code>object. Using the<code>flatten()</code>function from the<a href="https://bioconductor.org/packages/mzID">mzID</a>package i converted the<code>mzID</code>object into a<code>data.frame</code>object. i noticed, however, that while there was an E-value column, the table had no q-value column to help selecting the detected proteins. i have two questions about this: &gt; 1. By inspecting the code of<code>MSGFplus:::getMSGFplus()</code>i noticed that the version of MS-GF+ run by the<a href="https://bioconductor.org/packages/MSGFplus">MSGFplus</a>package dates back to 2014. If i download the most<a href="https://github.com/MSGFPlus/msgfplus/releases">recent</a>version of MS-GF+ (release Jan 8th, 2021) and i execute it on the command-line, then i do get an output<code>.mzid</code>file with q-values. Do you know if is there any particular reason, such as licensing, by which the version of MS-GF+ in the MSGFplus package has not been updated since 2014? &gt; 2. After running MS-GF+ in the command line, i can either read the resulting<code>.mzid</code>file into a<code>data.frame</code>object in R using the<code>mzID()</code>and<code>flatten()</code>functions from the<a href="https://bioconductor.org/packages/mzID">mzID</a>package, or convert the<code>.mzid</code>file into a tab-separated<code>.tsv</code>file on the command line using the<a href="https://msgfplus.github.io/msgfplus/MzidToTsv.html">MzidToTsvConverter</a>tool. If i do the former, i get a<code>data.frame</code>object with 17,710 rows, while if i do the latter i get 17,634 rows. Selecting proteins with q-value 0.01 i get from both outputs 640 proteins, but using a cutoff of 0.05 i get 901 with the former way and 891 with the latter. Do you know why the<code>.mzid</code>to table conversion might be different between the mzID package and the command-line tool MzidToTsvConverter? &gt; Thanks!</p>
+<p><strong>Laurent Gatto</strong> (12:38:26): &gt; The developer of MSGF+ has moved on, and thus the package isn’t further developed. I personally run MSGF+ from the command line and import the mzID files in R using<code>mzID::mzID</code>and then flatten, or<code>MSnbase::readMzIdData</code>(or the more recent<code>PSM::readPSMs</code>- under development). Another useful package for the FDR analysis of these PSMS is<code>MSnID</code>.</p>
+<p><strong>Robert Castelo</strong> (12:47:42): &gt; I see, probably then MSGFplus should be deprecated, but thanks for the tips. Do you also have a tip to estimate protein abundances from the output of MSGF+?</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2021-02-24</h2>
+<p><strong>Laurent Gatto</strong> (17:04:25): &gt; As far as I know, MSGF+ doesn’t do any quantitation. So the only option you have is spectral counting.</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2021-02-25</h2>
+<p><strong>Robert Castelo</strong> (13:16:00): &gt; Thanks Laurent, is it the right entry point to learn about how to do spectral counting this<a href="http://bioconductor.org/packages/release/bioc/vignettes/MSnID/inst/doc/msnid_vignette.pdf">vignette</a>from the<a href="https://bioconductor.org/packages/MSnID">MSnID</a>package and then using the<code>combineFeatures()</code>function from the<a href="https://bioconductor.org/packages/MSnbase">MSnbase</a>package to estimate protein level abundance?</p>
+<p><strong>Laurent Gatto</strong> (17:59:10): &gt; Yes, MSnID is a nice package. As for<code>combineFeatures()</code>, I would recommend the new (and better)<code>QFeatures::aggregateFeatures()</code></p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2021-03-16</h2>
+<p><strong>Tobias Kockmann</strong> (04:29:00): &gt; <span class="citation" data-cites="Tobias">@Tobias</span> Kockmann has joined the channel</p>
+<p><strong>Tobias Kockmann</strong> (04:31:35): &gt; :wave:</p>
+<p><strong>Tobias Kockmann</strong> (04:32:32): &gt; So this is the place where the hot topics are being discussed?</p>
+<p><strong>Tobias Kockmann</strong> (04:51:15): &gt; Is somebody from the bioc core team around that could answer questions regarding the submission/test system?</p>
+<p><strong>Laurent Gatto</strong> (05:48:39) (in thread): &gt; I suggest you tag directly people that you would like to add to the conversion, for instance the reviewer of your package.</p>
+<p><strong>Tobias Kockmann</strong> (06:01:29) (in thread): &gt; Maybe a stupid question: Does it work even if people are not part of the channel?</p>
+<p><strong>Johannes Rainer</strong> (06:10:27) (in thread): &gt; that should work, I believe</p>
+<p><strong>Tobias Kockmann</strong> (06:48:02): &gt; Hi@Hervé Pagès! Maybe we can discuss some aspects of your suggestion regarding<a href="https://github.com/Bioconductor/Contributions/issues/1886#">https://github.com/Bioconductor/Contributions/issues/1886#</a>here if you don’t mind.</p>
+<p><strong>Tobias Kockmann</strong> (06:56:03): &gt; I was wondering: Given that i) we (FGCZ) or Thermo would be able/willing to host the RawFileReader DLLs and ii) the package would be able to download them on demand, how would the bioc build/test system deal with the fact that manual user intervention would be required (asking the user to agree to the sub licence)? Is there a mechanism one could use? Could you point us to a running example (bioc package)?</p>
+<p><strong>Tobias Kockmann</strong> (06:57:22) (in thread): &gt; ok. let’s see what happens…</p>
+<p><strong>Tobias Kockmann</strong> (07:19:10) (in thread): &gt; You are of course also welcome to join the discussion!</p>
+<p><strong>Hervé Pagès</strong> (12:03:55): &gt; <span class="citation" data-cites="Hervé">@Hervé</span> Pagès has joined the channel</p>
+<p><strong>Hervé Pagès</strong> (12:45:10): &gt; Good question. One way to deal with this would be to ask for user agreement only when in interactive mode (<code>if interactive()</code>). Then everything would happen automatically on the build machines. However this is not really satisfying because it means that the DLLs could also get silently installed on the user machine e.g.&nbsp;in the (unlikely) situation where the user runs<code>R CMD check</code>on the package source tarball or on any package source tarball that depends on<strong><em>rawrr</em></strong>. &gt; So rather than performing an automatic install, I think that a better approach maybe is that you provide a utility function that the user needs to<strong>explicitly</strong>call to install the DLLs, say<code>install_RawFileReader_DLLs()</code>. This is what<strong><em>reticulate</em></strong>does with<code>virtualenv_install()</code>. No automatic install means the user can’t miss the question about licence agreement. Also it’s nice to be able to install the DLLs ahead of time rather than having to agree on a licence in the middle of an analysis. The package should display a message at load time encouraging the user to do that (by just calling<code>install_RawFileReader_DLLs()</code>). Every function that requires the DLLs will still need to display a message asking the user to call<code>install_RawFileReader_DLLs()</code>if the DLLs are not found. As mentioned in the submission,<code>install_RawFileReader_DLLs()</code>should install the DLLs in a place owned by the user. Something like<code>tools::R_user_dir("rawrr", which="cache")</code>would probably be a good place for this. &gt; Finally it should also be possible to manually download and install the DLLs in an arbitrary location, and to set some environment variable to the path where they are to be found. Then we would use this to install the DLLs once for all on the build machines.</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2021-03-17</h2>
+<p><strong>Tobias Kockmann</strong> (03:04:33): &gt; ok. Looks like everyone agrees that this is technically feasible.</p>
+<p><strong>Tobias Kockmann</strong> (03:07:41): &gt; I contacted two people at Thermo (incl.&nbsp;Jim) and got no replies…not even an out of office reply. I honestly don’t expect that anyone there will be willing to help or change the RawFileReader distribution system. This means: We (the FGCZ) would need to host the DLLs.</p>
+<p><strong>Vince Carey</strong> (05:55:59): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2021-03-18</h2>
+<p><strong>Olly Crook</strong> (05:44:57) (in thread): &gt; Tobias who are your contacts at Thermo, we might be able to help?</p>
+<p><strong>Tobias Kockmann</strong> (05:46:26) (in thread): &gt; I contacted Jim Shofstahl the maintainer of the RawFileReader.<a href="https://planetorbitrap.com/rawfilereader">https://planetorbitrap.com/rawfilereader</a></p>
+<p><strong>Tobias Kockmann</strong> (05:47:06) (in thread): &gt; and Bernard Delanghe from the pd team.</p>
+<p><strong>Olly Crook</strong> (05:50:29) (in thread): &gt; seems the most sensible, might be worth contacting the proteomics team lead if you still hear nothing</p>
+<p><strong>Tobias Kockmann</strong> (05:50:57) (in thread): &gt; Who would that be?</p>
+<p><strong>Olly Crook</strong> (05:51:14) (in thread): &gt; Rosa Viner</p>
+<p><strong>Tobias Kockmann</strong> (05:51:31) (in thread): &gt; Thermo has turned into a jungle and everyone is a general manager/director of something</p>
+<p><strong>Tobias Kockmann</strong> (05:52:48) (in thread): &gt; Is that her?<a href="https://www.thermofisher.com/ch/en/home/global/forms/industrial/ms-toolbox-for-structural-biology.html">https://www.thermofisher.com/ch/en/home/global/forms/industrial/ms-toolbox-for-structural-biology.html</a> - Attachment (thermofisher.com): <a href="https://www.thermofisher.com/ch/en/home/global/forms/industrial/ms-toolbox-for-structural-biology.html">MS Toolbox for Structural Biology | Thermo Fisher Scientific - US</a> &gt; Q Exactive UHMR MS enables the characterization of megadalton complexes and dynamic structure-function relationships.</p>
+<p><strong>Olly Crook</strong> (05:52:49) (in thread): &gt; haha, that make sense, we’ve had communication issues previously and she is usually responsive</p>
+<p><strong>Tobias Kockmann</strong> (05:53:26) (in thread): &gt; Senior vertical manager for …</p>
+<p><strong>Tobias Kockmann</strong> (05:53:40) (in thread): &gt; :stuck_out_tongue_winking_eye:</p>
+<p><strong>Tobias Kockmann</strong> (06:00:52) (in thread): &gt; <a href="mailto:rosa.viner@thermofisher.com">rosa.viner@thermofisher.com</a></p>
+<p><strong>Tobias Kockmann</strong> (06:01:47) (in thread): &gt; ok. Thanks@Olly Crookfor your suggestion. If we get no reply soonish I will give it a try.</p>
+<p><strong>Olly Crook</strong> (06:04:24) (in thread): &gt; no problem, yeah that’s her, she’s been helping us with problems we’ve had with tune software for the MS. So you might get a reply from her</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2021-03-19</h2>
+<p><strong>Christian Panse</strong> (04:30:14): &gt; <span class="citation" data-cites="Christian">@Christian</span> Panse has joined the channel</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2021-03-20</h2>
+<p><strong>watanabe_st</strong> (01:58:09): &gt; <span class="citation" data-cites="watanabe_st">@watanabe_st</span> has joined the channel</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2021-04-01</h2>
+<p><strong>Simina Boca</strong> (16:26:45): &gt; <span class="citation" data-cites="Simina">@Simina</span> Boca has joined the channel</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2021-04-07</h2>
+<p><strong>KP</strong> (10:36:39): &gt; <span class="citation" data-cites="KP">@KP</span> has joined the channel</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2021-04-08</h2>
+<p><strong>Tobias Kockmann</strong> (10:11:44) (in thread): &gt; Update: Still no answer from Jim.</p>
+<p><strong>Tobias Kockmann</strong> (10:13:18) (in thread): &gt; Bernard replied: “The chances to have any of the points mentioned, changed or removed is close to zero.”</p>
+<p><strong>Tobias Kockmann</strong> (10:28:34) (in thread): &gt; I’m - as always - amazed by the level of service that Thermo provides to customers that have literally spend millions of EUR for their hardware during the last decade!</p>
+<p><strong>Olly Crook</strong> (10:40:02) (in thread): &gt; That seems astonishingly unhelpful…</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2021-04-28</h2>
+<p><strong>Mateusz Staniak</strong> (17:51:40): &gt; <span class="citation" data-cites="Mateusz">@Mateusz</span> Staniak has joined the channel</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2021-05-11</h2>
+<p><strong>Megha Lal</strong> (16:45:27): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has joined the channel</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2021-05-22</h2>
+<p><strong>Moritz E. Beber</strong> (16:00:51): &gt; <span class="citation" data-cites="Moritz">@Moritz</span> E. Beber has joined the channel</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2021-05-24</h2>
+<p><strong>António Domingues</strong> (15:57:13): &gt; <span class="citation" data-cites="António">@António</span> Domingues has joined the channel</p>
+<p><strong>António Domingues</strong> (16:09:35): &gt; Proteomics beginner here. I have playing around with some pre-processed TMT data, processed externally using the Gygi lab pipeline, but I am struggling on the “best” way to normalize the data in order to remove batch effects. Is there a consensus in the field or suggestions? The goal is to compare prot abundance between conditions from different TMT runs (one treatment is common between those runs). I have been playing with IRS but since the data I got is<code>summed intensities - noise</code>and most methods use “raw intensities”, I am considering processing the RAW files using<code>MaxQuant</code>with matched runs. Differential abundance analysis will probably be done with<code>EdgeR</code>but I am agnostic on this point - I have seen people using<code>DESeq.</code>Cheers</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2021-05-25</h2>
+<p><strong>Pedro Baldoni</strong> (05:08:57) (in thread): &gt; Also a proteomics beginner here. I don’t quite follow the rationale behind using edgeR or DESeq to model intensities. Why not use limma and its framework for normalization and batch effect adjustment?</p>
+<p><strong>António Domingues</strong> (05:10:10) (in thread): &gt; Oh yes, I mentioned those two, but limma is very much on my radar. In fact I m now trying<code>limma::removebatcheffects</code></p>
+<p><strong>António Domingues</strong> (05:11:05) (in thread): &gt; It’s just that each paper / groups seems to use a different approach and it’s hard to know which one is “standard” - maybe there isn’t one</p>
+<p><strong>Olly Crook</strong> (05:54:02) (in thread): &gt; Happy to discuss if you need help, can recommend our package:<a href="https://bioconductor.org/packages/release/bioc/html/msqrob2.html">https://bioconductor.org/packages/release/bioc/html/msqrob2.html</a>. I’d also recommend reading<a href="https://academic.oup.com/biostatistics/article/17/1/29/1744261?login=true">https://academic.oup.com/biostatistics/article/17/1/29/1744261?login=true</a>as even if you “remove” batch effects you can be tricking yourself. Can also recommend MSstatsTMT which can handle multiple TMT runs from summarised or raw data.</p>
+<p><strong>António Domingues</strong> (07:28:28) (in thread): &gt; Thanks a lot@Olly Crook! It seems interesting but is it only for label-free data? The paper’s titles and the vignette indicate so and I happen to have TMT data</p>
+<p><strong>Olly Crook</strong> (07:30:10) (in thread): &gt; We’ve checked it works on TMT data too, just haven’t uploaded the vignettes yet</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2021-05-29</h2>
+<p><strong>Tobias Kockmann</strong> (03:34:58) (in thread): &gt; Have a look at<a href="https://msstats.org/msstatstmt/">https://msstats.org/msstatstmt/</a></p>
+<p><strong>Tobias Kockmann</strong> (03:44:28) (in thread): &gt; I am not sure how well tools like edgeR or DESeq can be used for TMT data. To my knowledge both assume count data (since they were developed for short read sequencing). I would be surprised if reporter ion intensities would behave like that.</p>
+<p><strong>Tobias Kockmann</strong> (03:48:23) (in thread): &gt; msstatstmt also support MQ output directly.</p>
+<p><strong>Tobias Kockmann</strong> (03:50:45) (in thread): &gt; Be careful with comparisons between conditions measured in different TMT runs. Normalisation across runs (TMT nplex sets) is not a trivial thing.</p>
+<p><strong>António Domingues</strong> (03:52:47) (in thread): &gt; That last point is my main concern. A test I ran a couple if days ago indicated that limma removebatcheffects followed by SVN normalisation does a decent job at removing batch effects, but this was one test</p>
+<p><strong>António Domingues</strong> (03:53:56) (in thread): &gt; MQ recently published a new normalisation method, and TMT match between runs that seems to work. I haven’t tested that yet</p>
+<p><strong>Tobias Kockmann</strong> (03:58:19) (in thread): &gt; Olgas paper might answer some questions regarding edgeR vs.&nbsp;MSstats</p>
+<p><strong>Tobias Kockmann</strong> (03:58:21) (in thread): &gt; <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8015007/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8015007/</a> - Attachment (PubMed Central (PMC)): <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8015007/">MSstatsTMT: Statistical Detection of Differentially Abundant Proteins in Experiments with Isobaric Labeling and Multiple Mixtures</a> &gt; HighlightsTandem mass tag (TMT) is a multiplexing technology widely-used in proteomic research. It enables relative quantification of proteins from multiple biological samples in a single MS run with high efficiency and high throughput. However, experiments …</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2021-06-04</h2>
+<p><strong>Izaskun Mallona</strong> (04:21:24): &gt; <span class="citation" data-cites="Izaskun">@Izaskun</span> Mallona has joined the channel</p>
+<p><strong>Flavio Lombardo</strong> (05:52:17): &gt; <span class="citation" data-cites="Flavio">@Flavio</span> Lombardo has joined the channel</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2021-06-20</h2>
+<p><strong>Charlotte Soneson</strong> (12:15:51): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2021-07-16</h2>
+<p><strong>Flavio Lombardo</strong> (08:31:30) (in thread): &gt; <span class="citation" data-cites="António">@António</span> DominguesHi there! &gt; Do you have any rationale or reference for the use of DESeq2 for proteomics data? &gt; Thanks</p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2021-07-18</h2>
+<p><strong>António Domingues</strong> (16:31:52) (in thread): &gt; Hi@Flavio Lombardo, saddly I can’t find the reference for that. So all signs point for<code>DEseq2</code>not being commonly used in proteomics.<code>limma</code>on the other hand is pretty often used</p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2021-07-23</h2>
+<p><strong>Batool Almarzouq</strong> (15:53:53): &gt; <span class="citation" data-cites="Batool">@Batool</span> Almarzouq has joined the channel</p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2021-08-04</h2>
+<p><strong>Chris Vanderaa</strong> (11:46:45): &gt; <span class="citation" data-cites="Chris">@Chris</span> Vanderaa has joined the channel</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2021-08-26</h2>
+<p><strong>Hervé Pagès</strong> (06:13:35): &gt; <span class="citation" data-cites="Hervé">@Hervé</span> Pagès has left the channel</p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2021-09-09</h2>
+<p><strong>Julien Roux</strong> (01:58:58): &gt; <span class="citation" data-cites="Julien">@Julien</span> Roux has joined the channel</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2021-10-04</h2>
+<p><strong>António Domingues</strong> (04:42:35) (in thread): &gt; I found a reference@Flavio Lombardo:<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6834362/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6834362/</a> - Attachment (PubMed Central (PMC)): <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6834362/">Proximity RNA labeling by APEX-Seq Reveals the Organization of Translation Initiation Complexes and Repressive RNA Granules</a> &gt; Diverse ribonucleoprotein complexes control messenger RNA processing, translation, and decay. Transcripts in these complexes localize to specific regions of the cell and can condense into non-membrane-bound structures such as stress granules. It has proven …</p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2022-01-03</h2>
+<p><strong>Kurt Showmaker</strong> (17:05:05): &gt; <span class="citation" data-cites="Kurt">@Kurt</span> Showmaker has joined the channel</p>
+</section>
+<section id="section-53" class="level2">
+<h2 class="anchored" data-anchor-id="section-53">2022-01-28</h2>
+<p><strong>Megha Lal</strong> (11:14:12): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has left the channel</p>
+</section>
+<section id="section-54" class="level2">
+<h2 class="anchored" data-anchor-id="section-54">2022-02-10</h2>
+<p><strong>Susanna</strong> (03:45:18): &gt; <span class="citation" data-cites="Susanna">@Susanna</span> has joined the channel</p>
+</section>
+<section id="section-55" class="level2">
+<h2 class="anchored" data-anchor-id="section-55">2022-03-30</h2>
+<p><strong>Sergio Oller</strong> (23:20:43): &gt; <span class="citation" data-cites="Sergio">@Sergio</span> Oller has joined the channel</p>
+</section>
+<section id="section-56" class="level2">
+<h2 class="anchored" data-anchor-id="section-56">2022-05-05</h2>
+<p><strong>Aedin Culhane</strong> (12:22:34): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+</section>
+<section id="section-57" class="level2">
+<h2 class="anchored" data-anchor-id="section-57">2022-05-16</h2>
+<p><strong>Pedro Sanchez</strong> (07:04:20): &gt; <span class="citation" data-cites="Pedro">@Pedro</span> Sanchez has joined the channel</p>
+</section>
+<section id="section-58" class="level2">
+<h2 class="anchored" data-anchor-id="section-58">2022-06-12</h2>
+<p><strong>Karat Sidhu</strong> (12:37:45): &gt; <span class="citation" data-cites="Karat">@Karat</span> Sidhu has joined the channel</p>
+</section>
+<section id="section-59" class="level2">
+<h2 class="anchored" data-anchor-id="section-59">2022-07-22</h2>
+<p><strong>Gary Sieling</strong> (14:47:21): &gt; <span class="citation" data-cites="Gary">@Gary</span> Sieling has joined the channel</p>
+</section>
+<section id="section-60" class="level2">
+<h2 class="anchored" data-anchor-id="section-60">2022-07-28</h2>
+<p><strong>Will t</strong> (09:46:58): &gt; <span class="citation" data-cites="Will">@Will</span> t has joined the channel</p>
+</section>
+<section id="section-61" class="level2">
+<h2 class="anchored" data-anchor-id="section-61">2022-08-01</h2>
+<p><strong>Sriya Malladi</strong> (20:47:20): &gt; <span class="citation" data-cites="Sriya">@Sriya</span> Malladi has joined the channel</p>
+</section>
+<section id="section-62" class="level2">
+<h2 class="anchored" data-anchor-id="section-62">2022-08-30</h2>
+<p><strong>Lisa Breckels</strong> (07:17:02): &gt; <span class="citation" data-cites="Lisa">@Lisa</span> Breckels has joined the channel</p>
+</section>
+<section id="section-63" class="level2">
+<h2 class="anchored" data-anchor-id="section-63">2022-09-27</h2>
+<p><strong>Jennifer Holmes</strong> (16:15:41): &gt; <span class="citation" data-cites="Jennifer">@Jennifer</span> Holmes has joined the channel</p>
+<p><strong>vin</strong> (22:15:00): &gt; <span class="citation" data-cites="vin">@vin</span> has joined the channel</p>
+</section>
+<section id="section-64" class="level2">
+<h2 class="anchored" data-anchor-id="section-64">2022-12-13</h2>
+<p><strong>Xiangnan Xu</strong> (18:32:40): &gt; <span class="citation" data-cites="Xiangnan">@Xiangnan</span> Xu has joined the channel</p>
+</section>
+<section id="section-65" class="level2">
+<h2 class="anchored" data-anchor-id="section-65">2022-12-15</h2>
+<p><strong>Mercilena Benjamin</strong> (09:39:05): &gt; <span class="citation" data-cites="Mercilena">@Mercilena</span> Benjamin has joined the channel</p>
+</section>
+<section id="section-66" class="level2">
+<h2 class="anchored" data-anchor-id="section-66">2023-01-10</h2>
+<p><strong>Vince Carey</strong> (10:48:05): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has left the channel</p>
+</section>
+<section id="section-67" class="level2">
+<h2 class="anchored" data-anchor-id="section-67">2023-02-28</h2>
+<p><strong>Ramin</strong> (15:31:35): &gt; <span class="citation" data-cites="Ramin">@Ramin</span> has joined the channel</p>
+</section>
+<section id="section-68" class="level2">
+<h2 class="anchored" data-anchor-id="section-68">2023-03-01</h2>
+<p><strong>jeremymchacón</strong> (12:13:36): &gt; <span class="citation" data-cites="jeremymchacón">@jeremymchacón</span> has joined the channel</p>
+</section>
+<section id="section-69" class="level2">
+<h2 class="anchored" data-anchor-id="section-69">2023-06-23</h2>
+<p><strong>Carlos José Ferreira da Silva</strong> (15:25:15): &gt; <span class="citation" data-cites="Carlos">@Carlos</span> José Ferreira da Silva has joined the channel</p>
+</section>
+<section id="section-70" class="level2">
+<h2 class="anchored" data-anchor-id="section-70">2023-06-29</h2>
+<p><strong>Leo Lahti</strong> (12:22:19): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+<p><strong>Leo Lahti</strong> (12:22:46): &gt; Recommendations on R tools to run enrichment analyses on Uniprot IDs?</p>
+</section>
+<section id="section-71" class="level2">
+<h2 class="anchored" data-anchor-id="section-71">2023-06-30</h2>
+<p><strong>Laurent Gatto</strong> (05:25:57): &gt; I don’t know of anything that uses uniprot IDs immediately, and if a tool does, I would bet it converts the ids to entrez or ensembl ids behind the scenes. So I think you a better off converting yourself, to check one-to-many or non-matching ids, and use your preferred option.</p>
+<p><strong>Leo Lahti</strong> (06:53:21): &gt; Thanks Laurent, this is what I was thinking we could do anyway but as not too familiar with proteomics, preferred to check if there would have been something more established.</p>
+</section>
+<section id="section-72" class="level2">
+<h2 class="anchored" data-anchor-id="section-72">2023-07-17</h2>
+<p><strong>Jacob Krol</strong> (09:09:06): &gt; <span class="citation" data-cites="Jacob">@Jacob</span> Krol has joined the channel</p>
+</section>
+<section id="section-73" class="level2">
+<h2 class="anchored" data-anchor-id="section-73">2023-07-27</h2>
+<p><strong>Louise Morlot</strong> (07:37:17): &gt; <span class="citation" data-cites="Louise">@Louise</span> Morlot has joined the channel</p>
+</section>
+<section id="section-74" class="level2">
+<h2 class="anchored" data-anchor-id="section-74">2023-07-28</h2>
+<p><strong>Konstantinos Daniilidis</strong> (13:47:53): &gt; <span class="citation" data-cites="Konstantinos">@Konstantinos</span> Daniilidis has joined the channel</p>
+<p><strong>Benjamin Yang</strong> (15:58:25): &gt; <span class="citation" data-cites="Benjamin">@Benjamin</span> Yang has joined the channel</p>
+</section>
+<section id="section-75" class="level2">
+<h2 class="anchored" data-anchor-id="section-75">2023-08-03</h2>
+<p><strong>Jill Lundell</strong> (10:51:40): &gt; <span class="citation" data-cites="Jill">@Jill</span> Lundell has joined the channel</p>
+</section>
+<section id="section-76" class="level2">
+<h2 class="anchored" data-anchor-id="section-76">2023-09-03</h2>
+<p><strong>Lea Seep</strong> (09:52:23): &gt; <span class="citation" data-cites="Lea">@Lea</span> Seep has joined the channel</p>
+</section>
+<section id="section-77" class="level2">
+<h2 class="anchored" data-anchor-id="section-77">2023-09-13</h2>
+<p><strong>Christopher Chin</strong> (17:04:29): &gt; <span class="citation" data-cites="Christopher">@Christopher</span> Chin has joined the channel</p>
+</section>
+<section id="section-78" class="level2">
+<h2 class="anchored" data-anchor-id="section-78">2023-09-15</h2>
+<p><strong>Leo Lahti</strong> (04:56:06): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+</section>
+<section id="section-79" class="level2">
+<h2 class="anchored" data-anchor-id="section-79">2023-11-21</h2>
+<p><strong>Konstantinos Geles (Constantinos Yeles)</strong> (05:39:04): &gt; <span class="citation" data-cites="Konstantinos">@Konstantinos</span> Geles (Constantinos Yeles) has left the channel</p>
+</section>
+<section id="section-80" class="level2">
+<h2 class="anchored" data-anchor-id="section-80">2023-12-27</h2>
+<p><strong>Cherishma Subhasa</strong> (10:23:16): &gt; <span class="citation" data-cites="Cherishma">@Cherishma</span> Subhasa has joined the channel</p>
+</section>
+<section id="section-81" class="level2">
+<h2 class="anchored" data-anchor-id="section-81">2024-02-12</h2>
+<p><strong>Ludwig Geistlinger</strong> (12:34:05): &gt; <span class="citation" data-cites="Ludwig">@Ludwig</span> Geistlinger has joined the channel</p>
+<p><strong>Ludwig Geistlinger</strong> (12:34:57): &gt; Likely also of interest for this channel - Attachment: <a href="https://community-bioc.slack.com/archives/C05T623KSJE/p1707750565558749">Attachment</a> &gt; We are excited to announce our upcoming town hall on <strong>AI applications for protein structure prediction</strong>. Join us March 05, 10 AM - 1 PM ET, for talks and discussions with leading experts from academia and industry!</p>
+</section>
+<section id="section-82" class="level2">
+<h2 class="anchored" data-anchor-id="section-82">2024-03-11</h2>
+<p><strong>Melysssa Minto</strong> (10:12:45): &gt; <span class="citation" data-cites="Melysssa">@Melysssa</span> Minto has joined the channel</p>
+</section>
+<section id="section-83" class="level2">
+<h2 class="anchored" data-anchor-id="section-83">2024-03-26</h2>
+<p><strong>Sara m.morsy</strong> (16:12:04): &gt; <span class="citation" data-cites="Sara">@Sara</span> m.morsy has joined the channel</p>
+</section>
+<section id="section-84" class="level2">
+<h2 class="anchored" data-anchor-id="section-84">2024-04-28</h2>
+<p><strong>Danielle Callan</strong> (08:36:41): &gt; <span class="citation" data-cites="Danielle">@Danielle</span> Callan has joined the channel</p>
+</section>
+<section id="section-85" class="level2">
+<h2 class="anchored" data-anchor-id="section-85">2024-07-02</h2>
+<p><strong>Diána Pejtsik</strong> (11:00:04): &gt; <span class="citation" data-cites="Diána">@Diána</span> Pejtsik has joined the channel</p>
+</section>
+<section id="section-86" class="level2">
+<h2 class="anchored" data-anchor-id="section-86">2024-07-11</h2>
+<p><strong>Adam</strong> (07:55:03): &gt; <span class="citation" data-cites="Adam">@Adam</span> has joined the channel</p>
+</section>
+<section id="section-87" class="level2">
+<h2 class="anchored" data-anchor-id="section-87">2024-07-18</h2>
+<p><strong>Sudipta Hazra</strong> (06:14:37): &gt; <span class="citation" data-cites="Sudipta">@Sudipta</span> Hazra has joined the channel</p>
+<p><strong>Sudipta Hazra</strong> (06:26:29) (in thread): &gt; <strong>Sorry, didn’t notice it is a pretty old post</strong> &gt; &gt; Hi Leo, &gt; You can follow this for ORA also they have made documentation of GSEA,<a href="https://learn.gencore.bio.nyu.edu/rna-seq-analysis/over-representation-analysis/">https://learn.gencore.bio.nyu.edu/rna-seq-analysis/over-representation-analysis/</a>To use the same codes for UniProt Accession number in enrichGO and enrichKEGG in keyType use “UNIPROT” and “uniprot”, respectively. It should work. Only for pathview, you might have to convert UNIPROT Accession to EntrezID using bitr. I couldn’t do that directly with UniProt ID. &gt; &gt; Additional information: there is a function called GOSemSim and simplify from Cluster profiler to remove redundant terms from your GO Analysis, which is not mentioned in this article. - Attachment (NGS Analysis): <a href="https://learn.gencore.bio.nyu.edu/rna-seq-analysis/over-representation-analysis/">Over-Representation Analysis with ClusterProfiler</a> &gt; Visit the post for more.</p>
+<p><strong>Laurent Gatto</strong> (08:00:27) (in thread): &gt; I think I noticed a couple of days ago running<code>enrichGO()</code>and<code>enrichKEGG()</code>using ncbi-geneid and uniprot did not produce the same results.</p>
+</section>
+<section id="section-88" class="level2">
+<h2 class="anchored" data-anchor-id="section-88">2024-07-20</h2>
+<p><strong>Leo Lahti</strong> (12:05:54) (in thread): &gt; :nerd_face:</p>
+</section>
+<section id="section-89" class="level2">
+<h2 class="anchored" data-anchor-id="section-89">2024-07-23</h2>
+<p><strong>Tuulu</strong> (15:21:45): &gt; <span class="citation" data-cites="Tuulu">@Tuulu</span> has joined the channel</p>
+<p><strong>Shaurita</strong> (17:40:02): &gt; <span class="citation" data-cites="Shaurita">@Shaurita</span> has joined the channel</p>
+</section>
+<section id="section-90" class="level2">
+<h2 class="anchored" data-anchor-id="section-90">2024-08-01</h2>
+<p><strong>Sudipta Hazra</strong> (06:04:49): &gt; Hi I am facing a issue regarding assumption checking for the Statistical Test for Differential Expression Analysis. &gt; &gt; I have to perform a factorial Anova for my Proteomics Data, I have three factors (each with 2 level/ treatment), &gt; Problem is in assumption checking, the data is violating assumption of normality for ANOVA (I am getting many of the Proteins to be skewed and also failing at Shapiro wilk test). &gt; &gt; In the data pre-processing, I have performed, &gt; 1. Log10 transformation and Pareto Scaling, &gt; 2. Later I was trying to perform sample specific normalization &gt; 3. Quantile Normalization addition to log 10 and Pareto Scaling. &gt; &gt; But still the assumptions are violated. I am not thinking of non-parametric tests as I am also interested in interaction terms. &gt; &gt; If anyone has any suggestions on this that will be of great help.</p>
+</section>
+<section id="section-91" class="level2">
+<h2 class="anchored" data-anchor-id="section-91">2024-08-15</h2>
+<p><strong>Dominik Burri</strong> (07:31:40): &gt; <span class="citation" data-cites="Dominik">@Dominik</span> Burri has joined the channel</p>
+</section>
+<section id="section-92" class="level2">
+<h2 class="anchored" data-anchor-id="section-92">2024-08-16</h2>
+<p><strong>Sudipta Hazra</strong> (07:04:21): &gt; Hi, &gt; While using <strong>readSummarizedExperiment()</strong> , I don’t see any <strong>colData</strong> input to add the sample information data.frame, though it can be added all columns of sample data, one at a time. &gt; &gt; Is there any other way to add a data frame of sample information at once, it saves time when I have multiple columns in my sample information.</p>
+<p><strong>Laurent Gatto</strong> (12:36:46): &gt; No, you can add a<code>DataFrame</code>object with<code>colData(se) &lt;- ...</code>. See also<code>?readQFeatures</code>in the latest<a href="https://rformassspectrometry.github.io/QFeatures/reference/readQFeatures.html">devel version of QFeatures</a>for more details, which now allows to import more complex data with multiple assays. - Attachment (rformassspectrometry.github.io): <a href="https://rformassspectrometry.github.io/QFeatures/reference/readQFeatures.html">QFeatures from tabular data — readQFeatures</a> &gt; These functions convert tabular data into dedicated data &gt; objets. The readSummarizedExperiment() function takes a file &gt; name or data.frame and converts it into a &gt; SummarizedExperiment() object. The readQFeatures() function &gt; takes a data.frame and converts it into a QFeatures object &gt; (see QFeatures() for details). For the latter, two use-cases &gt; exist: &gt; The single-set case will generate a QFeatures object with a &gt; single SummarizedExperiment containing all features of the &gt; input table. &gt; The multi-set case will generate a QFeatures object containing &gt; multiple SummarizedExperiments, resulting from splitting the &gt; input table. This multi-set case is generally used when the &gt; input table contains data from multiple runs/batches.</p>
+</section>
+<section id="section-93" class="level2">
+<h2 class="anchored" data-anchor-id="section-93">2024-08-19</h2>
+<p><strong>Rema Gesaka</strong> (09:38:18): &gt; <span class="citation" data-cites="Rema">@Rema</span> Gesaka has joined the channel</p>
+</section>
+<section id="section-94" class="level2">
+<h2 class="anchored" data-anchor-id="section-94">2024-08-20</h2>
+<p><strong>Sudipta Hazra</strong> (11:18:59) (in thread): &gt; That’s helpful thank you so much:grin:</p>
+</section>
+<section id="section-95" class="level2">
+<h2 class="anchored" data-anchor-id="section-95">2024-10-10</h2>
+<p><strong>Larissa T Grizzo Thomassian</strong> (20:47:00): &gt; <span class="citation" data-cites="Larissa">@Larissa</span> T Grizzo Thomassian has joined the channel</p>
+</section>
+<section id="section-96" class="level2">
+<h2 class="anchored" data-anchor-id="section-96">2024-10-18</h2>
+<p><strong>Sudipta Hazra</strong> (05:48:48): &gt; I have a question that might not be directly related to Bioconductor: &gt; &gt; How can I calculate fold change in a multifactorial design? For example, in an LFQ proteomics context, if I have a two-factor design like this: &gt; &gt; Factor1 &lt;- c(A,A,A,A, B,B,B,B) # 2 levels &gt; Factor2 &lt;- c(a,b,c,d, a,b,c,d) # 4 levels &gt; &gt; I want to calculate the fold change between A and B, but simply doing mean(Response) for level A/mean(Response) for level B, would not account for the variation introduced by Factor2. &gt; &gt; How should I account for the effect of Factor2 in this calculation? &gt; &gt; If you have any suggestions for relevant reading material, that would be a great help.</p>
+</section>
+<section id="section-97" class="level2">
+<h2 class="anchored" data-anchor-id="section-97">2024-10-21</h2>
+<p><strong>Ramon Massoni-Badosa</strong> (10:26:37): &gt; <span class="citation" data-cites="Ramon">@Ramon</span> Massoni-Badosa has joined the channel</p>
+</section>
+<section id="section-98" class="level2">
+<h2 class="anchored" data-anchor-id="section-98">2024-10-22</h2>
+<p><strong>Ramon Massoni-Badosa</strong> (03:49:03): &gt; Hi all! Following up on<a href="https://community-bioc.slack.com/archives/C010JTDT6TW/p1613753600017300">this</a>old post from@Robert Casteloand@Laurent Gatto: I just downloaded RAW files from<a href="https://www.nature.com/articles/s41467-022-33385-8">this paper</a>, and I would like to test whether the peptide<a href="https://db.systemsbiology.net/sbeams/cgi/PeptideAtlas/GetProtein?atlas_build_id=572&amp;protein_name=Q5K131&amp;action=QUERY">CLLU1</a>is detected there. What would be the best way of doing it? I’ve seen that the MSGFplus package has been deprecated. Thank you<img src="https://community-bioc.slack.com/archives/C010JTDT6TW/p1613753600017300.png" class="img-fluid" alt="https://community-bioc.slack.com/archives/C010JTDT6TW/p1613753600017300"> - Attachment: <a href="https://community-bioc.slack.com/archives/C010JTDT6TW/p1613753600017300">Attachment</a> &gt; hi, i guess i can use this channel for the following kind of question. i’m playing around with peptide identification from RAW data of an Obitrap instrument. After converting the a RAW file into an mzML file using the <a href="https://github.com/compomics/ThermoRawFileParser">ThermoRawFileParser</a> i ran a peptide search using the <a href="https://bioconductor.org/packages/MSGFplus">MSGFplus</a> package and its function <code>runMSGF()</code>, which returns an <code>mzID</code> object. Using the <code>flatten()</code> function from the <a href="https://bioconductor.org/packages/mzID">mzID</a> package i converted the <code>mzID</code> object into a <code>data.frame</code> object. i noticed, however, that while there was an E-value column, the table had no q-value column to help selecting the detected proteins. i have two questions about this: &gt; 1. By inspecting the code of <code>MSGFplus:::getMSGFplus()</code> i noticed that the version of MS-GF+ run by the <a href="https://bioconductor.org/packages/MSGFplus">MSGFplus</a> package dates back to 2014. If i download the most <a href="https://github.com/MSGFPlus/msgfplus/releases">recent</a> version of MS-GF+ (release Jan 8th, 2021) and i execute it on the command-line, then i do get an output <code>.mzid</code> file with q-values. Do you know if is there any particular reason, such as licensing, by which the version of MS-GF+ in the MSGFplus package has not been updated since 2014? &gt; 2. After running MS-GF+ in the command line, i can either read the resulting <code>.mzid</code> file into a <code>data.frame</code> object in R using the <code>mzID()</code> and <code>flatten()</code> functions from the <a href="https://bioconductor.org/packages/mzID">mzID</a> package, or convert the <code>.mzid</code> file into a tab-separated <code>.tsv</code> file on the command line using the <a href="https://msgfplus.github.io/msgfplus/MzidToTsv.html">MzidToTsvConverter</a> tool. If i do the former, i get a <code>data.frame</code> object with 17,710 rows, while if i do the latter i get 17,634 rows. Selecting proteins with q-value 0.01 i get from both outputs 640 proteins, but using a cutoff of 0.05 i get 901 with the former way and 891 with the latter. Do you know why the <code>.mzid</code> to table conversion might be different between the mzID package and the command-line tool MzidToTsvConverter? &gt; Thanks! - Attachment (Nature): <a href="https://www.nature.com/articles/s41467-022-33385-8">Proteogenomics refines the molecular classification of chronic lymphocytic leukemia</a> &gt; Nature Communications - Proteomics can be used to refine cancer classification. Here, the authors characterise chronic lymphocytic leukaemia patients by proteogenomics, and identified a subtype of…</p>
+<p><strong>Robert Castelo</strong> (04:46:54): &gt; Hi@Ramon Massoni-Badosayou may take a look to the first 15 slides from<a href="https://functionalgenomics.upf.edu/courses/IEO/proteomics">this presentation</a>that jointly with Eduard Sabidó, head of our proteomics core facility, we currently do to our MSc students (probably we were not doing this proteomics session when you were doing this master:wink:), where we use MSGFplus for peptide search and the Bioconductor package<a href="https://bioconductor.org/packages/rawrr">rawrr</a>and the CRAN package<a href="https://cran.r-project.org/package=protViz">protViz</a>to peek at the raw data and peaks of the hits found by MSGFplus. Probably others in this channel may have different suggestions of software to use for that purpose. I’m not doing proteomics research and I just found these three pieces of software good enough to meet our needs for teaching. These slides do not cover protein quantification, and in the work that we did with Eduard and led to the data we use in the slides, we used<a href="https://www.maxquant.org">MaxQuant</a>for that step. You may find full details on that specific proteomic analysis in the methods section of our<a href="https://doi.org/10.1111/febs.15578">paper</a>. - Attachment (Bioconductor): <a href="https://bioconductor.org/packages/rawrr">rawrr</a> &gt; This package wraps the functionality of the RawFileReader .NET assembly. Within the R environment, spectra and chromatograms are represented by S3 objects. The package provides basic functions to download and install the required third-party libraries. The package is developed, tested, and used at the Functional Genomics Center Zurich, Switzerland. - Attachment (cran.r-project.org): <a href="https://cran.r-project.org/package=protViz">protViz: Visualizing and Analyzing Mass Spectrometry Related Data in Proteomics</a> &gt; Helps with quality checks, visualizations and analysis of mass spectrometry data, coming from proteomics experiments. The package is developed, tested and used at the Functional Genomics Center Zurich <a href="[https://fgcz.ch">https://fgcz.ch</a>](https://fgcz.ch)). We use this package mainly for prototyping, teaching, and having fun with proteomics data. But it can also be used to do data analysis for small scale data sets.</p>
+<p><strong>Ramon Massoni-Badosa</strong> (04:56:05): &gt; that’s incredible! gràcies mestre@Robert Castelo!!</p>
+</section>
+<section id="section-99" class="level2">
+<h2 class="anchored" data-anchor-id="section-99">2024-11-21</h2>
+<p><strong>Tehniyat zahra</strong> (05:05:35): &gt; <span class="citation" data-cites="Tehniyat">@Tehniyat</span> zahra has joined the channel</p>
+</section>
+<section id="section-100" class="level2">
+<h2 class="anchored" data-anchor-id="section-100">2024-12-11</h2>
+<p><strong>Paul Myers</strong> (22:00:13): &gt; <span class="citation" data-cites="Paul">@Paul</span> Myers has joined the channel</p>
+</section>
+<section id="section-101" class="level2">
+<h2 class="anchored" data-anchor-id="section-101">2024-12-27</h2>
+<p><strong>Zahraa W Alsafwani</strong> (17:28:27): &gt; <span class="citation" data-cites="Zahraa">@Zahraa</span> W Alsafwani has joined the channel</p>
+</section>
+<section id="section-102" class="level2">
+<h2 class="anchored" data-anchor-id="section-102">2024-12-28</h2>
+<p><strong>Pascal-Onaho</strong> (07:56:11): &gt; <span class="citation" data-cites="Pascal-Onaho">@Pascal-Onaho</span> has joined the channel</p>
+</section>
+<section id="section-103" class="level2">
+<h2 class="anchored" data-anchor-id="section-103">2025-01-09</h2>
+<p><strong>Ammar Sabir Cheema</strong> (11:40:24): &gt; <span class="citation" data-cites="Ammar">@Ammar</span> Sabir Cheema has joined the channel</p>
+</section>
+<section id="section-104" class="level2">
+<h2 class="anchored" data-anchor-id="section-104">2025-02-11</h2>
+<p><strong>Carlo Pecoraro</strong> (08:18:43): &gt; <span class="citation" data-cites="Carlo">@Carlo</span> Pecoraro has joined the channel</p>
+</section>
+<section id="section-105" class="level2">
+<h2 class="anchored" data-anchor-id="section-105">2025-03-11</h2>
+<p><strong>Carlo Pecoraro</strong> (12:05:15): &gt; Hi all, &gt; There are the last few seats for the upcoming Physalia online course,<strong><em>R/Bioconductor for Mass Spectrometry and Proteomics</em></strong>, taking place online from<strong><em>March 17-19</em></strong>. &gt; &gt; Course website:<a href="https://www.physalia-courses.org/courses-workshops/course58/">https://www.physalia-courses.org/courses-workshops/course58/</a>This hands-on course will guide you through the analysis of mass spectrometry (MS) data using R and Bioconductor. Learn how to handle raw MS data, identify and quantify proteins, and perform statistical analysis for proteomics research. &gt; &gt; &gt; A basic working knowledge of R (data frames, vectors, syntax) is required. Familiarity with MS or Bioconductor is helpful but not essential, as we provide a comprehensive introduction. - Attachment (physalia-courses): <a href="https://www.physalia-courses.org/courses-workshops/course58/">R/Bioconductor for Mass Spectrometry and Proteomics</a> &gt; Dates 17-19 March 2025 To foster international participation, this course will be held online</p>
+</section>
+<section id="section-106" class="level2">
+<h2 class="anchored" data-anchor-id="section-106">2025-03-18</h2>
+<p><strong>Nicolo</strong> (15:01:06): &gt; <span class="citation" data-cites="Nicolo">@Nicolo</span> has joined the channel</p>
+</section>
+<section id="section-107" class="level2">
+<h2 class="anchored" data-anchor-id="section-107">2025-04-18</h2>
+<p><strong>Juan Henao</strong> (04:42:49): &gt; <span class="citation" data-cites="Juan">@Juan</span> Henao has joined the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

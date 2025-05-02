@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#events – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2024-05-17</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2024-05-18</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2024-05-19</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2024-05-20</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2024-05-21</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2024-05-22</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2024-06-25</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2024-06-30</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2024-07-02</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2024-07-05</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2024-07-10</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2024-07-11</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2024-07-22</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2024-07-23</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2024-08-12</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2024-08-13</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2024-08-14</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2024-09-05</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2024-09-09</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2024-09-10</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2024-09-24</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2024-09-30</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2024-10-01</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2024-10-02</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2024-10-16</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2024-10-18</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2024-10-23</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2024-10-30</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2024-11-04</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2024-11-06</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2024-11-21</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2025-01-01</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2025-01-02</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2025-01-08</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2025-01-14</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2025-01-20</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2025-01-29</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2025-01-31</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2025-02-03</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2025-02-06</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2025-02-07</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2025-02-11</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2025-02-13</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2025-02-19</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2025-02-20</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2025-03-04</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2025-03-05</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2025-03-12</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2025-03-17</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2025-03-18</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2025-03-19</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2025-03-20</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2025-03-24</a></li>
+  <li><a href="#section-53" id="toc-section-53" class="nav-link" data-scroll-target="#section-53">2025-03-26</a></li>
+  <li><a href="#section-54" id="toc-section-54" class="nav-link" data-scroll-target="#section-54">2025-03-31</a></li>
+  <li><a href="#section-55" id="toc-section-55" class="nav-link" data-scroll-target="#section-55">2025-04-15</a></li>
+  <li><a href="#section-56" id="toc-section-56" class="nav-link" data-scroll-target="#section-56">2025-04-17</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#events</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2024-05-17</h2>
+<p><strong>Maria Doyle</strong> (07:24:06): &gt; <span class="citation" data-cites="Maria">@Maria</span> Doyle has joined the channel</p>
+<p><strong>Maria Doyle</strong> (07:27:32): &gt; set the channel topic: Conferences, workshops, and events relevant to the Bioconductor community.</p>
+<p><strong>Assa</strong> (07:31:38): &gt; <span class="citation" data-cites="Assa">@Assa</span> has joined the channel</p>
+<p><strong>Charlotte Soneson</strong> (07:35:21): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+<p><strong>Ravza</strong> (07:36:51): &gt; <span class="citation" data-cites="Ravza">@Ravza</span> has joined the channel</p>
+<p><strong>Tuomas Borman</strong> (07:42:24): &gt; <span class="citation" data-cites="Tuomas">@Tuomas</span> Borman has joined the channel</p>
+<p><strong>Mikhail Dozmorov</strong> (08:00:10): &gt; <span class="citation" data-cites="Mikhail">@Mikhail</span> Dozmorov has joined the channel</p>
+<p><strong>Davide Risso</strong> (08:04:17): &gt; <span class="citation" data-cites="Davide">@Davide</span> Risso has joined the channel</p>
+<p><strong>Charlotte Hutchings</strong> (08:04:50): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Hutchings has joined the channel</p>
+<p><strong>Kasper D. Hansen</strong> (08:31:23): &gt; <span class="citation" data-cites="Kasper">@Kasper</span> D. Hansen has joined the channel</p>
+<p><strong>Arnab Mukherjee</strong> (08:35:09): &gt; <span class="citation" data-cites="Arnab">@Arnab</span> Mukherjee has joined the channel</p>
+<p><strong>Janani Ravi</strong> (09:04:36): &gt; <span class="citation" data-cites="Janani">@Janani</span> Ravi has joined the channel</p>
+<p><strong>Jenny Drnevich</strong> (09:18:07): &gt; <span class="citation" data-cites="Jenny">@Jenny</span> Drnevich has joined the channel</p>
+<p><strong>Michal Kolář</strong> (10:00:59): &gt; <span class="citation" data-cites="Michal">@Michal</span> Kolář has joined the channel</p>
+<p><strong>Mike Morgan</strong> (10:12:16): &gt; <span class="citation" data-cites="Mike">@Mike</span> Morgan has joined the channel</p>
+<p><strong>Melysssa Minto</strong> (10:57:46): &gt; <span class="citation" data-cites="Melysssa">@Melysssa</span> Minto has joined the channel</p>
+<p><strong>Sean Davis</strong> (11:56:19): &gt; <span class="citation" data-cites="Sean">@Sean</span> Davis has joined the channel</p>
+<p><strong>Eric Waltari</strong> (12:14:04): &gt; <span class="citation" data-cites="Eric">@Eric</span> Waltari has joined the channel</p>
+<p><strong>Kelly Street</strong> (13:03:31): &gt; <span class="citation" data-cites="Kelly">@Kelly</span> Street has joined the channel</p>
+<p><strong>Weston Elison</strong> (13:29:30): &gt; <span class="citation" data-cites="Weston">@Weston</span> Elison has joined the channel</p>
+<p><strong>Alex Mahmoud</strong> (13:34:56): &gt; <span class="citation" data-cites="Alex">@Alex</span> Mahmoud has joined the channel</p>
+<p><strong>irem Kahveci</strong> (14:02:18): &gt; <span class="citation" data-cites="irem">@irem</span> Kahveci has joined the channel</p>
+<p><strong>Moritz E. Beber</strong> (15:10:33): &gt; <span class="citation" data-cites="Moritz">@Moritz</span> E. Beber has joined the channel</p>
+<p><strong>Louis Le Nézet</strong> (15:42:30): &gt; <span class="citation" data-cites="Louis">@Louis</span> Le Nézet has joined the channel</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2024-05-18</h2>
+<p><strong>Shila Ghazanfar</strong> (03:32:28): &gt; <span class="citation" data-cites="Shila">@Shila</span> Ghazanfar has joined the channel</p>
+<p><strong>Aedin Culhane</strong> (10:53:17): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+<p><strong>Aedin Culhane</strong> (10:55:28): &gt; set the channel description: Share and find information about upcoming (non-official Bioc) conferences, workshops, talks, other events relevant to the Bioconductor community. Use for advertising events and connecting with Bioc colleagues who are attending events</p>
+<p><strong>Aedin Culhane</strong> (10:56:13): &gt; Upcoming meetings.Do we have a calendar app in slack ?</p>
+<p><strong>Aedin Culhane</strong> (10:59:09): &gt; ELIXIR all hands meeting is in Sweden 10-12 June.@Leo Lahtiand other are planning bioc connections.@Maria Doyleand Ican’tmake it but we’re happy to fill anyone in on bioc - elixir connections we have been making</p>
+<p><strong>Leo Lahti</strong> (10:59:12): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+<p><strong>Aedin Culhane</strong> (11:00:01): &gt; EACR is the same week 10-13 June</p>
+<p><strong>Aedin Culhane</strong> (11:01:11): &gt; Anyone going to either OHDSI Europe (Rotterdam 1-3 June) or USA?</p>
+<p><strong>Aedin Culhane</strong> (11:02:06): - Attachment: <a href="https://community-bioc.slack.com/archives/C04J87D33JB/p1707056142348149">Attachment</a> &gt; European Conference on Computational Biology (ECCB) 2024 will take place in Turku, Finland on Sep 16-20: &gt; CfP: <a href="https://eccb2024.fi/calls">https://eccb2024.fi/calls</a> &gt; &gt; There is a special “ELIXIR Communities Track”. As this is my home town &amp; I am in the local org. committee, I will be present in any case. Hence I was thinking whether The ELIXIR Bioconductor Community should consider something here. Is anyone else planning to join? The DL for workshops and tutorials is Feb 15, proceedings March 14, highlight talks and posters Apr 23.</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2024-05-19</h2>
+<p><strong>David Rach</strong> (12:51:58): &gt; <span class="citation" data-cites="David">@David</span> Rach has joined the channel</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2024-05-20</h2>
+<p><strong>Xueyi Dong</strong> (04:01:06): &gt; <span class="citation" data-cites="Xueyi">@Xueyi</span> Dong has joined the channel</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2024-05-21</h2>
+<p><strong>Johannes Rainer</strong> (01:57:19): &gt; <span class="citation" data-cites="Johannes">@Johannes</span> Rainer has joined the channel</p>
+<p><strong>Johannes Rainer</strong> (02:00:41): &gt; June 16-20 will be the<a href="https://www.metabolomics2024.org/">annual conference of the metabolomics society</a>(in Osaka, Japan) &gt; &gt; I did not apply for a workshop this year, but my team and I will have posters, for metabolomics data analysis with our Bioconductor packages. Also, there will be a “Bioinformatics Hub” organized by@Steffen Neumann,<span class="citation" data-cites="Kozo">@Kozo</span> Nishidaand myself where developers (and users) can gather and meet during the conference breaks for some networking/collaboration.</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2024-05-22</h2>
+<p><strong>Deena Gendoo</strong> (02:36:23): &gt; <span class="citation" data-cites="Deena">@Deena</span> Gendoo has joined the channel</p>
+<p><strong>Ahmad Alkhan</strong> (06:38:20): &gt; <span class="citation" data-cites="Ahmad">@Ahmad</span> Alkhan has joined the channel</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2024-06-25</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (07:01:24): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht has joined the channel</p>
+<p><strong>Kevin Rue-Albrecht</strong> (07:03:01): &gt; <a href="https://web.cvent.com/event/e72d963d-0c75-4cd5-9bcf-35ddab3b8b4c/summary">https://web.cvent.com/event/e72d963d-0c75-4cd5-9bcf-35ddab3b8b4c/summary</a>–<strong><em>Oxford Omics Data Camp - Spatial Transcriptomics 2024</em></strong>9 September 2024 – 13 September 2024 &gt; Jesus College &gt; Turl Street &gt; Oxford, OX1 3DW &gt; – &gt; The week after EuroBioC2024, if anyone already planning to come wishes to extend their visit!</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2024-06-30</h2>
+<p><strong>Clara Tejido</strong> (12:50:07): &gt; <span class="citation" data-cites="Clara">@Clara</span> Tejido has joined the channel</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2024-07-02</h2>
+<p><strong>Diána Pejtsik</strong> (10:56:08): &gt; <span class="citation" data-cites="Diána">@Diána</span> Pejtsik has joined the channel</p>
+<p><strong>Constanza Perez</strong> (18:54:50): &gt; <span class="citation" data-cites="Constanza">@Constanza</span> Perez has joined the channel</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2024-07-05</h2>
+<p><strong>Dominik Burri</strong> (09:10:42): &gt; <span class="citation" data-cites="Dominik">@Dominik</span> Burri has joined the channel</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2024-07-10</h2>
+<p><strong>Yanina Bellini Saibene</strong> (16:00:33): &gt; <span class="citation" data-cites="Yanina">@Yanina</span> Bellini Saibene has joined the channel</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2024-07-11</h2>
+<p><strong>Lluís Revilla</strong> (09:52:38): &gt; <span class="citation" data-cites="Lluís">@Lluís</span> Revilla has joined the channel</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2024-07-22</h2>
+<p><strong>Yanina Bellini Saibene</strong> (20:45:02): &gt; #LatinR2024 Open Call for Papers - Please share:smile:!! &gt; &gt; [ESP][https://latin-r.com/blog/es/2024-07-09-presentacion-trabajos-2024.html](https://latin-r.com/blog/es/2024-07-09-presentacion-trabajos-2024.html)[ENG][https://latin-r.com/en/blog/en/2024-07-09-call-for-papers-2024.html](https://latin-r.com/en/blog/en/2024-07-09-call-for-papers-2024.html)[PT][https://latin-r.com/pt/blog/pt/2024-07-09-apresentacao-trabalhos-2024.html](https://latin-r.com/pt/blog/pt/2024-07-09-apresentacao-trabalhos-2024.html)Deadline: August 12, 2024 &gt; &gt; Send proposals here:<a href="https://openreview.net/group?id=LATIN-R.com/2024/Conference">https://openreview.net/group?id=LATIN-R.com/2024/Conference</a> - Attachment (OpenReview): <a href="https://openreview.net/group?id=LATIN-R.com/2024/Conference">LATIN-R 2024 Conference</a> &gt; Welcome to the OpenReview homepage for LATIN-R 2024 Conference</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2024-07-23</h2>
+<p><strong>Tuulu</strong> (15:12:18): &gt; <span class="citation" data-cites="Tuulu">@Tuulu</span> has joined the channel</p>
+<p><strong>Shaurita</strong> (17:46:37): &gt; <span class="citation" data-cites="Shaurita">@Shaurita</span> has joined the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2024-08-12</h2>
+<p><strong>Enrique Mondragon</strong> (11:17:27): &gt; <span class="citation" data-cites="Enrique">@Enrique</span> Mondragon has joined the channel</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2024-08-13</h2>
+<p><strong>Yanina Bellini Saibene</strong> (11:27:46): &gt; Join Us for the BioNT Community Event and CarpentryConnect Heidelberg 2024!:loudspeaker:REMINDER: Registration is still open for both in-person and remote participation in the BioNT Community Event and CarpentryConnect Heidelberg 2024! The event will take place from November 12-14, 2024, at EMBL in Heidelberg, Germany, and online. &gt; &gt; This event aims to bring together members of<a href="https://www.linkedin.com/company/the-carpentries/">The Carpentries</a>, the Bio Network for Training (BioNT) consortium, and other related communities, including the<a href="https://www.linkedin.com/company/galaxy-project/">Galaxy Project</a>and the<a href="https://www.linkedin.com/company/coderefinery-research-software-development/">CodeRefinery</a>community, all of which focus on open, inclusive, and people-centered professional education. &gt; &gt; Join us and our keynote speakers<a href="https://www.linkedin.com/in/malvikasharan/">Malvika Sharan</a>,<a href="https://www.linkedin.com/in/radhika-khetani-7123952/">Radhika Khetani</a>and<a href="https://www.linkedin.com/in/yabellini/">Yanina Bellini Saibene</a>, and be part of this exciting event!:mortar_board::handshake:Event Highlights::admission_tickets:Inclusivity Ticket: We are committed to making this event accessible to everyone. We’re offering an Inclusivity Ticket to waive the registration fee for 10 individuals with limited budgets. Apply by August 23rd here:<a href="https://lnkd.in/eMxi5Akd">https://lnkd.in/eMxi5Akd</a>?:speech_balloon:Slack Channel: Stay connected and engage with other participants before, during, and after the event by joining our dedicated Slack channel here:<a href="https://lnkd.in/er2zvcXM">https://lnkd.in/er2zvcXM</a>:date:Programme Details: For more information about the event program, visit our website:<a href="https://lnkd.in/eNCYhEvA">https://lnkd.in/eNCYhEvA</a>:page_facing_up:A to Z Document: For a comprehensive guide to the event, including travel information, accommodation, FAQs, and more please visit this link:<a href="https://lnkd.in/e687mb9a">https://lnkd.in/e687mb9a</a>Registration Details: &gt; &gt; - Register for remote participation:<a href="https://shorturl.at/PR3Hg">https://shorturl.at/PR3Hg</a>- Register for in-person participation:<a href="https://shorturl.at/BFy1w">https://shorturl.at/BFy1w</a>Registration deadline: September 15th—Hurry up, first come, first served!</p>
+<p><strong>Yanina Bellini Saibene</strong> (13:02:52): &gt; :rotating_light:LatinR extends the call for papers until August 26.:rotating_light: &gt; * [ESP][https://latinr.org/blog/es/2024-07-09-presentacion-trabajos-2024.html](https://latinr.org/blog/es/2024-07-09-presentacion-trabajos-2024.html) &gt; &gt; * [ENG][https://latinr.org/blog/en/2024-07-09-call-for-papers-2024.html](https://latinr.org/blog/en/2024-07-09-call-for-papers-2024.html) &gt; &gt; * [PT][https://latinr.org/pt/blog/pt/2024-07-09-apresentacao-trabalhos-2024.html](https://latinr.org/pt/blog/pt/2024-07-09-apresentacao-trabalhos-2024.html)</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2024-08-14</h2>
+<p><strong>Hans-Rudolf Hotz</strong> (03:11:32): &gt; <span class="citation" data-cites="Hans-Rudolf">@Hans-Rudolf</span> Hotz has joined the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2024-09-05</h2>
+<p><strong>Mauro Masiero</strong> (03:10:11): &gt; <span class="citation" data-cites="Mauro">@Mauro</span> Masiero has joined the channel</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2024-09-09</h2>
+<p><strong>Yanina Bellini Saibene</strong> (09:08:43): &gt; Friendly reminder:<strong><em>Multilingual webinar Screen Reader Accessible Tools and Resources for Learning and Working with R</em></strong>Tuesday, 10 September 2024 17:00 UTC &gt; with OpenSci’s Champions Alican Cagri Gokcek and Liz Hare &gt; Alican Cagri Gokcek organized the webinar in collaboration with Engine Yilmaz from Boğaziçi University (Turkey). &gt; More info + add to your calendar + link to join:<a href="https://ropensci.org/events/rsr-learn-and-use/">https://</a><a href="http://ropensci.org/events/rsr-learn-and-use/">ropensci.org/events/rsr-learn-and-use/</a> - Attachment (ropensci.org): <a href="https://ropensci.org/events/rsr-learn-and-use/">Screen Reader Accessible Tools and Resources for Learning and Working with R</a> &gt; A multilingual webinar on screen reader accessible tools and resources for learning and working with R organized by our rOpenSci Champions with the Boğaziçi University (Turkey).</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2024-09-10</h2>
+<p><strong>Yanina Bellini Saibene</strong> (12:00:05): &gt; See you all in<strong><em>one hour</em></strong>!!:video_camera:Multilingual webinar<strong><em>Screen Reader Accessible Tools and Resources for Learning and Working with R</em></strong>:clock4:<strong><em>Tuesday, 10 September 2024 17:00 UTC</em></strong>with OpenSci’s Champions <span class="citation" data-cites="Cagri">@Cagri</span> Gokcek and@Liz Hare &gt; * Join the meeting:<a href="https://numfocus-org.zoom.us/j/82146015078?pwd=kacCy6G3Ey3GpRrVmxIu7Nqq6q8EHn.1">https://numfocus-org.zoom.us/j/82146015078?pwd=kacCy6G3Ey3GpRrVmxIu7Nqq6q8EHn.1</a> &gt; * Meeting ID: 821 4601 5078 Passcode: 112961 &gt; * Find your local number to join by phone:<a href="https://zoom.us/u/adAyZGMYrE">https://zoom.us/u/adAyZGMYrE</a></p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2024-09-24</h2>
+<p><strong>Yanina Bellini Saibene</strong> (11:00:00): &gt; :rocket:<strong><em>Starting in one hour!!</em><em>Navigating the R ecosystem using R-universe.</em></strong>Jeroen Ooms will share details on what R-Universe is and an update on what you can do with it today. He will also discuss the future of R-Universe and how it can be used to navigate the R ecosystem. &gt; &gt; Link to join + add to your calendar:<a href="https://ropensci.org/commcalls/nov2024-r-universe/">https://ropensci.org/commcalls/nov2024-r-universe/</a> - Attachment (ropensci.org): <a href="https://ropensci.org/commcalls/nov2024-r-universe/">Navigating the R ecosystem using R-universe · Community Call</a> &gt; An update on what R-universe is and what you can do with it today.</p>
+<p><strong>Jasmine Baker</strong> (12:50:14): &gt; <span class="citation" data-cites="Jasmine">@Jasmine</span> Baker has joined the channel</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2024-09-30</h2>
+<p><strong>Yanina Bellini Saibene</strong> (16:52:09): &gt; :mega:¡Inscripciones abiertas al Curso Virtual Gratuito en Ciencia de Datos en Salud Pública y Modelamiento de Enfermedades Infecciosas!:female-doctor::male-scientist:Dirigido a profesionales y estudiantes de la salud y áreas STEM.:spiral_calendar_pad:<strong><em>Fecha de Inicio</em></strong>:15 de octubre de 2024:computer:<strong><em>Modalidad:</em></strong>Virtual y asincrónico, con una duración de aproximadamente 30 horas:bar_chart:<strong><em>10 unidades de aprendizaje </em></strong>en temas clave como la Teoría de Epidemias, el Modelamiento Matemático y el uso del lenguaje de programación R para la limpieza y análisis de datos epidemiológicos:scroll:**** ****Se otorgará una constancia de participación a quienes completen el curso.<strong><em>Cupos Limitados</em></strong>¡No dejes pasar esta oportunidad para desarrollar nuevas habilidades y fortalecer tu capacidad de respuesta ante brotes y epidemias! Inscríbete<a href="https://edge.edx.org/courses/course-v1:javeriana+000645+2023/about">aquí</a></p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2024-10-01</h2>
+<p><strong>Yanina Bellini Saibene</strong> (08:07:08): &gt; Happening now: Join us for Social Coworking and office hours next week!:grey_exclamation:Theme: Using R to tell (data science) stories:hourglass_flowing_sand:When: Tuesday October 1st 14:00 European Central (12:00 UTC):cookie:Hosted by: <span class="citation" data-cites="Steffi">@Steffi</span> LaZerte and community host <span class="citation" data-cites="Apoorv">@Apoorv</span> &gt; &gt; You can use this time for… &gt; - General coworking &gt; - Explore how others use R to tell data stories &gt; - Start work on a project using R to craft a narrative through data &gt; - Chat with others for advice/resources<a href="https://ropensci.org/events/coworking-2024-10">https://ropensci.org/events/coworking-2024-10</a> - Attachment (ropensci.org): <a href="https://ropensci.org/events/coworking-2024-10">Social Coworking and Office Hours - Using R to tell (data science) stories</a> &gt; Come cowork and explore the use of R in telling (data science) stories</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2024-10-02</h2>
+<p><strong>Eva Hamrud</strong> (19:06:39): &gt; <span class="citation" data-cites="Eva">@Eva</span> Hamrud has joined the channel</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2024-10-16</h2>
+<p><strong>Yanina Bellini Saibene</strong> (09:03:16): &gt; :mega:rOpenSci Next Community Call<strong><em>A comunidade R fala português </em></strong>:clock4:<strong><em>Wednesday, 06 November 2024 13:00 UTC (</em></strong><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=2024-11-06T13%3a00%3a00&amp;ah=1&amp;msg=A%20comunidade%20R%20fala%20português%20(rOpenSci%20Comm%20Call)">find your time</a>-<a href="https://ropensci.org/commcalls/translation-portuguese/#zoominfo">Join the event</a>****)****A comunidade R está realizando vários esforços de traduções comunitárias para o português de diferentes recursos: livros, pacotes e guias. &gt; &gt; Nesta chamada da comunidade, três líderes da comunidade de língua portuguesa apresentarão suas experiências liderando e fazendo parte desses projetos e compartilharão como podemos participar desses esforços. &gt; &gt; Essa chamada da comunidade será seguida por<a href="https://www.eventbrite.cl/e/traducao-hackathon-traslaton-ropensci-tickets-1045507530167?aff=oddtdtcreator">uma reunião de tradução na LatinR</a>:clock4:<strong><em>Monday, 18 November 2024 - 13:00 UTC</em></strong>(<a href="https://www.timeanddate.com/worldclock/fixedtime.html?msg=Tradu%C3%A7%C3%A3o+%2B+Hackathon+%3D+Traslaton+rOpenSci&amp;iso=20241118T10&amp;p1=51&amp;ah=1">find your time</a>). &gt; &gt; These events are organized with the support of NumFOCUS SDG and in collaboration with LatinR - Attachment (ropensci.org): <a href="https://ropensci.org/commcalls/translation-portuguese/#zoominfo">A comunidade R fala português · Community Call</a> &gt; Uma apresentação de projetos de tradução comunitária para o português na comunidade R. - Attachment (Eventbrite): <a href="https://www.eventbrite.cl/e/traducao-hackathon-traslaton-ropensci-tickets-1045507530167?aff=oddtdtcreator">Tradução + Hackathon = Traslaton rOpenSci</a> &gt; O objetivo é que a comunidade R conheça o rOpenSci e se reúna para aprender a contribuir com o projeto de tradução para o português.</p>
+<p><strong>chengyi ma</strong> (21:17:59): &gt; <span class="citation" data-cites="chengyi">@chengyi</span> ma has joined the channel</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2024-10-18</h2>
+<p><strong>Felipe ten Caten</strong> (11:08:50): &gt; <span class="citation" data-cites="Felipe">@Felipe</span> ten Caten has joined the channel</p>
+<p><strong>Yasmine Elnasharty</strong> (14:01:16): &gt; <span class="citation" data-cites="Yasmine">@Yasmine</span> Elnasharty has joined the channel</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2024-10-23</h2>
+<p><strong>Yanina Bellini Saibene</strong> (07:32:25): &gt; October news!:jack_o_lantern:<a href="https://fosstodon.org/tags/RStats">#RStats</a>:tada:Fostering open science in Latin America: CZI awards funds for sustainable research software development:rocket:R-Universe tour:mega:Looking for Maintainers to Support First-Time Contributors:calendar:The rOpenSci community at upcoming events:earth_americas:Our first community call in Portuguese:calendar:Next coworking events:musical_keyboard:New packages {pkgmatch}, {rsi}, {allcontributors}, {chopin}, {eDNAjoint}:package:Package news:wave:Calls for contributions:toolbox:Package Development corner<a href="https://ropensci.org/blog/2024/10/23/news-october-2024/">https://ropensci.org/blog/2024/10/23/news-october-2024/</a> - Attachment (ropensci.org): <a href="https://ropensci.org/blog/2024/10/23/news-october-2024/">rOpenSci News Digest, October 2024</a> &gt; CZI funding for Champions Program with Latin America focus, first time contributors, coworking, new package and package news</p>
+<p><strong>Hong Qin</strong> (17:45:09): &gt; <span class="citation" data-cites="Hong">@Hong</span> Qin has joined the channel</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2024-10-30</h2>
+<p><strong>FAIZAN</strong> (12:32:20): &gt; <span class="citation" data-cites="FAIZAN">@FAIZAN</span> has joined the channel</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2024-11-04</h2>
+<p><strong>Yanina Bellini Saibene</strong> (12:38:18): &gt; Join us for Social Coworking and office hours next week!:grey_exclamation:Theme: Getting to know Openscapes:hourglass_flowing_sand:When: Tuesday November 5th 09:00 Americas Pacific (17:00 UTC):cookie:Hosted by: Steffi LaZerte and community host Stefanie Butland &gt; &gt; You can use this time for… &gt; - General coworking &gt; - Look up<a href="https://openscapes.org">Openscapes</a>- Cowork independently on work related to R &gt; - Chat with Stefanie and other attendees and learn more about the Openscapes organization, and how they use R to automate creating open education infrastructure<a href="https://ropensci.org/events/coworking-2024-11">https://ropensci.org/events/coworking-2024-11</a> - Attachment (ropensci.org): <a href="https://ropensci.org/events/coworking-2024-11">Social Coworking and Office Hours - Getting to know Openscapes</a> &gt; Get to know Openscapes, chat, ask questions or work on something you need to get done!</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2024-11-06</h2>
+<p><strong>Yanina Bellini Saibene</strong> (07:00:03): &gt; :mega:See you all in one hour!! &gt; rOpenSci Next Community Call<strong><em>A comunidade R fala português </em></strong>:earth_americas::clock4:<strong><em>Wednesday, 06 November 2024 13:00 UTC (</em></strong><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=2024-11-06T13%3a00%3a00&amp;ah=1&amp;msg=A%20comunidade%20R%20fala%20português%20(rOpenSci%20Comm%20Call)">find your time</a>-<a href="https://ropensci.org/commcalls/translation-portuguese/#zoominfo">Join the event</a>****)****A comunidade R está realizando vários esforços de traduções comunitárias para o português de diferentes recursos: livros, pacotes e guias. &gt; &gt; Nesta chamada da comunidade, três líderes da comunidade de língua portuguesa apresentarão suas experiências liderando e fazendo parte desses projetos e compartilharão como podemos participar desses esforços. - Attachment (ropensci.org): <a href="https://ropensci.org/commcalls/translation-portuguese/#zoominfo">A comunidade R fala português · Community Call</a> &gt; Uma apresentação de projetos de tradução comunitária para o português na comunidade R.</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2024-11-21</h2>
+<p><strong>Yanina Bellini Saibene</strong> (07:25:54): &gt; The second day of LatinR started, you can follow the streaming here:<a href="https://youtube.com/live/SkTLaN_2cNo?feature=share">https://youtube.com/live/SkTLaN_2cNo?feature=share</a> - Attachment (youtube.com): <a href="https://youtube.com/live/SkTLaN_2cNo?feature=share">- YouTube</a> &gt; Enjoy the videos and music you love, upload original content, and share it all with friends, family, and the world on YouTube.</p>
+<p><strong>Yanina Bellini Saibene</strong> (12:50:38): &gt; Julia Silge and her keynote at LatinR Conf! Live streaming:<a href="https://www.youtube.com/live/SkTLaN_2cNo?si=6x7lmAxW5EbFy3GM">https://www.youtube.com/live/SkTLaN_2cNo?si=6x7lmAxW5EbFy3GM</a> - Attachment (youtube.com): <a href="https://www.youtube.com/live/SkTLaN_2cNo?si=6x7lmAxW5EbFy3GM">- YouTube</a> &gt; Enjoy the videos and music you love, upload original content, and share it all with friends, family, and the world on YouTube.</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2025-01-01</h2>
+<p><strong>Pariksheet Nanda</strong> (15:48:12): &gt; <span class="citation" data-cites="Pariksheet">@Pariksheet</span> Nanda has joined the channel</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2025-01-02</h2>
+<p><strong>George Kitundu</strong> (00:52:35): &gt; <span class="citation" data-cites="George">@George</span> Kitundu has joined the channel</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2025-01-08</h2>
+<p><strong>Gen B</strong> (11:26:52): &gt; <span class="citation" data-cites="Gen">@Gen</span> B has joined the channel</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2025-01-14</h2>
+<p><strong>Yanina Bellini Saibene</strong> (17:31:34): &gt; :mega:Save the date!! &gt; &gt; Next rOpenSci Community Call,<strong><em>From Novice to Contributor: Making and Supporting First-Time Contributions to FOSS</em></strong>:calendar:<strong><em>Monday, 20 January 2025 16:00 UTC</em></strong>(<a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=2025-01-20T16%3a00%3a00&amp;ah=1&amp;msg=From%20Novice%20to%20Contributor%3a%20Making%20and%20Supporting%20First-Time%20Contributions%20to%20FOSS%20(rOpenSci%20Comm%20Call)">find your local time</a>) &gt; &gt; with<a href="https://ropensci.org/commcalls/first-time-contributor/">With Yi-Chin Sunny Tseng, Pascal Burkhard, Yaoxiang Li and Hugo Gruson</a>More details:<a href="https://ropensci.org/commcalls/first-time-contributor/">https://ropensci.org/commcalls/first-time-contributor/</a>This community call will be followed by two mini-hackathons with hands-on and mentoring sessions with rOpenSci community members and staff so that people can work on their first-time contributions to R packages. Please help us to spread the word! - Attachment (ropensci.org): <a href="https://ropensci.org/commcalls/first-time-contributor/">From Novice to Contributor: Making and Supporting First-Time Contributions to FOSS · Community Call</a> &gt; Contributing to open source can be very rewarding, but also incredibly intimidating. When we asked about first time contributions on the rOpenSci Slack, people recalled the challenges and mistakes they made, but mostly how much they learned from and enjoyed that experience. &gt; In this community call moderated by Hugo Gruson, our speaker, Yaoxiang Li will discus the importance of tests with respect to first-time contributions, and share best practices and advanced techniques for supercharging R package quality with testthat, Pascal Burkhard will discuss the basic git skills that can help to make a first contribution, and Sunny Tseng will share practical advice for making first contributions, common challenges and how to overcome them.</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2025-01-20</h2>
+<p><strong>Yanina Bellini Saibene</strong> (10:00:11): &gt; Hi:wave:, rOpenSci’s first comm call of the year starts in one hour! See you all there:slightly_smiling_face:<strong><em>From Novice to Contributor: Making and Supporting First-Time Contributions to FOSS</em></strong>:calendar:<strong><em>Monday, 20 January 2025 16:00 UTC</em></strong>(<a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=2025-01-20T16%3a00%3a00&amp;ah=1&amp;msg=From%20Novice%20to%20Contributor%3a%20Making%20and%20Supporting%20First-Time%20Contributions%20to%20FOSS%20(rOpenSci%20Comm%20Call)">find your local time</a>) &gt; &gt; with By<a href="https://ropensci.org/author/yanina-bellini-saibene/">Yanina Bellini Saibene</a>. With<a href="https://ropensci.org/author/yi-chin-sunny-tseng/">Yi-Chin Sunny Tseng</a>,<a href="https://ropensci.org/author/pascal-burkhard/">Pascal Burkhard</a>,<a href="https://ropensci.org/author/yaoxiang-li/">Yaoxiang Li</a>,<a href="https://ropensci.org/author/hugo-gruson/">Hugo Gruson</a>. &gt; &gt; More details + link to join:<a href="https://ropensci.org/commcalls/first-time-contributor/">https://ropensci.org/commcalls/first-time-contributor/</a></p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2025-01-29</h2>
+<p><strong>Yanina Bellini Saibene</strong> (14:18:50): &gt; <strong><em>Coworking Mini-Hackathon for First-Time Contributors!</em></strong>online,:globe_with_meridians:• With<a href="https://ropensci.org/author/yanina-bellini-saibene/">Yanina Bellini Saibene</a>,<a href="https://ropensci.org/author/steffi-lazerte/">Steffi LaZerte</a>.<strong><em>Join us for 2 hours Tuesday February 04, 09:00 Australian Western (01:00 UTC) for a special coworking event.</em></strong>This is the first of two<strong><em>mini hackathons</em></strong>we’ll be hosting to<a href="https://ropensci.org/blog/2025/01/21/coworking-hackathons/#mini-hackathons">Support First Time Contributors to Open Source Software</a>. If you’re curious about contributing to Open Source Software, and would like some support to get started, this event is for you! &gt; &gt; During this session you’ll join others making contributions to R packages while<a href="https://ropensci.org/blog/2024/10/22/first-time-contributions/">package maintainers and other mentors</a>are available ’live’ to answer questions and give guidance. &gt; &gt; We’ll also have a special Slack channel ready as a place for asynchronous questions during the event and in the week following. &gt; &gt; These collaborative events are designed to help first-time contributors get started with open-source projects. Whether you’re improving documentation, reviewing translations, fixing bugs, or adding new features, our mentors will guide you every step of the way.<strong><em>No prior experience required. Non-first time contributors are very welcome too—just bring your curiosity and enthusiasm!</em></strong>Note that this event requires registration.<a href="https://airtable.com/appRpJelSoXWcYCG1/pagXLEueuI2o3GuBQ/form">Please fill out this short form to sign up</a>.</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2025-01-31</h2>
+<p><strong>Bastien CHASSAGNOL</strong> (17:10:16): &gt; <span class="citation" data-cites="Bastien">@Bastien</span> CHASSAGNOL has joined the channel</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2025-02-03</h2>
+<p><strong>Yanina Bellini Saibene</strong> (14:54:40): &gt; useR! 2025 CFP is open now<img src="https://user2025.r-project.org/call.png" class="img-fluid" alt="https://user2025.r-project.org/call"></p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2025-02-06</h2>
+<p><strong>Liz Hare</strong> (11:58:48): &gt; <span class="citation" data-cites="Liz">@Liz</span> Hare has joined the channel</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2025-02-07</h2>
+<p><strong>Yanina Bellini Saibene</strong> (19:07:43): &gt; :mega:Save the date!! &gt; &gt; Next Community Call in Spanish - en español:wink:<strong><em>Fomentando la Ciencia Abierta en América Latina - Programa de rOpenSci (</em></strong>Fostering Open Science in Latin America - rOpenSci Program):clock4:<strong><em>miércoles, 12 marzo 2025 14:00 UTC</em></strong>(<a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=2025-03-12T14%3a00%3a00&amp;ah=1&amp;msg=Fomentando%20la%20Ciencia%20Abierta%20en%20América%20Latina%20-%20Programa%20de%20rOpenSci%20(rOpenSci%20Comm%20Call)">find your local time</a>-<a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=2025-03-12T14%3a00%3a00&amp;ah=1&amp;msg=Fomentando%20la%20Ciencia%20Abierta%20en%20América%20Latina%20-%20Programa%20de%20rOpenSci%20(rOpenSci%20Comm%20Call)">encuentra tu horario local</a>) &gt; &gt; con/with Francisco Cardozo, Andrea Gomez Vargas and Cesar Luis Aybar mentors and champions from our Champions Program. &gt; &gt; They will share their experience in the program, what they develop and why is an excelent idea to be part of the program.:star-struck:More info soon!!</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2025-02-11</h2>
+<p><strong>Juliana Kentomahun Mautin</strong> (11:49:59): &gt; <span class="citation" data-cites="Juliana">@Juliana</span> Kentomahun Mautin has joined the channel</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2025-02-13</h2>
+<p><strong>JP Flores</strong> (13:54:13): &gt; <span class="citation" data-cites="JP">@JP</span> Flores has joined the channel</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2025-02-19</h2>
+<p><strong>Lluís Revilla</strong> (02:47:31): &gt; The useR! 2025 call for submissions deadline is March 3rd! I hope this year there are some Bioconductor packages presented there, it is a great opportunity to connect with other R developers:<a href="https://user2025.r-project.org/call">https://user2025.r-project.org/call</a></p>
+<p><strong>Anushka Paharia</strong> (14:07:59): &gt; <span class="citation" data-cites="Anushka">@Anushka</span> Paharia has joined the channel</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2025-02-20</h2>
+<p><strong>Mikaila Chetty</strong> (02:33:21): &gt; <span class="citation" data-cites="Mikaila">@Mikaila</span> Chetty has joined the channel</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2025-03-04</h2>
+<p><strong>Yanina Bellini Saibene</strong> (07:00:00): &gt; :mega:rOpenSci’s Coworking Mini-Hackathon for First-Time Contributors coming up in an hour! &gt; Join other participants and mentors to make contributions to R packages in a fun and supportive environment. &gt; &gt; Registration is appreciated but not required! &gt; link to Join:<a href="https://ropensci.org/events/coworking-2025-03">https://ropensci.org/events/coworking-2025-03</a> - Attachment (ropensci.org): <a href="https://ropensci.org/events/coworking-2025-03">Coworking Mini-Hackathon for First-Time Contributors!</a> &gt; Special mini-hackathon coworking event to support first-time contributors!</p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2025-03-05</h2>
+<p><strong>Yanina Bellini Saibene</strong> (08:01:57): &gt; :mega:rOpenSci’s Next Week Community Call | Siguiente Conversaciones con la Comunidad:pushpin:Fostering Open Science in Latin America - rOpenSci Champions Program | Fomentando la Ciencia Abierta en América Latina - Programa de rOpenSci:calendar:**** Wednesday | miércoles, 12 marzo 2025 14:00 UTC<strong>(<a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=2025-03-12T14%3a00%3a00&amp;ah=1&amp;msg=Fomentando%20la%20Ciencia%20Abierta%20en%20Am%C3%A9rica%20Latina%20-%20Programa%20de%20rOpenSci%20(rOpenSci%20Comm%20Call)">find your local time</a>|<a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=2025-03-12T14%3a00%3a00&amp;ah=1&amp;msg=Fomentando%20la%20Ciencia%20Abierta%20en%20Am%C3%A9rica%20Latina%20-%20Programa%20de%20rOpenSci%20(rOpenSci%20Comm%20Call)">encuentra tu horario local</a>) &gt; &gt; with | con Francisco Cardozo, Andrea Gomez Vargas and Cesar Luis Aybar &gt; &gt; These mentors and champions from our Champions Program will share their experiences in the program, what they develop, and</strong><em>why it is an excellent idea to be part of it.</em><strong>Estos mentores y campeon(a|e)s de nuestro programa compartirán su experiencia en el programa, lo que desarrollaron y</strong><em>por qué es una excelente idea formar parte del programa.</em>**More details + link to join | Más detalles + enlace para participar:<a href="https://ropensci.org/es/commcalls/champions-latino-2025/">https://ropensci.org/es/commcalls/champions-latino-2025/</a>Helps us to spread the word | Ayudanos a difundir el evento: &gt; * <a href="https://www.linkedin.com/posts/ropensci_rstats-openscience-opendata-activity-7303024450017337345-9sCJ?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAAH31g8B4liq53DhzTsRVsft6OZXuLCUeOw">LinkedIn</a> &gt; * <a href="https://hachyderm.io/@rOpenSci/114109737270288125">Mastodon</a> &gt; * <a href="https://bsky.app/profile/ropensci.org/post/3ljmwx2hujpf2">BlueSky</a> - Attachment (ropensci.org): <a href="https://ropensci.org/es/commcalls/champions-latino-2025/">Fomentando la Ciencia Abierta en América Latina - Programa de rOpenSci · Community Call</a> &gt; Los programas campeones o embajadores están diseñados para identificar, reconocer y recompensar a aquellas personas líderes emergentes de una comunidad. El Programa de rOpenSci forma parte de una serie de actividades y proyectos que estamos llevando a cabo para fomentar la ciencia abierta en América Latina con foco en el desarrollo sostenible de software de investigación. &gt; Venite a conversar con Andrea Gomez Vargas, Cesar Luis Aybar Camacho y Francisco Cardozo sobre su experiencia como campeon(e|a)s y mentores de rOpenSci.</p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2025-03-12</h2>
+<p><strong>Yanina Bellini Saibene</strong> (08:57:15): &gt; Hi:wave:, rOpenSci’s comm call (in Spanish) starts in one hour! See you all there:slightly_smiling_face:<strong><em>Fomentando la Ciencia Abierta en América Latina - Programa de rOpenSci</em></strong>Por Andrea Gomez Vargas, Cesar Luis Aybar Camacho, Francisco Cardozo. &gt; &gt; More details + link to join:<a href="https://ropensci.org/es/commcalls/champions-latino-2025/">https://ropensci.org/es/commcalls/champions-latino-2025/</a> - Attachment (ropensci.org): <a href="https://ropensci.org/es/commcalls/champions-latino-2025/">Fomentando la Ciencia Abierta en América Latina - Programa de rOpenSci · Community Call</a> &gt; Los programas campeones o embajadores están diseñados para identificar, reconocer y recompensar a aquellas personas líderes emergentes de una comunidad. El Programa de rOpenSci forma parte de una serie de actividades y proyectos que estamos llevando a cabo para fomentar la ciencia abierta en América Latina con foco en el desarrollo sostenible de software de investigación. &gt; Venite a conversar con Andrea Gomez Vargas, Cesar Luis Aybar Camacho y Francisco Cardozo sobre su experiencia como campeon(e|a)s y mentores de rOpenSci.</p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2025-03-17</h2>
+<p><strong>Jesulolufemi Adelanke</strong> (12:56:23): &gt; <span class="citation" data-cites="Jesulolufemi">@Jesulolufemi</span> Adelanke has joined the channel</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2025-03-18</h2>
+<p><strong>Jennifer Slotnick</strong> (14:08:17): &gt; <span class="citation" data-cites="Jennifer">@Jennifer</span> Slotnick has joined the channel</p>
+<p><strong>Andres Wokaty</strong> (14:27:24): &gt; <span class="citation" data-cites="Andres">@Andres</span> Wokaty has joined the channel</p>
+<p><strong>Nicolo</strong> (14:59:08): &gt; <span class="citation" data-cites="Nicolo">@Nicolo</span> has joined the channel</p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2025-03-19</h2>
+<p><strong>iniobong simeon</strong> (10:26:14): &gt; <span class="citation" data-cites="iniobong">@iniobong</span> simeon has joined the channel</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2025-03-20</h2>
+<p><strong>Louise Morlot</strong> (12:44:52): &gt; <span class="citation" data-cites="Louise">@Louise</span> Morlot has joined the channel</p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2025-03-24</h2>
+<p><strong>Yanina Bellini Saibene</strong> (08:00:09): &gt; :loudspeaker:Resources from Community Call<strong><em>Fomentando la Ciencia Abierta en América Latina - Programa de rOpenSci</em></strong>**** ****posted!:pushpin:<a href="https://ropensci.org/es/commcalls/champions-latino-2025/">https://ropensci.org/es/commcalls/champions-latino-2025/</a>:white_check_mark:video with captions:white_check_mark:speaker’s resources:white_check_mark:champions program resources:white_check_mark:collaborative notes &gt; &gt; Thanks so much to our speakers Andrea Gomez Vargas, Francisco Cardozo and Cesar Luis Aybar:raised_hands::pray: - Attachment (ropensci.org): <a href="https://ropensci.org/es/commcalls/champions-latino-2025/">Fomentando la Ciencia Abierta en América Latina - Programa de rOpenSci · Community Call</a> &gt; Los programas campeones o embajadores están diseñados para identificar, reconocer y recompensar a aquellas personas líderes emergentes de una comunidad. El Programa de rOpenSci forma parte de una serie de actividades y proyectos que estamos llevando a cabo para fomentar la ciencia abierta en América Latina con foco en el desarrollo sostenible de software de investigación. &gt; Venite a conversar con Andrea Gomez Vargas, Cesar Luis Aybar Camacho y Francisco Cardozo sobre su experiencia como campeon(e|a)s y mentores de rOpenSci.</p>
+</section>
+<section id="section-53" class="level2">
+<h2 class="anchored" data-anchor-id="section-53">2025-03-26</h2>
+<p><strong>Leo Lahti</strong> (04:07:57): &gt; BioHackathon Europe is an annual event that brings together bioinformaticians and computational biologists from around the world. It’s organised by<a href="https://elixir-europe.org/">ELIXIR Europe</a>, and offers an intense week of hacking, with participants working on diverse and exciting projects. BioHackathon is a community-driven event, which provides an opportunity for members of the life sciences community to meet and work together on topics of common interest.<strong><em>The goal is to create code that addresses challenges in bioinformatics research.</em></strong><a href="https://biohackathon-europe.org/">This year we are holding the BioHackathon at Hotel Esplanade Resort in Berlin, Germany from 3 to 7 November (see the</a><a href="https://biohackathon-europe.org/venue/">Venue page</a>), with remote access available if you cannot attend in person.<strong><em>Registration will open in June 2025 – the exact date will be confirmed before then. </em></strong><a href="https://biohackathon-europe.org/">https://biohackathon-europe.org/</a> - Attachment (BioHackathon Europe 2025): <a href="https://biohackathon-europe.org/">BioHackathon Europe</a> &gt; Find out about the 2025 BioHackathon Europe, where hackers get together to make life science research easier. - Attachment (BioHackathon Europe 2025): <a href="https://biohackathon-europe.org/venue/">Venue</a> &gt; The 2025 BioHackathon Europe will be held at Hotel Esplanade Resort and Spa, Bad Saarow.</p>
+<p><strong>Leo Lahti</strong> (04:08:43) (in thread): &gt; Does Bioconductor have any plans for presence?</p>
+<p><strong>Maria Doyle</strong> (04:33:23) (in thread): &gt; Yes@Claire Rioualenis leading. It’s a continuation of last year’s Bioconductor-EDAM collaboration with this year’s focus to work with specific domains to explore how to better annotate metadata for Bioconductor packages. Microbiome is one of the suggested domains, would you be interested in being involved?<span class="citation" data-cites="Claire">@Claire</span> Rioualencan share more information.</p>
+<p><strong>Claire Rioualen</strong> (04:33:50): &gt; <span class="citation" data-cites="Claire">@Claire</span> Rioualen has joined the channel</p>
+<p><strong>Claire Rioualen</strong> (04:37:37) (in thread): &gt; Thanks for the invite, wehaveconsidered several domains - we are encouragedto include specific ELIXIR communities in order to foster new interactions. We are discussing with metabolomics/proteomics people who showed interest. Either way there’s a strict deadline for project submissions - April 14th</p>
+</section>
+<section id="section-54" class="level2">
+<h2 class="anchored" data-anchor-id="section-54">2025-03-31</h2>
+<p><strong>Joshua Hamilton</strong> (12:50:46): &gt; <span class="citation" data-cites="Joshua">@Joshua</span> Hamilton has joined the channel</p>
+</section>
+<section id="section-55" class="level2">
+<h2 class="anchored" data-anchor-id="section-55">2025-04-15</h2>
+<p><strong>Yanina Bellini Saibene</strong> (08:13:09): &gt; <strong><em>rOpenSci Champions Program Application Clinic coming up in an hour</em></strong>! |<strong><em>Clinica de Aplicación para el Programa de Campeon(e|a)s de rOpenSci en una hora!</em></strong>@Yanina Bellini Saibenewill be there to answer questions and help you with your application | Yani estara disponible durante el evento para contestar preguntas y ayudarte con tu aplicacion. &gt; &gt; The event will have Spanish as first language | El evento tendra al castellano como lenguage principal. &gt; &gt; Info to join | Info para sumarte:<a href="https://ropensci.org/events/clinica-champions-2025-04/">https://ropensci.org/events/clinica-champions-2025-04/</a> - Attachment (ropensci.org): <a href="https://ropensci.org/events/clinica-champions-2025-04/">Clinica de Aplicación para el Programa de Campeon(e|a)s de rOpenSci</a> &gt; Espacio para preguntas sobre el programa de Campeon(e|a)s de rOpenSci y para trabajar en tu aplicación para ser parte del programa.</p>
+</section>
+<section id="section-56" class="level2">
+<h2 class="anchored" data-anchor-id="section-56">2025-04-17</h2>
+<p><strong>dhvani solanki</strong> (16:12:46): &gt; <span class="citation" data-cites="dhvani">@dhvani</span> solanki has joined the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

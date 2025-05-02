@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#shiny – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2021-10-07</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2021-10-16</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2022-01-03</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2022-08-11</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2022-08-12</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2022-08-15</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2022-08-26</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2022-08-31</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2022-09-01</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2022-09-15</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2022-09-16</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2022-09-17</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2022-09-18</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2022-09-19</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2022-09-20</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2022-12-01</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2022-12-13</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2022-12-15</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2022-12-23</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2022-12-30</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2023-01-12</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2023-03-07</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2023-03-08</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2023-03-16</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2023-03-28</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2023-04-21</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2023-04-23</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2023-04-24</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2023-04-26</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2023-05-16</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2023-05-17</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2023-05-25</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2023-05-31</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2023-06-07</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2023-06-16</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2023-06-20</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2023-07-12</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2023-07-28</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2023-08-02</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2023-08-04</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2023-08-07</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2023-09-07</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2023-09-14</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2023-09-20</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2023-09-21</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2023-09-24</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2023-10-18</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2023-11-09</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2024-02-13</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2024-03-24</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2024-03-25</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2024-04-28</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2024-06-05</a></li>
+  <li><a href="#section-53" id="toc-section-53" class="nav-link" data-scroll-target="#section-53">2024-07-05</a></li>
+  <li><a href="#section-54" id="toc-section-54" class="nav-link" data-scroll-target="#section-54">2024-07-11</a></li>
+  <li><a href="#section-55" id="toc-section-55" class="nav-link" data-scroll-target="#section-55">2024-07-12</a></li>
+  <li><a href="#section-56" id="toc-section-56" class="nav-link" data-scroll-target="#section-56">2024-07-19</a></li>
+  <li><a href="#section-57" id="toc-section-57" class="nav-link" data-scroll-target="#section-57">2024-07-23</a></li>
+  <li><a href="#section-58" id="toc-section-58" class="nav-link" data-scroll-target="#section-58">2024-07-25</a></li>
+  <li><a href="#section-59" id="toc-section-59" class="nav-link" data-scroll-target="#section-59">2024-07-26</a></li>
+  <li><a href="#section-60" id="toc-section-60" class="nav-link" data-scroll-target="#section-60">2024-07-31</a></li>
+  <li><a href="#section-61" id="toc-section-61" class="nav-link" data-scroll-target="#section-61">2024-08-12</a></li>
+  <li><a href="#section-62" id="toc-section-62" class="nav-link" data-scroll-target="#section-62">2024-08-14</a></li>
+  <li><a href="#section-63" id="toc-section-63" class="nav-link" data-scroll-target="#section-63">2024-08-19</a></li>
+  <li><a href="#section-64" id="toc-section-64" class="nav-link" data-scroll-target="#section-64">2024-08-21</a></li>
+  <li><a href="#section-65" id="toc-section-65" class="nav-link" data-scroll-target="#section-65">2024-08-22</a></li>
+  <li><a href="#section-66" id="toc-section-66" class="nav-link" data-scroll-target="#section-66">2024-09-10</a></li>
+  <li><a href="#section-67" id="toc-section-67" class="nav-link" data-scroll-target="#section-67">2024-10-23</a></li>
+  <li><a href="#section-68" id="toc-section-68" class="nav-link" data-scroll-target="#section-68">2024-11-21</a></li>
+  <li><a href="#section-69" id="toc-section-69" class="nav-link" data-scroll-target="#section-69">2024-11-22</a></li>
+  <li><a href="#section-70" id="toc-section-70" class="nav-link" data-scroll-target="#section-70">2024-11-23</a></li>
+  <li><a href="#section-71" id="toc-section-71" class="nav-link" data-scroll-target="#section-71">2025-04-23</a></li>
+  <li><a href="#section-72" id="toc-section-72" class="nav-link" data-scroll-target="#section-72">2025-04-24</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#shiny</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2021-10-07</h2>
+<p><strong>Shila Ghazanfar</strong> (13:16:34): &gt; <span class="citation" data-cites="Shila">@Shila</span> Ghazanfar has joined the channel</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2021-10-16</h2>
+<p><strong>Charlotte Soneson</strong> (14:00:42): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2022-01-03</h2>
+<p><strong>Kurt Showmaker</strong> (17:05:21): &gt; <span class="citation" data-cites="Kurt">@Kurt</span> Showmaker has joined the channel</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2022-08-11</h2>
+<p><strong>Shila Ghazanfar</strong> (04:38:07): &gt; set the channel description: Discussion around use of Shiny within Bioconductor packages!</p>
+<p><strong>Kevin Rue-Albrecht</strong> (04:39:04): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht has joined the channel</p>
+<p><strong>Vince Carey</strong> (07:05:46): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+<p><strong>Vince Carey</strong> (07:09:50): &gt; How do we rank approaches to interaction with genomic data? The UCSC genome browser is well-known and widely used, and the basic points of entry are gene or position/region and “track”. IGV and Jbrowse have similar roles.</p>
+<p><strong>Vince Carey</strong> (07:14:51): &gt; To help investigators think about how to connect their eQTL and GWAS results to gene models I made<a href="https://vjcitn.shinyapps.io/tnt4dn8/">https://vjcitn.shinyapps.io/tnt4dn8/</a>which is based on TnT and is very slow to load. Note that there is no “y axis” for the data tracks; the TnT folks were queried on this. Highly interactive “track layering” seems very desirable, but what’s the best way forward when starting with GRanges as tracks?</p>
+<p><strong>Vince Carey</strong> (07:20:34): &gt; Examples here<a href="https://github.com/igvteam/igv.js#igvjs">https://github.com/igvteam/igv.js#igvjs</a>seem very worthwhile; should we be able to “plug” igv into shiny without too much effort? I don’t know where to begin.</p>
+<p><strong>Marcel Ramos Pérez</strong> (09:42:50): &gt; <span class="citation" data-cites="Marcel">@Marcel</span> Ramos Pérez has joined the channel</p>
+<p><strong>Marcel Ramos Pérez</strong> (09:48:33): &gt; How about<a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/trackViewer/inst/doc/trackViewer.html">trackViewer</a>?</p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:35:27): &gt; igv.js as a widget sounds fun &gt; As a heads up, now that I’ve started<a href="https://github.com/kevinrue/iSEEExperimentHub">https://github.com/kevinrue/iSEEExperimentHub</a>I’m considering supporting GRanges and other objects that can be embedded (not coerced) into SummarizedExperiment objects</p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:36:47): &gt; But the nature of iSEE means that we’ll always be limited to objects where rows are features and columns are samples. Which is why genomic tracks has always been an unsolved headache in iSEE so far</p>
+<p><strong>Kevin Rue-Albrecht</strong> (11:33:07): &gt; That was to say that having now<code>GRanges</code>readily available through the<code>ExperimentHub</code>is now a good motivation to toy with them in<code>iSEE</code>apps, which obviously includes displaying them on genomic tracks. The tough part being the handling of selections through shiny brushes, which need to convert coordinates of selection in the app to indices of items in the<code>SummarizedExperiment</code>object</p>
+<p><strong>Marcel Ramos Pérez</strong> (12:55:21) (in thread): &gt; May be of interest :<a href="https://ncbiinsights.ncbi.nlm.nih.gov/2022/07/05/cgv-beta-release/">https://ncbiinsights.ncbi.nlm.nih.gov/2022/07/05/cgv-beta-release/</a> - Attachment (NCBI Insights): <a href="https://ncbiinsights.ncbi.nlm.nih.gov/2022/07/05/cgv-beta-release/">Introducing the Comparative Genome Viewer (CGV) beta release - NCBI Insights</a> &gt; NLM’s NCBI is introducing the Comparative Genome Viewer (CGV), an easy-to-use visualization tool that helps you quickly compare eukaryotic genome assemblies and easily identify genomic changes that may be significant to biology and evolution. With the new CGV you can view and compare the alignment between two assemblies to see differences in genomic sequence and … Continue reading Introducing the Comparative Genome Viewer (CGV) beta release →</p>
+<p><strong>Jared Andrews</strong> (18:27:06): &gt; <span class="citation" data-cites="Jared">@Jared</span> Andrews has joined the channel</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2022-08-12</h2>
+<p><strong>Jared Andrews</strong> (14:38:47): &gt; re: IGV in shiny, see<a href="https://www.bioconductor.org/packages/release/bioc/html/igvR.html">https://www.bioconductor.org/packages/release/bioc/html/igvR.html</a>and<a href="https://github.com/paul-shannon/igvShiny">https://github.com/paul-shannon/igvShiny</a>. Paul Shannon, the author of these, gave a brief talk on them at Bioc2022, but there were significant technical issue so his slides weren’t displayed.</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2022-08-15</h2>
+<p><strong>Federico Marini</strong> (10:00:53): &gt; <span class="citation" data-cites="Federico">@Federico</span> Marini has joined the channel</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2022-08-26</h2>
+<p><strong>Connor Higgins</strong> (21:05:42): &gt; <span class="citation" data-cites="Connor">@Connor</span> Higgins has joined the channel</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2022-08-31</h2>
+<p><strong>Shila Ghazanfar</strong> (10:30:19): &gt; hi all, i wanted to share this thread into the shiny channel as it’s so rich with ideas and discussion around shiny and bioconductor. thanks kevin and jared for your thoughts - Attachment: <a href="https://community-bioc.slack.com/archives/C029XJX3A4F/p1660134829013599?thread_ts=1660134829013599&amp;cid=C029XJX3A4F">Attachment</a> &gt; I suppose I will apply and do my best. Was hoping someone familiar with shiny would warn me of common pitfalls before I submit.</p>
+<p><strong>Shila Ghazanfar</strong> (10:32:25): &gt; and this follow-on thread which had some nice ideas, e.g.<code>InteractiveVisualization</code>as an additional BiocViews topic.. would love to discuss more on ideas/challenges/thoughts - Attachment: <a href="https://community-bioc.slack.com/archives/C029XJX3A4F/p1660207014234339?thread_ts=1660207014234339&amp;cid=C029XJX3A4F">Attachment</a> &gt; thanks for this thread <span class="citation" data-cites="Jared">@Jared</span> Andrewsand <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht, i read with a lot of interest! I’m in general interested in how many packages across Bioconductor are including shiny app loaders as part of the package and what (if any) special considerations needed for such packages. I created a #shiny channel with this in mind way back but no activity as yet, this channel could be a place to discuss such topics? just a thought :slightly_smiling_face: pinging <span class="citation" data-cites="Federico">@Federico</span> Marini too :)</p>
+<p><strong>Jared Andrews</strong> (12:11:09): &gt; Honestly, just go look at iSEE if you’re doing anything with Shiny. While it’s huge and complex, it does a bunch of stuff I wasn’t aware was even possible in terms of how to break up and organize an app while gracefully handling reactives/observers.</p>
+<p><strong>Jared Andrews</strong> (12:13:10): &gt; There are frustratingly few resources as to how best package complex apps in the official docs, particularly in terms of creating and handling reactives outside the typical<code>app.R</code>or<code>ui.r</code>and<code>server.r</code>setups.</p>
+<p><strong>Shila Ghazanfar</strong> (19:49:27): &gt; thanks for this jared! do you think the Mastering Shiny textbook (<a href="https://mastering-shiny.org/">https://mastering-shiny.org/</a>) is helpful, or are the aspects that are more specific to bioconductor-y analysis not captured? - Attachment (mastering-shiny.org): <a href="https://mastering-shiny.org/">Welcome | Mastering Shiny</a> &gt; A book created with bookdown.</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2022-09-01</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (07:24:32) (in thread): &gt; If I’m being honest, I don’t remember ever reading that book myself. I can see that the first commit for that book was 9 July 2016 (<a href="https://github.com/hadley/mastering-shiny/commit/1a73f4af6211df45ec03519ef16a71975e2f96aa">https://github.com/hadley/mastering-shiny/commit/1a73f4af6211df45ec03519ef16a71975e2f96aa</a>). A Google search seems to indicate that shiny itself was released in 2012 (<a href="https://www.r-bloggers.com/2012/11/rstudio-releases-shiny/">https://www.r-bloggers.com/2012/11/rstudio-releases-shiny/</a>). &gt; &gt; I can’t remember when I started using shiny myself, but I think I started from the basic examples in the man pages of the shiny package, and built up my own experience from there. &gt; &gt; I can see that the book starts with a chapter “your first shiny app”, which is effectively the same thing. Plus, the quality of Hadley’s books is such that I strongly encourage new (and experienced) shiny app developers to seriously consider reading that book (either in order or skipping bits when they are confident to do so). &gt; &gt; During the development of iSEE, I learned a lot from my co-developers, each of us having brought our own personal experience of shiny from our own, typically smaller apps, that we had developed individually. &gt; To this date, we still frequently discuss and collectively make up and agree on best practice when updating, fixing, or adding new code - Attachment (R-bloggers): <a href="https://www.r-bloggers.com/2012/11/rstudio-releases-shiny/">RStudio releases Shiny | R-bloggers</a> &gt; RStudio has released a new package for R. Shiny allows R developers to build simple interactive Web-based interfaces for R scripts, using only R code (no JavaScript development required!). You can see some examples of Shiny in action in this blog post, and there are more details about Shiny’s capabilities in this tutorial. Shiny was first announced to beta testers back in July at the JSM 2012 conference. RStudio’s Joe Cheng gave several demonstrations of Shiny in action to the audience, which I captured in the video below: Shiny has evolved in the four months since then, and I look…</p>
+<p><strong>Jared Andrews</strong> (17:42:15) (in thread): &gt; Yeah, I mean that book is definitely helpful, I referenced it pretty heavily to wrap my head around the reactivity concepts when I was starting out. &gt; &gt; I think once you start getting to relatively complex apps, it just helps to look at some really well-made examples where the structure and organization of the app clearly had a lot of thought and effort put into them.</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2022-09-15</h2>
+<p><strong>Shila Ghazanfar</strong> (06:20:15): &gt; hi everyone! at EuroBioc2022 i was thinking of proposing a BOF session around bioc users and developers use of interactive apps, with the goal to identify gaps, what available resources needs to be promoted more, and any ideas to then take forward to community etc.. just going to start a doc here and would love any input:pray::))<a href="https://docs.google.com/document/d/1b_hSBAuPA4kjfK1ZMwe4Sdfk-iB3-8llb0Z_8GkO7RQ/edit">https://docs.google.com/document/d/1b_hSBAuPA4kjfK1ZMwe4Sdfk-iB3-8llb0Z_8GkO7RQ/edit</a></p>
+<p><strong>Kevin Rue-Albrecht</strong> (07:30:47) (in thread): &gt; now i’m even more sad of missing the conference:wink:</p>
+<p><strong>Shila Ghazanfar</strong> (07:51:47) (in thread): &gt; would love to have you involved beyond the BOF of course!! sorry for the fomo:slightly_smiling_face:</p>
+<p><strong>Kevin Rue-Albrecht</strong> (07:52:56) (in thread): &gt; just teasing:wink:i look forward to hearing the outputs of the BOF</p>
+<p><strong>Nils Eling</strong> (11:22:06): &gt; <span class="citation" data-cites="Nils">@Nils</span> Eling has joined the channel</p>
+<p><strong>Frederick Tan</strong> (11:22:46): &gt; <span class="citation" data-cites="Frederick">@Frederick</span> Tan has joined the channel</p>
+<p><strong>Lea Seep</strong> (11:47:36): &gt; <span class="citation" data-cites="Lea">@Lea</span> Seep has joined the channel</p>
+<p><strong>Umar Ahmad</strong> (11:59:07): &gt; <span class="citation" data-cites="Umar">@Umar</span> Ahmad has joined the channel</p>
+<p><strong>Lisa Breckels</strong> (12:01:13): &gt; <span class="citation" data-cites="Lisa">@Lisa</span> Breckels has joined the channel</p>
+<p><strong>Ludwig Geistlinger</strong> (12:46:35): &gt; <span class="citation" data-cites="Ludwig">@Ludwig</span> Geistlinger has joined the channel</p>
+<p><strong>Tyrone Lee</strong> (12:49:07): &gt; <span class="citation" data-cites="Tyrone">@Tyrone</span> Lee has joined the channel</p>
+<p><strong>Annekathrin Ludt</strong> (14:13:06): &gt; <span class="citation" data-cites="Annekathrin">@Annekathrin</span> Ludt has joined the channel</p>
+<p><strong>Alyssa Columbus</strong> (14:47:31): &gt; <span class="citation" data-cites="Alyssa">@Alyssa</span> Columbus has joined the channel</p>
+<p><strong>Janani Ravi</strong> (23:43:37): &gt; <span class="citation" data-cites="Janani">@Janani</span> Ravi has joined the channel</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2022-09-16</h2>
+<p><strong>Thomas Naake</strong> (02:59:51): &gt; <span class="citation" data-cites="Thomas">@Thomas</span> Naake has joined the channel</p>
+<p><strong>Lisa Breckels</strong> (03:45:43) (in thread): &gt; Hi Shila, I have to leave early this morning so won’t make the birds of a feather sadly. Very interested to hear the output from this session though:slightly_smiling_face:I am author of<code>pRolocGUI</code><a href="https://bioconductor.org/packages/release/bioc/html/pRolocGUI.html">https://bioconductor.org/packages/release/bioc/html/pRolocGUI.html</a>and maintain many apps for our group account at<a href="http://shinyapps.io">shinyapps.io</a>which we disseminate with publications that stem from our Bioc package. &gt; &gt; Biggest issues I have are related to speed and debugging! I’ll have a read through the Google doc.</p>
+<p><strong>Kevin Rue-Albrecht</strong> (04:03:14) (in thread): &gt; We’ve got a candidate visiting the lab in oxford this morning, i’ll be busy from 12pm your time, i might be able to join the bof at 11pm (is shiny then or later?) your time if someone wants to call me on slack or whatever. Don’t mind me too much then, in case soething coems up on my side</p>
+<p><strong>Shila Ghazanfar</strong> (04:22:50) (in thread): &gt; thanks so much lisa@Lisa Breckels!! that’s wonderful and i’m copying your message into the document:slightly_smiling_face:</p>
+<p><strong>Shila Ghazanfar</strong> (04:23:29) (in thread): &gt; thanks kevin will update with updated schedule :)</p>
+<p><strong>Shila Ghazanfar</strong> (04:38:30) (in thread): &gt; we’re going to do a quick survey at 11am whether the BoF sessions will be parallel or consecutive, so will be able to update you as it happens:slightly_smiling_face:</p>
+<p><strong>Maria Doyle</strong> (05:52:00): &gt; <span class="citation" data-cites="Maria">@Maria</span> Doyle has joined the channel</p>
+<p><strong>Kevin Rue-Albrecht</strong> (07:08:38) (in thread): &gt; Really impressed by the amount of feedback and ideas in the GDoc!</p>
+<p><strong>Ana Cristina Guerra de Souza</strong> (08:44:00): &gt; <span class="citation" data-cites="Ana">@Ana</span> Cristina Guerra de Souza has joined the channel</p>
+<p><strong>Paul Shannon</strong> (11:59:51): &gt; <span class="citation" data-cites="Paul">@Paul</span> Shannon has joined the channel</p>
+<p><strong>Paul Shannon</strong> (12:33:32): &gt; Shiny has many virtues. One obstacle I encountered in building structured applications, is that shiny widget state can be hard to track. RStudio introduced modules to help with this, but this solution, in my eyes, introduces more complexity and tricks than benefits. For instance, a module name is automatically prepended to messages sent to Javascript. I prefer explicit coding… &gt; &gt; So I picked up on a proposal and demo whose source I now forget, and now often use<strong><em>R6</em></strong>classes, one per widget, each with their own state.</p>
+<p><strong>Paul Shannon</strong> (12:35:16): &gt; If this interests you, check out a minimal and very simple example:<a href="https://github.com/PriceLab/BioShiny/tree/master/MsgBoxWidget">https://github.com/PriceLab/BioShiny/tree/master/MsgBoxWidget</a> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F042K9T0VU6/image.png">image.png</a></p>
+<p><strong>Deena Gendoo</strong> (13:24:43): &gt; <span class="citation" data-cites="Deena">@Deena</span> Gendoo has joined the channel</p>
+<p><strong>Kevin Rue-Albrecht</strong> (14:05:01): &gt; Nice approach@Paul ShannonOn a separate note, I’ve updated the shiny page of the contribution guide<a href="http://contributions.bioconductor.org/shiny.html">http://contributions.bioconductor.org/shiny.html</a>with an overdue transfer of comments in that thread<a href="https://community-bioc.slack.com/archives/C029XJX3A4F/p1660134829013599">https://community-bioc.slack.com/archives/C029XJX3A4F/p1660134829013599</a>I am intentionally flirting with over-prescriptive guidelines, if only to establish a baseline to foster discussion and refinements - Attachment (contributions.bioconductor.org): <a href="http://contributions.bioconductor.org/shiny.html">Chapter 17 Shiny apps | Bioconductor Packages: Development, Maintenance, and Peer Review</a> &gt; Shiny apps can be submitted to Bioconductor as software packages. 17.1 Code organisation Shiny apps are divided into two parts: User interface (UI) Server Shiny apps submitted to Bioconductor… - Attachment: <a href="https://community-bioc.slack.com/archives/C029XJX3A4F/p1660134829013599">Attachment</a> &gt; I suppose I will apply and do my best. Was hoping someone familiar with shiny would warn me of common pitfalls before I submit.</p>
+<p><strong>Ivo Kwee</strong> (19:19:00): &gt; <span class="citation" data-cites="Ivo">@Ivo</span> Kwee has joined the channel</p>
+<p><strong>Paul Shannon</strong> (19:22:22) (in thread): &gt; Hi Vince, By “plug” I imagine you mean something other that what we do in igvShiny. Could you explain? I mighthave some ideas.</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2022-09-17</h2>
+<p><strong>Abdul Saboor Khan</strong> (07:00:18): &gt; <span class="citation" data-cites="Abdul">@Abdul</span> Saboor Khan has joined the channel</p>
+<p><strong>Kartik</strong> (11:33:43): &gt; <span class="citation" data-cites="Kartik">@Kartik</span> has joined the channel</p>
+<p><strong>Vince Carey</strong> (12:05:15) (in thread): &gt; i think at that time i did not know about igvShiny?</p>
+<p><strong>Vince Carey</strong> (12:09:14): &gt; has anyone used shinytest with a bioc-related shiny app? i saw no reference to it in iSEE; the test suite for iSEE is substantial. would there be gains from using shinytest?</p>
+<p><strong>Kevin Rue-Albrecht</strong> (12:23:45) (in thread): &gt; Haven’t used it yet. Can’t remember looking into it, mostly because I’ve always been happy with the coverage achieved using testthat</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2022-09-18</h2>
+<p><strong>Paul Shannon</strong> (00:56:45) (in thread): &gt; I tried it, but it has been a couple of years ago now. With shinytest, you establish a reference via screen captures at specified points in the shiny app’s execution. Then the subsequent execution test compares a new screen capture to that reference, pixel by pixel. We found that this is hardware display specific - that a reference created on one display failed against a subsequent test on another display, even when the display resolution was the same. I cannot remember the details, but I think we also sometimes had trouble comparing reference and test on the same monitor. &gt; &gt; Perhaps it would be better to test at a level higher than display pixel equality. We had some luck with, but did not follow through on, a homegrown testing scheme based on events. I could elaborate if there is any interest.</p>
+<p><strong>Nils Eling</strong> (10:46:01) (in thread): &gt; I was using shinytest for testing cytomapper for a while and in general it kind of worked. Instead of testing images of the GUI (in PNG format) I only tested changes to a JSON representation of the app. I nearly got to the point where it allowed testing via CI but as soon as the version of a dependency changes the tests fail. There is still an open issue that hasn’t been addressed yet to allow testing via an automated build (<a href="https://github.com/rstudio/shinytest/issues/243">https://github.com/rstudio/shinytest/issues/243</a>).</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2022-09-19</h2>
+<p><strong>Hans-Rudolf Hotz</strong> (03:09:47): &gt; <span class="citation" data-cites="Hans-Rudolf">@Hans-Rudolf</span> Hotz has joined the channel</p>
+<p><strong>Nick</strong> (04:29:52): &gt; <span class="citation" data-cites="Nick">@Nick</span> has joined the channel</p>
+<p><strong>Fabricio Almeida-Silva</strong> (12:01:14): &gt; <span class="citation" data-cites="Fabricio">@Fabricio</span> Almeida-Silva has joined the channel</p>
+<p><strong>Nina Demeulemeester</strong> (12:47:29): &gt; <span class="citation" data-cites="Nina">@Nina</span> Demeulemeester has joined the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2022-09-20</h2>
+<p><strong>Federico Marini</strong> (08:11:40) (in thread): &gt; IIRC they did a major revamp to shinytest recently, and I think they presented something at the recent rstudio::conf. I can check it up</p>
+<p><strong>Federico Marini</strong> (08:12:46) (in thread): &gt; So, indeed there is<a href="https://rstudio.github.io/shinytest/">https://rstudio.github.io/shinytest/</a>but also<a href="https://rstudio.github.io/shinytest2/">https://rstudio.github.io/shinytest2/</a> - Attachment (rstudio.github.io): <a href="https://rstudio.github.io/shinytest/">Test Shiny Apps</a> &gt; For automated testing of Shiny applications, using a headless browser, driven through WebDriver. - Attachment (rstudio.github.io): <a href="https://rstudio.github.io/shinytest2/">Testing for Shiny Applications</a> &gt; Automated unit testing of Shiny applications through a headless Chromium browser.</p>
+<p><strong>Federico Marini</strong> (08:12:57) (in thread): &gt; the second one also being on CRAN, but just.. recent</p>
+<p><strong>Federico Marini</strong> (08:13:22) (in thread): &gt; and in “lifecycle: experimental”</p>
+<p><strong>Federico Marini</strong> (08:14:22) (in thread): &gt; Yet: here’s a presentation of it at the conf –&gt;<a href="https://www.youtube.com/watch?v=EOVPBN5o8F8">https://www.youtube.com/watch?v=EOVPBN5o8F8</a> - Attachment (YouTube): <a href="https://www.youtube.com/watch?v=EOVPBN5o8F8">Barret Schloerke: {shinytest2} Testing Shiny with {testthat}</a></p>
+<p><strong>Constantin Ahlmann-Eltze</strong> (11:04:37): &gt; <span class="citation" data-cites="Constantin">@Constantin</span> Ahlmann-Eltze has joined the channel</p>
+<p><strong>Vince Carey</strong> (14:27:33): &gt; This<a href="https://github.com/ndcn/omicser">https://github.com/ndcn/omicser</a>is mentioned at CZI open science meeting, referencing golem.<a href="https://engineering-shiny.org/golem.html">https://engineering-shiny.org/golem.html</a> - Attachment (engineering-shiny.org): <a href="https://engineering-shiny.org/golem.html">Chapter 4 Introduction to {golem} | Engineering Production-Grade Shiny Apps</a> &gt; img.left { float: left; margin-right: 1em; } The {golem} (Fay et al.&nbsp;2021) package is a framework for building production-grade {shiny} applications. Many of the patterns and methodologies…</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2022-12-01</h2>
+<p><strong>Mark Ziemann</strong> (22:42:05): &gt; <span class="citation" data-cites="Mark">@Mark</span> Ziemann has joined the channel</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2022-12-13</h2>
+<p><strong>Yue Cao</strong> (19:04:48): &gt; <span class="citation" data-cites="Yue">@Yue</span> Cao has joined the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2022-12-15</h2>
+<p><strong>Mercilena Benjamin</strong> (09:39:34): &gt; <span class="citation" data-cites="Mercilena">@Mercilena</span> Benjamin has joined the channel</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2022-12-23</h2>
+<p><strong>Vince Carey</strong> (06:59:49): &gt; alpha testing?<a href="https://shiny.rstudio.com/py/docs/get-started.html">https://shiny.rstudio.com/py/docs/get-started.html</a></p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2022-12-30</h2>
+<p><strong>Federico Marini</strong> (13:21:16): &gt; not really, it got announced at the rstudio conf recently</p>
+<p><strong>Federico Marini</strong> (13:21:30): &gt; so, yes, might be lacking quite some features, but it got out “officially”</p>
+<p><strong>Jared Andrews</strong> (14:39:58): &gt; they still say it may having breaking changes</p>
+<p><strong>Jared Andrews</strong> (14:40:31): &gt; I don’t know if that’s true or not, but I’ve held off doing anything with it due to that for now</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2023-01-12</h2>
+<p><strong>Janani Ravi</strong> (01:34:30) (in thread): &gt; Kevin, are you one of thepoint of contact folks for this—BioC shiny app packages?</p>
+<p><strong>Janani Ravi</strong> (01:39:03) (in thread): &gt; What’s the typical data/size/storage cap on experimenthub/isee, especially the former?Do you happen to know this off the top of your head?</p>
+<p><strong>Kevin Rue-Albrecht</strong> (04:03:35) (in thread): &gt; If I understand you well, then I’ve had that conversation with CAB and some core members, and my current understanding is that no one really knows the size of each individual data set in the Ehub</p>
+<p><strong>Kevin Rue-Albrecht</strong> (04:07:56) (in thread): &gt; Depends on the nature of your question. I’ve set up the repository for the contributions guidelines and wrote some of the contents myself, but some questions require feedback form bioc core:wink:</p>
+<p><strong>Janani Ravi</strong> (10:27:16) (in thread): &gt; I wanted to explore the fit of our shiny app to the bioc package option.Let me look into this a bit more carefully and ping you again.</p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:29:06) (in thread): &gt; OK, no problem. Ask away, and if I can help I’ll reply, otherwise we can get others involved. My main mission is that the guidelines grow in usefulness and clarity, I don’t mind who write them:slightly_smiling_face:</p>
+<p><strong>Janani Ravi</strong> (10:29:19) (in thread): &gt; Hmm, so 100-150gb is a possibility then?<span class="citation" data-cites="Lori">@Lori</span> Shepherdwould you have some insight? &gt; &gt; I’m looking for a good avenue to release data packages.Sean suggested ehub.Hence the question.I can furnish further details in case that would be helpful.Thanks, both!</p>
+<p><strong>Lori Shepherd</strong> (10:33:42): &gt; <span class="citation" data-cites="Lori">@Lori</span> Shepherd has joined the channel</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2023-03-07</h2>
+<p><strong>Vince Carey</strong> (06:30:33): &gt; Well, I haven’t tried golem yet, but I did use shinytest::recordTest on a new app. What I find is that the testing procedure produces PNG files as snapshots of app appearance. If you do fairly rigorous testing, you will have quite a few MB of PNG in the resulting test folder. One would quickly exceed the 5MB package size limit if doing this in a Bioconductor package. I don’t know how to address this at this time.</p>
+<p><strong>Vince Carey</strong> (06:31:58): &gt; I would comment also that I find shinyMobile package fairly intriguing. It would be nice to be able to use an app on the phone or tablet to get information about certain aspects of the project.</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2023-03-08</h2>
+<p><strong>Federico Marini</strong> (08:29:44): &gt; I never used shinyTest per se, but I knew it had this “drawback”. &gt; In iSEE we have implemented a different kind of tests, “for the app” but not in that framework. &gt; &gt; And from a recent posit/rstudio conf, I seem to recall they have a younger brother for that package, and that might be the new way to go with this:<a href="https://github.com/rstudio/shinytest2/">https://github.com/rstudio/shinytest2/</a></p>
+<p><strong>Vince Carey</strong> (12:29:18): &gt; Thanks@Federico Marini!</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2023-03-16</h2>
+<p><strong>Roger Giné Bertomeu</strong> (04:21:34): &gt; <span class="citation" data-cites="Roger">@Roger</span> Giné Bertomeu has joined the channel</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2023-03-28</h2>
+<p><strong>Phil Cheng</strong> (15:05:21): &gt; <span class="citation" data-cites="Phil">@Phil</span> Cheng has joined the channel</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2023-04-21</h2>
+<p><strong>Kozo Nishida</strong> (14:19:31): &gt; <span class="citation" data-cites="Kozo">@Kozo</span> Nishida has joined the channel</p>
+<p><strong>Sridhar N</strong> (14:22:11): &gt; <span class="citation" data-cites="Sridhar">@Sridhar</span> N has joined the channel</p>
+<p><strong>Alex Mahmoud</strong> (14:49:16): &gt; <span class="citation" data-cites="Alex">@Alex</span> Mahmoud has joined the channel</p>
+<p><strong>Sarvesh Nikumbh</strong> (15:19:43): &gt; <span class="citation" data-cites="Sarvesh">@Sarvesh</span> Nikumbh has joined the channel</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2023-04-23</h2>
+<p><strong>Steve Lianoglou</strong> (11:54:56): &gt; <span class="citation" data-cites="Steve">@Steve</span> Lianoglou has joined the channel</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2023-04-24</h2>
+<p><strong>Filip Stachura</strong> (07:21:46): &gt; <span class="citation" data-cites="Filip">@Filip</span> Stachura has joined the channel</p>
+<p><strong>vedha</strong> (07:24:21): &gt; <span class="citation" data-cites="vedha">@vedha</span> has joined the channel</p>
+<p><strong>Alvaro Sanchez</strong> (07:41:27): &gt; <span class="citation" data-cites="Alvaro">@Alvaro</span> Sanchez has joined the channel</p>
+<p><strong>Ismael Rodriguez</strong> (07:56:48): &gt; <span class="citation" data-cites="Ismael">@Ismael</span> Rodriguez has joined the channel</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2023-04-26</h2>
+<p><strong>ChiaSin</strong> (16:38:22): &gt; <span class="citation" data-cites="ChiaSin">@ChiaSin</span> has joined the channel</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2023-05-16</h2>
+<p><strong>Joanna Mocko</strong> (09:46:48): &gt; <span class="citation" data-cites="Joanna">@Joanna</span> Mocko has joined the channel</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2023-05-17</h2>
+<p><strong>Hassan Kehinde Ajulo</strong> (12:19:03): &gt; <span class="citation" data-cites="Hassan">@Hassan</span> Kehinde Ajulo has joined the channel</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2023-05-25</h2>
+<p><strong>Jacob Krol</strong> (17:14:16): &gt; <span class="citation" data-cites="Jacob">@Jacob</span> Krol has joined the channel</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2023-05-31</h2>
+<p><strong>Alyssa Obermayer</strong> (14:16:10): &gt; <span class="citation" data-cites="Alyssa">@Alyssa</span> Obermayer has joined the channel</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2023-06-07</h2>
+<p><strong>Alyssa Obermayer</strong> (18:30:30): &gt; <span class="citation" data-cites="Alyssa">@Alyssa</span> Obermayer has joined the channel</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2023-06-16</h2>
+<p><strong>Richard Dushime</strong> (02:40:24): &gt; <span class="citation" data-cites="Richard">@Richard</span> Dushime has joined the channel</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2023-06-20</h2>
+<p><strong>Louis Le Nézet</strong> (04:13:08): &gt; <span class="citation" data-cites="Louis">@Louis</span> Le Nézet has joined the channel</p>
+<p><strong>Max Qiu</strong> (09:10:41): &gt; <span class="citation" data-cites="Max">@Max</span> Qiu has joined the channel</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2023-07-12</h2>
+<p><strong>Axel Klenk</strong> (19:33:50): &gt; <span class="citation" data-cites="Axel">@Axel</span> Klenk has joined the channel</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2023-07-28</h2>
+<p><strong>Konstantinos Daniilidis</strong> (13:47:56): &gt; <span class="citation" data-cites="Konstantinos">@Konstantinos</span> Daniilidis has joined the channel</p>
+<p><strong>Benjamin Yang</strong> (15:58:58): &gt; <span class="citation" data-cites="Benjamin">@Benjamin</span> Yang has joined the channel</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2023-08-02</h2>
+<p><strong>Jamin Liu</strong> (14:44:40): &gt; <span class="citation" data-cites="Jamin">@Jamin</span> Liu has joined the channel</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2023-08-04</h2>
+<p><strong>Trisha Timpug</strong> (09:36:27): &gt; <span class="citation" data-cites="Trisha">@Trisha</span> Timpug has joined the channel</p>
+<p><strong>Ray Su</strong> (10:49:10): &gt; <span class="citation" data-cites="Ray">@Ray</span> Su has joined the channel</p>
+<p><strong>Francesc Català-Moll</strong> (13:48:28): &gt; <span class="citation" data-cites="Francesc">@Francesc</span> Català-Moll has joined the channel</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2023-08-07</h2>
+<p><strong>Jiaji George Chen</strong> (11:22:38): &gt; <span class="citation" data-cites="Jiaji">@Jiaji</span> George Chen has joined the channel</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2023-09-07</h2>
+<p><strong>Ismael Rodriguez</strong> (05:02:15): &gt; Hello:wave:I’ve made a list of really cool Shiny apps for Pharma and Biotech:<a href="https://go.appsilon.com/pharma-apps">https://go.appsilon.com/pharma-apps</a>(also see the doc attached). &gt; &gt; We’ve recently launched these two at Appsilon: &gt; FDA-Pilot-App:<a href="https://go.appsilon.com/fda-clinical-trial">https://go.appsilon.com/fda-clinical-trial</a><a href="https://t.co/0MSqh9QlKN">…</a>Drug Interactions App:<a href="https://go.appsilon.com/f">https://go.appsilon.com/f</a>Reach out for any questions! - Attachment (appsilon.com): <a href="https://appsilon.com/fda-clinical-trial-submissions-with-r-shiny-rhino/?utm_medium=referral&amp;utm_source=pharmaverse&amp;utm_campaign=aug23-guest">Advancing FDA Clinical Trial Submissions with R: Reproducing the R Submissions Pilot 2 Shiny App Using Rhino - R programming</a> &gt; Discover how to submit a Shiny app through the FDA e-CTD with Rhino. Optimize efficiency and compliance in the drug development process with R programming. - File (PDF): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F05R4JJE78W/post_ls_in_compressed__1___3_.pdf">Post_LS_In_compressed (1) (3).pdf</a></p>
+<p><strong>Vince Carey</strong> (05:22:05) (in thread): &gt; Can this be addressed? &gt; <code>&gt; Firefox detected a potential security threat and did not continue to app.playground.bigomics.ch. If you visit this site, attackers could try to steal information like your passwords, emails, or credit card details. &gt;</code></p>
+<p><strong>Ismael Rodriguez</strong> (05:27:05) (in thread): &gt; Thanks for letting me know, we’ll remove that link (which was given to us by BigOmics).</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2023-09-14</h2>
+<p><strong>rizoic</strong> (05:21:48): &gt; <span class="citation" data-cites="rizoic">@rizoic</span> has joined the channel</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2023-09-20</h2>
+<p><strong>Jaykishan</strong> (05:29:24): &gt; <span class="citation" data-cites="Jaykishan">@Jaykishan</span> has joined the channel</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2023-09-21</h2>
+<p><strong>Federico Marini</strong> (10:23:48): &gt; Meanwhile, in dreamland…<a href="https://x.com/pawel_appsilon/status/1704616436789076380?s=20">https://x.com/pawel_appsilon/status/1704616436789076380?s=20</a> - Attachment (X (formerly Twitter)): <a href="https://x.com/pawel_appsilon/status/1704616436789076380?s=20">Paweł Przytuła on X</a> &gt; This is huge! <span class="citation" data-cites="jcheng">@jcheng</span> announced Shinylive for R at #positconf2023 :fire: &gt; &gt; Now you can: &gt; &gt; 1. Convert Shiny to static HTML/CSS/JS/wasm &gt; 2. Write Shiny apps directly in a browser &gt; 3. Embed Shiny as Quarto code chunks in other webapps &gt; &gt; #rshiny #rstats #positconf</p>
+<p><strong>Jared Andrews</strong> (10:28:10): &gt; Finally, been waiting for that for a while. Toyed with it in python, but I was rather unwilling to convert everything over.</p>
+<p><strong>Jared Andrews</strong> (10:31:44): &gt; Also Github copilot integration in RStudio.</p>
+<p><strong>Kevin Stachelek</strong> (14:43:19): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Stachelek has joined the channel</p>
+<p><strong>Kevin Stachelek</strong> (14:53:14) (in thread): &gt; Would shinylive enable wider sharing of interactive analyses given the limitations of hosting somewhat large datasets and the heavy dependencies of most single cell packages? What do you think is the most robust way to share shiny based single cell analysis tools with wetlab scientists? I currently use open-source shiny server on a small intranet ubuntu webserver that houses our datasets. Are institutional tools like cellxgene etc. the way of the future? I’m typically a user/assembler of bioconductor tools so appreciate the views of developers here.</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2023-09-24</h2>
+<p><strong>Federico Marini</strong> (15:46:39) (in thread): &gt; likely not for the more complex apps. But I would like to see it happen, for sure</p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2023-10-18</h2>
+<p><strong>Ismael Rodriguez</strong> (03:13:34): &gt; Hello everyone:alembic:, for those working in R for regulatory submissions, there is a new blog on the pharmaverse talking about the<strong><em>successful review of the Shiny app submitted to the FDA</em></strong>:<a href="https://pharmaverse.github.io/blog/posts/2023-08-14_rhino_submission_2/rhino_submission_2.html?utm_medium=social&amp;utm_source=linkedin&amp;utm_campaign=article">https://pharmaverse.github.io/blog/posts/2023-08-14_rhino_submission_2/rhino_submission[…]utm_medium=social&amp;utm_source=linkedin&amp;utm_campaign=article</a>This is great for Shiny apps:tada: - Attachment (pharmaverse.github.io): <a href="https://pharmaverse.github.io/blog/posts/2023-08-14_rhino_submission_2/rhino_submission_2.html?utm_medium=social&amp;utm_source=linkedin&amp;utm_campaign=article">Pharmaverse Blog - Reproducing the R Submissions Pilot 2 Shiny Application using Rhino</a></p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2023-11-09</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (09:22:04): &gt; Spotted this article.<a href="https://www.r-bloggers.com/2023/11/r-shiny-modules-how-to-create-your-first-r-shiny-module/?utm_source=phpList&amp;utm_medium=email&amp;utm_campaign=R-bloggers-daily&amp;utm_content=HTML">https://www.r-bloggers.com/2023/11/r-shiny-modules-how-to-create-your-first-r-shiny-mo[…]medium=email&amp;utm_campaign=R-bloggers-daily&amp;utm_content=HTML</a>Haven’t read it, but I’ve heard a lot of good about shiny modules</p>
+<p><strong>Marcel Ramos Pérez</strong> (09:26:10) (in thread): &gt; Nice, the original link shows you the images :<a href="https://appsilon.com/r-shiny-modules/">https://appsilon.com/r-shiny-modules/</a></p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2024-02-13</h2>
+<p><strong>Andres Wokaty</strong> (12:09:45): &gt; <span class="citation" data-cites="Andres">@Andres</span> Wokaty has joined the channel</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2024-03-24</h2>
+<p><strong>Louis Le Nézet</strong> (13:16:15): &gt; Hi, &gt; I’m writing a Shiny app for the “Pedixplorer” package. &gt; The aim is to allow easy exploration of huge pedigree in a graphic interface. &gt; I’ve read the<a href="http://contributions.bioconductor.org/shiny.html">documentation</a>but some things are still obscure for me. &gt; &gt; Would their be somewhere a nice developped shiny app in Bioconductor that I could take inspiration from ?</p>
+<p><strong>Marcel Ramos Pérez</strong> (22:39:31): &gt; Hi Louis, I usually refer to the shiny app gallery for some examples<a href="https://shiny.posit.co/r/gallery/">https://shiny.posit.co/r/gallery/</a>but we do have a shiny apps category in<code>biocViews</code>that you can also browse (hopefully, you will find some related shiny apps)<a href="https://www.bioconductor.org/packages/release/BiocViews.html#___ShinyApps">https://www.bioconductor.org/packages/release/BiocViews.html#___ShinyApps</a></p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2024-03-25</h2>
+<p><strong>Jared Andrews</strong> (08:40:30): &gt; Also take a look at geneTonic, iSEE, and my own CRISPRball for some other examples</p>
+<p><strong>Vince Carey</strong> (09:32:35): &gt; in case you have to handle files, I found<a href="https://github.com/thomasp85/shinyFiles">https://github.com/thomasp85/shinyFiles</a>illuminating</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2024-04-28</h2>
+<p><strong>Danielle Callan</strong> (08:40:07): &gt; <span class="citation" data-cites="Danielle">@Danielle</span> Callan has joined the channel</p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2024-06-05</h2>
+<p><strong>Adrian Hirt</strong> (05:47:55): &gt; <span class="citation" data-cites="Adrian">@Adrian</span> Hirt has joined the channel</p>
+</section>
+<section id="section-53" class="level2">
+<h2 class="anchored" data-anchor-id="section-53">2024-07-05</h2>
+<p><strong>Antonin Thiébaut</strong> (04:37:58): &gt; <span class="citation" data-cites="Antonin">@Antonin</span> Thiébaut has joined the channel</p>
+</section>
+<section id="section-54" class="level2">
+<h2 class="anchored" data-anchor-id="section-54">2024-07-11</h2>
+<p><strong>Hothri Moka</strong> (07:20:43): &gt; <span class="citation" data-cites="Hothri">@Hothri</span> Moka has joined the channel</p>
+</section>
+<section id="section-55" class="level2">
+<h2 class="anchored" data-anchor-id="section-55">2024-07-12</h2>
+<p><strong>Hans-Rudolf Hotz</strong> (01:51:22): &gt; <a href="https://galaxyproject.org/news/2024-07-26-shiny-phyloseq-on-eu/">https://galaxyproject.org/news/2024-07-26-shiny-phyloseq-on-eu/</a> - Attachment (galaxyproject.org): <a href="https://galaxyproject.org/news/2024-07-26-shiny-phyloseq-on-eu/">Shiny phyloseq interactive tool available on usegalaxy.eu - practical</a> &gt; We are thrilled to announce, that thanks to the help of the Bioconductor community, we could deploy the Shiny phyloseq App as an interactive tool (IT) on <a href="http://usegalaxy.eu">usegalaxy.eu</a></p>
+<p><strong>Maria Doyle</strong> (04:34:39) (in thread): &gt; Hi@Susan Holmes, I thought you might be interested in this, in case you don’t already know. It’s a Shiny app version of your phyloseq tool available in Galaxy EU.</p>
+<p><strong>Susan Holmes</strong> (04:34:44): &gt; <span class="citation" data-cites="Susan">@Susan</span> Holmes has joined the channel</p>
+</section>
+<section id="section-56" class="level2">
+<h2 class="anchored" data-anchor-id="section-56">2024-07-19</h2>
+<p><strong>Sudipta Hazra</strong> (17:25:36): &gt; <span class="citation" data-cites="Sudipta">@Sudipta</span> Hazra has joined the channel</p>
+</section>
+<section id="section-57" class="level2">
+<h2 class="anchored" data-anchor-id="section-57">2024-07-23</h2>
+<p><strong>Tuulu</strong> (15:22:46): &gt; <span class="citation" data-cites="Tuulu">@Tuulu</span> has joined the channel</p>
+</section>
+<section id="section-58" class="level2">
+<h2 class="anchored" data-anchor-id="section-58">2024-07-25</h2>
+<p><strong>Louis Le Nézet</strong> (10:15:05): &gt; Hi everyone, &gt; I’m building an app for the Pedixplorer package and in the BioConductor guidelines it is said to &gt; &gt; Place internal functions that create observers – e.g.,<code>shiny::observeEvent()</code>– in files named<code>observers_*.R</code>. Do this both for observers reacting to the Shiny server<code>input</code>object, and reactive values stored in lists of reactive values (e.g.,<code>shiny::reactiveValues()</code>). &gt; I would like to use<code>reactiveValues</code>to store parameters selected by the user. &gt; Could anyone provide an example of how such a file might be structured? &gt; Additionally, if you know of any packages that demonstrate good practices in this area, I would appreciate your recommendations. &gt; Thanks a lot and have a great summer !</p>
+<p><strong>Jared Andrews</strong> (10:22:03): &gt; Hey Louis, you can see an example of how I handled this here:<a href="https://github.com/j-andrews7/CRISPRball/blob/devel/R/CRISPRball.R">https://github.com/j-andrews7/CRISPRball/blob/devel/R/CRISPRball.R</a>In short, I initialize a<code>reactiveValues</code>list (<code>robjects</code>) that I pass along to functions that create the observers (which you can see in the various<code>observers_*.R</code>files).</p>
+<p><strong>Jared Andrews</strong> (10:22:56): &gt; I think I looked at iSEE as my original example for doing this.</p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:31:05): &gt; <span class="citation" data-cites="Louis">@Louis</span> Le NézetNote that the current guidelines are somewhat iSEE-centric and open to feedback and suggestions. &gt; For instance, a few months ago there was a discussion of Shiny modules, which I’ve personally never used, so I cannot reasonably propose any guideline for their usage in Bioconductor. &gt; Like most of Bioconductor, these guidelines are driven by the experience and expertise of the community, and shouldn’t be seen as fixed forever:slightly_smiling_face:</p>
+<p><strong>Louis Le Nézet</strong> (10:32:19): &gt; Thanks I will try to make it work for the EuroBioc2024:grin:</p>
+<p><strong>Jared Andrews</strong> (10:36:35): &gt; FWIW, I’ve been toying with a package of modules lately (still early:<a href="https://github.com/j-andrews7/dittoVizModules">https://github.com/j-andrews7/dittoVizModules</a>) and have some thoughts in terms of their basic organization and usage.</p>
+<p><strong>Jared Andrews</strong> (10:37:24): &gt; As I get into more complex cases, I will try to write up my thoughts more coherently for discussion.</p>
+</section>
+<section id="section-59" class="level2">
+<h2 class="anchored" data-anchor-id="section-59">2024-07-26</h2>
+<p><strong>Susan Holmes</strong> (08:36:04) (in thread): &gt; Thanks Maria, We had originally had a shiny-phyloseq that was actually presented at Bioc 10 years ago in Boston. This is an update because shiny has been moving much faster than Joey or I could work..</p>
+<p><strong>Qiwen Octavia Huang</strong> (19:51:02): &gt; <span class="citation" data-cites="Qiwen">@Qiwen</span> Octavia Huang has joined the channel</p>
+</section>
+<section id="section-60" class="level2">
+<h2 class="anchored" data-anchor-id="section-60">2024-07-31</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (03:38:51) (in thread): &gt; That would be awesome! It would be good to have guidance for both ‘regular’ shiny and ‘modular’ shiny in the Bioconductor guide<a href="https://contributions.bioconductor.org/shiny.html">https://contributions.bioconductor.org/shiny.html</a>I suppose the page will just need a bit of reorganisation to interlace the two sets of shiny guidance. &gt; I initially thought a section about ‘modules’ would be nice, but each of the existing sections would also deserve a note about testing, documentation, etc. for shiny modules - Attachment (contributions.bioconductor.org): <a href="https://contributions.bioconductor.org/shiny.html">Chapter 17 Shiny apps | Bioconductor Packages: Development, Maintenance, and Peer Review</a> &gt; Shiny apps can be submitted to Bioconductor as software packages or as documented and tested functions within packages. 17.1 Code organisation Shiny apps are divided into two parts: User…</p>
+</section>
+<section id="section-61" class="level2">
+<h2 class="anchored" data-anchor-id="section-61">2024-08-12</h2>
+<p><strong>Erick Navarro</strong> (14:55:36): &gt; <span class="citation" data-cites="Erick">@Erick</span> Navarro has joined the channel</p>
+</section>
+<section id="section-62" class="level2">
+<h2 class="anchored" data-anchor-id="section-62">2024-08-14</h2>
+<p><strong>Kylie Bemis</strong> (22:35:50): &gt; <span class="citation" data-cites="Kylie">@Kylie</span> Bemis has joined the channel</p>
+</section>
+<section id="section-63" class="level2">
+<h2 class="anchored" data-anchor-id="section-63">2024-08-19</h2>
+<p><strong>Rema Gesaka</strong> (09:41:31): &gt; <span class="citation" data-cites="Rema">@Rema</span> Gesaka has joined the channel</p>
+</section>
+<section id="section-64" class="level2">
+<h2 class="anchored" data-anchor-id="section-64">2024-08-21</h2>
+<p><strong>Louis Le Nézet</strong> (12:48:50): &gt; Hi ! &gt; I’m currently trying to test shiny modules with the shinytest2 package as mentionned in the guidelines of Bioconductor. &gt; I’m facing a strange issue where my modules is working correctly when used directly but when used in<code>record_test()</code>it seems to be an old version of the module that seems to be used. &gt; To test each modules separately I have a<code>my_module_demo()</code>function that return a<code>shinyApp()</code>when called and I pass this function to shinytest2 with<code>record_test(my_module_demo())</code>. &gt; For some modules evertything works fine, but for some I need to change the name of the server function to<code>my_module_server2</code>instead of<code>my_module_server</code>for the change to be applied. &gt; As anyone faced a similar issue ? and how can I solve it ? &gt; Thanks for your help !</p>
+<p><strong>Louis Le Nézet</strong> (13:31:09) (in thread): &gt; I think the issue might come from the old version of my package that was installed in my library. &gt; I’ve removed it, but now shinytest2 doesn’t work anymore telling<code>Error in FUN(X[[i]], ...) : there is no package called 'Pedixplorer'</code>even so that I used<code>load_all()</code>and<code>Pedixplore::</code>is available in the console.</p>
+<p><strong>Louis Le Nézet</strong> (13:53:58) (in thread): &gt; So the issue was effectively due to shinytest2 using a new R session during testing. Therefore the package needs to be installed or to be load inside the demo function: &gt; <code>&gt; if (isTRUE(getOption("shiny.testmode"))) { &gt;   pkgload::load_all(rprojroot::is_r_package$find_file()) &gt; } &gt;</code> &gt; This issue seems to be still in discussion<a href="https://github.com/rstudio/shinytest2/issues/215">#1</a><a href="https://github.com/rstudio/shinytest2/issues/264">#2</a>What would be the best approach ? - Attachment: <a href="https://github.com/rstudio/shinytest2/issues/215">#215 Trouble with namespace in application as package</a> - Attachment: <a href="https://github.com/rstudio/shinytest2/issues/264">#264 Warnings from <code>{golem}</code> apps</a></p>
+</section>
+<section id="section-65" class="level2">
+<h2 class="anchored" data-anchor-id="section-65">2024-08-22</h2>
+<p><strong>Maria Doyle</strong> (12:01:10): &gt; fyi<a href="https://genomic.social/@bioconductor/113006174034063087">https://genomic.social/<span class="citation" data-cites="bioconductor/113006174034063087">@bioconductor/113006174034063087</span></a> - Attachment (genomic.social): <a href="https://genomic.social/@bioconductor/113006174034063087">Bioconductor (<span class="citation" data-cites="bioconductor">@bioconductor</span><span class="citation" data-cites="genomic.social">@genomic.social</span>)</a> &gt; :rocket: We’re excited to share a blog post about deploying Shiny apps in Galaxy, thanks to a recent Bioconductor/Galaxy hackathon! Enhance your workflows with this collaboration. Read more: <a href="https://buff.ly/3WZ06dA">https://buff.ly/3WZ06dA</a> &gt; &gt; Thanks to <span class="citation" data-cites="galaxyproject">@galaxyproject</span><span class="citation" data-cites="mstdn.science">@mstdn.science</span>, <span class="citation" data-cites="csoneson">@csoneson</span><span class="citation" data-cites="fosstodon.org">@fosstodon.org</span>, <span class="citation" data-cites="federicomarini">@federicomarini</span>, <span class="citation" data-cites="bgruening">@bgruening</span><span class="citation" data-cites="fosstodon.org">@fosstodon.org</span>, <span class="citation" data-cites="hrhotz">@hrhotz</span>, and everyone involved! #UseGalaxy #Bioinformatics #Shiny #GalaxyProject &gt; &gt; Check out <span class="citation" data-cites="galaxyfreiburg">@galaxyfreiburg</span><span class="citation" data-cites="xn">@xn</span>–baw-joa.social’s post: <a href="https://buff.ly/3yQofLG">https://buff.ly/3yQofLG</a></p>
+</section>
+<section id="section-66" class="level2">
+<h2 class="anchored" data-anchor-id="section-66">2024-09-10</h2>
+<p><strong>Alex Qin</strong> (03:46:22): &gt; <span class="citation" data-cites="Alex">@Alex</span> Qin has joined the channel</p>
+</section>
+<section id="section-67" class="level2">
+<h2 class="anchored" data-anchor-id="section-67">2024-10-23</h2>
+<p><strong>Sounkou Mahamane Toure</strong> (11:49:39): &gt; <span class="citation" data-cites="Sounkou">@Sounkou</span> Mahamane Toure has joined the channel</p>
+</section>
+<section id="section-68" class="level2">
+<h2 class="anchored" data-anchor-id="section-68">2024-11-21</h2>
+<p><strong>stefano mangiola</strong> (00:20:13): &gt; <span class="citation" data-cites="stefano">@stefano</span> mangiola has joined the channel</p>
+<p><strong>stefano mangiola</strong> (00:27:12): &gt; Hello, I hope this is the right channel to post a shiny collaboration seeking. &gt; &gt; We are revamping our paper “<strong><em>A multi-organ map of the human immune system across age, sex and ethnicity</em></strong>” (details in the link) for an appeal to Cell Press rejection despite addressable feedback. Part of this feedback asks to create an interface (shiny) to communicate our results to the public. &gt; &gt; I am wondering if anyone is interested in collaborating. As the deadline is tight, we need an experienced shiny developer to pull this off (please in case share your shiny projects). The collaboration will be, of course, recognised with co-authorship. &gt; &gt; For more details, follow the link<a href="https://github.com/stemangiola/shiny_immune_map_results">https://github.com/stemangiola/shiny_immune_map_results</a>Please share to anyone possibly interested:pray:</p>
+<p><strong>Nesrine Gharbi</strong> (04:12:17): &gt; <span class="citation" data-cites="Nesrine">@Nesrine</span> Gharbi has joined the channel</p>
+</section>
+<section id="section-69" class="level2">
+<h2 class="anchored" data-anchor-id="section-69">2024-11-22</h2>
+<p><strong>Maria Doyle</strong> (04:22:48) (in thread): &gt; If you don’t find a collaborator here and since your Shiny app involves Bioconductor packages, why not also post on the Bioconductor developers’ mailing list or in#developers-forum? It could give your project some good visibility among people who may not be in this channel but might be interested to collaborate.</p>
+<p><strong>Federico Marini</strong> (13:49:06): &gt; <span class="citation" data-cites="stefano">@stefano</span> mangiolahave you thought of deploying it with some form that leverage our iSEE “and friends”?</p>
+<p><strong>Federico Marini</strong> (13:50:02): &gt; I am wondering whether you can have things cleverly put into the SE-like object and hop on a well oiled wheel</p>
+<p><strong>Federico Marini</strong> (13:50:36): &gt; of course, if this “fits into an SE-like object”</p>
+<p><strong>stefano mangiola</strong> (18:34:46): &gt; That’s an idea! The majority of the info would come as coefficient from a model, not so much from RNA counts. But it could be a further addition!</p>
+</section>
+<section id="section-70" class="level2">
+<h2 class="anchored" data-anchor-id="section-70">2024-11-23</h2>
+<p><strong>Federico Marini</strong> (01:31:50): &gt; still, as long as it’s rectangular…</p>
+<p><strong>Janani Ravi</strong> (09:32:16) (in thread): &gt; Hi Stefano,we’veexperience with shiny apps and work in the micro immuno world.Please reach out.Let’stalk next week<img src="mailto:Janani.Ravi@cuanschutz.edu" class="img-fluid" alt="Janani.Ravi@cuanschutz.edu"></p>
+</section>
+<section id="section-71" class="level2">
+<h2 class="anchored" data-anchor-id="section-71">2025-04-23</h2>
+<p><strong>Louis Le Nézet</strong> (10:03:52): &gt; Hi, I’ve developped a Shiny application in Pedixplorer and I’ve added helpfiles using<code>shinyhelper</code>package. &gt; These are markdown files stored in a folder and I’m wondering where should this folder be located in the package structure. &gt; Should I put it at the root or in the<code>inst/</code>folder ?</p>
+<p><strong>Vince Carey</strong> (12:24:50): &gt; great question@Marcel Ramos Pérezcould you have a look and propose a solution? sounds like we could need a guideline entry?</p>
+<p><strong>Marcel Ramos Pérez</strong> (12:48:03) (in thread): &gt; The should be installed with the package to render on the fly. I’d say move them to the<code>inst/</code>folder and hopefully<code>shinyhelper</code>can find the files - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F08PB3RTP6Z/image.png">image.png</a></p>
+</section>
+<section id="section-72" class="level2">
+<h2 class="anchored" data-anchor-id="section-72">2025-04-24</h2>
+<p><strong>Louis Le Nézet</strong> (03:18:04) (in thread): &gt; Thanks I moved them to “/inst/helpfiles” and used &gt; <code>&gt; shinyhelper::observe_helpers( &gt;     help_dir = system.file("helpfiles", package = "Pedixplorer") &gt; ) &gt;</code> &gt; to force the location of the helpfiles.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

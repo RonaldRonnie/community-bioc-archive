@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#github-actions – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2021-08-31</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2021-09-01</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2021-09-07</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2021-09-09</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2021-10-08</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2021-11-25</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2021-11-26</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2022-01-03</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2022-02-25</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2022-02-27</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2022-02-28</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2022-03-01</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2022-03-15</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2022-03-18</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2022-03-25</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2022-03-28</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2022-03-29</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2022-04-22</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2022-04-25</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2022-05-09</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2022-05-10</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2022-06-07</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2022-07-08</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2022-07-13</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2022-07-14</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2022-07-21</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2022-07-28</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2022-08-01</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2022-09-26</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2022-09-27</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2022-10-11</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2022-10-12</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2023-01-12</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2023-01-21</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2023-02-06</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2023-02-14</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2023-03-09</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2023-03-10</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2023-03-21</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2023-03-22</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2023-03-29</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2023-03-30</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2023-04-03</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2023-04-04</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2023-04-05</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2023-04-12</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2023-04-21</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2023-05-25</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2023-07-01</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2023-07-13</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2023-07-18</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2023-08-03</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2023-08-04</a></li>
+  <li><a href="#section-53" id="toc-section-53" class="nav-link" data-scroll-target="#section-53">2023-08-07</a></li>
+  <li><a href="#section-54" id="toc-section-54" class="nav-link" data-scroll-target="#section-54">2023-12-28</a></li>
+  <li><a href="#section-55" id="toc-section-55" class="nav-link" data-scroll-target="#section-55">2024-02-06</a></li>
+  <li><a href="#section-56" id="toc-section-56" class="nav-link" data-scroll-target="#section-56">2024-02-07</a></li>
+  <li><a href="#section-57" id="toc-section-57" class="nav-link" data-scroll-target="#section-57">2024-03-05</a></li>
+  <li><a href="#section-58" id="toc-section-58" class="nav-link" data-scroll-target="#section-58">2024-03-06</a></li>
+  <li><a href="#section-59" id="toc-section-59" class="nav-link" data-scroll-target="#section-59">2024-03-12</a></li>
+  <li><a href="#section-60" id="toc-section-60" class="nav-link" data-scroll-target="#section-60">2024-03-18</a></li>
+  <li><a href="#section-61" id="toc-section-61" class="nav-link" data-scroll-target="#section-61">2024-03-19</a></li>
+  <li><a href="#section-62" id="toc-section-62" class="nav-link" data-scroll-target="#section-62">2024-03-28</a></li>
+  <li><a href="#section-63" id="toc-section-63" class="nav-link" data-scroll-target="#section-63">2024-04-23</a></li>
+  <li><a href="#section-64" id="toc-section-64" class="nav-link" data-scroll-target="#section-64">2024-04-24</a></li>
+  <li><a href="#section-65" id="toc-section-65" class="nav-link" data-scroll-target="#section-65">2024-08-19</a></li>
+  <li><a href="#section-66" id="toc-section-66" class="nav-link" data-scroll-target="#section-66">2024-10-02</a></li>
+  <li><a href="#section-67" id="toc-section-67" class="nav-link" data-scroll-target="#section-67">2024-10-12</a></li>
+  <li><a href="#section-68" id="toc-section-68" class="nav-link" data-scroll-target="#section-68">2024-10-22</a></li>
+  <li><a href="#section-69" id="toc-section-69" class="nav-link" data-scroll-target="#section-69">2024-10-31</a></li>
+  <li><a href="#section-70" id="toc-section-70" class="nav-link" data-scroll-target="#section-70">2024-11-08</a></li>
+  <li><a href="#section-71" id="toc-section-71" class="nav-link" data-scroll-target="#section-71">2024-11-09</a></li>
+  <li><a href="#section-72" id="toc-section-72" class="nav-link" data-scroll-target="#section-72">2024-11-12</a></li>
+  <li><a href="#section-73" id="toc-section-73" class="nav-link" data-scroll-target="#section-73">2024-11-21</a></li>
+  <li><a href="#section-74" id="toc-section-74" class="nav-link" data-scroll-target="#section-74">2024-12-12</a></li>
+  <li><a href="#section-75" id="toc-section-75" class="nav-link" data-scroll-target="#section-75">2024-12-28</a></li>
+  <li><a href="#section-76" id="toc-section-76" class="nav-link" data-scroll-target="#section-76">2025-01-10</a></li>
+  <li><a href="#section-77" id="toc-section-77" class="nav-link" data-scroll-target="#section-77">2025-01-14</a></li>
+  <li><a href="#section-78" id="toc-section-78" class="nav-link" data-scroll-target="#section-78">2025-02-13</a></li>
+  <li><a href="#section-79" id="toc-section-79" class="nav-link" data-scroll-target="#section-79">2025-03-29</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#github-actions</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2021-08-31</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (07:29:19): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht has joined the channel</p>
+<p><strong>Kevin Rue-Albrecht</strong> (07:29:19): &gt; set the channel description: Questions and advice for running GitHub actions for Bioconductor packages</p>
+<p><strong>Kevin Rue-Albrecht</strong> (07:29:47): &gt; Anyone else recently ran into this one? &gt; <code>&gt; Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) :  &gt;   there is no package called 'SummarizedExperiment' &gt; Calls: &lt;Anonymous&gt; ... loadNamespace -&gt; withRestarts -&gt; withOneRestart -&gt; doWithOneRestart &gt; ERROR: lazy loading failed for package 'rtracklayer' &gt; Execution halted &gt; * removing '/__w/_temp/Library/rtracklayer' &gt; ERROR: dependency 'MatrixGenerics' is not available for package 'SummarizedExperiment' &gt; * removing '/__w/_temp/Library/SummarizedExperiment' &gt; ERROR: dependency 'rtracklayer' is not available for package 'GenomicFeatures' &gt; * removing '/__w/_temp/Library/GenomicFeatures' &gt; ERROR: dependencies 'GenomicFeatures', 'rtracklayer' are not available for package 'ensembldb' &gt; * removing '/__w/_temp/Library/ensembldb' &gt;</code> &gt; -&gt;<a href="https://github.com/kevinrue/TVTB/runs/3471391489?check_suite_focus=true#step:17:155">https://github.com/kevinrue/TVTB/runs/3471391489?check_suite_focus=true#step:17:155</a></p>
+<p><strong>Kevin Rue-Albrecht</strong> (07:31:04): &gt; I remember running into errors like &gt; <code>&gt; ERROR: dependency 'MatrixGenerics' is not available for package 'SummarizedExperiment' &gt;</code> &gt; a while back, I just can’t remember what the fix was</p>
+<p><strong>Kevin Rue-Albrecht</strong> (07:31:23): &gt; it seems that the earliest error in that particular workflow is &gt; <code>&gt; Warning: dependency 'matrixStats (&gt;= 0.60.1)' is not available &gt;</code></p>
+<p><strong>Kevin Rue-Albrecht</strong> (07:32:01): &gt; Though it looks like that is a version recently released on CRAN (2021-08-23):<a href="https://cran.rstudio.com/web/packages/matrixStats/index.html">https://cran.rstudio.com/web/packages/matrixStats/index.html</a> - Attachment (cran.rstudio.com): <a href="https://cran.rstudio.com/web/packages/matrixStats/index.html">matrixStats: Functions that Apply to Rows and Columns of Matrices (and to Vectors)</a> &gt; High-performing functions operating on rows and columns of matrices, e.g.&nbsp;col / rowMedians(), col / rowRanks(), and col / rowSds(). Functions optimized per data type and for subsetted calculations such that both memory usage and processing time is minimized. There are also optimized vector-based methods, e.g.&nbsp;binMeans(), madDiff() and weightedMedian().</p>
+<p><strong>Charlotte Soneson</strong> (07:39:35): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+<p><strong>Charlotte Soneson</strong> (07:41:14): &gt; It may be that it’s trying to pick up<code>matrixStats</code>from the RStudio package manager, where it seems that only 0.60.0 is available at the moment (we’re running into exactly this issue in a course at this very moment - specifying that<code>matrixStats</code>should be installed from<code>repos = "</code><a href="https://cloud.r-project.org">https://cloud.r-project.org</a><code>"</code>worked there).</p>
+<p><strong>Luke Zappia</strong> (07:49:11): &gt; <span class="citation" data-cites="Luke">@Luke</span> Zappia has joined the channel</p>
+<p><strong>Charlotte Soneson</strong> (08:01:40) (in thread): &gt; The snapshot is from Aug 9, before the new<code>matrixStats</code>package was released:<a href="https://github.com/kevinrue/TVTB/runs/3471391489?check_suite_focus=true#step:17:26">https://github.com/kevinrue/TVTB/runs/3471391489?check_suite_focus=true#step:17:26</a></p>
+<p><strong>Alan O’C</strong> (08:32:44): &gt; <span class="citation" data-cites="Alan">@Alan</span> O’C has joined the channel</p>
+<p><strong>Marcel Ramos Pérez</strong> (09:16:46): &gt; <span class="citation" data-cites="Marcel">@Marcel</span> Ramos Pérez has joined the channel</p>
+<p><strong>Spencer Nystrom</strong> (09:47:03): &gt; <span class="citation" data-cites="Spencer">@Spencer</span> Nystrom has joined the channel</p>
+<p><strong>Pablo Rodriguez</strong> (10:00:25): &gt; <span class="citation" data-cites="Pablo">@Pablo</span> Rodriguez has joined the channel</p>
+<p><strong>David Zhang</strong> (10:12:27): &gt; <span class="citation" data-cites="David">@David</span> Zhang has joined the channel</p>
+<p><strong>Lukas Weber</strong> (10:43:37): &gt; <span class="citation" data-cites="Lukas">@Lukas</span> Weber has joined the channel</p>
+<p><strong>Lukas Weber</strong> (10:45:34): &gt; I have had this issue in the last week too - thanks@Charlotte Soneson@Kevin Rue-Albrecht</p>
+<p><strong>Lukas Weber</strong> (10:46:39): &gt; I thought it might also be because the Bioconductor docker build hasn’t been updated in the last 1-2 weeks, which I think my GHA workflow was using:<a href="https://github.com/Bioconductor/bioconductor_docker">https://github.com/Bioconductor/bioconductor_docker</a></p>
+<p><strong>Lukas Weber</strong> (10:47:13): &gt; So this also still has the older version of<code>matrixStats</code></p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:55:06): &gt; Brilliant. Thanks@Charlotte Soneson! &gt; I was going a bit nuts trying to understand it, and haven’t got used to checking the source repositories. &gt; I can see now that Mac is having a better time picking a repository: &gt; <code>&gt; replacement repositories: &gt;     CRAN:[https://cloud.r-project.org](https://cloud.r-project.org) &gt;</code></p>
+<p><strong>Federico Marini</strong> (12:27:41): &gt; <span class="citation" data-cites="Federico">@Federico</span> Marini has joined the channel</p>
+<p><strong>Daniela Cassol</strong> (12:46:40): &gt; <span class="citation" data-cites="Daniela">@Daniela</span> Cassol has joined the channel</p>
+<p><strong>Lukas Weber</strong> (15:16:39): &gt; Thanks@Charlotte Soneson! I have added<code>options(repos = c(CRAN = "</code><a href="https://cloud.r-project.org">https://cloud.r-project.org</a><code>"))</code>in my GHA workflow now and seems to be working:tada:</p>
+<p><strong>Peter Hickey</strong> (19:30:57): &gt; <span class="citation" data-cites="Peter">@Peter</span> Hickey has joined the channel</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2021-09-01</h2>
+<p><strong>Laurent Gatto</strong> (00:11:17): &gt; <span class="citation" data-cites="Laurent">@Laurent</span> Gatto has joined the channel</p>
+<p><strong>Milan Malfait</strong> (05:07:05): &gt; <span class="citation" data-cites="Milan">@Milan</span> Malfait has joined the channel</p>
+<p><strong>Sean Davis</strong> (07:02:34): &gt; <span class="citation" data-cites="Sean">@Sean</span> Davis has joined the channel</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2021-09-07</h2>
+<p><strong>Chris Vanderaa</strong> (06:27:17): &gt; <span class="citation" data-cites="Chris">@Chris</span> Vanderaa has joined the channel</p>
+<p><strong>Mike Smith</strong> (08:17:33): &gt; <span class="citation" data-cites="Mike">@Mike</span> Smith has joined the channel</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2021-09-09</h2>
+<p><strong>Davide Corso</strong> (08:36:15): &gt; <span class="citation" data-cites="Davide">@Davide</span> Corso has joined the channel</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2021-10-08</h2>
+<p><strong>Tim Triche</strong> (11:59:53): &gt; <span class="citation" data-cites="Tim">@Tim</span> Triche has joined the channel</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2021-11-25</h2>
+<p><strong>Quang Nguyen</strong> (11:18:49): &gt; <span class="citation" data-cites="Quang">@Quang</span> Nguyen has joined the channel</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2021-11-26</h2>
+<p><strong>Francesc Català</strong> (06:46:09): &gt; <span class="citation" data-cites="Francesc">@Francesc</span> Català has joined the channel</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2022-01-03</h2>
+<p><strong>Kurt Showmaker</strong> (17:04:01): &gt; <span class="citation" data-cites="Kurt">@Kurt</span> Showmaker has joined the channel</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2022-02-25</h2>
+<p><strong>Mike Smith</strong> (11:29:14): &gt; Resurrecting a long dormant channel! I got fed up trying to remember to increment the versions of R in my various workflows after each Bioconductor release, so I tried to develop my own action that would do it for me if I specify I want to use Bioconductor “devel” or “release”. I thought it might be useful to others who are using Github Actions to test packages, so you can find it at<a href="https://github.com/grimbough/bioc-actions">https://github.com/grimbough/bioc-actions</a>I’d welcome feedback if anyone does try it out.</p>
+<p><strong>Alan O’C</strong> (11:45:43) (in thread): &gt; Huge thanks, I have sighed at my github actions a few times and thought “I should really just do this”</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2022-02-27</h2>
+<p><strong>Charlotte Soneson</strong> (13:14:55) (in thread): &gt; <span class="citation" data-cites="Mike">@Mike</span> Smiththis is great, thanks for putting it together!:slightly_smiling_face:May I ask whether you have tried it out also in the Bioc docker containers? I got an error that seems to happen during the tex installation/update, not sure whether it’s something transient so I just wanted to check (see<a href="https://github.com/csoneson/alevinQC/runs/5351147958?check_suite_focus=true">https://github.com/csoneson/alevinQC/runs/5351147958?check_suite_focus=true</a>).</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2022-02-28</h2>
+<p><strong>Mike Smith</strong> (04:10:27) (in thread): &gt; No, I’ve not tried using the docker containers. Personally, while I think the Docker images are great for getting things done, when it comes to checking code I actually like to have a record of the required system packages etc so I can help users with installation problems. Hence no docker testing yet. &gt; &gt; Looking at that log, it seems my use of Powershell to run the<code>tlmgr</code>fails as Powershell isn’t available in the container. That step is probably only required on Windows, and definitely not in the container, so I’ll try to make it conditional.</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2022-03-01</h2>
+<p><strong>Mike Smith</strong> (03:52:09) (in thread): &gt; ~~~I think I’ve got it working with Docker now. I’ve got a small example workflow now at ~<del><a href="https://github.com/grimbough/biocActionsExamples/runs/5372075755?check_suite_focus=true">https://github.com/grimbough/biocActionsExamples/runs/5372075755?check_suite_focus=true</a></del>~~ which seems to be passing. I don’t think it’s perfect, but it’s working for now. ~~~~Thanks for the feedback. &gt; &gt; Scratch that. I made an assumption that<code>$R_USER_LIBS</code>would be defined, but it isn’t. I don’t understand why I get a green tick even though<code>R CMD check</code>fails, but will investigate.</p>
+<p><strong>Charlotte Soneson</strong> (04:20:55) (in thread): &gt; Thanks! Just tried it in my repo as well and I get the same warning in the check (but a green checkmark)</p>
+<p><strong>Mike Smith</strong> (11:50:04) (in thread): &gt; Well I still don’t understand why it gave a green tick, I guess<code>R CMD check</code>still gives an exit code<code>0</code>:shrug:Either way, I think I’ve sorted the library path when working inside a container, so feel free to give it another try.</p>
+<p><strong>Charlotte Soneson</strong> (12:25:09) (in thread): &gt; Confirmed, no more warning:tada:Thanks!</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2022-03-15</h2>
+<p><strong>Jeanette Johnson</strong> (12:03:52): &gt; <span class="citation" data-cites="Jeanette">@Jeanette</span> Johnson has joined the channel</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2022-03-18</h2>
+<p><strong>Andres Wokaty</strong> (10:00:28): &gt; <span class="citation" data-cites="Andres">@Andres</span> Wokaty has joined the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2022-03-25</h2>
+<p><strong>Charlotte Soneson</strong> (04:17:40): &gt; Looks like we’re at this time of the year again…<a href="https://community-bioc.slack.com/archives/CLUJWDQF4/p1619684796117500">https://community-bioc.slack.com/archives/CLUJWDQF4/p1619684796117500</a>.@Mike Smith- I recall you put something together with a<code>prerelease</code>last year; do you think that’s something that could be baked into your bioc-actions? - Attachment: <a href="https://community-bioc.slack.com/archives/CLUJWDQF4/p1619684796117500">Attachment</a> &gt; Question for those that use GitHub actions. We’ve entered the weird limbo period prior to an R release, where R-devel is now R-4.2, but R-release is still 4.0. This breaks all my GH action workflows with <code>Bioconductor version '3.13' requires R version '4.1'; R version is too new;</code> errors. What’re peoples strategies for handling this?</p>
+<p><strong>Mike Smith</strong> (05:45:46) (in thread): &gt; It’s tricky. Last time I made a copy of the<code>r-lib/setup-r</code>action but that’s not something I really want to maintain. My actions sit on top of that and pass the R version argument, but I don’t think they provide an option to install the pre-release versions. From what I remember the names of the install binaries change really frequently at this time (and might be inconsistent across platforms?) so it’s a nightmare to stay ontop of without something automated to find the names. &gt; &gt; I’ll have a think about what might work.</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2022-03-28</h2>
+<p><strong>Sarvesh Nikumbh</strong> (10:42:54): &gt; <span class="citation" data-cites="Sarvesh">@Sarvesh</span> Nikumbh has joined the channel</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2022-03-29</h2>
+<p><strong>Dania Machlab</strong> (09:05:41): &gt; <span class="citation" data-cites="Dania">@Dania</span> Machlab has joined the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2022-04-22</h2>
+<p><strong>Charlotte Soneson</strong> (08:44:44) (in thread): &gt; I just noticed that<a href="https://github.com/r-lib/actions/tree/v2-branch/setup-r">https://github.com/r-lib/actions/tree/v2-branch/setup-r</a>(v2) now has the option to specify the<code>next</code>R version (which should give you the alpha/prerelease etc during the release process, and the patched version otherwise). It will still take some fiddling with the logic to figure out which version we need, but at least now it seems possible to get it.</p>
+<p><strong>Mike Smith</strong> (08:47:46) (in thread): &gt; Awesome. I’m on leave at the moment, but I’ll take a look when I’m back. Could you open an issue on my GitHub repo so I remember to do this when I’m back?</p>
+<p><strong>Charlotte Soneson</strong> (08:48:00) (in thread): &gt; Will do!</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2022-04-25</h2>
+<p><strong>Laurent Gatto</strong> (10:49:13): &gt; Hello - I have very recently been hit by the following issue on two different repos, claiming that the repo is owned by someone else. The error happens in the pkgdown deployment on the gh-pages branch: &gt; <code>&gt; Run git config --local user.email "action@github.com" &gt;  &gt; fatal: --local can only be used inside a git repository &gt; fatal: --local can only be used inside a git repository &gt;  &gt; Error: &lt;system_command_status_error in callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status ...: &gt;  System command 'git' failed, exit status: 128, stderr: &gt;  &gt; E&gt; fatal: unsafe repository ('/__w/PSMatch/PSMatch' is owned by someone else) &gt; E&gt; To add an exception for this directory, call: &gt; E&gt;  &gt; E&gt;    git config --global --add safe.directory /__w/PSMatch/PSMatch&gt; &gt;  &gt; Stack trace: &gt;  1. pkgdown::deploy_to_branch(new_process = FALSE) &gt;  2. pkgdown:::git_current_branch() &gt;  3. pkgdown:::git("rev-parse", "--abbrev-ref", "HEAD", echo = FALSE,  ... &gt;  4. callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status ... &gt;  5. throw(new_process_error(res, call = sys.call(), echo = echo,  ... &gt;  &gt;  x System command 'git' failed, exit status: 128, stderr: &gt; E&gt; fatal: unsafe repository ('/__w/PSMatch/PSMatch' is owned by someone else) &gt; E&gt; To add an exception for this directory, call: &gt; E&gt;  &gt; E&gt;    git config --global --add safe.directory /__w/PSMatch/PSMatch  &gt; Execution halted &gt; Error: Process completed with exit code 1. &gt;</code> &gt; Any idea?</p>
+<p><strong>Laurent Gatto</strong> (10:49:35) (in thread): &gt; Here’s an example<a href="https://github.com/rformassspectrometry/PSMatch/runs/6159341714?check_suite_focus=true">https://github.com/rformassspectrometry/PSMatch/runs/6159341714?check_suite_focus=true</a></p>
+<p><strong>Charlotte Soneson</strong> (11:05:35) (in thread): &gt; Just a thought, but I wonder if it would help to update the workflow - the current version of<code>biocthis</code>is using different git configuration values (see change here:<a href="https://github.com/lcolladotor/biocthis/commit/c06e66d60bd864ef67dffb09f1efb2d5179c62de">https://github.com/lcolladotor/biocthis/commit/c06e66d60bd864ef67dffb09f1efb2d5179c62de</a>). Not sure if this is the reason -<code>velociraptor</code>uses the new values and deployed ok last time it was run, but it seems that yours did too until recently so I’m not sure…</p>
+<p><strong>Laurent Gatto</strong> (11:10:29) (in thread): &gt; Indeed, it used to work:cry:. &gt; &gt; I’m now testing<a href="https://github.com/rformassspectrometry/PSMatch/blob/main/.github/workflows/check-bioc.yml">this one</a>(taken from another package that seems to deploy properly). Will try the latest<code>biocthis</code>version next. Thanks!</p>
+<p><strong>Marcel Ramos Pérez</strong> (12:57:47) (in thread): &gt; Why not use<a href="https://github.com/JamesIves/github-pages-deploy-action">https://github.com/JamesIves/github-pages-deploy-action</a>?</p>
+<p><strong>Laurent Gatto</strong> (13:28:31) (in thread): &gt; Mainly because I have been using gha for a long time and have been keeping the same ones as long as they worked. But I’ll looked into that one, thanks.</p>
+<p><strong>Marcel Ramos Pérez</strong> (13:30:14) (in thread): &gt; See the template here:<a href="https://github.com/seandavi/BuildABiocWorkshop/blob/master/.github/workflows/basic_checks.yaml">https://github.com/seandavi/BuildABiocWorkshop/blob/master/.github/workflows/basic_checks.yaml</a></p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2022-05-09</h2>
+<p><strong>Vince Carey</strong> (06:21:48): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+<p><strong>Vince Carey</strong> (06:24:37): &gt; If we are going to be using github actions more systemically, it seems to make sense that BiocCheck examine the actions and warn about aspects of workflows that could be stale or improper. Do we have/want project-endorsed actions with versions and their own testing processes?</p>
+<p><strong>Vince Carey</strong> (06:38:58): &gt; <span class="citation" data-cites="Marcel">@Marcel</span> Ramos Pérezthoughts about BiocCheck looking at .github/workflows ?</p>
+<p><strong>Vince Carey</strong> (06:48:02): &gt; <span class="citation" data-cites="Mike">@Mike</span> SmithI know you have defined some actions for use in workflows … would we want to have a versioning discipline for these, linked to a container linked to a Bioconductor version? And some kind of routine testing discipline with reporting to action maintainer?</p>
+<p><strong>Lori Shepherd</strong> (10:15:24): &gt; <span class="citation" data-cites="Lori">@Lori</span> Shepherd has joined the channel</p>
+<p><strong>Marcel Ramos Pérez</strong> (18:55:28) (in thread): &gt; I don’t think the actions are in the scope of<code>BiocCheck</code>. GA validation could be part of the<code>biocthis</code>package.</p>
+<p><strong>Vince Carey</strong> (18:56:19) (in thread): &gt; OK</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2022-05-10</h2>
+<p><strong>Mike Smith</strong> (06:06:36) (in thread): &gt; Personally I see the actions I’ve developed as developer tools that aid with package development and robustness, rather than providing environments for package users to do something with the package itself. &gt; &gt; Others can chime in if I’m wrong, but I think the most common use case for GH workflows is for the package developer to run<code>R CMD check</code>on all three platforms and get feedback faster than waiting for the Bioc build system to process everything. Similarly, getting things like code coverage reports are neat, but generally focused on feedback to the package developer (perhaps with the side effect of publicly advertising some level of quality via a badge/report). These are all tasks someone could run on their own hardware and Bioconductor would be none-the-wiser, but GH workflows are a nice way to automate and use hardware for free. I’m not sure it’s the place of BiocCheck or the like to actually care what the workflows are doing. Are they even distributed with a source package? I guess we encourage unit tests, which probably fall into a similar category, but we don’t enforce their use nor check how comprehensive or appropriate any existing tests are and<strong><em>testthat</em></strong>tests are not distributed to the end user by default. &gt; &gt; I’ve deliberately tried to make my actions work outside of the Bioconductor versioning, precisely because it was a pain as a developer to go through all of my<code>R CMD check</code>workflows (one per package) and update the versions on R and Bioconductor after each release. Generally I want to setup a workflow that says “this should always use the devel version of Bioconductor” and then let the action make the correct choices about versions for that moment in time, that same as when I submit to the Bioc git repo and assume that the build system will use the appropriate versions for each branch. The action should certainly be versioned, in case I choose to make a design decision that breaks the workflows of others, but I’m not sure it’s directly related to Bioconductor’s versioning.</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2022-06-07</h2>
+<p><strong>Simon Pearce</strong> (09:28:04): &gt; <span class="citation" data-cites="Simon">@Simon</span> Pearce has joined the channel</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2022-07-08</h2>
+<p><strong>Athena Chen</strong> (12:00:51): &gt; <span class="citation" data-cites="Athena">@Athena</span> Chen has joined the channel</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2022-07-13</h2>
+<p><strong>Simon Pearce</strong> (12:00:01): &gt; Is it possible to have a github action that pushes a container containing the package + all dependencies onto DockerHub?</p>
+<p><strong>Kevin Rue-Albrecht</strong> (13:14:01) (in thread): &gt; have you checked<code>biocthis</code>and more specifically that part of the template?<a href="https://github.com/lcolladotor/biocthis/blob/master/inst/templates/check-bioc.yml#L303">https://github.com/lcolladotor/biocthis/blob/master/inst/templates/check-bioc.yml#L303</a></p>
+<p><strong>Sean Davis</strong> (13:36:11) (in thread): &gt; I’ve converted<a href="https://github.com/seandavi/BuildABiocWorkshop">https://github.com/seandavi/BuildABiocWorkshop</a>to use GitHub container registry instead of DockerHub, but the actions in the repo do what you want. It is a template that you can use directly and has instructions for use.</p>
+<p><strong>Simon Pearce</strong> (14:32:50) (in thread): &gt; I am using<code>biocthis</code>yes, which is built on top of<strong><em>BuildABiocWorkshop </em></strong>from what I can tell. &gt; I didn’t have a Dockerfile apparently, just added that in from<strong><em>BuildABiocWorkshop</em></strong>. &gt; The run of the action is now building the object, just failed to actually push it to Dockerhub. &gt; <code>&gt; denied: requested access to the resource is denied &gt; Error: exit status 1 &gt; Usage: &gt; exit status 1 &gt;   github-actions build-push [flags] &gt; Flags: &gt;   -h, --help   help for build-push &gt;</code> &gt; I don’t really care where the container goes, just that I can get at it! So GitHub container registry sounds fine too. Let me take a further look at<strong><em>BuildABiocWorkshop.</em></strong></p>
+<p><strong>Simon Pearce</strong> (14:41:58) (in thread): &gt; Ok, trying the action block for the GitHub container registry that you have in BuildABiocWorkshop now.</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2022-07-14</h2>
+<p><strong>Simon Pearce</strong> (04:24:16) (in thread): &gt; Thank you, that seems to have worked, I now have a container on the github container registry. Just need to figure out how to change the permissions on that to be able to download it…</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2022-07-21</h2>
+<p><strong>Nitesh Turaga</strong> (15:53:59): &gt; <span class="citation" data-cites="Nitesh">@Nitesh</span> Turaga has joined the channel</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2022-07-28</h2>
+<p><strong>Mervin Fansler</strong> (17:19:54): &gt; <span class="citation" data-cites="Mervin">@Mervin</span> Fansler has joined the channel</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2022-08-01</h2>
+<p><strong>Garth Kong</strong> (12:13:52): &gt; <span class="citation" data-cites="Garth">@Garth</span> Kong has joined the channel</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2022-09-26</h2>
+<p><strong>Martin Morgan</strong> (18:24:48): &gt; <span class="citation" data-cites="Martin">@Martin</span> Morgan has joined the channel</p>
+<p><strong>Martin Morgan</strong> (18:31:19): &gt; I’ve been working on a ‘recreational’ package<a href="https://github.com/mtmorgan/hcaCaseStudies">hcaCaseStudies</a>that has some relatively expensive file download and computation steps in the vignettes, and I’ve been using BiocFileCache to save both the files and the computations. This means that the vignettes build build quickly on my local machine, where the files and results are cached. &gt; &gt; I’d like to use pkgdown and github workflows to build a github pages site, and would like to take the same approach – caching the expensive download and computation steps for use across workflow runs. &gt; &gt; Is that possible? Can I somehow re-use renv in a straight-forward way, like telling BiocFileCache to save files in a particular directory? Other not-too-complicated solutions?</p>
+<p><strong>Spencer Nystrom</strong> (18:41:06) (in thread): &gt; Hey Martin. I think the magic bullet here is github’s<code>actions/cache</code>(details here:<a href="https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows">https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows</a>). I haven’t done this for R, but you should be able to configure your renv / BiocFileCache setup into a script to write into your actions cache, then run subsequent builds using the cached env.</p>
+<p><strong>Spencer Nystrom</strong> (18:42:14) (in thread): &gt; Here is the relevant docs section for using renv for this task:<a href="https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows">https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows</a></p>
+<p><strong>Martin Morgan</strong> (18:48:23) (in thread): &gt; Thanks@Spencer Nystromthe second link posted is the same as the first?</p>
+<p><strong>Spencer Nystrom</strong> (18:50:13) (in thread): &gt; ~<del>No, the first links to a page from github action docs describing a bit of detail about how the cache action works. The second is a link to a subheading in the cache action repo README with an example implementation for using renv in the caching action</del>~.</p>
+<p><strong>Spencer Nystrom</strong> (18:50:22) (in thread): &gt; Oh weird.</p>
+<p><strong>Spencer Nystrom</strong> (18:50:36) (in thread): &gt; My bad. Clipboard did something silly. 1 sec.</p>
+<p><strong>Spencer Nystrom</strong> (18:51:51) (in thread): &gt; <a href="https://github.com/actions/cache/blob/main/examples.md#r---renv">https://github.com/actions/cache/blob/main/examples.md#r—renv</a></p>
+<p><strong>Spencer Nystrom</strong> (18:51:54) (in thread): &gt; Here we go.</p>
+<p><strong>Spencer Nystrom</strong> (18:52:06) (in thread): &gt; That’s what I get for replying hastily on the phone!</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2022-09-27</h2>
+<p><strong>Vince Carey</strong> (07:30:30) (in thread): &gt; Just noting &gt; <code>&gt; GitHub will remove any cache entries that have not been accessed in over 7 days. There is no limit on the number of caches you can store, but the total size of all caches in a repository is limited to 10 GB. &gt;</code> &gt; from<a href="https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows">https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows</a></p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2022-10-11</h2>
+<p><strong>Nitesh Turaga</strong> (16:10:37): &gt; Anyone know how to pass a GITHUB_PAT to a docker build github action?</p>
+<p><strong>Nitesh Turaga</strong> (16:11:03): &gt; My solution looks like this, but it doesn’t seem to work<a href="https://github.com/r-lib/actions/issues/199">https://github.com/r-lib/actions/issues/199</a></p>
+<p><strong>Andres Wokaty</strong> (16:23:06) (in thread): &gt; Looking at that, I wonder if it exposes the PAT in the output? If it’s defined as an environment use<code>${{ env.GITHUB_PAT }}</code>or directly with<code>${{ secrets.GITHUB_PAT }}</code>, at least that’s how I’ve used it. I don’t think<code>GPAT=${GITHUB_PAT}</code>would work.</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2022-10-12</h2>
+<p><strong>Nitesh Turaga</strong> (08:09:57) (in thread): &gt; Thanks@Andres Wokaty! It seems to be completely “masking” the PAT. &gt; &gt; Within the container when I try to look up GITHUB_PAT, its just an empty string<code>""</code>. I must be doing something wrong.</p>
+<p><strong>Nitesh Turaga</strong> (09:40:07) (in thread): &gt; Went back to the tried and tested<a href="https://github.com/marketplace/actions/build-and-push-docker-images">https://github.com/marketplace/actions/build-and-push-docker-images</a>action. &gt; &gt; Allows build args to be taken in easily. &gt; &gt; This works well.</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2023-01-12</h2>
+<p><strong>Martin Grigorov</strong> (13:06:08): &gt; <span class="citation" data-cites="Martin">@Martin</span> Grigorov has joined the channel</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2023-01-21</h2>
+<p><strong>Hien</strong> (16:02:25): &gt; <span class="citation" data-cites="Hien">@Hien</span> has joined the channel</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2023-02-06</h2>
+<p><strong>Ying Chen</strong> (21:37:53): &gt; <span class="citation" data-cites="Ying">@Ying</span> Chen has joined the channel</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2023-02-14</h2>
+<p><strong>Jeroen Gilis</strong> (04:12:11): &gt; <span class="citation" data-cites="Jeroen">@Jeroen</span> Gilis has joined the channel</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2023-03-09</h2>
+<p><strong>Eunice Miriti</strong> (10:50:48): &gt; <span class="citation" data-cites="Eunice">@Eunice</span> Miriti has joined the channel</p>
+<p><strong>Leo Lahti</strong> (19:10:20): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+<p><strong>Leo Lahti</strong> (19:12:20): &gt; I encountered a strange issue where the PR passed our GHA checks perfectly, after that failed when building a gitbook:<a href="https://github.com/microbiome/OMA/actions/runs/4378436099/jobs/7663176368">https://github.com/microbiome/OMA/actions/runs/4378436099/jobs/7663176368</a>Does this look familiar: &gt; <code>&gt; error: RPC failed; curl 55 Failed sending HTTP2 data &gt;</code></p>
+<p><strong>Leo Lahti</strong> (19:12:44): &gt; <code>&gt; fatal: the remote end hung up unexpectedly &gt; fatal: the remote end hung up unexpectedly &gt; Everything up-to-dateError: Process completed with exit code 1. &gt;</code></p>
+<p><strong>Leo Lahti</strong> (19:13:06): &gt; <code>&gt; Error: Process completed with exit code 1. &gt;</code></p>
+<p><strong>Leo Lahti</strong> (19:13:59): &gt; I have not been able to troubleshoot this successfully so far.</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2023-03-10</h2>
+<p><strong>Vince Carey</strong> (11:02:22): &gt; Are all your secrets up to date? I ran into something like this when my PAT was invalid.</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2023-03-21</h2>
+<p><strong>Y-h. Taguchi</strong> (20:10:23): &gt; <span class="citation" data-cites="Y-h">@Y-h</span>. Taguchi has joined the channel</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2023-03-22</h2>
+<p><strong>Marc Elosua</strong> (04:41:11): &gt; <span class="citation" data-cites="Marc">@Marc</span> Elosua has joined the channel</p>
+<p><strong>Mike Morgan</strong> (05:47:27): &gt; <span class="citation" data-cites="Mike">@Mike</span> Morgan has joined the channel</p>
+<p><strong>Michael Lynch</strong> (13:18:58): &gt; <span class="citation" data-cites="Michael">@Michael</span> Lynch has joined the channel</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2023-03-29</h2>
+<p><strong>Mike Smith</strong> (08:54:01): &gt; I don’t know about anyone else, but I’ve had a few mentions from@Martin Grigorovwho’s leading a project to build Bioconductor packages on ARM64. However, if he encounters a problem, it’s actually pretty hard for a package maintainer to try and debug it unless they also happe to have access to ARM64 hardware. It feels like a some way of emulating a ARM64 environment might be a useful addition to the suite of Github actions. Does anyone have experience trying this with something like Qemu and the Docker images for alternative architectures?</p>
+<p><strong>Martin Grigorov</strong> (09:07:32) (in thread): &gt; since I’ve been mentioned … :-)</p>
+<p><strong>Martin Grigorov</strong> (09:08:07) (in thread): &gt; I have few articles explaining how to do this with QEMU or VM</p>
+<p><strong>Martin Grigorov</strong> (09:08:49) (in thread): &gt; QEMU &amp; Docker:<a href="https://martin-grigorov.medium.com/building-linux-packages-for-different-cpu-architectures-with-docker-and-qemu-d29e4ebc9fa5">https://martin-grigorov.medium.com/building-linux-packages-for-different-cpu-architectures-with-docker-and-qemu-d29e4ebc9fa5</a></p>
+<p><strong>Martin Grigorov</strong> (09:09:29) (in thread): &gt; free VM from Oracle Cloud:<a href="https://martin-grigorov.medium.com/github-actions-arm64-runner-on-oracle-cloud-a77cdf7a325a">https://martin-grigorov.medium.com/github-actions-arm64-runner-on-oracle-cloud-a77cdf7a325a</a>you can ignore the Github Actions part</p>
+<p><strong>Martin Grigorov</strong> (09:10:17) (in thread): &gt; the “problem” with Oracle Cloud (and any other cloud provider) is that they ask for Credit Card details even if you use just their Free Tiers</p>
+<p><strong>Martin Grigorov</strong> (09:11:26) (in thread): &gt; if you use Github Actions then<a href="https://github.com/uraimo/run-on-arch-action/">https://github.com/uraimo/run-on-arch-action/</a>is really handy to run your builds and tests on several CPU architectures. But it uses QEMU so it is a bit slow !</p>
+<p><strong>Mike Smith</strong> (09:18:39) (in thread): &gt; Awesome, thanks for the rundown. I’ll take a look at them.</p>
+<p><strong>Martin Grigorov</strong> (09:20:48) (in thread): &gt; One more: CircleCI (a competitor of Github Actions) provides Linux ARM64 (and MacOS ARM64) runners for free too. What I like there is that it is possible to connect via SSH to their VMs and debug a failure</p>
+<p><strong>Janani Ravi</strong> (10:43:07): &gt; <span class="citation" data-cites="Janani">@Janani</span> Ravi has joined the channel</p>
+<p><strong>Himel Mallick</strong> (16:56:35): &gt; <span class="citation" data-cites="Himel">@Himel</span> Mallick has joined the channel</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2023-03-30</h2>
+<p><strong>Henrik Bengtsson</strong> (10:35:54): &gt; <span class="citation" data-cites="Henrik">@Henrik</span> Bengtsson has joined the channel</p>
+<p><strong>Henrik Bengtsson</strong> (10:38:19) (in thread): &gt; Not CI, but it might be useful to mention the M1 mac-builder service<a href="https://mac.r-project.org/macbuilder/submit.html">https://mac.r-project.org/macbuilder/submit.html</a></p>
+<p><strong>Yikun Jiang</strong> (11:42:35): &gt; <span class="citation" data-cites="Yikun">@Yikun</span> Jiang has joined the channel</p>
+<p><strong>Yikun Jiang</strong> (11:47:00) (in thread): &gt; Another tips, if you are using apple M1, you can also test the Linux aarch64 with docker:<code>docker run -ti ubuntu bash</code></p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2023-04-03</h2>
+<p><strong>Mengbo Li</strong> (20:45:18): &gt; <span class="citation" data-cites="Mengbo">@Mengbo</span> Li has joined the channel</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2023-04-04</h2>
+<p><strong>Jacques SERIZAY</strong> (05:02:34): &gt; <span class="citation" data-cites="Jacques">@Jacques</span> SERIZAY has joined the channel</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2023-04-05</h2>
+<p><strong>Josué Curto Navarro</strong> (20:59:45): &gt; <span class="citation" data-cites="Josué">@Josué</span> Curto Navarro has joined the channel</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2023-04-12</h2>
+<p><strong>Nils Hoffmann</strong> (11:19:08): &gt; <span class="citation" data-cites="Nils">@Nils</span> Hoffmann has joined the channel</p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2023-04-21</h2>
+<p><strong>Mike Smith</strong> (04:33:02): &gt; Is anyone else getting problems with the compbo of R-4.3, pak (or r-lib/setup-r-dependencies) and Mac OS? For many of my packages it looks like the workflow fails to find some Mac binary, then claims to install from source but really installs a Linux binary and falls over e.g.<a href="https://github.com/grimbough/rhdf5/actions/runs/4721626812/jobs/8465141595#step:29:147">https://github.com/grimbough/rhdf5/actions/runs/4721626812/jobs/8465141595#step:29:147</a>However I don’t see any issues on the pak or r-lib actions repositories, so I’m wondering if it’s just me.</p>
+<p><strong>Mike Smith</strong> (07:08:37) (in thread): &gt; Update: pak 0.5.0 was released today and seems to have fixed the issue:tada:</p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2023-05-25</h2>
+<p><strong>Jacob Krol</strong> (17:13:39): &gt; <span class="citation" data-cites="Jacob">@Jacob</span> Krol has joined the channel</p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2023-07-01</h2>
+<p><strong>Ludwig Geistlinger</strong> (13:05:39): &gt; <span class="citation" data-cites="Ludwig">@Ludwig</span> Geistlinger has joined the channel</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2023-07-13</h2>
+<p><strong>Brian Schilder</strong> (07:02:15): &gt; <span class="citation" data-cites="Brian">@Brian</span> Schilder has joined the channel</p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2023-07-18</h2>
+<p><strong>Leonardo Collado Torres</strong> (12:48:55): &gt; <span class="citation" data-cites="Leonardo">@Leonardo</span> Collado Torres has joined the channel</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2023-08-03</h2>
+<p><strong>Tyrone Lee</strong> (10:53:09): &gt; <span class="citation" data-cites="Tyrone">@Tyrone</span> Lee has joined the channel</p>
+<p><strong>Ritika Giri</strong> (15:57:51): &gt; <span class="citation" data-cites="Ritika">@Ritika</span> Giri has joined the channel</p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2023-08-04</h2>
+<p><strong>Francesc Català-Moll</strong> (13:46:46): &gt; <span class="citation" data-cites="Francesc">@Francesc</span> Català-Moll has joined the channel</p>
+</section>
+<section id="section-53" class="level2">
+<h2 class="anchored" data-anchor-id="section-53">2023-08-07</h2>
+<p><strong>Jiaji George Chen</strong> (11:21:24): &gt; <span class="citation" data-cites="Jiaji">@Jiaji</span> George Chen has joined the channel</p>
+</section>
+<section id="section-54" class="level2">
+<h2 class="anchored" data-anchor-id="section-54">2023-12-28</h2>
+<p><strong>David Rach</strong> (09:25:31): &gt; <span class="citation" data-cites="David">@David</span> Rach has joined the channel</p>
+</section>
+<section id="section-55" class="level2">
+<h2 class="anchored" data-anchor-id="section-55">2024-02-06</h2>
+<p><strong>Mike Smith</strong> (06:04:55): &gt; Exciting news for those of use who struggle to get things working on Mac ARM64 architecture. GitHub have made M1 runners available on the free tier for GitHub actions:<a href="https://github.blog/changelog/2024-01-30-github-actions-introducing-the-new-m1-macos-runner-available-to-open-source/">https://github.blog/changelog/2024-01-30-github-actions-introducing-the-new-m1-macos-runner-available-to-open-source/</a> - Attachment (The GitHub Blog): <a href="https://github.blog/changelog/2024-01-30-github-actions-introducing-the-new-m1-macos-runner-available-to-open-source/">GitHub Actions: Introducing the new M1 macOS runner available to open source!</a> &gt; GitHub Actions: Introducing the new M1 macOS runner available to open source!</p>
+</section>
+<section id="section-56" class="level2">
+<h2 class="anchored" data-anchor-id="section-56">2024-02-07</h2>
+<p><strong>Alex Mahmoud</strong> (14:25:16): &gt; <span class="citation" data-cites="Alex">@Alex</span> Mahmoud has joined the channel</p>
+</section>
+<section id="section-57" class="level2">
+<h2 class="anchored" data-anchor-id="section-57">2024-03-05</h2>
+<p><strong>Vamika Mendiratta</strong> (02:08:47): &gt; <span class="citation" data-cites="Vamika">@Vamika</span> Mendiratta has joined the channel</p>
+<p><strong>Semango Nicholas</strong> (15:20:42): &gt; <span class="citation" data-cites="Semango">@Semango</span> Nicholas has joined the channel</p>
+</section>
+<section id="section-58" class="level2">
+<h2 class="anchored" data-anchor-id="section-58">2024-03-06</h2>
+<p><strong>Benedicta Imelda</strong> (03:04:15): &gt; <span class="citation" data-cites="Benedicta">@Benedicta</span> Imelda has joined the channel</p>
+</section>
+<section id="section-59" class="level2">
+<h2 class="anchored" data-anchor-id="section-59">2024-03-12</h2>
+<p><strong>Simon Pearce</strong> (10:56:48): &gt; The<a href="https://github.com/Bioconductor/Contributions">package submission guidelines</a>say: &gt; 1. Create your own GitHub repository, containing source code structured as an<strong>R</strong>package. The source code must be in the default branch of your GitHub repository. You cannot specify any alternative branches; the default branch is utilized. The default branch must contain only package code. Any files or directories for other applications (Github Actions, devtool, etc) should be in a different branch. &gt; But I see github workflow files in package repositories, such as<a href="https://github.com/satijalab/seurat/blob/master/.github/workflows/R_CMD_check.yaml">seurat</a>or<a href="https://github.com/sa-lee/plyranges/blob/master/.github/workflows/check-bioc.yml">plyranges</a>. &gt; Am I missing something here? How do I properly test a repository?</p>
+<p><strong>Marcel Ramos Pérez</strong> (11:58:42): &gt; They<strong>should</strong>be in a different branch but in practice nowadays the<code>.github</code>GHA folder can be included in<code>devel</code>branch. Seurat is probably not a good example as it is a CRAN package but many Bioconductor packages use GHA for testing. We will look at updating the instructions. Thanks!</p>
+<p><strong>Lori Shepherd</strong> (12:24:10): &gt; Please make sure if anything like this is included that they are listed in a <code>.Rbuildignore</code> file</p>
+<p><strong>Simon Pearce</strong> (16:32:06): &gt; Thanks. &gt; Ah, didn’t notice Seurat is a CRAN package:wink:, I just assumed it was Bioconductor due to the content.</p>
+</section>
+<section id="section-60" class="level2">
+<h2 class="anchored" data-anchor-id="section-60">2024-03-18</h2>
+<p><strong>Simon Pearce</strong> (10:49:07): &gt; Not entirely a github actions question, but not sure where else to ask. &gt; I have a function that retrieves annotation from<code>biomaRt</code>. &gt; This sometimes fails (particularly on github it seems), and I need to catch this properly, so not to fail the tests. &gt; Does anyone have an example of how to do this (I’m using<code>testthat</code>)?</p>
+<p><strong>Marcel Ramos Pérez</strong> (12:11:26) (in thread): &gt; Create a helper function that tests the connection to<code>biomaRt</code>and skip the test if unreachable. See<a href="https://code.bioconductor.org/search/search?q=skip_if_not">https://code.bioconductor.org/search/search?q=skip_if_not</a>.@Mike Smithmay have specific recommendations.</p>
+</section>
+<section id="section-61" class="level2">
+<h2 class="anchored" data-anchor-id="section-61">2024-03-19</h2>
+<p><strong>Mike Smith</strong> (05:42:38) (in thread): &gt; Depending on what exactly you’re testing you can use mocking, maybe via packages like {mockery} or {httptest2}. When I’ve used these, I used {mockery} to ‘mock’ the {biomaRt} function, which will bypass actually calling it and just give you something that looks like the expected output. That’s useful if you’re testing your code that processes the function output, but won’t necessarily tell you if {biomaRt} changes what it’s returning. {httptest2} will intercept the actual call to the website and return some content from disk that you store in the package. You can see this in {biomaRt} itself at<a href="https://github.com/grimbough/biomaRt/tree/devel/tests/testthat">https://github.com/grimbough/biomaRt/tree/devel/tests/testthat</a>That might be more robust if I were to change the {biomaRt} output format from whatever function you’re using. &gt; &gt; In reality both the BioMart server and {biomaRt} are very stable and I don’t expect the structure of the returned values to change at any point, so you’re probably safe picking either of those options. I choose this approach rather than skipping tests if the connection wasn’t available because even when the connection works it can be very slow to talk to the Ensembl server, so if you have many tests running them all can be really frustrating. The mocked versions are basically instananeous once you’ve figured out how to write them.</p>
+</section>
+<section id="section-62" class="level2">
+<h2 class="anchored" data-anchor-id="section-62">2024-03-28</h2>
+<p><strong>Jonas Schuck</strong> (14:21:32): &gt; <span class="citation" data-cites="Jonas">@Jonas</span> Schuck has joined the channel</p>
+</section>
+<section id="section-63" class="level2">
+<h2 class="anchored" data-anchor-id="section-63">2024-04-23</h2>
+<p><strong>Laurent Gatto</strong> (09:52:02): &gt; I came across <a href="[https://nektosact.com/introduction.html](https://nektosact.com/introduction.html)">act</a> to run github actions locally. This looks quite interesting to test them and any changes locally first, and reduce the long change-push-wait dev cycle. Just trying/acting on two random local<code>check-bioc.yml</code>fails (probably for good reasons). Has anyone any experience with this?</p>
+</section>
+<section id="section-64" class="level2">
+<h2 class="anchored" data-anchor-id="section-64">2024-04-24</h2>
+<p><strong>Alan O’C</strong> (04:26:55) (in thread): &gt; I have tried it, but found that sometimes it doesn’t work immediately and I’ve not been bothered to figure out why over just resorting back to the change-push-wait cycle</p>
+</section>
+<section id="section-65" class="level2">
+<h2 class="anchored" data-anchor-id="section-65">2024-08-19</h2>
+<p><strong>Rema Gesaka</strong> (09:40:54): &gt; <span class="citation" data-cites="Rema">@Rema</span> Gesaka has joined the channel</p>
+</section>
+<section id="section-66" class="level2">
+<h2 class="anchored" data-anchor-id="section-66">2024-10-02</h2>
+<p><strong>Eva Hamrud</strong> (19:06:42): &gt; <span class="citation" data-cites="Eva">@Eva</span> Hamrud has joined the channel</p>
+</section>
+<section id="section-67" class="level2">
+<h2 class="anchored" data-anchor-id="section-67">2024-10-12</h2>
+<p><strong>Vince Carey</strong> (21:15:04): &gt; Here’s a macos action failing on a libz reference, passing on linux and windows:<a href="https://github.com/vjcitn/ontoProc/actions/runs/11274358609/job/31353335313">https://github.com/vjcitn/ontoProc/actions/runs/11274358609/job/31353335313</a></p>
+</section>
+<section id="section-68" class="level2">
+<h2 class="anchored" data-anchor-id="section-68">2024-10-22</h2>
+<p><strong>Leonardo Collado Torres</strong> (14:12:11) (in thread): &gt; Nice, thanks for sharing Mike!</p>
+</section>
+<section id="section-69" class="level2">
+<h2 class="anchored" data-anchor-id="section-69">2024-10-31</h2>
+<p><strong>Mike Smith</strong> (08:41:05): &gt; Is anyone else having issues with the<code>r-lib/actions/setup-r-dependencies@v2</code>action? I keep getting failures in the package installation step using<strong><em>pak</em></strong>but I can’t figure out why. I don’t see any reports on the GitHub issues relating to this, hence asking here first. For me it seems to fail with different packages, R version, Bioconductor version, OS etc and also sometimes succeeds fine. There error message always seems to be something like: &gt; <code>&gt; Error:  &gt;   ! error in pak subprocess &gt;   Caused by error:  &gt;   ! `path` must exist &gt;   --- &gt;   Backtrace: &gt;   1. pak::lockfile_install(".github/pkg.lock") &gt;   2. pak:::remote(function(...) { … &gt;   3. err$throw(res$error) &gt;</code> &gt; Here’s a run with many examples:<a href="https://github.com/grimbough/biocActionsExamples/actions/runs/11610124522/job/32328800099">https://github.com/grimbough/biocActionsExamples/actions/runs/11610124522/job/32328800099</a></p>
+<p><strong>Mike Smith</strong> (10:23:17) (in thread): &gt; Answering my own question, it seems setting<code>Ncpus: 1</code>stops this behaviour. I guess there’s some race condition that deletes a directory being used by another installation thread when using more cores.</p>
+</section>
+<section id="section-70" class="level2">
+<h2 class="anchored" data-anchor-id="section-70">2024-11-08</h2>
+<p><strong>Federico Marini</strong> (10:57:08): &gt; <a href="https://github.com/actions/runner-images/issues/10636">https://github.com/actions/runner-images/issues/10636</a></p>
+<p><strong>Federico Marini</strong> (10:57:19): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F080FP8PJ2D/image.png">image.png</a></p>
+<p><strong>Federico Marini</strong> (10:57:29): &gt; might affect our GHA workflows, in some manners</p>
+</section>
+<section id="section-71" class="level2">
+<h2 class="anchored" data-anchor-id="section-71">2024-11-09</h2>
+<p><strong>Tim Triche</strong> (00:06:45): &gt; Oh ffs Microsoft</p>
+<p><strong>Mike Smith</strong> (01:26:07): &gt; Have people been using the pre-installed R version in their actions? I think I’ve always relied on either<a href="https://github.com/r-lib/actions/tree/v2/setup-r">r-lib/setup-r</a>or<a href="https://github.com/grimbough/bioc-actions/tree/v1-branch/setup-bioc">bioc-actions/setup-bioc</a>to install a specific version.</p>
+</section>
+<section id="section-72" class="level2">
+<h2 class="anchored" data-anchor-id="section-72">2024-11-12</h2>
+<p><strong>Alex Mahmoud</strong> (16:53:02) (in thread): &gt; AFAIK this is true in all GHA workflows widely used, so the only people affected would be folks having done manual setup</p>
+</section>
+<section id="section-73" class="level2">
+<h2 class="anchored" data-anchor-id="section-73">2024-11-21</h2>
+<p><strong>Leonardo Collado Torres</strong> (14:28:16) (in thread): &gt; aye, I use r-lib/setup-r</p>
+</section>
+<section id="section-74" class="level2">
+<h2 class="anchored" data-anchor-id="section-74">2024-12-12</h2>
+<p><strong>Hiru</strong> (09:44:30): &gt; <span class="citation" data-cites="Hiru">@Hiru</span> has joined the channel</p>
+</section>
+<section id="section-75" class="level2">
+<h2 class="anchored" data-anchor-id="section-75">2024-12-28</h2>
+<p><strong>Pascal-Onaho</strong> (07:56:17): &gt; <span class="citation" data-cites="Pascal-Onaho">@Pascal-Onaho</span> has joined the channel</p>
+</section>
+<section id="section-76" class="level2">
+<h2 class="anchored" data-anchor-id="section-76">2025-01-10</h2>
+<p><strong>Federico Marini</strong> (07:04:46) (in thread): &gt; <a href="https://bsky.app/profile/gaborcsardi.org/post/3lfeu6tzr5c2l">https://bsky.app/profile/gaborcsardi.org/post/3lfeu6tzr5c2l</a></p>
+<p><strong>Federico Marini</strong> (07:05:09): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F088T142EV6/image.png">image.png</a></p>
+<p><strong>Alex Mahmoud</strong> (10:57:59) (in thread): &gt; We’ve discussed this a bit over the past few weeks since the announcement, and as far as we could tell, all widely used Bioconductor actions are either using Bioconductor containers, or already using r-lib actions to setup R, and we don’t seem to rely on pre-existing R in any of our action templates that we could find. If you find an issue with a Bioconductor GHA workflow, please let us know so we update it asap!!</p>
+<p><strong>Federico Marini</strong> (10:58:40) (in thread): &gt; I did have an issue on a package whose name was different than the repo itself</p>
+<p><strong>Federico Marini</strong> (10:59:13) (in thread): &gt; that was because the build command gave me something that was not expected to be, and found no archive and failed.</p>
+<p><strong>Federico Marini</strong> (10:59:40) (in thread): &gt; i solved it by going with a mixture of the biocthis way and something we had in another package</p>
+<p><strong>Federico Marini</strong> (11:00:08) (in thread): &gt; Thanks for being on top of this! &gt; Probably not everyone uses the Bioc-styled actions but more vanilla ones..</p>
+</section>
+<section id="section-77" class="level2">
+<h2 class="anchored" data-anchor-id="section-77">2025-01-14</h2>
+<p><strong>neslihan oztas</strong> (10:36:58): &gt; <span class="citation" data-cites="neslihan">@neslihan</span> oztas has joined the channel</p>
+</section>
+<section id="section-78" class="level2">
+<h2 class="anchored" data-anchor-id="section-78">2025-02-13</h2>
+<p><strong>JP Flores</strong> (13:54:06): &gt; <span class="citation" data-cites="JP">@JP</span> Flores has joined the channel</p>
+</section>
+<section id="section-79" class="level2">
+<h2 class="anchored" data-anchor-id="section-79">2025-03-29</h2>
+<p><strong>Bridget Imarhia</strong> (13:12:03): &gt; <span class="citation" data-cites="Bridget">@Bridget</span> Imarhia has joined the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

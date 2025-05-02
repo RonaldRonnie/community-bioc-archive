@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#spatialdata-devel – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2023-04-28</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2023-05-02</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2023-05-03</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2023-05-04</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2023-06-09</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2023-09-13</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2023-09-20</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2023-09-29</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2024-01-04</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2024-03-11</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2024-03-15</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2024-03-17</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2024-03-18</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2024-03-21</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2024-05-17</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2024-08-14</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2024-08-17</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2024-08-23</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2024-08-27</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2024-09-03</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2024-09-11</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2024-09-13</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2024-09-25</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2024-10-01</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2024-10-10</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2024-10-16</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2024-10-17</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2024-10-21</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2024-10-22</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2024-10-23</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2024-10-27</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2024-10-28</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2024-10-30</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2024-10-31</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2024-11-01</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2024-11-04</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2024-11-05</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2024-11-06</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2024-11-07</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2024-11-11</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2024-11-15</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2025-01-03</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2025-01-04</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2025-01-05</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2025-01-08</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2025-01-09</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2025-01-10</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2025-01-26</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2025-01-28</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2025-02-06</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2025-02-13</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2025-03-07</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2025-04-21</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#spatialdata-devel</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2023-04-28</h2>
+<p><strong>Helena L. Crowell</strong> (10:15:39): &gt; <span class="citation" data-cites="Helena">@Helena</span> L. Crowell has joined the channel</p>
+<p><strong>Helena L. Crowell</strong> (10:15:39): &gt; set the channel description: S4Class to read/write/represent &gt; OME-Zarr/SpatialData-Python</p>
+<p><strong>Giovanni Palla</strong> (10:16:03): &gt; <span class="citation" data-cites="Giovanni">@Giovanni</span> Palla has joined the channel</p>
+<p><strong>Luca Marconato</strong> (10:16:03): &gt; <span class="citation" data-cites="Luca">@Luca</span> Marconato has joined the channel</p>
+<p><strong>Tim Treis</strong> (10:16:03): &gt; <span class="citation" data-cites="Tim">@Tim</span> Treis has joined the channel</p>
+<p><strong>Constantin Ahlmann-Eltze</strong> (10:16:03): &gt; <span class="citation" data-cites="Constantin">@Constantin</span> Ahlmann-Eltze has joined the channel</p>
+<p><strong>Helena L. Crowell</strong> (10:18:11): &gt; Hey Mr.s! Was a real pleasure working with you guys and getting things rolling.Sorry I had to storm off in such a rush.Will be in touch after taking a little time to cover the outstanding basics (tests, documentation, working examples etc.).Let’s meet when there’s some more progress &amp; see from there!:call_me_hand:</p>
+<p><strong>Helena L. Crowell</strong> (10:19:36): &gt; PS: the trams here suck &amp; DB is late:alarm_clock:back to:flag-ch::sparkles::snow_capped_mountain:</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2023-05-02</h2>
+<p><strong>Helena L. Crowell</strong> (05:19:36): &gt; So,<span class="citation" data-cites="Giovanni">@Giovanni</span> Palla, you mentioned (regular?) meeting(s)… Let me know when you (both?) would be available. I’m trying to track progress, and noting down questions as I go. So would be helpful to check in now and than:muscle:</p>
+<p><strong>Luca Marconato</strong> (06:03:02): &gt; Hi,<span class="citation" data-cites="Giovanni">@Giovanni</span> Pallawhat about blocking 30 min of the Thursday’s spatial data meetings? We meet with the community every two weeks from 11 to 12. Usually we speak for about 30 min with external people and the remaining 30 we discuss about us. But we could use that time to discuss bioc updates, since we talk among us in Zulip/Zoom more often anyway</p>
+<p><strong>Luca Marconato</strong> (06:03:15): &gt; the next meeting would be the next week</p>
+<p><strong>Giovanni Palla</strong> (06:06:55): &gt; I rthink this is a great idea!</p>
+<p><strong>Giovanni Palla</strong> (06:07:13): &gt; would it work for you@Helena L. Crowell?</p>
+<p><strong>Helena L. Crowell</strong> (06:09:30): &gt; Perfect. So Biweekly (starting next week) Thu at 11:30? (except next Thu I am going to Mallorca for the weekend:see_no_evil:)</p>
+<p><strong>Giovanni Palla</strong> (08:23:00): &gt; we can do it some other time next week (e.g.&nbsp;wednesday) ?</p>
+<p><strong>Helena L. Crowell</strong> (08:26:19) (in thread): &gt; Yes, any time before would work.Tho if we do Wed than I can’t work on what we discuss until I’m back…but whenever you’re available works for me &amp; after next week I’ll put Thus in my calendar:blush:</p>
+<p><strong>Giovanni Palla</strong> (10:44:48) (in thread): &gt; whatever you think it’s best! I could do next wed if you want</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2023-05-03</h2>
+<p><strong>Helena L. Crowell</strong> (12:37:49) (in thread): &gt; gee, so sorry, I realized my flight is on Wed not Thu…. so we’ll have to reschedule:confused:but no worries - got enough to do:smile:</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2023-05-04</h2>
+<p><strong>Giovanni Palla</strong> (05:09:11) (in thread): &gt; ok then week after no problem!</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2023-06-09</h2>
+<p><strong>Aedin Culhane</strong> (17:25:43): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+<p><strong>Ahmad Alkhan</strong> (17:26:37): &gt; <span class="citation" data-cites="Ahmad">@Ahmad</span> Alkhan has joined the channel</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2023-09-13</h2>
+<p><strong>Ruben Dries</strong> (10:57:28): &gt; <span class="citation" data-cites="Ruben">@Ruben</span> Dries has joined the channel</p>
+<p><strong>Christopher Chin</strong> (17:05:21): &gt; <span class="citation" data-cites="Christopher">@Christopher</span> Chin has joined the channel</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2023-09-20</h2>
+<p><strong>Alik Huseynov</strong> (04:22:23): &gt; <span class="citation" data-cites="Alik">@Alik</span> Huseynov has joined the channel</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2023-09-29</h2>
+<p><strong>Wes W</strong> (10:47:09): &gt; <span class="citation" data-cites="Wes">@Wes</span> W has joined the channel</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2024-01-04</h2>
+<p><strong>Artür Manukyan</strong> (05:43:44): &gt; <span class="citation" data-cites="Artür">@Artür</span> Manukyan has joined the channel</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2024-03-11</h2>
+<p><strong>Artür Manukyan</strong> (12:29:13): &gt; Hey all, I was wondering if there are any efforts/plans to define load/read functions for spatial tech (Xenium, Visium etc.)?<a href="https://github.com/HelenaLC/SpatialData">https://github.com/HelenaLC/SpatialData</a>if so, would they be embedded in the package or be a separate entity like spatialdata-io ?</p>
+<p><strong>Helena L. Crowell</strong> (12:38:31) (in thread): &gt; “plans” is perhaps a little optimistic, but yeah, the idea would be to have a class, visualization, and utils package (readers and writers) + n &gt; 1 methods packages for useful operations (e.g., transformations, aggregation, stats etc.) - however, the latter only makes sense once the class is in order, which it isn’t. Some discussion is happening, but nothing concrete at this point. If/when there are developments, it’ll be made known.</p>
+<p><strong>Luca Marconato</strong> (13:04:50) (in thread): &gt; I think the quickest approach will be to have a cli in the Python<code>spatialdata-io</code>package which takes the raw data and saves it to Zarr, in this way the R library can read the data without the need to implement the reader. The main problems with the readers is not the implementation but the maintenance as the versions of SpaceRanger and XeniumAnalyzer keep evolving.</p>
+<p><strong>Luca Marconato</strong> (13:05:31) (in thread): &gt; This PR tracks the status of the CLI, unfortunately it’s buried under other PRs and issues atm, but we will get there.<a href="https://github.com/scverse/spatialdata-io/pull/72">https://github.com/scverse/spatialdata-io/pull/72</a> - Attachment: <a href="https://github.com/scverse/spatialdata-io/pull/72">#72 Added first simple version of CLI script.</a> &gt; This PR adds a command line interface for calling readers. At the moment, this doesn’t work due to non-merged PRs on spatialdata-io. &gt; &gt; These are the things that still need to be done in this code to make it work: &gt; &gt; ☐ Add flags for each specific technology to ensure all of them work &gt; ☐ Wait for PR <a href="https://github.com/scverse/spatialdata-io/pull/28">#28</a> to be merged</p>
+<p><strong>Artür Manukyan</strong> (15:59:06) (in thread): &gt; Ah thanks guys, a CLI does in fact sounds amazing. &gt; &gt; However, I still believe a strong class/container such as SpatialData deserves its own standalone interfaces in both Python and R side. &gt; &gt; Also@Helena L. Crowellbut the class in R package should now be capable of building custom SpatialData objects at least and write to some zarr right ? I will play with it now:smile:</p>
+<p><strong>Helena L. Crowell</strong> (16:33:20) (in thread): &gt; No, not really, unfortunately… as I said, there are discussions happening but the class as is should not be used/expected to be read/write compatible with what’s in python; were it ready it would be in bioc devel and not just my GH. (e.g., we are missing a delayed zarr-backend, proper handling of zattrs, zarr store representation etc. before a proper class can be built; this is all under discussion but will need time…)</p>
+<p><strong>Artür Manukyan</strong> (16:37:52) (in thread): &gt; Ah gotcha! thanks again Helena</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2024-03-15</h2>
+<p><strong>Davide Risso</strong> (08:08:16): &gt; <span class="citation" data-cites="Davide">@Davide</span> Risso has joined the channel</p>
+<p><strong>Marcel Ramos Pérez</strong> (08:40:25): &gt; <span class="citation" data-cites="Marcel">@Marcel</span> Ramos Pérez has joined the channel</p>
+<p><strong>Laurent Gatto</strong> (08:49:44): &gt; <span class="citation" data-cites="Laurent">@Laurent</span> Gatto has joined the channel</p>
+<p><strong>Charlotte Soneson</strong> (09:21:06): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+<p><strong>Vince Carey</strong> (09:32:38): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+<p><strong>Jenny Drnevich</strong> (10:02:54): &gt; <span class="citation" data-cites="Jenny">@Jenny</span> Drnevich has joined the channel</p>
+<p><strong>Lukas Weber</strong> (10:47:57): &gt; <span class="citation" data-cites="Lukas">@Lukas</span> Weber has joined the channel</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2024-03-17</h2>
+<p><strong>Peter Hickey</strong> (18:02:36): &gt; <span class="citation" data-cites="Peter">@Peter</span> Hickey has joined the channel</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2024-03-18</h2>
+<p><strong>Dario Righelli</strong> (05:44:10): &gt; <span class="citation" data-cites="Dario">@Dario</span> Righelli has joined the channel</p>
+<p><strong>Mark Keller</strong> (06:53:12): &gt; <span class="citation" data-cites="Mark">@Mark</span> Keller has joined the channel</p>
+<p><strong>Stephanie Hicks</strong> (08:07:20): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks has joined the channel</p>
+<p><strong>Hervé Pagès</strong> (14:02:36): &gt; <span class="citation" data-cites="Hervé">@Hervé</span> Pagès has joined the channel</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2024-03-21</h2>
+<p><strong>Leonardo Collado Torres</strong> (09:29:58): &gt; <span class="citation" data-cites="Leonardo">@Leonardo</span> Collado Torres has joined the channel</p>
+<p><strong>Nick Eagles</strong> (09:56:13): &gt; <span class="citation" data-cites="Nick">@Nick</span> Eagles has joined the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2024-05-17</h2>
+<p><strong>Michal Kolář</strong> (10:00:02): &gt; <span class="citation" data-cites="Michal">@Michal</span> Kolář has joined the channel</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2024-08-14</h2>
+<p><strong>Kylie Bemis</strong> (22:38:19): &gt; <span class="citation" data-cites="Kylie">@Kylie</span> Bemis has joined the channel</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2024-08-17</h2>
+<p><strong>Vince Carey</strong> (07:15:31): &gt; This channel needs some action! In thread I will put some benchmarking regarding handling of ‘large’ parquet files that can arise with xenium …</p>
+<p><strong>Vince Carey</strong> (07:22:40) (in thread): &gt; The basis is transcripts.parquet shipped with<a href="https://www.10xgenomics.com/datasets/preview-data-ffpe-human-lung-cancer-with-xenium-multimodal-cell-segmentation-1-standard">lung cancer data from 10x</a> - Attachment (10x Genomics): <a href="https://www.10xgenomics.com/datasets/preview-data-ffpe-human-lung-cancer-with-xenium-multimodal-cell-segmentation-1-standard">Preview Data: FFPE Human Lung Cancer with Xenium Multimodal Cell Segmentation - 10x Genomics</a></p>
+<p><strong>Vince Carey</strong> (07:23:54) (in thread): &gt; <code>xx</code>is produced with<code>arrow::read_parquet</code>: &gt; <code>&gt; &gt; xx &gt; # A tibble: 12,165,021 × 11 &gt;    transcript_id cell_id    overlaps_nucleus feature_name x_location y_location &gt;            &lt;dbl&gt; &lt;chr&gt;                 &lt;int&gt; &lt;chr&gt;             &lt;dbl&gt;      &lt;dbl&gt; &gt;  1       2.82e14 UNASSIGNED                0 STEAP4             66.8      1439. &gt;  2       2.82e14 UNASSIGNED                0 THBS2             202.       1422. &gt;  3       2.82e14 UNASSIGNED                0 CXCR4              60.8      1427. &gt; ... &gt;</code></p>
+<p><strong>Vince Carey</strong> (07:24:40) (in thread): &gt; <code>&gt; &gt; microbenchmark(z &lt;- xx |&gt; filter(x_location &lt; 220 &amp; y_location &gt; 1410), times=20) &gt; Unit: milliseconds &gt;                                                   expr     min       lq &gt;  z &lt;- filter(xx, x_location &lt; 220 &amp; y_location &gt; 1410) 81.7286 103.8816 &gt;      mean   median       uq      max neval &gt;  106.8381 106.6605 112.5011 127.0887    20 &gt;</code></p>
+<p><strong>Vince Carey</strong> (07:28:24) (in thread): &gt; using duckdb with the parquet seems faster &gt; <code>&gt; &gt; con = dbConnect(duckdb()) &gt; &gt; vi = dbExecute(con, "create view tx as select * from parquet_scan('transcripts.parquet')") &gt; &gt; microbenchmark(z &lt;- tbl(con, "tx") |&gt; filter(x_location &lt; 220 &amp; y_location &gt; 1410), times=20) &gt; Unit: milliseconds &gt;                                                               expr     min &gt;  z &lt;- filter(tbl(con, "tx"), x_location &lt; 220 &amp; y_location &gt; 1410) 7.27563 &gt;        lq     mean   median       uq      max neval &gt;  7.457816 7.684494 7.582807 7.808913 9.218928    20 &gt;</code></p>
+<p><strong>Vince Carey</strong> (07:30:28) (in thread): &gt; These observations are part of an informal exploration of how one might “lighten the stack” associated with this modality –<a href="https://vjcitn.github.io/XenSCE/">https://vjcitn.github.io/XenSCE/</a> - Attachment (vjcitn.github.io): <a href="https://vjcitn.github.io/XenSCE/">Simple classes and methods for managing a Xenium exemplar dataset</a> &gt; Define a relatively light class for managing Xenium data. Totally experimental.</p>
+<p><strong>Vince Carey</strong> (07:36:26) (in thread): &gt; Putting to one side the important topic of interfacing with zarr, a question is whether we will want to have something like saveHDF5SummarizedExperiment that can manage in a unified way the R experiment class data, quantifications in HDF5 files and positional data recorded in parquet files? And another is whether duckdb is really advantageous for working with the parquet.</p>
+<p><strong>Helena L. Crowell</strong> (08:56:56) (in thread): &gt; Just wondering, have you tried arrow::read_parquet with as_data_frame=FALSE, and what difference it makes to in-memory representation and speed of dplyr operations?</p>
+<p><strong>Vince Carey</strong> (09:29:44) (in thread): &gt; Thanks Helena, much better that way: &gt; <code>&gt; &gt; nn = arrow::read_parquet("transcripts.parquet", as_data_frame=FALSE) &gt; &gt; microbenchmark(z &lt;- nn |&gt; filter(x_location &lt; 220 &amp; y_location &gt; 1410), times=20) &gt; Unit: milliseconds &gt;                                                   expr      min       lq &gt;  z &lt;- filter(nn, x_location &lt; 220 &amp; y_location &gt; 1410) 6.558221 6.790354 &gt;      mean   median      uq      max neval &gt;  7.022074 6.947779 7.04997 8.184056    20 &gt;</code></p>
+<p><strong>Vince Carey</strong> (09:33:01) (in thread): &gt; but now z is &gt; <code>&gt; &gt; z &gt; Table (query) &gt; transcript_id: uint64 &gt; cell_id: string &gt; overlaps_nucleus: uint8 &gt; feature_name: string &gt; x_location: float &gt; y_location: float &gt; z_location: float &gt; qv: float &gt; fov_name: string &gt; nucleus_distance: float &gt; codeword_index: int32 &gt;  &gt; * Filter: ((x_location &lt; 220) and (y_location &gt; {value:double = 1410})) &gt; See $.data for the source Arrow object &gt;</code> &gt; … how do we dig out the locations?</p>
+<p><strong>Helena L. Crowell</strong> (09:33:50) (in thread): &gt; Yeah, it’s a bit fiddly … basically all my functions do things like select &gt; filter &gt; … &gt; pull or as.data.frame to get the data &amp; plot, e.g.</p>
+<p><strong>Helena L. Crowell</strong> (09:34:44) (in thread): &gt; see here some methods I had written a while back –<a href="https://github.com/HelenaLC/SpatialData/blob/main/R/PointFrame.R">https://github.com/HelenaLC/SpatialData/blob/main/R/PointFrame.R</a></p>
+<p><strong>Vince Carey</strong> (10:03:58) (in thread): &gt; I think for comparability we need to put a collect() in the benchmark, all the last benchmark does is create the query. Including the collect increases the median time to 22ms. I have to put a collect in with the duckdb example too. Benchmarking with lazy computation takes more care than I have shown so far. &gt; <code>&gt; &gt; microbenchmark(z &lt;- tbl(con, "tx") |&gt; filter(x_location &lt; 220 &amp; y_location &gt; 1410) |&gt; collect(), times=20) &gt; Unit: milliseconds &gt;                                                                             expr &gt;  z &lt;- collect(filter(tbl(con, "tx"), x_location &lt; 220 &amp; y_location &gt;      1410)) &gt;       min       lq     mean   median       uq      max neval &gt;  83.23629 85.57663 94.74392 92.81108 102.0001 114.3132    20 &gt;</code></p>
+<p><strong>Vince Carey</strong> (10:04:59) (in thread): &gt; Probably don’t need to consider duckdb any more. Just use arrow and dplyr knowledgeably.</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2024-08-23</h2>
+<p><strong>Artür Manukyan</strong> (04:43:44): &gt; Going back to<code>zarr</code>, will<code>ZarrArray</code>be strictly available in<code>SpatialData</code>or would it have its own package (<a href="https://github.com/HelenaLC/SpatialData/blob/main/R/ZarrArray.R">https://github.com/HelenaLC/SpatialData/blob/main/R/ZarrArray.R</a>) like<code>HDF5Array</code>? &gt; &gt; There is also this really nice zarr implementation (<a href="https://github.com/keller-mark/pizzarr">https://github.com/keller-mark/pizzarr</a>). I would say its utility is quite similar to<code>rhdf5</code>.</p>
+<p><strong>Helena L. Crowell</strong> (04:50:19) (in thread): &gt; jumping in here …<code>ZarrArray</code>was my ad-hock solution to internally deal with<code>.zarr</code>array data + supplementary<code>.zattrs</code>(json-like) … this was when<code>Rarr</code>was on devel, and only supported reading the array data, without metadata &gt; &gt; that said, if we end up conforming with zarr, I would def be in favor of an independent class to represent 1) zarr + zattrs, and 2) zarr stores, where multiple resolutions (pyramid layers) are available; this is also something<code>Rarr</code>didn’t cover at the time &gt; &gt; hoping that future<code>Rarr</code>developments could cover this, along with delayed support:pray:</p>
+<p><strong>Artür Manukyan</strong> (16:43:43) (in thread): &gt; So this will perhaps be the topic of Bioc Oxford ?<a href="https://community-bioc.slack.com/archives/C03MKFSS7V2/p1722606138883569?thread_ts=1719579952.747229&amp;cid=C03MKFSS7V2">https://community-bioc.slack.com/archives/C03MKFSS7V2/p1722606138883569?thread_ts=1719579952.747229&amp;cid=C03MKFSS7V2</a> - Attachment: <a href="https://community-bioc.slack.com/archives/C03MKFSS7V2/p1722606138883569?thread_ts=1719579952.747229&amp;cid=C03MKFSS7V2">Attachment</a> &gt; Hi, <span class="citation" data-cites="Sanket">@Sanket</span> Verma <span class="citation" data-cites="Davide">@Davide</span> Risso <span class="citation" data-cites="Mike">@Mike</span> Smith I’ve just opened an <a href="https://github.com/Bioconductor/EuroBioC2024/issues/53">issue</a> at the EuroBioC2024 repo proposing this BoF. <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson told me she may be also interested, so let’s have it proposed and will see whether we get enough interest. If it happens, we’ll open a Zoom call so that Sanket could join.</p>
+<p><strong>Artür Manukyan</strong> (16:49:06) (in thread): &gt; However, I must say my experience with<code>pizzarr</code>so far was quite good, checks out many utilities that<code>Rarr</code>doesn’t.</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2024-08-27</h2>
+<p><strong>NILESH KUMAR</strong> (11:36:51): &gt; <span class="citation" data-cites="NILESH">@NILESH</span> KUMAR has joined the channel</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2024-09-03</h2>
+<p><strong>Hervé Pagès</strong> (15:06:32) (in thread): &gt; <span class="citation" data-cites="Artür">@Artür</span> Manukyan<strong><em>pizzarr</em></strong>sounds promising, thanks for sharing. Hopefully they’ll consider submitting to CRAN. &gt; I also like the idea of a dedicated<strong><em>ZarrArray</em></strong>package, with a ZarrArray class that brings the<strong><em>DelayedArray</em></strong>framework on top of<strong><em>pizzarr</em></strong>, similar to HDF5Array objects but for zarr instead of hdf5.</p>
+<p><strong>Artür Manukyan</strong> (15:26:10) (in thread): &gt; Thanks@Hervé Pagès, I have started one here to see how it would look like:<a href="https://github.com/BIMSBbioinfo/ZarrArray">https://github.com/BIMSBbioinfo/ZarrArray</a>. Lets see how it goes …</p>
+<p><strong>Hervé Pagès</strong> (15:38:18) (in thread): &gt; Oh, interesting! I’ll check it out. Thanks</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2024-09-11</h2>
+<p><strong>Ellis Patrick</strong> (03:01:13): &gt; <span class="citation" data-cites="Ellis">@Ellis</span> Patrick has joined the channel</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2024-09-13</h2>
+<p><strong>Gobi Dasu</strong> (18:18:04): &gt; <span class="citation" data-cites="Gobi">@Gobi</span> Dasu has joined the channel</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2024-09-25</h2>
+<p><strong>Alik Huseynov</strong> (07:09:15): &gt; <span class="citation" data-cites="Helena">@Helena</span> L. Crowell<code>SpatialData</code>R package, how can this be used in downstream spatial data analysis, eg starting with making<code>SpatialExperiment</code>object from<code>SpatialData</code>class? If that kind of workflow exists (besides<a href="https://htmlpreview.github.io/?https://github.com/HelenaLC/SpatialData/blob/main/vignettes/SpatialData.html">this one</a>) could you provide an example workflow? Thanks</p>
+<p><strong>Luca Marconato</strong> (13:03:57) (in thread): &gt; Hi, pre-answer before Helena gives full details. We are going to actively working on this in the next 2 months (first scheduled meeting with Helena is on Friday). We will give updates here:blush:</p>
+<p><strong>Alik Huseynov</strong> (14:12:25) (in thread): &gt; thanks Luca!</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2024-10-01</h2>
+<p><strong>Alik Huseynov</strong> (08:21:31) (in thread): &gt; <span class="citation" data-cites="Luca">@Luca</span> Marconatowill that upcoming hackathon cover some of that in R?<a href="https://spatialhackathon.github.io/">https://spatialhackathon.github.io/</a> - Attachment (ELIXIR-Germany SpaceHack): <a href="https://spatialhackathon.github.io/">Home</a> &gt; Github Pages for SpatialHackathon</p>
+<p><strong>Luca Marconato</strong> (08:37:57) (in thread): &gt; I am not sure about this; unfortunately I won’y be able to attend the SpaceHack hackathon. But it could be a good occasion to work on interoperability for who is attending.</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2024-10-10</h2>
+<p><strong>Alik Huseynov</strong> (15:45:12): &gt; <span class="citation" data-cites="Luca">@Luca</span> Marconatoand@Giovanni Palla: &gt; For spatial neighbors graph building, is spatial contiguity-based (such as rook, queen contiguity) graph building already exists in<code>scverse</code>or<code>squidpy</code>? &gt; This would be the most relevant for VisiumHD or similar (for segmentation-based methods only if cell boundaries share a vertex or an edge)</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2024-10-16</h2>
+<p><strong>Giovanni Palla</strong> (23:58:25) (in thread): &gt; hi@Alik Huseynov, yes squidpy does that for visium, I believe it would technically work for visium hd as well, but it should be tested, especially because I expect there is gonna be some sway between bins</p>
+<p><strong>Giovanni Palla</strong> (23:59:16) (in thread): &gt; you can take a look at the implmentation here<a href="https://github.com/scverse/squidpy/blob/main/src/squidpy/gr/_build.py">https://github.com/scverse/squidpy/blob/main/src/squidpy/gr/_build.py</a></p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2024-10-17</h2>
+<p><strong>Giovanni Palla</strong> (00:00:15) (in thread): &gt; like, if you pass n_neighbors=4 and coord_type=grid, it<strong>should</strong>do what you expect on visium HD, but I’m afraid it won’t be consistent, this in part maybe because of implementation not robust, but I think more due to the actual numerical values of the coordinates</p>
+<p><strong>Giovanni Palla</strong> (00:00:59) (in thread): &gt; see e.g this<a href="https://github.com/scverse/squidpy/blob/80621fc29c594f1a7b5c61b3fa968c56eecaeac9/src/squidpy/gr/_build.py#L412">https://github.com/scverse/squidpy/blob/80621fc29c594f1a7b5c61b3fa968c56eecaeac9/src/squidpy/gr/_build.py#L412</a>we had to introduce for visium</p>
+<p><strong>Giovanni Palla</strong> (00:01:29) (in thread): &gt; ofc suggestions/pull requests always wlecome</p>
+<p><strong>Alik Huseynov</strong> (07:08:53) (in thread): &gt; &gt; especially because I expect there is gonna be some sway between bins &gt; Hi@Giovanni Palla, you mean there is some displacement between spot (or bin) pairs? In this case pairwise distances between their centroids won’t be the same. &gt; This is related, though for older ST Visium<a href="https://www.biorxiv.org/content/10.1101/362624v2.full#F7">https://www.biorxiv.org/content/10.1101/362624v2.full#F7</a>I think rearranging array spots uniformly, like with centroidal Voronoi tessellation would solve that.</p>
+<p><strong>Luca Marconato</strong> (12:07:15) (in thread): &gt; Not sure if it is useful: the sway between the bins may be explained by the fact that a small rotation is present for bin data.</p>
+<p><strong>Alik Huseynov</strong> (13:31:37) (in thread): &gt; Yes, that’s another one. When the small rotation is present (maybe even at different magnitudes) additional preprocessing of that data should be done, like re-alignment or similar to remove any shifts. &gt; Non-uniform spot positions are likely due to array printing processes (some technical variability) &gt; In general, I think those need to be corrected, to insure consistency and robustness..</p>
+<p><strong>Lambda Moses</strong> (13:39:25): &gt; <span class="citation" data-cites="Lambda">@Lambda</span> Moses has joined the channel</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2024-10-21</h2>
+<p><strong>Alik Huseynov</strong> (06:21:11): &gt; probably I missed it, is someone working on SpatialData (also in R) be able to read technology-specific<code>.zarr</code>files, like from VisiumHD and Xenium?</p>
+<p><strong>Vince Carey</strong> (09:34:32): &gt; Is the “technology specific .zarr” format specifically emitted by a version of Xenium … and if so is there an example in the 10x downloads page? i suspect that there is but if you could pin down an example and link that gives the format you are interested in, there are new developments in Rarr that should be examined.</p>
+<p><strong>Artür Manukyan</strong> (09:39:42) (in thread): &gt; cell coordinates for example are also given as .zarr as an output, haven’t checked myself if Rarr can read it but I suspect it can!</p>
+<p><strong>Artür Manukyan</strong> (09:39:58) (in thread): &gt; <a href="https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/advanced/xoa-output-zarr">https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/advanced/xoa-output-zarr</a> - Attachment (10x Genomics): <a href="https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/advanced/xoa-output-zarr">Overview of Xenium Zarr Output Files - Official 10x Genomics Support</a> &gt; 10x Genomics In Situ Software Suite</p>
+<p><strong>Artür Manukyan</strong> (09:41:31) (in thread): &gt; <code>Rarr</code>should work as long as you can point it to the group name under the zarr store hence it can read the,<code>polygon_sets</code></p>
+<p><strong>Alik Huseynov</strong> (09:44:32) (in thread): &gt; Xenium-specific zarr is explained in the comment above:arrow_up:One can use the XOA v3<a href="https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/resources/xenium-example-data#test-data-v3-0">multimodal public example</a></p>
+<p><strong>Alik Huseynov</strong> (09:48:55) (in thread): &gt; In general, I think that if spatial technology provides their<code>.zarr</code>output, then one should be able to read it, be it in SpatialData, Rarr or any other related packages</p>
+<p><strong>Luca Marconato</strong> (10:10:58) (in thread): &gt; Hi, we are generally not parsing the Xenium specific<code>.zarr</code>files for Xenium (and Visium HD) because the information is mostly redundant and present elsewhere in handier formats (e.g.&nbsp;points coordinates in<code>.parquet</code>). Still, sometimes some information in some versions is present only in the Zarr files and we parse it from there (for instance IIRC the mapping between the labels indices and the cell indices was present only in Zarr in some older versions, while now I think it’s available also in the parquet files but we are still reading it from Zarr).</p>
+<p><strong>Luca Marconato</strong> (10:12:59) (in thread): &gt; We haven’t finalized the support for XOA 3.0, but if we can avoid using the Zarr files we’ll stop reading them. &gt; &gt; Regarding where to find the info, I also recommend the resource shared from@Artür Manukyan, together with the changelog from 10x (which is well curated), and also these tiny datasets:<a href="https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/resources/xenium-example-data">https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/resources/xenium-example-data</a>. We asked 10x to provide some small datasets for CI purposes and they were kind to upload them (they are currently only available only for Xenium data, not for Visium HD). - Attachment (10x Genomics): <a href="https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/resources/xenium-example-data">Example Xenium Datasets - Official 10x Genomics Support</a> &gt; 10x Genomics In Situ Software Suite</p>
+<p><strong>Alik Huseynov</strong> (12:03:03) (in thread): &gt; <code>.parquet</code>is definitely more handier than<code>.zarr</code>I agree. &gt; So, this means that unless strictly necessary, SpatialData won’t provide support on reading technology-specific Zarr files, correct?</p>
+<p><strong>Mike Smith</strong> (14:25:20): &gt; <span class="citation" data-cites="Mike">@Mike</span> Smith has joined the channel</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2024-10-22</h2>
+<p><strong>Edward Zhao</strong> (03:10:21): &gt; <span class="citation" data-cites="Edward">@Edward</span> Zhao has joined the channel</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2024-10-23</h2>
+<p><strong>Alik Huseynov</strong> (03:22:21) (in thread): &gt; any updates on that, interoperability with R and timeline? Thanks!</p>
+<p><strong>Cindy Fang</strong> (09:57:11): &gt; <span class="citation" data-cites="Cindy">@Cindy</span> Fang has joined the channel</p>
+<p><strong>Luca Marconato</strong> (12:09:49) (in thread): &gt; Currently at a conference but from this weekend I will pick up this and give updates.</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2024-10-27</h2>
+<p><strong>Artür Manukyan</strong> (18:53:57): &gt; Shall we start opening some issues on<code>HelenaLC/SpatialData</code>.<a href="https://github.com/HelenaLC/SpatialData/issues/53">https://github.com/HelenaLC/SpatialData/issues/53</a>? &gt; &gt; I must say that I am not a big fan of<code>basilisk</code>, and don’t know how much it is favored by peeps at bioc, but there are efforts on R-native solutions to this:<a href="https://github.com/scverse/anndataR">https://github.com/scverse/anndataR</a> - Attachment: <a href="https://github.com/HelenaLC/SpatialData/issues/53">#53 implementation and default behaviour of <code>readTable</code></a></p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2024-10-28</h2>
+<p><strong>Alik Huseynov</strong> (02:19:12) (in thread): &gt; I think first we need to know from@Helena L. Crowelland others who are involved, what is the status of that package, integration with spatial bioc packages and how that object can be used in spatial downstream analysis.</p>
+<p><strong>Helena L. Crowell</strong> (02:51:28) (in thread): &gt; Hi both! I really appreciate the enthusiasm. But would be grateful if we could hold off in-depth discussion until after Nov 15th. There will be a SpatialData hackathon in Basel, Switzerland, where many Bioc folks will be present as well. We hope to strategize then (scverse &amp; Bioc together) how to best move forward. So please be a little patient:pray:fwiw, I replied to the GH issue you posted re<code>basilisk</code>just now.</p>
+<p><strong>Alik Huseynov</strong> (03:15:35) (in thread): &gt; Ok, thanks! Let’s see what the plan looks like then after 15.11</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2024-10-30</h2>
+<p><strong>Estella Dong</strong> (17:01:25): &gt; <span class="citation" data-cites="Estella">@Estella</span> Dong has joined the channel</p>
+<p><strong>Shila Ghazanfar</strong> (17:01:25): &gt; <span class="citation" data-cites="Shila">@Shila</span> Ghazanfar has joined the channel</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2024-10-31</h2>
+<p><strong>Mike Smith</strong> (08:20:20): &gt; Thanks for the interesting discussion yesterday. At some point<strong><em>EBImage</em></strong>was mentioned, specifically in the context of calling<code>computeFeatures()</code>on an image. Would there be any enthusiasm for supporting Zarr images natively in EBImage? At the moment I think it only supports TIFF, JPEG, and PNG, with a suggestion to use RBioFormats to convert from others. Given the seeming coalescence and enthusiasm for Zarr in the bioimaging world, could this have a big impact for those wanting to do image analysis in R? I think it’ll be quite a lot of work, particularly if we wanted to support out of memory operations on Zarr images, but might be something to explore.</p>
+<p><strong>Artür Manukyan</strong> (08:26:33) (in thread): &gt; Dear Mike, at some point we have customized some DelayedArray based packages to define image pyramids in R which takes in either HDF5Array or ZarrArray. With that we were able to devise ggplot2 based shiny applications that access images in different layers in a speedy fashion:<a href="https://x.com/arturman_sl/status/1841873001207210151">https://x.com/arturman_sl/status/1841873001207210151</a>Would it be possible to support pyramids in EBImage too ? or something like that with TIFF is already possible ?</p>
+<p><strong>Mike Smith</strong> (08:35:10) (in thread): &gt; I’m far from the EBImage expert, but have contributed little bits over time. AFAIK it doesn’t have any support for image pyramids. It just reads a single image into an in memory array representation, and then works on this. I have no idea what would happen currently if you tried to give it a disk-backed array. My guess would be either realize it in memory, or crash, depending on the operation you tried to perform.</p>
+<p><strong>Mike Smith</strong> (08:36:15) (in thread): &gt; I think it would probably also be a lot of work to support the pyramids, and if you’re already utilising OpenCV maybe there wouldn’t be much to gain from EBImage:shrug:</p>
+<p><strong>Artür Manukyan</strong> (08:38:41) (in thread): &gt; I would love it though if EBImage handles pyramids, disk-backed image array in the same time. Perhaps, the same pyramid based operations could be useful for tiff as well hence you can support both OME-TIFF and OME-ZARR</p>
+<p><strong>Artür Manukyan</strong> (08:39:05) (in thread): &gt; OpenCV is another deal, at least I dont personally use it for visualization in r</p>
+<p><strong>Alik Huseynov</strong> (08:42:25) (in thread): &gt; in<code>SpatialFeatureExperiment</code>OME-TIFF (which was a major issue for us when reading Xenium data) can be read@Lambda Moseswrote that part. &gt; check this<a href="https://lambdamoses.github.io/SFEWorkshop2024/articles/workshop.html#images">https://lambdamoses.github.io/SFEWorkshop2024/articles/workshop.html#images</a>Image operations can also be done using<code>terra</code>and<code>EBImage</code></p>
+<p><strong>Mike Smith</strong> (08:43:11) (in thread): &gt; My reference to OpenCV was for the identification of features etc. I suspect it’s more sophisticated than<code>EBImage::computeFeatures()</code>For visualising then yes, maybe updating EBImage would be good.</p>
+<p><strong>Artür Manukyan</strong> (08:52:04) (in thread): &gt; Yes<code>RBioFormats</code>handles that beautifully!</p>
+<p><strong>Artür Manukyan</strong> (08:52:47) (in thread): &gt; I guess there is some effort to define zarr formats within BioFormats which will translate to RBioFormats immediately</p>
+<p><strong>Artür Manukyan</strong> (08:53:10) (in thread): &gt; The Java aspect is the only thing I dont like, but what do you do</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2024-11-01</h2>
+<p><strong>Artür Manukyan</strong> (09:37:48) (in thread): &gt; <span class="citation" data-cites="Josh">@Josh</span> Moorewould know better the status of zarr IO in BioFormats</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2024-11-04</h2>
+<p><strong>Vince Carey</strong> (09:10:07): &gt; The merfish.zarr in inst/extdata has zmetadata but I do not see anything that would constitute experiment metadata – what is the source, what version of platform, etc. Can we state a minimal standard for experiment provenance and ensure that all &gt; our data artifacts can be checked for compliance? [Repeats text of an issue I filed at Helena’s SpatialData repo]</p>
+<p><strong>Luca Marconato</strong> (10:06:43) (in thread): &gt; Correct, the zmetadata is just used to store the consolidated metadata, i.e.&nbsp;to make filenames discoverable in storage systems where<code>ls</code>is not available (such as S3), and it is not designed for general metadata. Personally, I haven’t worked on the metadata problem, but Wouter-Michiel Vierdag (SpatialData core dev) has. I will ask him to join this channel so he can add more details. But in short, his approach, which saw some experiments in the latest NGFF challenge, is to use<a href="https://www.researchobject.org/ro-crate/">RO-Crate</a>+<a href="https://linkml.io/">LinkML</a>to have a hierarchical system to store the metadata that is also extendable and queryable. RO-Crate and Zarr would work in a compatible way, in the sense that the path of a Zarr store can also be read as a RO-Crate container. &gt; &gt; Some previous discussions (to which I haven’t taken part, so I can’t give more details) can be found here: &gt; * <a href="https://forum.image.sc/t/community-call-metadata-in-ome-ngff/77570">https://forum.image.sc/t/community-call-metadata-in-ome-ngff/77570</a> &gt; * <a href="https://forum.image.sc/t/ro-crate-and-omero/80610">https://forum.image.sc/t/ro-crate-and-omero/80610</a> &gt; * <a href="https://github.com/ome/ome2024-ngff-challenge/issues/4">https://github.com/ome/ome2024-ngff-challenge/issues/4</a> - Attachment (researchobject.org): <a href="https://www.researchobject.org/ro-crate/">Research Object Crate (RO-Crate)</a> &gt; RO-Crate is a community effort to establish a lightweight approach to packaging research data with their metadata. It is based on <a href="http://schema.org">schema.org</a> annotations in JSON-LD, and aims to make best-practice in formal metadata description accessible and practical for use in a wider variety of situations, from an individual researcher working with a folder of data, to large data-intensive computational research environments. - Attachment (linkml.io): <a href="https://linkml.io/">LinkML - Linked data Modeling Language - LinkML - Linked data Modeling Language</a> &gt; LinkML is a language for modeling linked data - Attachment: <a href="https://github.com/ome/ome2024-ngff-challenge/issues/4">#4 Where to place RO Crate Metadata</a> &gt; <strong>Where to place the ro-crate-metadata.json file###</strong> &gt; &gt; The ro-crate-metadata.json contains descriptions of files relative to its location, within the same directory it is placed in. They can describe individual files and directories. It is not clear to me whether ro-crate-tools would expect / have a standard way of handling multiple ro-crate-metadata.json files within nested directory structures (i’ve not seen an example of this in the spec) &gt; &gt; From discussions on 2024/07/02 there were a few different options of where to place this file relative to the zarr. I’m not sure what are the most relevant design ’scoring’ factors to consider e.g.&nbsp;size/effort to create ro-crate-metadata.json or promoting adoption (e.g.&nbsp;by creating a standard that can be used beyond zarr files / by image formats that we would want to convert to zarr) &gt; &gt; <strong>1. In the directory outside the zarr</strong> &gt; &gt; <code>&gt; root-directory/ &gt; | ro-crate-metadata.json &gt; | my-image1.zarr/ &gt; |  | .zgroup &gt; |  | .zattrs &gt; |  | 0/ &gt; |  | 1/ &gt; ... &gt; | my-image2.zarr/ &gt; |  | .zgroup &gt; |  | .zattrs &gt; |  | 0/ &gt; |  | 1/ &gt; ... &gt;  &gt;</code> &gt; &gt; consequences: &gt; &gt; • Can describe more than one zarr while reusing parts of the metadata descriptions &gt; • Not intrinsically tied to the zarr format, so can be used to describe other image files using the same metadata structure &gt; • Could also contain non-image files (e.g.&nbsp;parquet files, meshes) “cleanly” (i.e.&nbsp;without putting things in the OME-Zarr container that the spec doesn’t explicitly describe) &gt; • Would support holding multiple images together with, e.g.&nbsp;transform metadata &gt; • Tools pointed at the OME-Zarr can’t discover the ro-crate metadata without making assumptions about the hierarchy structure &gt; &gt; <strong>2. Inside the zarr, at the multiscale image level</strong> &gt; &gt; <code>&gt; my-image1.zarr/ &gt; | ro-crate-metadata.json &gt; | .zgroup &gt; | .zattrs &gt; | 0/ &gt; | 1/ &gt; … &gt;  &gt;</code> &gt; &gt; consequences: &gt; &gt; • The zarr file effectively becomes an ro-crate, so the metadata is more difficult to ‘lose’ &gt; • Each RO-Crate contains a single multiscale image, possibly with a single set of labels &gt; • Easy to add ro-crate-metadata.json to an existing OME-Zarr without restructuring &gt; &gt; <strong>3. Within a zarr group wrapping other zarrs</strong> &gt; &gt; <code>&gt; zarr-group.zarr/ &gt; | ro-crate-metadata.json &gt; | 0/ &gt; |  | 0/ &gt; |  | 1/ &gt; ... &gt; | 1/ &gt; |  | 0/ &gt; |  | 0/ &gt; … &gt;  &gt;</code> &gt; &gt; consequences: &gt; &gt; • The zarr file effectively becomes an ro-crate, so the metadata is more difficult to ‘lose’ &gt; • Easy to add ro-crate-metadata.json to an existing OME-Zarr without restructuring &gt; • Can describe more than one zarr while reusing parts of the metadata descriptions &gt; • Can easily coexist with option 2</p>
+<p><strong>Vince Carey</strong> (10:21:58) (in thread): &gt; Thanks, that’s an interesting-looking stack. I would like to propose that our archives have a README.txt or README.md that gives some basic orientation, because the path to making RO-crate so far involves video tutorials etc. and I would like to be in a 0-day position to “know where the data came from and what it is about”. I hesitate to handle any data about which I can’t answer those basic questions – we don’t even state (in the artifact) the fact that the merfish.zarr has its origin in … scverse …</p>
+<p><strong>Vince Carey</strong> (10:24:54): &gt; I made a PR to SpatialData at HelenaLC. I’d like to propose that our packages pass R CMD check, and when they fail a clear issue is provided concerning what needs to be fixed.</p>
+<p><strong>Vince Carey</strong> (10:31:05): &gt; Another topic: “zarr” organizes a family of files. We want to be able to hand these around – I have adopted “zip” to put them together and then the user can take them apart. Good or bad? Do utilities exist for operating on compressed unified archives of zarr?</p>
+<p><strong>Mark Keller</strong> (10:34:43) (in thread): &gt; Technically zarr<a href="https://zarr.readthedocs.io/en/stable/tutorial.html#storage-alternatives">stores</a>are more abstract. A zarr “DirectoryStore” uses a family of files to store its data. A zarr<a href="https://zarr.readthedocs.io/en/stable/api/storage.html#zarr.storage.ZipStore">ZipStore</a>on the other hand achieves what you want. You just need to be careful when zipping a directory store as you do not want to include the root directory as part of the internal paths of the zip file. For instance: &gt; <code>&gt; To zip a zarr directory store, need to zip recursively and without the root directory included in the internal paths. &gt;  &gt; # enter the zarr store and zip its contents &gt; cd path/to/input.h5ad.zarr &amp;&amp; zip -r ../path/to/output.h5ad.zarr.zip . &gt; # cannot simply do &gt; # zip -r path/to/output.h5ad.zarr.zip path/to/input.h5ad.zarr &gt;</code></p>
+<p><strong>Artür Manukyan</strong> (10:52:21) (in thread): &gt; <span class="citation" data-cites="Mark">@Mark</span> Kellerwhat exactly happens if you zip the root folder directly though ?</p>
+<p><strong>Mark Keller</strong> (10:54:28) (in thread): &gt; The keys to things in the zarr store will include the<code>"path/to/input.h5ad.zarr"</code>so if we use AnnData as an example, accessing the<code>X</code>array from the root of the store<code>z</code>, in the first case would look like<code>z["/X"]</code>while the latter will require<code>z["/path/to/input.h5ad.zarr/X"]</code>instead which is probably not intended</p>
+<p><strong>Vince Carey</strong> (11:01:33) (in thread): &gt; Very interesting, thanks.</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2024-11-05</h2>
+<p><strong>Estella Dong</strong> (05:34:32): &gt; A more advanced version of Parquet:<a href="https://github.com/spiraldb/vortex/">https://github.com/spiraldb/vortex/</a>. It could be interesting to see the additional benefits for storing table. And how to make it extend GeoParquet?</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2024-11-06</h2>
+<p><strong>Artür Manukyan</strong> (08:31:58): &gt; FYI<a href="https://github.com/scverse/anndataR/pull/190">https://github.com/scverse/anndataR/pull/190</a></p>
+<p><strong>Dharmesh Dinesh Bhuva</strong> (22:07:48): &gt; <span class="citation" data-cites="Dharmesh">@Dharmesh</span> Dinesh Bhuva has joined the channel</p>
+<p><strong>Malvika Kharbanda</strong> (22:08:33): &gt; <span class="citation" data-cites="Malvika">@Malvika</span> Kharbanda has joined the channel</p>
+<p><strong>Farhan Ameen</strong> (22:15:21): &gt; <span class="citation" data-cites="Farhan">@Farhan</span> Ameen has joined the channel</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2024-11-07</h2>
+<p><strong>Shila Ghazanfar</strong> (17:54:33): &gt; hi all - im curious if anyone has worked with the .gef files in BGI Stereo-seq before? this is an h5 file which seems to include the per-nanoball locations and counts, but i’m finding it hard to understand how that information is being stored &amp; represented, thanks so much</p>
+<p><strong>Artür Manukyan</strong> (17:59:31) (in thread): &gt; Hmm, this is a question rather for the#spatialchannel but perhaps I might help a little, we established some internal workflows to process<code>.gef</code>s</p>
+<p><strong>Shila Ghazanfar</strong> (19:24:34) (in thread): &gt; thanks Artur !</p>
+<p><strong>Peter Hickey</strong> (21:32:39) (in thread): &gt; Matt Ritchie’s lab have looked at some stereoseq/STOmics data, too.@Changqingmight know something</p>
+<p><strong>Luca Marconato</strong> (23:44:42) (in thread): &gt; Please also you may find useful how we parse the<code>.gef</code>files in<code>spatialdata-io</code>. Code parts<a href="https://github.com/scverse/spatialdata-io/blob/3c6be23040b6ab596f05a6f24c86a3903dfae3d8/src/spatialdata_io/readers/stereoseq.py#L216">here</a>and<a href="https://github.com/scverse/spatialdata-io/blob/3c6be23040b6ab596f05a6f24c86a3903dfae3d8/src/spatialdata_io/readers/stereoseq.py#L301">here</a>.</p>
+<p><strong>Shila Ghazanfar</strong> (23:51:43) (in thread): &gt; Thank you pete and Luca! I think ive figured it out. Appreciate it!</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2024-11-11</h2>
+<p><strong>Harry Mueller</strong> (18:08:14): &gt; <span class="citation" data-cites="Harry">@Harry</span> Mueller has joined the channel</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2024-11-15</h2>
+<p><strong>Louise</strong> (15:00:37): &gt; <span class="citation" data-cites="Louise">@Louise</span> has joined the channel</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2025-01-03</h2>
+<p><strong>Josh Moore</strong> (11:41:44): &gt; <span class="citation" data-cites="Josh">@Josh</span> Moore has joined the channel</p>
+<p><strong>Josh Moore</strong> (11:43:20) (in thread): &gt; Sorry@Artür ManukyanWasn’twatching the channel.If you mean OME-Zarr, it should work with the additional jars on your class path.Generic zarr support is currently unplanned.</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2025-01-04</h2>
+<p><strong>Alik Huseynov</strong> (12:36:10) (in thread): &gt; Hi both@Luca Marconatoand@Helena L. Crowell. Any updates on reading SpatialData object in R? &gt; Eg, I would like to load existing<code>xenium_test.zarr</code>object, then make<code>SpatialExperiment</code>or ideally<code>SpatialFeatureExperiment</code>object for downstream spatial analysis. &gt; If there is some preliminary workflow/vignette to play around, please do share. Thanks!</p>
+<p><strong>Helena L. Crowell</strong> (15:57:20) (in thread): &gt; Mm, sorry for the silence…a social media/blog post was supposed to happen after the hackathon with a summary/links etc.…hopefully coming soon!…in the meantime, you can checkout my GH for what we got thus far…all under devel, but what you described should be doable:crossed_fingers:</p>
+<p><strong>Alik Huseynov</strong> (18:28:11) (in thread): &gt; Thanks!It would great to have a link to that post once ready. &gt; I checked your repo:+1:</p>
+<p><strong>Luca Marconato</strong> (18:54:27) (in thread): &gt; &gt; a social media/blog post was supposed to happen after the hackathon with a summary/links e &gt; Yes, apologies, coming soon! I do not have access to the scverse social media and we didn’t manage to finalize it before the holidays started.</p>
+<p><strong>Luca Marconato</strong> (18:57:03) (in thread): &gt; This is a BioHackrXiv pre-print that we submitted:<a href="https://osf.io/preprints/biohackrxiv/8ck3e">https://osf.io/preprints/biohackrxiv/8ck3e</a>, you can find all the details there already. - Attachment (OSF): <a href="https://osf.io/preprints/biohackrxiv/8ck3e">1st SpatialData Developer Workshop</a> &gt; This pre-print is aimed at sharing the results of the “1st SpatialData workshop,” an in-person event organized by the SpatialData team and funded by the Chan Zuckerberg Initiative (CZI) that brought together expertise from different fields, including methods developers of a variety of tools for single-cell and spatial omics. The purpose is to explore new directions to advance the field of spatial omics. By leveraging multiple programming languages, including Python, R, and JavaScript, the event focuses on four central hackathon tracks: R interoperability: This track aims to enhance the integration and compatibility of R and Python with the SpatialData Python framework by using the language-agnostic SpatialData Zarr file format (which follows, when possible, the NGFF specification). Visualization interoperability: This track is dedicated to improving the seamless integration of visualization tools across different systems and programming languages via a tool-agnostic view configuration. Scalability and benchmarking: Participants will identify, benchmark, and address computational bottlenecks within the SpatialData framework. Ergonomics and user-friendliness: This track focuses on enhancing the usability and accessibility of the SpatialData framework for both first-time users and third-party developers. These tracks aim to foster collaboration and innovation, driving advancements in the analysis and infrastructure of spatial omics and imaging data.</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2025-01-05</h2>
+<p><strong>Ilariya Tarasova</strong> (22:26:31): &gt; <span class="citation" data-cites="Ilariya">@Ilariya</span> Tarasova has joined the channel</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2025-01-08</h2>
+<p><strong>Maria Doyle</strong> (14:10:59): &gt; <span class="citation" data-cites="Maria">@Maria</span> Doyle has joined the channel</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2025-01-09</h2>
+<p><strong>Maria Doyle</strong> (09:24:43): &gt; Hi everyone, &gt; Check out the new Bioconductor blog post on the SpatialData hackathon and workshop held in November in Switzerland, organised by scverse with Bioconductor participation. Read more here:<a href="https://blog.bioconductor.org/posts/2025-01-08-bioc-in-scverse-workshop/">https://blog.bioconductor.org/posts/2025-01-08-bioc-in-scverse-workshop/</a>Thanks to@Artür Manukyanfor writing the post and to everyone who contributed! - Attachment (Bioconductor community blog): <a href="https://blog.bioconductor.org/posts/2025-01-08-bioc-in-scverse-workshop/">2024 SpatialData Workshop – Bioconductor community blog</a> &gt; R/Bioconductor developers participating in the 1st scverse SpatialData Workshop</p>
+<p><strong>Ammar Sabir Cheema</strong> (11:41:03): &gt; <span class="citation" data-cites="Ammar">@Ammar</span> Sabir Cheema has joined the channel</p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2025-01-10</h2>
+<p><strong>Brian Repko</strong> (09:26:53): &gt; <span class="citation" data-cites="Brian">@Brian</span> Repko has joined the channel</p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2025-01-26</h2>
+<p><strong>Alik Huseynov</strong> (12:55:44) (in thread): &gt; &gt; ..in the meantime, you can checkout my GH for what we got thus far … all under devel, but what you described should be doable:crossed_fingers: &gt; would it make more sense to have<code>SpatialExperiment</code>object in<code>tables</code>by default instead of SCE? Since<code>sdata["table"]</code>has<code>obsm['spatial']</code>polygon centroids as well.</p>
+<p><strong>Luca Marconato</strong> (13:46:09) (in thread): &gt; One note,<code>obsm['spatial']</code>is absent in most datasets (we kept for Xenium for legacy reasons), as we decouple spatial information from tabular annotations.</p>
+<p><strong>Alik Huseynov</strong> (14:57:58) (in thread): &gt; Thanks. So by default<code>sdata["table"]</code>has only AnnData (non-spatial singe cell data) and any spatial info like polygon centroids, shapes etc.. can be added to it afterwards if needed.</p>
+<p><strong>Luca Marconato</strong> (15:08:24) (in thread): &gt; exactly, and also vice versa: you can have a<code>SpatialData</code>object that has only images or geometry information and then you add one or more tables later</p>
+<p><strong>Luca Marconato</strong> (15:08:43) (in thread): &gt; (or you can have an object that directly has everything)</p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2025-01-28</h2>
+<p><strong>Alik Huseynov</strong> (04:04:25) (in thread): &gt; &gt; One note,<code>obsm['spatial']</code>is absent in most datasets (we kept for Xenium for legacy reasons).. &gt; <span class="citation" data-cites="Luca">@Luca</span> Marconatois such legacy kept or will be kept for next SpatialData updates?</p>
+<p><strong>Luca Marconato</strong> (05:44:36) (in thread): &gt; One should not rely on that already, as it’s basically present only for Xenium data.</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2025-02-06</h2>
+<p><strong>Kalyanee</strong> (09:21:38): &gt; <span class="citation" data-cites="Kalyanee">@Kalyanee</span> has joined the channel</p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2025-02-13</h2>
+<p><strong>Mengbo Li</strong> (17:11:42): &gt; <span class="citation" data-cites="Mengbo">@Mengbo</span> Li has joined the channel</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2025-03-07</h2>
+<p><strong>Emanuele Pitino</strong> (05:36:48): &gt; <span class="citation" data-cites="Emanuele">@Emanuele</span> Pitino has joined the channel</p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2025-04-21</h2>
+<p><strong>Jennifer Slotnick</strong> (22:44:36): &gt; <span class="citation" data-cites="Jennifer">@Jennifer</span> Slotnick has joined the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

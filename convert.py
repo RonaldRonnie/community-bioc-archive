@@ -445,7 +445,7 @@ if __name__ == "__main__":
                         output_path = os.path.join(output_dir, output_filename)
 
                         # --- Add Quarto YAML front matter ---
-                        quarto_title_line = f"---\ntitle: \"#{item_name}\"\nformat: gfm\n---\n"
+                        quarto_title_line = f"---\ntitle: \"#{item_name}\"\n---\n" # REMOVED format: gfm
 
                         # Write channel qmd file
                         if channel_markdown_lines: # Only write if there are messages

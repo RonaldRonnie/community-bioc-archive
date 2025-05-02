@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#tree-like-se – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2017-10-19</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2017-10-20</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2017-10-23</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2017-10-26</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2017-10-27</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2017-10-30</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2017-10-31</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2017-11-07</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2017-11-20</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2017-11-22</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2017-11-28</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2017-11-29</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2017-11-30</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2017-12-01</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2017-12-07</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2017-12-08</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2017-12-19</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2018-02-06</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2018-02-07</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2018-02-28</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2018-03-03</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2018-03-16</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2018-03-17</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2018-03-18</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2018-03-21</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2018-03-22</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2018-03-27</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2018-03-28</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2018-03-29</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2018-03-30</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2018-04-01</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2018-04-02</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2018-04-05</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2018-04-06</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2018-04-12</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2018-07-28</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2018-10-31</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2018-11-06</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2018-12-10</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2018-12-11</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2018-12-12</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2018-12-13</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2018-12-17</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2018-12-18</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2018-12-19</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2019-01-08</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2019-01-09</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2019-01-10</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2019-01-24</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2019-01-25</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2019-01-26</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2019-02-01</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2019-02-04</a></li>
+  <li><a href="#section-53" id="toc-section-53" class="nav-link" data-scroll-target="#section-53">2019-02-07</a></li>
+  <li><a href="#section-54" id="toc-section-54" class="nav-link" data-scroll-target="#section-54">2019-02-08</a></li>
+  <li><a href="#section-55" id="toc-section-55" class="nav-link" data-scroll-target="#section-55">2019-02-09</a></li>
+  <li><a href="#section-56" id="toc-section-56" class="nav-link" data-scroll-target="#section-56">2019-02-21</a></li>
+  <li><a href="#section-57" id="toc-section-57" class="nav-link" data-scroll-target="#section-57">2019-02-22</a></li>
+  <li><a href="#section-58" id="toc-section-58" class="nav-link" data-scroll-target="#section-58">2019-03-03</a></li>
+  <li><a href="#section-59" id="toc-section-59" class="nav-link" data-scroll-target="#section-59">2019-03-04</a></li>
+  <li><a href="#section-60" id="toc-section-60" class="nav-link" data-scroll-target="#section-60">2019-03-05</a></li>
+  <li><a href="#section-61" id="toc-section-61" class="nav-link" data-scroll-target="#section-61">2019-03-26</a></li>
+  <li><a href="#section-62" id="toc-section-62" class="nav-link" data-scroll-target="#section-62">2019-04-10</a></li>
+  <li><a href="#section-63" id="toc-section-63" class="nav-link" data-scroll-target="#section-63">2019-04-11</a></li>
+  <li><a href="#section-64" id="toc-section-64" class="nav-link" data-scroll-target="#section-64">2019-04-22</a></li>
+  <li><a href="#section-65" id="toc-section-65" class="nav-link" data-scroll-target="#section-65">2019-04-23</a></li>
+  <li><a href="#section-66" id="toc-section-66" class="nav-link" data-scroll-target="#section-66">2019-04-25</a></li>
+  <li><a href="#section-67" id="toc-section-67" class="nav-link" data-scroll-target="#section-67">2019-04-26</a></li>
+  <li><a href="#section-68" id="toc-section-68" class="nav-link" data-scroll-target="#section-68">2019-05-17</a></li>
+  <li><a href="#section-69" id="toc-section-69" class="nav-link" data-scroll-target="#section-69">2019-05-21</a></li>
+  <li><a href="#section-70" id="toc-section-70" class="nav-link" data-scroll-target="#section-70">2020-06-06</a></li>
+  <li><a href="#section-71" id="toc-section-71" class="nav-link" data-scroll-target="#section-71">2020-08-05</a></li>
+  <li><a href="#section-72" id="toc-section-72" class="nav-link" data-scroll-target="#section-72">2020-08-21</a></li>
+  <li><a href="#section-73" id="toc-section-73" class="nav-link" data-scroll-target="#section-73">2020-08-23</a></li>
+  <li><a href="#section-74" id="toc-section-74" class="nav-link" data-scroll-target="#section-74">2020-09-08</a></li>
+  <li><a href="#section-75" id="toc-section-75" class="nav-link" data-scroll-target="#section-75">2020-09-09</a></li>
+  <li><a href="#section-76" id="toc-section-76" class="nav-link" data-scroll-target="#section-76">2020-09-10</a></li>
+  <li><a href="#section-77" id="toc-section-77" class="nav-link" data-scroll-target="#section-77">2020-09-12</a></li>
+  <li><a href="#section-78" id="toc-section-78" class="nav-link" data-scroll-target="#section-78">2020-09-23</a></li>
+  <li><a href="#section-79" id="toc-section-79" class="nav-link" data-scroll-target="#section-79">2020-09-24</a></li>
+  <li><a href="#section-80" id="toc-section-80" class="nav-link" data-scroll-target="#section-80">2020-10-09</a></li>
+  <li><a href="#section-81" id="toc-section-81" class="nav-link" data-scroll-target="#section-81">2020-10-17</a></li>
+  <li><a href="#section-82" id="toc-section-82" class="nav-link" data-scroll-target="#section-82">2020-12-12</a></li>
+  <li><a href="#section-83" id="toc-section-83" class="nav-link" data-scroll-target="#section-83">2021-01-22</a></li>
+  <li><a href="#section-84" id="toc-section-84" class="nav-link" data-scroll-target="#section-84">2021-02-12</a></li>
+  <li><a href="#section-85" id="toc-section-85" class="nav-link" data-scroll-target="#section-85">2021-04-28</a></li>
+  <li><a href="#section-86" id="toc-section-86" class="nav-link" data-scroll-target="#section-86">2021-05-11</a></li>
+  <li><a href="#section-87" id="toc-section-87" class="nav-link" data-scroll-target="#section-87">2021-07-16</a></li>
+  <li><a href="#section-88" id="toc-section-88" class="nav-link" data-scroll-target="#section-88">2021-08-03</a></li>
+  <li><a href="#section-89" id="toc-section-89" class="nav-link" data-scroll-target="#section-89">2021-11-21</a></li>
+  <li><a href="#section-90" id="toc-section-90" class="nav-link" data-scroll-target="#section-90">2021-12-14</a></li>
+  <li><a href="#section-91" id="toc-section-91" class="nav-link" data-scroll-target="#section-91">2022-03-05</a></li>
+  <li><a href="#section-92" id="toc-section-92" class="nav-link" data-scroll-target="#section-92">2022-03-21</a></li>
+  <li><a href="#section-93" id="toc-section-93" class="nav-link" data-scroll-target="#section-93">2022-05-02</a></li>
+  <li><a href="#section-94" id="toc-section-94" class="nav-link" data-scroll-target="#section-94">2022-08-11</a></li>
+  <li><a href="#section-95" id="toc-section-95" class="nav-link" data-scroll-target="#section-95">2022-12-13</a></li>
+  <li><a href="#section-96" id="toc-section-96" class="nav-link" data-scroll-target="#section-96">2023-05-18</a></li>
+  <li><a href="#section-97" id="toc-section-97" class="nav-link" data-scroll-target="#section-97">2023-05-25</a></li>
+  <li><a href="#section-98" id="toc-section-98" class="nav-link" data-scroll-target="#section-98">2023-06-19</a></li>
+  <li><a href="#section-99" id="toc-section-99" class="nav-link" data-scroll-target="#section-99">2023-09-13</a></li>
+  <li><a href="#section-100" id="toc-section-100" class="nav-link" data-scroll-target="#section-100">2023-09-15</a></li>
+  <li><a href="#section-101" id="toc-section-101" class="nav-link" data-scroll-target="#section-101">2023-09-21</a></li>
+  <li><a href="#section-102" id="toc-section-102" class="nav-link" data-scroll-target="#section-102">2023-09-22</a></li>
+  <li><a href="#section-103" id="toc-section-103" class="nav-link" data-scroll-target="#section-103">2023-10-26</a></li>
+  <li><a href="#section-104" id="toc-section-104" class="nav-link" data-scroll-target="#section-104">2024-04-28</a></li>
+  <li><a href="#section-105" id="toc-section-105" class="nav-link" data-scroll-target="#section-105">2024-07-26</a></li>
+  <li><a href="#section-106" id="toc-section-106" class="nav-link" data-scroll-target="#section-106">2024-08-21</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#tree-like-se</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2017-10-19</h2>
+<p><strong>Martin Morgan</strong> (12:12:41): &gt; <span class="citation" data-cites="Martin">@Martin</span> Morgan has joined the channel</p>
+<p><strong>Vince Carey</strong> (12:12:41): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+<p><strong>Martin Morgan</strong> (12:12:41): &gt; set the channel description: Discuss tree-like and hierarchical ‘rows’ for SummarizedExperiment</p>
+<p><strong>Michael Lawrence</strong> (12:12:41): &gt; <span class="citation" data-cites="Michael">@Michael</span> Lawrence has joined the channel</p>
+<p><strong>Levi Waldron</strong> (12:12:41): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldron has joined the channel</p>
+<p><strong>Nitesh Turaga</strong> (14:16:06): &gt; <span class="citation" data-cites="Nitesh">@Nitesh</span> Turaga has joined the channel</p>
+<p><strong>Marcel Ramos Pérez</strong> (14:24:48): &gt; <span class="citation" data-cites="Marcel">@Marcel</span> Ramos Pérez has joined the channel</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2017-10-20</h2>
+<p><strong>Lori Shepherd</strong> (08:29:04): &gt; <span class="citation" data-cites="Lori">@Lori</span> Shepherd has joined the channel</p>
+<p><strong>Levi Waldron</strong> (16:36:27): &gt; Is it fair to say that an extension of SummarizedExperiment that is somehow conceptually similar to RangedSummarizedExperiment should have row-associated data that extend from Vector?</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2017-10-23</h2>
+<p><strong>Martin Morgan</strong> (06:43:08): &gt; Actually, SummarizedExperiment inherits from Vector.<code>rowData</code>are given for ‘free’ as<code>elementMetada()</code>on the Vector. For RangedSummarizedExperiment, rowRanges are a new slot with subsetting via a hard-coded branch in<code>selectMethod("[", "RangedSummarizedExperiment")</code>. This does not seem particularly extensible – additional derived classes would either have to petition for code modifications to SummarizedExperiment, or re-implement significant amounts of code. Maybe@Hervé Pagèswill chime in…</p>
+<p><strong>Hervé Pagès</strong> (06:43:15): &gt; <span class="citation" data-cites="Hervé">@Hervé</span> Pagès has joined the channel</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2017-10-26</h2>
+<p><strong>hcorrada</strong> (13:23:59): &gt; <span class="citation" data-cites="hcorrada">@hcorrada</span> has joined the channel</p>
+<p><strong>hcorrada</strong> (13:26:11): &gt; Hi@Levi Waldron. turns out Nate has much more useful stuff than I thougt :-)…. On metagenomeFeatures he defines a class mgFeatures that extends ‘AnnotatedDataFrame’ adding a slot for a phylo object:<a href="https://github.com/Bioconductor-mirror/metagenomeFeatures/blob/master/R/mgFeatures-class.R">https://github.com/Bioconductor-mirror/metagenomeFeatures/blob/master/R/mgFeatures-class.R</a> - Attachment (GitHub): <a href="https://github.com/Bioconductor-mirror/metagenomeFeatures/blob/master/R/mgFeatures-class.R">Bioconductor-mirror/metagenomeFeatures</a> &gt; This is a read-only mirror of the Bioconductor SVN repository. Package&nbsp;Homepage:&nbsp;<a href="http://bioconductor.org/packages/devel/bioc/html/metagenomeFeatures.html">http://bioconductor.org/packages/devel/bioc/html/metagenomeFeatures.html</a> Contributions:&nbsp;<a href="https://github.com/HCBravoLa">https://github.com/HCBravoLa</a>…</p>
+<p><strong>hcorrada</strong> (13:27:11): &gt; Therefore, a TreeSummarizedExperiment wouldn’t in principle need a new slot, just restrict rowData to be of class mgFeatures.</p>
+<p><strong>hcorrada</strong> (13:27:51): &gt; We’ll look at a small test case where we create a SummarizedExperiment object with mgFeatures object as rowData and report back</p>
+<p><strong>Levi Waldron</strong> (13:42:48): &gt; Oh nice! Does it subset the phylo object?</p>
+<p><strong>hcorrada</strong> (13:44:49): &gt; Apparently. Nate’s working on a subsetting example/test and will report back</p>
+<p><strong>hcorrada</strong> (13:46:22): &gt; Long answer: metagenomeFeatures defines to classes ‘MgDB’ and ‘MgFeatures’. The former is a wrapper around reference metagenomic feature annotation databases (e.g., greengenes), the latter is what goes into a SummarizedExperiment. This is designed following the TxDB and GenomicFeatures idea</p>
+<p><strong>hcorrada</strong> (13:47:58): &gt; Both MgDB and MgFeatures have phylo slots. Nate implemented subset completely for at least MgDB we’re checking if he also did so for MgFeatures. If he did not, he would need to reuse the stuff he wrote for MgDB to implement subsetting the phylo object in mgFeatures as well</p>
+<p><strong>hcorrada</strong> (13:48:49): &gt; Nate will join this channel soon…</p>
+<p><strong>Levi Waldron</strong> (18:28:18): &gt; this sounds great</p>
+<p><strong>Levi Waldron</strong> (18:58:50): &gt; Some notes from our meeting today:<a href="https://docs.google.com/document/d/1rdDvrLYzXxAa1gMkbHZSOodY3mUZjKJHIEX0bz4lV-4/edit?usp=sharing">https://docs.google.com/document/d/1rdDvrLYzXxAa1gMkbHZSOodY3mUZjKJHIEX0bz4lV-4/edit?usp=sharing</a></p>
+<p><strong>Levi Waldron</strong> (18:59:24): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldronshared a file:<a href="https://community-bioc.slack.com/files/U34R95GSC/F7RJDQC86/bioconductor_microbiome_interest_group_meeting_notes">Bioconductor microbiome interest group meeting notes</a> - File (Google Docs): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F7RJDQC86/bioconductor_microbiome_interest_group_meeting_notes">Bioconductor microbiome interest group meeting notes</a></p>
+<p><strong>Levi Waldron</strong> (19:00:19): &gt; (please feel free to edit or add!)</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2017-10-27</h2>
+<p><strong>Guangchuang Yu</strong> (04:08:26): &gt; <span class="citation" data-cites="Guangchuang">@Guangchuang</span> Yu has joined the channel</p>
+<p><strong>Guangchuang Yu</strong> (05:09:08): &gt; phylo object can be converted to row based data. This is the way ggtree did as ggplot2 requires tidy data frame</p>
+<p><strong>Levi Waldron</strong> (06:39:17): &gt; Greetings@Guangchuang Yu!</p>
+<p><strong>Guangchuang Yu</strong> (06:40:28): &gt; Thank you@Levi Waldronfor inviting me</p>
+<p><strong>Levi Waldron</strong> (06:41:05): &gt; With pleasure!</p>
+<p><strong>Levi Waldron</strong> (06:55:38): &gt; I guess the tidy representation of a phylo object has more rows than there are taxa?</p>
+<p><strong>Guangchuang Yu</strong> (07:09:40): &gt; For phyloseq data, yes</p>
+<p><strong>Guangchuang Yu</strong> (07:09:55): &gt; For others, no</p>
+<p><strong>hcorrada</strong> (09:12:29): &gt; Is the number of rows in tidy representation #of nodes in tree or #of leaves?</p>
+<p><strong>Guangchuang Yu</strong> (10:54:15): &gt; A column of node number is more robust</p>
+<p><strong>hcorrada</strong> (10:56:57): &gt; Sorry, trying to get a sense of what the tidy representation looks like for a tree. Will the number of rows in the table be the same as the number of nodes in the tree? Or will the number of rows in the table be the same as the number of leaves?</p>
+<p><strong>natedolson</strong> (11:08:11): &gt; <span class="citation" data-cites="natedolson">@natedolson</span> has joined the channel</p>
+<p><strong>Guangchuang Yu</strong> (11:26:44): &gt; <span class="citation" data-cites="hcorradaNow">@hcorradaNow</span> I get your idea. Same as the number of nodes in the tree</p>
+<p><strong>hcorrada</strong> (11:26:55): &gt; got it thanks!</p>
+<p><strong>Levi Waldron</strong> (12:41:29): &gt; I guess a tidy representation of the tree could be conveniently used as rowData if 1) it were given a grouping attribute for the nodes like happens in GRangesList, so that it could act like a Vector with length equal to the number of taxa (the number of rows of the SummarizedExperiment), and 2) there were efficient lossless coercion to and from phylo-class</p>
+<p><strong>Guangchuang Yu</strong> (12:47:48): &gt; Back to phylo is possible</p>
+<p><strong>Guangchuang Yu</strong> (12:48:31): &gt; p = ggtree(rtree(30))</p>
+<p><strong>Guangchuang Yu</strong> (12:49:14): &gt; You can as.phylo(p) to convert it back to phylo</p>
+<p><strong>Guangchuang Yu</strong> (13:05:54): &gt; Although p$data is just a simple dataframe. Any prototype for employing Bioc class to store tree + data</p>
+<p><strong>Levi Waldron</strong> (13:09:59): &gt; No prototype yet - I didn’t take the last bit of notes from that meeting, that the next step was to discuss here and study existing classes for a few weeks before making a prototype extension of SummarizedExperiment</p>
+<p><strong>Levi Waldron</strong> (13:11:03): &gt; To learn things like all this stuff ggtree does already!:slightly_smiling_face:</p>
+<p><strong>Levi Waldron</strong> (13:14:19): &gt; but one possibility does seem to involve a class for trees based on your p$data with a grouping vector, like the way GRangesList groups a long GRanges vector to make it appear like a shorter vector (in that case grouped by sample, in this case it would be grouped by taxon)</p>
+<p><strong>Levi Waldron</strong> (13:16:49): &gt; because a Vector-derived tree with elements corresponding to taxa could simply be included as a column in the rowData of a SummarizedExperiment</p>
+<p><strong>hcorrada</strong> (16:20:00): &gt; Quick question… The mgFeatures class we’ve been working extends ‘AnnotatedDataFrame’, SummarizedExperiment takes ‘DataFrame’ as rowData. I just noticed that ‘AnnotatedDataFrame’ does not extend ‘DataFrame’ (like I thought)…</p>
+<p><strong>hcorrada</strong> (16:20:52): &gt; So, is the official bioc best practice to move our mgFeatures class from ‘AnnotatedDataFrame’ to ‘DataFrame’? Or is there another solution to use AnnotatedDataFrame in SummarizedExperiment land</p>
+<p><strong>Levi Waldron</strong> (16:27:18) (in thread): &gt; Better for@Martin Morganto say for sure but I think AnnotatedDataFrame belongs to the eSet world, whereas DataFrame belongs to the SummarizedExperiment and rest of the S4Vectors world.</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2017-10-30</h2>
+<p><strong>Martin Morgan</strong> (19:16:37): &gt; Generally I think the approach should be to migrate to SummarizedExperiment.<code>SummarizedExperiment::makeSummarizedExperimentFromExpressionSet()</code>coerces from an ExpressionSet to Summarized experiment, and includes the non-exported<code>SummarizedExperiment:::.from_AnnotatedDataFrame_to_DataFrame()</code>. It might be reasonable to ask for that to be made public (as an issue on<a href="https://github.com/Bioconductor/SummarizedExperiment">https://github.com/Bioconductor/SummarizedExperiment</a>) - Attachment (GitHub): <a href="https://github.com/Bioconductor/SummarizedExperiment">Bioconductor/SummarizedExperiment</a> &gt; SummarizedExperiment container</p>
+<p><strong>hcorrada</strong> (21:10:40): &gt; Thanks@Martin Morgan! In our case we can migrate directly to DataFrame so we wouldn’t need<code>fromAnnotatedDataFrame_to_DataFrame</code>to be exported.</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2017-10-31</h2>
+<p><strong>Guangchuang Yu</strong> (02:14:18): &gt; I have no experience in doing metagenomic. Is there any tutorial to get me on board (the data, your pkgs, etc.)?</p>
+<p><strong>Levi Waldron</strong> (11:48:58): &gt; Take a look at<code>curatedMetagenomicData</code>in Bioconductor - it provides data and some analysis examples using<code>phyloseq</code></p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2017-11-07</h2>
+<p><strong>Lucas Schiffer</strong> (14:43:58): &gt; <span class="citation" data-cites="Lucas">@Lucas</span> Schiffer has joined the channel</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2017-11-20</h2>
+<p><strong>natedolson</strong> (14:20:37): &gt; <span class="citation" data-cites="natedolsonuploaded">@natedolsonuploaded</span> a file:<a href="https://community-bioc.slack.com/files/U7QD0PAHW/F844692A2/annotating_summarizedexperiment.pdf">Annotating_summarizedExperiment.pdf</a>and commented: We have a created a class, mgFeatures, for an object defining the feature data including taxonomy, sequences, and phylogenetic tree. See the attached pdf and Rmarkdown file with a toy example where we defined the elementMetadata of a summarizedExperiment class object with a mgFeatures class object. - File (PDF): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F844692A2/annotating_summarizedexperiment.pdf">Annotating_summarizedExperiment.pdf</a></p>
+<p><strong>natedolson</strong> (14:20:39): &gt; <span class="citation" data-cites="natedolsonuploaded">@natedolsonuploaded</span> a file:<a href="https://community-bioc.slack.com/files/U7QD0PAHW/F83C1PFCM/annotating_summarizedexperiment.rmd">Annotating_summarizedExperiment.Rmd</a> - File (Plain Text): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F83C1PFCM/annotating_summarizedexperiment.rmd">Annotating_summarizedExperiment.Rmd</a></p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2017-11-22</h2>
+<p><strong>hcorrada</strong> (08:53:04): &gt; Something that came up on this test. We are creating a SummarizedExperiment object with the ‘elementMetadata’ slot occupied by an object of class ‘mgFeatures’ which extends ‘DataFrame’ by adding slots for a phylogenetic tree and other feature information. When using accessor<code>rowData</code>on the object these additional slots are lost. When using<code>se@elementMetadata</code>we get the right thing. This is something to address in the<code>rowData</code>accessor.@Martin Morgan@Hervé Pagès, thoughts?</p>
+<p><strong>hcorrada</strong> (08:54:35): &gt; See pdf above for example</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2017-11-28</h2>
+<p><strong>Levi Waldron</strong> (15:29:14): &gt; Sorry I’m just reading this now - it looks like the mgFeatures object extends DataFrame and contains a taxonomic tree, a<code>DNAStringSet</code>, and an<code>ape</code>phylogenetic tree as a<code>phylo</code>object? How does it handle subsetting of the<code>phylo</code>tree?</p>
+<p><strong>hcorrada</strong> (16:56:31): &gt; Uses similar procedure as phyloseq:<a href="https://github.com/HCBravoLab/metagenomeFeatures/blob/mgFeatures_DataFrame/R/mgDb_method_select.R#L56">https://github.com/HCBravoLab/metagenomeFeatures/blob/mgFeatures_DataFrame/R/mgDb_method_select.R#L56</a> - Attachment (GitHub): <a href="https://github.com/HCBravoLab/metagenomeFeatures/blob/mgFeatures_DataFrame/R/mgDb_method_select.R#L56">HCBravoLab/metagenomeFeatures</a> &gt; metagenomeFeatures - R package for annotating metagenomic datasets with taxonomic information</p>
+<p><strong>Levi Waldron</strong> (17:40:00): &gt; So it looks like you’ve (nearly) solved the problem?! Is the error shown at the bottom a problem with the<code>rowData()</code>getter function?</p>
+<p><strong>hcorrada</strong> (18:36:11): &gt; That’s what we think, this has what we need.</p>
+<p><strong>hcorrada</strong> (18:36:47): &gt; I haven’t looked deeper into the issue with<code>rowData</code>, hoped to get insight from@Martin Morganor@Hervé Pagès</p>
+<p><strong>hcorrada</strong> (18:39:42): &gt; We (here on this thread) have yet to decide how this will work package-wise. One thought is to create another package MetagenomeSE where the Summarized Experiment class using an mgFeatures object as rowData would be defined. This is where things like “aggregate at a taxonomic level” functions would live.</p>
+<p><strong>hcorrada</strong> (18:40:32): &gt; phyloseq and metagenomeSeq would then depend on metagenomeSE. metagenomeSE would depend on metagenomeFeatures. What do you think?</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2017-11-29</h2>
+<p><strong>Matthew McCall</strong> (09:43:32): &gt; <span class="citation" data-cites="Matthew">@Matthew</span> McCall has joined the channel</p>
+<p><strong>Sean Davis</strong> (10:06:46): &gt; <span class="citation" data-cites="Sean">@Sean</span> Davis has joined the channel</p>
+<p><strong>Peter Hickey</strong> (10:16:33): &gt; <span class="citation" data-cites="Peter">@Peter</span> Hickey has joined the channel</p>
+<p><strong>Ludwig Geistlinger</strong> (10:27:28): &gt; <span class="citation" data-cites="Ludwig">@Ludwig</span> Geistlinger has joined the channel</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2017-11-30</h2>
+<p><strong>Matthew McCall</strong> (20:22:55): &gt; So it looks like the phylo object is just a list. Does the tree structure require a specific kind of nesting?Obviously for an actual phylogenetic tree it does but I mean for the object. I couldn’t find a validObject() function but I might not be looking in the right place.</p>
+<p><strong>Matthew McCall</strong> (20:25:05): &gt; Regardless, I think the general approach of what@hcorrada<span class="citation" data-cites="natedolsonare">@natedolsonare</span> doing would work for what I need with some (hopefully minor) modifications.</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2017-12-01</h2>
+<p><strong>natedolson</strong> (13:19:46): &gt; <span class="citation" data-cites="Matthew">@Matthew</span> McCall, correct phylo object is a list. Our only validity check for the tree slot is that it is a phylo object. There is a checkValidPhylo object in the ape package,<a href="https://github.com/cran/ape/blob/master/R/checkValidPhylo.R">https://github.com/cran/ape/blob/master/R/checkValidPhylo.R</a>, that we might want to use to make sure the tree slot object is a valid tree. - Attachment (GitHub): <a href="https://github.com/cran/ape/blob/master/R/checkValidPhylo.R">cran/ape</a> &gt; :exclamation:&nbsp;This&nbsp;is&nbsp;a&nbsp;read-only&nbsp;mirror&nbsp;of&nbsp;the&nbsp;CRAN&nbsp;R&nbsp;package&nbsp;repository. ape&nbsp;—&nbsp;Analyses&nbsp;of&nbsp;Phylogenetics&nbsp;and&nbsp;Evolution.&nbsp;Homepage:&nbsp;<a href="http://ape-package.ird.fr/">http://ape-package.ird.fr/</a></p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2017-12-07</h2>
+<p><strong>Guangchuang Yu</strong> (09:31:27): &gt; any suggestion of new verbs to manipulate tree?<a href="https://guangchuangyu.github.io/tidytree/">https://guangchuangyu.github.io/tidytree/</a></p>
+<p><strong>natedolson</strong> (09:57:34): &gt; <span class="citation" data-cites="Guangchuang">@Guangchuang</span> YuDo you think lowest common ancestor would be useful?</p>
+<p><strong>Guangchuang Yu</strong> (10:01:06): &gt; mrca will be added:blush:</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2017-12-08</h2>
+<p><strong>Guangchuang Yu</strong> (00:31:27) (in thread): &gt; mrca method was added.</p>
+<p><strong>hcorrada</strong> (08:17:01) (in thread): &gt; :+1:</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2017-12-19</h2>
+<p><strong>Levi Waldron</strong> (17:25:21): &gt; <span class="citation" data-cites="Guangchuang">@Guangchuang</span> YuI am impressed! Question: is there some way your tidytree could be used as the<code>rowData</code>of a<code>SummarizedExperiment</code>?</p>
+<p><strong>Guangchuang Yu</strong> (22:16:42) (in thread): &gt; have no idea, but we can explore the possibility.</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2018-02-06</h2>
+<p><strong>Vince Carey</strong> (20:46:01): &gt; the “row graph” in the figure on this page seems similar to what we are aiming at?<a href="https://github.com/linnarsson-lab/loompy">https://github.com/linnarsson-lab/loompy</a>– why no column graph? - Attachment (GitHub): <a href="https://github.com/linnarsson-lab/loompy">linnarsson-lab/loompy</a> &gt; Python implementation of the Loom file format - <a href="http://loompy.org">http://loompy.org</a></p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2018-02-07</h2>
+<p><strong>Martin Morgan</strong> (08:49:16): &gt; The loom format says that row and column graphs are required<a href="http://linnarssonlab.org/loompy/format/index.html">http://linnarssonlab.org/loompy/format/index.html</a>The spec seems to evolve in an unversioned way.</p>
+<p><strong>hcorrada</strong> (11:51:01): &gt; For our<a href="http://metaviz.org">http://metaviz.org</a>backend we use a graph database (neo4j) which essentially defines this structure. We found that operating on graph representation of taxonomy works very well. OTOH, on the R side there’s already codebases operating on more semantically-rich tree data structures that would be easier to reuse using the MetagenomicFeatures and MetagenomicSE design we outlined above</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2018-02-28</h2>
+<p><strong>Daniel Van Twisk</strong> (15:18:50): &gt; <span class="citation" data-cites="Daniel">@Daniel</span> Van Twisk has joined the channel</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2018-03-03</h2>
+<p><strong>Aedin Culhane</strong> (09:36:30): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2018-03-16</h2>
+<p><strong>natedolson</strong> (09:31:39): &gt; Hector (<span class="citation" data-cites="hcorrada">@hcorrada</span>) and I are having a package kick-off hackathon Sunday April 1st to lay the foundation for metagenomeSE. The package will define the metagenomeSE class and methods. metagenomeSE class will be a summarizedExperiment class object for working with metagenomic data, using the mgFeatures class from the metagenomeFeatures package to define the rowData slot. The metagenomeSE class could then be used by other packages such as phyloseq package, metagenomeSeq, or other packages working with metagenomic data. Thus reducing the burden of individual package developers for building and maintaining the infrastructure for performing basic operations on a metagenomic data class. Let us know if you would like to participate virtually, or if you are in the DC/ College Park Maryland and would like to join us in-person.</p>
+<p><strong>Marcel Ramos Pérez</strong> (09:48:06): &gt; Hi Nate and Hector (<span class="citation" data-cites="natedolson">@natedolson</span>,<span class="citation" data-cites="hcorrada">@hcorrada</span>), I’ve been looking into this a bit and I’d be happy to contribute.</p>
+<p><strong>natedolson</strong> (09:55:42): &gt; Great to hear! I will be sending out additional information in the next week or so.</p>
+<p><strong>natedolson</strong> (09:57:10): &gt; Also for those of you in the San Francisco area Joe Paulson is hosting the West Cost metagenomeSE hackathon at his apartment:slightly_smiling_face:</p>
+<p><strong>Peter Hickey</strong> (09:57:33): &gt; i’m in baltimore and interested in contributing</p>
+<p><strong>hcorrada</strong> (10:19:56) (in thread): &gt; Would you consider coming to College Park?</p>
+<p><strong>Peter Hickey</strong> (11:01:03) (in thread): &gt; yeah, that’s no trouble</p>
+<p><strong>hcorrada</strong> (11:44:06) (in thread): &gt; :+1:</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2018-03-17</h2>
+<p><strong>Vince Carey</strong> (06:09:34): &gt; If there is assay data that you will be representing in HDF5 and would like to try out the remote HDF Object Store/restfulSE concepts for working with cloud-resident data, send me some pointers to the data.</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2018-03-18</h2>
+<p><strong>Levi Waldron</strong> (17:07:17): &gt; That sounds like fun! I should be able to come in person.</p>
+<p><strong>Levi Waldron</strong> (17:11:49) (in thread): &gt; <span class="citation" data-cites="Vince">@Vince</span> CareyI’d like to try curatedMetagenomicData as HDF5, and will get the tables to you this week so we could perhaps work on them on Sunday. The taxonomic data are only a few thousand rows, but the full gene families data are millions of rows and very sparse.</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2018-03-21</h2>
+<p><strong>Levi Waldron</strong> (13:52:55): &gt; I’ve posted gists to create crude SummarizedExperiments from curatedMetagenomicData: <a href="[https://gist.github.com/lwaldron/df1053ea409ef03da18f48afeca4048c](https://gist.github.com/lwaldron/df1053ea409ef03da18f48afeca4048c)">smallSE.R</a> (from one dataset) and <a href="[https://gist.github.com/lwaldron/dc9988692b5f9bd6bdb5fc22ff26e8f9](https://gist.github.com/lwaldron/dc9988692b5f9bd6bdb5fc22ff26e8f9)">bigSE.R</a> (from all of cMD).</p>
+<p><strong>Levi Waldron</strong> (13:54:01): &gt; Both include colData(), a counts matrix in assay(), taxonomic table in the rowData(), and a ape::phylo class phylogenetic tree in metadata()$phylo</p>
+<p><strong>Levi Waldron</strong> (13:54:13): &gt; To provide some data to work with…</p>
+<p><strong>hcorrada</strong> (14:05:57): &gt; Awesome. Thanks!</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2018-03-22</h2>
+<p><strong>Vince Carey</strong> (10:52:16) (in thread): &gt; OK. I looked at bigSE gist and it isn’t really big enough to warrant remote storage. But it could be used for demonstration if desired.</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2018-03-27</h2>
+<p><strong>Levi Waldron</strong> (21:59:16): &gt; What time do you want to start &amp; end on Apr 1?</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2018-03-28</h2>
+<p><strong>Levi Waldron</strong> (11:01:22): &gt; <span class="citation" data-cites="hcorrada">@hcorrada</span><span class="citation" data-cites="natedolsondo">@natedolsondo</span> you have an approx. timetable for Sunday?</p>
+<p><strong>hcorrada</strong> (11:02:13): &gt; Hi Levi. We’re meeting this afternoon to finalize. Will send more details in a few hours. THanks!</p>
+<p><strong>Levi Waldron</strong> (11:02:30): &gt; OK thanks!</p>
+<p><strong>natedolson</strong> (15:56:08): &gt; <span class="citation" data-cites="natedolsonshared">@natedolsonshared</span> a file:<a href="https://community-bioc.slack.com/files/U7QD0PAHW/F9X7L8UG1/2018">metagenomeSE Hackathon 4/1/2018</a> - File (Google Docs): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F9X7L8UG1/2018">metagenomeSE Hackathon 4/1/2018</a></p>
+<p><strong>natedolson</strong> (15:58:12): &gt; Here is a google doc with information for the hackathon. We may change rooms depending on availability. Let me know if you have any questions.</p>
+<p><strong>Peter Hickey</strong> (18:07:17): &gt; umd college park is a little further from baltimore than i remember, so unsure if i’ll be able to make it in person. but i’ll join in regardless</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2018-03-29</h2>
+<p><strong>natedolson</strong> (08:56:36): &gt; No problem. We are happy to have you join us either way. See the google doc for participating remotely.</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2018-03-30</h2>
+<p><strong>Levi Waldron</strong> (10:53:38): &gt; Would add to the agenda - create a branch/fork of<code>phyloseq</code>and implement methods for the new class</p>
+<p><strong>hcorrada</strong> (12:44:48): &gt; The agenda we set is a starting point, the first point of business when we start is finalizing it:slightly_smiling_face:</p>
+<p><strong>Levi Waldron</strong> (14:12:08): &gt; One thought.<code>metagenomeSE</code>as a class name isn’t in line with the naming conventions of core Bioconductor classes (<a href="https://www.bioconductor.org/developers/how-to/commonMethodsAndClasses/">https://www.bioconductor.org/developers/how-to/commonMethodsAndClasses/</a>)</p>
+<p><strong>Levi Waldron</strong> (14:12:36): &gt; A more standard naming convention would be things like<code>MetagenomeExperiment</code>or<code>MicrobiomeExperiment</code></p>
+<p><strong>Levi Waldron</strong> (14:12:52): &gt; Thoughts?</p>
+<p><strong>hcorrada</strong> (14:13:05): &gt; <code>MicrobiomeExperiment</code>makes sense</p>
+<p><strong>hcorrada</strong> (14:13:15): &gt; What have other SE-like classes used?</p>
+<p><strong>Levi Waldron</strong> (14:15:27): &gt; I don’t have an exhaustive list, but I know of<code>SingleCellExperiment</code>and<code>RaggedExperiment</code>.<code>MultiAssayExperiment</code>tried to copy the<code>SummarizedExperiment</code>API as much as possible.</p>
+<p><strong>Levi Waldron</strong> (14:16:37): &gt; I guess<code>VariantAnnotation</code>and<code>GenomicFiles</code>are also SE-based</p>
+<p><strong>Levi Waldron</strong> (14:17:29): &gt; I kind of like<code>MicrobiomeExperiment</code>, since metagenomics is sometimes understood to exclude amplicon-based microbiome experiments</p>
+<p><strong>hcorrada</strong> (14:18:00): &gt; Yep. I also like<code>MicrobiomeExperiment</code></p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2018-04-01</h2>
+<p><strong>natedolson</strong> (07:17:41): &gt; Location change University of Maryland, College Park MD, AV Williams Building Rm 4172<a href="https://goo.gl/maps/oYtNEaPUfk72">https://goo.gl/maps/oYtNEaPUfk72</a></p>
+<p><strong>Peter Hickey</strong> (10:49:53): &gt; sorry i’ve had some stuff come up, will try to join in later</p>
+<p><strong>natedolson</strong> (10:50:11): &gt; No problem</p>
+<p><strong>natedolson</strong> (11:06:26): &gt; metagenomeFeatures github<a href="https://github.com/HCBravoLab/metagenomeFeatures/tree/master/R">https://github.com/HCBravoLab/metagenomeFeatures/tree/master/R</a> - Attachment (GitHub): <a href="https://github.com/HCBravoLab/metagenomeFeatures/tree/master/R">HCBravoLab/metagenomeFeatures</a> &gt; metagenomeFeatures - R package for annotating metagenomic datasets with taxonomic information</p>
+<p><strong>Levi Waldron</strong> (11:18:59) (in thread): &gt; We’ll be here!</p>
+<p><strong>natedolson</strong> (11:26:20): &gt; new(“mgFeatures”, &gt; DataFrame(annotated_db), &gt; metadata = anno_metadata, &gt; refDbSeq = filtered_db<span class="math inline">\(seq,
+&gt;         refDbTree = filtered_db\)</span>tree &gt; )</p>
+<p><strong>Joey McMurdie</strong> (13:43:17): &gt; <span class="citation" data-cites="Joey">@Joey</span> McMurdie has joined the channel</p>
+<p><strong>Joey McMurdie</strong> (13:45:59): &gt; I’m a little late and on the West Coast, so very late. What’s going on folks? I see some commits in the last few hours</p>
+<p><strong>natedolson</strong> (13:48:19): &gt; Taking a lunch break. You can check out our progress at<a href="https://github.com/HCBravoLab/MicrobiomeExperiment">https://github.com/HCBravoLab/MicrobiomeExperiment</a> - Attachment (GitHub): <a href="https://github.com/HCBravoLab/MicrobiomeExperiment">HCBravoLab/MicrobiomeExperiment</a> &gt; MicrobiomeExperiment - Bioconductor defining a summarizedExperiment class (metagenomeSE) for metagenomic data.</p>
+<p><strong>Joey McMurdie</strong> (13:57:23): &gt; cool</p>
+<p><strong>natedolson</strong> (14:16:55): &gt; We’re back</p>
+<p><strong>natedolson</strong> (14:19:37): &gt; you can connect using<a href="https://umd.webex.com/mw3000/mywebex/default.do?siteurl=umd">https://umd.webex.com/mw3000/mywebex/default.do?siteurl=umd</a> - Attachment (umd.webex.com): <a href="https://umd.webex.com/mw3000/mywebex/default.do?siteurl=umd">UNIV OF MARYLAND WebEx Enterprise Site</a> &gt; 18</p>
+<p><strong>natedolson</strong> (14:20:05): &gt; the host’s room ID is hcorrada</p>
+<p><strong>Joey McMurdie</strong> (14:22:34): &gt; Thanks! I’ll wait to join video for jumping in on something synchronous… anything you guys need from me specifically?</p>
+<p><strong>natedolson</strong> (14:35:54): &gt; can you join the room we have some questions about phyloseq</p>
+<p><strong>Joey McMurdie</strong> (15:05:40): &gt; sure</p>
+<p><strong>Joey McMurdie</strong> (17:07:04): &gt; <a href="https://github.com/joey711/phyloseq/tree/MicrobiomeExperiment">https://github.com/joey711/phyloseq/tree/MicrobiomeExperiment</a> - Attachment (GitHub): <a href="https://github.com/joey711/phyloseq/tree/MicrobiomeExperiment">joey711/phyloseq</a> &gt; phyloseq is a set of classes, wrappers, and tools (in R) to make it easier to import, store, and analyze phylogenetic sequencing data; and to reproducibly share that data and analysis with others. …</p>
+<p><strong>Levi Waldron</strong> (17:30:00): &gt; Productive hackathon: 49 commits at<a href="https://github.com/HCBravoLab/MicrobiomeExperiment/commits/master">https://github.com/HCBravoLab/MicrobiomeExperiment/commits/master</a> - Attachment (GitHub): <a href="https://github.com/HCBravoLab/MicrobiomeExperiment/commits/master">HCBravoLab/MicrobiomeExperiment</a> &gt; MicrobiomeExperiment - Bioconductor defining a summarizedExperiment class (metagenomeSE) for metagenomic data.</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2018-04-02</h2>
+<p><strong>Levi Waldron</strong> (09:11:32): &gt; Marcel and I made some notes from yesterday’s hackathon. &gt; &gt; ACCOMPLISHED: &gt; &gt; * Defined the MicrobiomeExperiment class. Contains SummarizedExperiment but requires a MicrobiomeFeatures class rowData. MicrobiomeFeatures contains metagenomeFeatures defined in the mgFeatures package with added constructor. It contains DataFrame and adds slots for a phylo-class tree and sequences. &gt; * Constructor &gt; * Coercion for phyloseq objects &gt; * Some unit tests &gt; &gt; TODO &gt; &gt; * Move MicrobiomeFeatures to MicrobiomeExperiment package (Nate) &gt; * Data import &gt; * Tree based aggregation, pruning &gt; * phylo and MicrobiomeFeatures extractors &gt; * See phyloseq-basics vignette, implement functions not synonymous with SummarizedExperiment alternatives &gt; * Make a phyloseq cheat sheet that Joey can use for migration &gt; * See issues on HCBravoLab/MicrobiomeExperiment</p>
+<p><strong>hcorrada</strong> (09:13:54): &gt; Some additions to ACCOMPLISHED:</p>
+<p><strong>hcorrada</strong> (09:14:14): &gt; * Coercion for MRExperiment objects (from metagenomeSeq)</p>
+<p><strong>hcorrada</strong> (09:14:36): &gt; * Import from biom files (using<code>biomformat</code>package) into<code>MicrobiomeExperiment</code>objects</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2018-04-05</h2>
+<p><strong>Levi Waldron</strong> (10:04:18): &gt; Put these at<a href="https://github.com/HCBravoLab/MicrobiomeExperiment/wiki">https://github.com/HCBravoLab/MicrobiomeExperiment/wiki</a> - Attachment (GitHub): <a href="https://github.com/HCBravoLab/MicrobiomeExperiment/wiki">HCBravoLab/MicrobiomeExperiment</a> &gt; MicrobiomeExperiment - Bioconductor defining a summarizedExperiment class (metagenomeSE) for metagenomic data.</p>
+<p><strong>hcorrada</strong> (10:32:23): &gt; :+1:</p>
+<p><strong>Levi Waldron</strong> (14:57:07): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhanejust made me aware of the<code>phylobase::phylo4d</code>class which is on CRAN and is supported by methods from the<code>adephylo</code>package. It provides required<code>[</code>subsetting. Shortcomings I can see are that it is missing<code>dim()</code>and<code>dimnames()</code>methods, and stores the matrix data as a<code>data.frame</code>instead of a<code>matrix</code>.</p>
+<p><strong>Levi Waldron</strong> (14:57:27): &gt; Thoughts about<code>phylobase::phylo4d</code>?</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2018-04-06</h2>
+<p><strong>Levi Waldron</strong> (09:25:37): &gt; <span class="citation" data-cites="natedolsonand">@natedolsonand</span><span class="citation" data-cites="hcorradawondering">@hcorradawondering</span> how this phylo4d class relates to mgFeatures?</p>
+<p><strong>natedolson</strong> (09:48:12): &gt; <span class="citation" data-cites="Levi">@Levi</span> WaldronMy opinion is that the<code>phylobase::phylo4d</code>structure and the data structure used in<code>ggtree</code>/<code>tidytree</code>are more tree-centric than we want to use for defining<code>MicrobiomeExperiment@rowData</code>.<code>mgFeatures</code>and<code>MicrobiomeFeatures</code>should contain seq and tree data but this information should also be optional.<code>phylo4d</code>and other tree centric data structures would not make sense to without a tree. That being said, both<code>phylobase</code>and<code>ggtree</code>have a number of analysis capabilities and visualization tools that we should leverage. Having<code>MicrobiomeFeatures2phylo4d</code>or the equivalent for<code>ggtree</code>/<code>tidytree</code>would allow users to easily leverage these packages.</p>
+<p><strong>Levi Waldron</strong> (09:52:01): &gt; The possibility I imagined was a<code>phylo4d</code>as the assay in a SE, with taxonomy and sequences in the<code>rowData</code>. In experiments without a tree, filling in a trivial tree with only one level and equal distances?</p>
+<p><strong>natedolson</strong> (10:03:49): &gt; I see what you are saying. I think is it best to leave the count/relative abundance data as the assay matrix. My primary concern is that in most cases the tree is secondary. Methods such as differential abundance analysis that work with SE data objects will not work automatically with assay as phylo4d.</p>
+<p><strong>Levi Waldron</strong> (12:21:24): &gt; Right - it has the basic problem that its parent class<code>phylo4</code>is a tree class, not a matrix class.</p>
+<p><strong>Levi Waldron</strong> (13:28:28): &gt; (so even though they’ve implemented square bracket subsetting, most matrix functions don’t work.)</p>
+<p><strong>Davide Risso</strong> (16:08:38): &gt; <span class="citation" data-cites="Davide">@Davide</span> Risso has joined the channel</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2018-04-12</h2>
+<p><strong>Levi Waldron</strong> (09:24:41): &gt; Anyone in this&lt;!channel&gt;available to follow up during today’s multi-assay interest group meeting, 12-1pm Eastern time?<a href="http://huntercollege.adobeconnect.com/biocmultiassay">http://huntercollege.adobeconnect.com/biocmultiassay</a></p>
+<p><strong>hcorrada</strong> (10:12:23): &gt; We have our group meeting at that time…</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2018-07-28</h2>
+<p><strong>Charlotte Soneson</strong> (14:06:44): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2018-10-31</h2>
+<p><strong>Ruizhu HUANG</strong> (06:48:08): &gt; <span class="citation" data-cites="Ruizhu">@Ruizhu</span> HUANG has joined the channel</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2018-11-06</h2>
+<p><strong>Jayaram Kancherla</strong> (12:29:37): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla has joined the channel</p>
+<p><strong>Marcel Ramos Pérez</strong> (12:29:38): &gt; set the channel topic: Data Structure</p>
+<p><strong>Kevin Rue-Albrecht</strong> (12:30:03): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht has joined the channel</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2018-12-10</h2>
+<p><strong>Mark Robinson</strong> (11:25:06): &gt; <span class="citation" data-cites="Mark">@Mark</span> Robinson has joined the channel</p>
+<p><strong>Ruizhu HUANG</strong> (12:20:09): &gt; Hi@hcorrada, We are curious whether there are some updates on the<code>TreeSummarizedExperiment</code>class after the meeting. Mark and I have a discussion today, and think it would be good if we could also contribute to this package and do some collaboration. Is there a github repository available now? Or, should I extract my work in treeAGG package and create a new repository?<span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson@Mark Robinson@Marcel Ramos Pérez</p>
+<p><strong>hcorrada</strong> (15:14:43): &gt; Hello all! We have a repo to share that we would be very happy to collaborate on.@Jayaram Kancherlacan you share?</p>
+<p><strong>Jayaram Kancherla</strong> (17:21:42): &gt; Hello all, The package is available at<a href="https://github.com/HCBravoLab/TreeSE">https://github.com/HCBravoLab/TreeSE</a>I wrote a couple of vignettes that explain the basics of using the<code>TreeIndex</code>and<code>TreeSE</code>classes. (using single cell and metagenomic datasets). &gt; &gt; If you find any bugs or issues using the package, please let me know. thank you! - Attachment (GitHub): <a href="https://github.com/HCBravoLab/TreeSE">HCBravoLab/TreeSE</a> &gt; R package to manage hierarchies in genomic datasets. eg., single cell and microbiome datasets - HCBravoLab/TreeSE</p>
+<p><strong>Martin Morgan</strong> (17:44:43) (in thread): &gt; I don’t think there’s value in using abbreviations like ‘TreeSE’, because maybe ‘SE’ stands for ‘standard error’ or something… and the user will have tab completion so doesn’t have to be an expert typist… &gt; &gt; It’s better to minimize object modification, for instance<a href="https://github.com/HCBravoLab/TreeSE/blob/e2d14ad82f9c7751668237ece2172125b7f88cae/R/TreeSE-class.R#L34">https://github.com/HCBravoLab/TreeSE/blob/e2d14ad82f9c7751668237ece2172125b7f88cae/R/TreeSE-class.R#L34</a>copies the entire object. The general pattern is to set up first and then call<code>new()</code>as the final line. &gt; The enigmatic<code>rowsum()</code>can be used to efficiently aggregate via sums at<a href="https://github.com/HCBravoLab/TreeSE/blob/e2d14ad82f9c7751668237ece2172125b7f88cae/R/TreeSE-methods.R#L100">https://github.com/HCBravoLab/TreeSE/blob/e2d14ad82f9c7751668237ece2172125b7f88cae/R/TreeSE-methods.R#L100</a>, perhaps on the transposed matrix. Later in the function one again wants to minimize the number of calls that update slots; maybe re-use the constructor? &gt; Presumably there is a github way of providing these comments; pull requests (the only trick I know) don’t seem appropriate… - Attachment (GitHub): <a href="https://github.com/HCBravoLab/TreeSE/blob/e2d14ad82f9c7751668237ece2172125b7f88cae/R/TreeSE-class.R#L34">HCBravoLab/TreeSE</a> &gt; R package to manage hierarchies in genomic datasets. eg., single cell and microbiome datasets - HCBravoLab/TreeSE - Attachment (GitHub): <a href="https://github.com/HCBravoLab/TreeSE/blob/e2d14ad82f9c7751668237ece2172125b7f88cae/R/TreeSE-methods.R#L100">HCBravoLab/TreeSE</a> &gt; R package to manage hierarchies in genomic datasets. eg., single cell and microbiome datasets - HCBravoLab/TreeSE</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2018-12-11</h2>
+<p><strong>Ruizhu HUANG</strong> (05:25:35): &gt; Hi all, &gt; &gt; Thanks for sharing the repository@hcorrada<span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla. &gt; &gt; I am wondering whether the structure of<code>TreeSummarizedExperiment</code>is finally decided as that in the github. In our project, we need to do some node search in the tree structure, and have difficulty to work with this<code>treeIndex</code>structure. It seems that the<code>treeIndex</code>use the taxonomic table as the tree structure and do aggregation based on this data frame. For some case, the<code>phylo</code>tree might have different numbers of nodes in a path connecting the root and a leaf, and it might be difficult to define the value of<code>level</code>used in the function &gt; <code>&gt; agg_sel &lt;- aggregateTree(mbiome, selectedLevel=3, selectedNodes=nodes, by="row") &gt;</code> &gt; Is it possible to consider our structure of<code>TreeSummarizedExperiment</code>as one of the options (<a href="https://docs.google.com/presentation/d/16lLpiQL4ulMRjSr0nVRVcVpGBUTog41O0yLQq_uY2Gg/edit?usp=sharing">https://docs.google.com/presentation/d/16lLpiQL4ulMRjSr0nVRVcVpGBUTog41O0yLQq_uY2Gg/edit?usp=sharing</a>) ? Or should we schedule another skype call to decide the structure of the<code>TreeSummarizedExperiment</code>if the final structure is not decided yet.@Martin Morgan. &gt; &gt; To recall, we have this structure in our<code>TreeSummarizedExperiment</code>.@Mark Robinson@Charlotte Soneson</p>
+<p><strong>Ruizhu HUANG</strong> (05:26:01): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FEQN5NKK4/screenshot_2018-12-11_at_11.24.19.png">Screenshot 2018-12-11 at 11.24.19.png</a></p>
+<p><strong>Mark Robinson</strong> (05:45:39): &gt; Just to reiterate from my side, I guess it would be cleanest if the infrastructure part of this is<strong><em>unified</em></strong>across the multiple groups that use such “tree-like-se” objects .. thus, probably both our use cases (are there others?) should be accommodated under one roof (one package). Let’s discuss! Here or we can of course organize another skype chat.</p>
+<p><strong>hcorrada</strong> (06:22:48) (in thread): &gt; Thanks for the feedback@Martin Morgan, will update accordingly!</p>
+<p><strong>hcorrada</strong> (06:27:44): &gt; Hi@Ruizhu HUANGand@Mark Robinson, absolutely!<span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla, my sense is that the underlying tree representation should handle@Ruizhu HUANG’s point. Also, the<code>selectedLevel</code>argument should be optional, but it makes aggregations more efficient when appropriate.</p>
+<p><strong>hcorrada</strong> (06:31:03): &gt; A substantial difference that remains unresolved is the use of<code>linkData</code>which allows more than one row per tree leaf. Could you guys remind us what the use case for this was?</p>
+<p><strong>hcorrada</strong> (06:32:51): &gt; This is the biggest sticking point between the two representations since allowing multiple entries per leaf would then not make it possible for<code>rowData</code>and<code>colData</code>to include the tree structure.</p>
+<p><strong>hcorrada</strong> (06:35:12): &gt; I propose that we continue our discussion here for now and then skype in a couple of days (probably early next week), to gives us a chance to address@Ruizhu HUANG‘s point (that way we get that issue out of the way) and address@Martin Morgan’ comments. How does that sound?</p>
+<p><strong>Mark Robinson</strong> (06:37:09): &gt; works for me!<span class="citation" data-cites="Ruizhu">@Ruizhu</span> HUANGcan you respond w.r.t. to the<code>linkData</code>comment above?</p>
+<p><strong>Ruizhu HUANG</strong> (08:00:39): &gt; <span class="citation" data-cites="hcorradaSorry">@hcorradaSorry</span> for the delay. Currently, we allow multiple rows to be mapped to a tree leaf because we might have, for example (CyTOF data), each row represents a cell and the leaf level of the tree is the cell subtype. There are multiple cells belong to the same cell subtype.</p>
+<p><strong>hcorrada</strong> (08:08:39): &gt; So in that use case, the assay rows are for cells (not cell subtype) right? In that case, we could have one more level in the tree for cells and the immediate ancestor in the tree is the cell type?</p>
+<p><strong>Ruizhu HUANG</strong> (08:10:31): &gt; Yes, the rows are for cells. One thing I don’t get from the data frame used in the<code>treeIndex</code>is how could people deal or define the level when deal with a complicated tree. The complicated tree, I mean there are different number of nodes in paths connecting the root and the leaves?</p>
+<p><strong>Ruizhu HUANG</strong> (08:13:26): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FER25PE5B/screenshot_2018-12-11_at_14.13.07.png">Screenshot 2018-12-11 at 14.13.07.png</a></p>
+<p><strong>Ruizhu HUANG</strong> (08:14:02): &gt; For example, a tree with this kind of structure. How to specify which node is on which level?</p>
+<p><strong>Jayaram Kancherla</strong> (08:25:52) (in thread): &gt; Thank you for the comments@Martin Morgan, I did make a few updates last night addressing these issues. Will be updating the code to use<code>rowsum</code>today</p>
+<p><strong>Jayaram Kancherla</strong> (08:39:21): &gt; Hi@Ruizhu HUANG, the<code>selectedLevel</code>is an optional parameter. In this scenario, one would use the<code>selectedNodes</code>parameter (a list of node names or a subset of the nodes table as shown in the vignette -<a href="https://github.com/HCBravoLab/TreeSE/blob/master/vignettes/TreeSE-basics.Rmd#L53">https://github.com/HCBravoLab/TreeSE/blob/master/vignettes/TreeSE-basics.Rmd#L53</a>) to perform tree aggregations by nodes - Attachment (GitHub): <a href="https://github.com/HCBravoLab/TreeSE/blob/master/vignettes/TreeSE-basics.Rmd#L53">HCBravoLab/TreeSE</a> &gt; R package to manage hierarchies in genomic datasets. eg., single cell and microbiome datasets - HCBravoLab/TreeSE</p>
+<p><strong>Ruizhu HUANG</strong> (08:47:50): &gt; Hi Jayaram, Thanks for pointing to the selectedNodes. I am not sure whether it’s the same case in your data. The labels of internal nodes of the tree in some case are the same for different nodes. For some tree, they might even have no labels for the internal nodes.</p>
+<p><strong>Ruizhu HUANG</strong> (08:48:45): &gt; That’s why in our design we have both node labels are node number in the<code>linkData</code>.</p>
+<p><strong>Levi Waldron</strong> (08:54:58): &gt; A couple thoughts/I i</p>
+<p><strong>Jayaram Kancherla</strong> (08:56:53): &gt; One of the things we do when we parse the hierarchy/tree is when there are nodes labeled NA’s in the dataset (this was common for microbiome datasets), we make sure those NA’s are renamed to be unique for every lineage. I think we can extend this to nodes that have no labels. We also create unique node id’s for all nodes in the tree.</p>
+<p><strong>Levi Waldron</strong> (09:00:29): &gt; Sorry in transit! The main thing I wanted to suggest that as much development as possible should go into a Vector derived object that could be placed in the rowData.</p>
+<p><strong>Levi Waldron</strong> (09:08:42): &gt; This does seem to exist in the<code>nodes</code>object in the treeSE vignette?</p>
+<p><strong>Martin Morgan</strong> (09:11:11): &gt; Following@Levi Waldron<code>Hits</code>is an S4Vectors object that can be used to represent from/to edges, for instance</p>
+<p><strong>Levi Waldron</strong> (09:11:58): &gt; That’s a neat idea</p>
+<p><strong>hcorrada</strong> (09:29:03) (in thread): &gt; That’s correct, the tree structure can be placed in the rowData (or colData) slot</p>
+<p><strong>hcorrada</strong> (09:29:20) (in thread): &gt; That’s a main design principle</p>
+<p><strong>hcorrada</strong> (09:30:18) (in thread): &gt; Do we have unique id’s for nodes?</p>
+<p><strong>Jayaram Kancherla</strong> (09:30:48) (in thread): &gt; yup we also create unique id’s for all nodes</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2018-12-12</h2>
+<p><strong>Ruizhu HUANG</strong> (11:57:43): &gt; Hi all, &gt; &gt; Appologized firstly for this long comment. &gt; &gt; If anyone is interested to try, we have also created a repository (<a href="https://github.com/fionarhuang/TreeSummarizedExperiment">https://github.com/fionarhuang/TreeSummarizedExperiment</a>) to share our idea of<code>TreeSummarizedExperiment</code>. (Just to clarify, I am not challenging the work of treeIndex. It is to show the work that is currently available, and hope it’s somehow useful for later collaboration. I am also happy to switch to treeIndex structure if it could be flexibly adapted for our project). The similar function to<code>aggregateTree</code>is<code>nodeValue</code>in our case.@Charlotte Soneson@Mark Robinson &gt; <code>&gt; # The TreeSummarizedExperiment object &gt; taxLse &lt;- treeSummarizedExperiment(assays = list(toyTable), &gt;                                 rowData = rowInf, &gt;                                 colData = colInf, &gt;                                 tree = taxTree) &gt; # the node labels &gt; test4 &lt;- nodeValue(data = taxLse, fun = sum, level = "R3 - C3") &gt; ` &gt;</code> &gt; A couple of thoughts after trying your package@Jayaram Kancherla@hcorrada. (Probably some are thought and solved somewhere I didn’t find it. ) &gt; &gt; &gt; &gt; 1. The creation of the<code>treeIndex</code>class starts with a<code>data.frame</code>input. Would it be more general to start with some tree structure, e.g.<code>phylo</code>or<code>hclust</code>? In some case, probably, the output of some pipeline is a tree structure, and don’t have this nice taxonomic table available. &gt; &gt; 2. How well does this new class integrate with the tools that already exist, e.g.<code>phyloseq</code>,<code>ape</code>. &gt; &gt; 3. If users need to plot the tree, does it mean that the<code>treeIndex</code>class need to be converted to other class? Would it be better to use the class that already exist, e.g.<code>phylo</code>class? Some nice R packages could support the plot of a<code>phylo</code>object, e.g.<code>ggtree</code>. &gt; &gt; 4. Is this new class flexible to be adapted for other applications? In our case, we want to search an optimal level on the tree to interpret some results, and hence need to do some node search. Is the new class flexible to be adapt for this kind of work? (More details of our goal are given at the end of vignette). Probably, others have other requirements that we have not considered? &gt; &gt; 5. Is it easy to be integrated with some interactive visualization tools? e.g.<code>iSEE</code>. &gt; &gt; I would be happy to get some comments for our structure of<code>TreeSummarizedExperiment</code>! Thanks! - Attachment (GitHub): <a href="https://github.com/fionarhuang/TreeSummarizedExperiment">fionarhuang/TreeSummarizedExperiment</a> &gt; Contribute to fionarhuang/TreeSummarizedExperiment development by creating an account on GitHub.</p>
+<p><strong>Jayaram Kancherla</strong> (16:10:16): &gt; Hi@Ruizhu HUANG, &gt; &gt; The idea behind developing the<code>TreeIndex</code>package is to provide a base class for managing and handling hierarchies. Another main design principle was to be able to use the TreeIndex as either colData (single cell) or rowData (metagenomic) or both in the<code>TreeSummarizedExperiment</code>class. Once we have these base classes, we can either add more functionality or create more datatype specific packages and implement these features. &gt; &gt; To address some of the issues - &gt; &gt; 1. We will be updating the package with more import functions to load hierarchies from phylo/hclust &gt; &gt; 2.@Levi Waldron, Joe and our lab had a weekend-hackathon to refactor<code>phyloseq</code>to more like<code>SummarizedExperiment</code>. We started working on this as a separate package<code>MicrobiomeExperiment</code>(<a href="https://github.com/HCBravoLab/MicrobiomeExperiment">https://github.com/HCBravoLab/MicrobiomeExperiment</a>) and is currently being updated to use TreeIndex to represent the taxonomy. This class would also have additonal slots for phylo objects. This package provides functions to import phyloseq/MRExperiment (from<code>metagenomeSeq</code>) objects into MicrobiomeExperiment. We are also looking at functionality provided in phyloseq and if we have to reimplement them when we refactor. A github issue is currently open for this -<a href="https://github.com/HCBravoLab/MicrobiomeExperiment/issues/14">https://github.com/HCBravoLab/MicrobiomeExperiment/issues/14</a>3. For interactive visualization, we want to quickly perform aggregations (based on node selections or level) on these datasets and visualize the results. I’m not sure if the<code>ape</code>package provides such methods. This is another reason to use a dataframe approach rather than<code>Hits</code>to represent edges is to support interactive aggregations.@Martin Morgan4. see 2, but are welcome to add more usecases to these classes. &gt; 5. iSEE is based on<code>SummarizedExperiment</code>class and should be compatible. - Attachment (GitHub): <a href="https://github.com/HCBravoLab/MicrobiomeExperiment">HCBravoLab/MicrobiomeExperiment</a> &gt; Bioconductor defining a summarizedExperiment class (metagenomeSE) for metagenomic data. - HCBravoLab/MicrobiomeExperiment - Attachment (GitHub): <a href="https://github.com/HCBravoLab/MicrobiomeExperiment/issues/14">phyloseq -&gt; MicrobiomeExperiment low-level data translation document · Issue #14 · HCBravoLab/MicrobiomeExperiment</a></p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2018-12-13</h2>
+<p><strong>Domenick Braccia</strong> (14:13:15): &gt; <span class="citation" data-cites="Domenick">@Domenick</span> Braccia has joined the channel</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2018-12-17</h2>
+<p><strong>Ruizhu HUANG</strong> (10:35:03): &gt; Hi all&lt;!channel&gt;, &gt; &gt; We have created slides to update people in this channel. Please correct me or directly edit the slides if I say something wrong. &gt; &gt; 1. It gives a brief summary of packages<code>MicrobiomeExperiment</code>,<code>TreeSE</code>, and<code>TreeSummarizedExperiment</code>. (<a href="https://docs.google.com/presentation/d/10aGjqM0Wr6uREkQ3puzlMwRU1PmI0FW8-6EGea2MUrU/edit#slide=id.g4ab5fbca61_0_0">https://docs.google.com/presentation/d/10aGjqM0Wr6uREkQ3puzlMwRU1PmI0FW8-6EGea2MUrU/edit#slide=id.g4ab5fbca61_0_0</a>) &gt; &gt; 2. A shared document to record the use cases for<code>TreeSummarizedExperiment</code>. Please feel free to add more cases.(<a href="https://docs.google.com/document/d/1FaUotyFukunGYj1tPD0rBmOQqzfb1OLkwYSG_c5MsJs/edit">https://docs.google.com/document/d/1FaUotyFukunGYj1tPD0rBmOQqzfb1OLkwYSG_c5MsJs/edit</a>)</p>
+<p><strong>Ruizhu HUANG</strong> (10:37:51): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla@hcorradaThe code to reproduce the issue of<code>aggregateTree</code>mentioned in the slide could be found here (<a href="https://gist.github.com/fionarhuang/c146cc4c6fe7ecfd7597ba5f7b86ac18">https://gist.github.com/fionarhuang/c146cc4c6fe7ecfd7597ba5f7b86ac18</a>)</p>
+<p><strong>Levi Waldron</strong> (14:00:19): &gt; Thanks@Ruizhu HUANG! Looking forward to reviewing.</p>
+<p><strong>hcorrada</strong> (15:22:49): &gt; Thanks@Ruizhu HUANG. This is super helpful!</p>
+<p><strong>hcorrada</strong> (15:23:58): &gt; My current feeling is the following: 1) our underlying implementation of tree structure in<code>TreeIndex</code>is (too?) optimized for interactive applications where a lot aggregate computations are made.</p>
+<p><strong>hcorrada</strong> (15:24:37): &gt; but this presents issues in ease of use for other use cases where existing phylo/ape structures are more appropriate</p>
+<p><strong>hcorrada</strong> (15:25:47): &gt; (as an aside, the benchmark on aggregation in slide 10 isn’t quite comprehensive, the bulk of time in<code>treeSE</code>is construction of<code>TreeIndex</code>, but once constructed aggregation calls to<code>treeSE</code>are faster than<code>TreeSummarizedExperiment</code>)</p>
+<p><strong>hcorrada</strong> (15:27:12): &gt; 2) the separation of<code>linkData</code>from<code>rowData</code>in<code>TreeSummarizedExperiment</code>violates the “inherits from Vector” property@Levi Waldronand@Martin Morganhave advocated for</p>
+<p><strong>hcorrada</strong> (15:28:01): &gt; I think (2) is a critical design consideration. I.e., whatever representation we use we could stick into<code>rowData</code>or<code>colData</code></p>
+<p><strong>hcorrada</strong> (15:28:56): &gt; (1) is not so important. It’s probably a better long-term solution to use a simpler design (phylo/ape based) than an overly-optimized design (the existing implementation of<code>TreeIndex</code>)</p>
+<p><strong>hcorrada</strong> (15:29:10): &gt; As such, I propose the following resolution as a possible plan</p>
+<p><strong>hcorrada</strong> (15:31:03): &gt; to rewrite<code>TreeSummarizedExperiment</code>so it satisfies point (2) that is, a tree structure can be specified in either rowData or colData.</p>
+<p><strong>hcorrada</strong> (15:34:00): &gt; This would remove and drop our implementation of<code>TreeIndex</code></p>
+<p><strong>hcorrada</strong> (15:35:49): &gt; What do you all think? Would a rewrite of<code>TreeSummarizedExperiment</code>to satisfy point (2) work for everyone? If so, we’d be happy to help@Ruizhu HUANGin any way we can to make that happen</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2018-12-18</h2>
+<p><strong>Ruizhu HUANG</strong> (08:37:05): &gt; Thanks for the feedback!<span class="citation" data-cites="hcorrada">@hcorrada</span>, &gt; 1. Please see the example code here to benchmark separately the tree construction and aggregation using<code>TreeSE</code>and<code>TreeSummarizedExperiment</code>. (<a href="https://gist.github.com/fionarhuang/19e36b0c7cd97a40792cf5648efedfc2">https://gist.github.com/fionarhuang/19e36b0c7cd97a40792cf5648efedfc2</a>). If we allow<code>cache</code>in the creation of<code>phylo</code>object.<code>TreeSummarizedExperiment</code>is faster in both steps.</p>
+<p><strong>Ruizhu HUANG</strong> (08:37:39): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FEXQN6VV5/screenshot_2018-12-18_at_14.37.19.png">Screenshot 2018-12-18 at 14.37.19.png</a></p>
+<p><strong>Ruizhu HUANG</strong> (08:43:50): &gt; 2. For (2), this is the logic behind<code>nodeValue</code>to use vector index.@Levi Waldron@Martin Morgan(<a href="https://docs.google.com/presentation/d/1N13MjR96U6YBt_tVL9Hw40DfDE5CgmXkIuZItthF4vI/edit#slide=id.g4ab9578300_0_88">https://docs.google.com/presentation/d/1N13MjR96U6YBt_tVL9Hw40DfDE5CgmXkIuZItthF4vI/edit#slide=id.g4ab9578300_0_88</a>).<code>nodeValue</code>accepts both<code>TreeSummarizedExperiment</code>and<code>matrix</code>as input<code>data</code>. If users prefer to use index directly, the example code (<code>aggregation</code>step in file<code>Benchmark_toyData.R</code>see link in (1)) could be used. &gt; I am not sure whether I have correctly understand the issue or answer it properly. I am happy to adapt the code or structure if there is a better design.</p>
+<p><strong>Jayaram Kancherla</strong> (11:29:15): &gt; on a similar note, I wanted to see how scalable both the packages are when the dataset size increases, &gt; &gt; I used the<code>mouseData</code>from the<code>metagenomeSeq</code>package. This data comes from<a href="https://gordonlab.wustl.edu/TurnbaughSE_10_09/STM_2009.html">https://gordonlab.wustl.edu/TurnbaughSE_10_09/STM_2009.html</a>I ran your same benchmark code by changing the dataset -<a href="https://gist.github.com/jkanche/1621be07fe039c248b36dbac05bb3f5f">https://gist.github.com/jkanche/1621be07fe039c248b36dbac05bb3f5f</a>Couple of things - 1) I only ran the “build the tree” benchmark once because the<code>toTree</code>function from<code>TreeSummarizedExperiment</code>package takes forever to finish a run. 2) We do not precompute counts for every node because in our use case, one can also choose a subset of samples to aggregate the counts. 3) I added a section to compare benchmarks without cache. 4) I find it harder to choose nodes from multiple levels for TreeSummarizedExperiment, If you can update your code that would be another section. I think it would also be interesting to take a single cell dataset and do a similar benchmark &gt; &gt; I think if you can optimize the<code>toTree</code>function to create the phylo object, the rest are more or less comparable. Here’s the results from this exercise</p>
+<p><strong>Jayaram Kancherla</strong> (11:29:31): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FEWUNUJFL/benchmarks.png">benchmarks.png</a></p>
+<p><strong>Ruizhu HUANG</strong> (14:40:09): &gt; Hi@Jayaram KancherlaThanks for the review! The time using<code>cache</code>is much longer because I made some mistakes in function<code>toTree</code>, and counted leaf nodes multiple times when creating the<code>phylo</code>object. Apologize for making this mistake. It would not affect the results, but make the time much longer than it really should take. The issue is fixed now. I have rerun the benchmark code. Here is the final result.</p>
+<p><strong>Ruizhu HUANG</strong> (14:40:25): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FEX2C14MR/screenshot_2018-12-18_at_20.39.54.png">Screenshot 2018-12-18 at 20.39.54.png</a></p>
+<p><strong>Ruizhu HUANG</strong> (14:42:25): &gt; The code I run is exactly the same as you shared except I change the class from<code>factor</code>to<code>character</code>for each column of<code>taxTab</code>.</p>
+<p><strong>Ruizhu HUANG</strong> (14:42:42): &gt; Please find the code here.<a href="https://gist.github.com/fionarhuang/6c5f0d213c945b4acf63f940ab891ff5">https://gist.github.com/fionarhuang/6c5f0d213c945b4acf63f940ab891ff5</a></p>
+<p><strong>Ruizhu HUANG</strong> (14:55:14): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> KancherlaTo answer your comments, &gt; 1) See above. &gt; 2)<code>TreeSummarziedExperiment</code>doesn’t precompute counts either. Users could decide how to aggregate by providing a function in<code>fun</code>of<code>nodeValue</code>. The<code>cache</code>is to store information something similar to<code>nodes</code>in your package. Users could decide whether to save<code>cache</code>for themselves. &gt; 3) Without using<code>cache</code>, the time is quite close for both packages.<code>TreeSE</code>takes more time to build the tree. &gt; 4) To select nodes from multiple levels, you could specify<code>level = c( "genus - Fusibacter", "phylum - Firmicutes")</code>in the argument of<code>nodeValue</code>if using your example data. Probably, it would be more clear if you look at my vignette, the toy data there is small and could be easier to play with. In your case, you separate the<code>level</code>and<code>node</code>. That’s different to what I did, probably that causes the confusion.</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2018-12-19</h2>
+<p><strong>Leo Lahti</strong> (04:38:09): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+<p><strong>Jayaram Kancherla</strong> (09:11:29) (in thread): &gt; awesome! thanks for the update</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2019-01-08</h2>
+<p><strong>Ruizhu HUANG</strong> (02:37:26): &gt; Hi all,<span class="citation" data-cites="hcorradahas">@hcorradahas</span> suggested to remove the<code>linkData</code>in the previous discussion. &gt; &gt; 2) the separation of<code>linkData</code>from<code>rowData</code>in<code>TreeSummarizedExperiment</code>violates the “inherits from Vector” property@Levi Waldronand@Martin Morganhave advocated for &gt; Our idea is to construct a new class (extended from<code>DataFrame</code>) that would be print out as below (similar to<code>GRanges</code>). &gt; <code>&gt; rowData(x) &gt;         nodeNum   nodeLab |     score       group &gt;     &lt;numeric&gt; &lt;character&gt; | &lt;numeric&gt; &lt;character&gt; &gt; [1]           1         a |         A           1 &gt; [2]           2         b |         B           2 &gt; [3]           3         a |         C           3 &gt; [4]           4         b |         D           4 &gt; ` &gt;</code> &gt; The link information between<code>assays</code>table and the tree, (<code>linkData</code>) is in the left side of the vertical line and the original<code>rowData</code>(or<code>colData</code>) is in the right side.<code>nodeLab</code>and<code>nodeNum</code>are the node label and the node number in the tree, respectively. Users are allowed to change the part in the right side. &gt; &gt; Do you like it? Do you have better idea? We are open to any comments or suggestions, and would be happy to have collaborators if someone is interested to contribute. Thank you!</p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2019-01-09</h2>
+<p><strong>Levi Waldron</strong> (15:42:25): &gt; Hi@Ruizhu HUANG, the show method looks great and I love a good show method! How are the actual tree or graph data represented?</p>
+<p><strong>Levi Waldron</strong> (15:45:23): &gt; Seems like we could benefit from some regular “working group” meetings on this for a while, like I used to hold monthly for MultiAssayExperiment. It would help me to have a full update and discussion for an hour on a regular basis.</p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2019-01-10</h2>
+<p><strong>Ruizhu HUANG</strong> (07:32:24): &gt; Hi@Levi WaldronYes, it would be great if we could schedule time for the video meeting! &gt; &gt; How are the actual tree or graph data represented? &gt; For example, if we have a taxonomic table, we could convert it into a<code>phylo</code>as below, and store the<code>phylo</code>object in the<code>treeData</code>slot of<code>TreeSummarizedExperiment</code>. &gt; <code>&gt; &gt; taxTab &gt;   superkingdom phylum class  OTU &gt; 1            A     B1    C1   D1 &gt; 2            A     B2    C2   D2 &gt; 3            A     B2    C3   D3 &gt; 4            A     B2    C3   D4 &gt; 5            A     B2  &lt;NA&gt; &lt;NA&gt; &gt; # convert to a phylo object &gt; &gt;tree1 &lt;- toTree(taxTab) &gt;</code> &gt; The<code>phylo</code>could be visualized using<code>ggtree</code>package as below. More details about<code>phylo</code>object could be found in the slides.(<a href="https://docs.google.com/presentation/d/1N13MjR96U6YBt_tVL9Hw40DfDE5CgmXkIuZItthF4vI/edit#slide=id.g4ac0ec1dd9_0_0">https://docs.google.com/presentation/d/1N13MjR96U6YBt_tVL9Hw40DfDE5CgmXkIuZItthF4vI/edit#slide=id.g4ac0ec1dd9_0_0</a>)</p>
+<p><strong>Ruizhu HUANG</strong> (07:32:41): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FFAHUDNBV/screenshot_2019-01-10_at_13.31.49.png">Screenshot 2019-01-10 at 13.31.49.png</a></p>
+<p><strong>Ruizhu HUANG</strong> (07:41:02): &gt; The number in blue texts would be the node number (nodeNum) in the<code>rowData</code>.</p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2019-01-24</h2>
+<p><strong>Ruizhu HUANG</strong> (08:12:10): &gt; Hi all&lt;!channel&gt;, &gt; Would people be interested to have a meeting about TreeSummarizedExperiment next week? Here is the doodle link to schedule the meeting.<a href="https://doodle.com/poll/akmi7knh5bdzq7fq">https://doodle.com/poll/akmi7knh5bdzq7fq</a> - Attachment (doodle.com): <a href="https://doodle.com/poll/akmi7knh5bdzq7fq">Doodle: TreeSummarizedExperiment</a> &gt; Doodle radically simplifies the process of scheduling events, meetings, appointments, etc. Herding cats gets 2x faster with Doodle. For free!</p>
+<p><strong>Martin Morgan</strong> (08:38:36): &gt; Sounds great; I responded to the poll but don’t schedule around me…</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2019-01-25</h2>
+<p><strong>Ruizhu HUANG</strong> (01:00:02): &gt; Thanks, Martin!</p>
+<p><strong>Ruizhu HUANG</strong> (09:02:15): &gt; Hi all, &gt; Thanks for sharing the availability in doodle. As most are available on next Friday, we would suggest to meet on Feb 1 at 16.30-17.30 ( Central European Time (GMT +1)). Please find your local time here:<a href="http://everytimezone.com/#2019-2-1,210,5yid">http://everytimezone.com/#2019-2-1,210,5yid</a><strong><em>The meeting link</em></strong>:<a href="https://treese.daily.co/meet">https://treese.daily.co/meet</a> - Attachment (Daily): <a href="https://treese.daily.co/meet">Join my Daily video call!</a> &gt; Click to join this meeting in Chrome. Daily is free and super easy video calling: 50 person meetings, dial-in, dual screen shares.</p>
+<p><strong>Ruizhu HUANG</strong> (09:05:32): &gt; You might want to test whether your web browser supports the<a href="http://daily.co">daily.co</a>by simply clicking the meeting link above.:blush:This page shows the web browsers supported by the<a href="http://daily.co">daily.co</a>(<a href="https://www.daily.co/browsers">https://www.daily.co/browsers</a>)</p>
+<p><strong>Marcel Ramos Pérez</strong> (13:52:55) (in thread): &gt; Is it this time?<a href="http://everytimezone.com/#2019-2-1,210,5yid">http://everytimezone.com/#2019-2-1,210,5yid</a></p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2019-01-26</h2>
+<p><strong>Ruizhu HUANG</strong> (09:37:22) (in thread): &gt; Yes, Thanks! I will share this link!</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2019-02-01</h2>
+<p><strong>Ruizhu HUANG</strong> (10:35:52): &gt; <a href="https://docs.google.com/presentation/d/1Ncwt7j1pZjjDyqACLfgoDim4M38qzUX3JYC51BBdK10/edit#slide=id.g4e8d19e4e4_0_554">https://docs.google.com/presentation/d/1Ncwt7j1pZjjDyqACLfgoDim4M38qzUX3JYC51BBdK10/edit#slide=id.g4e8d19e4e4_0_554</a></p>
+<p><strong>Jayaram Kancherla</strong> (11:17:25): &gt; <a href="https://github.com/HCBravoLab/TreeSE/blob/master/R/TreeIndex-class.R">https://github.com/HCBravoLab/TreeSE/blob/master/R/TreeIndex-class.R</a></p>
+<p><strong>Jayaram Kancherla</strong> (11:39:25): &gt; MicrobiomeExperiment-<a href="https://github.com/HCBravoLab/MicrobiomeExperiment/tree/MigrateTreeSE">https://github.com/HCBravoLab/MicrobiomeExperiment/tree/MigrateTreeSE</a></p>
+<p><strong>Ruizhu HUANG</strong> (11:42:31): &gt; Thanks, Jayaram!</p>
+<p><strong>Domenick Braccia</strong> (12:07:24): &gt; All comments &amp; suggestions for MicrobiomeExperiment are welcome, as it is still in the early stages of development.@Ruizhu HUANGthanks for organizing today’s call, it was very helpful.</p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2019-02-04</h2>
+<p><strong>Ruizhu HUANG</strong> (04:09:47): &gt; Thanks for joining the call and all helpful comments and suggestions. I will keep you updated when I have new progress!</p>
+<p><strong>Dror Berel</strong> (18:06:40): &gt; <span class="citation" data-cites="Dror">@Dror</span> Berel has joined the channel</p>
+</section>
+<section id="section-53" class="level2">
+<h2 class="anchored" data-anchor-id="section-53">2019-02-07</h2>
+<p><strong>Kasper D. Hansen</strong> (12:08:41): &gt; <span class="citation" data-cites="Kasper">@Kasper</span> D. Hansen has joined the channel</p>
+<p><strong>Kasper D. Hansen</strong> (12:21:46): &gt; I heard about this today. I have 1 clarifying question and 1 more deep request / question.</p>
+<p><strong>Kasper D. Hansen</strong> (12:23:02): &gt; 1. This is about having a tree linking rows in a SE, right?</p>
+<p><strong>Kasper D. Hansen</strong> (12:23:42): &gt; 2. Does the structure as currently proposed include the ability to link data to internal nodes of the tree as opposed to only leaf nodes. I think that is very important, but it complicates things.</p>
+<p><strong>hcorrada</strong> (12:36:58): &gt; 1. Correct, we also want to support a tree linking columns</p>
+<p><strong>hcorrada</strong> (12:37:40): &gt; 2. As currently proposed and being implemented by@Ruizhu HUANG, yes, this would allow linking assay rows to internal nodes in the tree (and yes, it complicates things…)</p>
+</section>
+<section id="section-54" class="level2">
+<h2 class="anchored" data-anchor-id="section-54">2019-02-08</h2>
+<p><strong>Ruizhu HUANG</strong> (03:22:49): &gt; Yes, we support the link to the internal nodes. The current structure allows the link both to the rows and columns of the assays tables. Hope I will finish the vignette and make it available to test today.</p>
+<p><strong>Ruizhu HUANG</strong> (11:25:06): &gt; Hi all, &gt; &gt; The<code>TreeSummarizedExperiment</code>is ready to be tested. The current structure is as below. - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FG3FG5T6J/screenshot_2019-02-08_at_17.18.06.png">Screenshot 2019-02-08 at 17.18.06.png</a></p>
+<p><strong>Ruizhu HUANG</strong> (11:32:15): &gt; The vignette is available as a html file here.</p>
+<p><strong>Ruizhu HUANG</strong> (11:32:26): - File (HTML): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FG23BHGDQ/introduction_to_treesummarizedexperiment.html">Introduction_to_treeSummarizedExperiment.html</a></p>
+<p><strong>Ruizhu HUANG</strong> (11:32:48): &gt; The github repository is<a href="https://github.com/fionarhuang/TreeSummarizedExperiment">https://github.com/fionarhuang/TreeSummarizedExperiment</a></p>
+<p><strong>Ruizhu HUANG</strong> (11:39:22): &gt; A short summary: &gt; 1. the package now allows to store the tree structure on either row dimension or column dimension or both. &gt; 2. it allows aggregation on either dimension or both. &gt; 3. it allows the hierarchical information to be provided as a data.frame &gt; 4. I will add more details about the small functions on the<code>phylo</code>later.@Jayaram Kancherla@hcorrada<span class="citation" data-cites="Levi">@Levi</span> WaldronThe aggregation on the taxonomic table is in the Section 4 of the vignette.@Domenick BracciaThe link data part is explained in the section of the accessor function.@Kasper D. Hansenwhether a link is to an internal node could be found in the<code>isLeaf</code>column of the<code>LinkData</code>. Thank you for all the help and have a nice weekend!:blush:</p>
+</section>
+<section id="section-55" class="level2">
+<h2 class="anchored" data-anchor-id="section-55">2019-02-09</h2>
+<p><strong>Ruizhu HUANG</strong> (04:28:57): &gt; The introduction slides are updated here.@Charlotte Soneson@Mark Robinson<a href="https://docs.google.com/presentation/d/11b9tbqbR3C_8lntON7aPETBSz_WCJrOW7lxxSR9CD-8/edit#slide=id.p">https://docs.google.com/presentation/d/11b9tbqbR3C_8lntON7aPETBSz_WCJrOW7lxxSR9CD-8/edit#slide=id.p</a></p>
+</section>
+<section id="section-56" class="level2">
+<h2 class="anchored" data-anchor-id="section-56">2019-02-21</h2>
+<p><strong>Aedin Culhane</strong> (17:44:17): &gt; Cool. Does it accept phylo tree formats (eg Newick? etc)</p>
+</section>
+<section id="section-57" class="level2">
+<h2 class="anchored" data-anchor-id="section-57">2019-02-22</h2>
+<p><strong>Ruizhu HUANG</strong> (02:33:22): &gt; Hi@Aedin Culhane, &gt; &gt; Currently, users would need to use functions from other packages, e.g.<code>phytools::read.newick</code>for Newick, to read the tree files. &gt; &gt; For example, &gt; <code>&gt; tree &lt;- "((Human,Chimp),Gorilla),Monkey);" &gt; phy &lt;- phytools::read.newick(text=tree) &gt; ` &gt;</code> &gt; The output<code>phy</code>is a<code>phylo</code>object and could be used to construct the<code>TreeSummarizedExperiment</code>object.</p>
+</section>
+<section id="section-58" class="level2">
+<h2 class="anchored" data-anchor-id="section-58">2019-03-03</h2>
+<p><strong>Ruizhu HUANG</strong> (13:00:37): &gt; Hi all, &gt; Are there other functionalities you would expect<code>TreeSummarizedExperiment</code>to provide? I am thinking probably we should submit it to Bioconductor after some improvements in documentation.</p>
+<p><strong>Levi Waldron</strong> (16:33:53): &gt; Ultimately it should re-implement all the methods of the<code>phyloseq</code>package, but even a subset of that would give a good idea of any limitations or awkwardness that exists in the data structure…</p>
+<p><strong>Charlotte Soneson</strong> (16:38:18): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldronany suggestions for particular ones to start with?</p>
+<p><strong>Levi Waldron</strong> (16:48:30): &gt; OK - actually I scale back my opinion that it should re-implement<strong><em>all</em></strong>of phyloseq, which I think contains scope creep. I think just the data management aspects, particularly the trimming, subsetting, and filtering (section 6,<a href="https://bioconductor.org/packages/release/bioc/vignettes/phyloseq/inst/doc/phyloseq-basics.html#trimming-subsetting-filtering-phyloseq-data">https://bioconductor.org/packages/release/bioc/vignettes/phyloseq/inst/doc/phyloseq-basics.html#trimming-subsetting-filtering-phyloseq-data</a>). You could skip the things that already have a direct equivalent in<code>SummarizedExperiment</code>, and just include those in a table of equivalents between<code>phyloseq</code>and<code>TreeSummarizedExperiment</code>.</p>
+<p><strong>Levi Waldron</strong> (17:00:55): &gt; Section 8 there (<code>tax_glom</code>and<code>tip_glom</code>) seems within the scope of data management, and involves taxonomy or phylogeny plus assay data, although I’ve never actually used these functions since both QIIME(2) and MetaPhlAn2 already provide these agglomerate clades by default.</p>
+<p><strong>Levi Waldron</strong> (17:00:59): &gt; Selfishly, I make heavy use of phyloseq’s distance and ordination functions, but those really belong in a separate package for ecological analysis (maybe eventually in the phyloseq package, but its retooling will be a major undertaking). A companion package providing distances and ordination would make<code>TreeSummarizedExperiment</code>immediately useful for a lot of what I do.</p>
+<p><strong>Martin Morgan</strong> (19:21:49): &gt; I’m ‘shooting from the hip’ here without even looking at any code, but I’d be wary of ‘re-implementing’ existing functionality. Is there a better pattern, like ‘get the tree from treeSE’ –&gt; manipulate as necessary in phyloseq –&gt; ‘update(treeSE, manipulated tree)’, where the update function says either ‘yes, I can do that for you, here’s what the implications of your new tree are for the original treeSE’ or ‘sorry, X, I can’t do that for you, you’ve made transformations of the tree that violate the original structure’</p>
+<p><strong>Levi Waldron</strong> (20:38:07): &gt; My rationale for re-implementing is that these actions in phyloseq act on a list-like object and itself re-implements basic things provided by SummarizedExperiment. Basic phylogenetic operations come from<code>ape</code>, and those for sure should not be re-implemented.@Joey McMurdiemaybe you can weigh in? In our last discussion, our eventual hope was to maintain the<code>phyloseq</code>API but eventually replacing the<code>previous phyloseq</code>class with a class based on<code>SummarizedExperiment</code>.</p>
+</section>
+<section id="section-59" class="level2">
+<h2 class="anchored" data-anchor-id="section-59">2019-03-04</h2>
+<p><strong>Ruizhu HUANG</strong> (02:49:12): &gt; If I understand it correctly, it’s to trim taxa that exists only in the<code>assays</code>table or in the<code>phylo</code>tree object to keep equivalent between the tree object and the<code>assays</code>table. I like this idea to keep the table and the tree matched when construct the<code>TreeSE</code>. Following this idea, should we update the tree every time we subset the table? This is somehow going back to the question that the tree should be updated or should be kept the same during the whole process. - Attachment: <a href="https://community-bioc.slack.com/archives/C7LUMKTT6/p1551649710010800">Attachment</a> &gt; OK - actually I scale back my opinion that it should re-implement <strong>all</strong> of phyloseq, which I think contains scope creep. I think just the data management aspects, particularly the trimming, subsetting, and filtering (section 6, <a href="https://bioconductor.org/packages/release/bioc/vignettes/phyloseq/inst/doc/phyloseq-basics.html#trimming-subsetting-filtering-phyloseq-data">https://bioconductor.org/packages/release/bioc/vignettes/phyloseq/inst/doc/phyloseq-basics.html#trimming-subsetting-filtering-phyloseq-data</a>). You could skip the things that already have a direct equivalent in <code>SummarizedExperiment</code>, and just include those in a table of equivalents between <code>phyloseq</code> and <code>TreeSummarizedExperiment</code>.</p>
+<p><strong>Ruizhu HUANG</strong> (02:56:30): &gt; Yes, it would be a good idea to follow the suggested pattern by@Martin Morganif the tree needs to be updated. One thing I want to remind is that every time a tree is changed (merge branches or prune branches), the node number of the new tree would be different to the old tree. This somehow leads to lose tracking of the data. It depends on users’ goal. In some situations, the old or original tree is not important; in other cases, the original tree needs to be used. - Attachment: <a href="https://community-bioc.slack.com/archives/C7LUMKTT6/p1551658909022400">Attachment</a> &gt; I’m ‘shooting from the hip’ here without even looking at any code, but I’d be wary of ‘re-implementing’ existing functionality. Is there a better pattern, like ‘get the tree from treeSE’ –&gt; manipulate as necessary in phyloseq –&gt; ‘update(treeSE, manipulated tree)’, where the update function says either ‘yes, I can do that for you, here’s what the implications of your new tree are for the original treeSE’ or ‘sorry, X, I can’t do that for you, you’ve made transformations of the tree that violate the original structure’</p>
+<p><strong>Ruizhu HUANG</strong> (03:06:14): &gt; I see there are different applications in these two different settings. I am thinking which one of the two options below would be better: &gt; 1. Should I allow the package to go in two different directions? One is to allow the tree to be updated; and the other is to keep using a same tree. &gt; 2. Should I just keep using the same tree and make the<code>TreeSE</code>to be flexible so that it could be extended in other packages to do the former in 1?</p>
+<p><strong>Domenick Braccia</strong> (12:09:21): &gt; I was under the impression that<code>TreeSE</code>would be made more flexible so that it could be applied to MicrobiomeExperiment (<a href="https://github.com/HCBravoLab/MicrobiomeExperiment">https://github.com/HCBravoLab/MicrobiomeExperiment</a>) where the tree is used in the<code>rowData</code>, and single cell experiment data, where the tree is used in<code>colData</code>?</p>
+<p><strong>Ruizhu HUANG</strong> (12:58:05): &gt; Hi@Domenick BracciaWould you mind showing me some example codes using a toy data about your goal in the MicrobiomeExperiment? It would be easier for me to show how to apply<code>TreeSE</code>to MicrobiomeExperiment. It’s likely that the current structure could be adapted to apply to<code>MicrobiomeExperiment</code>but I did not show it clearly in your expected way.</p>
+</section>
+<section id="section-60" class="level2">
+<h2 class="anchored" data-anchor-id="section-60">2019-03-05</h2>
+<p><strong>Domenick Braccia</strong> (08:16:34): &gt; <span class="citation" data-cites="Ruizhu">@Ruizhu</span> HUANGLet me rephrase - our plan for<code>MicrobiomeExperiment</code>was to extend<code>TreeSE</code>in its current state and then do most of the<code>phyloseq</code>reimplementation with this new data structure.</p>
+<p><strong>Ruizhu HUANG</strong> (08:20:11): &gt; ah… sorry, I misunderstood the sentence. I thought you encountered problems to apply the<code>TreeSE</code>structure to<code>MicrobiomeExperiment</code>and expect the structure could be more flexible.</p>
+<p><strong>Ruizhu HUANG</strong> (12:21:40): &gt; Hi@Levi Waldron@Charlotte SonesonHere is an example code to show how to build the<code>TreeSummarizedExperiment</code>object using the data<code>GlobalPatterns</code>from<code>phyloseq</code>. (<a href="https://gist.github.com/fionarhuang/398f7dac37e9ebe9d6e3da7ef2615b83">https://gist.github.com/fionarhuang/398f7dac37e9ebe9d6e3da7ef2615b83</a>)</p>
+</section>
+<section id="section-61" class="level2">
+<h2 class="anchored" data-anchor-id="section-61">2019-03-26</h2>
+<p><strong>Ruizhu HUANG</strong> (16:38:04): &gt; Hi all, &gt; I have updated the vignette by adding more functions on the<code>phylo</code>object, and give examples on how to customize functions to work on<code>TreeSummarizedExperiment</code>. Now, the package is submitted to bioconductor with an open issue here. (<a href="https://github.com/Bioconductor/Contributions/issues/1058">https://github.com/Bioconductor/Contributions/issues/1058</a>)<span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson@Mark Robinson</p>
+</section>
+<section id="section-62" class="level2">
+<h2 class="anchored" data-anchor-id="section-62">2019-04-10</h2>
+<p><strong>Mark Robinson</strong> (04:45:28): &gt; &lt;!channel&gt;just to connect this channel with@Hervé Pagès’s review of the<code>TreeSummarizedExperiment</code>package ..<a href="https://github.com/Bioconductor/Contributions/issues/1058#issuecomment-481352905">https://github.com/Bioconductor/Contributions/issues/1058#issuecomment-481352905</a>.. are there any further comments from other members of the channel?</p>
+<p><strong>hcorrada</strong> (04:55:40): &gt; Thanks@Mark RobinsonHerve brings up a valid point. We’ll take a look later today and see if we can help with his comment.</p>
+<p><strong>Hervé Pagès</strong> (15:43:00): &gt; I think it’s also important that we discuss the place of TreeSE in the SE / RangedSE / SingleCellExperiment hierarchy. I started a discussion about this at<a href="https://github.com/Bioconductor/Contributions/issues/1058">https://github.com/Bioconductor/Contributions/issues/1058</a></p>
+<p><strong>Kevin Rue-Albrecht</strong> (15:43:16): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht has left the channel</p>
+<p><strong>Hervé Pagès</strong> (15:44:13): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-AlbrechtI didn’t mean to scare you</p>
+</section>
+<section id="section-63" class="level2">
+<h2 class="anchored" data-anchor-id="section-63">2019-04-11</h2>
+<p><strong>Ruizhu HUANG</strong> (12:20:54): &gt; Hi@Hervé Pagès, &gt; Thanks for the help to review the<code>TreeSummarizedExperiment</code>package. I run through your comments and find the current<code>LinkDataFrame</code>is might be quite similar to one of your two suggestions. &gt; &gt; The way I printed out the<code>LinkDataFrame</code>pulls the thought about the<code>GRanges</code>object and probably that leads to the confusion to use<code>mcols()</code>. I am sorry about that, and now the<code>show(LinkDataFrame)</code>is updated. The right part actually is the main part of<code>DataFrame</code>instead of<code>metadata</code>or<code>elementMetadata</code>. More details are explained in the issue page. Hopefully, I have solved the issue that<code>LinkDataFrame</code>doesn’t follow the semantics of<code>DataFrame</code>.<a href="https://github.com/Bioconductor/Contributions/issues/1058#issuecomment-482159950">https://github.com/Bioconductor/Contributions/issues/1058#issuecomment-482159950</a></p>
+</section>
+<section id="section-64" class="level2">
+<h2 class="anchored" data-anchor-id="section-64">2019-04-22</h2>
+<p><strong>Domenick Braccia</strong> (08:55:53): &gt; Hi@Ruizhu HUANG/ others this pertains to,<span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherlaand I are starting to work on<code>MicrobiomeExperiment</code>class that would extend<code>TreeSummarizeExperiment</code>to handle microbiome data and also implement methods for various analysis that<code>phyloseq</code>has. We were wondering if you are still making any more changes to the class structure based on herve’s comments ? We want to make sure<code>TreeSummarizedExperiment</code>is stable before we start working on this package tailored for microbiome analysis.</p>
+<p><strong>Ruizhu HUANG</strong> (10:15:21): &gt; Hi@Domenick Braccia@Jayaram Kancherla, &gt; Yes, currently I am changing the structure based on Hervé’s comments to separate the row/column data and the link data. You might see that the issue page is currently labelled as error:sweat_smile:. The change could be hopefully finished on this Thursday, and we will see whether Hervé has further comments then…</p>
+<p><strong>Jayaram Kancherla</strong> (10:29:27): &gt; Hey@Ruizhu HUANG, fyi, the error is due to a typo in the DESCRIPTION file (i opened an issue for this)</p>
+<p><strong>Ruizhu HUANG</strong> (10:35:51): &gt; Thanks, Jayaram! Yes, I label it as<code>TreeSE0</code>to keep it different to my previous<code>TreeSE</code>for time being. It will be updated when all updates are finished. There will be more errors coming out because the new structure has some new slots and the vignette isn’t updated yet.</p>
+<p><strong>Ruizhu HUANG</strong> (10:36:35): &gt; Also, the accessor functions for the new structure have not been completely done yet…</p>
+<p><strong>Kasper D. Hansen</strong> (10:49:14): &gt; <span class="citation" data-cites="Domenick">@Domenick</span> BracciaYou should really just start your work, which should not depend on the internals of<code>TreeSummarizedExperiment</code>, but which should access that class only through extractor and replacement functions. Your work might identify certain extractor functions which are necessary and also certain pieces of information which should be stored in the class.</p>
+<p><strong>Kasper D. Hansen</strong> (10:49:34): &gt; The hard part will be the design phase</p>
+<p><strong>Ruizhu HUANG</strong> (10:58:39): &gt; <span class="citation" data-cites="Domenick">@Domenick</span> Braccia@Jayaram KancherlaProbably this figure might help… The new structure and the corresponding accessor functions would be as below.</p>
+<p><strong>Hervé Pagès</strong> (11:15:51): &gt; <span class="citation" data-cites="Ruizhu">@Ruizhu</span> HUANGThanks for those changes. Should be “Column Link” instead of “Link Data”. What about using the plural form for these accessors i.e.<code>rowLinks</code>/<code>colLinks</code>. This is what has been done for other accessors e.g.<code>assays</code>,<code>mcols</code>,<code>rowRanges</code>. And also<code>names</code>,<code>rownames</code>,<code>colnames</code>in base R.</p>
+<p><strong>Ruizhu HUANG</strong> (11:52:08): &gt; <span class="citation" data-cites="Hervé">@Hervé</span> PagèsThanks, Hervé! The figure is updated. The updated<code>TreeSummarizedExperiment</code>should be ready to check on this Thursday. I will let you know when it’s ready.</p>
+<p><strong>Ruizhu HUANG</strong> (11:53:12): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FJ2D52QMA/screenshot_2019-04-22_at_17.49.01.png">Screenshot 2019-04-22 at 17.49.01.png</a></p>
+<p><strong>hcorrada</strong> (13:21:33): &gt; <span class="citation" data-cites="Kasper">@Kasper</span> D. Hansenthe rough design is in place (<a href="https://github.com/HCBravoLab/MicrobiomeExperiment/tree/MigrateTreeSE">https://github.com/HCBravoLab/MicrobiomeExperiment/tree/MigrateTreeSE</a>) we are transitioning between a TreeSummarizedExperiment-like class we were using to the one@Ruizhu HUANGis submitting to bioc. We’d welcome comments and thoughts on that github page as well!</p>
+</section>
+<section id="section-65" class="level2">
+<h2 class="anchored" data-anchor-id="section-65">2019-04-23</h2>
+<p><strong>Lukas Weber</strong> (11:25:29): &gt; <span class="citation" data-cites="Lukas">@Lukas</span> Weber has joined the channel</p>
+</section>
+<section id="section-66" class="level2">
+<h2 class="anchored" data-anchor-id="section-66">2019-04-25</h2>
+<p><strong>Ruizhu HUANG</strong> (12:25:54): &gt; Hi Hervé@Hervé Pagèsand all, &gt; The update has been finished and the package is ready to be checked again. &gt; A short summary as below: &gt; 1.<code>TreeSummarizedExperiment</code>is now extended from<code>SingleCellExperiment</code>and has more slots than before. &gt; 2. The structure is exactly as the figure I sent on Monday. &gt; 3. Accessors are updated &gt; 4. The aggregation is updated accordingly. &gt; 5. more functions are added to work on<code>phylo</code>. &gt; 6. An easier example is given in the vignette to show how to use functions in other packages (e.g.<code>ape</code>) to update the tree and further update the<code>TreeSummarizedExperiment</code>.</p>
+<p><strong>hcorrada</strong> (12:42:47): &gt; Thanks@Ruizhu HUANG! Not sure I follow why<code>TreeSummarizedExperiment</code>needs to extend<code>SingleCellExperiment</code>.</p>
+<p><strong>Ruizhu HUANG</strong> (12:59:52): &gt; Hi@hcorrada, &gt; At the beginning, the<code>TreeSE</code>extends the<code>SE</code>. The reasons I rebase it to<code>SCE</code>are as below. &gt; 1. Hervé has brought up the discussion about the place of<code>TreeSummarizedExperiment</code>in the whole family of<code>SEs</code>. I try to keep the family having a simple linear structure and also to save the work from<code>SCE</code>authors. &gt; 2. Both microbial data and single cell data might need to deal with this hierarchical thing. Users, who work in microbial data, might not need some slots created in<code>SCE</code>. Users, who work in the single cell data might not need the tree slots for time being. It would not hurt to have some empty slots when using<code>TreeSE</code>for both. &gt; 3. If users don’t use<code>TreeSE</code>at the beginning, but find they need those slots later. They could use<code>as(object, "TreeSummarizedExperiment")</code>to switch to<code>TreeSE</code>.</p>
+<p><strong>hcorrada</strong> (13:04:07): &gt; I see.@Hervé Pagèsis having TreeSE extending SCE what you had in mind?</p>
+<p><strong>Hervé Pagès</strong> (14:42:37): &gt; <span class="citation" data-cites="Ruizhu">@Ruizhu</span> HUANGThanks for the update. I’ll take a look today. Not sure about what’s the best place for TreeSE in the SE / RangedSE / SingleCellExperiment hierarchy either. There are several options and having TreeSE extend SingleCellExperiment is one of them. Having TreeSE between RangedSE and SingleCellExperiment is another one and seems more natural to me. (I’ve tried to discuss these options here<a href="https://github.com/Bioconductor/Contributions/issues/1058#issuecomment-481833280">https://github.com/Bioconductor/Contributions/issues/1058#issuecomment-481833280</a>) However the drawback of going that route is that it would require some adjustments to SingleCellExperiment. So in any case it would need to happen later (granted the SingleCellExperiment folks are on board with this). So for now TreeSE could just extend RangedSE and the discussion about whether SingleCellExperiment should be modified to extend it or not can wait. Just wanted to put this option on the table.</p>
+</section>
+<section id="section-67" class="level2">
+<h2 class="anchored" data-anchor-id="section-67">2019-04-26</h2>
+<p><strong>Charlotte Soneson</strong> (05:13:46): &gt; From my side, I fully agree that it’s not trivial to say what would be the “most natural” hierarchy of these objects. However, from a practical perspective, would it hurt to have<code>TreeSE</code>extend<code>SCE</code>? It would be practical in many applications to have a class allowing both trees and reduced dimension representations, for example. Regardless of whether one does<code>RangedSE</code>-&gt;<code>TreeSE</code>-&gt;<code>SCE</code>or<code>RangedSE</code>-&gt;<code>SCE</code>-&gt;<code>TreeSE</code>, the final class would have both these properties. However, with the first option, as@Hervé Pagèspoints out, all saved<code>SCE</code>objects would become invalid and need to be updated (as Hervé also notes, this assumes that the<code>SCE</code>developers are on board, and in any case it will likely be some time before the implementation can take place). I can see that maybe it’s conceptually easier to imagine that there is always a tree slot in a single-cell experiment object, even if it’s not used, than that tree-based analyses inherit from single-cell ones, but I can also see the opposite side - if you have data with a tree structure and you just want to add a PCA, you’d anyway have to go to an<code>SCE</code>. So, to me it seems that it’s not clear that all aspects will ever be fully “self-explanatory” or “natural”, at least not without adding even more specialized classes.</p>
+</section>
+<section id="section-68" class="level2">
+<h2 class="anchored" data-anchor-id="section-68">2019-05-17</h2>
+<p><strong>Martin Morgan</strong> (06:34:29): &gt; An opportunity for expert insight in the review of<a href="https://github.com/Bioconductor/Contributions/issues/1122">https://github.com/Bioconductor/Contributions/issues/1122</a>– feel free to provide constructive comments</p>
+</section>
+<section id="section-69" class="level2">
+<h2 class="anchored" data-anchor-id="section-69">2019-05-21</h2>
+<p><strong>Hervé Pagès</strong> (16:17:44): &gt; <span class="citation" data-cites="Martin">@Martin</span> Morgan”the R package for analyzing expression evolution based on RNA-seq data”. Hopefully they can get rid of “the”.</p>
+</section>
+<section id="section-70" class="level2">
+<h2 class="anchored" data-anchor-id="section-70">2020-06-06</h2>
+<p><strong>Olagunju Abdulrahman</strong> (19:57:58): &gt; <span class="citation" data-cites="Olagunju">@Olagunju</span> Abdulrahman has joined the channel</p>
+</section>
+<section id="section-71" class="level2">
+<h2 class="anchored" data-anchor-id="section-71">2020-08-05</h2>
+<p><strong>Matthew McCall</strong> (11:23:04): &gt; <span class="citation" data-cites="David">@David</span> Burtonthis conversation may be of interest to you</p>
+<p><strong>David Burton</strong> (11:23:07): &gt; <span class="citation" data-cites="David">@David</span> Burton has joined the channel</p>
+<p><strong>Hervé Pagès</strong> (13:34:51): &gt; <span class="citation" data-cites="Hervé">@Hervé</span> Pagès has left the channel</p>
+</section>
+<section id="section-72" class="level2">
+<h2 class="anchored" data-anchor-id="section-72">2020-08-21</h2>
+<p><strong>Chris Fields</strong> (17:29:37): &gt; <span class="citation" data-cites="Chris">@Chris</span> Fields has joined the channel</p>
+<p><strong>Chris Fields</strong> (18:37:34): &gt; <span class="citation" data-cites="hcorradaI">@hcorradaI</span>’m just curious but has any progress been made on<code>MicrobiomeExperiment</code>? I see that<code>TreeSummarizedExperiment</code>is now in BioC but wasn’t sure if this has moved further along.</p>
+</section>
+<section id="section-73" class="level2">
+<h2 class="anchored" data-anchor-id="section-73">2020-08-23</h2>
+<p><strong>FelixErnst</strong> (11:17:21): &gt; <span class="citation" data-cites="FelixErnst">@FelixErnst</span> has joined the channel</p>
+</section>
+<section id="section-74" class="level2">
+<h2 class="anchored" data-anchor-id="section-74">2020-09-08</h2>
+<p><strong>FelixErnst</strong> (02:34:03): &gt; Hi. I started to work on microbiome data and I “just” discovered this channel. I see that a lot of discussion on<code>TreeSummarizedExperiment</code>took place here and I am really glad that@Ruizhu HUANGimplemented this class. I also saw that a lot of things were discussed on reimplementing<code>phyloseq</code>and its function potentially via a seperate class<code>MicrobiomeExperiment</code>. Is this a project some of you are still pursuing?<span class="citation" data-cites="Joey">@Joey</span> McMurdie@Domenick Braccia@hcorrada<span class="citation" data-cites="Kasper">@Kasper</span> D. Hansen</p>
+<p><strong>Domenick Braccia</strong> (07:44:42) (in thread): &gt; Hey@FelixErnst. Thanks for your interest in our work! Right now,<code>MicrobiomeExperiment</code>is not in active development.@hcorradaand I have moved on to different projects that have required a lot of attention. However, there is certainly still room in BioC for a package that supports the sort of tree structure that@Ruizhu HUANGhas provided here.</p>
+<p><strong>Domenick Braccia</strong> (07:45:58) (in thread): &gt; Hey@Chris Fields, I just responded to someone below you asking a similar question, if you were still interested in knowing about<code>MicrobiomeExperiment</code>development</p>
+<p><strong>FelixErnst</strong> (09:14:01) (in thread): &gt; Thanks for the reply. I am bit late to party…</p>
+<p><strong>Chris Fields</strong> (10:26:02) (in thread): &gt; Thanks@Domenick Braccia!</p>
+</section>
+<section id="section-75" class="level2">
+<h2 class="anchored" data-anchor-id="section-75">2020-09-09</h2>
+<p><strong>FelixErnst</strong> (04:39:43) (in thread): &gt; just an fyi: I have produced first draft of the<code>merge</code>and<code>tax_glom</code>functions, the latter renamed to<code>agglomerateByRank</code>, for<code>SummarizedExperiment</code>class with appropriate taxonomic row data. So maybe that could be a foundation to start with, if some of you might be interested. Just needs a place to be put… Suggestions are of course welcome</p>
+</section>
+<section id="section-76" class="level2">
+<h2 class="anchored" data-anchor-id="section-76">2020-09-10</h2>
+<p><strong>Jenny Drnevich</strong> (09:40:07): &gt; <span class="citation" data-cites="Jenny">@Jenny</span> Drnevich has joined the channel</p>
+</section>
+<section id="section-77" class="level2">
+<h2 class="anchored" data-anchor-id="section-77">2020-09-12</h2>
+<p><strong>Jayaram Kancherla</strong> (10:12:46) (in thread): &gt; Can these methods apply to<code>TreeSummarizedExperiment</code>from@Ruizhu HUANG?</p>
+</section>
+<section id="section-78" class="level2">
+<h2 class="anchored" data-anchor-id="section-78">2020-09-23</h2>
+<p><strong>Ruizhu HUANG</strong> (10:00:57) (in thread): &gt; I guess the missing part is to update the tree. I will have a look at it.:blush:</p>
+</section>
+<section id="section-79" class="level2">
+<h2 class="anchored" data-anchor-id="section-79">2020-09-24</h2>
+<p><strong>FelixErnst</strong> (02:33:12) (in thread): &gt; For now it works on any SummarizedExperiment. I forked<code>MicrobiomeExperiment</code>and just updated the package to build and pass R CMD check, etc. Have a look at here:<a href="https://github.com/FelixErnst/MicrobiomeExperiment">https://github.com/FelixErnst/MicrobiomeExperiment</a>changes are in the dev branch</p>
+<p><strong>FelixErnst</strong> (02:35:59) (in thread): &gt; <span class="citation" data-cites="Ruizhu">@Ruizhu</span> HUANGFor the agglomerate function, there is an optional<code>agglomerateTree</code>argument, which triggers the following code snippet: &gt; <code>&gt; row_leaf &lt;- transNode(tree = row_tree, node = rowLinks(ans)$nodeNum) &gt;       row_tree &lt;- ape::keep.tip(phy = row_tree, tip = row_leaf) &gt;       ans &lt;- changeTree(ans, rowTree = row_tree) &gt;</code></p>
+<p><strong>FelixErnst</strong> (02:36:47) (in thread): &gt; I think that is how you did tree pruning in<code>TreeSummarizedExperiment</code>, is that correct?</p>
+</section>
+<section id="section-80" class="level2">
+<h2 class="anchored" data-anchor-id="section-80">2020-10-09</h2>
+<p><strong>Chris Fields</strong> (18:37:24) (in thread): &gt; <span class="citation" data-cites="FelixErnsthappy">@FelixErnsthappy</span> to join in and help on this, let me know. May also have some help from others in the group here at UIUC</p>
+</section>
+<section id="section-81" class="level2">
+<h2 class="anchored" data-anchor-id="section-81">2020-10-17</h2>
+<p><strong>Leo Lahti</strong> (14:01:20) (in thread): &gt; I am also interested to test / contribute to MicrobiomeExperiment if that goes fwd. Is there an overall roadmap, or experimental at this point?</p>
+<p><strong>FelixErnst</strong> (14:04:16) (in thread): &gt; Currently this definitelx work in progress. We don’t have a roadmap or similar. It might be a good idea to set something up. I will a get a bit of information gathering started and then we can move on from there</p>
+<p><strong>Leo Lahti</strong> (14:12:57) (in thread): &gt; Good to see how much added value vs effort. But this is promising.</p>
+<p><strong>FelixErnst</strong> (14:16:48) (in thread): &gt; I agree. There is a fine line between simplifying vs.&nbsp;getting rigid and dogmatic about thinks. Give me a few minutes and I think the first step I have in mind will become clear</p>
+</section>
+<section id="section-82" class="level2">
+<h2 class="anchored" data-anchor-id="section-82">2020-12-12</h2>
+<p><strong>Huipeng Li</strong> (00:37:55): &gt; <span class="citation" data-cites="Huipeng">@Huipeng</span> Li has joined the channel</p>
+</section>
+<section id="section-83" class="level2">
+<h2 class="anchored" data-anchor-id="section-83">2021-01-22</h2>
+<p><strong>Annajiat Alim Rasel</strong> (15:46:38): &gt; <span class="citation" data-cites="Annajiat">@Annajiat</span> Alim Rasel has joined the channel</p>
+</section>
+<section id="section-84" class="level2">
+<h2 class="anchored" data-anchor-id="section-84">2021-02-12</h2>
+<p><strong>Janani Ravi</strong> (15:53:25): &gt; <span class="citation" data-cites="Janani">@Janani</span> Ravi has joined the channel</p>
+</section>
+<section id="section-85" class="level2">
+<h2 class="anchored" data-anchor-id="section-85">2021-04-28</h2>
+<p><strong>Mahmoud Ahmed</strong> (08:06:56): &gt; <span class="citation" data-cites="Mahmoud">@Mahmoud</span> Ahmed has joined the channel</p>
+</section>
+<section id="section-86" class="level2">
+<h2 class="anchored" data-anchor-id="section-86">2021-05-11</h2>
+<p><strong>Megha Lal</strong> (16:46:07): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has joined the channel</p>
+</section>
+<section id="section-87" class="level2">
+<h2 class="anchored" data-anchor-id="section-87">2021-07-16</h2>
+<p><strong>Lori Shepherd</strong> (12:42:49): &gt; <span class="citation" data-cites="Lori">@Lori</span> Shepherd has left the channel</p>
+</section>
+<section id="section-88" class="level2">
+<h2 class="anchored" data-anchor-id="section-88">2021-08-03</h2>
+<p><strong>Levi Waldron</strong> (07:28:58): &gt; FYI everyone (cross-posted in the more active channel#miaverse) &gt; 1. curatedMetagenomicData 3 (<a href="https://bioconductor.org/packages/curatedMetagenomicData/">https://bioconductor.org/packages/curatedMetagenomicData/</a>,<a href="https://waldronlab.io/curatedMetagenomicData/">https://waldronlab.io/curatedMetagenomicData/</a>) now uses<code>TreeSummarizedExperiment</code>for all its taxonomic relative abundance data (now &gt;20,000 samples from 86 studies). It includes phylogenetic trees as<code>rowTree</code>and taxonomic information in<code>rowData</code>, and the vignette recommends use of<code>mia::splitByRanks</code>to populate<code>altExps</code>with taxonomic relative abundances at levels higher than species. Feedback welcome! &gt; 2. <span class="citation" data-cites="Ludwig">@Ludwig</span> Geistlingerand I are hosting a table at BioC2021, August 5 11:30am PT to discuss some challenges relating to taxonomy/phylogeny and other issues coming up from our upcoming<a href="http://bugsigdb.org">bugsigdb.org</a>that we’d love to involve other in. - Attachment (Bioconductor): <a href="https://bioconductor.org/packages/curatedMetagenomicData/">curatedMetagenomicData</a> &gt; The curatedMetagenomicData package provides standardized, curated human microbiome data for novel analyses. It includes gene families, marker abundance, marker presence, pathway abundance, pathway coverage, and relative abundance for samples collected from different body sites. The bacterial, fungal, and archaeal taxonomic abundances for each sample were calculated with MetaPhlAn3 and metabolic functional potential was calculated with HUMAnN3. The manually curated sample metadata and standardized metagenomic data are available as (Tree)SummarizedExperiment objects. - Attachment (waldronlab.io): <a href="https://waldronlab.io/curatedMetagenomicData/">Curated Metagenomic Data of the Human Microbiome</a> &gt; The curatedMetagenomicData package provides standardized, curated human microbiome data for novel analyses. It includes gene families, marker abundance, marker presence, pathway abundance, pathway coverage, and relative abundance for samples collected from different body sites. The bacterial, fungal, and archaeal taxonomic abundances for each sample were calculated with MetaPhlAn3 and metabolic functional potential was calculated with HUMAnN3. The manually curated sample metadata and standardized metagenomic data are available as (Tree)SummarizedExperiment objects.</p>
+</section>
+<section id="section-89" class="level2">
+<h2 class="anchored" data-anchor-id="section-89">2021-11-21</h2>
+<p><strong>Yagmur Simsek</strong> (08:23:31): &gt; <span class="citation" data-cites="Yagmur">@Yagmur</span> Simsek has joined the channel</p>
+<p><strong>Tuomas Borman</strong> (08:23:38): &gt; <span class="citation" data-cites="Tuomas">@Tuomas</span> Borman has joined the channel</p>
+<p><strong>Chouaib Benchraka</strong> (08:23:56): &gt; <span class="citation" data-cites="Chouaib">@Chouaib</span> Benchraka has joined the channel</p>
+<p><strong>Leo Lahti</strong> (08:48:10): &gt; Dear channel - we are planning to create functionality for<code>(Tree)SE</code>objects that would allow 1) splitting the object into groups based on a given discrete field that indicates those groups, 2) performing operations per group; 3) merging all back into a single object. &gt; &gt; At least something like this would work, but I would be curious to hear suggestions for better ways to implement: &gt; <code>&gt; # Load example data &gt; library(mia) &gt; data(GlobalPatterns) &gt; se &lt;- GlobalPatterns &gt;   &gt; # Add a new field ("index") to colData(se) &gt; colData(se)$index &lt;- 1:nrow(colData(se)) &gt;  &gt; # Reverse the indices per sample type &gt; colData(se) &lt;- colData(se) %&gt;% as.data.frame() %&gt;%                                                  group_by(SampleType) %&gt;%                                                      mutate(index2=rev(index)) %&gt;%  &gt;   DataFrame() &gt;  &gt; # It works: &gt; colData(se) &gt;</code></p>
+</section>
+<section id="section-90" class="level2">
+<h2 class="anchored" data-anchor-id="section-90">2021-12-14</h2>
+<p><strong>Megha Lal</strong> (08:23:31): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has left the channel</p>
+</section>
+<section id="section-91" class="level2">
+<h2 class="anchored" data-anchor-id="section-91">2022-03-05</h2>
+<p><strong>Giulio Benedetti</strong> (15:17:11): &gt; <span class="citation" data-cites="Giulio">@Giulio</span> Benedetti has joined the channel</p>
+</section>
+<section id="section-92" class="level2">
+<h2 class="anchored" data-anchor-id="section-92">2022-03-21</h2>
+<p><strong>Pedro Sanchez</strong> (05:03:08): &gt; <span class="citation" data-cites="Pedro">@Pedro</span> Sanchez has joined the channel</p>
+</section>
+<section id="section-93" class="level2">
+<h2 class="anchored" data-anchor-id="section-93">2022-05-02</h2>
+<p><strong>James Ward</strong> (03:49:58): &gt; <span class="citation" data-cites="James">@James</span> Ward has joined the channel</p>
+<p><strong>James Ward</strong> (13:23:40): &gt; Thank you Dr Lahti! I asked a question on Twitter and posted in the#randomchannel, basically asking if we could add assayData() to the SummarizedExperiment class.I think it would behave like rowData() and colData() in that absence of either would just generate an empty DataFrame with no columns, and rownames that match assayNames(se).Main goal is to have somewhere to describe what is in an assay matrix. I currently encode a lot into the assayNames. &gt; Thanks for any thoughts or feedback!</p>
+<p><strong>Leo Lahti</strong> (14:28:31): &gt; Sounds useful. I do not know if this idea has been brought up earlier. There are several SummarizedExperiment authors on this channel, looking forward to see the comments.</p>
+</section>
+<section id="section-94" class="level2">
+<h2 class="anchored" data-anchor-id="section-94">2022-08-11</h2>
+<p><strong>Rene Welch</strong> (17:16:36): &gt; <span class="citation" data-cites="Rene">@Rene</span> Welch has joined the channel</p>
+</section>
+<section id="section-95" class="level2">
+<h2 class="anchored" data-anchor-id="section-95">2022-12-13</h2>
+<p><strong>Levi Waldron</strong> (07:40:30): &gt; FYI tomorrow, free: Amy Willis presenting “Model misspecification in microbiome studies”<a href="https://hopin.com/events/microbiome-vif-n-14-f8fcff08-a6fe-4eec-a724-8341204ea285">https://hopin.com/events/microbiome-vif-n-14-f8fcff08-a6fe-4eec-a724-8341204ea285</a> - Attachment (hopin.com): <a href="https://hopin.com/events/microbiome-vif-n-14-f8fcff08-a6fe-4eec-a724-8341204ea285">Microbiome-VIF n.14 - Dec 14 | Hopin</a> &gt; Get tickets to Microbiome-VIF n.14, taking place 12/14/2022 to 12/15/2022. Hopin is your source for engaging events and experiences.</p>
+</section>
+<section id="section-96" class="level2">
+<h2 class="anchored" data-anchor-id="section-96">2023-05-18</h2>
+<p><strong>Oluwafemi Oyedele</strong> (05:54:12): &gt; <span class="citation" data-cites="Oluwafemi">@Oluwafemi</span> Oyedele has joined the channel</p>
+</section>
+<section id="section-97" class="level2">
+<h2 class="anchored" data-anchor-id="section-97">2023-05-25</h2>
+<p><strong>Jacob Krol</strong> (17:14:36): &gt; <span class="citation" data-cites="Jacob">@Jacob</span> Krol has joined the channel</p>
+</section>
+<section id="section-98" class="level2">
+<h2 class="anchored" data-anchor-id="section-98">2023-06-19</h2>
+<p><strong>Pierre-Paul Axisa</strong> (05:12:45): &gt; <span class="citation" data-cites="Pierre-Paul">@Pierre-Paul</span> Axisa has joined the channel</p>
+</section>
+<section id="section-99" class="level2">
+<h2 class="anchored" data-anchor-id="section-99">2023-09-13</h2>
+<p><strong>Leo Lahti</strong> (07:42:16): &gt; Are there online examples on how to root a TreeSE tree?</p>
+</section>
+<section id="section-100" class="level2">
+<h2 class="anchored" data-anchor-id="section-100">2023-09-15</h2>
+<p><strong>Leo Lahti</strong> (04:52:53): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+</section>
+<section id="section-101" class="level2">
+<h2 class="anchored" data-anchor-id="section-101">2023-09-21</h2>
+<p><strong>Leo Lahti</strong> (09:27:24): &gt; I could not find suitable example data set but shouldn’t these two approaches for a TreeSE object give the same output taxon? It seems as if<code>subsetByLeaf</code>was somehow mixing the label order?<span class="citation" data-cites="Ruizhu">@Ruizhu</span> HUANG? &gt; &gt; seq &lt;- “TACAGAGGTCTCAAGCGTTGTTCGGAATCACTGGGCGTAAAGCGTGCGTAGGCGGTTTCGTAAGTCGTGTGTGAAAGGCGGGGGCTCAACCCCCGGACTGCACATGATACTGCGAGACTAGAGTAATGGAGGGGGAACCGGAATTCTCGG” &gt; &gt; rownames(tse)[grep(seq, rowLinks(tse)<span class="math inline">\(nodeLab)]
+&gt; # [1] "Akkermansia muciniphila_D_776786"
+&gt;
+&gt; tse2 &lt;- subsetByLeaf(tse, rowLeaf = rowLinks(tse)\)</span>nodeLab) &gt; rownames(tse2)[grep(seq, rowLinks(tse2)$nodeLab)] &gt; # [1] “Alistipes_A_871400 onderdonkii”</p>
+</section>
+<section id="section-102" class="level2">
+<h2 class="anchored" data-anchor-id="section-102">2023-09-22</h2>
+<p><strong>Leo Lahti</strong> (17:06:23): &gt; Ok Matti Ruuskanen tracked it down and opened an issue to TreeSummarizedExperiment:<a href="https://github.com/fionarhuang/TreeSummarizedExperiment/issues/83">https://github.com/fionarhuang/TreeSummarizedExperiment/issues/83</a> - Attachment: <a href="https://github.com/fionarhuang/TreeSummarizedExperiment/issues/83">#83 subsetByLeaf(tse) mixes up the rowTree tips and rownames of the new object</a> &gt; f you want to subset the tree in a <code>tse</code> object, because e.g., PhILR requires the <code>rowTree(tse)</code> to match the taxa present in the <code>tse</code>, as in <code>rownames(tse)</code>, the recommendation was to use: <code>subsetByLeaf(tse, rowLeaf = rowLinks(tse)$nodeLab)</code><br>
+&gt; However, this messes up the connection between the new tree tips (or <code>rowLinks(tse)$nodeLab</code>) and <code>rownames(tse)</code>. &gt; &gt; Instead, the subsetting done directly with <code>rowtree(tse) &lt;- ape::keep.tip(phy = rowTree(greengenes2_16S), tip = rowLinks(greengenes2_16S)$nodeLab)</code> appears to work without issues<br>
+&gt; further evidence: &gt; &gt; <code>&gt; &gt; identical(rownames(tse), rowLinks(tse)$nodeLab) &gt; [1] TRUE &gt; &gt; new_tse &lt;- subsetByLeaf(tse, rowLeaf = rowLinks(tse)$nodeLab) &gt; &gt; identical(rownames(new_tse), rowLinks(new_tse)$nodeLab) &gt; [1] FALSE &gt; &gt; ape_tse &lt;- tse &gt; &gt; rowTree(ape_tse) &lt;- ape::keep.tip(phy = rowTree(ape_tse), tip = rowLinks(ape_tse)$nodeLab) &gt; &gt; identical(rownames(ape_tse), rowLinks(ape_tse)$nodeLab) &gt; [1] TRUE &gt;</code></p>
+</section>
+<section id="section-103" class="level2">
+<h2 class="anchored" data-anchor-id="section-103">2023-10-26</h2>
+<p><strong>Janetta Top</strong> (10:35:30): &gt; <span class="citation" data-cites="Janetta">@Janetta</span> Top has joined the channel</p>
+</section>
+<section id="section-104" class="level2">
+<h2 class="anchored" data-anchor-id="section-104">2024-04-28</h2>
+<p><strong>Danielle Callan</strong> (08:43:51): &gt; <span class="citation" data-cites="Danielle">@Danielle</span> Callan has joined the channel</p>
+</section>
+<section id="section-105" class="level2">
+<h2 class="anchored" data-anchor-id="section-105">2024-07-26</h2>
+<p><strong>Jayaram Kancherla</strong> (17:36:14): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla has left the channel</p>
+</section>
+<section id="section-106" class="level2">
+<h2 class="anchored" data-anchor-id="section-106">2024-08-21</h2>
+<p><strong>Laura Symul</strong> (08:58:21): &gt; <span class="citation" data-cites="Laura">@Laura</span> Symul has joined the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

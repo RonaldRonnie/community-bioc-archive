@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#elixir – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2023-01-12</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2023-01-13</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2023-01-17</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2023-01-18</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2023-01-20</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2023-01-21</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2023-01-22</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2023-01-23</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2023-01-27</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2023-01-31</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2023-02-06</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2023-02-10</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2023-02-11</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2023-02-12</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2023-02-17</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2023-02-20</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2023-02-21</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2023-02-27</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2023-03-03</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2023-04-03</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2023-04-05</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2023-04-06</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2023-04-12</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2023-05-03</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2023-05-11</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2023-06-01</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2023-06-06</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2023-06-07</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2023-06-08</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2023-06-09</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2023-06-13</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2023-08-10</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2023-09-11</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2023-09-12</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2023-10-09</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2023-10-12</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2023-12-30</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2024-02-04</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2024-02-09</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2024-03-26</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2024-05-18</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2024-06-02</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2024-06-27</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2024-09-15</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2024-09-20</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2024-12-10</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#elixir</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2023-01-12</h2>
+<p><strong>Aedin Culhane</strong> (12:00:57): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+<p><strong>Leo Lahti</strong> (12:01:14): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+<p><strong>Davide Risso</strong> (12:01:14): &gt; <span class="citation" data-cites="Davide">@Davide</span> Risso has joined the channel</p>
+<p><strong>Maria Doyle</strong> (12:01:14): &gt; <span class="citation" data-cites="Maria">@Maria</span> Doyle has joined the channel</p>
+<p><strong>Aedin Culhane</strong> (12:02:22): &gt; <strong>ELIXIR ALL Hands Meeting Dublin 5-8th June 2023Link to s</strong><a href="https://app.oxfordabstracts.com/stages/5171/submissions/new?behalf=false&amp;fromDashboard=false&amp;preview=false">ubmit abstract</a><em>Information about meeting and </em><a href="https://elixir-europe.org/events/elixir-all-hands-2023">abstract review criteria</a> - Attachment (ELIXIR): <a href="https://elixir-europe.org/events/elixir-all-hands-2023">ELIXIR All Hands 2023</a> &gt; The ELIXIR All Hands 2023 will be held in the Dublin Convention Centre, Ireland. The 9th ELIXIR All Hands meeting will take place 5-8 June 2023 in Ireland. The meeting brings together members of the</p>
+<p><strong>Aedin Culhane</strong> (12:02:42): &gt; * There are 4 themes to the meeting this year<strong>’’Science - Enabling scientists to access and analyse life science data”</strong> &gt; * <strong>’’Technology - Delivering services to support federated data management and analytics”</strong> &gt; * <em>“Nodes - Equipping national Nodes for successful long-term operations” </em> &gt; * <strong>“People - Developing people and capacity to benefit science and society”</strong></p>
+<p><strong>Aedin Culhane</strong> (12:03:04): &gt; We could submit under science or people</p>
+<p><strong>Simone Bell</strong> (12:04:10): &gt; <span class="citation" data-cites="Simone">@Simone</span> Bell has joined the channel</p>
+<p><strong>Federico Marini</strong> (12:04:10): &gt; <span class="citation" data-cites="Federico">@Federico</span> Marini has joined the channel</p>
+<p><strong>Vince Carey</strong> (12:04:54): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+<p><strong>Levi Waldron</strong> (12:04:54): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldron has joined the channel</p>
+<p><strong>Charlotte Soneson</strong> (12:04:54): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+<p><strong>Aedin Culhane</strong> (12:07:16): &gt; Session/workshops are 90 mins long and the submission deadline is<strong><em>Monday 23 January, 2023. For submission, we need a title, abstract (400 words) and a list of presenters of which 2 need to attend in person. </em></strong>Leo, Maria and I can most likely attend in person, so we have sufficient to submit an abstract for a session. We just need to define the abstract and session</p>
+<p><strong>Aedin Culhane</strong> (12:13:27): &gt; There are currently 239 training materials from Bioconductor on the<a href="https://tess.elixir-europe.org/content_providers">ELIXIR training platform</a> - Attachment (tess.elixir-europe.org): <a href="https://tess.elixir-europe.org/content_providers">TeSS (Training eSupport System)</a></p>
+<p><strong>Aedin Culhane</strong> (12:15:27): &gt; with 0 upcoming events and 1 past event (which was a Bioc2020 conference workshop?)</p>
+<p><strong>Aedin Culhane</strong> (12:20:16): &gt; <a href="https://docs.google.com/presentation/d/10hMdBFX2x3pTc95HyEzG6xg0V0nKBtd0batf5M8SJYg/edit#slide=id.g1277deaf704_0_0">Slides</a>presented at last year’s meeting about the ELIXIR training portal<a href="https://docs.google.com/document/d/1vlHODVnN9RFTp2fr2NCcLV4ujb8Js3EH6NqXHfP_F9E/edit#">and its abstract/title/presenters</a></p>
+<p><strong>Aedin Culhane</strong> (12:29:40): &gt; I think we should think about leverages some of the ELIXIR resources for our global training platform … &gt; &gt; I like their dashboard…<a href="https://training-metrics-dev.elixir-europe.org/dashboard">https://training-metrics-dev.elixir-europe.org/dashboard</a>Courses are registered via a simple web app (I recently did an ELIXIR training courses.. its was just a standard training course but it was registered with ELIXIR.. the form took 2 min to fill in). The course info is represented via their bioschema (<a href="https://bioschemas.org">https://bioschemas.org</a>) and is available to the API which present course info/dashboard etc. &gt; &gt; They also have course metrics and surveys… - Attachment (bioschemas.org): <a href="https://bioschemas.org">Bioschemas - Bioschemas</a> &gt; Bioschemas relies and extends from <a href="http://schema.org">schema.org</a> and aims to reuse existing standards and reach consensus among a wide number of life sciences organizations and communities.</p>
+<p><strong>Aedin Culhane</strong> (12:29:54): &gt; <a href="https://training-metrics-dev.elixir-europe.org/dashboard">https://training-metrics-dev.elixir-europe.org/dashboard</a></p>
+<p><strong>Martin Grigorov</strong> (13:06:00): &gt; <span class="citation" data-cites="Martin">@Martin</span> Grigorov has joined the channel</p>
+<p><strong>Lluís Revilla</strong> (13:06:09): &gt; <span class="citation" data-cites="Lluís">@Lluís</span> Revilla has joined the channel</p>
+<p><strong>Frederick Tan</strong> (13:13:23): &gt; <span class="citation" data-cites="Frederick">@Frederick</span> Tan has joined the channel</p>
+<p><strong>Leo Lahti</strong> (14:41:01) (in thread): &gt; I like both.</p>
+<p><strong>Leo Lahti</strong> (14:42:18): &gt; Great. I have not been in events making general Bioc outreach. Would be nice to know if this is more familiar to some of you, and if there is some earlier material/experiences that can be utilized.</p>
+<p><strong>Leo Lahti</strong> (14:42:48): &gt; Or if you have a vision.</p>
+<p><strong>Federica Gazzelloni</strong> (17:04:57): &gt; <span class="citation" data-cites="Federica">@Federica</span> Gazzelloni has joined the channel</p>
+<p><strong>Maria Doyle</strong> (17:38:18): &gt; Not a concrete vision for the workshop just some thoughts, &gt; &gt; Elixir are finalising their scientific programme for 2024-2028 this year<a href="https://elixir-europe.org/about-us/what-we-do/2024-28-programme">https://elixir-europe.org/about-us/what-we-do/2024-28-programme</a>They have an interest in collaborations with international organisations of value to their members (Bioc is not listed on that page, could ite be)<a href="https://elixir-europe.org/events/consultation-event-international-engagement">https://elixir-europe.org/events/consultation-event-international-engagement</a>There is an ELIXIR Galaxy community<a href="https://elixir-europe.org/communities/">https://elixir-europe.org/communities/</a><a href="https://galaxyproject.org/news/2022-06-21-elixirah22/">https://galaxyproject.org/news/2022-06-21-elixirah22/</a>But no ELIXIR Bioconductor community, should there be? &gt; &gt; Wondering if the workshop should have 2 parts 1- highlight what Bioconductor is doing that overlaps with Elixir interests and 2- have time (30 min) for discussion/breakout session like the workshop Aedin linked to here<a href="https://docs.google.com/document/d/1vlHODVnN9RFTp2fr2NCcLV4ujb8Js3EH6NqXHfP_F9E/edit#">https://docs.google.com/document/d/1vlHODVnN9RFTp2fr2NCcLV4ujb8Js3EH6NqXHfP_F9E/edit#</a>? e.g.&nbsp;“Engagement between Bioconductor and ELIXIR”? to get input on how Bioc could most usefully mutually engage with ELIXIR. Also may help get Bioconductor on the radar for their scientific programme for 2024-2028 which could help with growing and strengthening Bioc community. &gt; &gt; Potential overlapping areas of interest we could perhaps discuss in workshop from viewing<a href="https://elixir-europe.org/news/2021-annual-report">Elixir 2021 report</a>(might be wrong and/or more I missed) &gt; Platforms<a href="https://elixir-europe.org/platforms">https://elixir-europe.org/platforms</a>Tools - benchmarking tools &amp; workflows, EDAM, biotools &gt; Training - workshops, materials, events, TESS, &gt; Communities -<a href="https://elixir-europe.org/communities">https://elixir-europe.org/communities</a>Single Cell Omics, Proteomics - Attachment (ELIXIR): <a href="https://elixir-europe.org/events/consultation-event-international-engagement">ELIXIR Programme for 2024-2028 | Consultation event on international engagement</a> &gt; Objectives This 2 hour online event aims to provide ELIXIR Nodes with an opportunity to influence international engagement as part of the upcoming ELIXIR Programme for 2024-2028. The event’s outputs - Attachment (galaxyproject.org): <a href="https://galaxyproject.org/news/2022-06-21-elixirah22/">Galaxy taking part @ Elixir All Hands 2022</a> &gt; During 6-9th of June, members of the European Galaxy team travelled to Amsterdam to join the ELIXIR All Hands meeting 2022 where we joined other colleagues from ELIXIR-DE.</p>
+<p><strong>Mae Woods</strong> (19:04:02): &gt; <span class="citation" data-cites="Mae">@Mae</span> Woods has joined the channel</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2023-01-13</h2>
+<p><strong>Leo Lahti</strong> (02:19:24): &gt; Sounds good to me at least.</p>
+<p><strong>Charlotte Soneson</strong> (02:35:56) (in thread): &gt; Regarding a potential Bioconductor ELIXIR Community - if we decide to give this a try, I think it would make sense to talk to the Galaxy team again to get their experience (we have touched upon it on a couple of occasions already). It takes a decent amount of time to get a new community set up (for the recent single-cell community I’d say it took about 2.5 years from the first concrete document was initialised to the approval - I’m not sure if this is representative, but in any case the application has to go through a bunch of different stages).</p>
+<p><strong>Hans-Rudolf Hotz</strong> (03:30:13): &gt; <span class="citation" data-cites="Hans-Rudolf">@Hans-Rudolf</span> Hotz has joined the channel</p>
+<p><strong>Christian Panse</strong> (03:58:18): &gt; <span class="citation" data-cites="Christian">@Christian</span> Panse has joined the channel</p>
+<p><strong>Gavin Rhys Lloyd</strong> (07:32:06): &gt; <span class="citation" data-cites="Gavin">@Gavin</span> Rhys Lloyd has joined the channel</p>
+<p><strong>Deena Gendoo</strong> (08:32:07): &gt; <span class="citation" data-cites="Deena">@Deena</span> Gendoo has joined the channel</p>
+<p><strong>Jayaram Kancherla</strong> (16:36:28): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla has joined the channel</p>
+<p><strong>Vince Carey</strong> (19:18:35): &gt; <span class="citation" data-cites="Wolfgang">@Wolfgang</span> Huber^^</p>
+<p><strong>Wolfgang Huber</strong> (19:18:40): &gt; <span class="citation" data-cites="Wolfgang">@Wolfgang</span> Huber has joined the channel</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2023-01-17</h2>
+<p><strong>Roy Storey</strong> (16:05:19): &gt; <span class="citation" data-cites="Roy">@Roy</span> Storey has joined the channel</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2023-01-18</h2>
+<p><strong>José Basílio</strong> (13:09:46): &gt; <span class="citation" data-cites="José">@José</span> Basílio has joined the channel</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2023-01-20</h2>
+<p><strong>Aedin Culhane</strong> (17:41:45): &gt; I updated the<a href="https://docs.google.com/document/d/1LvIicx3bduY3SEZkhR66DIbOx_pf_l_uy7Gdre3WyWY/edit#">google doc</a>.. welcome your suggestions and contributions. The submission deadline is<strong><em>Monday 23 January, 2023. For submission, we need a title, abstract (400 words) and a list of presenters of which 2 need to attend in person. </em></strong>Please add your name if you are a member of ELIXIR and wish to contribute.</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2023-01-21</h2>
+<p><strong>Mark Robinson</strong> (10:07:47): &gt; <span class="citation" data-cites="Mark">@Mark</span> Robinson has joined the channel</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2023-01-22</h2>
+<p><strong>Kozo Nishida</strong> (03:37:39): &gt; <span class="citation" data-cites="Kozo">@Kozo</span> Nishida has joined the channel</p>
+<p><strong>Maria Doyle</strong> (16:02:12): &gt; Following on from Aedin’s message above, we plan to submit the abstract in the<a href="https://docs.google.com/document/d/1LvIicx3bduY3SEZkhR66DIbOx_pf_l_uy7Gdre3WyWY/edit#">google doc</a>~12pm GMT tomorrow Monday 23rd Jan, if anyone wants to add more comments please do before then:pray:</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2023-01-23</h2>
+<p><strong>Almut</strong> (02:28:35): &gt; <span class="citation" data-cites="Almut">@Almut</span> has joined the channel</p>
+<p><strong>Aedin Culhane</strong> (07:39:17): &gt; &lt;!channel&gt;We are submitting the abstract in the<a href="https://docs.google.com/document/d/1LvIicx3bduY3SEZkhR66DIbOx_pf_l_uy7Gdre3WyWY/edit#">google doc</a>shortly. Please review and add final comment</p>
+<p><strong>Maria Doyle</strong> (09:34:40): &gt; Ok submitted, says will be notified on outcome Feb 10th. Thanks all!</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2023-01-27</h2>
+<p><strong>Helge Hecht</strong> (08:23:01): &gt; <span class="citation" data-cites="Helge">@Helge</span> Hecht has joined the channel</p>
+<p><strong>Sean Davis</strong> (15:30:14): &gt; <span class="citation" data-cites="Sean">@Sean</span> Davis has joined the channel</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2023-01-31</h2>
+<p><strong>Aedin Culhane</strong> (07:01:37): &gt; EU folks… has anyone experience in microcredential courses?</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2023-02-06</h2>
+<p><strong>Maria Doyle</strong> (10:37:40): &gt; Good news, workshop has been accepted:tada: &gt; &gt; I am pleased to inform you that your workshop submission (Opportunities for Bioconductor and ELIXIR communities to co-develop training infrastructures) has been accepted for the ELIXIR All Hands Meeting 2023. &gt; &gt; &gt; &gt; Guidelines for further preparation are attached and will shortly be posted on the conference website. As a workshop lead you and your named co-lead have been pre-registered for the event. Other speakers will need to register through the normal links, registration will open at the end of February. &gt; &gt; &gt; &gt; We look forward to seeing you in Dublin Convention Centre in June.</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2023-02-10</h2>
+<p><strong>Daniel Adediran</strong> (19:44:13): &gt; <span class="citation" data-cites="Daniel">@Daniel</span> Adediran has joined the channel</p>
+<p><strong>Laurent Gatto</strong> (20:07:18): &gt; <span class="citation" data-cites="Laurent">@Laurent</span> Gatto has joined the channel</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2023-02-11</h2>
+<p><strong>rohitsatyam102</strong> (07:54:04): &gt; <span class="citation" data-cites="rohitsatyam102">@rohitsatyam102</span> has joined the channel</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2023-02-12</h2>
+<p><strong>Umar Ahmad</strong> (06:46:03): &gt; <span class="citation" data-cites="Umar">@Umar</span> Ahmad has joined the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2023-02-17</h2>
+<p><strong>Frederick Tan</strong> (10:22:00): &gt; Perhaps relevant? Hybrid ELIXIR Single-Cell Omics Community workshop in Geneva on March 21/22 for data analysis trainers<a href="https://bit.ly/SCOtrainerWorkshop2023">https://bit.ly/SCOtrainerWorkshop2023</a></p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2023-02-20</h2>
+<p><strong>Aedin Culhane</strong> (12:19:52): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> SonesonWhat is the overlap between GOBLET and ELIXIR?</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2023-02-21</h2>
+<p><strong>Charlotte Soneson</strong> (02:48:33) (in thread): &gt; Not sure I have the full picture/answer here, but they’re collaborating on training, see e.g.<a href="https://elixir-europe.org/system/files/goblet-elixir_partnership-final.pdf">https://elixir-europe.org/system/files/goblet-elixir_partnership-final.pdf</a></p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2023-02-27</h2>
+<p><strong>Aedin Culhane</strong> (05:42:03): &gt; FYI. See calls for proposals for Elixir biohackathon (30 Oct-3 Nov),<a href="https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbiohackathon-europe.org%2Fprojects.html&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7Caa59c71da0604963405c08db18abb9e1%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638130898055038114%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=cd3MVDTQPqPl%2FO65DuA9H2kXDdi5UXRLa80Wx3vPmm0%3D&amp;reserved=0">Hacking projects (</a><a href="http://biohackathon-europe.org">biohackathon-europe.org</a><a href="https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbiohackathon-europe.org%2Fprojects.html&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7Caa59c71da0604963405c08db18abb9e1%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638130898055038114%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=cd3MVDTQPqPl%2FO65DuA9H2kXDdi5UXRLa80Wx3vPmm0%3D&amp;reserved=0">)</a>A hackathon is not necessarily coding, I think it can sometimes be e.g.&nbsp;developing protocols and standards, etc relevant to coding &gt; &gt; &gt; SCOPE &gt; BioHackathon activities are driven by practical sessions where people gather, discuss, and implement ideas and projects during intensive and productive coding sessions. The topics will be aligned to challenges proposed by<a href="https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Felixir-europe.org%2Fplatforms&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7Caa59c71da0604963405c08db18abb9e1%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638130898055038114%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=%2BfzHIG%2FyhaCmzeGtnWZgCYx8Yo%2BKelEsSTG3ZSz7eLU%3D&amp;reserved=0">ELIXIR Platforms</a>,<a href="https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Felixir-europe.org%2Fcommunities&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7Caa59c71da0604963405c08db18abb9e1%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638130898055038114%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=35rz3cPH8eofFKPErMbCnYhIHT6N0nLZ9%2FZR1kJFLME%3D&amp;reserved=0">ELIXIR Communities</a>, and/or<a href="https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Felixir-europe.org%2Ffocus-groups&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7Caa59c71da0604963405c08db18abb9e1%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638130898055194287%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=wHrp2AGw4ZnaJjFdsGDi%2FGDd2pw7oyBPiyZVmNPG2bU%3D&amp;reserved=0">Focus Groups</a>, and a set of common challenges proposed by the sister<a href="https://eur03.safelinks.protection.outlook.com/?url=http%3A%2F%2Fwww.biohackathon.org%2F&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7Caa59c71da0604963405c08db18abb9e1%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638130898055194287%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=qSD1Lgs64w1lSiYvPvr%2F8gVmwjEXC42kcZogj2wLZok%3D&amp;reserved=0">BioHackathon</a>organised in Japan. &gt; GOALS &gt; · Advance the development of an open source infrastructure for data integration to accelerate scientific innovation. We will focus on technology implementations such as FAIR, identifiers, metadata standards, ontologies and metadata catalogues that support the operations across<a href="https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.elixir-europe.org%2Fplatforms&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7Caa59c71da0604963405c08db18abb9e1%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638130898055194287%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=NBLQL%2FHQGYtoxpCxfe%2BKyGizqUnyXZptszJ6ZrgmrcM%3D&amp;reserved=0">ELIXIR Platforms</a>,<a href="https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.elixir-europe.org%2Fcommunities&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7Caa59c71da0604963405c08db18abb9e1%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638130898055194287%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=TE3W8I6kWa5nyzCKUUYNqFZD92lwv9S4UgVuSyVeYfU%3D&amp;reserved=0">Communities</a>and<a href="https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Felixir-europe.org%2Ffocus-groups&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7Caa59c71da0604963405c08db18abb9e1%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638130898055194287%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=wHrp2AGw4ZnaJjFdsGDi%2FGDd2pw7oyBPiyZVmNPG2bU%3D&amp;reserved=0">Focus Groups</a>. &gt; · Engage technical people in the bioinformatics community inside and outside ELIXIR to work together on topics of common interest aligned to ELIXIR activities &gt; · Strengthen the interactions with ELIXIR Platforms, Communities and Focus Groups to establish and reinforce collaborations through hands-on programming activities. - Attachment (biohackathon-europe.org): <a href="https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbiohackathon-europe.org%2Fprojects.html&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7Caa59c71da0604963405c08db18abb9e1%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638130898055038114%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=cd3MVDTQPqPl%2FO65DuA9H2kXDdi5UXRLa80Wx3vPmm0%3D&amp;reserved=0">Hacking projects</a> &gt; Barcelona 30 October - 3 November 2023 - Attachment (biohackathon.org): <a href="https://eur03.safelinks.protection.outlook.com/?url=http%3A%2F%2Fwww.biohackathon.org%2F&amp;data=05%7C01%7Caedin.culhane%40ul.ie%7Caa59c71da0604963405c08db18abb9e1%7C0084b9243ab4411692519939f695e54c%7C0%7C0%7C638130898055194287%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=qSD1Lgs64w1lSiYvPvr%2F8gVmwjEXC42kcZogj2wLZok%3D&amp;reserved=0">&gt; BioHackathon</a></p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2023-03-03</h2>
+<p><strong>Maria Doyle</strong> (09:05:02): &gt; &lt;!channel&gt;our Elixir All Hands workshop “Opportunities for Bioconductor and ELIXIR communities to co-develop training infrastructure” will be<strong><em>Tuesday June 6th 11-12.30pm GMT.</em></strong>If you’re interested to take part in<a href="https://docs.google.com/document/d/13cwMip37eQMIc75pztdXun-zTzYYREQmo_HXqV-rm94/">the agenda</a>please let me know as we’ll start populating it in the next week or so.</p>
+<p><strong>Jayaram Kancherla</strong> (09:56:43): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla has left the channel</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2023-04-03</h2>
+<p><strong>Manuel Barrios Izás</strong> (02:07:46): &gt; <span class="citation" data-cites="Manuel">@Manuel</span> Barrios Izás has joined the channel</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2023-04-05</h2>
+<p><strong>Martin Grigorov</strong> (02:52:31): &gt; <span class="citation" data-cites="Martin">@Martin</span> Grigorov has left the channel</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2023-04-06</h2>
+<p><strong>Marcel Ramos Pérez</strong> (16:11:34): &gt; <span class="citation" data-cites="Marcel">@Marcel</span> Ramos Pérez has joined the channel</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2023-04-12</h2>
+<p><strong>Nils Hoffmann</strong> (11:18:59): &gt; <span class="citation" data-cites="Nils">@Nils</span> Hoffmann has joined the channel</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2023-05-03</h2>
+<p><strong>Maria Doyle</strong> (13:21:35): &gt; &lt;!channel&gt;if you would like to contribute (either in-person in Dublin or remotely) to the Elixir All Hands workshop “Opportunities for Bioconductor and ELIXIR communities to co-develop training infrastructure” on June 6th 11-12.30pm GMT please let me know.</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2023-05-11</h2>
+<p><strong>Monica Valecha</strong> (12:44:54): &gt; <span class="citation" data-cites="Monica">@Monica</span> Valecha has joined the channel</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2023-06-01</h2>
+<p><strong>Alex Mahmoud</strong> (14:43:17): &gt; <span class="citation" data-cites="Alex">@Alex</span> Mahmoud has joined the channel</p>
+<p><strong>irem Kahveci</strong> (17:48:01): &gt; <span class="citation" data-cites="irem">@irem</span> Kahveci has joined the channel</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2023-06-06</h2>
+<p><strong>Gil Poiares-Oliveira</strong> (06:13:29): &gt; <span class="citation" data-cites="Gil">@Gil</span> Poiares-Oliveira has joined the channel</p>
+<p><strong>Lisanna Paladin</strong> (06:24:25): &gt; <span class="citation" data-cites="Lisanna">@Lisanna</span> Paladin has joined the channel</p>
+<p><strong>USLACKBOT</strong> (11:15:58): &gt; <strong><em>ELIXIR</em></strong>has joined this channel by invitation from<strong><em>community-bioc</em></strong>.</p>
+<p><strong>U01PW0NJL7M</strong> (11:15:58): &gt; <span class="citation" data-cites="U01PW0NJL7M">@U01PW0NJL7M</span> has joined the channel</p>
+<p><strong>U023FUYM75F</strong> (11:22:09): &gt; <span class="citation" data-cites="U023FUYM75F">@U023FUYM75F</span> has joined the channel</p>
+<p><strong>U02433X2S76</strong> (11:22:17): &gt; <span class="citation" data-cites="U02433X2S76">@U02433X2S76</span> has joined the channel</p>
+<p><strong>U023G6CU3QV</strong> (11:22:25): &gt; <span class="citation" data-cites="U023G6CU3QV">@U023G6CU3QV</span> has joined the channel</p>
+<p><strong>U023JDZ6Q4S</strong> (11:22:31): &gt; <span class="citation" data-cites="U023JDZ6Q4S">@U023JDZ6Q4S</span> has joined the channel</p>
+<p><strong>U01DFST06UX</strong> (11:23:25): &gt; <span class="citation" data-cites="U01DFST06UX">@U01DFST06UX</span> has joined the channel</p>
+<p><strong>U023ZUCS4UR</strong> (11:23:34): &gt; <span class="citation" data-cites="U023ZUCS4UR">@U023ZUCS4UR</span> has joined the channel</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2023-06-07</h2>
+<p><strong>Aedin Culhane</strong> (09:11:56): &gt; ELIXIR single cell ’omics community have a co-lead position open if any is interested</p>
+<p><strong>Aedin Culhane</strong> (09:13:25): &gt; If anyone wants to assist Maria in plans to update connectivity between Tess and Bioconductor by building support for Bioschema, let Maria know<a href="https://tess.elixir-europe.org/content_providers/bioconductor">https://tess.elixir-europe.org/content_providers/bioconductor</a> - Attachment (tess.elixir-europe.org): <a href="https://tess.elixir-europe.org/content_providers/bioconductor">Bioconductor</a> &gt; Open development software project, based on the R programming language, &gt; providing tools for the analysis of high-throughput genomic data. The project aims to enable &gt; interdisciplinary research, collaboration and rapid development of scientific software.</p>
+<p><strong>Aedin Culhane</strong> (09:13:45): &gt; <a href="https://tess.elixir-europe.org/materials/getting-started-with-bioschemas">https://tess.elixir-europe.org/materials/getting-started-with-bioschemas</a></p>
+<p><strong>U023JDZ6Q4S</strong> (09:20:06): &gt; there is some discussion in&lt;#C0262CVJSC9&gt;on this topic too:slightly_smiling_face:<a href="https://elixir-europe.slack.com/archives/C0262CVJSC9/p1686061370798999">https://elixir-europe.slack.com/archives/C0262CVJSC9/p1686061370798999</a> - Attachment: <a href="https://elixir-europe.slack.com/archives/C0262CVJSC9/p1686061370798999">Attachment</a> &gt; We should get in contact with Maria Doyle to discuss about Bioschemas scraping of Bioconductor training material. It looks like a very nice opportunity to work together!</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2023-06-08</h2>
+<p><strong>U02433X2S76</strong> (07:30:12): &gt; &lt;<span class="citation" data-cites="U04T1MQNFN1>looks">@U04T1MQNFN1&gt;looks</span> like you have a busy future ahead of you. Obviously we need a bit of time to develop these initial ideas and plans but it would be really good if at some point just after summer we could dedicate some time to Bioconductor and Elixir collaborating in one of the regular Training Platform meetings.</p>
+<p><strong>U04T1MQNFN1</strong> (09:37:46): &gt; That would be great</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2023-06-09</h2>
+<p><strong>Aedin Culhane</strong> (17:16:43): &gt; Biohackathon projects for Barcelona.<a href="https://biohackathon-europe.org/projects.html">https://biohackathon-europe.org/projects.html</a> - Attachment (biohackathon-europe.org): <a href="https://biohackathon-europe.org/projects.html">Hacking projects</a> &gt; Barcelona 30 October - 3 November 2023</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2023-06-13</h2>
+<p><strong>Maria Doyle</strong> (13:15:44): &gt; Bioconductor website survey is now LIVE and posted about in Bioconductor Slack and Elixir Slack#generalchannels. &gt; * <a href="https://community-bioc.slack.com/archives/C35G93GJH/p1686661875820929">https://community-bioc.slack.com/archives/C35G93GJH/p1686661875820929</a> &gt; * <a href="https://elixir-europe.slack.com/archives/C01DPT2E2DU/p1686674062828269">https://elixir-europe.slack.com/archives/C01DPT2E2DU/p1686674062828269</a> &gt; Posting survey link here as&lt;<span class="citation" data-cites="U02433X2S76">@U02433X2S76</span>&gt;, thanks for your previous feedback, this is the official survey link if you want to share with your users<a href="https://t.maze.co/169169456">https://t.maze.co/169169456</a></p>
+<p><strong>U02433X2S76</strong> (13:38:23): &gt; Thanks. I’ll share it about.</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2023-08-10</h2>
+<p><strong>U059439UP70</strong> (08:57:34): &gt; Microbiome data science with R/Bioconductor course in****:****University of Bergen October 9-12, 2023:<a href="https://norbis.w.uib.no/microbiome-data-science-with-r-bioconductor/">https://norbis.w.uib.no/microbiome-data-science-with-r-bioconductor/</a></p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2023-09-11</h2>
+<p><strong>U059AN3RK98</strong> (12:09:21): &gt; Nice slides set on ELIXIR TESS history<a href="https://docs.google.com/presentation/d/1Qt9eD_NRPItBa0WpkyA2ejdPKrsPZlnb/edit#slide=id.p5">https://docs.google.com/presentation/d/1Qt9eD_NRPItBa0WpkyA2ejdPKrsPZlnb/edit#slide=id.p5</a></p>
+<p><strong>U059AN3RK98</strong> (12:10:45): &gt; &lt;!channel&gt;Hope to see you EuroBioc next week in Brussels … Should be have a BOFI..</p>
+<p><strong>U059AN3RK98</strong> (12:11:20): &gt; deadline for submission is Sept 20<a href="https://eurobioc2023.bioconductor.org/submissions/">https://eurobioc2023.bioconductor.org/submissions/</a> - Attachment (eurobioc2023.bioconductor.org): <a href="https://eurobioc2023.bioconductor.org/submissions/">Submissions</a> &gt; Submissions</p>
+<p><strong>Leo Lahti</strong> (12:43:09): &gt; I can only be in Gent on Wed-Thu, so Fri BoF I will miss.</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2023-09-12</h2>
+<p><strong>Aedin Culhane</strong> (04:28:33): &gt; The ELIXIR-Germany BioHackathon projects were just announced and we are back again this year with SpaceHack 2.0! This time we focus on establishing systematic benchmarking for spatial cluster/domain identification in spatial transcriptomics data. Please spread the word to your groups and networks – those interested can register via this link:<a href="https://www.denbi.de/helpdesk?option=com_rsform&amp;view=rsform&amp;formId=7">https://www.denbi.de/helpdesk?option=com_rsform&amp;view=rsform&amp;formId=7</a>. - Attachment (denbi.de): <a href="https://www.denbi.de/helpdesk?option=com_rsform&amp;view=rsform&amp;formId=7">HelpDesk</a> &gt; The ‘German Network for Bioinformatics Infrastructure – de.NBI’ is a national, academic and non-profit infrastructure supported by the Federal Ministry of Education and Research providing bioinformatics services to users in life sciences research and biomedicine in Germany and Europe. The partners organize training events, courses and summer schools on tools, standards and compute services provided by de.NBI to assist researchers to more effectively exploit their data.</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2023-10-09</h2>
+<p><strong>U059AN3RK98</strong> (09:52:46): &gt; <span class="citation" data-cites="Dario">@Dario</span> Righellihas questions about the Space Biohackathon<a href="https://cloud.denbi.de/about/testimonials/denbi-biohackathon-spacehack-project/">https://cloud.denbi.de/about/testimonials/denbi-biohackathon-spacehack-project/</a>. Connecting you&lt;<span class="citation" data-cites="U027T75LNSC">@U027T75LNSC</span>&gt;</p>
+<p><strong>Dario Righelli</strong> (10:12:08) (in thread): &gt; Thanks@Aedin Culhane, I was interested to have a few more details on how the hackathon is organised and/or if there are already some defined aims for it. &gt; Thanks!</p>
+<p><strong>U059AN3RK98</strong> (12:39:43): &gt; For Bioconductor folks..<a href="https://elixir-europe.org/events/elixir-single-cell-omics-community-f2fhybrid-meeting-0">https://elixir-europe.org/events/elixir-single-cell-omics-community-f2fhybrid-meeting-0</a> - Attachment (ELIXIR): <a href="https://elixir-europe.org/events/elixir-single-cell-omics-community-f2fhybrid-meeting-0">ELIXIR Single Cell Omics Community F2F/hybrid meeting</a> &gt; This year, we are combining the annual community gathering with the FAIR Data Management Workshop. The annual meeting is scheduled for October 18th and will be hosted at the EMBL-EBI Campus in</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2023-10-12</h2>
+<p><strong>U027T75LNSC</strong> (07:01:43) (in thread): &gt; Oops - I missed this. &gt; Thanks for reaching out! The hackathon itself is organised by de.NBI (the German Network for Bioinformatics, a.k.a ELIXIR-Germany) as part of the<a href="https://www.denbi.de/de-nbi-events/1547-biohackathon-germany-2">German BioHackathon</a>. They deal with all the organisation aspects (food, location, registration, …). I deal with organizing and running the project covering the topics, providing centralized cloud compute, and day-to-day entertainment/motivation. &gt; We have another iteration to take place this year in December:<a href="https://spatialhackathon.github.io/">https://spatialhackathon.github.io/</a>If you are interested in the administrative/technical organisation of the hackathon then you want to contact de.NBI (<a href="mailto:contact@denbi.de">contact@denbi.de</a>), otherwise we can chat further about the SpaceHack v1/v2 projects:slightly_smiling_face:</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2023-12-30</h2>
+<p><strong>Aedin Culhane</strong> (09:32:25): - Attachment (datascience.cancer.gov): <a href="https://datascience.cancer.gov/news-events/news/sharing-cancer-research-software-nih-wants-hear-you">Sharing Cancer Research Software? NIH Wants to Hear from You! | CBIIT</a> &gt; Are you working with source codes, algorithms, workflows, and other software in your cancer research? NIH wants to hear from you! Respond today to help NIH develop new best-practice guidelines.</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2024-02-04</h2>
+<p><strong>Leo Lahti</strong> (09:15:42): &gt; European Conference on Computational Biology (ECCB) 2024 will take place in Turku, Finland on Sep 16-20: &gt; CfP:<a href="https://eccb2024.fi/calls">https://eccb2024.fi/calls</a>There is a special “ELIXIR Communities Track”. As this is my home town &amp; I am in the local org. committee, I will be present in any case. Hence I was thinking whether The ELIXIR Bioconductor Community should consider something here. Is anyone else planning to join? The DL for workshops and tutorials is Feb 15, proceedings March 14, highlight talks and posters Apr 23.</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2024-02-09</h2>
+<p><strong>Levi Waldron</strong> (09:23:28): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldron has left the channel</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2024-03-26</h2>
+<p><strong>U031FT693FD</strong> (13:26:18): &gt; Hi everyone, is there anyone who have experience with developing R bioconductor package?</p>
+<p><strong>Vince Carey</strong> (13:36:46): &gt; &lt;<span class="citation" data-cites="U031FT693FD>Consider">@U031FT693FD&gt;Consider</span> visiting#developers-mentorshipand#developers-forum</p>
+<p><strong>U031FT693FD</strong> (13:47:11): &gt; I do not have access@Vince Carey, both are private - File (PNG): <a href="https://elixir-europe.slack.com/files/U34P8RS3B/F06REQCHG03/image.png">image.png</a></p>
+<p><strong>Maria Doyle</strong> (13:51:52): &gt; &lt;<span class="citation" data-cites="U031FT693FD>actually#developers-mentorshipand#developers-forumare">@U031FT693FD&gt;actually#developers-mentorshipand#developers-forumare</span> public channels within the Bioconductor Slack workspace. This channel where you’ve posted your question is a shared channel between Bioconductor and Elixir workspaces. To access the channels Vince mentioned, you’ll need to join the Bioconductor Slack through this link:<a href="https://slack.bioconductor.org/">https://slack.bioconductor.org/</a>. Once you’re in, you should hopefully get the help and guidance you’re looking for regarding R Bioconductor package development. Hope to see you there!</p>
+<p><strong>U031FT693FD</strong> (13:56:44): &gt; Ah, I thought it is in ELIXIR … Thanks for pointing this out :)</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2024-05-18</h2>
+<p><strong>Aedin Culhane</strong> (11:02:45) (in thread): &gt; I was thinking of going but not confirmed</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2024-06-02</h2>
+<p><strong>Aedin Culhane</strong> (14:44:47): &gt; :mega:EuroBioC2024 Registration is Open!:tada:We are excited to share that registration for EuroBioC2024 is open! Join us for the European Bioconductor conference in beautiful Oxford, UK, from September 4-6. Secure your spot and take advantage of discounted accommodation by registering now!:point_right:<a href="https://eurobioc2024.bioconductor.org/registration/">https://eurobioc2024.bioconductor.org/registration/</a>Help spread the word!:pray: &gt; * <a href="https://www.linkedin.com/feed/update/urn:li:activity:7202223655781580800">https://www.linkedin.com/feed/update/urn:li:activity:7202223655781580800</a> &gt; * <a href="https://genomic.social/@bioconductor/112534743328078110">https://genomic.social/<span class="citation" data-cites="bioconductor/112534743328078110">@bioconductor/112534743328078110</span></a> - Attachment (eurobioc2024.bioconductor.org): <a href="https://eurobioc2024.bioconductor.org/registration/">Registration</a> &gt; Registration - Attachment (linkedin.com): <a href="https://www.linkedin.com/feed/update/urn:li:activity:7202223655781580800">Bioconductor on LinkedIn: #eurobioc2024 #bioinformatics #rstats #bioconductorcommunity</a> &gt; :mega: Registration for EuroBioC2024 is open! :tada: &gt; &gt; Join us for the European Bioconductor conference in beautiful Oxford, UK, from September 4-6. This event focuses… - Attachment (genomic.social): <a href="https://genomic.social/@bioconductor/112534743328078110">Bioconductor (<span class="citation" data-cites="bioconductor">@bioconductor</span><span class="citation" data-cites="genomic.social">@genomic.social</span>)</a> &gt; Attached: 1 image &gt; &gt; :mega: Registration for EuroBioC2024 is open! :tada: &gt; &gt; Join us for the European Bioconductor conference in beautiful Oxford, UK, from September 4-6. This event focuses on cutting-edge bioinformatics and data analysis using R and Bioconductor. :computer::dna: Secure your spot and take advantage of discounted accommodation by registering now! &gt; &gt; :point_right: Register here: <a href="https://buff.ly/4aHLu7m">https://buff.ly/4aHLu7m</a> &gt; &gt; #EuroBioC2024 #Bioinformatics #RStats #BioconductorCommunity</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2024-06-27</h2>
+<p><strong>U059AN3RK98</strong> (07:07:22): &gt; For anyone at Galaxy,&lt;<span class="citation" data-cites="U04T1MQNFN1>will">@U04T1MQNFN1&gt;will</span> be speaking today. - File (PNG): <a href="https://elixir-europe.slack.com/files/U34P8RS3B/F079LLCRM0X/image.png">image.png</a> - File (PNG): <a href="https://elixir-europe.slack.com/files/U34P8RS3B/F07A3MLMBAQ/image.png">image.png</a></p>
+<p><strong>U059AN3RK98</strong> (07:15:39): - Attachment: <a href="https://elixir-europe.slack.com/archives/C024G2NUZNU/p1688112333130529">Attachment</a> &gt; <span class="citation" data-cites="U05EV1P8L2X">@U05EV1P8L2X</span> has joined the channel</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2024-09-15</h2>
+<p><strong>Aedin Culhane</strong> (14:02:08): &gt; <a href="https://elixir-europe.org/sites/default/files/documents/Final-Memorandum-of-Agreement-between-ELIXIR-NIH_ODSS.pdf">https://elixir-europe.org/sites/default/files/documents/Final-Memorandum-of-Agreement-between-ELIXIR-NIH_ODSS.pdf</a></p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2024-09-20</h2>
+<p><strong>Aedin Culhane</strong> (09:16:26): &gt; Hi, Should we write a blog post for<a href="https://blog.bioconductor.org/">https://blog.bioconductor.org/</a>announcing the MoU and listing the ELIXIR/NIH projects in which Bioconductor is involved. - Attachment (blog.bioconductor.org): <a href="https://blog.bioconductor.org/">Bioconductor community blog</a> &gt; A blog for the Bioconductor community!</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2024-12-10</h2>
+<p><strong>U073FHNT4MB</strong> (04:51:00): &gt; Hi there! Just randomly discovered the existence of this channel:sweat_smile:</p>
+<p><strong>Maria Doyle</strong> (12:32:07): &gt; :wave:hi Claire, glad you found it:relaxed:</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

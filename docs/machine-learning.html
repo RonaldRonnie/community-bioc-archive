@@ -1,0 +1,2249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#machine-learning – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2019-11-28</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2019-11-29</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2019-11-30</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2019-12-01</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2019-12-02</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2019-12-03</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2019-12-04</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2019-12-08</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2019-12-09</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2019-12-10</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2019-12-11</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2019-12-17</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2019-12-31</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2020-02-08</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2020-02-13</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2020-02-14</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2020-02-22</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2020-02-26</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2020-03-10</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2020-03-19</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2020-03-25</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2020-03-26</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2020-03-31</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2020-04-02</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2020-04-03</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2020-05-02</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2020-05-04</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2020-06-06</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2020-06-26</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2020-07-07</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2020-07-09</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2020-07-15</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2020-07-24</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2020-07-29</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2020-07-30</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2020-07-31</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2020-08-05</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2020-08-06</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2020-08-17</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2020-08-18</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2020-09-04</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2020-09-06</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2020-10-19</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2020-10-23</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2020-10-26</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2020-11-04</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2020-11-28</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2020-12-02</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2020-12-04</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2020-12-07</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2020-12-12</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2020-12-14</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2020-12-24</a></li>
+  <li><a href="#section-53" id="toc-section-53" class="nav-link" data-scroll-target="#section-53">2021-01-01</a></li>
+  <li><a href="#section-54" id="toc-section-54" class="nav-link" data-scroll-target="#section-54">2021-01-22</a></li>
+  <li><a href="#section-55" id="toc-section-55" class="nav-link" data-scroll-target="#section-55">2021-02-07</a></li>
+  <li><a href="#section-56" id="toc-section-56" class="nav-link" data-scroll-target="#section-56">2021-02-15</a></li>
+  <li><a href="#section-57" id="toc-section-57" class="nav-link" data-scroll-target="#section-57">2021-02-23</a></li>
+  <li><a href="#section-58" id="toc-section-58" class="nav-link" data-scroll-target="#section-58">2021-02-24</a></li>
+  <li><a href="#section-59" id="toc-section-59" class="nav-link" data-scroll-target="#section-59">2021-02-26</a></li>
+  <li><a href="#section-60" id="toc-section-60" class="nav-link" data-scroll-target="#section-60">2021-03-03</a></li>
+  <li><a href="#section-61" id="toc-section-61" class="nav-link" data-scroll-target="#section-61">2021-03-12</a></li>
+  <li><a href="#section-62" id="toc-section-62" class="nav-link" data-scroll-target="#section-62">2021-03-19</a></li>
+  <li><a href="#section-63" id="toc-section-63" class="nav-link" data-scroll-target="#section-63">2021-03-23</a></li>
+  <li><a href="#section-64" id="toc-section-64" class="nav-link" data-scroll-target="#section-64">2021-04-05</a></li>
+  <li><a href="#section-65" id="toc-section-65" class="nav-link" data-scroll-target="#section-65">2021-04-21</a></li>
+  <li><a href="#section-66" id="toc-section-66" class="nav-link" data-scroll-target="#section-66">2021-04-28</a></li>
+  <li><a href="#section-67" id="toc-section-67" class="nav-link" data-scroll-target="#section-67">2021-05-01</a></li>
+  <li><a href="#section-68" id="toc-section-68" class="nav-link" data-scroll-target="#section-68">2021-05-10</a></li>
+  <li><a href="#section-69" id="toc-section-69" class="nav-link" data-scroll-target="#section-69">2021-05-11</a></li>
+  <li><a href="#section-70" id="toc-section-70" class="nav-link" data-scroll-target="#section-70">2021-05-22</a></li>
+  <li><a href="#section-71" id="toc-section-71" class="nav-link" data-scroll-target="#section-71">2021-05-25</a></li>
+  <li><a href="#section-72" id="toc-section-72" class="nav-link" data-scroll-target="#section-72">2021-05-26</a></li>
+  <li><a href="#section-73" id="toc-section-73" class="nav-link" data-scroll-target="#section-73">2021-06-04</a></li>
+  <li><a href="#section-74" id="toc-section-74" class="nav-link" data-scroll-target="#section-74">2021-06-21</a></li>
+  <li><a href="#section-75" id="toc-section-75" class="nav-link" data-scroll-target="#section-75">2021-06-24</a></li>
+  <li><a href="#section-76" id="toc-section-76" class="nav-link" data-scroll-target="#section-76">2021-07-16</a></li>
+  <li><a href="#section-77" id="toc-section-77" class="nav-link" data-scroll-target="#section-77">2021-07-19</a></li>
+  <li><a href="#section-78" id="toc-section-78" class="nav-link" data-scroll-target="#section-78">2021-07-23</a></li>
+  <li><a href="#section-79" id="toc-section-79" class="nav-link" data-scroll-target="#section-79">2021-07-26</a></li>
+  <li><a href="#section-80" id="toc-section-80" class="nav-link" data-scroll-target="#section-80">2021-07-29</a></li>
+  <li><a href="#section-81" id="toc-section-81" class="nav-link" data-scroll-target="#section-81">2021-08-04</a></li>
+  <li><a href="#section-82" id="toc-section-82" class="nav-link" data-scroll-target="#section-82">2021-08-06</a></li>
+  <li><a href="#section-83" id="toc-section-83" class="nav-link" data-scroll-target="#section-83">2021-08-10</a></li>
+  <li><a href="#section-84" id="toc-section-84" class="nav-link" data-scroll-target="#section-84">2021-08-19</a></li>
+  <li><a href="#section-85" id="toc-section-85" class="nav-link" data-scroll-target="#section-85">2021-09-01</a></li>
+  <li><a href="#section-86" id="toc-section-86" class="nav-link" data-scroll-target="#section-86">2021-09-06</a></li>
+  <li><a href="#section-87" id="toc-section-87" class="nav-link" data-scroll-target="#section-87">2021-09-08</a></li>
+  <li><a href="#section-88" id="toc-section-88" class="nav-link" data-scroll-target="#section-88">2021-09-16</a></li>
+  <li><a href="#section-89" id="toc-section-89" class="nav-link" data-scroll-target="#section-89">2021-09-25</a></li>
+  <li><a href="#section-90" id="toc-section-90" class="nav-link" data-scroll-target="#section-90">2021-10-27</a></li>
+  <li><a href="#section-91" id="toc-section-91" class="nav-link" data-scroll-target="#section-91">2021-11-08</a></li>
+  <li><a href="#section-92" id="toc-section-92" class="nav-link" data-scroll-target="#section-92">2022-01-03</a></li>
+  <li><a href="#section-93" id="toc-section-93" class="nav-link" data-scroll-target="#section-93">2022-02-15</a></li>
+  <li><a href="#section-94" id="toc-section-94" class="nav-link" data-scroll-target="#section-94">2022-02-23</a></li>
+  <li><a href="#section-95" id="toc-section-95" class="nav-link" data-scroll-target="#section-95">2022-03-05</a></li>
+  <li><a href="#section-96" id="toc-section-96" class="nav-link" data-scroll-target="#section-96">2022-03-15</a></li>
+  <li><a href="#section-97" id="toc-section-97" class="nav-link" data-scroll-target="#section-97">2022-03-20</a></li>
+  <li><a href="#section-98" id="toc-section-98" class="nav-link" data-scroll-target="#section-98">2022-03-21</a></li>
+  <li><a href="#section-99" id="toc-section-99" class="nav-link" data-scroll-target="#section-99">2022-04-12</a></li>
+  <li><a href="#section-100" id="toc-section-100" class="nav-link" data-scroll-target="#section-100">2022-05-03</a></li>
+  <li><a href="#section-101" id="toc-section-101" class="nav-link" data-scroll-target="#section-101">2022-05-20</a></li>
+  <li><a href="#section-102" id="toc-section-102" class="nav-link" data-scroll-target="#section-102">2022-06-09</a></li>
+  <li><a href="#section-103" id="toc-section-103" class="nav-link" data-scroll-target="#section-103">2022-06-12</a></li>
+  <li><a href="#section-104" id="toc-section-104" class="nav-link" data-scroll-target="#section-104">2022-07-13</a></li>
+  <li><a href="#section-105" id="toc-section-105" class="nav-link" data-scroll-target="#section-105">2022-07-15</a></li>
+  <li><a href="#section-106" id="toc-section-106" class="nav-link" data-scroll-target="#section-106">2022-07-18</a></li>
+  <li><a href="#section-107" id="toc-section-107" class="nav-link" data-scroll-target="#section-107">2022-07-28</a></li>
+  <li><a href="#section-108" id="toc-section-108" class="nav-link" data-scroll-target="#section-108">2022-08-11</a></li>
+  <li><a href="#section-109" id="toc-section-109" class="nav-link" data-scroll-target="#section-109">2022-08-30</a></li>
+  <li><a href="#section-110" id="toc-section-110" class="nav-link" data-scroll-target="#section-110">2022-09-27</a></li>
+  <li><a href="#section-111" id="toc-section-111" class="nav-link" data-scroll-target="#section-111">2022-10-06</a></li>
+  <li><a href="#section-112" id="toc-section-112" class="nav-link" data-scroll-target="#section-112">2022-10-10</a></li>
+  <li><a href="#section-113" id="toc-section-113" class="nav-link" data-scroll-target="#section-113">2022-10-31</a></li>
+  <li><a href="#section-114" id="toc-section-114" class="nav-link" data-scroll-target="#section-114">2022-11-06</a></li>
+  <li><a href="#section-115" id="toc-section-115" class="nav-link" data-scroll-target="#section-115">2022-12-01</a></li>
+  <li><a href="#section-116" id="toc-section-116" class="nav-link" data-scroll-target="#section-116">2022-12-02</a></li>
+  <li><a href="#section-117" id="toc-section-117" class="nav-link" data-scroll-target="#section-117">2022-12-12</a></li>
+  <li><a href="#section-118" id="toc-section-118" class="nav-link" data-scroll-target="#section-118">2022-12-13</a></li>
+  <li><a href="#section-119" id="toc-section-119" class="nav-link" data-scroll-target="#section-119">2022-12-14</a></li>
+  <li><a href="#section-120" id="toc-section-120" class="nav-link" data-scroll-target="#section-120">2022-12-20</a></li>
+  <li><a href="#section-121" id="toc-section-121" class="nav-link" data-scroll-target="#section-121">2023-01-10</a></li>
+  <li><a href="#section-122" id="toc-section-122" class="nav-link" data-scroll-target="#section-122">2023-01-21</a></li>
+  <li><a href="#section-123" id="toc-section-123" class="nav-link" data-scroll-target="#section-123">2023-01-31</a></li>
+  <li><a href="#section-124" id="toc-section-124" class="nav-link" data-scroll-target="#section-124">2023-02-09</a></li>
+  <li><a href="#section-125" id="toc-section-125" class="nav-link" data-scroll-target="#section-125">2023-02-22</a></li>
+  <li><a href="#section-126" id="toc-section-126" class="nav-link" data-scroll-target="#section-126">2023-02-28</a></li>
+  <li><a href="#section-127" id="toc-section-127" class="nav-link" data-scroll-target="#section-127">2023-03-01</a></li>
+  <li><a href="#section-128" id="toc-section-128" class="nav-link" data-scroll-target="#section-128">2023-03-07</a></li>
+  <li><a href="#section-129" id="toc-section-129" class="nav-link" data-scroll-target="#section-129">2023-03-10</a></li>
+  <li><a href="#section-130" id="toc-section-130" class="nav-link" data-scroll-target="#section-130">2023-03-22</a></li>
+  <li><a href="#section-131" id="toc-section-131" class="nav-link" data-scroll-target="#section-131">2023-05-04</a></li>
+  <li><a href="#section-132" id="toc-section-132" class="nav-link" data-scroll-target="#section-132">2023-05-17</a></li>
+  <li><a href="#section-133" id="toc-section-133" class="nav-link" data-scroll-target="#section-133">2023-05-18</a></li>
+  <li><a href="#section-134" id="toc-section-134" class="nav-link" data-scroll-target="#section-134">2023-05-31</a></li>
+  <li><a href="#section-135" id="toc-section-135" class="nav-link" data-scroll-target="#section-135">2023-06-07</a></li>
+  <li><a href="#section-136" id="toc-section-136" class="nav-link" data-scroll-target="#section-136">2023-06-19</a></li>
+  <li><a href="#section-137" id="toc-section-137" class="nav-link" data-scroll-target="#section-137">2023-07-13</a></li>
+  <li><a href="#section-138" id="toc-section-138" class="nav-link" data-scroll-target="#section-138">2023-07-28</a></li>
+  <li><a href="#section-139" id="toc-section-139" class="nav-link" data-scroll-target="#section-139">2023-08-02</a></li>
+  <li><a href="#section-140" id="toc-section-140" class="nav-link" data-scroll-target="#section-140">2023-08-03</a></li>
+  <li><a href="#section-141" id="toc-section-141" class="nav-link" data-scroll-target="#section-141">2023-08-04</a></li>
+  <li><a href="#section-142" id="toc-section-142" class="nav-link" data-scroll-target="#section-142">2023-08-18</a></li>
+  <li><a href="#section-143" id="toc-section-143" class="nav-link" data-scroll-target="#section-143">2023-08-20</a></li>
+  <li><a href="#section-144" id="toc-section-144" class="nav-link" data-scroll-target="#section-144">2023-09-03</a></li>
+  <li><a href="#section-145" id="toc-section-145" class="nav-link" data-scroll-target="#section-145">2023-09-15</a></li>
+  <li><a href="#section-146" id="toc-section-146" class="nav-link" data-scroll-target="#section-146">2023-10-11</a></li>
+  <li><a href="#section-147" id="toc-section-147" class="nav-link" data-scroll-target="#section-147">2023-11-16</a></li>
+  <li><a href="#section-148" id="toc-section-148" class="nav-link" data-scroll-target="#section-148">2023-11-18</a></li>
+  <li><a href="#section-149" id="toc-section-149" class="nav-link" data-scroll-target="#section-149">2023-11-21</a></li>
+  <li><a href="#section-150" id="toc-section-150" class="nav-link" data-scroll-target="#section-150">2023-12-01</a></li>
+  <li><a href="#section-151" id="toc-section-151" class="nav-link" data-scroll-target="#section-151">2023-12-04</a></li>
+  <li><a href="#section-152" id="toc-section-152" class="nav-link" data-scroll-target="#section-152">2024-01-11</a></li>
+  <li><a href="#section-153" id="toc-section-153" class="nav-link" data-scroll-target="#section-153">2024-01-26</a></li>
+  <li><a href="#section-154" id="toc-section-154" class="nav-link" data-scroll-target="#section-154">2024-01-27</a></li>
+  <li><a href="#section-155" id="toc-section-155" class="nav-link" data-scroll-target="#section-155">2024-02-16</a></li>
+  <li><a href="#section-156" id="toc-section-156" class="nav-link" data-scroll-target="#section-156">2024-02-19</a></li>
+  <li><a href="#section-157" id="toc-section-157" class="nav-link" data-scroll-target="#section-157">2024-02-28</a></li>
+  <li><a href="#section-158" id="toc-section-158" class="nav-link" data-scroll-target="#section-158">2024-03-10</a></li>
+  <li><a href="#section-159" id="toc-section-159" class="nav-link" data-scroll-target="#section-159">2024-03-27</a></li>
+  <li><a href="#section-160" id="toc-section-160" class="nav-link" data-scroll-target="#section-160">2024-04-04</a></li>
+  <li><a href="#section-161" id="toc-section-161" class="nav-link" data-scroll-target="#section-161">2024-04-18</a></li>
+  <li><a href="#section-162" id="toc-section-162" class="nav-link" data-scroll-target="#section-162">2024-04-28</a></li>
+  <li><a href="#section-163" id="toc-section-163" class="nav-link" data-scroll-target="#section-163">2024-05-05</a></li>
+  <li><a href="#section-164" id="toc-section-164" class="nav-link" data-scroll-target="#section-164">2024-05-06</a></li>
+  <li><a href="#section-165" id="toc-section-165" class="nav-link" data-scroll-target="#section-165">2024-05-11</a></li>
+  <li><a href="#section-166" id="toc-section-166" class="nav-link" data-scroll-target="#section-166">2024-05-14</a></li>
+  <li><a href="#section-167" id="toc-section-167" class="nav-link" data-scroll-target="#section-167">2024-06-11</a></li>
+  <li><a href="#section-168" id="toc-section-168" class="nav-link" data-scroll-target="#section-168">2024-07-02</a></li>
+  <li><a href="#section-169" id="toc-section-169" class="nav-link" data-scroll-target="#section-169">2024-07-05</a></li>
+  <li><a href="#section-170" id="toc-section-170" class="nav-link" data-scroll-target="#section-170">2024-07-11</a></li>
+  <li><a href="#section-171" id="toc-section-171" class="nav-link" data-scroll-target="#section-171">2024-07-15</a></li>
+  <li><a href="#section-172" id="toc-section-172" class="nav-link" data-scroll-target="#section-172">2024-07-26</a></li>
+  <li><a href="#section-173" id="toc-section-173" class="nav-link" data-scroll-target="#section-173">2024-07-29</a></li>
+  <li><a href="#section-174" id="toc-section-174" class="nav-link" data-scroll-target="#section-174">2024-07-31</a></li>
+  <li><a href="#section-175" id="toc-section-175" class="nav-link" data-scroll-target="#section-175">2024-08-04</a></li>
+  <li><a href="#section-176" id="toc-section-176" class="nav-link" data-scroll-target="#section-176">2024-08-19</a></li>
+  <li><a href="#section-177" id="toc-section-177" class="nav-link" data-scroll-target="#section-177">2024-09-10</a></li>
+  <li><a href="#section-178" id="toc-section-178" class="nav-link" data-scroll-target="#section-178">2024-10-01</a></li>
+  <li><a href="#section-179" id="toc-section-179" class="nav-link" data-scroll-target="#section-179">2024-10-12</a></li>
+  <li><a href="#section-180" id="toc-section-180" class="nav-link" data-scroll-target="#section-180">2024-10-23</a></li>
+  <li><a href="#section-181" id="toc-section-181" class="nav-link" data-scroll-target="#section-181">2024-11-11</a></li>
+  <li><a href="#section-182" id="toc-section-182" class="nav-link" data-scroll-target="#section-182">2024-11-12</a></li>
+  <li><a href="#section-183" id="toc-section-183" class="nav-link" data-scroll-target="#section-183">2024-11-21</a></li>
+  <li><a href="#section-184" id="toc-section-184" class="nav-link" data-scroll-target="#section-184">2025-03-18</a></li>
+  <li><a href="#section-185" id="toc-section-185" class="nav-link" data-scroll-target="#section-185">2025-04-14</a></li>
+  <li><a href="#section-186" id="toc-section-186" class="nav-link" data-scroll-target="#section-186">2025-04-15</a></li>
+  <li><a href="#section-187" id="toc-section-187" class="nav-link" data-scroll-target="#section-187">2025-04-17</a></li>
+  <li><a href="#section-188" id="toc-section-188" class="nav-link" data-scroll-target="#section-188">2025-04-18</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#machine-learning</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2019-11-28</h2>
+<p><strong>Dario Strbenac</strong> (19:00:04): &gt; <span class="citation" data-cites="Dario">@Dario</span> Strbenac has joined the channel</p>
+<p><strong>Dario Strbenac</strong> (19:00:07): &gt; set the channel description: Bioconductor-centric Bioinformatics-flavoured Machine Learning</p>
+<p><strong>Vince Carey</strong> (19:00:34): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+<p><strong>Alan O’C</strong> (19:00:35): &gt; <span class="citation" data-cites="Alan">@Alan</span> O’C has joined the channel</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2019-11-29</h2>
+<p><strong>Vince Carey</strong> (06:17:37): &gt; Thanks@Dario Strbenac. A number of references to tensorflow have come up in Bioc development, and@Aaron Lunhas created the basilisk package to help systematize Bioc-python interfaces. Perhaps a plan for simplifying use of tensorflow with bioc could be sketched in this channel (among other plans…)</p>
+<p><strong>Aaron Lun</strong> (06:17:43): &gt; <span class="citation" data-cites="Aaron">@Aaron</span> Lun has joined the channel</p>
+<p><strong>Aaron Lun</strong> (13:30:40): &gt; basilisk now pulls down anaconda on install, with the specified version of tensorflow. Seems to work well with<a href="https://github.com/Irrationone/cellassign/issues/36">https://github.com/Irrationone/cellassign/issues/36</a>. Ready to get into BioC once I get some assistance on issues in<a href="https://github.com/LTLA/basilisk/issues/1">https://github.com/LTLA/basilisk/issues/1</a>.</p>
+<p><strong>Dror Berel</strong> (17:42:23): &gt; <span class="citation" data-cites="Dror">@Dror</span> Berel has joined the channel</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2019-11-30</h2>
+<p><strong>Dario Strbenac</strong> (00:00:15): &gt; Ah, I haven’t used TensorFlow. Has anyone seen any scenarios where the new and trendy classifiers perform significantly better than older classifiers popular in R for bioinformatics classification problems (large<strong>p</strong>, small<strong>n</strong>data set)? I often see tables in machine learning journal articles where they show their method has 1% or 2% better performance than an existing method and they report their performance metric to three or more decimal places. If an oncologist or cellular biologist has a data set of 50 cancer patients (a typical size if you’re not the TCGA consortium but rely on typical research grants), they don’t get excited if a classifier is developed that has 78.456% accuracy instead of 76.123%. I work in a statistics department that frequently collaborates with biologists and the statisticians cringe when someone uses the phrase “machine learning”.</p>
+<p><strong>Dario Strbenac</strong> (00:05:09): &gt; A co-worker of mine recently developed an interesting bioinformatics classifier that works surprisingly better than its components<a href="http://www.oncotarget.com/index.php?journal=oncotarget&amp;page=article&amp;op=view&amp;path%5B%5D=13203&amp;path%5B%5D=41874">http://www.oncotarget.com/index.php?journal=oncotarget&amp;page=article&amp;op=view&amp;path%5B%5D=13203&amp;path%5B%5D=41874</a>The basic idea is: &gt; 1. Do repeated cross-validation on gene expression data within the training partition of samples. Calculate a per-sample error rate (i.e.&nbsp;how often each patient is misclassified). &gt; 2. Search the matched clinical data for clinical variables which explain why some patients are tough to classify correctly using omics data (i.e.&nbsp;regression of covariates on the patient error rate). &gt; 3. Create a rule like IF extranodal_spread IS Yes THEN Poor Outcome ELSE predict either Poor or Good Outcome using trained gene expression classifier (such as diagonal LDA) and apply to test set. &gt; Repeat many times to get estimate of performance variability. &gt; &gt; Such a two-stage classifier works better than putting all of the clinical and omics variables into a single classifier and also better than Tibshirani’s pre-validation approach to combining the large<strong>p</strong>omics data with the small<strong>p</strong>clinical data (Figure 2). &gt; &gt; I think this style of classification that is specifically tailored to the problem is what sets ClassifyR apart from a package like caret. ClassifyR has a version of the aforementioned approach that avoids the nested cross-validation and other functions for gene network-based classification.</p>
+<p><strong>Dario Strbenac</strong> (23:30:19): &gt; I had time today to explore mlr. It is comprehensive and I notice many similarities to ClassifyR. One important aspect of Bioconductor is that the user base is largely comprised of statisticians. Many of my colleagues who have tried ClassifyR didn’t like it. Its design uses a lot of S4 objects, constructors and accessors which they find overbearing. I studied computer science when I was an undergraduate but my colleagues are statisticians. In the design of the new Bioconductor classification framework, how could it be designed to appeal to statisticians?</p>
+<p><strong>Dror Berel</strong> (23:46:04): &gt; To me, the main benefit of using specialized packages from other domain, is that I don’t need to reinvent the wheel. For example, it first drove me crazy that no place across the entire rich package of mlr, p-values are never mentioned. Not even in a simple use of linear regression. However, I would still use it for it’s rich use of sampling (e.g.&nbsp;cross validation) and other solutions. To me, the fun part is merging such domain specialized packages together, and knitting them together</p>
+<p><strong>Dror Berel</strong> (23:48:04): &gt; By the way, mlr is about to be deprecated, refactored into mlr3</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2019-12-01</h2>
+<p><strong>Aaron Lun</strong> (00:29:22): &gt; <span class="citation" data-cites="Dario">@Dario</span> StrbenacI find it helpful to have the same functions be applicable on both base R objects and S4 equivalents. For example, many of my single-cell packages can accept a SingleCellExperiment or a base matrix, so people are never forced to use the former if they just want to get a job done. It is often the case that some extra stuff can be done with the richer object, so I also provide functionality for that, but people can just use the basics if they like.</p>
+<p><strong>Dario Strbenac</strong> (01:30:07): &gt; I like to do the same. The<code>matrix</code>variety transposes the matrix (so the variables are in columns) and casts it to<code>DataFrame</code>. The<code>MultiAssayExperiment</code>uses<code>wideFormat</code>to convert the input data into a<code>DataFrame</code>. The<code>DataFrame</code>variety is the only variety which does the computations. Do the statisticians in your workplace use any meta-classification package such as mlr and how do they find the user experience?</p>
+<p><strong>Aaron Lun</strong> (01:48:26): &gt; hold on, so why are they complaining about constructors, then?</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2019-12-02</h2>
+<p><strong>Dario Strbenac</strong> (15:00:08): &gt; Object-oriented programming isn’t covered in a statistical degree, I think.</p>
+<p><strong>Aaron Lun</strong> (15:02:20): &gt; Well, I would imagine that they wouldn’t even be able to care about those objects if the methods support direct use of base R things.</p>
+<p><strong>Dario Strbenac</strong> (18:00:10): &gt; I found that they baulked at the complexity / size of the parameter list of the function which runs the cross-validation and the number and diversity of slots of the classification result object. One idea I had was to put a Shiny front-end over it, but I never had the time to implement it. Event-driven programming adds a lot to a software’s development time (particularly if you don’t practise it regularly) and no reward from academic employment.</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2019-12-03</h2>
+<p><strong>Alan O’C</strong> (04:52:43): &gt; I think that’s a valid thing to baulk at; common convention is that &gt; 8 or so parameters is too many for end users and designers alike. Also given that R is functional, users probably shouldn’t have to dig into slots too often</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2019-12-04</h2>
+<p><strong>Mikhael Manurung</strong> (22:23:12): &gt; <span class="citation" data-cites="Mikhael">@Mikhael</span> Manurung has joined the channel</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2019-12-08</h2>
+<p><strong>Dror Berel</strong> (11:05:44): &gt; Just completed my first draft of a blog post about the softwares design differences between mlr3 and tidymodels. Hope you will enjoy reading this less-academic light post, and please feel free to share your thoughts about it<a href="https://medium.com/@drorberel/meta-machine-learning-aggregator-packages-in-r-round-ii-71ee1ff68642">https://medium.com/<span class="citation" data-cites="drorberel/meta-machine-learning-aggregator-packages-in-r-round-ii-71ee1ff68642">@drorberel/meta-machine-learning-aggregator-packages-in-r-round-ii-71ee1ff68642</span></a> - Attachment (Medium): <a href="https://medium.com/@drorberel/meta-machine-learning-aggregator-packages-in-r-round-ii-71ee1ff68642">Meta Machine Learning aggregator packages in R: Round II</a> &gt; written on January, 2020.</p>
+<p><strong>Dario Strbenac</strong> (21:00:03): &gt; It’s interesting to know about what is coming soon. Those projects seem to have a lot of people involved and will have lots of complex features.</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2019-12-09</h2>
+<p><strong>Alan O’C</strong> (05:46:38): &gt; Not sure I agree that mlr3 will be a more restrictive framework. In my experience tidyverse packages are more than happy to tell you to jog on if you try to do something they didn’t exactly prescribe:slightly_smiling_face:</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2019-12-10</h2>
+<p><strong>Sebastian Gibb</strong> (12:07:15): &gt; <span class="citation" data-cites="Sebastian">@Sebastian</span> Gibb has joined the channel</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2019-12-11</h2>
+<p><strong>Elisabetta Mereu</strong> (06:09:27): &gt; <span class="citation" data-cites="Elisabetta">@Elisabetta</span> Mereu has joined the channel</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2019-12-17</h2>
+<p><strong>Jean Yang</strong> (02:39:48): &gt; <span class="citation" data-cites="Jean">@Jean</span> Yang has joined the channel</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2019-12-31</h2>
+<p><strong>Leopoldo Valiente</strong> (18:20:11): &gt; <span class="citation" data-cites="Leopoldo">@Leopoldo</span> Valiente has joined the channel</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2020-02-08</h2>
+<p><strong>Thanh Le Viet</strong> (16:39:55): &gt; <span class="citation" data-cites="Thanh">@Thanh</span> Le Viet has joined the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2020-02-13</h2>
+<p><strong>Noor Pratap Singh</strong> (00:21:07): &gt; <span class="citation" data-cites="Noor">@Noor</span> Pratap Singh has joined the channel</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2020-02-14</h2>
+<p><strong>Andrew Skelton</strong> (05:07:04): &gt; <span class="citation" data-cites="Andrew">@Andrew</span> Skelton has joined the channel</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2020-02-22</h2>
+<p><strong>Aedin Culhane</strong> (07:42:43): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2020-02-26</h2>
+<p><strong>Jamie Burke</strong> (15:46:25): &gt; <span class="citation" data-cites="Jamie">@Jamie</span> Burke has joined the channel</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2020-03-10</h2>
+<p><strong>Aaron Lun</strong> (02:58:59): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey<strong><em>basilisk</em></strong>lives! Ready for<code>Biocsklearn</code>migration. Note that if you only depend on scikit-learn, you don’t even have to set up your own conda environments; just set<code>NULL</code>in<code>basiliskStart</code>to use the base environment that gets installed with<strong><em>basilisk</em></strong>.</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2020-03-19</h2>
+<p><strong>Daniela Cassol</strong> (12:31:35): &gt; <span class="citation" data-cites="Daniela">@Daniela</span> Cassol has joined the channel</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2020-03-25</h2>
+<p><strong>Aaron Lun</strong> (23:45:18): &gt; <span class="citation" data-cites="Vince">@Vince</span> CareyDo you think you can flip Biocsklearn to basilisk before the release? I’d like to get a few clients to test it out “in the wild”.</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2020-03-26</h2>
+<p><strong>Vince Carey</strong> (07:43:42): &gt; i want to@Aaron Lun…let me try this morning.</p>
+<p><strong>Vince Carey</strong> (08:05:07): &gt; <code>&gt; # The return value MUST be a pure R object, i.e., no reticulate &gt;         # Python objects, no pointers to shared memory. &gt;</code> &gt; I take it from this that it defeats the purpose of basilisk entirely if I want the user to be able to manipulate python references after running BiocSklearn code.</p>
+<p><strong>Aaron Lun</strong> (11:53:49): &gt; You can continue to do so but only via basiliskRun.</p>
+<p><strong>Aaron Lun</strong> (12:34:40): &gt; So for example, you can create a persistent variable that holds a python reference and just use it in another basiliskRun call to the same<code>proc</code>. See<code>?basiliskStart</code>and<code>findPersistentEnv</code>for more details.</p>
+<p><strong>Aaron Lun</strong> (12:39:46): &gt; I’m not entirely happy with how I’m passing down the persistent envs, so I may fiddle with this to make it easier to use.</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2020-03-31</h2>
+<p><strong>Aaron Lun</strong> (02:09:38): &gt; <span class="citation" data-cites="Vince">@Vince</span> Careylooks like we’re halfway there. Windows failing again, what a surprise.</p>
+<p><strong>Aaron Lun</strong> (02:16:57): &gt; Also, the<code>op &lt;&lt;-</code>is not advisable. If you want to persist something across functions, you would have to hold onto<code>proc</code>;<code>op</code>is not guaranteed to exist once<code>proc</code>is stopped.</p>
+<p><strong>Aaron Lun</strong> (02:27:46): &gt; The nature of the failure provides little insight, I’m afraid. It would seem that (i) somehow Python was already loaded into the R session when the vignette compiles, causing basilisk to create a new process on a separate node; and (ii) the new process fails when it loads the wrong conda installation, heaven knows why.</p>
+<p><strong>Aaron Lun</strong> (02:29:12): &gt; If you have access to a Windows machine to debug, I would be very interested to know the cause of this.</p>
+<p><strong>Vince Carey</strong> (08:25:44): &gt; i should have some time today to look at this. i have windows running under virtualbox on a mac.</p>
+<p><strong>kipper fletez-brant</strong> (11:44:52): &gt; <span class="citation" data-cites="kipper">@kipper</span> fletez-brant has joined the channel</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2020-04-02</h2>
+<p><strong>Aaron Lun</strong> (03:53:59): &gt; <span class="citation" data-cites="Vince">@Vince</span> CareyIf you find anything, let me know. The windows build failures have infected<strong><em>basilisk</em></strong>itself, with the standard level of unbelievability.</p>
+<p><strong>Vince Carey</strong> (06:50:22): &gt; OK – too many calls today but it is high on the list</p>
+<p><strong>Vince Carey</strong> (21:39:41) (in thread): &gt; <span class="citation" data-cites="Aaron">@Aaron</span> Lunwe’ll have to discuss this more .. I think if I get it right, the whole BiocSklearn API can be preserved (I won’t have to rewrite vignette) but the persistent env to support reuse of python objects has to be done correctly and durably. These objects give us access to python help via py_help and I think that is useful.</p>
+<p><strong>Aaron Lun</strong> (21:51:54) (in thread): &gt; How one would theoretically do this is to pass the<code>proc</code>around as the input/output of the various functions. This is potentially nasty to the user as<strong><em>basilisk</em></strong>will clear<code>PYTHONPATH</code>in between<code>basiliskStart</code>and<code>basiliskEnd</code>. (It has to do so, otherwise Python wanders off and fetches the wrong versions of packages.) As a result, if you have a function that calls<code>basiliskStart</code>but does not call<code>basiliskEnd</code>, the R session is left in a state of not playing nice with user’s Python code. Which isn’t a big deal to me, but might be frustrating to some people. &gt; &gt; In package development contexts, any other developer calling your functions needs to know that they have to also call<code>basiliskEnd</code>(or a wrapper around such a function) to terminate the process. Otherwise you get a bunch of errors in<code>R CMD check</code>when it detects open processes in Examples. &gt; &gt; There is some room for writing functions that return a live<strong><em>basilisk</em></strong>process, but those functions should be limited to “advanced use”, given the caveats mentioned above. For general purpose use, it would be best to avoid exposing the process to the R session, and I think your functions are self-contained enough that their Python nature can be abstracted away like C(++). &gt; &gt; It is probably possible to fetch Python help pages in a safer way, if that is all that is required.</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2020-04-03</h2>
+<p><strong>Vince Carey</strong> (07:15:19) (in thread): &gt; Yes, that safer way, probably through reticulate, sounds good. I think this version of BiocSklearn will be pretty conservative and always call basiliskEnd. Thanks for clarifying.</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2020-05-02</h2>
+<p><strong>Andrew Jaffe</strong> (15:47:17): &gt; <span class="citation" data-cites="Andrew">@Andrew</span> Jaffe has joined the channel</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2020-05-04</h2>
+<p><strong>Nitin Sharma</strong> (06:27:37): &gt; <span class="citation" data-cites="Nitin">@Nitin</span> Sharma has joined the channel</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2020-06-06</h2>
+<p><strong>Olagunju Abdulrahman</strong> (19:57:29): &gt; <span class="citation" data-cites="Olagunju">@Olagunju</span> Abdulrahman has joined the channel</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2020-06-26</h2>
+<p><strong>Jenny Smith</strong> (15:58:18): &gt; <span class="citation" data-cites="Jenny">@Jenny</span> Smith has joined the channel</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2020-07-07</h2>
+<p><strong>Vivek Das</strong> (02:56:35): &gt; <span class="citation" data-cites="Vivek">@Vivek</span> Das has joined the channel</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2020-07-09</h2>
+<p><strong>David Zhang</strong> (04:24:48): &gt; <span class="citation" data-cites="David">@David</span> Zhang has joined the channel</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2020-07-15</h2>
+<p><strong>wmuehlhaeuser</strong> (09:21:14): &gt; <span class="citation" data-cites="wmuehlhaeuser">@wmuehlhaeuser</span> has joined the channel</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2020-07-24</h2>
+<p><strong>Isha Goel</strong> (07:48:44): &gt; <span class="citation" data-cites="Isha">@Isha</span> Goel has joined the channel</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2020-07-29</h2>
+<p><strong>Riyue Sunny Bao</strong> (17:37:45): &gt; <span class="citation" data-cites="Riyue">@Riyue</span> Sunny Bao has joined the channel</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2020-07-30</h2>
+<p><strong>Ayush Raman</strong> (12:43:34): &gt; <span class="citation" data-cites="Ayush">@Ayush</span> Raman has joined the channel</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2020-07-31</h2>
+<p><strong>Saulius Lukauskas</strong> (03:15:46): &gt; <span class="citation" data-cites="Saulius">@Saulius</span> Lukauskas has joined the channel</p>
+<p><strong>bogdan tanasa</strong> (13:06:08): &gt; <span class="citation" data-cites="bogdan">@bogdan</span> tanasa has joined the channel</p>
+<p><strong>Hector Climente</strong> (13:15:47): &gt; <span class="citation" data-cites="Hector">@Hector</span> Climente has joined the channel</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2020-08-05</h2>
+<p><strong>shr19818</strong> (13:45:41): &gt; <span class="citation" data-cites="shr19818">@shr19818</span> has joined the channel</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2020-08-06</h2>
+<p><strong>Laurent Gatto</strong> (13:01:06): &gt; <span class="citation" data-cites="Laurent">@Laurent</span> Gatto has joined the channel</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2020-08-17</h2>
+<p><strong>Roye Rozov</strong> (02:09:54): &gt; <span class="citation" data-cites="Roye">@Roye</span> Rozov has joined the channel</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2020-08-18</h2>
+<p><strong>Will Macnair</strong> (09:09:12): &gt; <span class="citation" data-cites="Will">@Will</span> Macnair has joined the channel</p>
+<p><strong>Daniel Baker</strong> (09:13:30): &gt; <span class="citation" data-cites="Daniel">@Daniel</span> Baker has joined the channel</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2020-09-04</h2>
+<p><strong>Goutham Atla</strong> (08:24:26): &gt; <span class="citation" data-cites="Goutham">@Goutham</span> Atla has joined the channel</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2020-09-06</h2>
+<p><strong>Bob Policastro</strong> (08:36:04): &gt; <span class="citation" data-cites="Bob">@Bob</span> Policastro has joined the channel</p>
+<p><strong>Bob Policastro</strong> (08:36:43): &gt; <span class="citation" data-cites="Bob">@Bob</span> Policastro has left the channel</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2020-10-19</h2>
+<p><strong>Chris Chiu</strong> (23:30:17): &gt; <span class="citation" data-cites="Chris">@Chris</span> Chiu has joined the channel</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2020-10-23</h2>
+<p><strong>Rebecca Howard</strong> (08:17:18): &gt; <span class="citation" data-cites="Rebecca">@Rebecca</span> Howard has joined the channel</p>
+<p><strong>ImranF</strong> (11:43:29): &gt; <span class="citation" data-cites="ImranF">@ImranF</span> has joined the channel</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2020-10-26</h2>
+<p><strong>Jeffrey O’Brien</strong> (14:03:51): &gt; <span class="citation" data-cites="Jeffrey">@Jeffrey</span> O’Brien has joined the channel</p>
+<p><strong>Jeffrey O’Brien</strong> (14:03:56): &gt; <span class="citation" data-cites="Jeffrey">@Jeffrey</span> O’Brien has left the channel</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2020-11-04</h2>
+<p><strong>Krutika</strong> (11:59:28): &gt; <span class="citation" data-cites="Krutika">@Krutika</span> has joined the channel</p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2020-11-28</h2>
+<p><strong>Rory Stark</strong> (12:38:13): &gt; <span class="citation" data-cites="Rory">@Rory</span> Stark has joined the channel</p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2020-12-02</h2>
+<p><strong>Konstantinos Geles (Constantinos Yeles)</strong> (05:43:27): &gt; <span class="citation" data-cites="Konstantinos">@Konstantinos</span> Geles (Constantinos Yeles) has joined the channel</p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2020-12-04</h2>
+<p><strong>Arvind Mer</strong> (12:45:55): &gt; <span class="citation" data-cites="Arvind">@Arvind</span> Mer has joined the channel</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2020-12-07</h2>
+<p><strong>Aoi Senju</strong> (21:19:37): &gt; <span class="citation" data-cites="Aoi">@Aoi</span> Senju has joined the channel</p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2020-12-12</h2>
+<p><strong>Huipeng Li</strong> (00:39:47): &gt; <span class="citation" data-cites="Huipeng">@Huipeng</span> Li has joined the channel</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2020-12-14</h2>
+<p><strong>Thomas Naake</strong> (08:56:03): &gt; <span class="citation" data-cites="Thomas">@Thomas</span> Naake has joined the channel</p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2020-12-24</h2>
+<p><strong>Jose Marie Antonio Miñoza</strong> (16:38:29): &gt; <span class="citation" data-cites="Jose">@Jose</span> Marie Antonio Miñoza has joined the channel</p>
+</section>
+<section id="section-53" class="level2">
+<h2 class="anchored" data-anchor-id="section-53">2021-01-01</h2>
+<p><strong>Bernd</strong> (14:05:40): &gt; <span class="citation" data-cites="Bernd">@Bernd</span> has joined the channel</p>
+</section>
+<section id="section-54" class="level2">
+<h2 class="anchored" data-anchor-id="section-54">2021-01-22</h2>
+<p><strong>Annajiat Alim Rasel</strong> (15:44:21): &gt; <span class="citation" data-cites="Annajiat">@Annajiat</span> Alim Rasel has joined the channel</p>
+</section>
+<section id="section-55" class="level2">
+<h2 class="anchored" data-anchor-id="section-55">2021-02-07</h2>
+<p><strong>Mikhael Manurung</strong> (11:09:44): &gt; <span class="citation" data-cites="Mikhael">@Mikhael</span> Manurung has left the channel</p>
+</section>
+<section id="section-56" class="level2">
+<h2 class="anchored" data-anchor-id="section-56">2021-02-15</h2>
+<p><strong>Stefania Oliveto</strong> (17:32:43): &gt; <span class="citation" data-cites="Stefania">@Stefania</span> Oliveto has joined the channel</p>
+</section>
+<section id="section-57" class="level2">
+<h2 class="anchored" data-anchor-id="section-57">2021-02-23</h2>
+<p><strong>Wynn Cheung</strong> (10:32:43): &gt; <span class="citation" data-cites="Wynn">@Wynn</span> Cheung has joined the channel</p>
+</section>
+<section id="section-58" class="level2">
+<h2 class="anchored" data-anchor-id="section-58">2021-02-24</h2>
+<p><strong>Kyle Alford</strong> (11:40:43): &gt; <span class="citation" data-cites="Kyle">@Kyle</span> Alford has joined the channel</p>
+</section>
+<section id="section-59" class="level2">
+<h2 class="anchored" data-anchor-id="section-59">2021-02-26</h2>
+<p><strong>Dario Strbenac</strong> (21:00:08): &gt; The random forest classifier was developed on small-dimensional, non-omics data sets in 2001. - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F01PKS0P6JW/image.png">image.png</a></p>
+<p><strong>Dario Strbenac</strong> (21:00:13): &gt; Many bioinformatics journal articles and textbooks promote the<code>sqrt(p)</code>value for the number of variables to try at each split, often referred to as<code>mtry</code>. Say you have a gene expression dataset of 20000 genes and you filter lowly expressed genes and have 10000 genes remaining for classification.<code>sqrt(p)</code>is<code>100</code>. So, at each split, 9900 out of 10000 genes (99%) are ignored. It’s quite a different scenario to<code>mtry</code>being equal to 4 when the data set only has 16 variables, for example. What default value or range of trialled values do you use?</p>
+<p><strong>Aaron Lun</strong> (21:04:53): &gt; Yes, I really struggled with random forests not picking the right features for cell type classification. Ended up having to tighten the search by giving it marker genes.</p>
+<p><strong>Dario Strbenac</strong> (21:15:04): &gt; It’s interestnig you had to pre-select the features. Frank Harrell is<a href="https://stats.stackexchange.com/a/200959">against it</a>because the classifier tends to find highly non-linear decision rules which no comparable feature selection algorithm would identify.</p>
+</section>
+<section id="section-60" class="level2">
+<h2 class="anchored" data-anchor-id="section-60">2021-03-03</h2>
+<p><strong>Aedin Culhane</strong> (09:54:15): &gt; Random forests (old style at least) used to hate too many features. For most other approaches SVM/NN you can get away without pre-select, though many do</p>
+<p><strong>Alan O’C</strong> (10:07:04): &gt; Is this the case with regularised RFs?</p>
+<p><strong>Alan O’C</strong> (10:08:05): &gt; Coincidentally just had an interesting journal club on DART, which seems a nice alternative esp for high-d data, if without the computational niceness of RF</p>
+<p><strong>Dario Strbenac</strong> (19:00:24) (in thread): &gt; Did you adjust<code>mtry</code>from its default value which is<code>sqrt(p)</code>by default and insuitable if<code>p</code>is in the order of 20000.</p>
+</section>
+<section id="section-61" class="level2">
+<h2 class="anchored" data-anchor-id="section-61">2021-03-12</h2>
+<p><strong>Julia Romanowska</strong> (14:51:33): &gt; <span class="citation" data-cites="Julia">@Julia</span> Romanowska has joined the channel</p>
+</section>
+<section id="section-62" class="level2">
+<h2 class="anchored" data-anchor-id="section-62">2021-03-19</h2>
+<p><strong>Aedin Culhane</strong> (14:16:55): &gt; <span class="citation" data-cites="Alan">@Alan</span> O’CCan you send reference to DART or link to video if the presentation was recorded?&gt;</p>
+<p><strong>Alan O’C</strong> (14:17:12): &gt; It was not recorded</p>
+</section>
+<section id="section-63" class="level2">
+<h2 class="anchored" data-anchor-id="section-63">2021-03-23</h2>
+<p><strong>Lambda Moses</strong> (23:05:21): &gt; <span class="citation" data-cites="Lambda">@Lambda</span> Moses has joined the channel</p>
+</section>
+<section id="section-64" class="level2">
+<h2 class="anchored" data-anchor-id="section-64">2021-04-05</h2>
+<p><strong>Maya Reed McDaniel</strong> (11:24:07): &gt; <span class="citation" data-cites="Maya">@Maya</span> Reed McDaniel has joined the channel</p>
+</section>
+<section id="section-65" class="level2">
+<h2 class="anchored" data-anchor-id="section-65">2021-04-21</h2>
+<p><strong>Aishwarya Mandava</strong> (13:56:08): &gt; <span class="citation" data-cites="Aishwarya">@Aishwarya</span> Mandava has joined the channel</p>
+</section>
+<section id="section-66" class="level2">
+<h2 class="anchored" data-anchor-id="section-66">2021-04-28</h2>
+<p><strong>Mateusz Staniak</strong> (17:57:12): &gt; <span class="citation" data-cites="Mateusz">@Mateusz</span> Staniak has joined the channel</p>
+</section>
+<section id="section-67" class="level2">
+<h2 class="anchored" data-anchor-id="section-67">2021-05-01</h2>
+<p><strong>Arjun Krishnan</strong> (21:43:09): &gt; <span class="citation" data-cites="Arjun">@Arjun</span> Krishnan has joined the channel</p>
+</section>
+<section id="section-68" class="level2">
+<h2 class="anchored" data-anchor-id="section-68">2021-05-10</h2>
+<p><strong>Jason Prasad</strong> (20:21:32): &gt; <span class="citation" data-cites="Jason">@Jason</span> Prasad has joined the channel</p>
+</section>
+<section id="section-69" class="level2">
+<h2 class="anchored" data-anchor-id="section-69">2021-05-11</h2>
+<p><strong>Megha Lal</strong> (16:44:18): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has joined the channel</p>
+</section>
+<section id="section-70" class="level2">
+<h2 class="anchored" data-anchor-id="section-70">2021-05-22</h2>
+<p><strong>Moritz E. Beber</strong> (16:01:25): &gt; <span class="citation" data-cites="Moritz">@Moritz</span> E. Beber has joined the channel</p>
+</section>
+<section id="section-71" class="level2">
+<h2 class="anchored" data-anchor-id="section-71">2021-05-25</h2>
+<p><strong>Quang Nguyen</strong> (12:19:12): &gt; <span class="citation" data-cites="Quang">@Quang</span> Nguyen has joined the channel</p>
+</section>
+<section id="section-72" class="level2">
+<h2 class="anchored" data-anchor-id="section-72">2021-05-26</h2>
+<p><strong>Federico Marini</strong> (03:02:51): &gt; <span class="citation" data-cites="Federico">@Federico</span> Marini has joined the channel</p>
+</section>
+<section id="section-73" class="level2">
+<h2 class="anchored" data-anchor-id="section-73">2021-06-04</h2>
+<p><strong>Flavio Lombardo</strong> (05:51:53): &gt; <span class="citation" data-cites="Flavio">@Flavio</span> Lombardo has joined the channel</p>
+</section>
+<section id="section-74" class="level2">
+<h2 class="anchored" data-anchor-id="section-74">2021-06-21</h2>
+<p><strong>Andrea Gobbini</strong> (03:22:38): &gt; <span class="citation" data-cites="Andrea">@Andrea</span> Gobbini has joined the channel</p>
+</section>
+<section id="section-75" class="level2">
+<h2 class="anchored" data-anchor-id="section-75">2021-06-24</h2>
+<p><strong>Ilaria Billato</strong> (08:31:29): &gt; <span class="citation" data-cites="Ilaria">@Ilaria</span> Billato has joined the channel</p>
+</section>
+<section id="section-76" class="level2">
+<h2 class="anchored" data-anchor-id="section-76">2021-07-16</h2>
+<p><strong>Nitesh Turaga</strong> (10:44:42): &gt; <span class="citation" data-cites="Nitesh">@Nitesh</span> Turaga has joined the channel</p>
+</section>
+<section id="section-77" class="level2">
+<h2 class="anchored" data-anchor-id="section-77">2021-07-19</h2>
+<p><strong>Leo Lahti</strong> (17:01:39): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+</section>
+<section id="section-78" class="level2">
+<h2 class="anchored" data-anchor-id="section-78">2021-07-23</h2>
+<p><strong>Batool Almarzouq</strong> (15:53:09): &gt; <span class="citation" data-cites="Batool">@Batool</span> Almarzouq has joined the channel</p>
+</section>
+<section id="section-79" class="level2">
+<h2 class="anchored" data-anchor-id="section-79">2021-07-26</h2>
+<p><strong>Frank</strong> (20:18:02): &gt; <span class="citation" data-cites="Frank">@Frank</span> has joined the channel</p>
+</section>
+<section id="section-80" class="level2">
+<h2 class="anchored" data-anchor-id="section-80">2021-07-29</h2>
+<p><strong>Gurpreet Kaur</strong> (01:03:11): &gt; <span class="citation" data-cites="Gurpreet">@Gurpreet</span> Kaur has joined the channel</p>
+</section>
+<section id="section-81" class="level2">
+<h2 class="anchored" data-anchor-id="section-81">2021-08-04</h2>
+<p><strong>TimNieuwenhuis</strong> (12:16:27): &gt; <span class="citation" data-cites="TimNieuwenhuis">@TimNieuwenhuis</span> has joined the channel</p>
+</section>
+<section id="section-82" class="level2">
+<h2 class="anchored" data-anchor-id="section-82">2021-08-06</h2>
+<p><strong>ChiaSin</strong> (20:01:47): &gt; <span class="citation" data-cites="ChiaSin">@ChiaSin</span> has joined the channel</p>
+</section>
+<section id="section-83" class="level2">
+<h2 class="anchored" data-anchor-id="section-83">2021-08-10</h2>
+<p><strong>Woo</strong> (08:18:02): &gt; <span class="citation" data-cites="Woo">@Woo</span> has joined the channel</p>
+</section>
+<section id="section-84" class="level2">
+<h2 class="anchored" data-anchor-id="section-84">2021-08-19</h2>
+<p><strong>Ava Hoffman (she/her)</strong> (11:33:30): &gt; <span class="citation" data-cites="Ava">@Ava</span> Hoffman (she/her) has joined the channel</p>
+</section>
+<section id="section-85" class="level2">
+<h2 class="anchored" data-anchor-id="section-85">2021-09-01</h2>
+<p><strong>Katie Saund</strong> (14:43:12): &gt; <span class="citation" data-cites="Katie">@Katie</span> Saund has joined the channel</p>
+</section>
+<section id="section-86" class="level2">
+<h2 class="anchored" data-anchor-id="section-86">2021-09-06</h2>
+<p><strong>Eddie</strong> (08:22:54): &gt; <span class="citation" data-cites="Eddie">@Eddie</span> has joined the channel</p>
+<p><strong>Eddie</strong> (09:09:06): &gt; <span class="citation" data-cites="Eddie">@Eddie</span> has left the channel</p>
+</section>
+<section id="section-87" class="level2">
+<h2 class="anchored" data-anchor-id="section-87">2021-09-08</h2>
+<p><strong>Espen Riskedal</strong> (06:10:36): &gt; <span class="citation" data-cites="Espen">@Espen</span> Riskedal has joined the channel</p>
+</section>
+<section id="section-88" class="level2">
+<h2 class="anchored" data-anchor-id="section-88">2021-09-16</h2>
+<p><strong>Henry Miller</strong> (18:36:01): &gt; <span class="citation" data-cites="Henry">@Henry</span> Miller has joined the channel</p>
+</section>
+<section id="section-89" class="level2">
+<h2 class="anchored" data-anchor-id="section-89">2021-09-25</h2>
+<p><strong>Mikey C</strong> (19:05:27): &gt; <span class="citation" data-cites="Mikey">@Mikey</span> C has joined the channel</p>
+</section>
+<section id="section-90" class="level2">
+<h2 class="anchored" data-anchor-id="section-90">2021-10-27</h2>
+<p><strong>Nicholas Cooley</strong> (11:02:18): &gt; <span class="citation" data-cites="Nicholas">@Nicholas</span> Cooley has joined the channel</p>
+</section>
+<section id="section-91" class="level2">
+<h2 class="anchored" data-anchor-id="section-91">2021-11-08</h2>
+<p><strong>Paula Nieto García</strong> (03:28:31): &gt; <span class="citation" data-cites="Paula">@Paula</span> Nieto García has joined the channel</p>
+</section>
+<section id="section-92" class="level2">
+<h2 class="anchored" data-anchor-id="section-92">2022-01-03</h2>
+<p><strong>Kurt Showmaker</strong> (17:04:39): &gt; <span class="citation" data-cites="Kurt">@Kurt</span> Showmaker has joined the channel</p>
+</section>
+<section id="section-93" class="level2">
+<h2 class="anchored" data-anchor-id="section-93">2022-02-15</h2>
+<p><strong>Gene Cutler</strong> (12:00:51): &gt; <span class="citation" data-cites="Gene">@Gene</span> Cutler has joined the channel</p>
+</section>
+<section id="section-94" class="level2">
+<h2 class="anchored" data-anchor-id="section-94">2022-02-23</h2>
+<p><strong>Paulina Paiz</strong> (10:45:42): &gt; <span class="citation" data-cites="Paulina">@Paulina</span> Paiz has joined the channel</p>
+<p><strong>Susanna</strong> (12:08:26): &gt; <span class="citation" data-cites="Susanna">@Susanna</span> has joined the channel</p>
+</section>
+<section id="section-95" class="level2">
+<h2 class="anchored" data-anchor-id="section-95">2022-03-05</h2>
+<p><strong>Anshul Kundaje</strong> (20:26:40): &gt; <span class="citation" data-cites="Anshul">@Anshul</span> Kundaje has joined the channel</p>
+</section>
+<section id="section-96" class="level2">
+<h2 class="anchored" data-anchor-id="section-96">2022-03-15</h2>
+<p><strong>Jeanette Johnson</strong> (12:04:10): &gt; <span class="citation" data-cites="Jeanette">@Jeanette</span> Johnson has joined the channel</p>
+</section>
+<section id="section-97" class="level2">
+<h2 class="anchored" data-anchor-id="section-97">2022-03-20</h2>
+<p><strong>Sarvesh Nikumbh</strong> (21:41:46): &gt; <span class="citation" data-cites="Sarvesh">@Sarvesh</span> Nikumbh has joined the channel</p>
+</section>
+<section id="section-98" class="level2">
+<h2 class="anchored" data-anchor-id="section-98">2022-03-21</h2>
+<p><strong>Pedro Sanchez</strong> (05:01:37): &gt; <span class="citation" data-cites="Pedro">@Pedro</span> Sanchez has joined the channel</p>
+</section>
+<section id="section-99" class="level2">
+<h2 class="anchored" data-anchor-id="section-99">2022-04-12</h2>
+<p><strong>Vivian Chu</strong> (13:59:31): &gt; <span class="citation" data-cites="Vivian">@Vivian</span> Chu has joined the channel</p>
+</section>
+<section id="section-100" class="level2">
+<h2 class="anchored" data-anchor-id="section-100">2022-05-03</h2>
+<p><strong>Ray Su</strong> (06:56:00): &gt; <span class="citation" data-cites="Ray">@Ray</span> Su has joined the channel</p>
+</section>
+<section id="section-101" class="level2">
+<h2 class="anchored" data-anchor-id="section-101">2022-05-20</h2>
+<p><strong>Simon Pearce</strong> (03:16:06): &gt; <span class="citation" data-cites="Simon">@Simon</span> Pearce has joined the channel</p>
+</section>
+<section id="section-102" class="level2">
+<h2 class="anchored" data-anchor-id="section-102">2022-06-09</h2>
+<p><strong>John Hutchinson</strong> (09:08:18): &gt; <span class="citation" data-cites="John">@John</span> Hutchinson has joined the channel</p>
+</section>
+<section id="section-103" class="level2">
+<h2 class="anchored" data-anchor-id="section-103">2022-06-12</h2>
+<p><strong>Karat Sidhu</strong> (12:37:27): &gt; <span class="citation" data-cites="Karat">@Karat</span> Sidhu has joined the channel</p>
+</section>
+<section id="section-104" class="level2">
+<h2 class="anchored" data-anchor-id="section-104">2022-07-13</h2>
+<p><strong>Indrik Wijaya</strong> (21:27:47): &gt; <span class="citation" data-cites="Indrik">@Indrik</span> Wijaya has joined the channel</p>
+</section>
+<section id="section-105" class="level2">
+<h2 class="anchored" data-anchor-id="section-105">2022-07-15</h2>
+<p><strong>Ashley Robbins</strong> (15:23:52): &gt; <span class="citation" data-cites="Ashley">@Ashley</span> Robbins has joined the channel</p>
+</section>
+<section id="section-106" class="level2">
+<h2 class="anchored" data-anchor-id="section-106">2022-07-18</h2>
+<p><strong>Filip Stachura</strong> (09:32:53): &gt; <span class="citation" data-cites="Filip">@Filip</span> Stachura has joined the channel</p>
+</section>
+<section id="section-107" class="level2">
+<h2 class="anchored" data-anchor-id="section-107">2022-07-28</h2>
+<p><strong>Krithika Bhuvanesh</strong> (13:52:38): &gt; <span class="citation" data-cites="Krithika">@Krithika</span> Bhuvanesh has joined the channel</p>
+</section>
+<section id="section-108" class="level2">
+<h2 class="anchored" data-anchor-id="section-108">2022-08-11</h2>
+<p><strong>Rene Welch</strong> (17:15:27): &gt; <span class="citation" data-cites="Rene">@Rene</span> Welch has joined the channel</p>
+</section>
+<section id="section-109" class="level2">
+<h2 class="anchored" data-anchor-id="section-109">2022-08-30</h2>
+<p><strong>Lisa Breckels</strong> (07:20:49): &gt; <span class="citation" data-cites="Lisa">@Lisa</span> Breckels has joined the channel</p>
+</section>
+<section id="section-110" class="level2">
+<h2 class="anchored" data-anchor-id="section-110">2022-09-27</h2>
+<p><strong>Jennifer Holmes</strong> (16:15:18): &gt; <span class="citation" data-cites="Jennifer">@Jennifer</span> Holmes has joined the channel</p>
+</section>
+<section id="section-111" class="level2">
+<h2 class="anchored" data-anchor-id="section-111">2022-10-06</h2>
+<p><strong>Devika Agarwal</strong> (05:37:20): &gt; <span class="citation" data-cites="Devika">@Devika</span> Agarwal has joined the channel</p>
+</section>
+<section id="section-112" class="level2">
+<h2 class="anchored" data-anchor-id="section-112">2022-10-10</h2>
+<p><strong>Mercilena Benjamin</strong> (13:56:11): &gt; <span class="citation" data-cites="Mercilena">@Mercilena</span> Benjamin has joined the channel</p>
+</section>
+<section id="section-113" class="level2">
+<h2 class="anchored" data-anchor-id="section-113">2022-10-31</h2>
+<p><strong>Chenyue Lu</strong> (10:05:04): &gt; <span class="citation" data-cites="Chenyue">@Chenyue</span> Lu has joined the channel</p>
+</section>
+<section id="section-114" class="level2">
+<h2 class="anchored" data-anchor-id="section-114">2022-11-06</h2>
+<p><strong>Sherine Khalafalla Saber</strong> (11:20:53): &gt; <span class="citation" data-cites="Sherine">@Sherine</span> Khalafalla Saber has joined the channel</p>
+</section>
+<section id="section-115" class="level2">
+<h2 class="anchored" data-anchor-id="section-115">2022-12-01</h2>
+<p><strong>Chris Chiu</strong> (05:23:51): &gt; <span class="citation" data-cites="Chris">@Chris</span> Chiu has left the channel</p>
+</section>
+<section id="section-116" class="level2">
+<h2 class="anchored" data-anchor-id="section-116">2022-12-02</h2>
+<p><strong>Atuhurira Kirabo Kakopo</strong> (15:59:33): &gt; <span class="citation" data-cites="Atuhurira">@Atuhurira</span> Kirabo Kakopo has joined the channel</p>
+</section>
+<section id="section-117" class="level2">
+<h2 class="anchored" data-anchor-id="section-117">2022-12-12</h2>
+<p><strong>Zainab Ashimiyu-Abdusalam</strong> (04:53:33): &gt; <span class="citation" data-cites="Zainab">@Zainab</span> Ashimiyu-Abdusalam has joined the channel</p>
+<p><strong>Lexi Bounds</strong> (17:58:57): &gt; <span class="citation" data-cites="Lexi">@Lexi</span> Bounds has joined the channel</p>
+</section>
+<section id="section-118" class="level2">
+<h2 class="anchored" data-anchor-id="section-118">2022-12-13</h2>
+<p><strong>Ana Cristina Guerra de Souza</strong> (09:00:18): &gt; <span class="citation" data-cites="Ana">@Ana</span> Cristina Guerra de Souza has joined the channel</p>
+<p><strong>Xiangnan Xu</strong> (18:32:11): &gt; <span class="citation" data-cites="Xiangnan">@Xiangnan</span> Xu has joined the channel</p>
+<p><strong>Helen Fu</strong> (21:53:53): &gt; <span class="citation" data-cites="Helen">@Helen</span> Fu has joined the channel</p>
+</section>
+<section id="section-119" class="level2">
+<h2 class="anchored" data-anchor-id="section-119">2022-12-14</h2>
+<p><strong>Lijia Yu</strong> (19:38:56): &gt; <span class="citation" data-cites="Lijia">@Lijia</span> Yu has joined the channel</p>
+</section>
+<section id="section-120" class="level2">
+<h2 class="anchored" data-anchor-id="section-120">2022-12-20</h2>
+<p><strong>Krithika Bhuvanesh</strong> (13:24:45): &gt; <span class="citation" data-cites="Krithika">@Krithika</span> Bhuvanesh has left the channel</p>
+</section>
+<section id="section-121" class="level2">
+<h2 class="anchored" data-anchor-id="section-121">2023-01-10</h2>
+<p><strong>Vince Carey</strong> (10:49:31): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has left the channel</p>
+</section>
+<section id="section-122" class="level2">
+<h2 class="anchored" data-anchor-id="section-122">2023-01-21</h2>
+<p><strong>Hien</strong> (16:02:53): &gt; <span class="citation" data-cites="Hien">@Hien</span> has joined the channel</p>
+</section>
+<section id="section-123" class="level2">
+<h2 class="anchored" data-anchor-id="section-123">2023-01-31</h2>
+<p><strong>Ahmad Al Ajami</strong> (09:10:16): &gt; <span class="citation" data-cites="Ahmad">@Ahmad</span> Al Ajami has joined the channel</p>
+<p><strong>Ahmad Al Ajami</strong> (09:10:19): &gt; <span class="citation" data-cites="Ahmad">@Ahmad</span> Al Ajami has left the channel</p>
+</section>
+<section id="section-124" class="level2">
+<h2 class="anchored" data-anchor-id="section-124">2023-02-09</h2>
+<p><strong>Wes W</strong> (22:03:47): &gt; <span class="citation" data-cites="Wes">@Wes</span> W has joined the channel</p>
+</section>
+<section id="section-125" class="level2">
+<h2 class="anchored" data-anchor-id="section-125">2023-02-22</h2>
+<p><strong>michaelkleymn</strong> (01:50:55): &gt; <span class="citation" data-cites="michaelkleymn">@michaelkleymn</span> has joined the channel</p>
+</section>
+<section id="section-126" class="level2">
+<h2 class="anchored" data-anchor-id="section-126">2023-02-28</h2>
+<p><strong>Ramin</strong> (15:31:18): &gt; <span class="citation" data-cites="Ramin">@Ramin</span> has joined the channel</p>
+<p><strong>Krithika Bhuvanesh</strong> (16:53:49): &gt; <span class="citation" data-cites="Krithika">@Krithika</span> Bhuvanesh has joined the channel</p>
+</section>
+<section id="section-127" class="level2">
+<h2 class="anchored" data-anchor-id="section-127">2023-03-01</h2>
+<p><strong>jeremymchacón</strong> (12:13:02): &gt; <span class="citation" data-cites="jeremymchacón">@jeremymchacón</span> has joined the channel</p>
+</section>
+<section id="section-128" class="level2">
+<h2 class="anchored" data-anchor-id="section-128">2023-03-07</h2>
+<p><strong>Thomas Klammsteiner</strong> (08:35:33): &gt; <span class="citation" data-cites="Thomas">@Thomas</span> Klammsteiner has joined the channel</p>
+</section>
+<section id="section-129" class="level2">
+<h2 class="anchored" data-anchor-id="section-129">2023-03-10</h2>
+<p><strong>Joaquin Reyna</strong> (15:35:51): &gt; <span class="citation" data-cites="Joaquin">@Joaquin</span> Reyna has joined the channel</p>
+</section>
+<section id="section-130" class="level2">
+<h2 class="anchored" data-anchor-id="section-130">2023-03-22</h2>
+<p><strong>Keerthana</strong> (08:08:32): &gt; <span class="citation" data-cites="Keerthana">@Keerthana</span> has joined the channel</p>
+</section>
+<section id="section-131" class="level2">
+<h2 class="anchored" data-anchor-id="section-131">2023-05-04</h2>
+<p><strong>Leopoldo Valiente</strong> (16:27:17): &gt; <span class="citation" data-cites="Leopoldo">@Leopoldo</span> Valiente has joined the channel</p>
+</section>
+<section id="section-132" class="level2">
+<h2 class="anchored" data-anchor-id="section-132">2023-05-17</h2>
+<p><strong>Hassan Kehinde Ajulo</strong> (12:17:40): &gt; <span class="citation" data-cites="Hassan">@Hassan</span> Kehinde Ajulo has joined the channel</p>
+</section>
+<section id="section-133" class="level2">
+<h2 class="anchored" data-anchor-id="section-133">2023-05-18</h2>
+<p><strong>Oluwafemi Oyedele</strong> (05:54:44): &gt; <span class="citation" data-cites="Oluwafemi">@Oluwafemi</span> Oyedele has joined the channel</p>
+</section>
+<section id="section-134" class="level2">
+<h2 class="anchored" data-anchor-id="section-134">2023-05-31</h2>
+<p><strong>Alyssa Obermayer</strong> (14:15:25): &gt; <span class="citation" data-cites="Alyssa">@Alyssa</span> Obermayer has joined the channel</p>
+</section>
+<section id="section-135" class="level2">
+<h2 class="anchored" data-anchor-id="section-135">2023-06-07</h2>
+<p><strong>Alyssa Obermayer</strong> (18:29:53): &gt; <span class="citation" data-cites="Alyssa">@Alyssa</span> Obermayer has joined the channel</p>
+</section>
+<section id="section-136" class="level2">
+<h2 class="anchored" data-anchor-id="section-136">2023-06-19</h2>
+<p><strong>Pierre-Paul Axisa</strong> (05:11:24): &gt; <span class="citation" data-cites="Pierre-Paul">@Pierre-Paul</span> Axisa has joined the channel</p>
+</section>
+<section id="section-137" class="level2">
+<h2 class="anchored" data-anchor-id="section-137">2023-07-13</h2>
+<p><strong>Brian Schilder</strong> (07:02:26): &gt; <span class="citation" data-cites="Brian">@Brian</span> Schilder has joined the channel</p>
+</section>
+<section id="section-138" class="level2">
+<h2 class="anchored" data-anchor-id="section-138">2023-07-28</h2>
+<p><strong>Benjamin Yang</strong> (15:57:51): &gt; <span class="citation" data-cites="Benjamin">@Benjamin</span> Yang has joined the channel</p>
+</section>
+<section id="section-139" class="level2">
+<h2 class="anchored" data-anchor-id="section-139">2023-08-02</h2>
+<p><strong>Beth Cimini</strong> (08:20:54): &gt; <span class="citation" data-cites="Beth">@Beth</span> Cimini has joined the channel</p>
+</section>
+<section id="section-140" class="level2">
+<h2 class="anchored" data-anchor-id="section-140">2023-08-03</h2>
+<p><strong>Ritika Giri</strong> (15:58:23): &gt; <span class="citation" data-cites="Ritika">@Ritika</span> Giri has joined the channel</p>
+</section>
+<section id="section-141" class="level2">
+<h2 class="anchored" data-anchor-id="section-141">2023-08-04</h2>
+<p><strong>Trisha Timpug</strong> (09:35:41): &gt; <span class="citation" data-cites="Trisha">@Trisha</span> Timpug has joined the channel</p>
+</section>
+<section id="section-142" class="level2">
+<h2 class="anchored" data-anchor-id="section-142">2023-08-18</h2>
+<p><strong>Victor Yuan</strong> (12:35:57): &gt; <span class="citation" data-cites="Victor">@Victor</span> Yuan has joined the channel</p>
+</section>
+<section id="section-143" class="level2">
+<h2 class="anchored" data-anchor-id="section-143">2023-08-20</h2>
+<p><strong>Jacques SERIZAY</strong> (10:38:40): &gt; <span class="citation" data-cites="Jacques">@Jacques</span> SERIZAY has joined the channel</p>
+</section>
+<section id="section-144" class="level2">
+<h2 class="anchored" data-anchor-id="section-144">2023-09-03</h2>
+<p><strong>Lea Seep</strong> (09:51:45): &gt; <span class="citation" data-cites="Lea">@Lea</span> Seep has joined the channel</p>
+</section>
+<section id="section-145" class="level2">
+<h2 class="anchored" data-anchor-id="section-145">2023-09-15</h2>
+<p><strong>Leo Lahti</strong> (04:55:17): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+</section>
+<section id="section-146" class="level2">
+<h2 class="anchored" data-anchor-id="section-146">2023-10-11</h2>
+<p><strong>Nikhil Mane</strong> (13:59:37): &gt; <span class="citation" data-cites="Nikhil">@Nikhil</span> Mane has joined the channel</p>
+</section>
+<section id="section-147" class="level2">
+<h2 class="anchored" data-anchor-id="section-147">2023-11-16</h2>
+<p><strong>Sue McClatchy</strong> (10:00:19): &gt; <span class="citation" data-cites="Sue">@Sue</span> McClatchy has joined the channel</p>
+</section>
+<section id="section-148" class="level2">
+<h2 class="anchored" data-anchor-id="section-148">2023-11-18</h2>
+<p><strong>karisssq</strong> (22:33:22): &gt; <span class="citation" data-cites="karisssq">@karisssq</span> has joined the channel</p>
+</section>
+<section id="section-149" class="level2">
+<h2 class="anchored" data-anchor-id="section-149">2023-11-21</h2>
+<p><strong>Konstantinos Geles (Constantinos Yeles)</strong> (05:46:46): &gt; <span class="citation" data-cites="Konstantinos">@Konstantinos</span> Geles (Constantinos Yeles) has left the channel</p>
+</section>
+<section id="section-150" class="level2">
+<h2 class="anchored" data-anchor-id="section-150">2023-12-01</h2>
+<p><strong>Tram Nguyen</strong> (10:16:58): &gt; <span class="citation" data-cites="Tram">@Tram</span> Nguyen has joined the channel</p>
+</section>
+<section id="section-151" class="level2">
+<h2 class="anchored" data-anchor-id="section-151">2023-12-04</h2>
+<p><strong>Ajda Pristavec</strong> (12:08:55): &gt; <span class="citation" data-cites="Ajda">@Ajda</span> Pristavec has joined the channel</p>
+</section>
+<section id="section-152" class="level2">
+<h2 class="anchored" data-anchor-id="section-152">2024-01-11</h2>
+<p><strong>Nilesh Kumar</strong> (12:01:45): &gt; <span class="citation" data-cites="Nilesh">@Nilesh</span> Kumar has joined the channel</p>
+</section>
+<section id="section-153" class="level2">
+<h2 class="anchored" data-anchor-id="section-153">2024-01-26</h2>
+<p><strong>Brian Schilder</strong> (09:32:08): &gt; For those who are interested in making ML model with<code>pytorch</code>, but want to stay within the R ecosystem, I highly recommend the<a href="https://github.com/mlverse/torch">torch</a>package! They provide an excellent tutorial that explains principles of torch and ML more generally in a very accessible way:<a href="https://skeydan.github.io/Deep-Learning-and-Scientific-Computing-with-R-torch/">https://skeydan.github.io/Deep-Learning-and-Scientific-Computing-with-R-torch/</a></p>
+</section>
+<section id="section-154" class="level2">
+<h2 class="anchored" data-anchor-id="section-154">2024-01-27</h2>
+<p><strong>atongsa miyamoto</strong> (04:52:51): &gt; <span class="citation" data-cites="atongsa">@atongsa</span> miyamoto has joined the channel</p>
+</section>
+<section id="section-155" class="level2">
+<h2 class="anchored" data-anchor-id="section-155">2024-02-16</h2>
+<p><strong>Jovana Maksimovic</strong> (03:00:24): &gt; <span class="citation" data-cites="Jovana">@Jovana</span> Maksimovic has joined the channel</p>
+<p><strong>Vince Carey</strong> (06:40:09): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+<p><strong>Vince Carey</strong> (06:52:49): &gt; Thanks to support from NHGRI, Bioconductor now has an NVIDIA L40S GPU to use for development and testing. A basic objective is to add regular checking and evaluation of Bioc packages that have code that can take advantage of GPU availability. It would be great to develop some documentation on effective practices for doing modern machine learning in genomics. For instance, there are various “ways in” to using torch in R: torch, luz, brulee, … How does one navigate in this area?</p>
+<p><strong>Vince Carey</strong> (06:54:34): &gt; We’d also like to improve concepts of instrumentation in this area – how do you measure efficiency of use of GPU and CPU and how can we code to ensure we hit reasonable efficiency objectives?</p>
+<p><strong>Maria Doyle</strong> (09:05:53): &gt; <span class="citation" data-cites="Maria">@Maria</span> Doyle has joined the channel</p>
+<p><strong>Dirk Eddelbuettel</strong> (09:32:35): &gt; <span class="citation" data-cites="Dirk">@Dirk</span> Eddelbuettel has joined the channel</p>
+<p><strong>António Domingues</strong> (10:50:50): &gt; <span class="citation" data-cites="António">@António</span> Domingues has joined the channel</p>
+<p><strong>Hervé Pagès</strong> (11:53:35): &gt; <span class="citation" data-cites="Hervé">@Hervé</span> Pagès has joined the channel</p>
+<p><strong>jim rothstein</strong> (12:24:38): &gt; <span class="citation" data-cites="jim">@jim</span> rothstein has joined the channel</p>
+</section>
+<section id="section-156" class="level2">
+<h2 class="anchored" data-anchor-id="section-156">2024-02-19</h2>
+<p><strong>Alex Bott</strong> (17:24:42): &gt; <span class="citation" data-cites="Alex">@Alex</span> Bott has joined the channel</p>
+</section>
+<section id="section-157" class="level2">
+<h2 class="anchored" data-anchor-id="section-157">2024-02-28</h2>
+<p><strong>Louise Morlot</strong> (10:48:02): &gt; <span class="citation" data-cites="Louise">@Louise</span> Morlot has joined the channel</p>
+</section>
+<section id="section-158" class="level2">
+<h2 class="anchored" data-anchor-id="section-158">2024-03-10</h2>
+<p><strong>Cherishma Subhasa</strong> (19:57:48): &gt; <span class="citation" data-cites="Cherishma">@Cherishma</span> Subhasa has joined the channel</p>
+</section>
+<section id="section-159" class="level2">
+<h2 class="anchored" data-anchor-id="section-159">2024-03-27</h2>
+<p><strong>abhich</strong> (05:45:19): &gt; <span class="citation" data-cites="abhich">@abhich</span> has joined the channel</p>
+</section>
+<section id="section-160" class="level2">
+<h2 class="anchored" data-anchor-id="section-160">2024-04-04</h2>
+<p><strong>Alexandru Mizeranschi</strong> (09:37:11): &gt; <span class="citation" data-cites="Alexandru">@Alexandru</span> Mizeranschi has joined the channel</p>
+<p><strong>Tung Trinh</strong> (23:39:07): &gt; <span class="citation" data-cites="Tung">@Tung</span> Trinh has joined the channel</p>
+</section>
+<section id="section-161" class="level2">
+<h2 class="anchored" data-anchor-id="section-161">2024-04-18</h2>
+<p><strong>Philipp Sergeev</strong> (03:02:21): &gt; <span class="citation" data-cites="Philipp">@Philipp</span> Sergeev has joined the channel</p>
+<p><strong>Jianhai Zhang</strong> (18:28:52): &gt; <span class="citation" data-cites="Jianhai">@Jianhai</span> Zhang has joined the channel</p>
+</section>
+<section id="section-162" class="level2">
+<h2 class="anchored" data-anchor-id="section-162">2024-04-28</h2>
+<p><strong>Danielle Callan</strong> (08:32:38): &gt; <span class="citation" data-cites="Danielle">@Danielle</span> Callan has joined the channel</p>
+</section>
+<section id="section-163" class="level2">
+<h2 class="anchored" data-anchor-id="section-163">2024-05-05</h2>
+<p><strong>Aedin Culhane</strong> (03:35:58): &gt; Should this be relabelled AI-ML??? Just a thought.</p>
+<p><strong>Aedin Culhane</strong> (03:36:01): &gt; CZI Open Science, in collaboration with Sloan Foundation, has opened an RFI focused on AI-enabled tools for scientific research. &gt; &gt; “Are you developing tools for #AI enabled research practices that also promote open research? We want to hear from you! Submit your ideas to our RFI so we can build a more effective scientific community together.<a href="https://bit.ly/49ZUR26">https://bit.ly/49ZUR26</a>” - Attachment (Medium): <a href="https://bit.ly/49ZUR26">Request for Information: Pathways to AI-enabled research</a> &gt; Transforming scientific work with tools and technology</p>
+</section>
+<section id="section-164" class="level2">
+<h2 class="anchored" data-anchor-id="section-164">2024-05-06</h2>
+<p><strong>Michal Kolář</strong> (11:57:14): &gt; <span class="citation" data-cites="Michal">@Michal</span> Kolář has joined the channel</p>
+</section>
+<section id="section-165" class="level2">
+<h2 class="anchored" data-anchor-id="section-165">2024-05-11</h2>
+<p><strong>Aleru Divine</strong> (04:11:24): &gt; <span class="citation" data-cites="Aleru">@Aleru</span> Divine has joined the channel</p>
+</section>
+<section id="section-166" class="level2">
+<h2 class="anchored" data-anchor-id="section-166">2024-05-14</h2>
+<p><strong>Claire Seibold</strong> (11:48:30): &gt; <span class="citation" data-cites="Claire">@Claire</span> Seibold has joined the channel</p>
+</section>
+<section id="section-167" class="level2">
+<h2 class="anchored" data-anchor-id="section-167">2024-06-11</h2>
+<p><strong>Ziru Chen</strong> (04:37:04): &gt; <span class="citation" data-cites="Ziru">@Ziru</span> Chen has joined the channel</p>
+</section>
+<section id="section-168" class="level2">
+<h2 class="anchored" data-anchor-id="section-168">2024-07-02</h2>
+<p><strong>Diána Pejtsik</strong> (10:59:59): &gt; <span class="citation" data-cites="Diána">@Diána</span> Pejtsik has joined the channel</p>
+</section>
+<section id="section-169" class="level2">
+<h2 class="anchored" data-anchor-id="section-169">2024-07-05</h2>
+<p><strong>Antonin Thiébaut</strong> (04:37:56): &gt; <span class="citation" data-cites="Antonin">@Antonin</span> Thiébaut has joined the channel</p>
+</section>
+<section id="section-170" class="level2">
+<h2 class="anchored" data-anchor-id="section-170">2024-07-11</h2>
+<p><strong>Hothri Moka</strong> (07:20:54): &gt; <span class="citation" data-cites="Hothri">@Hothri</span> Moka has joined the channel</p>
+</section>
+<section id="section-171" class="level2">
+<h2 class="anchored" data-anchor-id="section-171">2024-07-15</h2>
+<p><strong>Erick Navarro</strong> (16:20:05): &gt; <span class="citation" data-cites="Erick">@Erick</span> Navarro has joined the channel</p>
+</section>
+<section id="section-172" class="level2">
+<h2 class="anchored" data-anchor-id="section-172">2024-07-26</h2>
+<p><strong>Qiwen Octavia Huang</strong> (19:51:40): &gt; <span class="citation" data-cites="Qiwen">@Qiwen</span> Octavia Huang has joined the channel</p>
+</section>
+<section id="section-173" class="level2">
+<h2 class="anchored" data-anchor-id="section-173">2024-07-29</h2>
+<p><strong>JP Flores</strong> (17:09:16): &gt; <span class="citation" data-cites="JP">@JP</span> Flores has joined the channel</p>
+</section>
+<section id="section-174" class="level2">
+<h2 class="anchored" data-anchor-id="section-174">2024-07-31</h2>
+<p><strong>Zahraa W Alsafwani</strong> (17:24:29): &gt; <span class="citation" data-cites="Zahraa">@Zahraa</span> W Alsafwani has joined the channel</p>
+</section>
+<section id="section-175" class="level2">
+<h2 class="anchored" data-anchor-id="section-175">2024-08-04</h2>
+<p><strong>sunnyday</strong> (14:58:27): &gt; <span class="citation" data-cites="sunnyday">@sunnyday</span> has joined the channel</p>
+</section>
+<section id="section-176" class="level2">
+<h2 class="anchored" data-anchor-id="section-176">2024-08-19</h2>
+<p><strong>Rema Gesaka</strong> (09:41:52): &gt; <span class="citation" data-cites="Rema">@Rema</span> Gesaka has joined the channel</p>
+</section>
+<section id="section-177" class="level2">
+<h2 class="anchored" data-anchor-id="section-177">2024-09-10</h2>
+<p><strong>Alex Qin</strong> (03:49:20): &gt; <span class="citation" data-cites="Alex">@Alex</span> Qin has joined the channel</p>
+</section>
+<section id="section-178" class="level2">
+<h2 class="anchored" data-anchor-id="section-178">2024-10-01</h2>
+<p><strong>Caroline Schreiber</strong> (04:10:02): &gt; <span class="citation" data-cites="Caroline">@Caroline</span> Schreiber has joined the channel</p>
+</section>
+<section id="section-179" class="level2">
+<h2 class="anchored" data-anchor-id="section-179">2024-10-12</h2>
+<p><strong>Francisco Ignacio Oñate Vidal</strong> (00:50:35): &gt; <span class="citation" data-cites="Francisco">@Francisco</span> Ignacio Oñate Vidal has joined the channel</p>
+</section>
+<section id="section-180" class="level2">
+<h2 class="anchored" data-anchor-id="section-180">2024-10-23</h2>
+<p><strong>Sounkou Mahamane Toure</strong> (11:49:20): &gt; <span class="citation" data-cites="Sounkou">@Sounkou</span> Mahamane Toure has joined the channel</p>
+</section>
+<section id="section-181" class="level2">
+<h2 class="anchored" data-anchor-id="section-181">2024-11-11</h2>
+<p><strong>Josh Steier</strong> (12:42:30): &gt; <span class="citation" data-cites="Josh">@Josh</span> Steier has joined the channel</p>
+<p><strong>Josh Steier</strong> (13:03:45): &gt; Hi everyone, &gt; I have a background in computational biology(MS applied math and stats degree from Stony Brook University), and a strong background in machine learning, where I currently work as a machine learning engineer. &gt; I’ve been working in machine learning for roughly 3-4 years, including my educational background, and programming in Python since I was younger. &gt; I’m eager to contribute to Bioconductor and don’t know where to start, can someone help me with that? &gt; Thank you!</p>
+<p><strong>Mikhail Dozmorov</strong> (13:06:50): &gt; <span class="citation" data-cites="Mikhail">@Mikhail</span> Dozmorov has joined the channel</p>
+</section>
+<section id="section-182" class="level2">
+<h2 class="anchored" data-anchor-id="section-182">2024-11-12</h2>
+<p><strong>Kylie Bemis</strong> (09:21:30): &gt; <span class="citation" data-cites="Kylie">@Kylie</span> Bemis has joined the channel</p>
+<p><strong>Marouen Ben Guebila</strong> (22:33:59): &gt; <span class="citation" data-cites="Marouen">@Marouen</span> Ben Guebila has joined the channel</p>
+</section>
+<section id="section-183" class="level2">
+<h2 class="anchored" data-anchor-id="section-183">2024-11-21</h2>
+<p><strong>Nesrine Gharbi</strong> (04:12:33): &gt; <span class="citation" data-cites="Nesrine">@Nesrine</span> Gharbi has joined the channel</p>
+</section>
+<section id="section-184" class="level2">
+<h2 class="anchored" data-anchor-id="section-184">2025-03-18</h2>
+<p><strong>Andres Wokaty</strong> (14:27:59): &gt; <span class="citation" data-cites="Andres">@Andres</span> Wokaty has joined the channel</p>
+<p><strong>Nicolo</strong> (15:00:27): &gt; <span class="citation" data-cites="Nicolo">@Nicolo</span> has joined the channel</p>
+</section>
+<section id="section-185" class="level2">
+<h2 class="anchored" data-anchor-id="section-185">2025-04-14</h2>
+<p><strong>Saad Farooq</strong> (07:09:41): &gt; <span class="citation" data-cites="Saad">@Saad</span> Farooq has joined the channel</p>
+</section>
+<section id="section-186" class="level2">
+<h2 class="anchored" data-anchor-id="section-186">2025-04-15</h2>
+<p><strong>Rasmus Hindström</strong> (07:08:27): &gt; <span class="citation" data-cites="Rasmus">@Rasmus</span> Hindström has joined the channel</p>
+</section>
+<section id="section-187" class="level2">
+<h2 class="anchored" data-anchor-id="section-187">2025-04-17</h2>
+<p><strong>dhvani solanki</strong> (16:17:42): &gt; <span class="citation" data-cites="dhvani">@dhvani</span> solanki has joined the channel</p>
+</section>
+<section id="section-188" class="level2">
+<h2 class="anchored" data-anchor-id="section-188">2025-04-18</h2>
+<p><strong>Juan Henao</strong> (04:43:15): &gt; <span class="citation" data-cites="Juan">@Juan</span> Henao has joined the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

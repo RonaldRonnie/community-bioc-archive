@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#biocclasses – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2023-02-10</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2023-02-13</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2023-02-14</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2023-02-16</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2023-02-17</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2023-02-18</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2023-02-25</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2023-02-26</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2023-02-28</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2023-03-02</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2023-03-12</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2023-05-18</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2023-06-09</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2023-06-16</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2023-06-19</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2023-06-27</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2023-06-28</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2023-06-29</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2023-06-30</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2023-07-07</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2023-07-11</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2023-07-18</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2023-07-19</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2023-07-20</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2023-07-21</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2023-07-26</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2023-08-04</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2023-08-07</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2023-08-16</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2023-08-17</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2023-08-19</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2023-09-22</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2023-09-25</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2023-10-10</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2023-10-11</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2023-10-24</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2023-11-17</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2023-12-30</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2024-03-09</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2024-05-05</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2024-07-19</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2024-07-29</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2024-10-08</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2024-10-11</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2024-10-14</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2024-10-16</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2024-10-21</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2024-10-22</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2024-10-23</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2024-10-25</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2024-10-28</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2024-11-04</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2024-11-05</a></li>
+  <li><a href="#section-53" id="toc-section-53" class="nav-link" data-scroll-target="#section-53">2024-11-15</a></li>
+  <li><a href="#section-54" id="toc-section-54" class="nav-link" data-scroll-target="#section-54">2024-11-16</a></li>
+  <li><a href="#section-55" id="toc-section-55" class="nav-link" data-scroll-target="#section-55">2024-11-20</a></li>
+  <li><a href="#section-56" id="toc-section-56" class="nav-link" data-scroll-target="#section-56">2024-11-21</a></li>
+  <li><a href="#section-57" id="toc-section-57" class="nav-link" data-scroll-target="#section-57">2024-11-27</a></li>
+  <li><a href="#section-58" id="toc-section-58" class="nav-link" data-scroll-target="#section-58">2024-11-28</a></li>
+  <li><a href="#section-59" id="toc-section-59" class="nav-link" data-scroll-target="#section-59">2024-12-02</a></li>
+  <li><a href="#section-60" id="toc-section-60" class="nav-link" data-scroll-target="#section-60">2024-12-03</a></li>
+  <li><a href="#section-61" id="toc-section-61" class="nav-link" data-scroll-target="#section-61">2024-12-04</a></li>
+  <li><a href="#section-62" id="toc-section-62" class="nav-link" data-scroll-target="#section-62">2024-12-09</a></li>
+  <li><a href="#section-63" id="toc-section-63" class="nav-link" data-scroll-target="#section-63">2024-12-10</a></li>
+  <li><a href="#section-64" id="toc-section-64" class="nav-link" data-scroll-target="#section-64">2024-12-11</a></li>
+  <li><a href="#section-65" id="toc-section-65" class="nav-link" data-scroll-target="#section-65">2024-12-12</a></li>
+  <li><a href="#section-66" id="toc-section-66" class="nav-link" data-scroll-target="#section-66">2024-12-13</a></li>
+  <li><a href="#section-67" id="toc-section-67" class="nav-link" data-scroll-target="#section-67">2024-12-16</a></li>
+  <li><a href="#section-68" id="toc-section-68" class="nav-link" data-scroll-target="#section-68">2024-12-17</a></li>
+  <li><a href="#section-69" id="toc-section-69" class="nav-link" data-scroll-target="#section-69">2024-12-18</a></li>
+  <li><a href="#section-70" id="toc-section-70" class="nav-link" data-scroll-target="#section-70">2024-12-19</a></li>
+  <li><a href="#section-71" id="toc-section-71" class="nav-link" data-scroll-target="#section-71">2024-12-29</a></li>
+  <li><a href="#section-72" id="toc-section-72" class="nav-link" data-scroll-target="#section-72">2025-01-02</a></li>
+  <li><a href="#section-73" id="toc-section-73" class="nav-link" data-scroll-target="#section-73">2025-01-03</a></li>
+  <li><a href="#section-74" id="toc-section-74" class="nav-link" data-scroll-target="#section-74">2025-01-09</a></li>
+  <li><a href="#section-75" id="toc-section-75" class="nav-link" data-scroll-target="#section-75">2025-01-10</a></li>
+  <li><a href="#section-76" id="toc-section-76" class="nav-link" data-scroll-target="#section-76">2025-01-13</a></li>
+  <li><a href="#section-77" id="toc-section-77" class="nav-link" data-scroll-target="#section-77">2025-01-14</a></li>
+  <li><a href="#section-78" id="toc-section-78" class="nav-link" data-scroll-target="#section-78">2025-01-15</a></li>
+  <li><a href="#section-79" id="toc-section-79" class="nav-link" data-scroll-target="#section-79">2025-01-28</a></li>
+  <li><a href="#section-80" id="toc-section-80" class="nav-link" data-scroll-target="#section-80">2025-01-30</a></li>
+  <li><a href="#section-81" id="toc-section-81" class="nav-link" data-scroll-target="#section-81">2025-02-05</a></li>
+  <li><a href="#section-82" id="toc-section-82" class="nav-link" data-scroll-target="#section-82">2025-02-10</a></li>
+  <li><a href="#section-83" id="toc-section-83" class="nav-link" data-scroll-target="#section-83">2025-02-17</a></li>
+  <li><a href="#section-84" id="toc-section-84" class="nav-link" data-scroll-target="#section-84">2025-02-18</a></li>
+  <li><a href="#section-85" id="toc-section-85" class="nav-link" data-scroll-target="#section-85">2025-03-09</a></li>
+  <li><a href="#section-86" id="toc-section-86" class="nav-link" data-scroll-target="#section-86">2025-03-10</a></li>
+  <li><a href="#section-87" id="toc-section-87" class="nav-link" data-scroll-target="#section-87">2025-03-11</a></li>
+  <li><a href="#section-88" id="toc-section-88" class="nav-link" data-scroll-target="#section-88">2025-03-12</a></li>
+  <li><a href="#section-89" id="toc-section-89" class="nav-link" data-scroll-target="#section-89">2025-03-14</a></li>
+  <li><a href="#section-90" id="toc-section-90" class="nav-link" data-scroll-target="#section-90">2025-03-15</a></li>
+  <li><a href="#section-91" id="toc-section-91" class="nav-link" data-scroll-target="#section-91">2025-03-18</a></li>
+  <li><a href="#section-92" id="toc-section-92" class="nav-link" data-scroll-target="#section-92">2025-04-14</a></li>
+  <li><a href="#section-93" id="toc-section-93" class="nav-link" data-scroll-target="#section-93">2025-04-15</a></li>
+  <li><a href="#section-94" id="toc-section-94" class="nav-link" data-scroll-target="#section-94">2025-04-16</a></li>
+  <li><a href="#section-95" id="toc-section-95" class="nav-link" data-scroll-target="#section-95">2025-04-17</a></li>
+  <li><a href="#section-96" id="toc-section-96" class="nav-link" data-scroll-target="#section-96">2025-04-27</a></li>
+  <li><a href="#section-97" id="toc-section-97" class="nav-link" data-scroll-target="#section-97">2025-04-28</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#biocclasses</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2023-02-10</h2>
+<p><strong>Laurent Gatto</strong> (09:13:03): &gt; <span class="citation" data-cites="Laurent">@Laurent</span> Gatto has joined the channel</p>
+<p><strong>Laurent Gatto</strong> (09:13:04): &gt; set the channel description: Bioconductor Classes Working Group</p>
+<p><strong>Laurent Gatto</strong> (09:15:36): &gt; WG channel created: ping@Lori Shepherd@Dario Righelli@Malte Thodberg@Johannes Rainer@Marcel Ramos Pérez@Lluís Revilla</p>
+<p><strong>Lori Shepherd</strong> (09:15:59): &gt; <span class="citation" data-cites="Lori">@Lori</span> Shepherd has joined the channel</p>
+<p><strong>Lluís Revilla</strong> (09:16:01): &gt; <span class="citation" data-cites="Lluís">@Lluís</span> Revilla has joined the channel</p>
+<p><strong>Marcel Ramos Pérez</strong> (09:24:34): &gt; <span class="citation" data-cites="Marcel">@Marcel</span> Ramos Pérez has joined the channel</p>
+<p><strong>Malte Thodberg</strong> (09:25:30): &gt; <span class="citation" data-cites="Malte">@Malte</span> Thodberg has joined the channel</p>
+<p><strong>Laurent Gatto</strong> (10:42:00): &gt; Hi@Hervé Pagès- what</p>
+<p><strong>Laurent Gatto</strong> (10:43:57): &gt; Hi@Hervé Pagès- I’m following up from our meeting today. What’s your take using R6 and S4 reference classes in general, and Bioconductor packages in particular. What would you say to someone that wants to use these in their package.</p>
+<p><strong>Laurent Gatto</strong> (10:44:22): &gt; For reference: notes of today’s WG meeting<a href="https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/3">https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/3</a> - Attachment: <a href="https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/3">#3 WG meeting 2023-02-10</a> &gt; Where: <a href="https://meet.jit.si/BiocClasses">https://meet.jit.si/BiocClasses</a><br>
+&gt; Time: 2 pm (CET) &gt; &gt; On the agenda: &gt; &gt; • What are the ‘official’ classes? Any difference between common and promoted classes (from <a href="https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/1">#1</a>). What about low level classes (see <a href="https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/2">#2</a>)? &gt; • What is the procedure to establish a new ‘official’ class? &gt; • To what extent should these be enforced during package review? &gt; &gt; &gt; In general, a package will not be accepted if it does not show interoperability with the current Bioconductor ecosystem. &gt; &gt; • If not strictly enforced, should we at least require a wrapper function to convert to these? TAB: classes shouldn’t strictly enforced. &gt; • Instead of enforcing, we should convince. What are the advantages of re-using existing (core) classes? Any volunteers to initiate a short document that could be added to the contributions guide and/or a blog post? See also <a href="https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/1">#1</a> &gt; • What improvements to S4 class development do we need (see <a href="https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/2">#2</a>)? Possibly with a focus on Bioconductor needs?</p>
+<p><strong>Dario Righelli</strong> (10:57:13): &gt; <span class="citation" data-cites="Dario">@Dario</span> Righelli has joined the channel</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2023-02-13</h2>
+<p><strong>Johannes Rainer</strong> (03:19:33): &gt; <span class="citation" data-cites="Johannes">@Johannes</span> Rainer has joined the channel</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2023-02-14</h2>
+<p><strong>Hervé Pagès</strong> (18:10:26): &gt; <span class="citation" data-cites="Hervé">@Hervé</span> Pagès has joined the channel</p>
+<p><strong>Hervé Pagès</strong> (18:19:14): &gt; Unless you have a really really good reason to use a reference class (but I’ve never seen one), you should stay away from them. In general, in R, you wouldn’t expect that<code>y &lt;- foo(x)</code>will modify<code>x</code>but that could actually happen if<code>x</code>is a reference object. Even worse, you wouldn’t expect that<code>x0 &lt;- x; y &lt;- foo(x)</code>will modify<code>x0</code>but it could! Your attempt at protecting<code>x0</code>from the change didn’t work! You would need to do something like<code>x0 &lt;- clone(x)</code>for this to work. This is really bad. There’s a reason R uses a pass-by-value semantic. That’s the paradygm we are used to. Reference classes break this paradygm.</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2023-02-16</h2>
+<p><strong>Hervé Pagès</strong> (10:28:34): &gt; To nuance this a little. I think we should avoid exposing a pass-by-reference semantic to the user. That being said, you could imagine that a package uses reference classes/objects internally, for its own internal business only, but that the end-user never sees them or needs to interact with them directly. So that’s a situation where use of these classes/objects is probably ok. Note that this is analog to what we say about data.table objects: you can use them in your package for internal business but your functions should not return them or return objects that contain them (see<a href="https://github.com/Bioconductor/Contributions/issues/2332#issuecomment-943539782">https://github.com/Bioconductor/Contributions/issues/2332#issuecomment-943539782</a>).</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2023-02-17</h2>
+<p><strong>Laurent Gatto</strong> (02:30:12): &gt; Thank you very much!</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2023-02-18</h2>
+<p><strong>Laurent Gatto</strong> (08:46:40): &gt; Following up from our S4 and Reference classes discussions, and how S4 is central to Bioconductor and how to promote it, the OOP-WG presents… S7, a new OOP system designed to be a successor to S3 and S4.</p>
+<p><strong>Laurent Gatto</strong> (08:46:43): &gt; <a href="https://stat.ethz.ch/pipermail/r-devel/2023-February/082352.html">https://stat.ethz.ch/pipermail/r-devel/2023-February/082352.html</a></p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2023-02-25</h2>
+<p><strong>Ludwig Geistlinger</strong> (06:18:11): &gt; <span class="citation" data-cites="Ludwig">@Ludwig</span> Geistlinger has joined the channel</p>
+<p><strong>Stephanie Hicks</strong> (06:55:34): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks has joined the channel</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2023-02-26</h2>
+<p><strong>Peter Hickey</strong> (15:40:58): &gt; <span class="citation" data-cites="Peter">@Peter</span> Hickey has joined the channel</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2023-02-28</h2>
+<p><strong>Vince Carey</strong> (03:19:26): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+<p><strong>Federico Marini</strong> (04:16:39): &gt; <span class="citation" data-cites="Federico">@Federico</span> Marini has joined the channel</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2023-03-02</h2>
+<p><strong>Davide Risso</strong> (10:47:37): &gt; <span class="citation" data-cites="Davide">@Davide</span> Risso has joined the channel</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2023-03-12</h2>
+<p><strong>Charlotte Soneson</strong> (11:02:22): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2023-05-18</h2>
+<p><strong>Oluwafemi Oyedele</strong> (05:54:21): &gt; <span class="citation" data-cites="Oluwafemi">@Oluwafemi</span> Oyedele has joined the channel</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2023-06-09</h2>
+<p><strong>Aedin Culhane</strong> (17:25:00): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2023-06-16</h2>
+<p><strong>Dario Righelli</strong> (03:31:31): &gt; Hi everyone&lt;!here&gt;, any news on this WG? Do we want to come up with a BoF during next EuroBioc23 (or extend a possible BoF in case this will take place at Bioc23) ? &gt; (just an idea)</p>
+<p><strong>Lluís Revilla</strong> (03:44:14) (in thread): &gt; I haven’t seen any activity in github and I haven’t done anything myself:confused:but I was thinking about it recently.</p>
+<p><strong>Laurent Gatto</strong> (04:41:15) (in thread): &gt; My bad, sorry. But yes, good idea.</p>
+<p><strong>Malte Thodberg</strong> (08:11:05) (in thread): &gt; I’m still very interested in discussing!</p>
+<p><strong>Lluís Revilla</strong> (08:16:03) (in thread): &gt; Maybe we can keep the discussions asynchronous and meet when we hit a difficult/heated point</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2023-06-19</h2>
+<p><strong>Pierre-Paul Axisa</strong> (05:09:30): &gt; <span class="citation" data-cites="Pierre-Paul">@Pierre-Paul</span> Axisa has joined the channel</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2023-06-27</h2>
+<p><strong>Louis Le Nézet</strong> (13:20:08): &gt; <span class="citation" data-cites="Louis">@Louis</span> Le Nézet has joined the channel</p>
+<p><strong>Louis Le Nézet</strong> (13:26:17): &gt; Hi everyone, &gt; I’m working on a pedigree package and the creator of the package was working with a S4 (i think) pedigree objects. &gt; Those objects contain dataframe and a relation matrix. Some method was also added for plotting, printing, trimming, and converting to dataframe. &gt; Is it recommended to continue to use those custom classes ? &gt; Thanks !</p>
+<p><strong>Vince Carey</strong> (13:47:28): &gt; Sounds reasonable to me. To minimize reinvention or friction it would be good to be aware of related software tools in R. A google search of “pedigree data on CRAN” shows a number of packages, some on CRAN, addressing pedigree representation. Developing with an eye to interoperating with working and widely used components in other packages would be worthwhile.</p>
+<p><strong>Hervé Pagès</strong> (13:47:32) (in thread): &gt; I’m not sure there’s a broad consensus about what “pedigree” class should be used in Bioconductor. What “pedigree” S4 class are you referring to? I only see one defined in the<strong><em>MinimumDistance</em></strong>package. If it provides the functionalities that you need for your pedigree analysis, there’s no reason to not reuse it. Unless you have concerns about stability or long term maintenance of this package? Be aware that implementing your own S4 class from scratch will require a substantial amount of work.</p>
+<p><strong>Louis Le Nézet</strong> (16:15:01): &gt; There is effectively different packages using pedigree data but there doesn’t seems to be a unanimous class for them. &gt; The class available are the one from MinimumDistance, pedigreemm and GeneticsPed but the relationship matrix is missing (for twins and spouses without children) and they aren’t compatible. &gt; Maybe creating a standard would be nice ! &gt; &gt; On the otherhand some package in bioconductor<code>FamAgg</code>and in CRAN<code>pedigreetools</code>use the package that I’m working on Kinship2. &gt; As the previous owner of kinship2, doesn’t have anymore the time to maintain the package I’m working on improving it and make it more versatile. &gt; What would you recommend me to do ?</p>
+<p><strong>Lluís Revilla</strong> (17:30:09): &gt; I don’t know the history of the package, but taking over the maintenance of package is much harder than just creating a new class. You will need to support to some extend the package that depend in yours. It also depends on how much familiar are you with the package or how much you use the package. &gt; If you plan to move the package from CRAN to Bioconductor I would first make a release without any new classes and then in next release make a new class. This will give you time (~ 6months) to find what works well for the class and which methods might be needed and coordinate with those that depend in the package. Although you could also try to do both at the same time (a new release in Bioconductor and with a new class). &gt; &gt; If you want your class to be reusable it would be nice to think in what methods are needed before starting doing anything. Assuming there isn’t any class for this that you might inherit from (to reuse something of it). I would recommend to implement the basic methods if they make sense<code>c</code>,<code>rbind``cbind``[</code>,<code>[[</code>,<code>[&lt;-</code>and<code>[[&lt;-</code>(I learned this the hard way with a new class I created, which later I realized it would benefit from these methods). Boxplots don’t seem a high priority method for a pedigree class, but a plotting method will be (implement an<code>autoplot</code>method so that<code>plot(class)</code>works). I would also try to make it compatible with other classes or convert them to other widely used classes (<code>setAs</code>methods).</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2023-06-28</h2>
+<p><strong>Louis Le Nézet</strong> (04:41:14): &gt; For the moment the previous owner was using S3 class. &gt; I already have a dedicated plotting function. It’s the main function of this package. &gt; The Pedigree class would look like the following: &gt; <code>&gt; library(S4Vectors) &gt; .pedigree &lt;- setClass("pedigree", &gt;     contains = "DataFrame", &gt;     slots = c( &gt;         "ped_df" = "data.frame", &gt;         "rel_mat" = "data.frame" &gt;     ) &gt; ) &gt; .validity_pedigree &lt;- function(object){ &gt;     if (!"id" %in% colnames(object@ped_df)) { &gt;         stop("No Id found in the pedigree") &gt;     } &gt;     if (!"id1" %in% colnames(object@rel_mat)) { &gt;         stop("No id1 found in the pedigree") &gt;     } &gt; } &gt; setValidity("pedigree", .validity_pedigree) &gt;  &gt; pedigree &lt;- function( &gt;     ped_df = data.frame( &gt;         id = character(), &gt;         dadid = character(), &gt;         momid = character(), &gt;         sex = numeric()), &gt;     rel_mat = data.frame( &gt;         id1 = character(), &gt;         id2 = character()), &gt;         code = numeric()) { &gt;     .pedigree( &gt;         ped_df = ped_df, &gt;         rel_mat = rel_mat &gt;     ) &gt; } &gt;  &gt; setMethod("show", "pedigree", function(object) { &gt;     print(dim(object@ped_df)) &gt;     print(dim(object@rel_mat)) &gt; }) &gt;  &gt; print.pedigree &lt;- function(x, ...) { &gt;     print(x@ped_df) &gt; } &gt;  &gt; setMethod("[", c(x = "pedigree", i = "ANY", j = "missing"), &gt;     function(x, i, j, ..., drop = TRUE) { &gt;         pedigree(ped_df = x@ped_df[i,]) &gt; }) &gt;  &gt;  &gt; df &lt;- data.frame(id = 1:10, dadid = 11:20, momid = 21:30) &gt; a &lt;- pedigree(df) &gt; a &gt; print(a) &gt; print(a[1]) &gt;</code> &gt; The data manipulation methods to implement would work on the<code>ped_df</code>as a regular dataframe, the plot function is already available. &gt; I think it shouldn’t be too complicated to set it to other pedigree class already available. &gt; What do you think of this draft ?</p>
+<p><strong>Hervé Pagès</strong> (14:28:45) (in thread): &gt; About the validity method: Why isn’t the validity method checking that<strong>all</strong>the expected columns are present in<code>ped_df</code>and<code>rel_mat</code>, instead of checking for the presence of<code>id</code>and<code>id1</code>only? Shouldn’t it also make sure that the<code>id</code>column contains non-NA distinct values? (primary key). If<code>rel_mat</code>describes relations between the rows in<code>ped_def</code>, shouldn’t the validity method also make sure that<code>id1</code>and<code>id2</code>contain “valid” ids i.e.&nbsp;ids that belong to<code>id</code>? What will happen to<code>rel_mat</code>if subsetting the object drops ids that are represented in<code>id1</code>or<code>id2</code>? &gt; &gt; About naming: S4 classes in Bioconductor must start with an upper case, so<code>Pedigree</code>instead of<code>pedigree</code>. Why<code>rel_mat</code>if this is not a matrix? &gt; &gt; About inheritance: Inheriting from DataFrame means that your objects are data-frame-like objects and that they will support all data-frame-like operations. However some fundamental data-frame-like operations wouldn’t make sense for a<code>Pedigree</code>object e.g.&nbsp;2D-style subsetting or<code>cbind()</code>. This is a clue that they should not be considered data-frame-like objects and that they shouldn’t even be considered 2D objects. They are 1D objects (i.e.&nbsp;vector-like) with a length (the number of rows in<code>ped_df</code>) and no dimensions (i.e.<code>dim(&lt;Pedigree&gt;)</code>is NULL). This means that you should replace<code>contains="DataFrame"</code>with<code>contains="Vector"</code>.</p>
+<p><strong>Louis Le Nézet</strong> (15:30:48) (in thread): &gt; Sorry for the misunderstanding. &gt; It was just a draft, I’m currently working on a more detailed version with everything correctly checked. &gt; I will send it when done.</p>
+<p><strong>Louis Le Nézet</strong> (16:04:13) (in thread): &gt; Considering the type of the object, most of the operation will be on the first slot dataframe. &gt; It is the one containing the majority of the information, the relationship dataframe (not a matrix in the end) just give some sporadic detailed infos. &gt; So I was thinking on making all the data-frame-like operation work on the 1st dataframe. &gt; &gt; Also I could check for missing Ids beetween the rel_df and the ped_df, but I’m not sure if it’s necessary. &gt; &gt; Here is a more detailed version: &gt; <code>&gt; library(S4Vectors) &gt; .Pedigree &lt;- setClass("Pedigree", &gt;     contains = "Vector", &gt;     slots = c( &gt;         "ped_df" = "data.frame", &gt;         "rel_df" = "data.frame" &gt;     ) &gt; ) &gt; .validity_pedigree &lt;- function(object) { &gt;     col_needed &lt;- c("id", "momid", "dadid", "sex") &gt;     col_missing &lt;- col_needed[!col_needed %in% colnames(object@ped_df)] &gt;     if (length(col_missing) &gt; 0) { &gt;         stop(paste("Column(s):", col_missing, "missing in the pedigree")) &gt;     } &gt;     if (dim(object@rel_df)[1] &gt; 0) { &gt;         col_needed &lt;- c("id1", "id2", "code") &gt;         col_missing &lt;- col_needed[!col_needed %in% colnames(object@rel_df)] &gt;         if (length(col_missing) &gt; 0) { &gt;             stop(paste("Column(s):", col_missing, "missing in the pedigree")) &gt;         } &gt;     } &gt; } &gt;  &gt; setValidity("Pedigree", .validity_pedigree) &gt;  &gt; pedigree &lt;- function( &gt;     ped_df = data.frame( &gt;         id = character(), &gt;         dadid = character(), &gt;         momid = character(), &gt;         sex = numeric()), &gt;     rel_df = data.frame( &gt;         id1 = character(), &gt;         id2 = character(), &gt;         code = numeric())) { &gt;     .Pedigree( &gt;         ped_df = ped_df, &gt;         rel_df = rel_df &gt;     ) &gt; } &gt;  &gt; setMethod("show", "Pedigree", function(object) { &gt;     print("Pedigree") &gt;     print(object@ped_df) &gt;     print("Relationship matrix") &gt;     print(object@rel_df) &gt; }) &gt;  &gt; print.Pedigree &lt;- function(x, ...) { &gt;     print("Pedigree") &gt;     print(x@ped_df) &gt;     print("Relationship matrix") &gt;     print(x@rel_df) &gt; } &gt;  &gt; setMethod("[", c(x = "Pedigree", i = "ANY", j = "missing"), &gt;     function(x, i, j, ..., drop = TRUE) { &gt;         pedigree(ped_df = x@ped_df[i, ], rel_df = x@rel_df) &gt; }) &gt;  &gt; setMethod("[", c(x = "Pedigree", i = "ANY", j = "ANY"), &gt;     function(x, i, j, ..., drop = TRUE) { &gt;         x@ped_df[i, j] &gt; }) &gt;  &gt; setMethod("[[", c(x = "Pedigree", i = "ANY", j = "missing"), &gt;     function(x, i, j, ..., drop = TRUE) { &gt;         x@ped_df[[i]] &gt; }) &gt;  &gt; setMethod("[[", c(x = "Pedigree", i = "ANY", j = "ANY"), &gt;     function(x, i, j, ..., drop = TRUE) { &gt;         x@ped_df[[i]][[j]] &gt; }) &gt;  &gt; setMethod("[&lt;-", c(x = "Pedigree", i = "ANY", j = "missing", value = "ANY"), &gt;     function(x, i, j, ..., value) { &gt;         x@ped_df[i, ] &lt;- value &gt;         x &gt; }) &gt;  &gt; setMethod("[&lt;-", c(x = "Pedigree", i = "ANY", j = "ANY", value = "ANY"), &gt;     function(x, i, j, ..., value) { &gt;         x@ped_df[i, j] &lt;- value &gt;         x &gt; }) &gt;  &gt; setMethod("nrow", c(x = "Pedigree"), &gt;     function(x) { &gt;         nrow(x@ped_df) &gt; }) &gt;  &gt; setMethod("colnames", c(x = "Pedigree"), &gt;     function(x) { &gt;         colnames(x@ped_df) &gt; }) &gt;  &gt; setAs("Pedigree", "data.frame", &gt;     function(from) { &gt;         from@ped_df &gt; }) &gt;  &gt; setAs("Pedigree", "DataFrame", &gt;     function(from) { &gt;         DataFrame(from@ped_df) &gt; }) &gt;  &gt; df &lt;- data.frame(id = 1:10, dadid = 11:20, momid = 21:30, sex = 1:10) &gt; rel &lt;- data.frame(id1 = 1:5, id2 = 5:9, code = 1:5) &gt; a &lt;- pedigree(df, rel) &gt; a &gt; print(a) &gt; a[1] &gt; a[[1]] &gt; a[3, "dadid"] &gt; a$id &gt; a[1] &lt;- c(100, 200, 300, 4) &gt; a[c(1, 4), "momid"] &lt;- "A" &gt; a &gt; as.data.frame(a) &gt; as(a, "data.frame") &gt; as(a, "DataFrame") &gt; nrow(a) &gt; colnames(a) &gt;</code> &gt; What do you think ?</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2023-06-29</h2>
+<p><strong>Hervé Pagès</strong> (13:59:21) (in thread): &gt; The reason I’m bringing the 1D vs 2D discussion early is because this is one of the most important decisions you need to make about the semantics of your objects. If you go for the 1D semantics, your objects need to have a<code>length()</code>. If you go for the 2D semantics, they need to have a<code>dim()</code>, in addition to the<code>length()</code>, and you need to decide if the length goes along the 1st dim (e.g.&nbsp;SummarizedExperiment) or the 2nd dim (e.g.&nbsp;data.frame) or something else (e.g.&nbsp;matrix). This is really important because these choices will dictate the behavior of core operations like<code>[</code>and<code>c()</code>. &gt; &gt; Another important discussion is whether you want to have the<code>id</code>,<code>momid</code>,<code>dadid</code>, and<code>sex</code>vectors in a data.frame or in individual slots. The latter is generally more appropriate for mandatory components with a predefined type. So something like this: &gt; <code>&gt; setClass("Pedigree", &gt;     contains="Vector", &gt;     slots=c( &gt;         id="character", &gt;         momid="character", &gt;         dadid="character", &gt;         sex="factor" &gt;     ) &gt; ) &gt;</code> &gt; Then you don’t need to check for the presence of these slots in your validity method since your objects are guaranteed to have them. &gt; &gt; The S4Vectors framework lets you specify that the 4 slots must have the same length by defining a<code>parallel_slot_names()</code>method: &gt; <code>&gt; setMethod("parallel_slot_names", "Pedigree", &gt;     function(x) c("id", "momid", "dadid", "sex", callNextMethod()) &gt; ) &gt;</code> &gt; Then: &gt; <code>&gt; ## User-facing constructor function: &gt; Pedigree &lt;- function(id, momid, dadid, sex) &gt; { &gt;     new("Pedigree", id=id, momid=momid, dadid=dadid, sex=sex) &gt; } &gt;  &gt; Pedigree(id=c("ID1", "ID2"), &gt;          momid=c("ID3", "ID4"), &gt;          dadid=c("ID5", "ID6", "ID7"), &gt;          sex=factor(c("F", "M"))) &gt; # Error in validObject(.Object) : invalid class "Pedigree" object:  &gt; #     'x@dadid' is not parallel to 'x' &gt;</code> &gt; Note that defining the<code>parallel_slot_names()</code>method gives you<code>length()</code>,<code>[</code>(1D form), and<code>c()</code>for free: &gt; <code>&gt; p &lt;- Pedigree(id=c("ID1", "ID2"), &gt;               momid=c("ID3", "ID4"), &gt;               dadid=c("ID5", "ID6"), &gt;               sex=factor(c("F", "M"))) &gt; length(p)  # 2 &gt; p[2:1] &gt; c(p, p) &gt;</code> &gt; Finally by deriving from the Vector class you also inherit the<code>elementMetadata</code>and<code>metadata</code>slots, with corresponding accessors<code>mcols()</code>and<code>metadata()</code>. The metadata columns (<code>mcols()</code>) would be the natural place for storing additional, non-essential, columns in your objects. &gt; &gt; There’s a lot to cover, and Slack might not be the best venue to discuss this. I encourage you to take a look at the implementation of other Vector derivatives like Hits or IRanges to familiazrize yourself with this topic. Also it’s important to have a set of solid use cases that you want to support. The more clearly articulated they are, the more useful they will be to drive these developments in the right direction.</p>
+<p><strong>Lluís Revilla</strong> (19:28:50) (in thread): &gt; First time hearing about<code>parallel_slot_names</code>, is this documented somewhere? I couldn’t find it in the manuals or CRAN. I found it in the S4Vectors package, but as an alias to Vector-class with no mention of the generic, and commented in the source:<a href="https://code.bioconductor.org/browse/S4Vectors/blob/devel/R/Vector-class.R">https://code.bioconductor.org/browse/S4Vectors/blob/devel/R/Vector-class.R</a>. - Attachment (code.bioconductor.org): <a href="https://code.bioconductor.org/browse/S4Vectors/blob/devel/R/Vector-class.R">Bioconductor Code: Browse</a> &gt; Browse the content of Bioconductor software packages.</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2023-06-30</h2>
+<p><strong>Louis Le Nézet</strong> (04:17:51) (in thread): &gt; The problem I’m facing, is that I need the equivalent of two dataframe inside the object who can have different length.<code>ped_df</code>with mandatory columns (id, dadid, momid, sex) + optional columns (status, avail, affected, family) + metadata columns (…)<code>rel_df</code>with mandatory columns (id1, id2, code) + 1 optional column (family) &gt; In the case where the family is provided the Pedigree class should become a PedigreeList class to be able to separate both ids by family. &gt; &gt; Wouldn’t it be easier to create a more deep structure with a class containing class ? &gt; PedigreeList -&gt; multiple Pedigree -&gt; PedigreeDF + RelationDF classes: &gt; <code>&gt; PedigreeList( &gt;    Pedigree( &gt;       PedDF(id = "character", ...) &gt;       RelDF(id1 = "character", ...) &gt;    ) &gt;    Pedigree( &gt;       PedDF(id = "character", ...) &gt;       RelDF(id1 = "character", ...) &gt;    ) &gt; ) &gt;  &gt; ped_list &lt;- new("PedigreeList) &gt; ped_fam1 &lt;- new("Pedigree", id = 1:10, id1 = 1:5, ...) &gt; ped_fam2 &lt;- new("Pedigree", id = 1:10, id1 = 1:5, ...) &gt; ped_list["fam1"] &lt;- ped_fam1 &gt; ped_list["fam2"] &lt;- ped_fam2 &gt;  &gt; ped_list@fam1@PedDF@id # 1:10 &gt; ped_list@fam1@RelDF@id1 # 1:5 &gt;</code></p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2023-07-07</h2>
+<p><strong>Louis Le Nézet</strong> (08:07:39) (in thread): &gt; <span class="citation" data-cites="Hervé">@Hervé</span> Pagèsand@Lluís Revillawhat do you think about a nested structure ?</p>
+<p><strong>Lluís Revilla</strong> (08:30:30) (in thread): &gt; 1. The wisdom of Bioconductor is to make independent the implementation from the usage (this leads to more modular code and more flexibility to update and use). The user shouldn’t need to know about either of this (except perhaps when creating the new class or such). &gt; 2. A bunch of calls to new (… are not recommended. Better to make a creator function<code>pedigree &lt;- function(id, id1){... new()}</code>. But you probably already knew that. &gt; 3. I created a similar class in the BaseSet package and I decided against a nested structure (this was in discussion also with 2 other packages aiming to store and operate with a particular data type efficiently). I think it works well, and I would advice to keep the simpler the better (less deep and nested). I use three slots: 1 for the information of the elements (each individual in your case), 1 for the information about the sets (Family in your case, or disease, or eye color, …) and 1 for the relationship between them (In your case parent, children). All these three data.frames can be of different length (Or even empty: could exists a pedigree of unrelated members?). The TidySet class defined allows for arbitrary additional information. &gt; I think thinking about how this class will be used helps thinking about the design. For example, with the nested structure: how would a user filter for individuals of family 1 to 5 with blue eyes?</p>
+<p><strong>Louis Le Nézet</strong> (09:15:40) (in thread): &gt; I understand, the fact that multiple family can exist in the same pedigree object with common id make the thing more complicated. &gt; The easiest would be to force the use of a unique id across all families. &gt; As such it the PedigreeList wouldn’t be necessary and the Pedigree class would only need 2 slots : 1 for the information of the elements (id, dadid, momid, sex at least) and 1 for the relationship between them (id1, id2, code for special case).</p>
+<p><strong>Lluís Revilla</strong> (09:23:21) (in thread): &gt; Yes, I think this makes more sense</p>
+<p><strong>Louis Le Nézet</strong> (09:35:11) (in thread): &gt; I will go for that ! &gt; Thanks a lot for the help:slightly_smiling_face:</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2023-07-11</h2>
+<p><strong>Lluís Revilla</strong> (04:16:32): &gt; I’ve answered the questions in<a href="https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/7">https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/7</a> - Attachment: <a href="https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/7">#7 Submit a package?</a> &gt; • Do I need to write a package? What about a workflow? &gt; • Do I need OO progamming in Bioc packages? &gt; • Do I need methods to use classes?</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2023-07-18</h2>
+<p><strong>Hervé Pagès</strong> (17:13:04) (in thread): &gt; It’s still hard to know (at least for me) how the user is typically going to interact with these objects. I can’t emphasize enough the importance of coming up with a set of solid use cases. This should greatly help making important decisions about the internals of the Pedigree/PedigreeList classes.</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2023-07-19</h2>
+<p><strong>Louis Le Nézet</strong> (03:28:00) (in thread): &gt; Hi,<span class="citation" data-cites="Hervé">@Hervé</span> Pagèswhen you say “solid use cases”, you mean a typical workflow using a sample dataset ? &gt; In this case I already have one using the dataset available in the<code>kinship2</code>package. &gt; The typical workflow would look like this : &gt; <code>&gt; # Charge library and dataset &gt; library(kinship2) &gt; data(minnbreast) &gt; data(rel_minnbreast) &gt;  &gt; # Create pedigree object &gt; ped &lt;- Pedigree(minnbreast, rel_minnbreast, &gt;     list("indId" = "id", "fatherId" = "fatherid", "motherId" = "motherid", "gender" = "sex")) &gt;  &gt; # Create affected status &gt; ped_aff &lt;- generate_aff_inds(ped, col_aff = "cancer", threshold = 0, sup_thres_aff = TRUE) &gt;  &gt; # Filter the pedigree for informative individuals &gt; ped_inf &lt;- select_from_inf(ped_aff, inf_inds = "AvAf", kin_max = 3) &gt;  &gt; # Plot the filtered pedigree for the first family &gt; plot(ped_inf[ped_inf$family == 1,]) &gt;</code></p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2023-07-20</h2>
+<p><strong>Louis Le Nézet</strong> (10:23:28) (in thread): &gt; Hi@Hervé Pagèsand@Lluís Revilla! &gt; I’ve improved the pedigree class following the example of TidySet class. &gt; Here is what I went for &gt; <code>&gt; check_colnames_slot &lt;- function(object, slot = NULL, colnames) { &gt;   array_names &lt;- colnames(slot(object, slot)) &gt;  &gt;   if (length(array_names) == 0) { &gt;     paste0( &gt;       "Missing required colnames for ", slot, &gt;       ". See pedigree documentation." &gt;     ) &gt;   } else if (any(check_colnames(array_names, colnames))) { &gt;     paste0( &gt;       paste0(colnames[check_colnames(array_names, colnames)], collapse = ", "), &gt;       " column is not present on slot ", slot, ".") &gt;   } &gt; } &gt;  &gt; check_colnames &lt;- function(array_names, colnames) { &gt;   !colnames %in% array_names &gt; } &gt;  &gt; check_values &lt;- function(object, slot, column, values) { &gt;   val &lt;- slot(object, slot)[[column]] &gt;   val_abs &lt;- !val %in% values &gt;   if (any(val_abs)) { &gt;     paste0("Values ", val[val_abs], " in column ", column, " of slot ", slot, &gt;       " should be in ", paste0(values, collapse = ", "), ".") &gt;   } else { &gt;     character() &gt;   } &gt; } &gt;  &gt; is_valid &lt;- function(object) { &gt;   missid &lt;- "0" &gt;   errors &lt;- c() &gt;  &gt;   #### Check that the slots have the right columns #### &gt;   ped_cols &lt;- c("id", "dadid", "momid", "family", &gt;     "sex", "steril", "status", "avail") &gt;   rel_cols &lt;- c("id1", "id2", "code", "family") &gt;   scale_cols &lt;- c("column", "threshold", "aff_sup_threshold", "mods_aff", &gt;     "mods_labels", "fill", "border", "density", "angle") &gt;   errors &lt;- c(errors, check_colnames_slot(object, "ped", ped_cols)) &gt;   errors &lt;- c(errors, check_colnames_slot(object, "rel", rel_cols)) &gt;   errors &lt;- c(errors, check_colnames_slot(object, "scales", scale_cols)) &gt;  &gt;   #### Check for ped$id uniqueness #### &gt;   if (any(duplicated(object@ped$id))) { &gt;     errors &lt;- c(errors, "Id in ped slot must be unique") &gt;   } &gt;  &gt;   #### Check that the ped columns have the right values #### &gt;   errors &lt;- c(errors, check_values(object, "ped", "dadid", &gt;     c(object@ped$id, missid))) &gt;   errors &lt;- c(errors, check_values(object, "ped", "momid", &gt;     c(object@ped$id, missid))) &gt;   errors &lt;- c(errors, check_values(object, "ped", "sex", &gt;     c(1:4))) &gt;   errors &lt;- c(errors, check_values(object, "ped", "steril", &gt;     c(0, 1, NA))) &gt;   errors &lt;- c(errors, check_values(object, "ped", "status", &gt;     c(0, 1, NA))) &gt;   errors &lt;- c(errors, check_values(object, "ped", "avail", &gt;     c(0, 1, NA))) &gt;  &gt;   # Check that the rel columns have the right values &gt;   errors &lt;- c(errors, check_values(object, "rel", "code", &gt;     c("1", "2", "3", "4"))) &gt;   errors &lt;- c(errors, check_values(object, "rel", "family", &gt;     c(object@ped$family, NA))) &gt;   errors &lt;- c(errors, check_values(object, "rel", "id1", &gt;     object@ped$id)) &gt;   errors &lt;- c(errors, check_values(object, "rel", "id2", &gt;     object@ped$id)) &gt;  &gt;  &gt;   # Check that the scales columns have the right values &gt;   errors &lt;- c(errors, check_values(object, "scales", "column", &gt;     colnames(object@ped))) &gt;  &gt;   if (length(errors) == 0) { &gt;     TRUE &gt;   } else { &gt;     errors &gt;   } &gt; } &gt;  &gt; setClass( &gt;     "Pedigree", &gt;     slots = c( &gt;         ped = "data.frame", &gt;         rel = "data.frame", &gt;         scales = "data.frame" &gt;     ) &gt; ) &gt;  &gt; setValidity("Pedigree", is_valid) &gt;  &gt; pedigree &lt;- function(ped_df, rel_df, cols_ren_ped) { &gt;     UseMethod("pedigree") &gt; } &gt;  &gt; pedigree.data.frame &lt;- function(ped_df, rel_df, cols_ren_ped, scales) { &gt;     ## Rename columns &gt;     data.table::setnames(ped_df, &gt;         old = as.vector(unlist(cols_ren_ped)), &gt;         new = names(cols_ren_ped), &gt;         skip_absent = TRUE) &gt;     ## Normalise the data before creating the object &gt;     ped_df &lt;- norm_ped(ped_df) &gt;     rel_df &lt;- norm_rel(rel_df) &gt;     ## Create the object &gt;     new("Pedigree", &gt;             ped = ped_df, &gt;             rel = rel_df, &gt;             scales = scales &gt;         ) &gt; } &gt;</code></p>
+<p><strong>Lluís Revilla</strong> (14:40:02) (in thread): &gt; This might be nitpicking, but do you need data.table to rename a data.frame? Other than that, what kind of feedback are you looking for?</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2023-07-21</h2>
+<p><strong>Louis Le Nézet</strong> (03:51:26) (in thread): &gt; Not necessarily, it was just convenient this way. &gt; It can be done like the following &gt; <code>&gt; old_cols &lt;- as.vector(unlist(cols_ren_ped)) &gt;     new_cols &lt;- names(cols_ren_ped) &gt;     cols_to_ren &lt;- match(old_cols, names(ped_df)) &gt;     names(ped_df)[ &gt;         cols_to_ren[!is.na(cols_to_ren)]] &lt;- new_cols[!is.na(cols_to_ren)] &gt;</code> &gt; Concerning the feedback I was wondering if the structure would be something that could be accepted in bioconductor ?</p>
+<p><strong>Lluís Revilla</strong> (04:05:08) (in thread): &gt; That would be a question for the reviewers, but I don’t see why not. You could depend on BaseSet and reuse the structure internally instead of rolling your own. But only reviewers can answer these questions.</p>
+<p><strong>Louis Le Nézet</strong> (04:06:15) (in thread): &gt; Okay I will try and see what they tell me ! &gt; &gt; Thanks a lot for your help:wave:</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2023-07-26</h2>
+<p><strong>Louis Le Nézet</strong> (09:55:45): &gt; Hi ! &gt; &gt; I have a new class that look as follow: &gt; <code>&gt; setClass( &gt;     "Pedigree", &gt;     slots = c( &gt;         ped = "data.frame", &gt;         rel = "data.frame", &gt;         scales = "data.frame" &gt;     ) &gt; ) &gt;  &gt; setValidity("Pedigree", isValid) # isValid is my function checking for the correctness of the object's informations &gt;  &gt; setMethod("show", signature(object = "Pedigree"), function(object) { &gt;     cat("Pedigree object with", nrow(object@ped), "individuals and", &gt;         nrow(object@rel), "special relationships.") &gt; }) &gt;</code> &gt; The user, mostly need to be able to apply different function to this object and may want to modify somes values inside the slots. &gt; Subsetting the object may be complicated to do but I have some function that help the user to do it if necessary. &gt; &gt; For the user to modify / access the values inside the slot, I wanted to do the following: &gt; <code>&gt; setMethod("[[", c(x = "Pedigree", i = "ANY", j = "missing"), &gt;     function(x, i, j, ..., drop = TRUE) { &gt;         slot(x, i) &gt; }) &gt; setMethod("$", c(x = "Pedigree"), &gt;     function(x, name) { &gt;         slot(x, name) &gt; }) &gt; setMethod("[[&lt;-", c(x = "Pedigree", i = "ANY", j = "missing", value = "ANY"), &gt;     function(x, i, j, ..., value) { &gt;         slot(x, i) &lt;- value &gt; }) &gt;  &gt; ped &lt;- pedigree() &gt; ped$ped # should give ped@ped &gt; ped[["ped"]] # should give ped@ped &gt; ped$ped[1, "id"] &lt;- 42 # should modify inplace &gt;</code> &gt; Is it the right way ? &gt; Also would the modification inplace rerun the validity check ? (it doesn’t seems so)</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2023-08-04</h2>
+<p><strong>Trisha Timpug</strong> (09:34:47): &gt; <span class="citation" data-cites="Trisha">@Trisha</span> Timpug has joined the channel</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2023-08-07</h2>
+<p><strong>Jiaji George Chen</strong> (11:19:39): &gt; <span class="citation" data-cites="Jiaji">@Jiaji</span> George Chen has joined the channel</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2023-08-16</h2>
+<p><strong>Louis Le Nézet</strong> (11:01:33): &gt; Hi, &gt; &gt; I have some trouble defining generic methods for an S4 class that I created. &gt; When<code>load_all()</code>or<code>check()</code>, I get the following<code>in method for 'bitSize' with signature 'obj="Pedigree"': no definition for class "Pedigree"</code>I thought it was due to the R oxygen export not working but I’ve tried using &gt; <code>&gt; #' @export Pedigree &gt; #' @exportClass Pedigree &gt; setClass("Pedigree", slots = c(ped = "data.frame") &gt;  &gt; #' @export bitSize &gt; #' @exportMethod bitSize &gt; setGeneric("bitSize", function(obj, ...) { &gt;     standardGeneric("bitSize") &gt; }) &gt;  &gt; setMethod("bitSize", signature(obj = "Pedigree"), &gt;     function(obj, missid = "0", ...) { &gt;         print("done") &gt;     } &gt; ) &gt;</code> &gt; And none work. &gt; Do you know why it happens ?</p>
+<p><strong>Marcel Ramos Pérez</strong> (14:11:44) (in thread): &gt; Have you tried to build &amp; check on the terminal? If it fails there then it’s not an issue with devtools..</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2023-08-17</h2>
+<p><strong>Louis Le Nézet</strong> (06:31:44) (in thread): &gt; Yeah, both fail. &gt; I have the error <code>Error: package or namespace load failed for 'kinship2' in namespaceExport(ns, exports): undefined exports: Pedigree</code></p>
+<p><strong>Louis Le Nézet</strong> (06:48:26) (in thread): &gt; By modifying<code>export(Pedigree)</code>to<code>exportClasses(Pedigree)</code>I do not have anymore the error with<code>R CMD build .</code>But I get it with<code>devtools::check()</code>My NAMESPACE look like: &gt; <code>&gt; exportClasses(Pedigree) &gt; exportMethods(kinship) &gt;</code> &gt; But I still get &gt; <code>&gt; in method for 'kinship' with signature '"Pedigree"': no definition for class "Pedigree" &gt;</code></p>
+<p><strong>Louis Le Nézet</strong> (08:37:21) (in thread): &gt; Also<code>devtools::load_all(reset=TRUE, export_all=FALSE)</code>give the same result. &gt; The problem doesn’t seems therefore to be from the NAMESPACE file ?</p>
+<p><strong>Louis Le Nézet</strong> (08:44:52) (in thread): &gt; I’ve found the problem… &gt; As the methods are written in different files than the one with the S4 class, it is necessary to add<strong><code>#' @include pedigreeClass.R</code></strong>at the top of the script.</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2023-08-19</h2>
+<p><strong>Lluís Revilla</strong> (05:46:01) (in thread): &gt; Yes, this is a tag that sets the order in the Collate field in the DESCRIPTION file. You can omit it if you set it manually.</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2023-09-22</h2>
+<p><strong>Johannes Rainer</strong> (11:34:03): &gt; <span class="citation" data-cites="Louis">@Louis</span> Le NézetI just stumbled across this now. I’m the maintainer of the FamAgg package. Haven’t worked on it for a while, but am happy to join efforts, contribute, join/fuse …</p>
+<p><strong>Louis Le Nézet</strong> (11:50:07) (in thread): &gt; Hi, &gt; There is effectively some overlap since you use the kinship package for the plotting. &gt; Some of your implementation are quite close to what I’ve done. &gt; It could be nice to jointly work on it:slightly_smiling_face:</p>
+<p><strong>Johannes Rainer</strong> (11:56:08) (in thread): &gt; Agree, also, my code is not super clean and nice, so would not hurt to refactor some stuff - or move it over to your package. And having more brains think on some issues/approaches always helps. What is actually your package?</p>
+<p><strong>Louis Le Nézet</strong> (12:20:09) (in thread): &gt; It is the original Kinship2 package (the previous maintainer is passing the ownership to me). &gt; I’ve refactored it, to nicely create an S4 object. I’ve also implemented some customisation logic for the plot (ggplot, color, plotly soon), some auto formatting when using dataframe as input (normalisation of modalities) and some information computation for subselection in huge pedigree.</p>
+<p><strong>Johannes Rainer</strong> (13:18:05) (in thread): &gt; what is the github repo for that? just to get a glimpse of it - and eventually do pull request in case I move stuff over to you, if not already implemented:wink:</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2023-09-25</h2>
+<p><strong>Louis Le Nézet</strong> (06:20:41) (in thread): &gt; The github repository is<a href="https://github.com/LouisLeNezet/kinship2">https://github.com/LouisLeNezet/kinship2</a>But might change to another name:slightly_smiling_face:</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2023-10-10</h2>
+<p><strong>Dario Righelli</strong> (04:11:28): &gt; Hi&lt;!here&gt;, I just opened a<a href="https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/12">new issue</a>related to the bioc classes and their interoperability, topic discussed during the interoperability BoF in Ghent at EuroBioc23. &gt; I also noticed lots of new issues there,<span class="citation" data-cites="Laurent">@Laurent</span> Gattodo you think it could be a good idea to arrange a meeting for some discussions? - Attachment: <a href="https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/12">#12 Bioc Classes external interoperability</a> &gt; At EuroBioc23 this year, during the BoF about interoperability between Bioconductor and other external languages. &gt; &gt; I think this is something we should consider in our discussions, like: &gt; &gt; • collecting classes that are able to interoperate with external languages/frameworks, (i.e.&nbsp;python with AnnData or within R with Seurat) &gt; • open issues for existing classes in Bioc that still are not able to allow this interoperability (i.e.&nbsp;GenomicRanges ?) &gt; • do the interoperability efforts need to be made from the Bioc people also in other languages?</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2023-10-11</h2>
+<p><strong>Lluís Revilla</strong> (03:30:54): &gt; Yes, I would like to have a meeting to know what is the plan for the working group</p>
+<p><strong>Vince Carey</strong> (05:55:14): &gt; I added some comments to dario’s issue, concerning biocpy and artifactdb. I came across<a href="https://github.com/data-apis/array-api-comparison#array-libraries">https://github.com/data-apis/array-api-comparison#array-libraries</a>which seems relevant in a couple of respects. The number of options for array representations and APIs is noteworthy. One has to learn a lot to make informed decisions about what to use and how to use. Multiple moving targets is another concern. I wonder whether we would do well to consider class designs internal to R/Bioc separately from the concern with cross-language functionality? the alabaster package series gives us an approach to serialization that allows programmers in other languages to program with the relevant information (metadata, data) however they like.</p>
+<p><strong>Vince Carey</strong> (06:01:38): &gt; One question that is striking to me is how we decide to place a class definition in its own package. SummarizedExperiment is the key example. The number of importing package is very large. A search for<code>\ setClass</code>at<a href="http://code.bioconductor.org">code.bioconductor.org</a>yields a relatively modest number of hits, which one could comb through to see what developers find valuable in S4 class design and use.</p>
+<p><strong>Lluís Revilla</strong> (06:07:58): &gt; That is my primary concern and I think this working group should attempt to provide guidelines to address this: How to define these key classes, where to define them and how to maintain them…</p>
+<p><strong>Robert Shear</strong> (14:05:03): &gt; <span class="citation" data-cites="Robert">@Robert</span> Shear has joined the channel</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2023-10-24</h2>
+<p><strong>Louis Le Nézet</strong> (07:08:09): &gt; Hi, &gt; I’m working on the restructuration of my S4 class for pedigrees. &gt; The<code>Pedigree</code>class needs a slot for the identity of the individuals (ped), another for the special relationship (rel), a slot for the scales (scales) and finally one for hints (hints) used to plot. &gt; Here is what I came with: &gt; * each slot has its own class &gt; * The<code>ped</code>and<code>rel</code>slots contains<code>Vectors</code>and all slots inside them are<code>parallel_slot_names()</code>.<code>ped</code>slot also has<code>mcols</code> &gt; * The<code>Scales</code>class define two data.frame &gt; * The<code>Hints</code>class define a numeric vector and a data.frame &gt; * each class has its own validity method (check if internally all slots are correct) &gt; * The<code>Pedigree</code>class validate that the slots use the correct values. Example:<code>id1</code>and<code>id2</code>use in<code>rel</code>are all present in<code>id</code>in<code>ped</code>. &gt; * Each slots has its own accessors with a character value as a second argument to access the data<code>ped(ped, "id")</code>is equivalent to<code>ped@ped@id</code>. &gt; * Subsetting is only possible on 1 dimension along the<code>ped</code>slot. If an<code>ped@id</code>is dropped or modified then this is reflected on the<code>rel</code>slot and on the<code>ped@omid</code>and<code>ped@dadid</code>slot. &gt; What do you think about this design ?</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2023-11-17</h2>
+<p><strong>Francesc Català-Moll</strong> (03:20:20): &gt; <span class="citation" data-cites="Francesc">@Francesc</span> Català-Moll has joined the channel</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2023-12-30</h2>
+<p><strong>Aedin Culhane</strong> (09:33:20): - Attachment (datascience.cancer.gov): <a href="https://datascience.cancer.gov/news-events/news/sharing-cancer-research-software-nih-wants-hear-you">Sharing Cancer Research Software? NIH Wants to Hear from You! | CBIIT</a> &gt; Are you working with source codes, algorithms, workflows, and other software in your cancer research? NIH wants to hear from you! Respond today to help NIH develop new best-practice guidelines.</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2024-03-09</h2>
+<p><strong>Cherishma Subhasa</strong> (20:38:42): &gt; <span class="citation" data-cites="Cherishma">@Cherishma</span> Subhasa has joined the channel</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2024-05-05</h2>
+<p><strong>Ifra</strong> (09:38:32): &gt; <span class="citation" data-cites="Ifra">@Ifra</span> has joined the channel</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2024-07-19</h2>
+<p><strong>Sudipta Hazra</strong> (17:23:52): &gt; <span class="citation" data-cites="Sudipta">@Sudipta</span> Hazra has joined the channel</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2024-07-29</h2>
+<p><strong>JP Flores</strong> (17:08:29): &gt; <span class="citation" data-cites="JP">@JP</span> Flores has joined the channel</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2024-10-08</h2>
+<p><strong>Dario Righelli</strong> (04:22:13): &gt; Hi Everyone&lt;!here&gt;, as discussed with@Laurent Gattoat EuroBioc2024, it would be good to resurrect this working group. &gt; Also following up<a href="https://community-bioc.slack.com/archives/CLUJWDQF4/p1726075488985569?thread_ts=1723648167.898039&amp;cid=CLUJWDQF4">this discussion on R7</a>, it would be good to invite Micheal and Tim to join the group to discuss about possible future synergies. &gt; Do we want to arrange a meeting for the end of the month? - Attachment: <a href="https://community-bioc.slack.com/archives/CLUJWDQF4/p1726075488985569?thread_ts=1723648167.898039&amp;cid=CLUJWDQF4">Attachment</a> &gt; Anyone know the process for initiating such a group?</p>
+<p><strong>Dario Strbenac</strong> (06:42:24): &gt; <span class="citation" data-cites="Dario">@Dario</span> Strbenac has joined the channel</p>
+<p><strong>Lori Shepherd</strong> (07:09:34): &gt; End of this month is the release so I might be tied up depending on the time that is decided but I would be interested in participating in conversations</p>
+<p><strong>Dario Righelli</strong> (08:27:59): &gt; We can also decide to do it after the next realease date, I don’t think that waiting a couple of more weeks could be a problem</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2024-10-11</h2>
+<p><strong>Levi Waldron</strong> (07:00:10): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldron has joined the channel</p>
+<p><strong>Laurent Gatto</strong> (11:26:46): &gt; <span class="citation" data-cites="Dario">@Dario</span> Righelli- excellent idea, and thank you for following up. Might I suggest that you take the lead at organising the next meeting?</p>
+<p><strong>Dario Righelli</strong> (11:37:13) (in thread): &gt; Sure, I can create a when2meet and try to organize the next meeting, maybe for the next month.</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2024-10-14</h2>
+<p><strong>Tim Triche</strong> (10:37:33): &gt; <span class="citation" data-cites="Tim">@Tim</span> Triche has joined the channel</p>
+<p><strong>Michael Lawrence</strong> (10:37:33): &gt; <span class="citation" data-cites="Michael">@Michael</span> Lawrence has joined the channel</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2024-10-16</h2>
+<p><strong>Dario Righelli</strong> (04:14:42): &gt; Hi Tim and Michael, I’ve added you here because I’m going to prepare a when2meet to schedule a meeting for the next month. &gt; It would be nice if you want to join to discuss about the S7 class and possible future synergies (following<a href="https://community-bioc.slack.com/archives/CLUJWDQF4/p1723641985192589">this discussion</a>). &gt; I’ll share a link next week, I think it would be best if we prioritize the presence of some people around the BiocClasses working group, such as Laurent (as main coordinator), Lori and/or Marcel and/or Hervè (as members of the core), Michael (for R7), maybe Vince ? (someone else?) &gt; Additionally, IMHO it would be good if could join Lluis to discuss about the work he made after our last meeting. &gt; To anyone else interested, please give me any feedback on your possible thoughts/feedbacks. - Attachment: <a href="https://community-bioc.slack.com/archives/CLUJWDQF4/p1723641985192589">Attachment</a> &gt; I was just browsing the R source code and discovered that this has been possible since at least 2013: &gt; <code>&gt; setClass("Foo", slots = c(foo = "character")) &gt; &gt; `@&lt;-.Foo` &lt;- function(object, name, value) { attr(object, name) &lt;- paste0(value, "."); object } &gt; &gt; foo &lt;- new("Foo") &gt; &gt; foo@foo &lt;- "bar" &gt; &gt; foo@foo &gt; [1] "bar."</code> &gt; Maybe others new about this? It’s interesting in that it allows for some degree of encapsulation of S4 slots. A simple framework could be devised that e.g.&nbsp;allows for per-slot validation, automatic coercion, etc. <code>@()</code> was made generic during the S7 work last year. We made it skip S4 objects though, for obvious reasons. I didn’t realize that <code>@&lt;-()</code> was dispatching even on S4 objects. Anyway, people should be migrating to S7 anyway, and it already supports this level of encapsulation.</p>
+<p><strong>Vince Carey</strong> (09:41:36): &gt; Sounds good Dario – keep me posted.</p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2024-10-21</h2>
+<p><strong>Dario Righelli</strong> (10:44:18): &gt; Hi everyone, as a follow-up I’m going to tag the people mentioned in the previous message for prioritizing the S7 discussion between R and Bioconductor (<span class="citation" data-cites="Vince">@Vince</span> Carey,<span class="citation" data-cites="Laurent">@Laurent</span> Gatto,<span class="citation" data-cites="Michael">@Michael</span> Lawrence@Lori Shepherd@Marcel Ramos Pérez@Hervé Pagès,<span class="citation" data-cites="Lluís">@Lluís</span> Revilla) &gt; here it is a first when2meet attempt (<a href="https://www.when2meet.com/?27146880-SM2cl">https://www.when2meet.com/?27146880-SM2cl</a>) for a meeting in November (I’ll be travelling the second week of November, but let’s see how many overlaps we are able to get). &gt; Once we pick a date, I think everyone else interested can freely join. &gt; (Sorry for the multiple tags, I hope this will not bother anyone)</p>
+<p><strong>Marcel Ramos Pérez</strong> (12:08:04) (in thread): &gt; Thanks Dario!</p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2024-10-22</h2>
+<p><strong>Liyang Fei</strong> (00:11:12): &gt; <span class="citation" data-cites="Liyang">@Liyang</span> Fei has joined the channel</p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2024-10-23</h2>
+<p><strong>Sounkou Mahamane Toure</strong> (11:48:15): &gt; <span class="citation" data-cites="Sounkou">@Sounkou</span> Mahamane Toure has joined the channel</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2024-10-25</h2>
+<p><strong>Dario Strbenac</strong> (09:00:08): &gt; <code>MutliAssayExperiment</code>is for storing multiple experimental assays of tabular data on mostly the same set of biological samples. Is there any plan for a class to store multiple tabular data sets of the same assay on different patient cohorts but the same outcome of interest? For instance, if<a href="https://bioconductor.org/packages/release/data/experiment/html/curatedOvarianData.html">curatedOvarianData</a>was being built today, would its container class be something other than a list of<code>ExpressionSet</code>objects and an ad-hoc filtering script to be sourced from the package installation folder non-interactively? In other words, a container class to streamline tasks such as cross-dataset cross-validation.</p>
+<p><strong>Vince Carey</strong> (11:09:58): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldron^^</p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2024-10-28</h2>
+<p><strong>Dario Righelli</strong> (05:28:44) (in thread): &gt; Hi, sorry to go back on this, but it seems we are still missing@Vince Carey,<span class="citation" data-cites="Laurent">@Laurent</span> Gattoand@Lluís Revillaavailabilities in the when2meet. &gt; If you are able to finalize this for the end of this week, at the moment we seem to have an opening for Nov 8th. &gt; Thanks!</p>
+<p><strong>Lluís Revilla</strong> (05:47:05) (in thread): &gt; Sorry, forgot to add myself as Nov 8th was good for me</p>
+<p><strong>Vince Carey</strong> (09:06:11) (in thread): &gt; nov 8 is ok</p>
+<p><strong>Laurent Gatto</strong> (09:57:14) (in thread): &gt; Sorry for the delay. I can’t on 8 Nov, I’m teaching until 6 pm. I filling up when2meet, but if nothing else works, don’t postpone because of me.</p>
+<p><strong>Dario Righelli</strong> (12:20:00): &gt; We have another opening for the 20th 5-6/6-7pm (UTC+1) 11-12/12-1am (EDT), if@Vince Careyis available we can pick this one:slightly_smiling_face:</p>
+<p><strong>Vince Carey</strong> (13:31:47): &gt; yes i can do the 20th … but i guess it is 1200-1300 edt, right, not 1am?</p>
+<p><strong>Dario Righelli</strong> (15:11:37) (in thread): &gt; oooops, yes sorry! :)</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2024-11-04</h2>
+<p><strong>Dario Righelli</strong> (09:42:00) (in thread): &gt; Following on this thread, we fixed a call for the<strong><em>20th of November</em></strong>at<strong><em>17-18 (UTC+1)/11-12 (EDT).</em></strong>I’m sending a gcalendar invite to everyone by using the email addresses that I found here on slack. &gt; If someone is not receiving it, or needs to receive it on another account, please send me a message. &gt; Also, I created a zoom call, let me know if you prefer to use another platform.</p>
+<p><strong>Marcel Ramos Pérez</strong> (17:19:08) (in thread): &gt; We are in<strong><em>EST</em></strong>now. Does this time zone look ok?<a href="https://everytimezone.com/s/ad875eb6">https://everytimezone.com/s/ad875eb6</a></p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2024-11-05</h2>
+<p><strong>Dario Righelli</strong> (04:02:15) (in thread): &gt; Thanks@Marcel Ramos Pérez, if this doesn’t work we can try to re-schedule an hour later. From the when2meet everyone seemed available…</p>
+<p><strong>Marcel Ramos Pérez</strong> (10:57:12) (in thread): &gt; That works for me. Thanks for setting it up!</p>
+</section>
+<section id="section-53" class="level2">
+<h2 class="anchored" data-anchor-id="section-53">2024-11-15</h2>
+<p><strong>Lluís Revilla</strong> (06:28:56): &gt; Yesterday at the CAB meeting there was a comment about helping (new) people understand the importance of classes on Bioconductor. Related to S7 system we could write some guidelines or tutorial material about when to use each system or which classes are worth checking before starting from scratch.</p>
+</section>
+<section id="section-54" class="level2">
+<h2 class="anchored" data-anchor-id="section-54">2024-11-16</h2>
+<p><strong>Tim Triche</strong> (09:23:43): &gt; <a href="https://contributions.bioconductor.org/important-bioconductor-package-development-features.html#reusebioc">https://contributions.bioconductor.org/important-bioconductor-package-development-features.html#reusebioc</a> - Attachment (contributions.bioconductor.org): <a href="https://contributions.bioconductor.org/important-bioconductor-package-development-features.html#reusebioc">Chapter 4 Important Bioconductor Package Development Features | Bioconductor Packages: Development, Maintenance, and Peer Review</a> &gt; 4.1 biocViews Packages added to the Bioconductor Project require a biocViews: field in their DESCRIPTION file. The field name “biocViews” is case-sensitive and must begin with a lower-case ‘b’….</p>
+<p><strong>Tim Triche</strong> (09:24:05): &gt; there’s a slug in the contributions guidebook for just such occasions</p>
+<p><strong>Tim Triche</strong> (09:24:41): &gt; (thanks@Lori Shepherdfor making me read the whole thing… 13 years after my first package…:wink:)</p>
+<p><strong>Tim Triche</strong> (09:25:50): &gt; it’s possible that it could be more prominent and/or have pictures. I made a pull request the other day. Maybe I’ll make another after the manuscript and grant edits due today are in. (maybe not…:grimacing:)</p>
+</section>
+<section id="section-55" class="level2">
+<h2 class="anchored" data-anchor-id="section-55">2024-11-20</h2>
+<p><strong>Tim Triche</strong> (10:04:45): &gt; also the thought occurs that this is Yet Another Example:tm:of where having something interactive for users to play with, but not requiring installation, might help. I’ve been toying with turning an old homework solution into a webR example along these lines (thanks to Alex’s repo):<a href="https://trichelab.github.io/lab_use_content/project2_chunks/project2_tim.html">https://trichelab.github.io/lab_use_content/project2_chunks/project2_tim.html</a></p>
+<p><strong>Tim Triche</strong> (10:06:24): &gt; our pictures of SingleCellExperiment innards, for example, are kind of yuck. It’s hard to impress upon people that “having the computer keep track of which specimens correspond to which assay results is a good idea” since they will often respond with “yes, but if you put enough effort into it you can screw that up too, so you should never attempt to do things right, also a seatbelt could keep you from being thrown clear of the wreckage”. it’s… tiring.</p>
+<p><strong>Lori Shepherd</strong> (10:16:29) (in thread): &gt; I believe… way back when we original thought of the idea of this working group was to revamp, reevaluate, and build this section out a bit more to fill in the gaps for the other forms of data …. but it never really happened. would love it if someone filled this in more as I/we/core team may not have the background in all areas to know what to recommend to people or when a new class structure is ‘winning’ over another</p>
+<p><strong>Malte Thodberg</strong> (10:27:18) (in thread): &gt; Is it possible to listen in on this zoom today ?</p>
+<p><strong>Laurent Gatto</strong> (10:37:27): &gt; Here’s the link:<a href="https://unipd.zoom.us/j/86400269814?pwd=WR8kDpREFG8C3hXU5WTxnkMDumc1YM.1">https://unipd.zoom.us/j/86400269814?pwd=WR8kDpREFG8C3hXU5WTxnkMDumc1YM.1</a></p>
+<p><strong>Dario Righelli</strong> (10:37:49) (in thread): &gt; thanks Laurent!:slightly_smiling_face:</p>
+<p><strong>Vince Carey</strong> (10:52:04) (in thread): &gt; I won’t be able to join until the 30 minute point (assuming that would be 1130 EST)</p>
+</section>
+<section id="section-56" class="level2">
+<h2 class="anchored" data-anchor-id="section-56">2024-11-21</h2>
+<p><strong>Lori Shepherd</strong> (08:18:07): &gt; <a href="https://docs.google.com/document/d/1NFw33lJeYoPu2P8o0_SiHu3p3BIaokwbUk5MGMGcxNk/edit?usp=sharing">Agenda For Meetings</a><a href="https://github.com/Bioconductor/BiocClassesWorkingGroup">GitHub for Collaboration</a></p>
+<p><strong>Laurent Gatto</strong> (10:53:42): &gt; What about Wed 4 Dec, 5 - 6 pm (UTC +1) for our next meeting?</p>
+<p><strong>Lori Shepherd</strong> (12:28:45) (in thread): &gt; Im good with this if others are.</p>
+<p><strong>Dario Righelli</strong> (16:22:14) (in thread): &gt; I can, but most likely I have to leave at 5:30 that day</p>
+</section>
+<section id="section-57" class="level2">
+<h2 class="anchored" data-anchor-id="section-57">2024-11-27</h2>
+<p><strong>Dario Righelli</strong> (12:00:51) (in thread): &gt; Are we up for the next 4th Dec? Do you want me to send a message to the interested people?</p>
+<p><strong>Lori Shepherd</strong> (13:26:10): &gt; <span class="citation" data-cites="Ludwig">@Ludwig</span> Geistlinger/<span class="citation" data-cites="Laurent">@Laurent</span> Gatto/ or anyone? Is there a Bioconductor class for or that should be used for “mass cytometry” – they say very specifically that its “mass cytometry” not mass spectromety? and I think there is a difference between flow cytometry vs mass cytometry on quick search but wasn’t search if they were related enough?</p>
+<p><strong>Laurent Gatto</strong> (13:38:37): &gt; Yes, the there’s a different in flow and mass cytometry, but the stucture of the data is the same - 10s (flow) - 100s (mass) of markers in many 1e5 - 1e6 cells. I am not sure if raw mass cytometry data is also stored is FCS files (I’ll check), but the quantitative data are equivalent, and can be stored in standard Bioconductor containers. The<a href="https://www.bioconductor.org/packages/release/data/experiment/html/HDCytoData.html">HDCytoData</a>is a good example of such data. - Attachment (Bioconductor): <a href="https://www.bioconductor.org/packages/release/data/experiment/html/HDCytoData.html">HDCytoData</a> &gt; Data package containing a set of publicly available high-dimensional cytometry benchmark datasets, formatted into SummarizedExperiment and flowSet Bioconductor object formats, including all required metadata. Row metadata includes sample IDs, group IDs, patient IDs, reference cell population or cluster labels (where available), and labels identifying ‘spiked in’ cells (where available). Column metadata includes channel names, protein marker names, and protein marker classes (cell type or cell state).</p>
+<p><strong>Laurent Gatto</strong> (13:43:27): &gt; From the HDCytoData vignette: &gt; &gt; The<code>HDCytoData</code>package is an extensible resource containing a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) benchmark datasets, which have been formatted into<code>SummarizedExperiment</code>and<code>flowSet</code>Bioconductor object formats.</p>
+<p><strong>Lori Shepherd</strong> (13:45:15): &gt; Thank you!</p>
+<p><strong>Lluís Revilla</strong> (16:17:22) (in thread): &gt; Sorry, I’ll be traveling at that time and without reliable internet connection.</p>
+</section>
+<section id="section-58" class="level2">
+<h2 class="anchored" data-anchor-id="section-58">2024-11-28</h2>
+<p><strong>Dario Righelli</strong> (03:38:10): &gt; Hi Everyone, we (Me,<span class="citation" data-cites="Lori">@Lori</span> Shepherdand@Laurent Gatto) are attempting to have a meeting next December 4th 5-6pm (CET) / 11-12am (EST). &gt; Following<a href="https://community-bioc.slack.com/archives/C04NVE8GARL/p1732195087906019">last meeting</a>we were interested to understand who would be able to join to fix it or reschedule it.@Michael Lawrence@Vince Carey@Lluís Revilla@Marcel Ramos Pérez@Tim Triche@Malte ThodbergThanks everyone. - Attachment: <a href="https://community-bioc.slack.com/archives/C04NVE8GARL/p1732195087906019">Attachment</a> &gt; <a href="https://docs.google.com/document/d/1NFw33lJeYoPu2P8o0_SiHu3p3BIaokwbUk5MGMGcxNk/edit?usp=sharing">Agenda For Meetings</a> &gt; <a href="https://github.com/Bioconductor/BiocClassesWorkingGroup">GitHub for Collaboration</a></p>
+<p><strong>Lluís Revilla</strong> (03:55:21) (in thread): &gt; If we can schedule it one day sooner or later I will be able to join</p>
+<p><strong>Laurent Gatto</strong> (07:12:59) (in thread): &gt; I could do Tue 3rd either 30 min later (or I join later), or earlier in the afternoon.</p>
+<p><strong>Lluís Revilla</strong> (08:19:39) (in thread): &gt; :thumbsup:both options work well (but if there is more consensus on December 4th go ahead)</p>
+<p><strong>Tim Triche</strong> (08:56:55) (in thread): &gt; I’llbe on a plane on Dec 4th but I can call in anyways (ask the education working group if you think this is an idle threat).December 3rd I will be nearer sea level</p>
+<p><strong>Laurent Gatto</strong> (10:48:39) (in thread): &gt; Confirming that mass and flow cytometry data both come in fcs files.</p>
+</section>
+<section id="section-59" class="level2">
+<h2 class="anchored" data-anchor-id="section-59">2024-12-02</h2>
+<p><strong>Michael Lawrence</strong> (18:17:52) (in thread): &gt; Looks like there is no agenda. The last meeting had action items around documentation and a PoC of S7. The documentation would probably take priority. How can we get some movement on that?</p>
+</section>
+<section id="section-60" class="level2">
+<h2 class="anchored" data-anchor-id="section-60">2024-12-03</h2>
+<p><strong>Dario Righelli</strong> (04:39:20) (in thread): &gt; Following up, it seems we have. no agreement for tomorrow. &gt; Is today still on the table?</p>
+<p><strong>Laurent Gatto</strong> (04:58:48) (in thread): &gt; I confirm my availability for tomorrow.</p>
+<p><strong>Dario Righelli</strong> (05:18:39) (in thread): &gt; I’m available too, but I have to leave at 5:30</p>
+<p><strong>Laurent Gatto</strong> (05:43:50) (in thread): &gt; I am also available to start earlier than 5:00 CET.</p>
+<p><strong>Dario Righelli</strong> (06:00:25) (in thread): &gt; works for me</p>
+<p><strong>Malte Thodberg</strong> (06:12:14): &gt; Just added to this to the Github to spark discussion:<a href="https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/15#issue-2714711164">https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/15#issue-2714711164</a>^ This is the style of documentation I think would be really helpful in getting more people to take advantage of the S4 system.</p>
+</section>
+<section id="section-61" class="level2">
+<h2 class="anchored" data-anchor-id="section-61">2024-12-04</h2>
+<p><strong>Dario Righelli</strong> (05:40:54) (in thread): &gt; Sorry, it’s not clear to me if we are going to have the meeting today. &gt; It seems only me and Laurent are available at 5ish for the meeting.</p>
+<p><strong>Malte Thodberg</strong> (05:44:18) (in thread): &gt; I have sick child and will not be able to join unfortunately</p>
+<p><strong>Tim Triche</strong> (06:03:52) (in thread): &gt; What time is available on the 5th? I can probably make it work</p>
+<p><strong>Laurent Gatto</strong> (06:25:01) (in thread): &gt; I don’t think a time was set of the 5th Dec (I didn’t suggest one, as I’m at a conference).@Dario Righelli- if that works for more people, maybe that’s a better day.</p>
+<p><strong>Dario Righelli</strong> (08:35:18) (in thread): &gt; I’m really not sure who is going to join a meeting this week. &gt; Maybe it would be better to have a poll like a when2meet to have a better scheduled meeting</p>
+<p><strong>Tim Triche</strong> (08:36:04) (in thread): &gt; I’mslammed with ASH and trainee fellowship applications (HHMI) this week soI’dwelcome that idea</p>
+<p><strong>Tim Triche</strong> (08:36:40) (in thread): &gt; I may have some time to work on an S3/S4/S7 PoC this weekend or next week too</p>
+<p><strong>Dario Righelli</strong> (10:08:37) (in thread): &gt; I will create a when2meet later starting from the next week til the week before christmas in order to have a meeting before then.</p>
+</section>
+<section id="section-62" class="level2">
+<h2 class="anchored" data-anchor-id="section-62">2024-12-09</h2>
+<p><strong>Dario Righelli</strong> (05:00:37): &gt; Dear all, here is a when2meet for this and next week<a href="https://www.when2meet.com/?27931682-NT2ej">https://www.when2meet.com/?27931682-NT2ej</a>Please add your availabilities, so we understand if we are able to schedule it before Christmas. &gt; Thanks</p>
+</section>
+<section id="section-63" class="level2">
+<h2 class="anchored" data-anchor-id="section-63">2024-12-10</h2>
+<p><strong>Dario Righelli</strong> (12:53:55) (in thread): &gt; <span class="citation" data-cites="Laurent">@Laurent</span> Gatto@Michael Lawrence@Vince Carey@Tim Triche</p>
+</section>
+<section id="section-64" class="level2">
+<h2 class="anchored" data-anchor-id="section-64">2024-12-11</h2>
+<p><strong>Laurent Gatto</strong> (10:10:01) (in thread): &gt; Sorry, these last weeks of the term are already full. Choose what works for others, and I’ll see if I can move other meetings around.</p>
+</section>
+<section id="section-65" class="level2">
+<h2 class="anchored" data-anchor-id="section-65">2024-12-12</h2>
+<p><strong>Dario Righelli</strong> (05:33:25) (in thread): &gt; It seems we have only two possibilities, tomorrow (Fri Dec 13) at 4:00-5:00 CET (without Lluis and Tim) or Dec 18th same time (without me and Lluis). (sorry for the wrong time showing in the screenshots)<span class="citation" data-cites="Laurent">@Laurent</span> Gattoyou pick:slightly_smiling_face: - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F0856B2PQ9X/screenshot_2024-12-12_at_11.27.35.png">Screenshot 2024-12-12 at 11.27.35.png</a> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F084THP7C8K/screenshot_2024-12-12_at_11.27.38.png">Screenshot 2024-12-12 at 11.27.38.png</a></p>
+<p><strong>Laurent Gatto</strong> (06:13:53): &gt; None will work for me, unfortunately: I teach tomorrow from 2 - 6 pm, and I already have a meeting scheduled next Wed at at 4 pm, sorry.</p>
+<p><strong>Dario Righelli</strong> (08:33:53): &gt; <span class="citation" data-cites="Malte">@Malte</span> Thodbergare you interested in joining the meeting? maybe your vote could help in picking a date:joy:</p>
+<p><strong>Laurent Gatto</strong> (10:08:03) (in thread): &gt; And I of course meant that I can’t join either of those times, and you should meet without me.</p>
+</section>
+<section id="section-66" class="level2">
+<h2 class="anchored" data-anchor-id="section-66">2024-12-13</h2>
+<p><strong>Dario Righelli</strong> (08:40:09): &gt; I guess the only available date is next Dec 18th</p>
+<p><strong>Dario Righelli</strong> (08:41:08): &gt; I can do an invite, but because I cannot be able to attend, maybe someone else can create the link</p>
+</section>
+<section id="section-67" class="level2">
+<h2 class="anchored" data-anchor-id="section-67">2024-12-16</h2>
+<p><strong>Dario Righelli</strong> (05:40:32): &gt; I got an opening for this wednesday, I’ll send the invite and the link!</p>
+<p><strong>Dario Righelli</strong> (05:44:35) (in thread): &gt; invitation sent, here is the link:<a href="https://unipd.zoom.us/j/85044517814?pwd=n987qekQNzGya9Sp7Jgds8yzudboTr.1">https://unipd.zoom.us/j/85044517814?pwd=n987qekQNzGya9Sp7Jgds8yzudboTr.1</a></p>
+<p><strong>Dario Strbenac</strong> (07:00:07): &gt; Are there any creative ways to vary the name of the first parameter of an S4 Generic? &gt; <code>&gt; setGeneric("summarise", function(result, ...) standardGeneric("summarise")) &gt; setMethod("summarise", "DataFrame", function(result, performanceType = c("accuracy", "error")) &gt;</code> &gt; If I want to create a<code>summarise</code>method that takes in a<code>list</code>of result objects and have the first parameter be named<code>results</code>for that method (to intuitively indicate to the user that it accepts more than one item), can it be done? &gt; <code>&gt; setMethod("summarise", "list", function(results, performanceType = c("accuracy", "error")) # lapply over the list and call summarise. &gt;</code></p>
+</section>
+<section id="section-68" class="level2">
+<h2 class="anchored" data-anchor-id="section-68">2024-12-17</h2>
+<p><strong>Lluís Revilla</strong> (09:10:59) (in thread): &gt; You can check with the maintainer that defined the generic and see if they are open to add a new generic for the plural. Usually, extending S4 classes with new methods is not easy when one doesn’t control the class and generics definition.</p>
+<p><strong>Marcel Ramos Pérez</strong> (12:06:54) (in thread): &gt; It sounds like that should be a separate generic / function because the output would be a list version of<code>summarise</code>IIUC</p>
+<p><strong>Dario Strbenac</strong> (18:00:03) (in thread): &gt; Oh, actually I wrote both in my own package. I didn’t realise it was possible to have two generics with the same name.</p>
+<p><strong>Marcel Ramos Pérez</strong> (18:02:44) (in thread): &gt; I meant that both generics should have different names, e.g.,<code>summarise</code>and<code>summaryList</code></p>
+</section>
+<section id="section-69" class="level2">
+<h2 class="anchored" data-anchor-id="section-69">2024-12-18</h2>
+<p><strong>Marcel Ramos Pérez</strong> (10:06:22): &gt; set the channel topic: <a href="https://docs.google.com/document/d/1NFw33lJeYoPu2P8o0_SiHu3p3BIaokwbUk5MGMGcxNk/edit?usp=sharing">https://docs.google.com/document/d/1NFw33lJeYoPu2P8o0_SiHu3p3BIaokwbUk5MGMGcxNk/edit?usp=sharing</a></p>
+<p><strong>Malte Thodberg</strong> (10:59:40) (in thread): &gt; Ah, had put the meeting down for 17:00 instead of 16:30:face_with_peeking_eye:</p>
+<p><strong>Dario Righelli</strong> (11:01:22) (in thread): &gt; sorry, I’ll add you to the calendar invitation list</p>
+</section>
+<section id="section-70" class="level2">
+<h2 class="anchored" data-anchor-id="section-70">2024-12-19</h2>
+<p><strong>Hervé Pagès</strong> (13:54:01) (in thread): &gt; Also I don’t necessarily see the need to make<code>summaryList()</code>a generic function if it’s intended to work only on a list unless I’m missing something.</p>
+<p><strong>Dario Strbenac</strong> (16:00:02) (in thread): &gt; Because if it’s a S4 method, it automatically checks the input type without manually having to write<code>is(variable, "class")</code>inside the function? &gt; &gt; The<code>setMethod</code>function takes three arguments: the name of the generic function, the signature to match for this method and a function to compute the result. &gt; What is the most sound solution for my scenario?</p>
+<p><strong>Hervé Pagès</strong> (16:05:22) (in thread): &gt; &gt; Because if it’s a S4 method, it automatically checks the input type without manually having to write is(variable, “class”) inside the function? &gt; Oh my! So you’re taking the<code>setGeneric</code>/<code>setMethod</code>route only to avoid having to add<code>stopifnot(is.list(results))</code>to your code ?:face_with_spiral_eyes:</p>
+<p><strong>Dario Strbenac</strong> (16:30:09) (in thread): &gt; That and some functions in the package have three or four input types which have somewhat different processing needed. Each one is shorter than having one function containing four chunks of code within<code>if</code>statements.</p>
+<p><strong>Hervé Pagès</strong> (17:14:37) (in thread): &gt; Well you said you wanted to implement a function that summarizes a<code>list</code>hence the<code>summarizeList()</code>suggestion from Marcel. But now it seems that the input of<code>summarizeList()</code>will not necessarily be a list and that the function needs to do different things depending on the type of the input? Do I get that right? Hard to give advice without knowing the real story.</p>
+<p><strong>Dario Strbenac</strong> (17:20:10) (in thread): &gt; Sorry for the confusion. I meant that I used S4 methods in my package mostly because I have calculation functions that operate on multiple data types (e.g.<code>matrix</code>,<code>DataFrame</code>,<code>MultiAssayExperiment</code>) but then I also realised S4 methods could be useful for type checking so I also decided to use the S4 methods for two functions that have a<code>list</code>of Result input and a single<code>Result</code>input.</p>
+</section>
+<section id="section-71" class="level2">
+<h2 class="anchored" data-anchor-id="section-71">2024-12-29</h2>
+<p><strong>Andrew Su</strong> (12:19:41): &gt; <span class="citation" data-cites="Andrew">@Andrew</span> Su has joined the channel</p>
+</section>
+<section id="section-72" class="level2">
+<h2 class="anchored" data-anchor-id="section-72">2025-01-02</h2>
+<p><strong>Lori Shepherd</strong> (12:43:14): &gt; did we get a poll started on a recurring meeting for the month? Also on track for@Michael Lawrencedemo on S7 during the decided meeting time?</p>
+<p><strong>Dario Righelli</strong> (17:16:24) (in thread): &gt; No sorry, I’ll do it tomorrow, thanks for the reminder!</p>
+</section>
+<section id="section-73" class="level2">
+<h2 class="anchored" data-anchor-id="section-73">2025-01-03</h2>
+<p><strong>Dario Righelli</strong> (12:02:36): &gt; Here it is the when2meet link for the January meeting. If I remember correctly,<span class="citation" data-cites="Michael">@Michael</span> Lawrencehad a preference for the last two weeks of January, but I put also the next one for completeness. Michael, feel free to skip the next one, if you prefer so.<a href="https://www.when2meet.com/?28156727-6xjmT">https://www.when2meet.com/?28156727-6xjmT</a></p>
+<p><strong>Lori Shepherd</strong> (12:05:36): &gt; we wanted to set up a recurring meeting tho – so are we going to use this to mark off the recurring date based on this months results?</p>
+</section>
+<section id="section-74" class="level2">
+<h2 class="anchored" data-anchor-id="section-74">2025-01-09</h2>
+<p><strong>Lluís Revilla</strong> (01:46:45): &gt; Is someone able to help this question from the mailing list?<a href="https://stat.ethz.ch/pipermail/bioc-devel/2025-January/020788.html">https://stat.ethz.ch/pipermail/bioc-devel/2025-January/020788.html</a></p>
+<p><strong>Vince Carey</strong> (14:39:36): &gt; It looks like a possible bug in methods package? I will ask Mike Lawrence to take a look. For now the known subclasses could be added to the class union as a workaround?</p>
+<p><strong>Vince Carey</strong> (14:40:57): &gt; and@Hervé Pagèshas already answered on the list.</p>
+<p><strong>Vince Carey</strong> (14:41:27): &gt; the bug report approach that Herve mentions should be used</p>
+<p><strong>Dario Righelli</strong> (16:29:19): &gt; Hi@Michael Lawrence, sorry for the tag, this wants to be a simple reminder for the when2meet for this month. &gt; The result of this poll will be used as a recurring monthly meeting.:slightly_smiling_face:<a href="https://community-bioc.slack.com/archives/C04NVE8GARL/p1735923756957279">https://community-bioc.slack.com/archives/C04NVE8GARL/p1735923756957279</a> - Attachment: <a href="https://community-bioc.slack.com/archives/C04NVE8GARL/p1735923756957279">Attachment</a> &gt; Here it is the when2meet link for the January meeting. If I remember correctly, <span class="citation" data-cites="Michael">@Michael</span> Lawrence had a preference for the last two weeks of January, but I put also the next one for completeness. Michael, feel free to skip the next one, if you prefer so. &gt; <a href="https://www.when2meet.com/?28156727-6xjmT">https://www.when2meet.com/?28156727-6xjmT</a></p>
+<p><strong>Michael Lawrence</strong> (18:12:10) (in thread): &gt; I filled out the survey. Next week might be a little soon if I need to prepare a talk as we had discussed.</p>
+</section>
+<section id="section-75" class="level2">
+<h2 class="anchored" data-anchor-id="section-75">2025-01-10</h2>
+<p><strong>Dario Righelli</strong> (03:41:33) (in thread): &gt; 21th (17-18CET, 11-12EST, 8-9amPST) seems to be the only available time frame. &gt; We’ll also pick this as a monthly recurring meeting, so I’d say, every third Tuesday of the month, same time.</p>
+</section>
+<section id="section-76" class="level2">
+<h2 class="anchored" data-anchor-id="section-76">2025-01-13</h2>
+<p><strong>Michael Lawrence</strong> (16:19:49) (in thread): &gt; Thanks for organizing. I assume the calendar invite is forthcoming?</p>
+</section>
+<section id="section-77" class="level2">
+<h2 class="anchored" data-anchor-id="section-77">2025-01-14</h2>
+<p><strong>Dario Righelli</strong> (05:04:14) (in thread): &gt; you all got a calendar invite, please share the<a href="https://unipd.zoom.us/j/85389549981?pwd=WOz8G0F03iy3yd4A0pw6JKn38fZhHp.1">zoom link</a>with everyone who could be interested.</p>
+</section>
+<section id="section-78" class="level2">
+<h2 class="anchored" data-anchor-id="section-78">2025-01-15</h2>
+<p><strong>Stevie Pederson</strong> (06:00:36): &gt; <span class="citation" data-cites="Stevie">@Stevie</span> Pederson has joined the channel</p>
+<p><strong>Malte Thodberg</strong> (07:37:39) (in thread): &gt; Added one more example for SimpleList:<a href="https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/15#issuecomment-2592715458">https://github.com/Bioconductor/BiocClassesWorkingGroup/issues/15#issuecomment-2592715458</a></p>
+</section>
+<section id="section-79" class="level2">
+<h2 class="anchored" data-anchor-id="section-79">2025-01-28</h2>
+<p><strong>Axel Klenk</strong> (12:51:41): &gt; <span class="citation" data-cites="Axel">@Axel</span> Klenk has joined the channel</p>
+<p><strong>Lambda Moses</strong> (13:39:50): &gt; <span class="citation" data-cites="Lambda">@Lambda</span> Moses has joined the channel</p>
+<p><strong>Tuomas Borman</strong> (13:43:42): &gt; <span class="citation" data-cites="Tuomas">@Tuomas</span> Borman has joined the channel</p>
+<p><strong>Ilaria Billato</strong> (13:54:57): &gt; <span class="citation" data-cites="Ilaria">@Ilaria</span> Billato has joined the channel</p>
+</section>
+<section id="section-80" class="level2">
+<h2 class="anchored" data-anchor-id="section-80">2025-01-30</h2>
+<p><strong>Maria Doyle</strong> (16:33:08): &gt; <span class="citation" data-cites="Maria">@Maria</span> Doyle has joined the channel</p>
+</section>
+<section id="section-81" class="level2">
+<h2 class="anchored" data-anchor-id="section-81">2025-02-05</h2>
+<p><strong>Tobi Ogunbowale</strong> (12:02:20): &gt; <span class="citation" data-cites="Tobi">@Tobi</span> Ogunbowale has joined the channel</p>
+</section>
+<section id="section-82" class="level2">
+<h2 class="anchored" data-anchor-id="section-82">2025-02-10</h2>
+<p><strong>Dario Righelli</strong> (09:12:19): &gt; Hi everyone, are we having the meeting this month? the 18th? &gt; In any case, I don’t have access to zoom anymore, so we need to find someone else hosting the meeting on it or switching to another platform.</p>
+<p><strong>Laurent Gatto</strong> (10:12:12): &gt; I thought we would be meeting on Tuesday’s,~<del>which would be 20/02</del>~.</p>
+<p><strong>Laurent Gatto</strong> (10:14:01): &gt; I do not have a zoom licence. We use jitsi for the BiocTeaching meetings, which works well. I don’t know/think we can record a session though.</p>
+<p><strong>Marcel Ramos Pérez</strong> (10:14:43): &gt; I have a calendar event for 2025-02-18<a href="https://everytimezone.com/s/a7271b7d">https://everytimezone.com/s/a7271b7d</a></p>
+<p><strong>Laurent Gatto</strong> (10:15:17) (in thread): &gt; ok, thanks. So is it always on Tuesdays then?</p>
+<p><strong>Laurent Gatto</strong> (10:16:00) (in thread): &gt; I probably got it wrong</p>
+</section>
+<section id="section-83" class="level2">
+<h2 class="anchored" data-anchor-id="section-83">2025-02-17</h2>
+<p><strong>Dario Righelli</strong> (09:41:21): &gt; Hi everyone&lt;!here&gt;, just to keep-up about the tomorrow’s meeting at 5:00 pm CET / 8:00 am PST / 11:00 am EST. &gt; We still need a link for it, I can create one with Microsoft Teams, but if jitsi seems a better solution@Laurent Gattocould you please create a link ? Thanks!</p>
+</section>
+<section id="section-84" class="level2">
+<h2 class="anchored" data-anchor-id="section-84">2025-02-18</h2>
+<p><strong>Laurent Gatto</strong> (00:37:22): &gt; We can use<a href="https://meet.jit.si/BioconductorClasses">https://meet.jit.si/BioconductorClasses</a>- it’s open to anyone who has the link. It might be possible to create a room with recording enables, but I’ll have to test this. Let me know if this is needed. - Attachment (meet.jit.si): <a href="https://meet.jit.si/BioconductorClasses">Jitsi Meet</a> &gt; Join a WebRTC video conference powered by the Jitsi Videobridge</p>
+<p><strong>Lluís Revilla</strong> (03:32:29) (in thread): &gt; Sorry I have a conflicting meeting at work. I have started asking around the CAB about what we could do to ease developers usage of Bioconductor classes. They also suggesting contacting with the reviewer team and the education team. I’ll follow up with those two groups. Good luck</p>
+<p><strong>Dario Righelli</strong> (06:33:46): &gt; I don’t know if@Michael Lawrencewill have a demo for S7 class usage. &gt; It would be good to have a ready to record room in my opinion, but I really don’t know if we are going to use it.:slightly_smiling_face:Thanks@Laurent Gattofor the link!:slightly_smiling_face:</p>
+<p><strong>Vince Carey</strong> (09:20:41): &gt; i will be late</p>
+<p><strong>Laurent Gatto</strong> (10:25:43) (in thread): &gt; It is possible to record on Jitsi, but it might require a paid plan - I can’t find how to do it.</p>
+<p><strong>Lori Shepherd</strong> (11:01:21): &gt; I’ll also be late</p>
+<p><strong>Dario Righelli</strong> (11:52:46): &gt; Sorry guys, I recorded the screen, but by default Quicktime is with no audio, so it’s not really useful:cry:</p>
+<p><strong>Dario Righelli</strong> (12:23:32): &gt; Hey&lt;!channel&gt;it is finally out on youtube the recording of@Michael Lawrence’s presentation about S7 class introduction. &gt; Enjoy:<a href="https://www.youtube.com/watch?v=CxiBwiga_1A">https://www.youtube.com/watch?v=CxiBwiga_1A</a> - Attachment (YouTube): <a href="https://www.youtube.com/watch?v=CxiBwiga_1A">R S7 Class Introduction</a></p>
+</section>
+<section id="section-85" class="level2">
+<h2 class="anchored" data-anchor-id="section-85">2025-03-09</h2>
+<p><strong>Benjamin Yang</strong> (13:32:39): &gt; <span class="citation" data-cites="Benjamin">@Benjamin</span> Yang has joined the channel</p>
+</section>
+<section id="section-86" class="level2">
+<h2 class="anchored" data-anchor-id="section-86">2025-03-10</h2>
+<p><strong>Malte Thodberg</strong> (09:50:53): &gt; <span class="citation" data-cites="Dario">@Dario</span> Righelliand@Marcel Ramos Pérez: Suggestion for some new text on S4 in Bioconductor based on the current github text: - File (HTML): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F08H3LC28MS/bioc-classes-methods.html">bioc-classes-methods.html</a></p>
+<p><strong>Malte Thodberg</strong> (09:51:31) (in thread): &gt; <code>&gt; # Common Bioconductor Methods and Classes {#reusebioc} &gt;  &gt; ## Leveraging the S4 infrastrucutre of Bioconductor &gt;  &gt; Bioconductor is a large and diverse project with many packages that provide functionality for a wide range of biological data types and statistical methods. &gt;  &gt; A key foundation of Bioconductor is that it relies on *_S4-classes_* rather than the more commonly used *_S3-classes_* (that is extensively used by the tidyverse collection of packages). S4 is more structured, rigorous and verbose compared to S3, given S4 an initial steeper learning curve than S3. However, this rigourness makes it possible to much more efficiently share and reuse code between hundreds of R/Bioconductor packages.  &gt;  &gt; Using S4 in your Bioconductor packages gives the following advantages: &gt;  &gt; - Easily reuse highly optimized and stable code from hundreds of Bioconductor other packages. &gt; - Central data representations in the form of S4-classes make allow users to readily integrate &gt; analysis workflows across multiple Bioconductor packages. &gt; - Reusing familar interfaces makes it easier for new users to start using your package. &gt;  &gt; The easiest way to find out if there is already an existing S4-class for your data type is to search the Bioconductor package index for your data type. If you are in doubt, you can always ask on the on main Bioconductor communication &gt; channels such as the [bioc-devel][bioc-devel-mail] mailing list, or the &gt; Bioconductor slack. &gt;  &gt; Below we provide some pointers to the most central S4-classes of the Bioconductor project. &gt;  &gt; ## Bioconductor core packages and S4-classes &gt;  &gt; Bioconductor core packages are maintained centrally by the Bioconductor team itself. As they are some of the most optimized and stable parts of Bioconductor (some packages are more than a decade old!), they are the best starting point for reusing classes. &gt;  &gt; The `BiocStyle::Biocpkg("S4Vectors")` and `BiocStyle::Biocpkg("IRanges")` package contain low-level S4-classes for simple types of data: &gt;  &gt; - `DFrame`: Improved version of the base R `data.frame`, where columns can be any type and can have meta data attached. &gt; - `List` and friends: Improved version of the base R `list`, where each element has to be the same type (`CharacterList`, `IntegerList`, `NumericList`, etc.) &gt; - `Factor`: Improved version of the base R factor, where levels can be any type. &gt; - `Rle`: Efficient Long vectors with many repeated values (e.g. coverage calculated across a whole genome) &gt; - `Hits`: Storing "hits" or "overlaps" between two sets, e.g. overlap between two sets of genomic intervals &gt; - `Views`: Accessing smaller parts of a large object, like a genome, without copying the large object itself. Many specialized classes for different use cases (`RleViews`, `XStringViews`, etc.) &gt;  &gt; The `BiocStyle::Biocpkg("GenomicRanges")`, `BiocStyle::Biocpkg("GenomeInfoDb")`, `BiocStyle::Biocpkg("rtracklayer")` package contains S4-Classes for genomic intervals (as seen in BED, GTF or BigWig files): &gt;  &gt; - `GRanges`: Genomic ranges with start and end coordinates. Also keeps information  &gt; - `GRangesList`: Sets of `GRanges`. &gt; - `Seqinfo`: Chromosome names and lengths for a genome/assembly. &gt; - `GPos`: Single base pair genomic intervals. &gt; - Import with `rtracklayer::import()` &gt;  &gt; `BiocStyle::Biocpkg("SummarizedExperiment")` contains S4-Classes for count/expression matrices and associated meta data. &gt;  &gt; - `SummarizedExperiment`: Store on or more expression matrix with meta data for both columns and rows. &gt; - `RangedSummarizedExp`eriment`: `SummarizedExperiment` with an attached `GRanges`. &gt; - Many packages reuse `SummarizedExperiment` for more specialized cases, see for example `BiocStyle::Biocpkg("RaggedExperiment")`.  &gt;  &gt; The `BiocStyle::Biocpkg("Biostrings")` package contains S4-classes for biological strings (e.g. from FASTQ files): &gt;  &gt; - `DNAString`: DNA sequences &gt; - `AAString`: Amino acid sequences &gt; - `DNAStringSet`/`AAStringSet` and `DNAStringSetList`/`AAStringSetList`: Sets of sequences &gt; - Import with `readDNAStringSet()` and `readAAStringSet()` &gt;  &gt; The `BiocStyle::Biocpkg("GenomicAlignment")` and `BiocStyle::Biocpkg("Rsamtools")` packages contains S4-classes for aligned reads (e.g. BAM-files) &gt;  &gt; - `GAlignments`: Alignments of shorts reads to a reference genome. &gt; - Large BAM-files can be imported with `scanBam()` or `readGAlignments` &gt;  &gt; `BiocStyle::Biocpkg("VariantAnnotation")` package contains S4-classes for genetic variants: &gt;  &gt; - `VCF`: Genotypes across individuals and associated meta data. &gt; - `VRanges`: Location of genetic variants &gt; - Import with `readVcf()` &gt;  &gt; `BiocStyle::Biocpkg("BiocSets")` and `BiocStyle::Biocpkg("GSEABase")` contains S4-classes for gene sets, e.g. Gene Ontology (GO)-terms and similar: &gt;  &gt; - `GeneSet`: Gene set identifiers and metadata. &gt; - `GeneSetCollection`: Sets of `GeneSet` &gt;  &gt; `BiocStyle::Biocpkg("DelayedArray")` contains S4-classes for analyzing matrices that are too large to fit into memory: &gt;  &gt; - `DelayedArray`: Wrapper around data stored either in a highly efficent format (e.g. sparse) or on disk. &gt; - Several specialized subclasses, including `RleMatrix` , `ConstantArray`, `BiocStyle::Biocpkg("SparseArray")`, `BiocStyle::Biocpkg("HDF5Array")`, `BiocStyle::Biocpkg("ConstantArray")` and `BiocStyle::Biocpkg("ScaledMatrix")` &gt;  &gt; ## Widely used Bioconductor S4-classes. &gt;  &gt; Some Bioconductor package have implemented S4-Classes that have been widely adopted: &gt;  &gt; `BiocStyle::Biocpkg("SingleCellExperiment")` for single cell datasets (e.g. scRNA-Seq), including single cell multi-omics (e.g. CITE-Seq). &gt;  &gt; `BiocStyle::Biocpkg("SpatialExperiment")` for spatial -omics. &gt;  &gt; `BiocStyle::Biocpkg("MultiAssayExperiment")` for complex multi-omics datasets with arbitrary patterns of mixing data. &gt;  &gt; `BiocStyle::Biocpkg("Spectral")` for mass spec data &gt;  &gt; `BiocStyle::Biocpkg("TBFSTools")` for analyzing transcription factor binding sites with Position Frequency Matrices (PFMs) and similar. &gt;  &gt; `BiocStyle::Biocpkg("limma")`, `BiocStyle::Biocpkg("edgeR")` and `BiocStyle::Biocpkg("DESeq2")` for differential expression (DE) analysis &gt;  &gt; ## Extending Bioconductor S4-classes &gt;  &gt; We are generally recommending that developers simply reuse existing classes: This saves time on the developers part and makes it easier for end-users to switch between packages. &gt;  &gt; Some advanced developers might find the need to formally extend existing S4-classes with new subclasses. This requires more knowledge of how S4 inheritance works and how the different Bioconductor packages build on each other. &gt;  &gt; We are currently developing new documentation on this topic. For now, we refer to some general background on S4 from the Advanced R book ([https://adv-r.hadley.nz/s4.html](https://adv-r.hadley.nz/s4.html)) and the vignettes from the `S4Vectors`, `SummarizedExperiment`, `SingleCellExperiment` and `DelayedArray` packages which contains concrete examples of extending existing S4-Classes &gt;</code></p>
+<p><strong>Malte Thodberg</strong> (09:51:39) (in thread): &gt; ^ markdown code</p>
+<p><strong>Marcel Ramos Pérez</strong> (09:52:46) (in thread): &gt; Hi@Malte Thodbergcan you create a PR at<a href="https://github.com/Bioconductor/pkgrevdocs">https://github.com/Bioconductor/pkgrevdocs</a>?</p>
+</section>
+<section id="section-87" class="level2">
+<h2 class="anchored" data-anchor-id="section-87">2025-03-11</h2>
+<p><strong>Lluís Revilla</strong> (03:58:40): &gt; FYI: Martin Maechler posted on R-devel about some changes on S4 showMethods output. He is looking for feedback from Bioconductor developers:<a href="https://stat.ethz.ch/pipermail/r-devel/2025-March/083881.html">https://stat.ethz.ch/pipermail/r-devel/2025-March/083881.html</a></p>
+<p><strong>Vince Carey</strong> (09:18:06): &gt; Without drilling further, I saw that<a href="https://code.bioconductor.org/search/search?q=selectMethod">https://code.bioconductor.org/search/search?q=selectMethod</a>shows that selectMethod occurs fairly often and there are a couple of important packages that might be tested in the light of the proposed change, which I would expect to be innocuous. [I understand (I think) that the issue pertains to a show method but the effects were presented in the context of selectMethod and I would not want to try an analysis of “show”.] - Attachment (code.bioconductor.org): <a href="https://code.bioconductor.org/search/search?q=selectMethod">Bioconductor Code: Search</a> &gt; Search source code across all Bioconductor packages</p>
+</section>
+<section id="section-88" class="level2">
+<h2 class="anchored" data-anchor-id="section-88">2025-03-12</h2>
+<p><strong>Mike Smith</strong> (09:53:31): &gt; <span class="citation" data-cites="Mike">@Mike</span> Smith has joined the channel</p>
+</section>
+<section id="section-89" class="level2">
+<h2 class="anchored" data-anchor-id="section-89">2025-03-14</h2>
+<p><strong>Pariksheet Nanda</strong> (11:57:42): &gt; <span class="citation" data-cites="Pariksheet">@Pariksheet</span> Nanda has joined the channel</p>
+</section>
+<section id="section-90" class="level2">
+<h2 class="anchored" data-anchor-id="section-90">2025-03-15</h2>
+<p><strong>Lucio Queiroz</strong> (10:17:45): &gt; <span class="citation" data-cites="Lucio">@Lucio</span> Queiroz has joined the channel</p>
+</section>
+<section id="section-91" class="level2">
+<h2 class="anchored" data-anchor-id="section-91">2025-03-18</h2>
+<p><strong>Laurent Gatto</strong> (02:51:02): &gt; Hi all. I think there’s a working group meeting planned for today at 5 pm CET. I am busy teaching, so won’t be able to join this month.</p>
+<p><strong>Dario Righelli</strong> (05:18:17): &gt; Thanks for letting us know Laurent, yes, we have a meeting scheduled at 5pm CET. We are going to show some little implementations we made with S7.</p>
+<p><strong>Lori Shepherd</strong> (07:11:58) (in thread): &gt; FWIW I’ll make this meeting but I do have a recurring conflict – if there is a way to move it up or down an hour I wouldn’t necessarily be opposed either.</p>
+<p><strong>Laurent Gatto</strong> (07:20:00) (in thread): &gt; I wouldn’t mind moving it 1 hour earlier.</p>
+<p><strong>Vince Carey</strong> (11:48:02): &gt; I will be about 30 min late, sorry but i have a conflict.</p>
+<p><strong>Andres Wokaty</strong> (14:26:26): &gt; <span class="citation" data-cites="Andres">@Andres</span> Wokaty has joined the channel</p>
+</section>
+<section id="section-92" class="level2">
+<h2 class="anchored" data-anchor-id="section-92">2025-04-14</h2>
+<p><strong>Dario Righelli</strong> (04:02:04): &gt; Hi&lt;!here&gt;, we have a scheduled meeting for tomorrow, but I was wondering if we have any update to discuss. &gt; Unfortunately, I don’t have any. &gt; In case no one else has something to discuss, maybe it could be a good idea to reschedule it in a week or so, or even skip this month, &gt; Any feedbacks?</p>
+<p><strong>Malte Thodberg</strong> (07:45:11): &gt; I won’t be ableto join tomorrow, due to Easter holiday here:hatching_chick:</p>
+<p><strong>Lori Shepherd</strong> (07:48:02): &gt; I likely will not be able to attend because of the Bioconductor release tasks</p>
+<p><strong>Dario Righelli</strong> (11:51:34): &gt; I’d say, maybe it’s better to skip this month and meet on May.</p>
+<p><strong>Laurent Gatto</strong> (14:54:41): &gt; Yes, agree, unless others have some concrete plans. I will have a conflict for our next meeting in May.</p>
+</section>
+<section id="section-93" class="level2">
+<h2 class="anchored" data-anchor-id="section-93">2025-04-15</h2>
+<p><strong>Dario Righelli</strong> (05:06:05): &gt; ok, so let’s skip this month.</p>
+<p><strong>Dario Righelli</strong> (05:06:33) (in thread): &gt; Do you want me to try to find a better date for the meeting in May?</p>
+<p><strong>Laurent Gatto</strong> (06:18:13) (in thread): &gt; Thank you for suggesting. I have another (non-recurrent) meeting I can’t skip/change that also starts at 5 pm. I could the Monday 11/05 at the same time, but I don’t think the meeting should be changed because of me if it is a convenient time for others.</p>
+<p><strong>Pariksheet Nanda</strong> (12:13:25) (in thread): &gt; Would it be possible to be a fly on the wall and listen into the next discussion to better appreciate nuances and considerations for developing Bioconductor’s system of classes? Are the call details listed anywhere or is it through Spack’s huddle or something else?</p>
+</section>
+<section id="section-94" class="level2">
+<h2 class="anchored" data-anchor-id="section-94">2025-04-16</h2>
+<p><strong>Dario Righelli</strong> (04:08:37) (in thread): &gt; yes, absolutely, we have a recurring meeting each third Tuesday of the month. We have a jitsi meeting link here:<a href="https://meet.jit.si/BioconductorClasses">https://meet.jit.si/BioconductorClasses</a> - Attachment (meet.jit.si): <a href="https://meet.jit.si/BioconductorClasses">Jitsi Meet</a> &gt; Join a WebRTC video conference powered by the Jitsi Videobridge</p>
+<p><strong>Dario Righelli</strong> (04:09:39) (in thread): &gt; Sorry Laurent but the 11/05 it’s a Sunday!:slightly_smiling_face:Do you mean Monday 12/05? I can try to reach out the others and see if it can work.</p>
+<p><strong>Laurent Gatto</strong> (04:41:49) (in thread): &gt; Yes, I meant Monday 12/05. Thanks.</p>
+<p><strong>Dario Righelli</strong> (04:50:13) (in thread): &gt; I sent an email</p>
+<p><strong>Pariksheet Nanda</strong> (18:48:15) (in thread): &gt; At what time is the meeting typically held?</p>
+</section>
+<section id="section-95" class="level2">
+<h2 class="anchored" data-anchor-id="section-95">2025-04-17</h2>
+<p><strong>Dario Righelli</strong> (02:54:25) (in thread): &gt; ops, you’re right! 15:00 UTC &gt; Anyway you can stay up to date by following discussions on this channel:slightly_smiling_face:</p>
+<p><strong>dhvani solanki</strong> (16:19:15): &gt; <span class="citation" data-cites="dhvani">@dhvani</span> solanki has joined the channel</p>
+</section>
+<section id="section-96" class="level2">
+<h2 class="anchored" data-anchor-id="section-96">2025-04-27</h2>
+<p><strong>Vince Carey</strong> (13:50:00): &gt; Is the listing of leads at<a href="https://github.com/Bioconductor/BiocClassesWorkingGroup">https://github.com/Bioconductor/BiocClassesWorkingGroup</a>accurate?</p>
+</section>
+<section id="section-97" class="level2">
+<h2 class="anchored" data-anchor-id="section-97">2025-04-28</h2>
+<p><strong>Laurent Gatto</strong> (05:01:19): &gt; <span class="citation" data-cites="Dario">@Dario</span> Righellihas been most active lately with the organisation. I think he should be added to the list.</p>
+<p><strong>Dario Righelli</strong> (05:08:37) (in thread): &gt; thanks!</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

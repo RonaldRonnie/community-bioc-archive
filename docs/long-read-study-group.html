@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#long-read-study-group – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2024-04-12</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2024-04-18</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2024-05-06</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2024-05-07</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2024-05-14</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2024-05-15</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2024-05-16</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2024-05-17</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2024-05-22</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2024-05-23</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2024-05-24</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2024-05-26</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2024-05-29</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2024-05-30</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2024-05-31</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2024-06-01</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2024-06-10</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2024-06-27</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2024-06-28</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2024-06-29</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2024-06-30</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2024-07-03</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2024-07-08</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2024-07-09</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2024-07-12</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2024-07-17</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2024-08-07</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2024-08-08</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2024-08-09</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2024-08-15</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2024-08-16</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2024-10-07</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2024-10-08</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2024-10-18</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2024-10-21</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2024-11-06</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2024-11-21</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2024-12-04</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#long-read-study-group</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2024-04-12</h2>
+<p><strong>Michael Love</strong> (08:32:49): &gt; <span class="citation" data-cites="Michael">@Michael</span> Love has joined the channel</p>
+<p><strong>Stephanie Hicks</strong> (08:32:59): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks has joined the channel</p>
+<p><strong>Michael Love</strong> (08:33:45): &gt; set the channel description: informal group across UNC, JHU, and beyond, for reading up on methods for downstream multi-sample analysis of long read data</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2024-04-18</h2>
+<p><strong>Sowmya Parthiban</strong> (08:27:52): &gt; <span class="citation" data-cites="Sowmya">@Sowmya</span> Parthiban has joined the channel</p>
+<p><strong>Stephanie Hicks</strong> (11:25:56): &gt; hi everyone and thank you@Michael Lovefor starting this channel! I’m excited to start this study group</p>
+<p><strong>Stephanie Hicks</strong> (11:26:44): &gt; maybe it would be good to schedule a zoom meeting with all us to talk about shared interests / goals that we can work towards?</p>
+<p><strong>Stephanie Hicks</strong> (11:27:06): &gt; If there are better / worse weeks for folks, let me know and i’m happy to coordinate a when2meet</p>
+<p><strong>Michael Love</strong> (11:36:00): &gt; Justin<strong>just</strong>joined the lab but has some things coming up as the last rotations end, and then some first year group things in the next weeks. Maybe May would be good</p>
+<p><strong>Michael Love</strong> (11:36:38): &gt; also:tada:for Justin joining the lab and diving into long read methods</p>
+<p><strong>Michael Love</strong> (11:37:43): &gt; Monday/Tuesday are generally most free for me</p>
+<p><strong>Sowmya Parthiban</strong> (15:34:39): &gt; Thanks@Michael Loveand@Stephanie Hicksfor organizing this group! Mondays/Tuesdays starting May works for me!</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2024-05-06</h2>
+<p><strong>Stephanie Hicks</strong> (09:44:40): &gt; hi! just bumping this.@Michael Loveare you interested in scheduling a meeting sometime over the next few weeks?</p>
+<p><strong>Michael Love</strong> (09:45:49): &gt; yes! Justin is taking his exams this week so maybe the following week? 5/13 or 14?</p>
+<p><strong>Sowmya Parthiban</strong> (09:46:53): &gt; that sounds good to me!</p>
+<p><strong>Michael Love</strong> (09:51:03): &gt; I’m free Mon morning and Tue after 11</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2024-05-07</h2>
+<p><strong>Stephanie Hicks</strong> (08:12:09): &gt; hey! i’m sosrry for my slow response</p>
+<p><strong>Stephanie Hicks</strong> (08:12:16): &gt; what about Tues 1:30-2:30pm?</p>
+<p><strong>Michael Love</strong> (08:32:07): &gt; i’ll send out an invite and we can reschedule if it doesn’t work for anyone</p>
+<p><strong>Michael Love</strong> (08:32:45): &gt; oh I see I have a 1-2</p>
+<p><strong>Michael Love</strong> (08:33:04): &gt; i could do 1:45-2:30</p>
+<p><strong>Sowmya Parthiban</strong> (10:15:53): &gt; Would sometime after 2:50 work by any chance, I have a class then but if not I can meet at 1:45 - 2:30 and watch the lecture recording later. Thanks!</p>
+<p><strong>Michael Love</strong> (11:39:09): &gt; i’m free after 2pm</p>
+<p><strong>Stephanie Hicks</strong> (13:25:58): &gt; how about 4-4:30pm?</p>
+<p><strong>Sowmya Parthiban</strong> (13:28:56): &gt; yes, I can do then! thank you!</p>
+<p><strong>Michael Love</strong> (14:04:49): &gt; i can send an event</p>
+<p><strong>Sowmya Parthiban</strong> (15:30:26): &gt; thanks@Michael Love!</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2024-05-14</h2>
+<p><strong>Michael Love</strong> (16:36:30): &gt; some leftover thoughts: I think having a quarto or bookdown type repo is nice, and maybe we can avoid the:exploding_head:of the OSCA situation &gt; &gt; i maintain a couple things like this:<a href="https://tidyomics.github.io/tidy-ranges-tutorial/">https://tidyomics.github.io/tidy-ranges-tutorial/</a>and it’s not a big maintenance lift (i also don’t sync this with Bioc)</p>
+<p><strong>Michael Love</strong> (16:43:45): &gt; I’m all for: &gt; * this group collaborating! &gt; * focusing on the simple cases, cover 90% of users first and early, show the cake (esp for multi-sample analysis). I think that means ONT, human or mouse, not cancer, something with some interesting splicing story &gt; * writing the “why this?” paragraphs. agree with Stephanie that these are the true value of OSCA &gt; * allow asynchronous work (we can contribute chapters) and then figure out tie-ins across chapters &gt; * find a great common dataset that works for many chapter (this is hard, esp for DE with biological reps, and worth thinking and debating pros/cons) &gt; * if we include minimap2 -&gt; salmon quant among the choices, it allows us to bring in Rob’s group as needed. this may be useful downstream if/as we develop methods and want to fold them in. Also i’ve heard and seen in benchmarks, it’s a decent baseline for quant, and they are actively improving bias and coverage models (e.g.&nbsp;oarfish and ongoing work)</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2024-05-15</h2>
+<p><strong>Stephanie Hicks</strong> (20:31:49): &gt; ah thank you for writing up the notes@Michael Love!</p>
+<p><strong>Stephanie Hicks</strong> (20:32:22): &gt; <span class="citation" data-cites="Sowmya">@Sowmya</span> Parthibanmaybe as a next step, you can drop links here to existing benchmark data that might be useful for us to consider?</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2024-05-16</h2>
+<p><strong>Michael Love</strong> (07:42:43): &gt; oh and we should also do audience analysis (which depends on who we each think are the audience!) &gt; &gt; i’m imagining the audience is someone with a set of samples, maybe in multiple groups, maybe across multiple cell types, and they want to compare groups of samples, maybe stratified by cell type or tissue. i’m assuming there is moderate replication, e.g.&nbsp;3-5 biological replicates per group. they want to do gene level and isoform level analysis, starting with QC and EDA and then testing for differences &gt; &gt; again this is what i have in mind, but others may have different or additional ideas</p>
+<p><strong>Sowmya Parthiban</strong> (12:53:37): &gt; Sure@Stephanie Hicks, I think the main section in this paper gives a good overview of all the benchmarking datasets out there at present.<a href="https://www.nature.com/articles/s41592-023-02026-3">https://www.nature.com/articles/s41592-023-02026-3</a>I’ll create a set of corresponding links</p>
+<p><strong>Sowmya Parthiban</strong> (12:54:49) (in thread): &gt; were you imagining bulk or single-cell@Michael Love?</p>
+<p><strong>Stephanie Hicks</strong> (12:57:35): &gt; thank you@Sowmya Parthiban!</p>
+<p><strong>Stephanie Hicks</strong> (12:58:37): &gt; also, I was wondering what folks thought about creating a new github org for this collaboration? My thinking here is that it’s helpful to have a new space that is collaborative for all. I know Mike you’ve done this in the past for other projects that had mulitple groups of people (e.g.<a href="https://github.com/nullranges">https://github.com/nullranges</a>), right?</p>
+<p><strong>Michael Love</strong> (13:19:22): &gt; yes, I like this way to go, to solve the software landing page issue for multi-lab work</p>
+<p><strong>Michael Love</strong> (13:20:54): &gt; so it could be <our group="" name="">.github.io/<project name="">and then probably we want a short catchy thing for <our group="" name=""> as its the root of the url &gt; &gt; <project name=""> could be something involving words like “intro” or “explore” or “exploration” or “guide”?</project></our></project></our></p>
+<p><strong>Michael Love</strong> (13:22:04) (in thread): &gt; I think there will be plenty of both, that could be a fork in the workflow perhaps?</p>
+<p><strong>Michael Love</strong> (13:22:31) (in thread): &gt; some people will just have bulk and go one way, whereas plenty of people will want to do the per cell type analyses you were describing yesterday</p>
+<p><strong>Michael Love</strong> (13:23:08) (in thread): &gt; maybe there is some shared content, e.g.&nbsp;QC and basic EDA, and then a branch point, like indicated with different sections on the left sidebar?</p>
+<p><strong>Michael Love</strong> (13:23:51) (in thread): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F073D4F0Z3R/screenshot_2024-05-16_at_1.23.41___pm.png">Screenshot 2024-05-16 at 1.23.41 PM.png</a></p>
+<p><strong>Michael Love</strong> (13:31:08): &gt; group name ideas, please suggest your own! &gt; * <code>lorem</code>= LOng REad Methods &gt; * <code>lrr</code>= long reads in R &gt; * <code>lrb</code>= long reads in Bioconductor &gt; * <code>iir</code>= isoforms in R &gt; * <code>isir</code>= isoform sequencing in R &gt; * <code>tasir</code>= TrAnscript sequencing in R &gt; * <code>tapir</code>= transcript analysis pipeline in R</p>
+<p><strong>Michael Love</strong> (13:35:04): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F073W7F4RMJ/image.png">image.png</a></p>
+<p><strong>Sowmya Parthiban</strong> (13:54:17) (in thread): &gt; yeah sounds good! I think there will be branches at multiple steps - for e.g.&nbsp;in QC, barcode extraction and correction is single-cell specific</p>
+<p><strong>Sowmya Parthiban</strong> (13:55:44) (in thread): &gt; and I’m imagining isoform quantification too - a lot of tools haven’t been tested on single cell data</p>
+<p><strong>Sowmya Parthiban</strong> (13:58:58): &gt; do we want to our focus to be on R-based software? or command line tools too?</p>
+<p><strong>Michael Love</strong> (14:06:39): &gt; i’m open to either. in rnaseqGene and rnaseqDTU (published workflows), we start with command line but then get into R pretty quickly, as the “cake” for those was multi-sample EDA and analysis</p>
+<p><strong>Michael Love</strong> (14:07:29): &gt; e.g.&nbsp;4.2 is where we load data into R in rnaseqDTU (which is a workflow for bulk rna-seq differential txp usage) - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F0746JVPZ2M/screenshot_2024-05-16_at_2.07.03___pm.png">Screenshot 2024-05-16 at 2.07.03 PM.png</a></p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2024-05-17</h2>
+<p><strong>Sowmya Parthiban</strong> (14:50:54): &gt; <a href="https://docs.google.com/spreadsheets/d/15fWT5EpDs27jF4PbKkPnQW-Uc-a7nKjHlohKUI1MAbw/edit?usp=sharing">Here’s a spreadsheet of all the</a>available datasets afaik. Let me know if you’d like me to add anything to the spreadsheet</p>
+<p><strong>Sowmya Parthiban</strong> (14:52:02): &gt; None of them are single-cell though, so I’ll look for that too</p>
+<p><strong>Stephanie Hicks</strong> (23:02:16): &gt; I like the idea of both command line and R/Bioc</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2024-05-22</h2>
+<p><strong>Michael Love</strong> (12:29:23): &gt; any preference/opinion on name of the GH organization?</p>
+<p><strong>Michael Love</strong> (12:43:18): &gt; ugh every time i go looking for reads on SRA or ENA i’m so sad about the state of metadata… project description “ONT reads”:white_frowning_face:</p>
+<p><strong>Michael Love</strong> (15:05:43): &gt; Another org name idea, transcript analysis in R:<code>TXPR</code></p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2024-05-23</h2>
+<p><strong>Sowmya Parthiban</strong> (12:28:49): &gt; <span class="citation" data-cites="Michael">@Michael</span> Lovethank you for coming up with the names!<code>tapir</code>is a thumbs up for@Stephanie Hicksand I haha. We like that it has the work “transcript” in it suggesting RNA-seq analysis as opposed to DNA. - File (JPEG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F0757PJCFFB/img_2315.jpeg">IMG_2315.jpeg</a></p>
+<p><strong>Sowmya Parthiban</strong> (12:29:54) (in thread): &gt; was there a specific dataset that you were having issues with?</p>
+<p><strong>Michael Love</strong> (15:20:35): &gt; I was trying to search for new ONT datasets with biological motivation (eg not designed for benchmarking but for biological Q) &gt; &gt; It’s very hard to search for these data :(</p>
+<p><strong>Michael Love</strong> (15:20:52) (in thread): &gt; <span class="citation" data-cites="Justin">@Justin</span> Landisworks for you?</p>
+<p><strong>Stephanie Hicks</strong> (21:20:20): &gt; Hi there! i sincerely apologize for my delayed response. Yes, echoing@Sowmya ParthibanI love<code>tapir</code>.:smile:</p>
+<p><strong>Stephanie Hicks</strong> (21:20:34): &gt; In terms of ONT datasets, we are happy to help with the searching too</p>
+<p><strong>Sowmya Parthiban</strong> (22:49:55): &gt; I will look if there are datasets related to the long read workshop talks!</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2024-05-24</h2>
+<p><strong>Michael Love</strong> (21:45:48): &gt; oh bummer it’s taken<a href="https://github.com/tapir">https://github.com/tapir</a></p>
+<p><strong>Michael Love</strong> (21:49:51): &gt; <a href="https://github.com/">https://github.com/</a>****<code>txomics</code>****is free</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2024-05-26</h2>
+<p><strong>Michael Love</strong> (09:11:48): &gt; Bookmarking<a href="https://www.biorxiv.org/content/10.1101/2024.05.24.595768v1">https://www.biorxiv.org/content/10.1101/2024.05.24.595768v1</a> - Attachment (bioRxiv): <a href="https://www.biorxiv.org/content/10.1101/2024.05.24.595768v1">An atlas of expressed transcripts in the prenatal and postnatal human cortex</a> &gt; Alternative splicing is a post-transcriptional mechanism that increases the diversity of expressed transcripts and plays an important role in regulating gene expression in the developing central nervous system. We used long-read transcriptome sequencing to characterise the structure and abundance of full-length transcripts in the human cortex from donors aged 6 weeks post-conception to 83 years old. We identified thousands of novel transcripts, with dramatic differences in the diversity of expressed transcripts between prenatal and postnatal cortex. A large proportion of these previously uncharacterised transcripts have high coding potential, with corresponding peptides detected in proteomic data. Novel putative coding sequences are highly conserved and overlap de novo mutations in genes linked with neurodevelopmental disorders in individuals with relevant clinical phenotypes. Our findings underscore the potential of novel coding sequences to harbor clinically relevant variants, offering new insights into the genetic architecture of human disease. Our cortical transcript annotations are available as a resource to the research community via an online database. &gt; &gt; ### Competing Interest Statement &gt; &gt; The authors have declared no competing interest.</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2024-05-29</h2>
+<p><strong>Sowmya Parthiban</strong> (10:40:09): &gt; this was published a few days ago<a href="https://link.springer.com/article/10.1007/s00439-024-02678-x">https://link.springer.com/article/10.1007/s00439-024-02678-x</a> - Attachment (SpringerLink): <a href="https://link.springer.com/article/10.1007/s00439-024-02678-x">Advances in long-read single-cell transcriptomics</a> &gt; Human Genetics - Long-read single-cell transcriptomics (scRNA-Seq) is revolutionizing the way we profile heterogeneity in disease. Traditional short-read scRNA-Seq methods are limited in their…</p>
+<p><strong>Michael Love</strong> (10:48:31): &gt; i might create the org<code>txomics</code>today for us to use collectively and make a repo<code>tapir</code>that we can start working on</p>
+<p><strong>Michael Love</strong> (10:48:39): &gt; we can change either later</p>
+<p><strong>Sowmya Parthiban</strong> (11:12:30): &gt; that works! thank you!</p>
+<p><strong>Stephanie Hicks</strong> (20:04:14): &gt; i like that, thank you@Michael Love@Sowmya Parthiban!</p>
+<p><strong>Stephanie Hicks</strong> (20:07:35): &gt; and just in case anyone here needs a boost of confidence in why what they are doing is important, the nytimes has delivered:joy:<a href="https://www.nytimes.com/2024/05/29/opinion/dna-rna-modern-science.html">https://www.nytimes.com/2024/05/29/opinion/dna-rna-modern-science.html</a> - Attachment (The New York Times): <a href="https://www.nytimes.com/2024/05/29/opinion/dna-rna-modern-science.html">Opinion | The Long-Overlooked Molecule That Will Define a Generation of Science</a> &gt; These tiny biological powerhouses can help us cure deadly diseases, and tell us how life itself started.</p>
+<p><strong>Michael Love</strong> (20:17:12): &gt; nice</p>
+<p><strong>Michael Love</strong> (20:22:41): &gt; I just got this going<a href="https://github.com/txomics/tapir">https://github.com/txomics/tapir</a>for me, having a playground really gets the juices flowing, so have at it! i like that we can work asynchronously to some degree and figure out where things flow as we go. i think having one or more common datasets will really help &gt; &gt; i’d like to suggest we use google drive or dropbox to share datasets for now, just to make that part painless. we can each have them locally and use gitignore to avoid adding them to the repo. thoughts?</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2024-05-30</h2>
+<p><strong>Stephanie Hicks</strong> (06:03:59): &gt; yay! that’s great. Thank you@Michael Love</p>
+<p><strong>Stephanie Hicks</strong> (06:17:54): &gt; in terms of datasets, not sure how we feel about this one, but I’ve been reading one of the new PEC papers (<a href="https://www.science.org/doi/10.1126/science.adh7688">https://www.science.org/doi/10.1126/science.adh7688</a>). They took tissue from<strong>N</strong>=3 donors (15-17 PCW) and microdissected the tissue into sub regions and generated bulk Iso-Seq from PacBio (they also generated single-cell Iso-seq). They used TALON for identifying known and novel genes/isoforms along with SQANTI. DGEs between the two subregions (GZ and CP) with N=3 was with<code>DESeq2</code>and DTUs were found with<code>DEXSeq</code>. (Screenshot if Fig 1 as I think it’s somewhat helpful to understanding the design of the experiment) &gt; &gt; Fwiw, it did include a mix of known isoforms – specifically Universal Human Reference RNA (Agilent) + SIRV Isoform Mix E0 (Lexogen) (<a href="https://github.com/PacificBiosciences/DevNet/wiki/Sequel-II-System-Data-Release:-Universal-Human-Reference-(UHR)-Iso-Seq">https://github.com/PacificBiosciences/DevNet/wiki/Sequel-II-System-Data-Release:-Universal-Human-Reference-(UHR)-Iso-Seq</a>) - File (PDF): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F075C4NTNB1/science.adh7688_sm.pdf">science.adh7688_sm.pdf</a> - File (PDF): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F075V5P8Y76/science.adh7688.pdf">science.adh7688.pdf</a> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F075L3Y6BQE/screenshot_2024-05-30_at_6.15.47___am.png">Screenshot 2024-05-30 at 6.15.47 AM.png</a></p>
+<p><strong>Stephanie Hicks</strong> (06:20:50): &gt; i guess the main problem here is the data is under controlled access (<a href="https://assets.nemoarchive.org/dat-rhocguc">https://assets.nemoarchive.org/dat-rhocguc</a>)</p>
+<p><strong>Stephanie Hicks</strong> (06:21:57): &gt; i just think experimental design is clean and would serve our purpose</p>
+<p><strong>Michael Love</strong> (06:25:59): &gt; oh nice. so we can’t get the raw reads but we can get the quantified data?</p>
+<p><strong>Stephanie Hicks</strong> (06:30:01): &gt; i think yes</p>
+<p><strong>Stephanie Hicks</strong> (06:33:11): &gt; or we could request the raw reads and process ourselves to create counts</p>
+<p><strong>Stephanie Hicks</strong> (06:33:53): &gt; the quantified data isn’t super well documented (<a href="https://github.com/gandallab/Dev_Brain_IsoSeq/tree/main/data">https://github.com/gandallab/Dev_Brain_IsoSeq/tree/main/data</a>)</p>
+<p><strong>Stephanie Hicks</strong> (06:34:31): &gt; lol i love the folder titled<code>/working</code>. if only we all had a<code>/working</code>folder:joy:</p>
+<p><strong>Michael Love</strong> (08:31:33): &gt; haha &gt; &gt; well i guess for workflow, we do want some data (def including ONT) that users could process from reads to counts, but we don’t need every dataset to satisfy this. &gt; &gt; so this could be one of the “pre-baked” datasets, where we show the downstream EDA, testing, viz etc</p>
+<p><strong>Michael Love</strong> (12:44:51): &gt; I know Mike Gandal — I can ask him if they have count data for that paper</p>
+<p><strong>Michael Love</strong> (15:32:53): &gt; counts<embed src="https://txomics.github.io/tapir/eda.html" class="img-fluid"></p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2024-05-31</h2>
+<p><strong>Stephanie Hicks</strong> (09:48:05): &gt; oh thank you!!</p>
+<p><strong>Stephanie Hicks</strong> (09:54:05): &gt; ok so I see the<code>_CP</code>and<code>_VZ</code>columns (referring to the two different brain regions. And I believe the numbers<code>209</code>,<code>334</code>, and<code>336</code>referring to the three donors. Does anyone know what the<code>1</code>,<code>2</code>,<code>3</code>,<code>4</code>refer to in the middle?</p>
+<p><strong>Michael Love</strong> (10:02:50): &gt; batch</p>
+<p><strong>Michael Love</strong> (10:02:59): &gt; This explains a lot:<a href="https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure1_BulkTxomeAnalysis.html">https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure1_BulkTxomeAnalysis.html</a></p>
+<p><strong>Michael Love</strong> (10:04:21): &gt; this notebook is great, super readable. &gt; &gt; it even uses GRanges (but they didn’t know about plyranges)</p>
+<p><strong>Stephanie Hicks</strong> (10:05:48): &gt; oh wow! this amazing</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2024-06-01</h2>
+<p><strong>Stephanie Hicks</strong> (08:01:57): &gt; hey, i tried to make a push to<code>tapir</code>this morning, but i don’t think i have push access.@Michael Lovecan you help?:slightly_smiling_face:</p>
+<p><strong>Stephanie Hicks</strong> (08:02:52): &gt; also, any objections to using github actions to render the book on the web rather than rendering to<code>/docs</code>? I’m happy to set that up</p>
+<p><strong>Michael Love</strong> (08:06:14) (in thread): &gt; fixed for txomics.</p>
+<p><strong>Michael Love</strong> (08:06:26) (in thread): &gt; the base level was defaulted to read, but i changed to write</p>
+<p><strong>Michael Love</strong> (08:06:39) (in thread): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F076GTC1L0H/screenshot_from_2024-06-01_08-05-35.png">Screenshot from 2024-06-01 08-05-35.png</a></p>
+<p><strong>Michael Love</strong> (08:10:33): &gt; i’m good with GHA instead of people rendering individual chapters locally. if we keep the chapters not too compute heavy, you can see changes reflected relatively quickly &gt; &gt; in my mind: &gt; * local render and<code>/docs</code>= fast updates to website but puts rendering on the developers &gt; * GHA = slower updates but you don’t have to render HTML locally, so you can make quick fixes straight to source without having to worry about rendering</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2024-06-10</h2>
+<p><strong>Justin Landis</strong> (13:15:50): &gt; <span class="citation" data-cites="Justin">@Justin</span> Landis has joined the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2024-06-27</h2>
+<p><strong>Sowmya Parthiban</strong> (11:49:15): &gt; Apologies for the delay in getting started on this. I’ve gone through<code>tapir</code>and the code associated with the dev_brain paper. &gt; &gt; For the<code>eda</code>section of tapir, I’m thinking these are some things I can focus on: &gt; 1. Filtering &gt; &gt; 1. convert to<code>tpm</code>and figure out a threshold that an isoform is above in atleast on e of the samples. &gt; 2. for PCA, we’d have to remove rows that show zero variance across samples. &gt; &gt; 1. Visualizing per gene &gt; &gt; 1. could make switch plots for multiexon transcripts per gene. Could viz based on transcript biotype and SQANTI category. (ggtranscripts is a useful package for the same) &gt; &gt; 1. Across multiple genes &gt; &gt; 1. DTU volcano plots, DGE volcano plots, isoform switch vs.&nbsp;DGE volcano plots &gt; 2. isoform expression heatmaps &gt; These are some ideas I had, please let me know if you have any suggestions@Michael Loveand@Justin Landis</p>
+<p><strong>Stephanie Hicks</strong> (20:29:48): &gt; Thank you@Sowmya Parthiban! That sounds good to me. I vote we start small with solid tangible steps (and those sound tangible) and build out from there. I agree tho on welcoming ideas/feedback from@Justin Landis@Michael Love:slightly_smiling_face:</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2024-06-28</h2>
+<p><strong>Michael Love</strong> (03:12:13): &gt; sounds great to me</p>
+<p><strong>Michael Love</strong> (03:19:34): &gt; i’m interested in comparing DEXSeq with limma/edgeR diffSplice, satuRn, saseR* mostly from a qualitative point of view &gt; &gt; *<a href="https://www.biorxiv.org/content/10.1101/2023.06.29.547014v1">https://www.biorxiv.org/content/10.1101/2023.06.29.547014v1</a></p>
+<p><strong>Michael Love</strong> (03:19:49): &gt; i may poke around with that next week</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2024-06-29</h2>
+<p><strong>Michael Love</strong> (14:36:54): &gt; I started some code to do filtering and testing, in<code>testing.qmd</code>. Includes building the colData from the colnames if that’s useful elsewhere</p>
+<p><strong>Michael Love</strong> (14:37:41): &gt; Just simple stuff from the DTU workflow, I think we could have a whole chapter exploring filtering choices</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2024-06-30</h2>
+<p><strong>Michael Love</strong> (05:02:27): - File (Binary): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F07ADH6QQBD/dxd.rda">dxd.rda</a></p>
+<p><strong>Michael Love</strong> (05:03:32): &gt; DEXSeq takes 70 seconds on the whole (filtered) dataset, maybe we can go with a faster tool like satuRn, saseR or limma. I like it when rendering the whole thing doesn’t take so long</p>
+<p><strong>Michael Love</strong> (05:03:55): &gt; but im interested in qualitatively comparing all these diff usage tools on long read datasets</p>
+<p><strong>Sowmya Parthiban</strong> (13:22:50): &gt; thanks Michael! I’m working on applying IsoformSwitchAnalyzer to the data which can use DEXSeq or satuRn under the hood. I also noticed that in the original code, they summed all the<a href="https://github.com/gandallab/Dev_Brain_IsoSeq/blob/934d23cf3ecd0a412359d02578a668a3d439ba2f/analysis/Figure1_BulkTxomeAnalysis.qmd#L72-L77">technical replicates into one column</a>. &gt; Do you have a preference?</p>
+<p><strong>Michael Love</strong> (14:58:23): &gt; That’s a good catch… we should do that too. I can fix my code tomorrow AM</p>
+<p><strong>Michael Love</strong> (14:58:36): &gt; I’ll try satuRn sometime this week</p>
+<p><strong>Michael Love</strong> (14:58:57): &gt; DEXSeq is good but I prefer faster</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2024-07-03</h2>
+<p><strong>Sowmya Parthiban</strong> (16:41:06): &gt; In this section, they are trying to keep only genes that show DTU/DTE or DGE, but what’s unclear to me is why their filtering criteria for<code>DTU is dIF &gt; 0.1</code>and not<code>abs(dIF) &gt; 0.1</code><a href="https://github.com/gandallab/Dev_Brain_IsoSeq/blob/934d23cf3ecd0a412359d02578a668a3d439ba2f/analysis/Figure3_IsoformSwitchAnalyzeR.qmd#L248-L253">https://github.com/gandallab/Dev_Brain_IsoSeq/blob/934d23cf3ecd0a412359d02578a668a3d439ba2f/analysis/Figure3_IsoformSwitchAnalyzeR.qmd#L248-L253</a></p>
+<p><strong>Sowmya Parthiban</strong> (17:37:08): &gt; It looks like this may be a typo since the rest of the code uses<code>abs(dIF)</code></p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2024-07-08</h2>
+<p><strong>Michael Love</strong> (10:06:48): &gt; Catching up this week (was out last week) &gt; &gt; I’m officially back in office 7/15 and want to devote lots of time to EDA. I’ve been thinking of looking at a paired Illumina and ONT sample, maybe the Singapore data in Bioc &gt; &gt; Also – I helped some students from CSAMA process the new GTEx data – it’s another good one for EDA, I’ll work on including it here as an SE</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2024-07-09</h2>
+<p><strong>Michael Love</strong> (03:09:02) (in thread): &gt; agree!</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2024-07-12</h2>
+<p><strong>Michael Love</strong> (04:43:09): &gt; The GTEx data set:<a href="https://www.nature.com/articles/s41586-022-05035-y">https://www.nature.com/articles/s41586-022-05035-y</a> - Attachment (Nature): <a href="https://www.nature.com/articles/s41586-022-05035-y">Transcriptome variation in human tissues revealed by long-read sequencing</a> &gt; Nature - To understand the contribution of variants to transcript expression regulation, long-read transcriptome data are generated from the GTEx resource, and a new software package to perform…</p>
+<p><strong>Michael Love</strong> (04:47:15): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F07BZ0RFSDC/screenshot_2024-07-12_at_04.47.10.png">Screenshot 2024-07-12 at 04.47.10.png</a></p>
+<p><strong>Michael Love</strong> (04:48:11): &gt; <a href="https://gtexportal.org/home/downloads/adult-gtex/long_read_data">https://gtexportal.org/home/downloads/adult-gtex/long_read_data</a> - Attachment (gtexportal.org): <a href="https://gtexportal.org/home/downloads/adult-gtex/long_read_data">GTEx Portal</a> &gt; The Genotype-Tissue Expression (GTEx) project is an ongoing effort to build a comprehensive public resource to study tissue-specific gene expression and regulation. Samples were collected from 53 non-diseased tissue sites across nearly 1000 individuals, primarily for molecular assays including WGS, WES and RNA-seq. Remaining samples are stored in the GTEx Biobank. The GTEx Portal provides open access to data including gene expression, QTLs, and histology images.</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2024-07-17</h2>
+<p><strong>Michael Love</strong> (12:00:14): &gt; Made a GDrive for us to store raw data for now<a href="https://drive.google.com/drive/folders/19-4-U7I2I1YtK7G2jdryrkm25GWnz8ml?usp=sharing">https://drive.google.com/drive/folders/19-4-U7I2I1YtK7G2jdryrkm25GWnz8ml?usp=sharing</a></p>
+<p><strong>Michael Love</strong> (12:00:25): &gt; If you have emails, I can give you edit access</p>
+<p><strong>Michael Love</strong> (12:01:05): &gt; I plan to write<code>qmd</code>files that turn these datasets into nicely formatted SummarizedExperiments so we can use them in tutorials</p>
+<p><strong>Michael Love</strong> (12:02:41): &gt; I may rework<code>testing.qmd</code>into a script that just processes the raw table and makes an SE, and then do the same for SG-NEx and the GTEx dataset. would it make sense to call these<code>process-dev-brain.qmd</code>,<code>process-sg-nex.qmd</code>,<code>process-gtex-kd.qmd</code>etc. &gt; &gt; then i can store a reduced size SE as a serialized<code>.rds</code>somewhere, eventually those could go to EHub</p>
+<p><strong>Michael Love</strong> (12:03:16): &gt; and for now I’m just going to work with the count tables provided with the papers, we can think later if we want to also demo read processing on some or all of these</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2024-08-07</h2>
+<p><strong>Stephanie Hicks</strong> (17:36:33): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F07FZN3S4GJ/img_2531.png">IMG_2531</a></p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2024-08-08</h2>
+<p><strong>Michael Love</strong> (17:30:10): &gt; hi all, so Matt is also interested in working on a LR workflow, he seemed amenable to joining forces. We talked about how we also want to avoid the headaches with “one big book” but are both excited about having a small group to share with, having some overlapping datasets, and having each other as “first readers” of our content</p>
+<p><strong>Michael Love</strong> (17:30:31): &gt; Matt brings loads of expertise and experience, plus also a broad audience of LR users</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2024-08-09</h2>
+<p><strong>Stephanie Hicks</strong> (12:25:14): &gt; That would be awesome!</p>
+<p><strong>Michael Love</strong> (12:27:58): &gt; so i can just add him here then?</p>
+<p><strong>Stephanie Hicks</strong> (13:41:06): &gt; that works for me</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2024-08-15</h2>
+<p><strong>Michael Love</strong> (10:50:40): &gt; <span class="citation" data-cites="Matt">@Matt</span> Ritchie:wave:hi Matt, it was great to see you in JSM. We’ve been chatting in this group about making a series of chapters that would explore long read using Bioconductor. I think our unifying interest is in showing and explaining the choices in processing, modeling, analysis, QC etc. Should we join forces?:handshake:</p>
+<p><strong>Matt Ritchie</strong> (10:50:43): &gt; <span class="citation" data-cites="Matt">@Matt</span> Ritchie has joined the channel</p>
+<p><strong>Stephanie Hicks</strong> (20:24:58): &gt; Welcome@Matt Ritchie! Great to have you here!</p>
+<p><strong>Matt Ritchie</strong> (21:00:09): &gt; Thanks@Michael Loveand@Stephanie Hicks! I think a book promoting the analysis of third-generation sequencing data with Bioconductor would be great resource. Our first contribution here focuses on<a href="https://shians.github.io/differential_methylation_workshop/articles/workflow.html">DNA-seq methylation analysis</a>. Shian recently presented this at BioC 2024 and we are formatting an article for F1000Research at present, but definitely could modify the material /use slightly different data for a book chapter</p>
+<p><strong>Matt Ritchie</strong> (22:29:48): &gt; A second workflow (an idea, not started yet) was to take the learnings from our<a href="https://t.co/MtvyswZkHD">bulk RNA-seq benchmarking</a>work and devise a long-read<code>RNAseq123</code>style<a href="https://f1000research.com/articles/5-1408/v3">workflow</a>for transcript-level DE analysis. There are a few nice multi-group datasets with replicates that could lend themselves to such a workflow. If any of this is useful, let me know - Attachment (f1000research.com): <a href="https://f1000research.com/articles/5-1408/v3">F1000Research Article: RNA-seq analysis is easy as 1-2-3 with limma, Glimma and edgeR.</a> &gt; Read the latest article version by Charity W. Law, Monther Alhamdoosh, Shian Su, Xueyi Dong, Luyi Tian, Gordon K. Smyth, Matthew E. Ritchie, at F1000Research.</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2024-08-16</h2>
+<p><strong>Michael Love</strong> (07:31:41): &gt; oh yeah i didn’t mention, we’ve kind of been focused on transcripts (RNA and cDNA seq). so i think the latter would be a great space for collaboration</p>
+<p><strong>Michael Love</strong> (07:35:13): &gt; i’ve got a few datasets i’ve been collecting, let me spend a few days to get things up on our shared space and then you can suggest any others. maybe find a time to meet end of the month? also if there are others from your side, happy to have this as an open channel / project. &gt; &gt; Stephanie and I created this open organization (in the spirit of tidyomics) so we could collaborate on chapters without it being assigned to someone’s lab github account:<a href="https://github.com/txomics">https://github.com/txomics</a><a href="https://txomics.github.io/tapir/">https://txomics.github.io/tapir/</a>&lt;– we had this as a starting point for transcript analysis chapters, just a place to put things for now while we figure out scope and content</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2024-10-07</h2>
+<p><strong>Michael Love</strong> (16:05:42): &gt; chatting with@Pedro Baldoniabout long read datasets as well…</p>
+<p><strong>Sowmya Parthiban</strong> (21:02:08): &gt; the latest OARFISH version has data provided in the supplementary section<a href="https://github.com/COMBINE-lab/lr_quant_benchmarks">https://github.com/COMBINE-lab/lr_quant_benchmarks</a></p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2024-10-08</h2>
+<p><strong>Pedro Baldoni</strong> (08:03:13): &gt; <span class="citation" data-cites="Pedro">@Pedro</span> Baldoni has joined the channel</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2024-10-18</h2>
+<p><strong>Matt Ritchie</strong> (03:22:30): &gt; As mentioned earlier, here is our long-read nanopore methylation analysis workflow (Shian Su presented this at BioC 2024 in Grand Rapids) online at F1000Research<a href="https://f1000research.com/articles/13-1243/v1">https://f1000research.com/articles/13-1243/v1</a>To tie in with the RNA-seq flavor of your book, perhaps we could consider adapting to look at RNA mods from direct RNA-seq data - Attachment (f1000research.com): <a href="https://f1000research.com/articles/13-1243/v1">F1000Research Article: A streamlined workflow for long-read DNA methylation analysis with NanoMethViz and Bioconductor.</a> &gt; Read the latest article version by Shian Su, Lucinda Xiao, James Lancaster, Tamara Cameron, Kelsey Breslin, Peter F. Hickey, Marnie E. Blewitt, Quentin Gouil, Matthew E. Ritchie, at F1000Research.</p>
+<p><strong>Michael Love</strong> (09:33:50): &gt; Absolutely &gt; &gt; Can’t leave that information on the table!</p>
+<p><strong>Michael Love</strong> (09:34:33): &gt; Sorry I’ve been out of loop for a few months. Justin and I have been focused on a tidyomics package he wrote this summer and trying to get it into this release. I plan to jump back in soon &gt; &gt; Btw anyone going to ASHG?</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2024-10-21</h2>
+<p><strong>Stephanie Hicks</strong> (15:56:40): &gt; i am not, but i know many folks are!:slightly_smiling_face:</p>
+<p><strong>Christine Hou</strong> (15:57:14): &gt; <span class="citation" data-cites="Christine">@Christine</span> Hou has joined the channel</p>
+<p><strong>Stephanie Hicks</strong> (16:00:05): &gt; Hi folks, I apologize for also being out of the loop for the last few months. I’ve had revisions to papers and prepping for teaching that has kept me busy:upside_down_face:. BUT, i’m really excited to@Christine Houhere who is a ScM student in my group who will start working on long-read RNA stuff. &gt; &gt; I think it would be great if she could contribute here by converting some of the vignettes from the gandall paper (<a href="https://gandallab.github.io/Dev_Brain_IsoSeq">https://gandallab.github.io/Dev_Brain_IsoSeq</a>) to the<code>tapir</code>book as a way to get started working with this data.</p>
+<p><strong>Stephanie Hicks</strong> (16:00:48): &gt; I know@Michael Loveyou kindly put a bunch of datasets on Gdrive too (<a href="https://community-bioc.slack.com/archives/C06TMB1HWMD/p1721232014574469">https://community-bioc.slack.com/archives/C06TMB1HWMD/p1721232014574469</a>). - Attachment: <a href="https://community-bioc.slack.com/archives/C06TMB1HWMD/p1721232014574469">Attachment</a> &gt; Made a GDrive for us to store raw data for now &gt; <a href="https://drive.google.com/drive/folders/19-4-U7I2I1YtK7G2jdryrkm25GWnz8ml?usp=sharing">https://drive.google.com/drive/folders/19-4-U7I2I1YtK7G2jdryrkm25GWnz8ml?usp=sharing</a></p>
+<p><strong>Stephanie Hicks</strong> (16:01:07): &gt; we’ll start digging into all this, but wanted to introduce her here! Welcome@Christine Hou!</p>
+<p><strong>Michael Love</strong> (17:25:18): &gt; Welcome!</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2024-11-06</h2>
+<p><strong>Michael Love</strong> (10:45:18) (in thread): &gt; i was thinking to start an EHub package that would wrap up a bunch of long read RNA-Seq SummarizedExperiments, constructed from the processed data from these papers. i’ve done this before, so it’s maybe easiest for me to take it on.</p>
+<p><strong>Stephanie Hicks</strong> (10:54:29): &gt; totally, I will say@Christine Houjust did an amazing job wrapping up some single-cell and spatial transcriptomics data into an EHub package (currently under review<a href="https://github.com/Bioconductor/Contributions/issues/3605">https://github.com/Bioconductor/Contributions/issues/3605</a>). I’m sure she would be excited to help do the same with a bit of guidance as she is still learning the long-read side of things (<a href="https://christinehou11.github.io/humanHippocampus2024/articles/humanHippocampus2024.html">https://christinehou11.github.io/humanHippocampus2024/articles/humanHippocampus2024.html</a>)</p>
+<p><strong>Stephanie Hicks</strong> (10:56:57): &gt; Maybe@Christine Houcan give a short update on what she’s been up to with respect to the reading and re-running code from (<a href="https://gandallab.github.io/Dev_Brain_IsoSeq">https://gandallab.github.io/Dev_Brain_IsoSeq</a>)?</p>
+<p><strong>Christine Hou</strong> (11:06:30): &gt; Of course! I was busy with working on the presentation and some error check for another package since last Friday, so I may pause a little bit about reading long read studies. But before that, I finished reading and reviewing the paper, and started to run the codes for figure 1 and 2 sections. I am planning to start figure 3 and more since tomorrow after I finish my personal website development.:slightly_smiling_face:</p>
+<p><strong>Christine Hou</strong> (11:08:04): &gt; I know it is a little bit slow reading, and thanks for the patience and understanding@Stephanie Hicks. The materials are somewhat challenging but exciting to me so I may take more time to re-run something and know things as much as I can.</p>
+<p><strong>Christine Hou</strong> (11:10:37): &gt; Regarding to the EHub package, I am so happy to help! If there is anything I can do, please let me know:slightly_smiling_face:</p>
+<p><strong>Michael Love</strong> (11:19:59): &gt; for the EHub is everyone ok with me using the preprocessed quantification data for now? we can go back and re-quantify some day but it’s maybe better to just start with the count and TPM data from the authors of the respective papers</p>
+<p><strong>Stephanie Hicks</strong> (11:41:43): &gt; yes that works fo rme</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2024-11-21</h2>
+<p><strong>Sowmya Parthiban</strong> (12:57:46): &gt; hi@Michael LoveI saw that you are one of the corresponding authors on the<a href="https://www.biorxiv.org/content/10.1101/2021.04.21.440736v1">SG-Nex project</a>, also given you have worked with spike-in data such as on Alpine, I was wondering if you could help interpret the spike-in ratio in some of these<a href="https://github.com/GoekeLab/sg-nex-data/blob/340ed4b79b867a1bedcbe18a9b76691e9a27f212/docs/samples.tsv#L88">samples</a>on the SG-Nex repo. So for example, this sample<code>SGNex_MCF7_directcDNA_replicate4_run2</code>has<code>1% RNA sequin Mix A v1.0 @3ng</code>spike-in ratio. &gt; &gt; My interpretation so far is that 3ng of RNA sequin mix is equal to 1% of the final sample library in terms of weight. I am confused as to how that is associated with the number of sequin reads expected in the FASTQ/ BAM files. &gt; &gt; I did find this<a href="https://github.com/GoekeLab/sg-nex-data/blob/master/docs/RNAsequins_MixA.xlsx">file with the known sequin concentration</a>, but the units are missing, so it’s hard to interpret how that is related to the read count found in the FASTQ file. I have posted an issue on the github repo as well, but unclear when I’ll get a response. Let me know if you need more information. Thank you!</p>
+<p><strong>Michael Love</strong> (13:07:08): &gt; i think spike ins were used for these types of evaluations: - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F082AKS3JJV/screenshot_2024-11-21_at_1.06.56___pm.png">Screenshot 2024-11-21 at 1.06.56 PM.png</a></p>
+<p><strong>Michael Love</strong> (13:07:21): &gt; where all the points are sequin spike-ins</p>
+<p><strong>Michael Love</strong> (13:10:30): &gt; i think there are 100-200 of them</p>
+<p><strong>Michael Love</strong> (13:13:51): &gt; something like this from the spreadsheet: - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F081Y0MPB7U/screenshot_2024-11-21_at_1.13.38___pm.png">Screenshot 2024-11-21 at 1.13.38 PM.png</a></p>
+<p><strong>Michael Love</strong> (13:16:05): &gt; the range is roughly 5 orders of magnitude in the spreadsheet, the plot from the paper has 0 to 10 on the log2 scale, so roughly the same?</p>
+<p><strong>Sowmya Parthiban</strong> (17:19:38): &gt; Thank you for your quick response! I’ll reach out to Chen Ying to see if the expected CPM values for the other spike-ins and plotting code is publicly available.</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2024-12-04</h2>
+<p><strong>Stephanie Hicks</strong> (11:47:58): &gt; long-read special issue in Genome Research just dropped<a href="https://genome.cshlp.org/content/current">https://genome.cshlp.org/content/current</a> - Attachment (genome.cshlp.org): <a href="https://genome.cshlp.org/content/current">Table of Contents — November 2024, 34 (11)</a> &gt; An international, peer-reviewed genome sciences journal featuring outstanding original research that offers novel insights into the biology of all organisms</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

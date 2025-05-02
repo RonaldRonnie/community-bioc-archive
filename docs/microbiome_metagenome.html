@@ -1,0 +1,2221 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#microbiome_metagenome – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2017-05-15</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2017-06-09</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2017-06-12</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2017-07-24</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2017-08-10</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2017-08-16</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2017-10-27</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2017-10-30</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2017-11-28</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2017-11-29</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2017-12-08</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2018-02-15</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2018-05-10</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2018-06-20</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2018-06-21</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2018-07-27</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2018-08-10</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2018-08-15</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2018-08-22</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2018-08-29</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2018-09-01</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2018-09-10</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2018-09-24</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2018-09-28</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2019-01-17</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2019-02-13</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2019-03-22</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2019-06-11</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2019-06-21</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2019-07-17</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2019-08-02</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2019-08-03</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2019-09-07</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2019-10-07</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2019-10-10</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2019-11-19</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2019-11-20</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2019-12-03</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2019-12-09</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2019-12-10</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2019-12-17</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2019-12-19</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2019-12-20</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2020-01-03</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2020-01-04</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2020-02-04</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2020-02-14</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2020-02-20</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2020-02-21</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2020-03-08</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2020-06-06</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2020-06-22</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2020-06-24</a></li>
+  <li><a href="#section-53" id="toc-section-53" class="nav-link" data-scroll-target="#section-53">2020-07-24</a></li>
+  <li><a href="#section-54" id="toc-section-54" class="nav-link" data-scroll-target="#section-54">2020-07-27</a></li>
+  <li><a href="#section-55" id="toc-section-55" class="nav-link" data-scroll-target="#section-55">2020-08-18</a></li>
+  <li><a href="#section-56" id="toc-section-56" class="nav-link" data-scroll-target="#section-56">2020-08-23</a></li>
+  <li><a href="#section-57" id="toc-section-57" class="nav-link" data-scroll-target="#section-57">2020-09-10</a></li>
+  <li><a href="#section-58" id="toc-section-58" class="nav-link" data-scroll-target="#section-58">2020-10-02</a></li>
+  <li><a href="#section-59" id="toc-section-59" class="nav-link" data-scroll-target="#section-59">2020-10-05</a></li>
+  <li><a href="#section-60" id="toc-section-60" class="nav-link" data-scroll-target="#section-60">2020-11-10</a></li>
+  <li><a href="#section-61" id="toc-section-61" class="nav-link" data-scroll-target="#section-61">2020-12-12</a></li>
+  <li><a href="#section-62" id="toc-section-62" class="nav-link" data-scroll-target="#section-62">2020-12-13</a></li>
+  <li><a href="#section-63" id="toc-section-63" class="nav-link" data-scroll-target="#section-63">2020-12-15</a></li>
+  <li><a href="#section-64" id="toc-section-64" class="nav-link" data-scroll-target="#section-64">2020-12-16</a></li>
+  <li><a href="#section-65" id="toc-section-65" class="nav-link" data-scroll-target="#section-65">2020-12-17</a></li>
+  <li><a href="#section-66" id="toc-section-66" class="nav-link" data-scroll-target="#section-66">2020-12-21</a></li>
+  <li><a href="#section-67" id="toc-section-67" class="nav-link" data-scroll-target="#section-67">2021-01-22</a></li>
+  <li><a href="#section-68" id="toc-section-68" class="nav-link" data-scroll-target="#section-68">2021-01-28</a></li>
+  <li><a href="#section-69" id="toc-section-69" class="nav-link" data-scroll-target="#section-69">2021-02-07</a></li>
+  <li><a href="#section-70" id="toc-section-70" class="nav-link" data-scroll-target="#section-70">2021-02-08</a></li>
+  <li><a href="#section-71" id="toc-section-71" class="nav-link" data-scroll-target="#section-71">2021-02-14</a></li>
+  <li><a href="#section-72" id="toc-section-72" class="nav-link" data-scroll-target="#section-72">2021-02-17</a></li>
+  <li><a href="#section-73" id="toc-section-73" class="nav-link" data-scroll-target="#section-73">2021-02-23</a></li>
+  <li><a href="#section-74" id="toc-section-74" class="nav-link" data-scroll-target="#section-74">2021-02-24</a></li>
+  <li><a href="#section-75" id="toc-section-75" class="nav-link" data-scroll-target="#section-75">2021-02-28</a></li>
+  <li><a href="#section-76" id="toc-section-76" class="nav-link" data-scroll-target="#section-76">2021-03-01</a></li>
+  <li><a href="#section-77" id="toc-section-77" class="nav-link" data-scroll-target="#section-77">2021-03-20</a></li>
+  <li><a href="#section-78" id="toc-section-78" class="nav-link" data-scroll-target="#section-78">2021-03-24</a></li>
+  <li><a href="#section-79" id="toc-section-79" class="nav-link" data-scroll-target="#section-79">2021-03-25</a></li>
+  <li><a href="#section-80" id="toc-section-80" class="nav-link" data-scroll-target="#section-80">2021-03-29</a></li>
+  <li><a href="#section-81" id="toc-section-81" class="nav-link" data-scroll-target="#section-81">2021-04-08</a></li>
+  <li><a href="#section-82" id="toc-section-82" class="nav-link" data-scroll-target="#section-82">2021-05-06</a></li>
+  <li><a href="#section-83" id="toc-section-83" class="nav-link" data-scroll-target="#section-83">2021-05-11</a></li>
+  <li><a href="#section-84" id="toc-section-84" class="nav-link" data-scroll-target="#section-84">2021-05-22</a></li>
+  <li><a href="#section-85" id="toc-section-85" class="nav-link" data-scroll-target="#section-85">2021-05-25</a></li>
+  <li><a href="#section-86" id="toc-section-86" class="nav-link" data-scroll-target="#section-86">2021-05-30</a></li>
+  <li><a href="#section-87" id="toc-section-87" class="nav-link" data-scroll-target="#section-87">2021-07-23</a></li>
+  <li><a href="#section-88" id="toc-section-88" class="nav-link" data-scroll-target="#section-88">2021-08-11</a></li>
+  <li><a href="#section-89" id="toc-section-89" class="nav-link" data-scroll-target="#section-89">2021-09-25</a></li>
+  <li><a href="#section-90" id="toc-section-90" class="nav-link" data-scroll-target="#section-90">2021-10-11</a></li>
+  <li><a href="#section-91" id="toc-section-91" class="nav-link" data-scroll-target="#section-91">2021-10-12</a></li>
+  <li><a href="#section-92" id="toc-section-92" class="nav-link" data-scroll-target="#section-92">2021-10-13</a></li>
+  <li><a href="#section-93" id="toc-section-93" class="nav-link" data-scroll-target="#section-93">2021-10-21</a></li>
+  <li><a href="#section-94" id="toc-section-94" class="nav-link" data-scroll-target="#section-94">2021-10-22</a></li>
+  <li><a href="#section-95" id="toc-section-95" class="nav-link" data-scroll-target="#section-95">2021-10-24</a></li>
+  <li><a href="#section-96" id="toc-section-96" class="nav-link" data-scroll-target="#section-96">2021-10-27</a></li>
+  <li><a href="#section-97" id="toc-section-97" class="nav-link" data-scroll-target="#section-97">2021-11-26</a></li>
+  <li><a href="#section-98" id="toc-section-98" class="nav-link" data-scroll-target="#section-98">2022-01-03</a></li>
+  <li><a href="#section-99" id="toc-section-99" class="nav-link" data-scroll-target="#section-99">2022-01-28</a></li>
+  <li><a href="#section-100" id="toc-section-100" class="nav-link" data-scroll-target="#section-100">2022-02-09</a></li>
+  <li><a href="#section-101" id="toc-section-101" class="nav-link" data-scroll-target="#section-101">2022-02-14</a></li>
+  <li><a href="#section-102" id="toc-section-102" class="nav-link" data-scroll-target="#section-102">2022-02-25</a></li>
+  <li><a href="#section-103" id="toc-section-103" class="nav-link" data-scroll-target="#section-103">2022-03-02</a></li>
+  <li><a href="#section-104" id="toc-section-104" class="nav-link" data-scroll-target="#section-104">2022-03-05</a></li>
+  <li><a href="#section-105" id="toc-section-105" class="nav-link" data-scroll-target="#section-105">2022-04-25</a></li>
+  <li><a href="#section-106" id="toc-section-106" class="nav-link" data-scroll-target="#section-106">2022-05-20</a></li>
+  <li><a href="#section-107" id="toc-section-107" class="nav-link" data-scroll-target="#section-107">2022-07-31</a></li>
+  <li><a href="#section-108" id="toc-section-108" class="nav-link" data-scroll-target="#section-108">2022-08-01</a></li>
+  <li><a href="#section-109" id="toc-section-109" class="nav-link" data-scroll-target="#section-109">2022-08-02</a></li>
+  <li><a href="#section-110" id="toc-section-110" class="nav-link" data-scroll-target="#section-110">2022-09-12</a></li>
+  <li><a href="#section-111" id="toc-section-111" class="nav-link" data-scroll-target="#section-111">2022-09-16</a></li>
+  <li><a href="#section-112" id="toc-section-112" class="nav-link" data-scroll-target="#section-112">2022-09-27</a></li>
+  <li><a href="#section-113" id="toc-section-113" class="nav-link" data-scroll-target="#section-113">2022-11-21</a></li>
+  <li><a href="#section-114" id="toc-section-114" class="nav-link" data-scroll-target="#section-114">2022-12-12</a></li>
+  <li><a href="#section-115" id="toc-section-115" class="nav-link" data-scroll-target="#section-115">2022-12-13</a></li>
+  <li><a href="#section-116" id="toc-section-116" class="nav-link" data-scroll-target="#section-116">2022-12-14</a></li>
+  <li><a href="#section-117" id="toc-section-117" class="nav-link" data-scroll-target="#section-117">2023-01-02</a></li>
+  <li><a href="#section-118" id="toc-section-118" class="nav-link" data-scroll-target="#section-118">2023-01-16</a></li>
+  <li><a href="#section-119" id="toc-section-119" class="nav-link" data-scroll-target="#section-119">2023-01-28</a></li>
+  <li><a href="#section-120" id="toc-section-120" class="nav-link" data-scroll-target="#section-120">2023-01-31</a></li>
+  <li><a href="#section-121" id="toc-section-121" class="nav-link" data-scroll-target="#section-121">2023-02-28</a></li>
+  <li><a href="#section-122" id="toc-section-122" class="nav-link" data-scroll-target="#section-122">2023-03-01</a></li>
+  <li><a href="#section-123" id="toc-section-123" class="nav-link" data-scroll-target="#section-123">2023-03-07</a></li>
+  <li><a href="#section-124" id="toc-section-124" class="nav-link" data-scroll-target="#section-124">2023-04-18</a></li>
+  <li><a href="#section-125" id="toc-section-125" class="nav-link" data-scroll-target="#section-125">2023-04-19</a></li>
+  <li><a href="#section-126" id="toc-section-126" class="nav-link" data-scroll-target="#section-126">2023-04-25</a></li>
+  <li><a href="#section-127" id="toc-section-127" class="nav-link" data-scroll-target="#section-127">2023-06-06</a></li>
+  <li><a href="#section-128" id="toc-section-128" class="nav-link" data-scroll-target="#section-128">2023-06-08</a></li>
+  <li><a href="#section-129" id="toc-section-129" class="nav-link" data-scroll-target="#section-129">2023-06-15</a></li>
+  <li><a href="#section-130" id="toc-section-130" class="nav-link" data-scroll-target="#section-130">2023-06-16</a></li>
+  <li><a href="#section-131" id="toc-section-131" class="nav-link" data-scroll-target="#section-131">2023-07-04</a></li>
+  <li><a href="#section-132" id="toc-section-132" class="nav-link" data-scroll-target="#section-132">2023-07-28</a></li>
+  <li><a href="#section-133" id="toc-section-133" class="nav-link" data-scroll-target="#section-133">2023-08-02</a></li>
+  <li><a href="#section-134" id="toc-section-134" class="nav-link" data-scroll-target="#section-134">2023-08-03</a></li>
+  <li><a href="#section-135" id="toc-section-135" class="nav-link" data-scroll-target="#section-135">2023-08-30</a></li>
+  <li><a href="#section-136" id="toc-section-136" class="nav-link" data-scroll-target="#section-136">2023-09-12</a></li>
+  <li><a href="#section-137" id="toc-section-137" class="nav-link" data-scroll-target="#section-137">2023-09-15</a></li>
+  <li><a href="#section-138" id="toc-section-138" class="nav-link" data-scroll-target="#section-138">2023-09-19</a></li>
+  <li><a href="#section-139" id="toc-section-139" class="nav-link" data-scroll-target="#section-139">2023-09-23</a></li>
+  <li><a href="#section-140" id="toc-section-140" class="nav-link" data-scroll-target="#section-140">2023-10-13</a></li>
+  <li><a href="#section-141" id="toc-section-141" class="nav-link" data-scroll-target="#section-141">2023-12-21</a></li>
+  <li><a href="#section-142" id="toc-section-142" class="nav-link" data-scroll-target="#section-142">2023-12-29</a></li>
+  <li><a href="#section-143" id="toc-section-143" class="nav-link" data-scroll-target="#section-143">2024-01-24</a></li>
+  <li><a href="#section-144" id="toc-section-144" class="nav-link" data-scroll-target="#section-144">2024-02-28</a></li>
+  <li><a href="#section-145" id="toc-section-145" class="nav-link" data-scroll-target="#section-145">2024-03-09</a></li>
+  <li><a href="#section-146" id="toc-section-146" class="nav-link" data-scroll-target="#section-146">2024-03-11</a></li>
+  <li><a href="#section-147" id="toc-section-147" class="nav-link" data-scroll-target="#section-147">2024-03-13</a></li>
+  <li><a href="#section-148" id="toc-section-148" class="nav-link" data-scroll-target="#section-148">2024-03-28</a></li>
+  <li><a href="#section-149" id="toc-section-149" class="nav-link" data-scroll-target="#section-149">2024-04-03</a></li>
+  <li><a href="#section-150" id="toc-section-150" class="nav-link" data-scroll-target="#section-150">2024-04-04</a></li>
+  <li><a href="#section-151" id="toc-section-151" class="nav-link" data-scroll-target="#section-151">2024-04-28</a></li>
+  <li><a href="#section-152" id="toc-section-152" class="nav-link" data-scroll-target="#section-152">2024-05-07</a></li>
+  <li><a href="#section-153" id="toc-section-153" class="nav-link" data-scroll-target="#section-153">2024-05-27</a></li>
+  <li><a href="#section-154" id="toc-section-154" class="nav-link" data-scroll-target="#section-154">2024-06-11</a></li>
+  <li><a href="#section-155" id="toc-section-155" class="nav-link" data-scroll-target="#section-155">2024-06-26</a></li>
+  <li><a href="#section-156" id="toc-section-156" class="nav-link" data-scroll-target="#section-156">2024-06-27</a></li>
+  <li><a href="#section-157" id="toc-section-157" class="nav-link" data-scroll-target="#section-157">2024-07-30</a></li>
+  <li><a href="#section-158" id="toc-section-158" class="nav-link" data-scroll-target="#section-158">2024-08-14</a></li>
+  <li><a href="#section-159" id="toc-section-159" class="nav-link" data-scroll-target="#section-159">2024-08-17</a></li>
+  <li><a href="#section-160" id="toc-section-160" class="nav-link" data-scroll-target="#section-160">2024-08-19</a></li>
+  <li><a href="#section-161" id="toc-section-161" class="nav-link" data-scroll-target="#section-161">2024-09-15</a></li>
+  <li><a href="#section-162" id="toc-section-162" class="nav-link" data-scroll-target="#section-162">2024-10-05</a></li>
+  <li><a href="#section-163" id="toc-section-163" class="nav-link" data-scroll-target="#section-163">2024-10-23</a></li>
+  <li><a href="#section-164" id="toc-section-164" class="nav-link" data-scroll-target="#section-164">2024-11-19</a></li>
+  <li><a href="#section-165" id="toc-section-165" class="nav-link" data-scroll-target="#section-165">2024-11-21</a></li>
+  <li><a href="#section-166" id="toc-section-166" class="nav-link" data-scroll-target="#section-166">2024-12-28</a></li>
+  <li><a href="#section-167" id="toc-section-167" class="nav-link" data-scroll-target="#section-167">2025-01-28</a></li>
+  <li><a href="#section-168" id="toc-section-168" class="nav-link" data-scroll-target="#section-168">2025-01-29</a></li>
+  <li><a href="#section-169" id="toc-section-169" class="nav-link" data-scroll-target="#section-169">2025-01-30</a></li>
+  <li><a href="#section-170" id="toc-section-170" class="nav-link" data-scroll-target="#section-170">2025-01-31</a></li>
+  <li><a href="#section-171" id="toc-section-171" class="nav-link" data-scroll-target="#section-171">2025-02-02</a></li>
+  <li><a href="#section-172" id="toc-section-172" class="nav-link" data-scroll-target="#section-172">2025-02-03</a></li>
+  <li><a href="#section-173" id="toc-section-173" class="nav-link" data-scroll-target="#section-173">2025-03-18</a></li>
+  <li><a href="#section-174" id="toc-section-174" class="nav-link" data-scroll-target="#section-174">2025-03-26</a></li>
+  <li><a href="#section-175" id="toc-section-175" class="nav-link" data-scroll-target="#section-175">2025-04-14</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#microbiome_metagenome</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2017-05-15</h2>
+<p><strong>Sean Davis</strong> (14:10:43): &gt; <span class="citation" data-cites="Sean">@Sean</span> Davis has joined the channel</p>
+<p><strong>Sean Davis</strong> (14:10:43): &gt; set the channel description: Discussion of metagenomics and microbiome research and links, data and software resources</p>
+<p><strong>Levi Waldron</strong> (14:10:43): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldron has joined the channel</p>
+<p><strong>Aedin Culhane</strong> (14:10:43): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+<p><strong>Sean Davis</strong> (14:10:48): &gt; Registration closed and it is in Bethesda, but might be useful to see what NCI/NIH are thinking about, at the level of an agenda.<a href="https://epi.grants.cancer.gov/events/human-microbiome/">https://epi.grants.cancer.gov/events/human-microbiome/</a> - Attachment (epi.grants.cancer.gov): <a href="https://epi.grants.cancer.gov/events/human-microbiome/">Workshop on Next Steps in Studying Human Microbiome and Health in Prospective Studies</a> &gt; This two-day workshop will focus on reporting and data sharing standards for epidemiological studies of the human microbiome.</p>
+<p><strong>Levi Waldron</strong> (16:27:43): &gt; Thanks@Sean Davis!</p>
+<p><strong>Kasper D. Hansen</strong> (17:23:29): &gt; <span class="citation" data-cites="Kasper">@Kasper</span> D. Hansen has joined the channel</p>
+<p><strong>Sean Davis</strong> (19:18:02): &gt; This might be of interest:<a href="https://github.com/stevetsa/awesome-microbes">https://github.com/stevetsa/awesome-microbes</a> - Attachment (GitHub): <a href="https://github.com/stevetsa/awesome-microbes">stevetsa/awesome-microbes</a> &gt; awesome-microbes - List of computational resources for analyzing microbial sequencing data.</p>
+<p><strong>Levi Waldron</strong> (19:29:04): &gt; Awesome, just created a pull request for curatedMetagenomicData…<a href="https://github.com/stevetsa/awesome-microbes/pull/4">https://github.com/stevetsa/awesome-microbes/pull/4</a> - Attachment (GitHub): <a href="https://github.com/stevetsa/awesome-microbes/pull/4">Added curatedMetagenomicData by lwaldron · Pull Request #4 · stevetsa/awesome-microbes</a> &gt; awesome-microbes - List of computational resources for analyzing microbial sequencing data.</p>
+<p><strong>Sean Davis</strong> (19:30:09): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldron, I’m embarrassed that I had not added already!</p>
+<p><strong>Levi Waldron</strong> (19:30:39): &gt; I forgive you!</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2017-06-09</h2>
+<p><strong>Fanny Perraudeau</strong> (21:22:31): &gt; <span class="citation" data-cites="Fanny">@Fanny</span> Perraudeau has joined the channel</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2017-06-12</h2>
+<p><strong>Sean Davis</strong> (20:39:41): &gt; <a href="http://www.biorxiv.org/content/early/2017/06/12/099127">http://www.biorxiv.org/content/early/2017/06/12/099127</a></p>
+<p><strong>Sean Davis</strong> (20:40:05): &gt; <a href="http://www.biorxiv.org/content/biorxiv/early/2017/06/12/099127.full.pdf">http://www.biorxiv.org/content/biorxiv/early/2017/06/12/099127.full.pdf</a></p>
+<p><strong>Sean Davis</strong> (20:40:32): &gt; In metagenome analysis, computational methods for assembly, taxonomic profiling and binning are key components facilitating downstream biological data interpretation. However, a lack of consensus about benchmarking datasets and evaluation metrics complicates proper performance assessment. The Critical Assessment of Metagenome Interpretation (CAMI) challenge has engaged the global developer community to benchmark their programs on datasets of unprecedented complexity and realism. Benchmark metagenomes were generated from ~700 newly sequenced microorganisms and ~600 novel viruses and plasmids, including genomes with varying degrees of relatedness to each other and to publicly available ones and representing common experimental setups. Across all datasets, assembly and genome binning programs performed well for species represented by individual genomes, while performance was substantially affected by the presence of related strains. Taxonomic profiling and binning programs were proficient at high taxonomic ranks, with a notable performance decrease below the family level. Parameter settings substantially impacted performances, underscoring the importance of program reproducibility. While highlighting current challenges in computational metagenomics, the CAMI results provide a roadmap for software selection to answer specific research questions.</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2017-07-24</h2>
+<p><strong>hcorrada</strong> (07:58:37): &gt; <span class="citation" data-cites="hcorrada">@hcorrada</span> has joined the channel</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2017-08-10</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (06:43:20): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht has joined the channel</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2017-08-16</h2>
+<p><strong>Steve Tsang</strong> (19:01:41): &gt; <span class="citation" data-cites="Steve">@Steve</span> Tsang has joined the channel</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2017-10-27</h2>
+<p><strong>Guangchuang Yu</strong> (04:08:19): &gt; <span class="citation" data-cites="Guangchuang">@Guangchuang</span> Yu has joined the channel</p>
+<p><strong>natedolson</strong> (11:08:27): &gt; <span class="citation" data-cites="natedolson">@natedolson</span> has joined the channel</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2017-10-30</h2>
+<p><strong>Lucas Schiffer</strong> (16:59:31): &gt; <span class="citation" data-cites="Lucas">@Lucas</span> Schiffer has joined the channel</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2017-11-28</h2>
+<p><strong>Stephanie Hicks</strong> (14:20:35): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks has joined the channel</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2017-11-29</h2>
+<p><strong>Matthew McCall</strong> (09:41:58): &gt; <span class="citation" data-cites="Matthew">@Matthew</span> McCall has joined the channel</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2017-12-08</h2>
+<p><strong>Charlotte Soneson</strong> (04:20:46): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2018-02-15</h2>
+<p><strong>Sean Davis</strong> (12:32:35): &gt; <a href="https://precision.fda.gov/challenges">https://precision.fda.gov/challenges</a> - Attachment (precision.fda.gov): <a href="https://precision.fda.gov/challenges">PrecisionFDA Challenges – precisionFDA</a> &gt; A community for NGS assay evaluation</p>
+<p><strong>Sean Davis</strong> (12:33:05): &gt; Newest FDA challenge is salmonella strain identification. Might be of interest to a few here.</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2018-05-10</h2>
+<p><strong>Edoardo Pasolli</strong> (12:29:37): &gt; <span class="citation" data-cites="Edoardo">@Edoardo</span> Pasolli has joined the channel</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2018-06-20</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (16:48:09): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht has left the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2018-06-21</h2>
+<p><strong>Sean Davis</strong> (08:37:49): &gt; Just for fun:<a href="http://metasub.org/2018-sample-map/">http://metasub.org/2018-sample-map/</a></p>
+<p><strong>Levi Waldron</strong> (08:41:23) (in thread): &gt; Not sure I get the samples per hour scale, with 643 samples in total over several years?</p>
+<p><strong>Sean Davis</strong> (08:42:32) (in thread): &gt; Yeah. I had trouble understanding the details as well. That said, this was the first I had heard of this project.</p>
+<p><strong>Edoardo Pasolli</strong> (09:57:54) (in thread): &gt; no, these are the numbers for the 2018 sample collection. today is the “global City Sampling City 2018” day, so most of the samples should be collected and uploaded into the system today</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2018-07-27</h2>
+<p><strong>Levi Waldron</strong> (10:11:03): &gt; As a previous contributor to ASM Journals, we want to ensure you are aware of the expansion of Genome Announcements to Microbiology Resource Announcements (MRA). (<a href="https://mra.asm.org/">https://mra.asm.org/</a>) &gt; &gt; MRA launched on July 12th as an online-only, fully open access journal that publishes articles announcing the availability of any microbiological resource deposited in a repository available to the community.</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2018-08-10</h2>
+<p><strong>C. Mirzayi (please do not tag this account)</strong> (12:51:26): &gt; <span class="citation" data-cites="C">@C</span>. Mirzayi (please do not tag this account) has joined the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2018-08-15</h2>
+<p><strong>C. Mirzayi (please do not tag this account)</strong> (14:00:05): &gt; Hi I’m working to obtain some metagenomics metadata and I am using SRAdbV2 to look up SRA run accessions. Is it possible to get number of reads and minimum read length? Thanks!</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2018-08-22</h2>
+<p><strong>Levi Waldron</strong> (11:55:46): &gt; I recall SRA refers to “spots” rather than reads, and the number of reads is the number of spots for single-end reads, and half the number of spots for paired-end reads. Not sure about minimum read length <span class="citation" data-cites="Edoardo">@Edoardo</span> Pasolli, did you get this variable from SRA or from the raw data?</p>
+<p><strong>Sean Davis</strong> (11:59:10): &gt; Minimum read length is not available from SRA metadata, so also not available via SRAdbV2. The “spots” in “run” records are available; this is called run_spots in the “full” records.</p>
+<p><strong>Sean Davis</strong> (11:59:22): &gt; <a href="https://api-omicidx.cancerdatasci.org/sra/1.0/search/run?q=*&amp;size=10">https://api-omicidx.cancerdatasci.org/sra/1.0/search/run?q=*&amp;size=10</a></p>
+<p><strong>Sean Davis</strong> (12:00:11): &gt; <a href="https://api-omicidx.cancerdatasci.org/sra/1.0/search/full?q=*&amp;size=10">https://api-omicidx.cancerdatasci.org/sra/1.0/search/full?q=*&amp;size=10</a></p>
+<p><strong>Edoardo Pasolli</strong> (12:14:53): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldronyes we compute minimum read length from the raw data</p>
+<p><strong>Levi Waldron</strong> (12:23:35): &gt; Thanks all!<span class="citation" data-cites="C">@C</span>. Mirzayi (please do not tag this account), just skip minimum read length. FYI, Chloe is creating curation templates for curatedMetagenomicData with as much pre-filled automatically as possible.</p>
+<p><strong>C. Mirzayi (please do not tag this account)</strong> (12:24:07): &gt; Sounds good. Thanks everyone!</p>
+<p><strong>Sean Davis</strong> (13:34:49): &gt; Chloe, let me know if you have other questions or thoughts on sradbv2 stuff. It is still a work in progress.</p>
+<p><strong>Stephanie Hicks</strong> (13:39:12): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks has left the channel</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2018-08-29</h2>
+<p><strong>Levi Waldron</strong> (13:17:59): &gt; <a href="https://www.imicrobe.us/">https://www.imicrobe.us/</a><span class="citation" data-cites="Sean">@Sean</span> Davis@Steve Tsang, does it seem potentially useful? Supports CyVerse for containers XSEDE or apparently other HPC for computations, and “Syndicate” for “content delivery”. I don’t quite get the point of it, but it seems to be trying to connect data to computation remotely. I can’t tell for example whether it’s something we could use to run cMD updates using the Docker container you developed.</p>
+<p><strong>Levi Waldron</strong> (13:18:52): &gt; PS I’d be up for another hackathon in DC soon to try to finish up the new cMD pipeline…</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2018-09-01</h2>
+<p><strong>Sean Davis</strong> (07:50:52): &gt; <a href="http://www.bigsi.io/">http://www.bigsi.io/</a></p>
+<p><strong>Sean Davis</strong> (07:51:12): &gt; <a href="http://54.194.218.233/philipwfowler/2018/08/31/new-software-pygsi/">http://54.194.218.233/philipwfowler/2018/08/31/new-software-pygsi/</a> - Attachment (Fowler Lab): <a href="http://54.194.218.233/philipwfowler/2018/08/31/new-software-pygsi/">New software: pygsi</a> &gt; Whenever a paper involving sequencing the genome of bacteria (or other species for that matter), the researcher is obliged to deposit the (usually short reads) in either the European Nucleotide Arc…</p>
+<p><strong>Levi Waldron</strong> (07:53:51): &gt; Whew thanks@Sean Davis</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2018-09-10</h2>
+<p><strong>C. Mirzayi (please do not tag this account)</strong> (13:30:51): &gt; Hi I have a question related to curatedMetagenomicDataCuration. I’m looking at SRR4052028 which is part of the AsnicarF_2017_metadata.tsv file in the curated folder. According to this TSV, the number of reads is ~72 million and the number of bases is ~7.2 billion. When I check NCBI though, it has it listed as ~18 million spots and ~3.6 billion bases (<a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR4052028">https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR4052028</a>). The run has 2 reads per spot so ~18 million spots * 2 = ~36 million reads according to NCBI. &gt; &gt; Is there a reason why the number of reads and number of bases would be doubled? This does not appear to be the case for many of the other SRRs I’ve checked from that same TSV.</p>
+<p><strong>Sean Davis</strong> (14:44:52): &gt; <a href="https://ccr.cancer.gov/news/article/bacteria-could-promote-lung-cancer-progression-and-be-biomarkers-for-the-disease?cid=eb_govdel">https://ccr.cancer.gov/news/article/bacteria-could-promote-lung-cancer-progression-and-be-biomarkers-for-the-disease?cid=eb_govdel</a> - Attachment (Center for Cancer Research): <a href="https://ccr.cancer.gov/news/article/bacteria-could-promote-lung-cancer-progression-and-be-biomarkers-for-the-disease?cid=eb_govdel">Bacteria could promote lung cancer progression and be biomarkers for the disease</a> &gt; A laboratory study comparing the microbiome of human lung cancer tissue with non-cancerous lung tissue found higher amounts of specific types of bacteria in lung cancer tissue from smokers, especially tissue comprised of squamous non-small cells with mutations that turn off the TP53 tumor-suppressor gene. This finding could point the way to using bacteria in the microbiome of smokers as biomarkers for early detection of the disease.</p>
+<p><strong>Sean Davis</strong> (14:45:03): &gt; <span class="citation" data-cites="C">@C</span>. Mirzayi (please do not tag this account), I cannot think of one.</p>
+<p><strong>Levi Waldron</strong> (14:56:58): &gt; It looks like a curation error to me. Good example of why your automatically-generated templates will be valuable@C. Mirzayi (please do not tag this account)!</p>
+<p><strong>Edoardo Pasolli</strong> (17:30:55): &gt; <span class="citation" data-cites="C">@C</span>. Mirzayi (please do not tag this account)I’ll check what is the problem</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2018-09-24</h2>
+<p><strong>Kim-Anh Lê Cao</strong> (21:49:37): &gt; <span class="citation" data-cites="Kim-Anh">@Kim-Anh</span> Lê Cao has joined the channel</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2018-09-28</h2>
+<p><strong>Saad Khan</strong> (12:20:18): &gt; <span class="citation" data-cites="Saad">@Saad</span> Khan has joined the channel</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2019-01-17</h2>
+<p><strong>Jayaram Kancherla</strong> (15:30:05): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla has joined the channel</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2019-02-13</h2>
+<p><strong>Domenick Braccia</strong> (13:15:44): &gt; <span class="citation" data-cites="Domenick">@Domenick</span> Braccia has joined the channel</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2019-03-22</h2>
+<p><strong>Davide Risso</strong> (11:32:57): &gt; <span class="citation" data-cites="Davide">@Davide</span> Risso has joined the channel</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2019-06-11</h2>
+<p><strong>Daniela Cassol</strong> (15:11:32): &gt; <span class="citation" data-cites="Daniela">@Daniela</span> Cassol has joined the channel</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2019-06-21</h2>
+<p><strong>Rene Welch</strong> (11:41:00): &gt; <span class="citation" data-cites="Rene">@Rene</span> Welch has joined the channel</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2019-07-17</h2>
+<p><strong>Sean Davis</strong> (12:34:00): &gt; <a href="https://www.the-scientist.com/news-opinion/does-the-microbiome-help-the-body-fight-cancer--66123">https://www.the-scientist.com/news-opinion/does-the-microbiome-help-the-body-fight-cancer–66123</a> - Attachment (The Scientist Magazine®): <a href="https://www.the-scientist.com/news-opinion/does-the-microbiome-help-the-body-fight-cancer--66123">Does the Microbiome Help the Body Fight Cancer?</a> &gt; Research in mice and humans is beginning to establish a link between the composition of microbes in the gut and immune responses to tumor cells, but the mechanisms are not yet clear.</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2019-08-02</h2>
+<p><strong>Leo Lahti</strong> (14:32:44): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2019-08-03</h2>
+<p><strong>Mikhael Manurung</strong> (13:54:01): &gt; <span class="citation" data-cites="Mikhael">@Mikhael</span> Manurung has joined the channel</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2019-09-07</h2>
+<p><strong>Sean Davis</strong> (09:58:38): &gt; <a href="https://www.biorxiv.org/content/10.1101/748152v2">https://www.biorxiv.org/content/10.1101/748152v2</a></p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2019-10-07</h2>
+<p><strong>Juan Monroy-Nieto</strong> (15:32:34): &gt; <span class="citation" data-cites="Juan">@Juan</span> Monroy-Nieto has joined the channel</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2019-10-10</h2>
+<p><strong>Sean Davis</strong> (08:57:02): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FP875QTEY/image.png">image.png</a></p>
+<p><strong>Sean Davis</strong> (08:57:09): &gt; <a href="https://webapp.ufz.de/tmdb/">https://webapp.ufz.de/tmdb/</a></p>
+<p><strong>Sean Davis</strong> (08:57:21): &gt; <a href="https://www.biorxiv.org/content/10.1101/796441v1">https://www.biorxiv.org/content/10.1101/796441v1</a></p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2019-11-19</h2>
+<p><strong>Sean Davis</strong> (15:18:43): &gt; If I have a bunch of mapping counts to nodes in the NCBI taxonomy, where the nodes vary from sample-to-sample, is there a “standard” distance metric for one sample to another?</p>
+<p><strong>Sean Davis</strong> (15:18:56): &gt; The data look like this:<a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR000237&amp;retmode=xml">https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR000237&amp;retmode=xml</a></p>
+<p><strong>Sean Davis</strong> (15:19:14): &gt; In the tax_analysis section.</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2019-11-20</h2>
+<p><strong>hcorrada</strong> (07:07:06): &gt; There are a number of beta diversity metrics used in practice. Phyloseq wraps many of them in the<code>ordinate</code>function<a href="https://www.rdocumentation.org/packages/phyloseq/versions/1.16.2/topics/ordinate">https://www.rdocumentation.org/packages/phyloseq/versions/1.16.2/topics/ordinate</a>. The default Bray-Curtis distance is a good place to start</p>
+<p><strong>Sean Davis</strong> (10:03:47): &gt; Thanks,<span class="citation" data-cites="hcorrada">@hcorrada</span>.</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2019-12-03</h2>
+<p><strong>Chris Fields</strong> (15:20:55): &gt; <span class="citation" data-cites="Chris">@Chris</span> Fields has joined the channel</p>
+<p><strong>Chris Fields</strong> (15:27:10): &gt; <span class="citation" data-cites="Sean">@Sean</span> Davisthat’s interesting, the taxonomic counts are included in the trace information?</p>
+<p><strong>Chris Fields</strong> (15:27:20): &gt; Today I learned….</p>
+<p><strong>Sean Davis</strong> (15:28:46): &gt; Yes, but they are not “supported” and not searchable. I’m working to change this, but as of now, the only approach that is available is 10M individual API calls to an unstable API.</p>
+<p><strong>Sean Davis</strong> (15:29:55): &gt; And welcome to Slack,<span class="citation" data-cites="Chris">@Chris</span> Fields!</p>
+<p><strong>Chris Fields</strong> (16:16:31): &gt; Thx@Sean Davis! I’m on about 10 channels now:slightly_smiling_face:</p>
+<p><strong>Chris Fields</strong> (16:17:08): &gt; And yeah, NCBI API is not the definition of stable</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2019-12-09</h2>
+<p><strong>Leopoldo Valiente</strong> (16:43:30): &gt; <span class="citation" data-cites="Leopoldo">@Leopoldo</span> Valiente has joined the channel</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2019-12-10</h2>
+<p><strong>Ludwig Geistlinger</strong> (11:25:08): &gt; <span class="citation" data-cites="Ludwig">@Ludwig</span> Geistlinger has joined the channel</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2019-12-17</h2>
+<p><strong>Jean Yang</strong> (02:39:59): &gt; <span class="citation" data-cites="Jean">@Jean</span> Yang has joined the channel</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2019-12-19</h2>
+<p><strong>Sean Davis</strong> (21:49:01): &gt; SHAMAN: a user-friendly website for metataxonomic analysis from raw reads to statistical analysis:<a href="https://www.biorxiv.org/content/10.1101/2019.12.18.880773v1">https://www.biorxiv.org/content/10.1101/2019.12.18.880773v1</a></p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2019-12-20</h2>
+<p><strong>Jayaram Kancherla</strong> (08:35:25): &gt; Current challenges and best-practice protocols for microbiome analysis<a href="https://academic.oup.com/bib/advance-article/doi/10.1093/bib/bbz155/5678919">https://academic.oup.com/bib/advance-article/doi/10.1093/bib/bbz155/5678919</a></p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2020-01-03</h2>
+<p><strong>Sean Davis</strong> (09:07:32): &gt; The predictive power of the microbiome exceeds that of genome-wide association studies in the discrimination of complex human disease<a href="https://www.biorxiv.org/content/10.1101/2019.12.31.891978v1">https://www.biorxiv.org/content/10.1101/2019.12.31.891978v1</a></p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2020-01-04</h2>
+<p><strong>hcorrada</strong> (16:01:02): &gt; Yikes! That title is quite an optimistic reading of their results!</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2020-02-04</h2>
+<p><strong>Sean Davis</strong> (21:54:32): &gt; <a href="https://www.biorxiv.org/content/10.1101/2020.02.04.933374v1">https://www.biorxiv.org/content/10.1101/2020.02.04.933374v1</a></p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2020-02-14</h2>
+<p><strong>Ines de Santiago</strong> (04:46:48): &gt; <span class="citation" data-cites="Ines">@Ines</span> de Santiago has joined the channel</p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2020-02-20</h2>
+<p><strong>Domenick Braccia</strong> (20:26:17): &gt; Hello all, &gt; &gt; I am attempting to build one large<code>GenomicFeatures::TxDb</code>object from all the GFF files for each bacterial reference genome in RefSeq for a comparative genomics project. I know that<code>txdb</code>is meant for eukaryotic genomes in general, but we thought that the sqlite backend would make for fast queries of genomic regions of these reference genomes. I have a few questions on this though: &gt; 1. has anyone tried to do this before? &gt; 2. would this be useful to anyone in the BioC community studying metagenomics? &gt; 3. is this just a bad idea from the start?</p>
+<p><strong>Sean Davis</strong> (21:43:32): &gt; <span class="citation" data-cites="Domenick">@Domenick</span> Braccia, are you interested in transcripts, or general regions on contigs? If the latter, you might be better off simply using Ranges infrastructure (GenomicRanges and friends).</p>
+<p><strong>Sean Davis</strong> (21:45:43): &gt; If you want to see how this would work in practice, see<code>rtracklayer::import</code>for importing gff files as GenomicRanges.</p>
+<p><strong>Domenick Braccia</strong> (21:47:57): &gt; I want to examine overlapping regions between that<code>txdb</code>annotation obj another<code>GRangesList</code>object that contains ranges for shared regions of DNA across bacterial species.</p>
+<p><strong>Domenick Braccia</strong> (21:57:33): &gt; I just thought that the txdb route might be faster for queries, but ultimately the GRanges object(s) should do the trick. thanks@Sean Davis</p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2020-02-21</h2>
+<p><strong>Sean Davis</strong> (00:51:51): &gt; GRanges will be MUCH faster than sqlite for overlap-type queries.</p>
+<p><strong>Domenick Braccia</strong> (08:09:37): &gt; Ok great! so the answer to my 3rd question above is “yes”:relaxed:.</p>
+<p><strong>Domenick Braccia</strong> (08:10:01): &gt; thank you!</p>
+<p><strong>Kasper D. Hansen</strong> (09:09:38): &gt; The reason for the TxDb line of packages is that in organisms with (complicated) splicing with multiple transcripts per gene going between CDS, pre-mRNA, mRNA, introns, exons etc is pretty complicated</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2020-03-08</h2>
+<p><strong>Sean Davis</strong> (10:07:03): &gt; <a href="https://www.biorxiv.org/content/10.1101/229831v3">https://www.biorxiv.org/content/10.1101/229831v3</a>Motivation: Methods for analyzing microbiome data generally fall into one of two groups: tests of the global hypothesis of any microbiome effect, which do not provide any information on the contribution of individual operational taxonomic units (OTUs); and tests for individual OTUs, which do not typically provide a global test of microbiome effect. Without a unified approach, the findings of a global test may be hard to resolve with the findings at the individual OTU level. Further, many tests of individual OTU effects do not preserve the false discovery rate (FDR). Results: We introduce the linear decomposition model (LDM), that provides a single analysis path that includes global tests of any effect of the microbiome, tests of the effects of individual OTUs while accounting for multiple testing by controlling the FDR, and a connection to distance-based ordination. The LDM accommodates both continuous and discrete variables (e.g., clinical outcomes, environmental factors) as well as interaction terms to be tested either singly or in combination, allows for adjustment of confounding covariates, and uses permutation-based<strong>p</strong>-values that can control for correlation. The LDM can also be applied to transformed data, and an “omnibus” test can easily combine results from analyses conducted on different transformation scales. We also provide a new implementation of PERMANOVA based on our approach. For global testing, our simulations indicate the LDM provided correct type I error and can have comparable power to existing distance-based methods. For testing individual OTUs, our simulations indicate the LDM controlled the FDR well. In contrast, DESeq2 often had inflated FDR; MetagenomeSeq generally had the lowest sensitivity. The flexibility of the LDM for a variety of microbiome studies is illustrated by the analysis of data from two microbiome studies. We also show that our implementation of PERMANOVA can outperform existing implementations.</p>
+<p><strong>Sean Davis</strong> (10:07:22): &gt; <a href="https://github.com/yijuanhu/LDM">https://github.com/yijuanhu/LDM</a></p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2020-06-06</h2>
+<p><strong>Olagunju Abdulrahman</strong> (19:57:36): &gt; <span class="citation" data-cites="Olagunju">@Olagunju</span> Abdulrahman has joined the channel</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2020-06-22</h2>
+<p><strong>Sean Davis</strong> (09:49:29): &gt; <a href="https://meetings.cshl.edu/meetings.aspx?meet=biome&amp;year=20">https://meetings.cshl.edu/meetings.aspx?meet=biome&amp;year=20</a> - Attachment (meetings.cshl.edu): <a href="https://meetings.cshl.edu/meetings.aspx?meet=biome&amp;year=20">Microbiome (Virtual)</a> &gt; Cold Spring Harbor Laboratory Meetings &amp; Courses – a private, non-profit institution with research programs in cancer, neuroscience, plant biology, genomics, bioinformatics.</p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2020-06-24</h2>
+<p><strong>Marisa Isabell Metzger</strong> (05:17:07): &gt; <span class="citation" data-cites="Marisa">@Marisa</span> Isabell Metzger has joined the channel</p>
+</section>
+<section id="section-53" class="level2">
+<h2 class="anchored" data-anchor-id="section-53">2020-07-24</h2>
+<p><strong>Isha Goel</strong> (07:49:07): &gt; <span class="citation" data-cites="Isha">@Isha</span> Goel has joined the channel</p>
+</section>
+<section id="section-54" class="level2">
+<h2 class="anchored" data-anchor-id="section-54">2020-07-27</h2>
+<p><strong>Ghada Soliman</strong> (12:28:02): &gt; <span class="citation" data-cites="Ghada">@Ghada</span> Soliman has joined the channel</p>
+</section>
+<section id="section-55" class="level2">
+<h2 class="anchored" data-anchor-id="section-55">2020-08-18</h2>
+<p><strong>Daniel Baker</strong> (09:13:26): &gt; <span class="citation" data-cites="Daniel">@Daniel</span> Baker has joined the channel</p>
+</section>
+<section id="section-56" class="level2">
+<h2 class="anchored" data-anchor-id="section-56">2020-08-23</h2>
+<p><strong>FelixErnst</strong> (11:16:49): &gt; <span class="citation" data-cites="FelixErnst">@FelixErnst</span> has joined the channel</p>
+</section>
+<section id="section-57" class="level2">
+<h2 class="anchored" data-anchor-id="section-57">2020-09-10</h2>
+<p><strong>Jenny Drnevich</strong> (09:39:37): &gt; <span class="citation" data-cites="Jenny">@Jenny</span> Drnevich has joined the channel</p>
+</section>
+<section id="section-58" class="level2">
+<h2 class="anchored" data-anchor-id="section-58">2020-10-02</h2>
+<p><strong>Chase Clark</strong> (10:37:27): &gt; <span class="citation" data-cites="Chase">@Chase</span> Clark has joined the channel</p>
+</section>
+<section id="section-59" class="level2">
+<h2 class="anchored" data-anchor-id="section-59">2020-10-05</h2>
+<p><strong>Ines de Santiago</strong> (19:50:10): &gt; <span class="citation" data-cites="Ines">@Ines</span> de Santiago has left the channel</p>
+</section>
+<section id="section-60" class="level2">
+<h2 class="anchored" data-anchor-id="section-60">2020-11-10</h2>
+<p><strong>Sean Davis</strong> (13:46:31): &gt; <a href="https://www.nature.com/articles/s41587-020-0718-6">https://www.nature.com/articles/s41587-020-0718-6</a> - Attachment (Nature Biotechnology): <a href="https://www.nature.com/articles/s41587-020-0718-6">A genomic catalog of Earth’s microbiomes</a> &gt; Cataloging microbial genomes from Earth’s environments expands the known phylogenetic diversity of bacteria and archaea.</p>
+</section>
+<section id="section-61" class="level2">
+<h2 class="anchored" data-anchor-id="section-61">2020-12-12</h2>
+<p><strong>Huipeng Li</strong> (00:39:36): &gt; <span class="citation" data-cites="Huipeng">@Huipeng</span> Li has joined the channel</p>
+</section>
+<section id="section-62" class="level2">
+<h2 class="anchored" data-anchor-id="section-62">2020-12-13</h2>
+<p><strong>Kelly Eckenrode</strong> (13:41:47): &gt; <span class="citation" data-cites="Kelly">@Kelly</span> Eckenrode has joined the channel</p>
+</section>
+<section id="section-63" class="level2">
+<h2 class="anchored" data-anchor-id="section-63">2020-12-15</h2>
+<p><strong>Francesc Català</strong> (05:42:38): &gt; <span class="citation" data-cites="Francesc">@Francesc</span> Català has joined the channel</p>
+</section>
+<section id="section-64" class="level2">
+<h2 class="anchored" data-anchor-id="section-64">2020-12-16</h2>
+<p><strong>Hena Ramay</strong> (17:45:17): &gt; <span class="citation" data-cites="Hena">@Hena</span> Ramay has joined the channel</p>
+</section>
+<section id="section-65" class="level2">
+<h2 class="anchored" data-anchor-id="section-65">2020-12-17</h2>
+<p><strong>James MacDonald</strong> (11:13:01): &gt; <span class="citation" data-cites="James">@James</span> MacDonald has joined the channel</p>
+</section>
+<section id="section-66" class="level2">
+<h2 class="anchored" data-anchor-id="section-66">2020-12-21</h2>
+<p><strong>Harithaa Anand</strong> (04:10:55): &gt; <span class="citation" data-cites="Harithaa">@Harithaa</span> Anand has joined the channel</p>
+</section>
+<section id="section-67" class="level2">
+<h2 class="anchored" data-anchor-id="section-67">2021-01-22</h2>
+<p><strong>Annajiat Alim Rasel</strong> (15:44:35): &gt; <span class="citation" data-cites="Annajiat">@Annajiat</span> Alim Rasel has joined the channel</p>
+</section>
+<section id="section-68" class="level2">
+<h2 class="anchored" data-anchor-id="section-68">2021-01-28</h2>
+<p><strong>mirna</strong> (10:40:47): &gt; <span class="citation" data-cites="mirna">@mirna</span> has joined the channel</p>
+</section>
+<section id="section-69" class="level2">
+<h2 class="anchored" data-anchor-id="section-69">2021-02-07</h2>
+<p><strong>Mikhael Manurung</strong> (11:09:46): &gt; <span class="citation" data-cites="Mikhael">@Mikhael</span> Manurung has left the channel</p>
+</section>
+<section id="section-70" class="level2">
+<h2 class="anchored" data-anchor-id="section-70">2021-02-08</h2>
+<p><strong>Matt Ritchie</strong> (18:34:35): &gt; <span class="citation" data-cites="Matt">@Matt</span> Ritchie has joined the channel</p>
+<p><strong>Matt Ritchie</strong> (18:50:24): &gt; A message to the community from Ben Tully, who is organising a<a href="https://biovcnet.github.io/_pages/conference-2021/">virtual conference on Microbiome analysis</a>this June and is looking for nominations from early career researchers to present their work. Please consider nominating via the link provided below (note that nominations close soon - Feb 15th), or registering to attend the event when that opens at a later date. Thank you for considering! &gt; &gt; The Bioinformatics Virtual Coordination Network (<a href="https://biovcnet.github.io/">https://biovcnet.github.io/</a>) is an online community of Early Career Researchers committed to reducing entry barriers into bioinformatics. In June 2021, we are hosting a virtual conference that will bring together a diverse group of Early Career Researchers from across the globe who are equally committed to reducing such entry barriers. &gt; &gt; &gt; &gt; The goal of the conference is to provide a step-by-step open access series of presentations that demonstrate state-of-the-art bioinformatics pipelines within microbiome research. We want to demonstrate to microbiologists everywhere how to think about and approach complex biological questions through the lens of microbiology. &gt; &gt; &gt; &gt; I am reaching out to the Bioconductor community to extend our open invitation for speaker nominations to your members. We are looking for early career researchers (graduate students, postdocs, junior faculty) who display a commitment to open science, data and/or protocols across microbial research within environmental, biomedical and biotech disciplines to speak. Our speakers will have a chance to reach an international audience and disseminate their research across microbiology disciplines. &gt; &gt; &gt; &gt; If this would be of interest to your members then please see our nomination form<a href="https://forms.gle/cD71qbQ7rBbVkJ6V7">https://forms.gle/cD71qbQ7rBbVkJ6V7</a>. Nominations close on the 15th February 2021. &gt; &gt; We are striving to make the conference as inclusive as possible with specific plans to have a diverse set of speakers across multiple microbiology sub-disciplines with presentations that are accessible to individuals across the world. &gt; &gt; &gt; &gt; We envision these presentations as hour-long seminars that detail the FULL bioinformatic methods that happen in a body of research (1 or more preprints/publications). We encourage the “full methods’’ to include hiccups, dead ends, false positives, and issues that made you want to scream. Additionally, the Organizing Committee will work with the speakers to translate the methods in their presentation into an open format and/or workflow to be hosted on a suitable platform. &gt; &gt; &gt; &gt; We know that this type of presentation deviates from the “standard” presentation format and may require additional content preparation and time investment. As part of our commitment to increasing open access science, we are able to provide speakers with an honorarium to support this endeavour. &gt; &gt; &gt; &gt; Virtual conference details -<a href="https://biovcnet.github.io/_pages/conference-2021/">https://biovcnet.github.io/_pages/conference-2021/</a>7-11 June 2021 &gt; &gt; The virtual conference will span 5 days, with 2-3 hours of activity each day. &gt; &gt; Day 1-3: 2 Speaker presentations each day (7-9 June 2021) &gt; &gt; Day 4: Speaker Q&amp;A Panels (10 June 2021) &gt; &gt; Day 5: Virtual attendee poster session (11 June 2021) &gt; &gt; Expected attendee capacity. 75-100 attendees &gt; &gt; Holistic Bioinformatics Approaches used in Microbiome Research is funded by the Code For Science &amp; Society (CS&amp;S). The BVCN was made possible by grant number GBMF8449 from the Gordon and Betty Moore Foundation. &gt; &gt;<br>
+&gt; &gt; Thank you for your time. &gt; &gt; Kind regards, &gt; &gt; Ben &gt; &gt; On behalf of the BVCN conference Selection Committee &gt; &gt; &gt; &gt; – &gt; &gt; <strong>Dr.&nbsp;Benjamin Tully</strong> &gt; &gt; Research Associate &gt; &gt; Center for Dark Energy Biosphere Investigations &gt; &gt; University of Southern California &gt; &gt; 3616 Trousdale Parkway &gt; &gt; Los Angeles CA 90089 &gt; &gt; &gt; &gt; office:<a href="tel:2138210838">213-821-0838</a><a href="http://www.darkenergybiosphere.org">www.darkenergybiosphere.org</a><span class="citation" data-cites="phantombugs">@phantombugs</span> - Attachment (Bioinformatics Virtual Coordination Network): <a href="https://biovcnet.github.io/">What is the Bioinformatics Virtual Coordination Network</a> &gt; What is BVCN? - Attachment (Google Docs): <a href="https://forms.gle/cD71qbQ7rBbVkJ6V7">BVCN speaker nomination form</a> &gt; Speaker nominations for “A BVCN Virtual Training Conference - Holistic Bioinformatic Approaches used in Microbiome Research”. 7-11 June 2021 Self-nominations welcomed and encouraged! - Speakers will create an hour long presentation that details the FULL bioinformatic methods that happen in a body of research (1 or more preprints/publications). - Presentations will be recorded prior to the week of the conference to allow for closed captioning - Speakers will participate in a live (unrecorded) Q&amp;A on 10 June 2021. - The organizing committee will work with the speakers to translate the methods in their presentation into an open format and/or workflow to be hosted on a suitable platform. - All speakers must adhere to the established BVCN Code of Conduct (<a href="https://biovcnet.github.io/_pages/code-of-conduct/">https://biovcnet.github.io/_pages/code-of-conduct/</a>) and modifications as necessary during conference planning. - The selection committee is open to diverse experiences in bioinformatics and with that we know that this will vary your responses to our selection criteria. If you are interested in being a part of our speaker list please still apply (or get in contact with us to clarify) even if you don’t meet every criteria listed. Please share or submit for all individuals who are: - Early career researcher (graduate students, postdoc, or junior faculty) - Have a published record of bioinformatic centric research (preprints by June 2021 accepted) - Committed to open science, data, and protocols - Flexible schedule to work with organizing committee to make presentations accessible to all Selection process: Diversity of nominees, country of residence, and research topics will be considered in the final decision for speakers. Nominees with be assessed using a rubric format to identify individuals who would be most appropriate for a speaker role. The rubric will assess nominees for: - Suggested presentation topics, contribution/commitment to open science, commitment to diversity, equity, and inclusion initiatives, translational value of work between microbiology fields, breadth of work, options for community engagement, and diversity of speakers. Nominees will be short listed. At which point, nominees will be asked to provide a brief CV and a 2-3 minute video pitching their talk/research. These videos will be used a future advertisement for the conference. Questions, comments, and concerns can be emailed to: <a href="mailto:tully.bj@gmail.com%7Ctully.bj@gmail.com" class="uri">mailto:tully.bj@gmail.com|tully.bj@gmail.com</a></p>
+</section>
+<section id="section-71" class="level2">
+<h2 class="anchored" data-anchor-id="section-71">2021-02-14</h2>
+<p><strong>Leo Lahti</strong> (17:24:28): &gt; Microbiome Data Analyses Workshop, April 20-23: The international MDAW workshop brings together leading data scientists to discuss their newest developments, statistical tools, and latest findings in the rapidly expanding field of microbiome data analyses and high-throughput sequencing. MDAW is held to encourage PhD students and Postdocs dealing with large and complicated, highly dimensional microbiome datasets, to get an overview of the current state-of-the art in amplicon sequence data analyses, teached in lectures and hands-on sessions.<a href="https://mdawo.meetinghand.com/">https://mdawo.meetinghand.com/</a></p>
+</section>
+<section id="section-72" class="level2">
+<h2 class="anchored" data-anchor-id="section-72">2021-02-17</h2>
+<p><strong>abdullah hanta</strong> (16:06:58): &gt; <span class="citation" data-cites="abdullah">@abdullah</span> hanta has joined the channel</p>
+</section>
+<section id="section-73" class="level2">
+<h2 class="anchored" data-anchor-id="section-73">2021-02-23</h2>
+<p><strong>Chris Fields</strong> (12:18:21): &gt; Has anyone here performed analysis within R/phyloseq (or similar) using data from the Huttenhower tools: humann, metaphlan, etc? I saw a little on the bioc list from Gordon about limma analysis, not much more.</p>
+<p><strong>Chris Fields</strong> (12:27:32): &gt; Guessing this?<a href="https://huttenhower.sph.harvard.edu/maaslin/">https://huttenhower.sph.harvard.edu/maaslin/</a></p>
+</section>
+<section id="section-74" class="level2">
+<h2 class="anchored" data-anchor-id="section-74">2021-02-24</h2>
+<p><strong>Sean Davis</strong> (16:00:37) (in thread): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldron</p>
+<p><strong>Ingrid Aulike</strong> (18:17:01): &gt; <span class="citation" data-cites="Ingrid">@Ingrid</span> Aulike has joined the channel</p>
+</section>
+<section id="section-75" class="level2">
+<h2 class="anchored" data-anchor-id="section-75">2021-02-28</h2>
+<p><strong>Leo Lahti</strong> (02:28:13): &gt; <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1008661&amp;utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+ploscompbiol%2FNewArticles+%28PLOS+Computational+Biology+-+New+Articles%29">https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1008661&amp;utm_[…]FNewArticles+%28PLOS+Computational+Biology+-+New+Articles%29</a> - Attachment (journals.plos.org): <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1008661&amp;utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+ploscompbiol%2FNewArticles+%28PLOS+Computational+Biology+-+New+Articles%29">An integrated, modular approach to data science education in microbiology</a> &gt; We live in an increasingly data-driven world, where high-throughput sequencing and mass spectrometry platforms are transforming biology into an information science. This has shifted major challenges in biological research from data generation and processing to interpretation and knowledge translation. However, postsecondary training in bioinformatics, or more generally data science for life scientists, lags behind current demand. In particular, development of accessible, undergraduate data science curricula has the potential to improve research and learning outcomes as well as better prepare students in the life sciences to thrive in public and private sector careers. Here, we describe the Experiential Data science for Undergraduate Cross-Disciplinary Education (EDUCE) initiative, which aims to progressively build data science competency across several years of integrated practice. Through EDUCE, students complete data science modules integrated into required and elective courses augmented with coordinated cocurricular activities. The EDUCE initiative draws on a community of practice consisting of teaching assistants (TAs), postdocs, instructors, and research faculty from multiple disciplines to overcome several reported barriers to data science for life scientists, including instructor capacity, student prior knowledge, and relevance to discipline-specific problems. Preliminary survey results indicate that even a single module improves student self-reported interest and/or experience in bioinformatics and computer science. Thus, EDUCE provides a flexible and extensible active learning framework for integration of data science curriculum into undergraduate courses and programs across the life sciences.</p>
+</section>
+<section id="section-76" class="level2">
+<h2 class="anchored" data-anchor-id="section-76">2021-03-01</h2>
+<p><strong>Sudarshan</strong> (18:59:04): &gt; <span class="citation" data-cites="Sudarshan">@Sudarshan</span> has joined the channel</p>
+</section>
+<section id="section-77" class="level2">
+<h2 class="anchored" data-anchor-id="section-77">2021-03-20</h2>
+<p><strong>watanabe_st</strong> (01:57:47): &gt; <span class="citation" data-cites="watanabe_st">@watanabe_st</span> has joined the channel</p>
+</section>
+<section id="section-78" class="level2">
+<h2 class="anchored" data-anchor-id="section-78">2021-03-24</h2>
+<p><strong>Levi Waldron</strong> (06:38:54) (in thread): &gt; Sorry I didn’t see this until now! Yes@Chris Fields, curatedMetagenomicData uses these tools and demonstrates some downstream analyses using phyloseq and DESeq2. Also,<a href="https://github.com/shbrief/biobakeR">https://github.com/shbrief/biobakeR</a>allows you to run Biobakery’s MetaPhlAn3 and HUMAnN3 on Terra, but controlled from and importing results into R.</p>
+<p><strong>Levi Waldron</strong> (06:42:10) (in thread): &gt; Also,<a href="https://github.com/waldronlab/curatedMetagenomicData/tree/master/vignettes/extras">https://github.com/waldronlab/curatedMetagenomicData/tree/master/vignettes/extras</a>includes code for the analyses presented in the manuscript (<a href="https://www.nature.com/articles/nmeth.4468">https://www.nature.com/articles/nmeth.4468</a>)</p>
+<p><strong>Chris Fields</strong> (15:48:14) (in thread): &gt; Awesome, thanks@Levi Waldron(and prescient as we’re embarking on a HUMAnN3 analysis now)!</p>
+<p><strong>Chris Fields</strong> (15:48:45) (in thread): &gt; <span class="citation" data-cites="Jenny">@Jenny</span> Drnevichsee above (need to invite Lindsay here as well)</p>
+<p><strong>Levi Waldron</strong> (15:49:32) (in thread): &gt; Awesome! If you have a chance to try out biobakeR we’d love to hear your experience (could even provide you a cost-covered Terra workspace to try it with)</p>
+<p><strong>Levi Waldron</strong> (15:50:14) (in thread): &gt; I’m expecting cMD3 to be in bioc-devel within the next few weeks</p>
+</section>
+<section id="section-79" class="level2">
+<h2 class="anchored" data-anchor-id="section-79">2021-03-25</h2>
+<p><strong>Levi Waldron</strong> (05:09:00) (in thread): &gt; <span class="citation" data-cites="Jenny">@Jenny</span> Drnevich@Chris FieldsI wanted to offer actually that if you want to try biobakeR for your processing, I can provide enough free Terra compute to cover all your preprocessing. It would mean you don’t have to install any software on an HPC and have access to all the parallel computing you want. My only ask would be to document your experience to help us improve our documentation. HUMAnN3 is quite computationally and memory intensive, orders of magnitude more CPU than MetaPhlAn and needing ~32GB RAM.</p>
+</section>
+<section id="section-80" class="level2">
+<h2 class="anchored" data-anchor-id="section-80">2021-03-29</h2>
+<p><strong>Chris Fields</strong> (12:18:28) (in thread): &gt; <span class="citation" data-cites="Levi">@Levi</span> WaldronWe’ve been doing the HUMANN3 compute locally using the latest alpha, so that isn’t an issue if we can import the various CSV outputs</p>
+<p><strong>Levi Waldron</strong> (12:48:17) (in thread): &gt; Do you mean how do you import your csv outputs into SummarizedExperiment/phyloseq?</p>
+<p><strong>Chris Fields</strong> (12:52:57) (in thread): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldroncorrect. the HUMAnN3 data are already normalized, so not sure what are the best ways to import and analyze within R. We’ve also been looking at maaslin2 for analyses</p>
+<p><strong>Chris Fields</strong> (13:15:47) (in thread): &gt; Ah, actually the vignette you posted from the 2017 paper helps considerably.</p>
+<p><strong>Chris Fields</strong> (13:17:30) (in thread): &gt; We can try using this w/ HUMANn3 data we’re generating locally (on decidedly non-human data of course: animal diet studies mostly)</p>
+<p><strong>Levi Waldron</strong> (13:20:08) (in thread): &gt; Great! This little package might be convenient for you:<a href="https://github.com/schifferl/curatedmetagenomicdatapipeline">https://github.com/schifferl/curatedmetagenomicdatapipeline</a>- its<code>read_dir</code>function takes a directory of metaphlan3 or humann3 output and creates a matrix or sparse matrix…</p>
+</section>
+<section id="section-81" class="level2">
+<h2 class="anchored" data-anchor-id="section-81">2021-04-08</h2>
+<p><strong>Leo Lahti</strong> (17:36:54): &gt; We may have some OGU data in<code>mia</code>later on: “OGUs enable effective, phylogeny-aware analysis of even shallow metagenome community structures”<a href="https://www.biorxiv.org/content/10.1101/2021.04.04.438427v1">https://www.biorxiv.org/content/10.1101/2021.04.04.438427v1</a></p>
+</section>
+<section id="section-82" class="level2">
+<h2 class="anchored" data-anchor-id="section-82">2021-05-06</h2>
+<p><strong>Pratheepa Jeganathan</strong> (10:38:35): &gt; <span class="citation" data-cites="Pratheepa">@Pratheepa</span> Jeganathan has joined the channel</p>
+</section>
+<section id="section-83" class="level2">
+<h2 class="anchored" data-anchor-id="section-83">2021-05-11</h2>
+<p><strong>Megha Lal</strong> (16:45:13): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has joined the channel</p>
+</section>
+<section id="section-84" class="level2">
+<h2 class="anchored" data-anchor-id="section-84">2021-05-22</h2>
+<p><strong>Moritz E. Beber</strong> (16:00:35): &gt; <span class="citation" data-cites="Moritz">@Moritz</span> E. Beber has joined the channel</p>
+</section>
+<section id="section-85" class="level2">
+<h2 class="anchored" data-anchor-id="section-85">2021-05-25</h2>
+<p><strong>Quang Nguyen</strong> (12:20:30): &gt; <span class="citation" data-cites="Quang">@Quang</span> Nguyen has joined the channel</p>
+</section>
+<section id="section-86" class="level2">
+<h2 class="anchored" data-anchor-id="section-86">2021-05-30</h2>
+<p><strong>Chris Fields</strong> (12:59:07) (in thread): &gt; As a follow-up to this thread in case anyone wanders this way, MaAsLin2 worked with our latest HUMAnN data and we’re testing the above approach as well</p>
+</section>
+<section id="section-87" class="level2">
+<h2 class="anchored" data-anchor-id="section-87">2021-07-23</h2>
+<p><strong>Batool Almarzouq</strong> (15:53:31): &gt; <span class="citation" data-cites="Batool">@Batool</span> Almarzouq has joined the channel</p>
+</section>
+<section id="section-88" class="level2">
+<h2 class="anchored" data-anchor-id="section-88">2021-08-11</h2>
+<p><strong>Leo Lahti</strong> (06:19:36): &gt; FYI all, we will organize a short 3-day PhD level virtual course on microbiome time series analyses on Nov 2-4. We had to switch to virtual meeting, and there is now space for more participants. There is a nice lineup of speakers, and some hands-on sessions as well. Registration can be done through the website<a href="http://msysbiology.com/microbialtimeseries/">http://msysbiology.com/microbialtimeseries/</a></p>
+</section>
+<section id="section-89" class="level2">
+<h2 class="anchored" data-anchor-id="section-89">2021-09-25</h2>
+<p><strong>Mikey C</strong> (19:05:30): &gt; <span class="citation" data-cites="Mikey">@Mikey</span> C has joined the channel</p>
+</section>
+<section id="section-90" class="level2">
+<h2 class="anchored" data-anchor-id="section-90">2021-10-11</h2>
+<p><strong>Chris Fields</strong> (18:19:58): &gt; We’re trying to get an idea what the microbiome/metagenome community is using in R at the moment, namely phyloseq vs miaverse vs other SE-based approaches. Any consensus approach people are using at the moment? Has the community moved past phyloseq?</p>
+<p><strong>Moritz E. Beber</strong> (18:29:44): &gt; I still use phyloseq mostly because the packages I use require that. In particular, the tools by<a href="https://github.com/adw96">https://github.com/adw96</a></p>
+</section>
+<section id="section-91" class="level2">
+<h2 class="anchored" data-anchor-id="section-91">2021-10-12</h2>
+<p><strong>Sudarshan</strong> (14:58:59): &gt; IMO at the moment phyloseq remains the major tool for microbiome in R/BioC but as more researchers start doing large sample sizes and or multiple omics we will likely see Miaverse and SE based data structures gaining momentum.</p>
+<p><strong>Leo Lahti</strong> (15:25:19): &gt; My comments are biased bc I develop SE-based approaches (miaverse) but like to point out that there are converters between the two main data containers (phyloseq and TreeSE) and these will be sufficient for most use cases currently. TreeSE has a broader set of options, and cannot be always entirely converted to phyloseq (but these cases are currently rare). The other way it should be always possible (from phyloseq to TreeSE). So choosing one as the main approach does not rule out the application of the other. At the moment, phyloseq has certainly a much larger user base. TreeSE can be useful for general speedups, multi-omics integration, handling hierarchical data in the sample space (nested study designs, family relations, host phylogenies), and it can benefit from SE-based tools in other parts of the Bioconductor ecosystem (e.g.&nbsp;single cell) but the microbiome SE ecosystem and documentation are less mature still, despite the currently active development.</p>
+</section>
+<section id="section-92" class="level2">
+<h2 class="anchored" data-anchor-id="section-92">2021-10-13</h2>
+<p><strong>Sudarshan</strong> (11:29:27): &gt; Leo has put it very well here. The space is evolving and Miaverse will likely evolve with community needs as it has more flexibility for expansion in terms of data structures and many other aspects as highlighted.</p>
+</section>
+<section id="section-93" class="level2">
+<h2 class="anchored" data-anchor-id="section-93">2021-10-21</h2>
+<p><strong>Chris Fields</strong> (23:12:20): &gt; Interesting. I know that there was some planning about moving to a SE-based class, MicrobiomeExperiment, but that seems to have died off:<a href="https://github.com/joey711/phyloseq/tree/MicrobiomeExperiment">https://github.com/joey711/phyloseq/tree/MicrobiomeExperiment</a>and<a href="https://github.com/HCBravoLab/MicrobiomeExperiment">https://github.com/HCBravoLab/MicrobiomeExperiment</a></p>
+<p><strong>Chris Fields</strong> (23:13:11): &gt; Would seem that one could possibly reimplement phyloseq similarly but to use TreeSE</p>
+</section>
+<section id="section-94" class="level2">
+<h2 class="anchored" data-anchor-id="section-94">2021-10-22</h2>
+<p><strong>Leo Lahti</strong> (07:02:13): &gt; The current#miaverseproject which is based on<code>TreeSE</code>is in fact the direct descendant of MicrobiomeExperiment project, and@hcorradais a co-author:<a href="https://microbiome.github.io/">https://microbiome.github.io/</a>- the difference is that initially there was a plan to create a new Bioconductor class (MicrobiomeExperiment) that would extend the TreeSE by adding new slot for sequence information, but then we realized that it could be more clear to just extend the<code>TreeSE</code>container; this was then implemented by@Ruizhu HUANGwith support from@FelixErnst- essentially it is the same project still, and more active since last year,.</p>
+</section>
+<section id="section-95" class="level2">
+<h2 class="anchored" data-anchor-id="section-95">2021-10-24</h2>
+<p><strong>Leo Lahti</strong> (05:57:02) (in thread): &gt; Converters between these two formats are available, so both tools are readily available whenever the data is compatible between the two formats.</p>
+</section>
+<section id="section-96" class="level2">
+<h2 class="anchored" data-anchor-id="section-96">2021-10-27</h2>
+<p><strong>Nicholas Cooley</strong> (11:02:24): &gt; <span class="citation" data-cites="Nicholas">@Nicholas</span> Cooley has joined the channel</p>
+</section>
+<section id="section-97" class="level2">
+<h2 class="anchored" data-anchor-id="section-97">2021-11-26</h2>
+<p><strong>Francesc Català</strong> (06:43:50): &gt; <span class="citation" data-cites="Francesc">@Francesc</span> Català has left the channel</p>
+</section>
+<section id="section-98" class="level2">
+<h2 class="anchored" data-anchor-id="section-98">2022-01-03</h2>
+<p><strong>Kurt Showmaker</strong> (17:04:45): &gt; <span class="citation" data-cites="Kurt">@Kurt</span> Showmaker has joined the channel</p>
+</section>
+<section id="section-99" class="level2">
+<h2 class="anchored" data-anchor-id="section-99">2022-01-28</h2>
+<p><strong>Megha Lal</strong> (11:13:43): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has left the channel</p>
+</section>
+<section id="section-100" class="level2">
+<h2 class="anchored" data-anchor-id="section-100">2022-02-09</h2>
+<p><strong>mirna</strong> (22:35:56): &gt; Hi, y’all! I am planning a workshop in Mexico:flag-mx:focusing on metagenomics (genome reconstruction and metabolism discovery). I want to include a section of the Bioconductor packages used in metagenomics:microbe:. Do you have any recommendations?</p>
+</section>
+<section id="section-101" class="level2">
+<h2 class="anchored" data-anchor-id="section-101">2022-02-14</h2>
+<p><strong>Sean Davis</strong> (10:04:17) (in thread): &gt; <span class="citation" data-cites="Levi">@Levi</span> Waldron@hcorrada</p>
+<p><strong>Levi Waldron</strong> (12:33:33) (in thread): &gt; Discussing in#education-and-training<a href="https://community-bioc.slack.com/archives/CUKAPEE1Y/p1644533601755689">https://community-bioc.slack.com/archives/CUKAPEE1Y/p1644533601755689</a> - Attachment: <a href="https://community-bioc.slack.com/archives/CUKAPEE1Y/p1644533601755689">Attachment</a> &gt; I will also add information about what is dealing with metagenomics in Orchestra workshop platform. &gt; <a href="https://waldronlab.io/curatedMetagenomicAnalyses/index.html">https://waldronlab.io/curatedMetagenomicAnalyses/index.html</a></p>
+</section>
+<section id="section-102" class="level2">
+<h2 class="anchored" data-anchor-id="section-102">2022-02-25</h2>
+<p><strong>Erwann SCAON</strong> (09:50:09): &gt; <span class="citation" data-cites="Erwann">@Erwann</span> SCAON has joined the channel</p>
+</section>
+<section id="section-103" class="level2">
+<h2 class="anchored" data-anchor-id="section-103">2022-03-02</h2>
+<p><strong>Pedro Sanchez</strong> (12:20:37): &gt; <span class="citation" data-cites="Pedro">@Pedro</span> Sanchez has joined the channel</p>
+</section>
+<section id="section-104" class="level2">
+<h2 class="anchored" data-anchor-id="section-104">2022-03-05</h2>
+<p><strong>Giulio Benedetti</strong> (15:18:23): &gt; <span class="citation" data-cites="Giulio">@Giulio</span> Benedetti has joined the channel</p>
+</section>
+<section id="section-105" class="level2">
+<h2 class="anchored" data-anchor-id="section-105">2022-04-25</h2>
+<p><strong>Indrik Wijaya</strong> (02:45:58): &gt; <span class="citation" data-cites="Indrik">@Indrik</span> Wijaya has joined the channel</p>
+</section>
+<section id="section-106" class="level2">
+<h2 class="anchored" data-anchor-id="section-106">2022-05-20</h2>
+<p><strong>Michal</strong> (09:06:50): &gt; <span class="citation" data-cites="Michal">@Michal</span> has joined the channel</p>
+</section>
+<section id="section-107" class="level2">
+<h2 class="anchored" data-anchor-id="section-107">2022-07-31</h2>
+<p><strong>Arda Keles</strong> (04:16:51): &gt; <span class="citation" data-cites="Arda">@Arda</span> Keles has joined the channel</p>
+</section>
+<section id="section-108" class="level2">
+<h2 class="anchored" data-anchor-id="section-108">2022-08-01</h2>
+<p><strong>Jalal Laaraj</strong> (00:31:01): &gt; <span class="citation" data-cites="Jalal">@Jalal</span> Laaraj has joined the channel</p>
+</section>
+<section id="section-109" class="level2">
+<h2 class="anchored" data-anchor-id="section-109">2022-08-02</h2>
+<p><strong>Renuka Potbhare</strong> (02:22:00): &gt; <span class="citation" data-cites="Renuka">@Renuka</span> Potbhare has joined the channel</p>
+</section>
+<section id="section-110" class="level2">
+<h2 class="anchored" data-anchor-id="section-110">2022-09-12</h2>
+<p><strong>Samuel Gamboa</strong> (13:31:39): &gt; <span class="citation" data-cites="Samuel">@Samuel</span> Gamboa has joined the channel</p>
+</section>
+<section id="section-111" class="level2">
+<h2 class="anchored" data-anchor-id="section-111">2022-09-16</h2>
+<p><strong>Matteo Calgaro</strong> (06:42:27): &gt; <span class="citation" data-cites="Matteo">@Matteo</span> Calgaro has joined the channel</p>
+</section>
+<section id="section-112" class="level2">
+<h2 class="anchored" data-anchor-id="section-112">2022-09-27</h2>
+<p><strong>Jennifer Holmes</strong> (16:15:32): &gt; <span class="citation" data-cites="Jennifer">@Jennifer</span> Holmes has joined the channel</p>
+</section>
+<section id="section-113" class="level2">
+<h2 class="anchored" data-anchor-id="section-113">2022-11-21</h2>
+<p><strong>Erwann SCAON</strong> (06:08:58): &gt; Hi all, &gt; Are you aware of any kind of listing for microbiome/metagenomics related databases (for all kind of scopes: ARG, gene_catalog, association_with_disease, impact_on_drugs, BGC_annotation, etc.) ? &gt; I’m starting to build such a list, but I wonder if the work has already been done / if something close exists.</p>
+</section>
+<section id="section-114" class="level2">
+<h2 class="anchored" data-anchor-id="section-114">2022-12-12</h2>
+<p><strong>Carlos José Ferreira da Silva</strong> (18:52:57): &gt; <span class="citation" data-cites="Carlos">@Carlos</span> José Ferreira da Silva has joined the channel</p>
+</section>
+<section id="section-115" class="level2">
+<h2 class="anchored" data-anchor-id="section-115">2022-12-13</h2>
+<p><strong>Levi Waldron</strong> (07:41:34): &gt; FYI tomorrow, free: Amy Willis presenting “Model misspecification in microbiome studies”<a href="https://hopin.com/events/microbiome-vif-n-14-f8fcff08-a6fe-4eec-a724-8341204ea285">https://hopin.com/events/microbiome-vif-n-14-f8fcff08-a6fe-4eec-a724-8341204ea285</a> - Attachment (hopin.com): <a href="https://hopin.com/events/microbiome-vif-n-14-f8fcff08-a6fe-4eec-a724-8341204ea285">Microbiome-VIF n.14 - Dec 14 | Hopin</a> &gt; Get tickets to Microbiome-VIF n.14, taking place 12/14/2022 to 12/15/2022. Hopin is your source for engaging events and experiences.</p>
+<p><strong>Xiangnan Xu</strong> (18:32:22): &gt; <span class="citation" data-cites="Xiangnan">@Xiangnan</span> Xu has joined the channel</p>
+</section>
+<section id="section-116" class="level2">
+<h2 class="anchored" data-anchor-id="section-116">2022-12-14</h2>
+<p><strong>Moritz E. Beber</strong> (10:16:26): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahtiregarding your question to Amy in the above forum: I guess you were asking about an open source implementation of the model? The pre-print she mentioned links to this R package<a href="https://github.com/statdivlab/tinyvamp">https://github.com/statdivlab/tinyvamp</a></p>
+<p><strong>Leo Lahti</strong> (10:47:33) (in thread): &gt; Yep! And thanks for pointing out. I found it from the preprint after the talk &amp; my question, so didn’t ask any more in the chat. Nice material, will need to explore more closely.</p>
+<p><strong>Lijia Yu</strong> (19:38:24): &gt; <span class="citation" data-cites="Lijia">@Lijia</span> Yu has joined the channel</p>
+</section>
+<section id="section-117" class="level2">
+<h2 class="anchored" data-anchor-id="section-117">2023-01-02</h2>
+<p><strong>Virginie Stanislas</strong> (04:55:34): &gt; <span class="citation" data-cites="Virginie">@Virginie</span> Stanislas has joined the channel</p>
+</section>
+<section id="section-118" class="level2">
+<h2 class="anchored" data-anchor-id="section-118">2023-01-16</h2>
+<p><strong>Levi Waldron</strong> (08:40:35): &gt; Starting in 20 minutes, free registration at<a href="http://shorturl.at/GMPS8">http://shorturl.at/GMPS8</a>. BTW, please submit to present your work at an MVIF as well, a short-format monthly conference that’s free for attendees and gives $200 cash prizes for best talks, “research highlights,” and “open-access paper highlights” (1-minute elevator pitch + a room to discuss with interested attendees) - Attachment (hopin.com): <a href="http://shorturl.at/GMPS8">Microbiome-VIF n.15 - Jan 16 | Hopin</a> &gt; Get tickets to Microbiome-VIF n.15, taking place 01/16/2023 to 01/18/2023. Hopin is your source for engaging events and experiences. - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F04K04A6ECD/image.png">image.png</a></p>
+</section>
+<section id="section-119" class="level2">
+<h2 class="anchored" data-anchor-id="section-119">2023-01-28</h2>
+<p><strong>Leo Lahti</strong> (11:01:36): &gt; STAMPS course<a href="https://www.mbl.edu/education/advanced-research-training-courses/course-offerings/strategies-and-techniques-analyzing-microbial-population-structures">https://www.mbl.edu/education/advanced-research-training-courses/course-offerings/[…]tegies-and-techniques-analyzing-microbial-population-structures</a> - Attachment (Marine Biological Laboratory): <a href="https://www.mbl.edu/education/advanced-research-training-courses/course-offerings/strategies-and-techniques-analyzing-microbial-population-structures">Strategies and Techniques for Analyzing Microbial Population Structures (STAMPS) | Marine Biological Laboratory</a> &gt; The STAMPS course promotes dialogue and the exchange of ideas between experts in environmental and microbiome analysis and offers interdisciplinary bioinformatics and statistical training to practitioners of molecular microbial ecology and genomics.</p>
+</section>
+<section id="section-120" class="level2">
+<h2 class="anchored" data-anchor-id="section-120">2023-01-31</h2>
+<p><strong>Francesc Català-Moll</strong> (14:32:53): &gt; <span class="citation" data-cites="Francesc">@Francesc</span> Català-Moll has joined the channel</p>
+</section>
+<section id="section-121" class="level2">
+<h2 class="anchored" data-anchor-id="section-121">2023-02-28</h2>
+<p><strong>Krithika Bhuvanesh</strong> (16:53:56): &gt; <span class="citation" data-cites="Krithika">@Krithika</span> Bhuvanesh has joined the channel</p>
+</section>
+<section id="section-122" class="level2">
+<h2 class="anchored" data-anchor-id="section-122">2023-03-01</h2>
+<p><strong>jeremymchacón</strong> (12:13:25): &gt; <span class="citation" data-cites="jeremymchacón">@jeremymchacón</span> has joined the channel</p>
+</section>
+<section id="section-123" class="level2">
+<h2 class="anchored" data-anchor-id="section-123">2023-03-07</h2>
+<p><strong>Patricia Brianna</strong> (04:44:47): &gt; <span class="citation" data-cites="Patricia">@Patricia</span> Brianna has joined the channel</p>
+</section>
+<section id="section-124" class="level2">
+<h2 class="anchored" data-anchor-id="section-124">2023-04-18</h2>
+<p><strong>Levi Waldron</strong> (16:27:30): &gt; This Thursday from 09:00 - 12:00 NYC time is this month’s Microbiome International Forum (Atlantic edition - the Pacific edition is today 9pm NYC time). It’s free and I am one of the organizers. &gt; * This week’s keynote is Elaine Holmes of Murdoch University, speaking on<strong>Mapping the functionality of the microbiome using metabolic phenotyping</strong>. Short talks include: &gt; * <strong>Evolution of the breastfed infant gut microbiome across the first year of life in the BLOSOM cohort</strong>,<strong>Do you see what I see? Improving color accessibility and organization of microbiome data visualizations with the microshades R package</strong>, &gt; * <strong>Genomic analysis of cultivated infant microbiomes identifies Bifidobacterium 2’-fucosyllactose utilization can be facilitated by co-existing species</strong>, &gt; * <strong>The microbial and metabolic landscape of infant cystic fibrosis: the gut-lung axis</strong> &gt; <a href="https://www.microbiome-vif.org/en-US/-/future-events/mvif18-prof-elaine-holmes">https://www.microbiome-vif.org/en-US/-/future-events/mvif18-prof-elaine-holmes</a> - Attachment (microbiome-vif.org): <a href="https://www.microbiome-vif.org/en-US/-/future-events/mvif18-prof-elaine-holmes">MVIF.18 | 18/19 &amp; 20 April 2023 | Prof.&nbsp;Elaine Holmes</a> &gt; Full program of MVIF.18, 18/19 &amp; 20 April 2023</p>
+<p><strong>Krithika Bhuvanesh</strong> (22:37:40) (in thread): &gt; How interesting ! Thank you for sharing. I have interest and experience in this field, and will plan to attend !</p>
+<p><strong>Krithika Bhuvanesh</strong> (22:43:33) (in thread): &gt; So the same events are streamed in pacific and atlantic time zones correct ?</p>
+<p><strong>Levi Waldron</strong> (23:22:35) (in thread): &gt; Yes they are two separate events 36h apart. This month Pacific is first with live talks and Q&amp;A. Then Atlantic will have recorded talks but still live Q&amp;A with the speakers (yes speakers do almost always attend both sessions!)</p>
+<p><strong>Levi Waldron</strong> (23:25:04) (in thread): &gt; Glad you will make it! Our goal is to take the content of a multi day conference but spread it over a year, and be free for speakers and attendees.</p>
+</section>
+<section id="section-125" class="level2">
+<h2 class="anchored" data-anchor-id="section-125">2023-04-19</h2>
+<p><strong>Krithika Bhuvanesh</strong> (11:21:59) (in thread): &gt; Excellent ! Will talk to my boss to see if we can submit our work in this area to upcoming conferences.</p>
+</section>
+<section id="section-126" class="level2">
+<h2 class="anchored" data-anchor-id="section-126">2023-04-25</h2>
+<p><strong>Harithaa Anand</strong> (06:47:25): &gt; Hi all, &gt; &gt; Not a microbiome expert and currently struggling to understand the “actual” drawbacks of choosing either the mOTUs pipeline vs Metaphlan (and biobakery). &gt; &gt; I understand that they both have their drawbacks but their latest versions (mOTUs v3 and metaphlan 4) are not compared against each other. Can somehow give a quick run down of the difference? &gt; &gt; (Siding towards biobakery because of the nicer functional annotation that links pathways/modules also to the bugs). &gt; &gt; Thank you so much!</p>
+</section>
+<section id="section-127" class="level2">
+<h2 class="anchored" data-anchor-id="section-127">2023-06-06</h2>
+<p><strong>Isabel Fernandez Escapa</strong> (14:26:42): &gt; <span class="citation" data-cites="Isabel">@Isabel</span> Fernandez Escapa has joined the channel</p>
+</section>
+<section id="section-128" class="level2">
+<h2 class="anchored" data-anchor-id="section-128">2023-06-08</h2>
+<p><strong>Leo Lahti</strong> (13:47:07): &gt; As the needs for metabolome data analyses are now increasing also in microbiome space, what would be the best data container for metabolome data at the moment - any tips?</p>
+</section>
+<section id="section-129" class="level2">
+<h2 class="anchored" data-anchor-id="section-129">2023-06-15</h2>
+<p><strong>Chris Fields</strong> (14:04:12): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahtiare you on the#metabolomicschannel? Might be worth asking there</p>
+</section>
+<section id="section-130" class="level2">
+<h2 class="anchored" data-anchor-id="section-130">2023-06-16</h2>
+<p><strong>Leo Lahti</strong> (04:55:46): &gt; In fact I had tried to browse such channel but for some reason had not found this one.. I already received enough but this will be useful later. Thanks@Chris Fields!</p>
+</section>
+<section id="section-131" class="level2">
+<h2 class="anchored" data-anchor-id="section-131">2023-07-04</h2>
+<p><strong>Shruti Shah</strong> (06:17:21): &gt; <span class="citation" data-cites="Shruti">@Shruti</span> Shah has joined the channel</p>
+</section>
+<section id="section-132" class="level2">
+<h2 class="anchored" data-anchor-id="section-132">2023-07-28</h2>
+<p><strong>Konstantinos Daniilidis</strong> (13:47:42): &gt; <span class="citation" data-cites="Konstantinos">@Konstantinos</span> Daniilidis has joined the channel</p>
+<p><strong>Benjamin Yang</strong> (15:58:00): &gt; <span class="citation" data-cites="Benjamin">@Benjamin</span> Yang has joined the channel</p>
+</section>
+<section id="section-133" class="level2">
+<h2 class="anchored" data-anchor-id="section-133">2023-08-02</h2>
+<p><strong>Matthew Broerman</strong> (11:54:28): &gt; <span class="citation" data-cites="Matthew">@Matthew</span> Broerman has joined the channel</p>
+<p><strong>Matthew Broerman</strong> (12:09:10): &gt; Hi folks, new to this research domain. I do stats mostly in R by day but looking to get a little more experience with 16S and metagenomics. Right now, I am planning to re-analyze some older studies for practice and to see what I can find. I had a few of basic questions &gt; 1. Do you all have any experience with the nf-core ampliseq pipeline? I have posted to their slack channel as well. &gt; 2. There seems to be two camps in 16s, OTU/mothur/qiime/GUIs and ASV/dada2/R. Is that right? Obviously just because these pairing have occur, doesn’t suggest they are necessary. There is also maybe a methodological difference and a little tension between authors, judging from various tweets I’ve seen. &gt; 3. In my reanalysis project, I encountered several studies with samples in SRA and “2x250 fully overlapping” reads. These all seem to be connected to the mothur pipeline, and none of them have quality scores, rather all<code>?</code>that the SRA reader viewer shows as Phred<code>30</code>. Since examining quality scores is step 1 of the dada2 tutorial, I am a little stuck. &gt; Any other tips, clues or tutorials from your experience would be much appreciated.</p>
+<p><strong>Matthew Broerman</strong> (12:11:16): &gt; Also thanks@Leo Lahtifor this very nice resources<img src="https://www.youtube.com/@ChipsterTutorials/playlists.png" class="img-fluid" alt="https://www.youtube.com/@ChipsterTutorials/playlists"> - Attachment (YouTube): <a href="https://www.youtube.com/@ChipsterTutorials/playlists">Chipster Tutorials</a> &gt; Share your videos with friends, family, and the world</p>
+</section>
+<section id="section-134" class="level2">
+<h2 class="anchored" data-anchor-id="section-134">2023-08-03</h2>
+<p><strong>Leo Lahti</strong> (03:53:29) (in thread): &gt; Have you seen this for some updates on 16S/metagenome comparative studies:<a href="https://www.nature.com/articles/s41587-023-01845-1">https://www.nature.com/articles/s41587-023-01845-1</a> - Attachment (Nature): <a href="https://www.nature.com/articles/s41587-023-01845-1">Greengenes2 unifies microbial data in a single reference tree</a> &gt; Nature Biotechnology - A comprehensive microbial resource reconciles genomic and 16S rRNA data in a single tree.</p>
+<p><strong>Matthew Broerman</strong> (12:24:28) (in thread): &gt; Yes I did see that over twitter, thank you! Also a helpful poster elsewhere helped me to understand my issue 3:<a href="https://ncbiinsights.ncbi.nlm.nih.gov/2021/10/19/sra-lite/">https://ncbiinsights.ncbi.nlm.nih.gov/2021/10/19/sra-lite/</a> - Attachment (NCBI Insights): <a href="https://ncbiinsights.ncbi.nlm.nih.gov/2021/10/19/sra-lite/">The Sequence Read Archive slims down your data with SRA Lite - NCBI Insights</a> &gt; In response to your requests for compact and faster-to-deliver data, NIH’s Sequence Read Archive (SRA) now offers a new data format – SRA Lite (Figure 1).&nbsp; SRA Lite supports reliable and faster data transfer, downloads, and analysis using current tools. SRA Lite replaces the submitted base quality score (BQS) with a simplified read quality score, … Continue reading The Sequence Read Archive slims down your data with SRA Lite →</p>
+</section>
+<section id="section-135" class="level2">
+<h2 class="anchored" data-anchor-id="section-135">2023-08-30</h2>
+<p><strong>Julia Lohr</strong> (08:55:02): &gt; <span class="citation" data-cites="Julia">@Julia</span> Lohr has joined the channel</p>
+</section>
+<section id="section-136" class="level2">
+<h2 class="anchored" data-anchor-id="section-136">2023-09-12</h2>
+<p><strong>Ludwig Geistlinger</strong> (19:35:09): &gt; Do you analyze microbiome data for differential abundance? Consider adding your &gt; results to the BugSigDB database and benefit from automated QC checks and the &gt; ability to compare your results to a large and diverse database of published &gt; microbial signatures! &gt; &gt; More about BugSigDB here:<a href="https://www.nature.com/articles/s41587-023-01872-y">https://www.nature.com/articles/s41587-023-01872-y</a> - Attachment (Nature): <a href="https://www.nature.com/articles/s41587-023-01872-y">BugSigDB captures patterns of differential abundance across a broad range of host-associated microbial signatures</a> &gt; Nature Biotechnology - A database of microbial signatures is used for systematic comparison of differential abundance patterns.</p>
+</section>
+<section id="section-137" class="level2">
+<h2 class="anchored" data-anchor-id="section-137">2023-09-15</h2>
+<p><strong>Leo Lahti</strong> (04:55:32): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+</section>
+<section id="section-138" class="level2">
+<h2 class="anchored" data-anchor-id="section-138">2023-09-19</h2>
+<p><strong>Levi Waldron</strong> (09:23:30): &gt; Sorry for the late post, but Microbiome Virtual International Forum n.&nbsp;21 Atlantic-first is live NOW! Tami Lieberman (<a href="https://cee.mit.edu/people_individual/tami-lieberman/">https://cee.mit.edu/people_individual/tami-lieberman/</a>) currently giving the keynote talk on “On-person ecology and evolution using high-resolution approaches”. Pacific replay will be in ~36 hours.<a href="https://hopin.com/events/microbiome-vif-n-21">https://hopin.com/events/microbiome-vif-n-21</a> - Attachment (cee.mit.edu): <a href="https://cee.mit.edu/people_individual/tami-lieberman/">Tami Lieberman - cee.mit.edu</a> &gt; Education Research Interests Professor Lieberman studies microbial evolution in real time, with a focus on mutations occuring within individual human ‘microbiomes’ – the set of microbes that live in and on us during health. Her lab […]Read More… - Attachment (hopin.com): <a href="https://hopin.com/events/microbiome-vif-n-21">Microbiome-VIF n.21 - Sep 19 | RingCentral Events</a> &gt; MVIF.21 September event: bite-sized microbiome meeting</p>
+</section>
+<section id="section-139" class="level2">
+<h2 class="anchored" data-anchor-id="section-139">2023-09-23</h2>
+<p><strong>Leo Lahti</strong> (16:42:51): &gt; Forwarding this per request: &gt; &gt; Dear Collegues, &gt; we are looking for a new collegue to complement our diverse team of microbiome researchers at the Centre for Microbiology and Environmental Systems Science at the University of Vienna in the field of theoretical ecology and mathematical modelling. We are thus happy to announce an open position for a<strong><em>Tenure-track Professor for Complex Systems Science in Microbiome Research</em></strong>We are looking for an innovative mind integrating complex systems science and microbiome research with the aim to elucidate fundamental principles of the behavior of microbiomes across various systems, from environmental microbiomes to microbiome-host systems. The position will be closely embedded in the recently started Austrian Cluster of Excellence ‘Microbiomes drive planetary health’. It offers the exciting opportunity to synthesise extensive microbiome datasets from a wide range of ecological systems and investigate fundamental principles underlying the dynamics of complex microbial communities by integrating data synthesis with theoretical concepts from complex systems science and ecology. &gt; Further information and link to apply:<a href="https://personalwesen.univie.ac.at/fileadmin/user_upload/d_personalwesen/Jobs_Recruiting/Dokumente/ZMU_TT_Complex_Systems_Science_in_Microbiome_Research_EN_TT0623ZMU01_.pdf">https://personalwesen.univie.ac.at/fileadmin/user_upload/d_personalwesen/Jobs_Recruiting/Dokumente/ZMU_TT_Complex_Systems_Science_in_Microbiome_Research_EN_TT0623ZMU01_.pdf</a>The<strong><em>deadline for applications is the 4th October 2023.</em></strong>We would very much appreciate if you could spread this information in your networks and/or encourage suitable individuals to apply. If you have any questions please don’t hesitate to contact us. &gt; Thank you for your support and best wishes, &gt; Christina and Andreas &gt; Christina Kaiser (<a href="mailto:christina.kaiser@univie.ac.at">christina.kaiser@univie.ac.at</a>) &gt; Andreas Richter (<a href="mailto:Andreas.richter@univie.ac.at">Andreas.richter@univie.ac.at</a>) &gt; Further information: &gt; Cluster of Excellence ‘MicroPLANET’:<a href="https://microplanet.at/">https://microplanet.at/</a>Centre for Microbiology and Environmental Systems Science (CeMESS):<a href="https://dmes.univie.ac.at/">https://dmes.univie.ac.at/</a>University of Vienna:<a href="https://www.univie.ac.at/">https://www.univie.ac.at/</a></p>
+</section>
+<section id="section-140" class="level2">
+<h2 class="anchored" data-anchor-id="section-140">2023-10-13</h2>
+<p><strong>pande.erawijantari</strong> (05:34:34): &gt; <span class="citation" data-cites="pande.erawijantari">@pande.erawijantari</span> has joined the channel</p>
+</section>
+<section id="section-141" class="level2">
+<h2 class="anchored" data-anchor-id="section-141">2023-12-21</h2>
+<p><strong>Levi Waldron</strong> (16:12:57): &gt; <strong><em>Postdoc and Bioinformatician positions in metagenomic data analysis available</em></strong>Two positions available at CUNY SPH working with myself and Nicola Segata (University of Trento) to understand roles of the microbiome in Parkinson’s Disease, in collaboration with the Michael J Fox Foundation ASAP network. Includes competitive pay $75-85K/yr, conference travel, and 1 mo/yr at <span class="citation" data-cites="cibiocm">@cibiocm</span> in Italy. In-person or remote work possible. To be filled ASAP. Further information and to apply: &gt; 1. Postdoc:<a href="https://www.rfcuny.org/careers/postings?pvnID=PH-2312-006037">https://www.rfcuny.org/careers/postings?pvnID=PH-2312-006037</a> &gt; 2. Bioinformatician / Curator:<a href="https://www.rfcuny.org/careers/postings?pvnID=PH-2312-006038">https://www.rfcuny.org/careers/postings?pvnID=PH-2312-006038</a> &gt; Contact me (<a href="mailto:levi.waldron@sph.cuny.edu">levi.waldron@sph.cuny.edu</a>) or Nicola Segata (<a href="mailto:nicola.segata@unitn.it">nicola.segata@unitn.it</a>) for additional information.</p>
+</section>
+<section id="section-142" class="level2">
+<h2 class="anchored" data-anchor-id="section-142">2023-12-29</h2>
+<p><strong>Krithika Bhuvanesh</strong> (23:29:16) (in thread): &gt; Thanks for sharing@Levi Waldron. Will share with our Masters degree students to see if they are interested in job #2. Happy new year !</p>
+</section>
+<section id="section-143" class="level2">
+<h2 class="anchored" data-anchor-id="section-143">2024-01-24</h2>
+<p><strong>Andrés Arredondo Cruz</strong> (11:14:27): &gt; <span class="citation" data-cites="Andrés">@Andrés</span> Arredondo Cruz has joined the channel</p>
+</section>
+<section id="section-144" class="level2">
+<h2 class="anchored" data-anchor-id="section-144">2024-02-28</h2>
+<p><strong>Kasper D. Hansen</strong> (11:26:45): &gt; <span class="citation" data-cites="Kasper">@Kasper</span> D. Hansen has left the channel</p>
+</section>
+<section id="section-145" class="level2">
+<h2 class="anchored" data-anchor-id="section-145">2024-03-09</h2>
+<p><strong>Josué Sandoval</strong> (16:03:48): &gt; <span class="citation" data-cites="Josué">@Josué</span> Sandoval has joined the channel</p>
+</section>
+<section id="section-146" class="level2">
+<h2 class="anchored" data-anchor-id="section-146">2024-03-11</h2>
+<p><strong>Melysssa Minto</strong> (10:12:40): &gt; <span class="citation" data-cites="Melysssa">@Melysssa</span> Minto has joined the channel</p>
+</section>
+<section id="section-147" class="level2">
+<h2 class="anchored" data-anchor-id="section-147">2024-03-13</h2>
+<p><strong>Leo Lahti</strong> (19:02:00): &gt; <strong><em>Nordic Summer School on Computational Microbiome Research</em></strong>13-15 Aug, 2024 BioCity, Turku, Finland &gt; &gt; We are excited to announce a new annual training and networking event for microbiome researchers from nordic countries and beyond. This year’s program includes the latest trends and methods in metagenomic assembly, data integration and antibiotic resistance mapping, and industry perspectives. The programme also includes participant talks and posters, networking and other social bits. &gt; &gt; Lecturers: &gt; * Antton Alberdi (GLOBE Institute, DK) &gt; * H. Bjørn Nielsen (Clinical Microbiomics, DK) &gt; * Anders Andersson (KTH/SciLifeLab, SWE) &gt; * Oliver Aasmets (University of Tartu, EST) &gt; * Aura Raulo (Oxford University, UK) &gt; * Antti Karkman (University of Helsinki, FIN) &gt; * Katariina Pärnänen (University of Turku, FIN) &gt; Organizers: &gt; * Leo Lahti (University of Turku) &gt; * Matti Ruuskanen (University of Turku) &gt; * Tommi Vatanen (University of Helsinki) &gt; Apply at<a href="https://sites.utu.fi/microbiomesummerschool/">https://sites.utu.fi/microbiomesummerschool/</a>Applications submitted by April 8 will be prioritized. &gt; &gt; For more information contact us at<a href="mailto:microbiome-school@utu.fi">microbiome-school@utu.fi</a></p>
+</section>
+<section id="section-148" class="level2">
+<h2 class="anchored" data-anchor-id="section-148">2024-03-28</h2>
+<p><strong>Laura Symul</strong> (08:39:59): &gt; <span class="citation" data-cites="Laura">@Laura</span> Symul has joined the channel</p>
+</section>
+<section id="section-149" class="level2">
+<h2 class="anchored" data-anchor-id="section-149">2024-04-03</h2>
+<p><strong>Leo Lahti</strong> (14:21:22): &gt; Join us to learn about the tools, processes, and analysis approaches used in the field of genome-resolved<a href="https://www.linkedin.com/feed/hashtag/?keywords=metagenomics&amp;highlightedUpdateUrns=urn%3Ali%3Aactivity%3A7181353114002702337">hashtag</a><a href="https://www.linkedin.com/feed/hashtag/?keywords=metagenomics&amp;highlightedUpdateUrns=urn%3Ali%3Aactivity%3A7181353114002702337">#metagenomics</a>with special focus on EMBL-EBI tool MGnify. Funding is available for this virtual course. &gt; &gt; See full details and apply before 9 June 2024:<a href="https://www.ebi.ac.uk/training/events/metagenomics-bioinformatics-mgnify/">https://www.ebi.ac.uk/training/events/metagenomics-bioinformatics-mgnify/</a>We will be teaching the upgraded R/Bioconductor package MGnifyR and how it links the EBI/MGnify metagenome resources with the (Tree)SummarizedExperiment analysis framework. - Attachment (ebi.ac.uk): <a href="https://www.ebi.ac.uk/training/events/metagenomics-bioinformatics-mgnify/">Metagenomics bioinformatics at MGnify - 2024</a> &gt; Metagenomics bioinformatics at MGnify - 2024</p>
+</section>
+<section id="section-150" class="level2">
+<h2 class="anchored" data-anchor-id="section-150">2024-04-04</h2>
+<p><strong>Tung Trinh</strong> (23:38:50): &gt; <span class="citation" data-cites="Tung">@Tung</span> Trinh has joined the channel</p>
+</section>
+<section id="section-151" class="level2">
+<h2 class="anchored" data-anchor-id="section-151">2024-04-28</h2>
+<p><strong>Danielle Callan</strong> (08:34:13): &gt; <span class="citation" data-cites="Danielle">@Danielle</span> Callan has joined the channel</p>
+</section>
+<section id="section-152" class="level2">
+<h2 class="anchored" data-anchor-id="section-152">2024-05-07</h2>
+<p><strong>Carlo Pecoraro</strong> (12:11:45): &gt; <span class="citation" data-cites="Carlo">@Carlo</span> Pecoraro has joined the channel</p>
+</section>
+<section id="section-153" class="level2">
+<h2 class="anchored" data-anchor-id="section-153">2024-05-27</h2>
+<p><strong>Leo Lahti</strong> (16:44:37): &gt; Check out our new editorial in Microbial Biotechnology, where the International Microbiology Literacy Initiative (IMiLI) is transforming how we teach and understand microbiology: “A concept for international societally relevant microbiology education and microbiology knowledge promulgation in society”<a href="https://doi.org/10.1111/1751-7915.14456">https://doi.org/10.1111/1751-7915.14456</a></p>
+</section>
+<section id="section-154" class="level2">
+<h2 class="anchored" data-anchor-id="section-154">2024-06-11</h2>
+<p><strong>Ziru Chen</strong> (04:37:10): &gt; <span class="citation" data-cites="Ziru">@Ziru</span> Chen has joined the channel</p>
+</section>
+<section id="section-155" class="level2">
+<h2 class="anchored" data-anchor-id="section-155">2024-06-26</h2>
+<p><strong>Danielle Callan</strong> (11:47:26): &gt; I’d like to share something I’m excited about: &gt; &gt; The<a href="https://microbiomedb.org/mbio/app">MicrobiomeDB</a>team recently developed a suite of R packages to accompany the website (if you aren’t familiar, check it out!). It supports the same types of analyses (alpha diversity, beta diversity, differential abundance, correlations, etc) as the site, via an API thats designed to be user-friendly and question-centric. Its built on a custom data container that is flexible enough to support a wide variety of data, while performant enough to also serve as the backbone of the site. You can import your own data from TreeSummarizedExperiments (and thanks to the great folks building mia, various other formats as well) or work with our curated data. &gt; &gt; Find more details here:<a href="https://microbiomedb.github.io/MicrobiomeDB/">https://microbiomedb.github.io/MicrobiomeDB/</a>We’d love feedback! So don’t hesitate to reach out. There is a<a href="https://discord.gg/rHty9PRED7">Discord Server</a>, as well, if anyone were interested.</p>
+<p><strong>Tuomas Borman</strong> (18:12:36): &gt; <span class="citation" data-cites="Tuomas">@Tuomas</span> Borman has joined the channel</p>
+<p><strong>Leo Lahti</strong> (18:13:06): &gt; Ping@Tuomas Borman</p>
+<p><strong>Leo Lahti</strong> (18:18:12): &gt; Thanks@Danielle Callan- interesting! I would be curious to know more about why you have chosen to create a new data container as the basis for the work, rather than support the widely adopted general-purpose Bioconductor containers (Tree)SummarizedExperiment and MultiAssayExperiment?</p>
+<p><strong>Leo Lahti</strong> (18:24:21): &gt; If I import data from phyloseq or TreeSummarizedExperiment to MicrobiomeDB I can calculate alpha, beta, DA, etc. but many of these things can be done on phyloseq and (Tree)SE objects directly - is the added value the fluent access to the background database (with many data sets) + potentially some analysis tools that have not been implemented elsewhere?</p>
+<p><strong>Leo Lahti</strong> (18:24:51): &gt; What’s the main difference to curatedMetagenomicData project? They also do humann3+metaphlan3 I think.</p>
+<p><strong>Danielle Callan</strong> (19:21:36): &gt; Hi@Leo Lahti! Great to hear from you, and great (though not entirely unexpected:smile:) questions! &gt; &gt; The project started mostly as a way for the MicrobiomeDB PI to replicate things from the site in R, so they could be more easily polished up and used for papers or presentations, etc. We pretty quickly thought that might be something others could be interested in though. So a major requirement for the package is that it<strong><em>exactly</em></strong>reproduce<a href="http://MicrobiomeDB.org">MicrobiomeDB.org</a>, and consequently the two share a good amount of code. The data container is designed to be compatible with the infrastructure the site is built on. If the site disappeared tomorrow, or the R package became massively more popular than the site, I’d be much more inclined to seriously consider moving to one of the options you mention. If I’m completely honest though, I’m still not entirely sure I would. I’ve become a fan of how incredibly simple the custom container can be to work with, both as a developer and a user.:shrug:As for added value, I see a few things. Yes, sure, the curated data is one, even possibly a big one. And I think the correlation analyses are rather unique to MicrobiomeDB and quite valuable. But I also very much appreciate the question-centric API. My hope is that people get to spend less time figuring out things like the intricacies of how to use Maaslin2 vs ANCOM-BC (a wip), and more time doing cool and hopefully fun science. So I value that<code>differentialAbundance</code>as a method with a consistent API regardless of the tool used sort of abstracts some of those details away and hopefully lets people iterate and compare quickly. &gt; &gt; As for a comparison to curatedMetagenomicData.. Outside of housing different studies, there are some differences to how they’ve been processed. Primarily, we’ve included CORRAL results as well as the HUMAnN results, which is an in-house tool for detecting eukaryotes. In the future, we’re planning actually to move all of our data processing to nf-core pipelines, which is an effort currently underway. &gt; &gt; Thanks for taking the time to check us out! Let me know what you think of that ^ or if you have any other questions.</p>
+</section>
+<section id="section-156" class="level2">
+<h2 class="anchored" data-anchor-id="section-156">2024-06-27</h2>
+<p><strong>Leo Lahti</strong> (11:40:25): &gt; Ok thanks that’s cool - I have experimented with the pkg (now as well as earlier) and seems to work smoothly - !</p>
+</section>
+<section id="section-157" class="level2">
+<h2 class="anchored" data-anchor-id="section-157">2024-07-30</h2>
+<p><strong>Li-Fang Yeo</strong> (03:20:14): &gt; <span class="citation" data-cites="Li-Fang">@Li-Fang</span> Yeo has joined the channel</p>
+</section>
+<section id="section-158" class="level2">
+<h2 class="anchored" data-anchor-id="section-158">2024-08-14</h2>
+<p><strong>Jayaram Kancherla</strong> (13:34:18): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla has left the channel</p>
+</section>
+<section id="section-159" class="level2">
+<h2 class="anchored" data-anchor-id="section-159">2024-08-17</h2>
+<p><strong>Sounkou Mahamane Toure</strong> (21:28:52): &gt; <span class="citation" data-cites="Sounkou">@Sounkou</span> Mahamane Toure has joined the channel</p>
+</section>
+<section id="section-160" class="level2">
+<h2 class="anchored" data-anchor-id="section-160">2024-08-19</h2>
+<p><strong>Rema Gesaka</strong> (09:41:29): &gt; <span class="citation" data-cites="Rema">@Rema</span> Gesaka has joined the channel</p>
+</section>
+<section id="section-161" class="level2">
+<h2 class="anchored" data-anchor-id="section-161">2024-09-15</h2>
+<p><strong>Leo Lahti</strong> (17:54:26): &gt; Fully Funded Doctoral Researcher positions in MSCA Doctoral Network HoloGen. &gt; &gt; Join our team at the University of Turku, Finland, to work on computational microbiome research in a growing data-intensive research field of hologenomics. &gt; &gt; Check for more info &amp; apply by Oct 14, 2024 at:<a href="https://ats.talentadore.com/apply/1-2-fully-funded-doctoral-researcher-positions-in-msca-doctoral-network-hologen/DGn4Bg">https://ats.talentadore.com/apply/1-2-fully-funded-doctoral-researcher-positions-in-msca-doctoral-network-hologen/DGn4Bg</a></p>
+</section>
+<section id="section-162" class="level2">
+<h2 class="anchored" data-anchor-id="section-162">2024-10-05</h2>
+<p><strong>Leo Lahti</strong> (05:05:39) (in thread): &gt; For all positions in this pan-European network, see<a href="https://www.hologen-network.eu/positions.html">https://www.hologen-network.eu/positions.html</a></p>
+</section>
+<section id="section-163" class="level2">
+<h2 class="anchored" data-anchor-id="section-163">2024-10-23</h2>
+<p><strong>Leo Lahti</strong> (10:48:31): &gt; FYI for circulation - &gt; &gt; ***** Microbiome data science &amp; multi-omics with R/Bioconductor ***** &gt; &gt; University of Oulu training school, Dec 18-20, 2024 (Wed-Fri) &gt; &gt; This intensive 3-day course provides an introduction to microbiome data science and multi-omic data integration with R/Bioconductor, a popular open source environment for scientific data analysis. The course is intended for MSc students, PhD candidates, postdocs, and researchers who wish to learn new data analytical skills. Academic students and researchers from Finland and abroad are welcome and encouraged to apply. &gt; &gt; Registration is free. The course is organized in a live format, and participants are expected to cover their own travel and accommodation. See the course homepage for registration instructions and travel &amp; accommodation tips. The course has maximum capacity of 20 participants. Applications from local students, and applications submitted by November 11 will be given priority. &gt; &gt; The course is organized by Health and Biosciences Doctoral Programme (HBS-DP) University of Oulu Graduate School, Research Unit of Translational Medicine, University of Oulu and the Biocity Turku CompLifeSci research program. We thank the Finnish IT Center for Science (CSC) for supporting the course with cloud computing services. This is a Bioconductor course and it follows the best practices recommended by Software Carpentries. &gt; &gt; For more details on course content, registration, teachers, travel &amp; accommodation tips and other practical information, see the course homepage (<a href="https://microbiome.github.io/course_2024_oulu/">https://microbiome.github.io/course_2024_oulu/</a>). - Attachment (microbiome.github.io): <a href="https://microbiome.github.io/course_2024_oulu/">Microbiome data science with R/Bioconductor</a> &gt; Course material</p>
+</section>
+<section id="section-164" class="level2">
+<h2 class="anchored" data-anchor-id="section-164">2024-11-19</h2>
+<p><strong>Leo Lahti</strong> (16:01:07): &gt; On<strong><em>December 16 and 17</em></strong>, Hasselt University (Belgium) will organise the second edition of the<strong><em>Microbiome Data Analysis Workshop</em></strong>(MDAW). We have a nice cast ofinternational lecturers/speakers: including Ksenia Guseva, Laura Symul, Leo Lahti, Georg Zeller, Stijn Wittouck, Thies Gehrmann, Ziv Shkedy and Olivier Thas. &gt; &gt; This workshop will be of interest to a broad range of profiles, ranging from PhD students, post-docs to experienced professionals who need to work with microbiome data. We target people with backgrounds in biology, biomedical sciences, engineering, environmental sciences, …, but also statisticians and data scientists with an interest in the challenges specific to the microbiome. The workshop is sponsored by the Doctoral School of Hasselt University (reduced registration fee for PhD students). &gt; &gt; On day 1 of the workshop you will learn about the basics: going from reads to OTU/ASV tables, exploring and visualizing microbiome data, and differential abundance analysis. These take the form of lectures, including hands-on sessions. The second day continues with more advanced and emerging topics, brought to you by top experts who will guide you through cutting-edge techniques to manage and interpret microbiome datasets. Whether you’re a beginner or looking to enhance your skills, this is your opportunity to learn from the best! &gt; &gt; More information can be found here:<a href="https://www.uhasselt.be/MDAW25">https://www.uhasselt.be/MDAW25</a> - Attachment (UHasselt): <a href="https://www.uhasselt.be/MDAW25">Microbiome Data Analysis Workshop 2025- UHasselt</a></p>
+</section>
+<section id="section-165" class="level2">
+<h2 class="anchored" data-anchor-id="section-165">2024-11-21</h2>
+<p><strong>Nesrine Gharbi</strong> (04:12:24): &gt; <span class="citation" data-cites="Nesrine">@Nesrine</span> Gharbi has joined the channel</p>
+<p><strong>Tehniyat zahra</strong> (05:07:29): &gt; <span class="citation" data-cites="Tehniyat">@Tehniyat</span> zahra has joined the channel</p>
+</section>
+<section id="section-166" class="level2">
+<h2 class="anchored" data-anchor-id="section-166">2024-12-28</h2>
+<p><strong>Tejaswi Velugapally</strong> (05:25:26): &gt; <span class="citation" data-cites="Tejaswi">@Tejaswi</span> Velugapally has joined the channel</p>
+<p><strong>Pascal-Onaho</strong> (07:55:49): &gt; <span class="citation" data-cites="Pascal-Onaho">@Pascal-Onaho</span> has joined the channel</p>
+</section>
+<section id="section-167" class="level2">
+<h2 class="anchored" data-anchor-id="section-167">2025-01-28</h2>
+<p><strong>Chris Fields</strong> (20:12:58): &gt; I have a few general (and hopefully not controversial!) questions for the community here, and maybe it’s worth a poll at some point.</p>
+<p><strong>Chris Fields</strong> (20:14:36): &gt; What is the consensus in using<code>phyloseq</code>vs the miaverse these days? I’ve seen questions posed re: lack of support for phyloseq, with lingering pull requests and bugs (e.g.&nbsp;concerns over bitrot). But I know a lot of students and others still using it over miaverse, likely due to familiarity with using it vs miaverse.</p>
+<p><strong>Chris Fields</strong> (20:15:37): &gt; So, would it be worth the time to support and maintain<code>phyloseq</code>as a community effort? Or should we put more effort into the miaverse (and training others to use it)?</p>
+<p><strong>Chris Fields</strong> (20:16:11): &gt; (I’m saying this w/ my open-source hat on, being a contributor in this domain going back ~20 yrs now)</p>
+</section>
+<section id="section-168" class="level2">
+<h2 class="anchored" data-anchor-id="section-168">2025-01-29</h2>
+<p><strong>Jenny Drnevich</strong> (09:04:56): &gt; <span class="citation" data-cites="Susan">@Susan</span> Holmes^^^ as you just mentioned something about phyloseq’s maintenance</p>
+<p><strong>Susan Holmes</strong> (09:05:01): &gt; <span class="citation" data-cites="Susan">@Susan</span> Holmes has joined the channel</p>
+<p><strong>Chris Fields</strong> (10:33:47): &gt; I should also clarify: I certainly don’t mean to frame this as ‘either phyloseq or mia’; both libraries could easily co-existence and benefit from this. I just want to gain some clarity, both for possible help with maintenance and (in a slightly more selfish context) future projects and training efforts in our group. I certainly know the pain of software sustainability</p>
+<p><strong>Negin Valizadegan</strong> (10:37:20): &gt; <span class="citation" data-cites="Negin">@Negin</span> Valizadegan has joined the channel</p>
+<p><strong>Jessica Holmes</strong> (11:14:58): &gt; <span class="citation" data-cites="Jessica">@Jessica</span> Holmes has joined the channel</p>
+<p><strong>Tuomas Borman</strong> (12:31:26): &gt; Thank you for bringing this question up, I think that is valid and good point, and definitely worth discussing. &gt; &gt; I wanted to wait little bit before replying to see if others shared their opinions, as I may be somewhat biased since I have been developing mia tools and have limited experience with phyloseq. &gt; &gt; One advantage of phyloseq is its larger community and more extensive ecosystem of tools and resources built around it. In contrast, a key strength of mia is its integration with Bioconductor’s main data container, SummarizedExperiment, as it utilizes TreeSummarizedExperiment data container. This enables cross-utilization and synergy within the broader Bioconductor ecosystem. This integration is especially beneficial for analyzing and integrating multi-assay data. &gt; &gt; There has been growing interest in miaverse, and we have seen its user base steadily increase. Naturally, we would love to see this to continue, with more users and active community development, which will help expand the toolset within the miaverse ecosystem. &gt; &gt; In theory, TreeSummarizedExperiment can do everything that phyloseq does, and more. However, because of its more complex structure, it may be harder to learn. &gt; &gt; Your question is interesting, and I would be interested in hearing other perspectives on this as well</p>
+<p><strong>Vince Carey</strong> (15:49:31): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+</section>
+<section id="section-169" class="level2">
+<h2 class="anchored" data-anchor-id="section-169">2025-01-30</h2>
+<p><strong>Rasmus Hindström</strong> (06:10:27): &gt; <span class="citation" data-cites="Rasmus">@Rasmus</span> Hindström has joined the channel</p>
+<p><strong>Chris Fields</strong> (16:36:12) (in thread): &gt; Thx Tuomas!</p>
+</section>
+<section id="section-170" class="level2">
+<h2 class="anchored" data-anchor-id="section-170">2025-01-31</h2>
+<p><strong>Chris Fields</strong> (16:35:58): &gt; To follow up on the above: we will likely poll local users in our spring workshop about whether they had a preference. I know at least two researchers who tried both but used phyloseq largely due to the (perceived) technical debt of learning a new package</p>
+</section>
+<section id="section-171" class="level2">
+<h2 class="anchored" data-anchor-id="section-171">2025-02-02</h2>
+<p><strong>Moritz E. Beber</strong> (11:39:37): &gt; Calling the need to learn something new technical debt is a new one to me:laughing:. It’s a fair point that there is a barrier to just switching to something else, though.</p>
+</section>
+<section id="section-172" class="level2">
+<h2 class="anchored" data-anchor-id="section-172">2025-02-03</h2>
+<p><strong>Chris Fields</strong> (10:01:00) (in thread): &gt; Hence me using ‘perceived’. Perception is everything</p>
+</section>
+<section id="section-173" class="level2">
+<h2 class="anchored" data-anchor-id="section-173">2025-03-18</h2>
+<p><strong>Nicolo</strong> (17:30:59): &gt; <span class="citation" data-cites="Nicolo">@Nicolo</span> has joined the channel</p>
+</section>
+<section id="section-174" class="level2">
+<h2 class="anchored" data-anchor-id="section-174">2025-03-26</h2>
+<p><strong>Leo Lahti</strong> (17:32:25): &gt; <strong><em>Elementary methods provide more replicable results in microbial differential abundance analysis</em></strong>- We benchmarked 14 differential abundance analysis methods in R by examining the consistency and replicability of their results along with their sensitivity. We employed 69 real datasets from 53 microbiome profiling studies (16S &amp; MGS). - Some widely used methods were found to perform inconsistently. - The highest consistency with good sensitivity was obtained with relative abundances or presence/absence with elementary methods (nonparametric test, linear regression/t-test, logistic regression). - Pelto et al.&nbsp;BiB, 2025<a href="https://doi.org/10.1093/bib/bbaf130">https://doi.org/10.1093/bib/bbaf130</a></p>
+</section>
+<section id="section-175" class="level2">
+<h2 class="anchored" data-anchor-id="section-175">2025-04-14</h2>
+<p><strong>Jenny Drnevich</strong> (11:05:42) (in thread): &gt; Congratulations! It doesn’t look like the paper is available at that link yet. Is there a pre-print available?</p>
+<p><strong>Leo Lahti</strong> (17:32:59) (in thread): &gt; Oops, yes<img src="https://arxiv.org/abs/2404.02691" class="img-fluid" alt="https://arxiv.org/abs/2404.02691"> - Attachment (arXiv.org): <a href="https://arxiv.org/abs/2404.02691">Elementary methods provide more replicable results in microbial differential abundance analysis</a> &gt; Differential abundance analysis is a key component of microbiome studies. Although dozens of methods exist there is currently no consensus on the preferred methods. While the correctness of results in differential abundance analysis is an ambiguous concept and cannot be fully evaluated without setting the ground truth and employing simulated data, we argue that a well-performing method should be effective in producing highly reproducible results. &gt; We compared the performance of 14 differential abundance analysis methods by employing datasets from 53 taxonomic profiling studies based on 16S rRNA gene or shotgun metagenomic sequencing. For each method, we examined how the results replicated between random partitions of each dataset and between datasets from separate studies. While certain methods showed good consistency, some widely used methods were observed to produce a substantial number of conflicting findings. Overall, when considering consistency together with sensitivity, the best performance was attained by analyzing relative abundances with a non-parametric method (Wilcoxon test or ordinal regression model) or linear regression/t-test. Moreover, a comparable performance was obtained by analyzing presence/absence of taxa with logistic regression.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

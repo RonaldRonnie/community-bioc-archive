@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#accessible-vis – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2020-07-30</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2020-07-31</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2020-08-01</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2020-08-03</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2020-08-05</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2020-08-07</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2020-09-10</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2020-09-14</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2020-10-01</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2020-10-17</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2020-11-16</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2021-01-01</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2021-01-22</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2021-03-12</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2021-05-11</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2021-05-21</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2021-05-24</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2021-07-23</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2021-08-04</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2021-10-10</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2021-10-11</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2021-11-08</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2021-12-14</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2022-02-15</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2022-03-14</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2022-06-09</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2022-07-29</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2022-09-17</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2022-10-23</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2023-03-10</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2023-05-06</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2023-05-15</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2023-06-19</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2023-08-28</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2023-09-15</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2023-10-15</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2024-03-20</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2024-04-28</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2024-11-17</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2025-02-06</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2025-03-05</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2025-03-17</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2025-03-18</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#accessible-vis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2020-07-30</h2>
+<p><strong>Dan Bunis</strong> (17:01:44): &gt; <span class="citation" data-cites="Dan">@Dan</span> Bunis has joined the channel</p>
+<p><strong>Atul Deshpande</strong> (17:01:58): &gt; <span class="citation" data-cites="Atul">@Atul</span> Deshpande has joined the channel</p>
+<p><strong>Leonardo Collado Torres</strong> (17:01:58): &gt; <span class="citation" data-cites="Leonardo">@Leonardo</span> Collado Torres has joined the channel</p>
+<p><strong>Kayla Interdonato</strong> (17:05:00): &gt; <span class="citation" data-cites="Kayla">@Kayla</span> Interdonato has joined the channel</p>
+<p><strong>Dan Bunis</strong> (17:06:01): &gt; To get things started here, I’ll link the google-doc and the slides that we used for the BOF sessions.</p>
+<p><strong>Dan Bunis</strong> (17:06:12): &gt; <a href="https://docs.google.com/document/d/1qCYv4vfBeKMTNMf1m6TgRvo9dyfmbR7qx772dHiuX5M/edit#">https://docs.google.com/document/d/1qCYv4vfBeKMTNMf1m6TgRvo9dyfmbR7qx772dHiuX5M/edit#</a></p>
+<p><strong>Simina Boca</strong> (17:08:09): &gt; <span class="citation" data-cites="Simina">@Simina</span> Boca has joined the channel</p>
+<p><strong>Dan Bunis</strong> (17:08:40): &gt; <a href="https://docs.google.com/presentation/d/1PImGiuCj5a5KxM6rslXg98QggEht1oHqprV-LKwamHs/edit#slide=id.g8d3eb11ecc_3_0">https://docs.google.com/presentation/d/1PImGiuCj5a5KxM6rslXg98QggEht1oHqprV-LKwamHs/edit#slide=id.g8d3eb11ecc_3_0</a></p>
+<p><strong>Atul Deshpande</strong> (17:09:41): &gt; Are there regulatory issues with conducting a survey? For example, if I go to<a href="http://reddit.com/r/colorblind">reddit.com/r/colorblind</a>with a bunch of figures and multiple choice questions regarding the figures.</p>
+<p><strong>Leonardo Collado Torres</strong> (17:10:01): &gt; My points were: &gt; * interactivity helps resolves many of the issues (zoom, clicking on categorical color labels to turn on/off) + maybe shiny inputs for color scales (for continuous variables) does most if it. Like Dan said,<code>plotly::ggplotly()</code>is quite easy to use. People love interactivity even if not visual impaired, so use that as a win-win to bring in people in. Journals like eLife and F1000Research and others do allow interactive graphics. &gt; * You just need a short paper (1 figure with data like Aedin said) to start the conversation. Quick and easy to digest. People will be like: yup, this is a problem and I can surely try X or Y solution (you can list a few, but then have a more detailed supplementary table or website or something like that) &gt; Links: &gt; * 2011 paper by Kasper Daniel Hansen, Zhijin, Wu Rafael Irizarry, Jeff Leek<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3137276/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3137276/</a>. ere’s the link to the paper (same one as the PMC link above) but on the Nature journal, but it’s under a paywall<a href="https://dx.doi.org/10.1038%2Fnbt.1910">https://dx.doi.org/10.1038%2Fnbt.1910</a>. It’s about half a page in the Nature biotech journal format (paywalled). &gt; * Plotly examples:<a href="http://spatial.libd.org/spatialLIBD/">http://spatial.libd.org/spatialLIBD/</a>(includes a shiny input for the continuous color scale) and<a href="https://dash-gallery.plotly.host/dash-oil-and-gas/">https://dash-gallery.plotly.host/dash-oil-and-gas/</a> - Attachment (PubMed Central (PMC)): <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3137276/">Sequencing technology does not eliminate biological variability</a> &gt; RNA sequencing has generated much excitement for the advantages offered over microarrays. This excitement has led to a barrage of publications discounting the importance of biological variability; as microarray publications did in the 1990s. By comparing …</p>
+<p><strong>Leonardo Collado Torres</strong> (17:10:19): &gt; (that’s the nicely edited version of what I wrote on the pathable chat)</p>
+<p><strong>Dan Bunis</strong> (17:11:27) (in thread): &gt; This is a good question. I’m not sure.</p>
+<p><strong>Atul Deshpande</strong> (17:12:43) (in thread): &gt; I’ll pin this in case someone knows the answer.</p>
+<p><strong>Aedin Culhane</strong> (17:14:04): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+<p><strong>Leonardo Collado Torres</strong> (17:16:48): &gt; I think that you could also write a second paper that is more tutorial focused on: here is how you can create some plots, check if they are colorblind-friendly, improve them, done:smiley:Or even include a section on how to add options to plotting functions that make them more friendly. Say, one of them could take a input a ggplot2 object, then make the shiny app with plotly + inputs for the color scale &gt; &gt; (just some ideas, dunno if they are implemented already)</p>
+<p><strong>Leonardo Collado Torres</strong> (17:17:19): &gt; then that second paper could be the basis for a BioC workshop. Basically, if it’s a BioC workflow, then it’s easy to publish it at F1000Research</p>
+<p><strong>Simina Boca</strong> (17:18:12) (in thread): &gt; If you put it on Reddit I’m almost 100% sure you need an IRB</p>
+<p><strong>Leonardo Collado Torres</strong> (17:18:13): &gt; though that second paper will have a more narrow audience, hence why you want the other paper describing the problem &amp; maybe mentioning some broad solutions (which is where I suggest mentioning using interactive graphs)</p>
+<p><strong>Simina Boca</strong> (17:18:43) (in thread): &gt; It would probably still be considered “Human subjects research” - presumably w/ a quick IRB turnaround</p>
+<p><strong>Simina Boca</strong> (17:19:17) (in thread): &gt; If it’s only co-authors that may not require it - people evaluate other papers all the time in manuscripts</p>
+<p><strong>Leonardo Collado Torres</strong> (17:19:18): &gt; <a href="https://twitter.com/slowkow/status/1288945878871560197?s=20">https://twitter.com/slowkow/status/1288945878871560197?s=20</a> - Attachment (twitter): <a href="https://twitter.com/slowkow/status/1288945878871560197?s=20">Attachment</a> &gt; <a href="https://twitter.com/fellgernon"><span class="citation" data-cites="fellgernon">@fellgernon</span></a> <a href="https://twitter.com/atulpdeshpande"><span class="citation" data-cites="atulpdeshpande">@atulpdeshpande</span></a> <a href="https://twitter.com/DanBunis"><span class="citation" data-cites="DanBunis">@DanBunis</span></a> <a href="https://twitter.com/Bioconductor"><span class="citation" data-cites="Bioconductor">@Bioconductor</span></a> This thread may be of interest for automatically choosing distinct colors: &gt; &gt; <a href="https://twitter.com/jokergoo/status/1284405839252672513?s=20">https://twitter.com/jokergoo/status/1284405839252672513?s=20</a> - Attachment (twitter): <a href="https://twitter.com/jokergoo/status/1284405839252672513">Attachment</a> &gt; Does anyone know the tools that generate distinct random colors for many clusters, like the method in this post <a href="https://gdagstn.github.io/tsnecolors.html">https://gdagstn.github.io/tsnecolors.html</a>?</p>
+<p><strong>Leonardo Collado Torres</strong> (17:20:28): &gt; I see that they link to<a href="https://cran.r-project.org/web/packages/Polychrome/vignettes/polychrome.html">https://cran.r-project.org/web/packages/Polychrome/vignettes/polychrome.html</a>. I first found about this package with the R 4.0.0 release notes (or one of the R core blog posts prior to R 4.0.0) since that’s what they used to come up with the new R default colors</p>
+<p><strong>Simina Boca</strong> (17:20:32) (in thread): &gt; Not sure if it would be an issue because some authors are vision impaired - as long as everyone would be OK with readers knowing that some authors are vision impaired (like I don’t think there’s stigma attached to it but I guess it is technically health information?)</p>
+<p><strong>Leonardo Collado Torres</strong> (17:20:46): &gt; <a href="https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html">https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html</a></p>
+<p><strong>Leonardo Collado Torres</strong> (17:20:50): &gt; that’s the link I was thinking about</p>
+<p><strong>Leonardo Collado Torres</strong> (17:22:11): &gt; :open_mouth:it has an update: &gt; <code>&gt; UPDATE 2019-12-03: Following feedback, the new default palette has been tweaked so that the new "magenta" is a little redder and darker and the new "yellow" is a little lighter and brighter. The former is to improve the discriminability between "blue" and "magenta" for deuteranopes and the latter is to improve the discriminability between "green" and "yellow" for protanopes. We would like to thank those who provided feedback and suggestions on the new palette, in particular Antonio Camargo, Brenton Wiernik, Ken Knoblauch, and Jakub Nowosad. &gt;</code> &gt; Maybe those are people you can invite for your projects! &gt; <code>&gt; Antonio Camargo, Brenton Wiernik, Ken Knoblauch, and Jakub Nowosad. &gt;</code></p>
+<p><strong>Atul Deshpande</strong> (17:23:25) (in thread): &gt; Thanks. One strategy could be to show figures filtered through colorblind filters to authors with normal vision.</p>
+<p><strong>Dan Bunis</strong> (17:26:06): &gt; Yes, I think these might indeed be good additional people to ask! … once we have the idea for the paper down a bit more concretely.</p>
+<p><strong>Leonardo Collado Torres</strong> (17:26:58): &gt; Yup yup:smiley:</p>
+<p><strong>Dan Bunis</strong> (17:27:00) (in thread): &gt; Thanks so much Simina. I think my tendency would be to avoid anything that might require an IRB.</p>
+<p><strong>Dan Bunis</strong> (17:28:21) (in thread): &gt; I agree that even just the fact that the paper would make it clear that many authors are color-blind might be considered a personal health information disclosure, so this is something that maybe we could ask a journal first…</p>
+<p><strong>Atul Deshpande</strong> (17:29:28) (in thread): &gt; That’s one benefit of an anonymous survey, I guess.</p>
+<p><strong>Dan Bunis</strong> (17:29:40) (in thread): &gt; Perhaps again once the paper idea is more concrete… we could send a pre-submission inquiry to our intended journal where we ask for a clarification on that matter.</p>
+<p><strong>Dan Bunis</strong> (17:30:41) (in thread): &gt; Personally, I don’t care if people know I’m color blind. Honestly, it’s revealed in the dittoSeq github already.</p>
+<p><strong>Ruth Schmidt</strong> (17:31:20): &gt; <span class="citation" data-cites="Ruth">@Ruth</span> Schmidt has joined the channel</p>
+<p><strong>Matthew McCall</strong> (17:31:53): &gt; <span class="citation" data-cites="Matthew">@Matthew</span> McCall has joined the channel</p>
+<p><strong>Atul Deshpande</strong> (17:32:13) (in thread): &gt; Nor am I, but I would assume others have reservations.</p>
+<p><strong>Dan Bunis</strong> (17:34:19) (in thread): &gt; :man-shrugging:maybe. As Simina pointed out, I don’t think there is much stigma, so I’m not so sure. I think we can just be up front then and make sure any additional authors would be okay with the assumed disclosure.</p>
+<p><strong>Atul Deshpande</strong> (17:34:21) (in thread): &gt; Also, I guess there might be a slight difference between a github repo and a high-impact journal article.</p>
+<p><strong>Simina Boca</strong> (17:39:06) (in thread): &gt; It may worth thinking a bit more about the study design</p>
+<p><strong>Simina Boca</strong> (17:39:32) (in thread): &gt; Like if we show figures w/o legends</p>
+<p><strong>Simina Boca</strong> (17:39:53) (in thread): &gt; We may not want to show them to the people who selected the papers in the first place</p>
+<p><strong>Simina Boca</strong> (17:40:20) (in thread): &gt; If we include legends people may be influenced in terms of how many colors/clusters they see</p>
+<p><strong>Dan Bunis</strong> (17:41:45): &gt; I like the plan of having a (first) paper that assesses a subset of papers from high impact journals. Perhaps with a single figure explaining our method of assessment + and example of a plot &amp; it’s color-blind transformations + the results of our assessment. Then a brief set of suggestions of a few things that scientists &amp; journals can do to ensure their figures are more accessible.</p>
+<p><strong>Aedin Culhane</strong> (17:42:22): &gt; Anyone want to hang out/chat.&nbsp; Pop into<a href="https://meet.bioconductor.org/yEoLukjsyI">https://meet.bioconductor.org/yEoLukjsyI</a> - Attachment (meet.bioconductor.org): <a href="https://meet.bioconductor.org/yEoLukjsyI">Jitsi Meet</a> &gt; Join a WebRTC video conference powered by the Jitsi Videobridge</p>
+<p><strong>Dan Bunis</strong> (17:42:53): &gt; There are certainly a few things to figure out for that. Perhaps the first is what that method of assessment might be.</p>
+<p><strong>Dan Bunis</strong> (17:43:19) (in thread): &gt; That’s a good point.</p>
+<p><strong>Simina Boca</strong> (17:45:12) (in thread): &gt; I would not necessarily be dissuaded from doing the best study we can just by the need for an IRB approval. Risk to participants is minimal so it’s not gonna be evaluated like a drug study.</p>
+<p><strong>Dan Bunis</strong> (17:48:21) (in thread): &gt; I’m mainly coming from a place of having never put together an IRB. And added to those general uncertainties, also worried that the cross-institutional collaborative nature of this study might make it harder?</p>
+<p><strong>Aedin Culhane</strong> (17:50:10): &gt; A few of us are just chatting if you want to join</p>
+<p><strong>Hyun-Hwan Jeong</strong> (18:25:36): &gt; <span class="citation" data-cites="Hyun-Hwan">@Hyun-Hwan</span> Jeong has joined the channel</p>
+<p><strong>Simina Boca</strong> (18:54:29) (in thread): &gt; Yeah those things are always a somewhat added pain, but it’s doable</p>
+<p><strong>Martin Morgan</strong> (19:06:35): &gt; <span class="citation" data-cites="Martin">@Martin</span> Morgan has joined the channel</p>
+<p><strong>Kevin Blighe</strong> (19:24:58): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Blighe has joined the channel</p>
+<p><strong>Atul Deshpande</strong> (20:22:52) (in thread): &gt; The following could be examples for query formats: &gt; Match the following six figures to the six legends given below: &gt; &gt; OR &gt; &gt; Which of the following legends is best associated with the given figure?</p>
+<p><strong>Simina Boca</strong> (20:49:31) (in thread): &gt; I think@Aedin Culhanehad the suggestion of having it be something like “How many cluster colors do you see?” which I think may be good</p>
+<p><strong>Simina Boca</strong> (20:50:00) (in thread): &gt; I think for most people it gets hard to distinguish past 5-6 colors</p>
+<p><strong>Simina Boca</strong> (20:50:34) (in thread): &gt; So if we take out the legend people are really forced to rely on their eyes and not the legend</p>
+<p><strong>Atul Deshpande</strong> (20:51:36) (in thread): &gt; Indeed. The criticism may be that not providing legend is intentionally reducing the interpretability of the figure.</p>
+<p><strong>Atul Deshpande</strong> (20:53:19) (in thread): &gt; If I provide four well chosen candidate legends with different number of colors, the “reader” will still need to rely on their eyes to choose the right one.</p>
+<p><strong>Atul Deshpande</strong> (20:53:43) (in thread): &gt; I guess the answer lies in the question we want answered.</p>
+<p><strong>Simina Boca</strong> (20:54:48) (in thread): &gt; Ah I see</p>
+<p><strong>Simina Boca</strong> (20:54:57) (in thread): &gt; Yes, that could be an option!</p>
+<p><strong>Matthew McCall</strong> (22:32:50): &gt; I was thinking a powerful first figure in a paper on this topic might be to have panel A show the original figure from a paper and then have panels B-?? Show how that figure would look to people with different types of color blindness. I imagine it wouldn’t be too hard to find a figure that uses several different color pairs that are indistinguishable to different groups of people.</p>
+<p><strong>Matthew McCall</strong> (22:42:01): &gt; As someone with deutan color blindness, I know I’ve struggled to explain to others what exactly I see, so I was really intrigued by these methods to transform an image into an approximation of what I see for someone with typical color vision</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2020-07-31</h2>
+<p><strong>Ayush Aggarwal</strong> (02:06:17): &gt; <span class="citation" data-cites="Ayush">@Ayush</span> Aggarwal has joined the channel</p>
+<p><strong>Heather Turner</strong> (02:55:47): &gt; <span class="citation" data-cites="Heather">@Heather</span> Turner has joined the channel</p>
+<p><strong>Saulius Lukauskas</strong> (03:15:30): &gt; <span class="citation" data-cites="Saulius">@Saulius</span> Lukauskas has joined the channel</p>
+<p><strong>Mike Smith</strong> (03:41:40): &gt; <span class="citation" data-cites="Mike">@Mike</span> Smith has joined the channel</p>
+<p><strong>Vince Carey</strong> (07:04:27): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+<p><strong>Ruth Schmidt</strong> (12:04:36) (in thread): &gt; thanks for this comment@Leonardo Collado Torrestotally agree with all of the above and wanna add a few recommendations. This is a super useful book for building interactive graphs using plotly or ggplot:<a href="https://plotly-r.com/index.html">https://plotly-r.com/index.html</a> &gt; <code>&gt;  &gt;</code> - Attachment (plotly-r.com): <a href="https://plotly-r.com/index.html">Interactive web-based data visualization with R, plotly, and shiny</a> &gt; A useR guide to creating highly interactive graphics for exploratory and expository visualization.</p>
+<p><strong>Lambda Moses</strong> (12:04:53): &gt; <span class="citation" data-cites="Lambda">@Lambda</span> Moses has joined the channel</p>
+<p><strong>Ruth Schmidt</strong> (12:07:24) (in thread): &gt; you can use plotly or ggplotly graphs in a shiny app OR in a dash app and even publish that one alongside your publication, e.g:<a href="https://www.crisprindelphi.design/">https://www.crisprindelphi.design/</a>based on this paper:<a href="https://www.nature.com/articles/s41586-018-0686-x">https://www.nature.com/articles/s41586-018-0686-x</a> - Attachment (Nature): <a href="https://www.nature.com/articles/s41586-018-0686-x">Predictable and precise template-free CRISPR editing of pathogenic variants</a> &gt; The authors use a machine-learning algorithm to predict the spectrum of CRISPR–Cas9-nuclease-mediated DNA repair outcomes at&nbsp;human genomic target sites.</p>
+<p><strong>Charlotte Soneson</strong> (12:16:20): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+<p><strong>Ruth Schmidt</strong> (12:20:10): &gt; Hi all, there were a few questions yesterday that I didn’t get the chance to answer and link to the topic being discussed here. So, first: “where can I host a dash app”. For a tutorial see here:<a href="https://dashr.plotly.com/deployment">https://dashr.plotly.com/deployment</a>. Second: “what’s is the difference to MetaboAnalayst and can it be incorporated/is it an alternative”? MetaboAnalyst is great but not all outputs are interactive and this is just an alternative way of showing how one can build their own app for metabolomics data. For the example I showed I used MetaboAnalystR but also other packages to analyze my data and then pass the output in form of a df into a plotly function to plot the interactive graphs and connect them to the components in the dash app. It’s straight forward to incorporate packages in a dash app. One would just need to run the analysis prior to starting the app. Only issue here is that if it’s a heavy dataset and takes time the app also will take time to load the datasets. But there are ways around it by e.g.&nbsp;by serializing dataframes using the<a href="https://www.fstpackage.org/">fst</a>package. - Attachment (dashr.plotly.com): <a href="https://dashr.plotly.com/deployment">Dash for R User Guide and Documentation | R &amp; RStats | Plotly</a> &gt; Dash for R User Guide and Documentation. Dash is a framework for building analytical web apps in R and Python. - Attachment (fstpackage.org): <a href="https://www.fstpackage.org/">Lightning Fast Serialization of Data Frames for R</a> &gt; Multithreaded serialization of compressed data frames using the fst format. The fst format allows for random access of stored data and compression with the LZ4 and ZSTD compressors created by Yann Collet. The ZSTD compression library is owned by Facebook Inc.</p>
+<p><strong>Ruth Schmidt</strong> (12:27:19) (in thread): &gt; <span class="citation" data-cites="Matthew">@Matthew</span> McCallI had this discussion with a colleague. What do you think about the RColorBrewer colorblind-friendly palettes? &gt; <code>&gt; display.brewer.all(colorblindFriendly = TRUE) &gt;</code></p>
+<p><strong>Ruth Schmidt</strong> (12:29:12) (in thread): &gt; generally, what colour palettes would you recommend to use from the ggplot2 or other libraries?</p>
+<p><strong>Matthew McCall</strong> (13:17:36) (in thread): &gt; I generally try to avoid color in paper figures because it’s hard for me to find colors I like and am confident work for a lot of people. Also a lot of journals still charge extra for color figures. But done of that’s a real solution. I do tend to use those RColorBrewer palettes for when I am using color, but I’m definitely open to something better.</p>
+<p><strong>Rene Welch</strong> (16:10:07): &gt; <span class="citation" data-cites="Rene">@Rene</span> Welch has joined the channel</p>
+<p><strong>Dr Awala Fortune O.</strong> (16:13:51): &gt; <span class="citation" data-cites="Dr">@Dr</span> Awala Fortune O. has joined the channel</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2020-08-01</h2>
+<p><strong>Matt Ritchie</strong> (02:06:01): &gt; <span class="citation" data-cites="Matt">@Matt</span> Ritchie has joined the channel</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2020-08-03</h2>
+<p><strong>Jenny Drnevich</strong> (10:06:19): &gt; <span class="citation" data-cites="Jenny">@Jenny</span> Drnevich has joined the channel</p>
+<p><strong>Aedin Culhane</strong> (16:13:46) (in thread): &gt; Hi Dan, It could be as simple, as how many colors/clusters do you see? Which ones are difficult to determine. Then you could present % recall and even precision… Funny the precision/recall wikipedia image isn’t color-blind friendly - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F017S9ZRD47/image.png">image.png</a></p>
+<p><strong>Aedin Culhane</strong> (16:15:06) (in thread): &gt; You could even, simulate Umap cluster maps with the most popular color palettes and crowd source.. how many colors/clusters do you see</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2020-08-05</h2>
+<p><strong>Leonardo Collado Torres</strong> (02:45:32): &gt; <a href="https://twitter.com/rfortherest/status/1290679204481294337?s=12">https://twitter.com/rfortherest/status/1290679204481294337?s=12</a> - Attachment (twitter): <a href="https://twitter.com/rfortherest/status/1290679204481294337?s=12">Attachment</a> &gt; Make sure your #rstats plots are colorblind friendly using {colorblindr} by <a href="https://twitter.com/ClausWilke"><span class="citation" data-cites="ClausWilke">@ClausWilke</span></a> &gt; &gt; <a href="https://bit.ly/2WTqvLS">https://bit.ly/2WTqvLS</a> <a href="https://pbs.twimg.com/media/Eelp5W7WoAA0le9.png">https://pbs.twimg.com/media/Eelp5W7WoAA0le9.png</a></p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2020-08-07</h2>
+<p><strong>Lauren Hsu</strong> (00:21:55): &gt; <span class="citation" data-cites="Lauren">@Lauren</span> Hsu has joined the channel</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2020-09-10</h2>
+<p><strong>Joselyn Chávez</strong> (10:39:03): &gt; <span class="citation" data-cites="Joselyn">@Joselyn</span> Chávez has joined the channel</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2020-09-14</h2>
+<p><strong>Aedin Culhane</strong> (13:10:54): &gt; Nice visualization of 40 color flow cytometry immunophenotyping of cell subsets in human peripheral blood<a href="https://t.co/7enaBk5bDN?amp=1">https://t.co/7enaBk5bDN?amp=1</a> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F01B0RLE5LH/image.png">image.png</a></p>
+<p><strong>Aedin Culhane</strong> (13:11:49): &gt; Is the numbering of clusters sufficiently good for@Dan Bunis@Atul DeshpandeCould the colors be better?</p>
+<p><strong>Atul Deshpande</strong> (13:57:37): &gt; That’s actually very clearly readable for me.</p>
+<p><strong>Dan Bunis</strong> (14:18:09): &gt; Pretty clear for me too. &gt; I’d say the colors for the separate groups could be updated as the CD4Tcell/Monocyte/Bcell colors bleed together for me, and same for the CD8Tcell/NK. But it really feels like a minor point because the numbers allow me to tell what’s what.</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2020-10-01</h2>
+<p><strong>Aedin Culhane</strong> (10:15:50): &gt; Any update here?</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2020-10-17</h2>
+<p><strong>Kevin Blighe</strong> (10:16:02): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Blighe has joined the channel</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2020-11-16</h2>
+<p><strong>Carmen Abaurre</strong> (06:11:10): &gt; <span class="citation" data-cites="Carmen">@Carmen</span> Abaurre has joined the channel</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2021-01-01</h2>
+<p><strong>Soumya Banerjee</strong> (09:40:14): &gt; <span class="citation" data-cites="Soumya">@Soumya</span> Banerjee has joined the channel</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2021-01-22</h2>
+<p><strong>Jonathan Speh</strong> (05:13:46): &gt; <span class="citation" data-cites="Jonathan">@Jonathan</span> Speh has joined the channel</p>
+<p><strong>Annajiat Alim Rasel</strong> (15:41:05): &gt; <span class="citation" data-cites="Annajiat">@Annajiat</span> Alim Rasel has joined the channel</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2021-03-12</h2>
+<p><strong>Julia Romanowska</strong> (14:50:39): &gt; <span class="citation" data-cites="Julia">@Julia</span> Romanowska has joined the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2021-05-11</h2>
+<p><strong>Megha Lal</strong> (16:43:42): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has joined the channel</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2021-05-21</h2>
+<p><strong>Guido Barzaghi</strong> (04:14:17): &gt; <span class="citation" data-cites="Guido">@Guido</span> Barzaghi has joined the channel</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2021-05-24</h2>
+<p><strong>MarieV</strong> (13:42:09): &gt; <span class="citation" data-cites="MarieV">@MarieV</span> has joined the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2021-07-23</h2>
+<p><strong>Batool Almarzouq</strong> (15:51:10): &gt; <span class="citation" data-cites="Batool">@Batool</span> Almarzouq has joined the channel</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2021-08-04</h2>
+<p><strong>Ayush Aggarwal</strong> (19:19:59): &gt; <span class="citation" data-cites="Ayush">@Ayush</span> Aggarwal has joined the channel</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2021-10-10</h2>
+<p><strong>Mike Smith</strong> (05:00:00): &gt; Does anyone have any colour palettes they recommend for accessibility? I’m considering adding some text in the BiocStyle vignette about colour choice, and it’d be nice to link to some existing/recommended palettes.</p>
+<p><strong>Simina Boca</strong> (13:48:18): &gt; Check out<a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3</a></p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2021-10-11</h2>
+<p><strong>Jenny Drnevich</strong> (11:45:02): &gt; I use dittoSeq::dittoColors()</p>
+<p><strong>Mike Smith</strong> (14:30:53): &gt; Thanks for the suggestions. I made a pull request to BiocStyle (<a href="https://github.com/Bioconductor/BiocStyle/pull/91">https://github.com/Bioconductor/BiocStyle/pull/91</a>) and mentioned both.</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2021-11-08</h2>
+<p><strong>Paula Nieto García</strong> (03:18:37): &gt; <span class="citation" data-cites="Paula">@Paula</span> Nieto García has joined the channel</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2021-12-14</h2>
+<p><strong>Megha Lal</strong> (08:23:14): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has left the channel</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2022-02-15</h2>
+<p><strong>Gene Cutler</strong> (11:59:28): &gt; <span class="citation" data-cites="Gene">@Gene</span> Cutler has joined the channel</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2022-03-14</h2>
+<p><strong>Mike Smith</strong> (17:19:34): &gt; Does anyone prefer to use a “dark mode” when it’s given as an option on a website. Have you struggled with the colours in Bioconductor vignettes? I’m wondering if a dark mode switch is an enhancement we could add to BiocStyle for package vignettes, but I’ve no idea how big the audience is that we’re not serving with the current theme.</p>
+<p><strong>Lambda Moses</strong> (19:49:37) (in thread): &gt; I think that would be nice. I usually change the RStudio theme to a dark one in the evening so my eyes feel more comfortable.</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2022-06-09</h2>
+<p><strong>John Hutchinson</strong> (09:07:24): &gt; <span class="citation" data-cites="John">@John</span> Hutchinson has joined the channel</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2022-07-29</h2>
+<p><strong>Jill Lundell</strong> (16:38:00): &gt; <span class="citation" data-cites="Jill">@Jill</span> Lundell has joined the channel</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2022-09-17</h2>
+<p><strong>Kartik</strong> (11:33:59): &gt; <span class="citation" data-cites="Kartik">@Kartik</span> has joined the channel</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2022-10-23</h2>
+<p><strong>Vince Carey</strong> (13:36:59): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has left the channel</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2023-03-10</h2>
+<p><strong>Joaquin Reyna</strong> (15:26:54): &gt; <span class="citation" data-cites="Joaquin">@Joaquin</span> Reyna has joined the channel</p>
+<p><strong>Edel Aron</strong> (15:34:58): &gt; <span class="citation" data-cites="Edel">@Edel</span> Aron has joined the channel</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2023-05-06</h2>
+<p><strong>Sarah Parker</strong> (14:03:44): &gt; <span class="citation" data-cites="Sarah">@Sarah</span> Parker has joined the channel</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2023-05-15</h2>
+<p><strong>Michael Lynch</strong> (07:53:01): &gt; <span class="citation" data-cites="Michael">@Michael</span> Lynch has joined the channel</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2023-06-19</h2>
+<p><strong>Pierre-Paul Axisa</strong> (05:08:27): &gt; <span class="citation" data-cites="Pierre-Paul">@Pierre-Paul</span> Axisa has joined the channel</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2023-08-28</h2>
+<p><strong>Abdullah Al Nahid</strong> (15:05:40): &gt; <span class="citation" data-cites="Abdullah">@Abdullah</span> Al Nahid has joined the channel</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2023-09-15</h2>
+<p><strong>Leo Lahti</strong> (04:53:00): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2023-10-15</h2>
+<p><strong>Lambda Moses</strong> (21:02:16): &gt; Saw this package on Mastodon. It looks very helpful for accessibility:<a href="https://github.com/nicucalcea/Ra11y">https://github.com/nicucalcea/Ra11y</a></p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2024-03-20</h2>
+<p><strong>Lambda Moses</strong> (13:22:57): &gt; I try to make my plotting functions colorblind friendly. I wonder what do colorblind people think of fluorescent images which may have red and green fluorophores. ImageJ also uses red and green colorization when the metadata doesn’t indicate a color for the channel. One can always simply view each channel separately. But I wonder if there already is a coloblind friendly way to colorize different channels in fluorescent images to make a nice looking pseudocolor image. I suppose one can use a colorblind friendly palette, but then what about when two colors colocalize, like yellow when we have red and green at the same pixel?</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2024-04-28</h2>
+<p><strong>Danielle Callan</strong> (08:18:54): &gt; <span class="citation" data-cites="Danielle">@Danielle</span> Callan has joined the channel</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2024-11-17</h2>
+<p><strong>Vince Carey</strong> (05:06:57): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2025-02-06</h2>
+<p><strong>Liz Hare</strong> (11:49:32): &gt; <span class="citation" data-cites="Liz">@Liz</span> Hare has joined the channel</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2025-03-05</h2>
+<p><strong>Benjamin Hernandez Rodriguez</strong> (22:26:10): &gt; <span class="citation" data-cites="Benjamin">@Benjamin</span> Hernandez Rodriguez has joined the channel</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2025-03-17</h2>
+<p><strong>Sunil Nahata</strong> (09:26:02): &gt; <span class="citation" data-cites="Sunil">@Sunil</span> Nahata has joined the channel</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2025-03-18</h2>
+<p><strong>Andres Wokaty</strong> (14:26:03): &gt; <span class="citation" data-cites="Andres">@Andres</span> Wokaty has joined the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#metabolomics – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2020-03-23</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2020-03-26</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2020-04-19</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2020-06-06</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2020-06-12</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2020-07-07</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2020-07-24</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2020-07-31</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2020-08-24</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2020-09-17</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2020-10-11</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2020-10-15</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2020-10-28</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2020-11-19</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2020-12-12</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2020-12-14</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2020-12-17</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2021-01-22</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2021-01-27</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2021-01-28</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2021-02-01</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2021-03-20</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2021-03-24</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2021-05-11</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2021-07-23</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2021-07-29</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2021-08-05</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2021-09-28</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2021-11-26</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2021-11-29</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2021-11-30</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2021-12-14</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2022-01-03</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2022-03-21</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2022-03-30</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2022-07-27</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2022-08-11</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2022-08-27</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2022-10-10</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2022-10-12</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2022-11-10</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2022-12-12</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2022-12-13</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2023-01-11</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2023-01-12</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2023-02-08</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2023-02-09</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2023-02-10</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2023-02-14</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2023-02-28</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2023-03-01</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2023-05-04</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2023-05-05</a></li>
+  <li><a href="#section-53" id="toc-section-53" class="nav-link" data-scroll-target="#section-53">2023-05-19</a></li>
+  <li><a href="#section-54" id="toc-section-54" class="nav-link" data-scroll-target="#section-54">2023-05-29</a></li>
+  <li><a href="#section-55" id="toc-section-55" class="nav-link" data-scroll-target="#section-55">2023-05-30</a></li>
+  <li><a href="#section-56" id="toc-section-56" class="nav-link" data-scroll-target="#section-56">2023-05-31</a></li>
+  <li><a href="#section-57" id="toc-section-57" class="nav-link" data-scroll-target="#section-57">2023-06-15</a></li>
+  <li><a href="#section-58" id="toc-section-58" class="nav-link" data-scroll-target="#section-58">2023-06-16</a></li>
+  <li><a href="#section-59" id="toc-section-59" class="nav-link" data-scroll-target="#section-59">2023-06-20</a></li>
+  <li><a href="#section-60" id="toc-section-60" class="nav-link" data-scroll-target="#section-60">2023-07-04</a></li>
+  <li><a href="#section-61" id="toc-section-61" class="nav-link" data-scroll-target="#section-61">2023-07-10</a></li>
+  <li><a href="#section-62" id="toc-section-62" class="nav-link" data-scroll-target="#section-62">2023-07-13</a></li>
+  <li><a href="#section-63" id="toc-section-63" class="nav-link" data-scroll-target="#section-63">2023-07-28</a></li>
+  <li><a href="#section-64" id="toc-section-64" class="nav-link" data-scroll-target="#section-64">2023-08-01</a></li>
+  <li><a href="#section-65" id="toc-section-65" class="nav-link" data-scroll-target="#section-65">2023-08-04</a></li>
+  <li><a href="#section-66" id="toc-section-66" class="nav-link" data-scroll-target="#section-66">2023-08-08</a></li>
+  <li><a href="#section-67" id="toc-section-67" class="nav-link" data-scroll-target="#section-67">2023-08-10</a></li>
+  <li><a href="#section-68" id="toc-section-68" class="nav-link" data-scroll-target="#section-68">2023-09-03</a></li>
+  <li><a href="#section-69" id="toc-section-69" class="nav-link" data-scroll-target="#section-69">2023-09-06</a></li>
+  <li><a href="#section-70" id="toc-section-70" class="nav-link" data-scroll-target="#section-70">2023-09-13</a></li>
+  <li><a href="#section-71" id="toc-section-71" class="nav-link" data-scroll-target="#section-71">2023-09-15</a></li>
+  <li><a href="#section-72" id="toc-section-72" class="nav-link" data-scroll-target="#section-72">2023-09-22</a></li>
+  <li><a href="#section-73" id="toc-section-73" class="nav-link" data-scroll-target="#section-73">2023-11-14</a></li>
+  <li><a href="#section-74" id="toc-section-74" class="nav-link" data-scroll-target="#section-74">2023-12-01</a></li>
+  <li><a href="#section-75" id="toc-section-75" class="nav-link" data-scroll-target="#section-75">2024-01-09</a></li>
+  <li><a href="#section-76" id="toc-section-76" class="nav-link" data-scroll-target="#section-76">2024-01-10</a></li>
+  <li><a href="#section-77" id="toc-section-77" class="nav-link" data-scroll-target="#section-77">2024-03-10</a></li>
+  <li><a href="#section-78" id="toc-section-78" class="nav-link" data-scroll-target="#section-78">2024-03-11</a></li>
+  <li><a href="#section-79" id="toc-section-79" class="nav-link" data-scroll-target="#section-79">2024-03-12</a></li>
+  <li><a href="#section-80" id="toc-section-80" class="nav-link" data-scroll-target="#section-80">2024-03-13</a></li>
+  <li><a href="#section-81" id="toc-section-81" class="nav-link" data-scroll-target="#section-81">2024-03-18</a></li>
+  <li><a href="#section-82" id="toc-section-82" class="nav-link" data-scroll-target="#section-82">2024-04-28</a></li>
+  <li><a href="#section-83" id="toc-section-83" class="nav-link" data-scroll-target="#section-83">2024-05-22</a></li>
+  <li><a href="#section-84" id="toc-section-84" class="nav-link" data-scroll-target="#section-84">2024-05-23</a></li>
+  <li><a href="#section-85" id="toc-section-85" class="nav-link" data-scroll-target="#section-85">2024-08-07</a></li>
+  <li><a href="#section-86" id="toc-section-86" class="nav-link" data-scroll-target="#section-86">2024-08-21</a></li>
+  <li><a href="#section-87" id="toc-section-87" class="nav-link" data-scroll-target="#section-87">2024-09-01</a></li>
+  <li><a href="#section-88" id="toc-section-88" class="nav-link" data-scroll-target="#section-88">2024-09-02</a></li>
+  <li><a href="#section-89" id="toc-section-89" class="nav-link" data-scroll-target="#section-89">2024-09-04</a></li>
+  <li><a href="#section-90" id="toc-section-90" class="nav-link" data-scroll-target="#section-90">2024-09-05</a></li>
+  <li><a href="#section-91" id="toc-section-91" class="nav-link" data-scroll-target="#section-91">2024-09-11</a></li>
+  <li><a href="#section-92" id="toc-section-92" class="nav-link" data-scroll-target="#section-92">2024-09-16</a></li>
+  <li><a href="#section-93" id="toc-section-93" class="nav-link" data-scroll-target="#section-93">2024-10-21</a></li>
+  <li><a href="#section-94" id="toc-section-94" class="nav-link" data-scroll-target="#section-94">2024-10-22</a></li>
+  <li><a href="#section-95" id="toc-section-95" class="nav-link" data-scroll-target="#section-95">2024-10-25</a></li>
+  <li><a href="#section-96" id="toc-section-96" class="nav-link" data-scroll-target="#section-96">2024-10-30</a></li>
+  <li><a href="#section-97" id="toc-section-97" class="nav-link" data-scroll-target="#section-97">2024-11-01</a></li>
+  <li><a href="#section-98" id="toc-section-98" class="nav-link" data-scroll-target="#section-98">2024-11-04</a></li>
+  <li><a href="#section-99" id="toc-section-99" class="nav-link" data-scroll-target="#section-99">2024-11-06</a></li>
+  <li><a href="#section-100" id="toc-section-100" class="nav-link" data-scroll-target="#section-100">2024-11-13</a></li>
+  <li><a href="#section-101" id="toc-section-101" class="nav-link" data-scroll-target="#section-101">2024-11-15</a></li>
+  <li><a href="#section-102" id="toc-section-102" class="nav-link" data-scroll-target="#section-102">2024-11-18</a></li>
+  <li><a href="#section-103" id="toc-section-103" class="nav-link" data-scroll-target="#section-103">2025-03-18</a></li>
+  <li><a href="#section-104" id="toc-section-104" class="nav-link" data-scroll-target="#section-104">2025-04-01</a></li>
+  <li><a href="#section-105" id="toc-section-105" class="nav-link" data-scroll-target="#section-105">2025-04-02</a></li>
+  <li><a href="#section-106" id="toc-section-106" class="nav-link" data-scroll-target="#section-106">2025-04-03</a></li>
+  <li><a href="#section-107" id="toc-section-107" class="nav-link" data-scroll-target="#section-107">2025-04-04</a></li>
+  <li><a href="#section-108" id="toc-section-108" class="nav-link" data-scroll-target="#section-108">2025-04-06</a></li>
+  <li><a href="#section-109" id="toc-section-109" class="nav-link" data-scroll-target="#section-109">2025-04-07</a></li>
+  <li><a href="#section-110" id="toc-section-110" class="nav-link" data-scroll-target="#section-110">2025-04-18</a></li>
+  <li><a href="#section-111" id="toc-section-111" class="nav-link" data-scroll-target="#section-111">2025-04-23</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#metabolomics</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2020-03-23</h2>
+<p><strong>Kevin Blighe</strong> (13:58:52): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Blighe has joined the channel</p>
+<p><strong>Kevin Blighe</strong> (13:58:52): &gt; set the channel description: discussion surrounding metabolomics analyses</p>
+<p><strong>kipper fletez-brant</strong> (14:00:42): &gt; <span class="citation" data-cites="kipper">@kipper</span> fletez-brant has joined the channel</p>
+<p><strong>Laurent Gatto</strong> (16:24:59): &gt; <span class="citation" data-cites="Laurent">@Laurent</span> Gatto has joined the channel</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2020-03-26</h2>
+<p><strong>olga tsiouri</strong> (14:36:08): &gt; <span class="citation" data-cites="olga">@olga</span> tsiouri has joined the channel</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2020-04-19</h2>
+<p><strong>Shubham Gupta</strong> (11:20:07): &gt; <span class="citation" data-cites="Shubham">@Shubham</span> Gupta has joined the channel</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2020-06-06</h2>
+<p><strong>Olagunju Abdulrahman</strong> (19:57:33): &gt; <span class="citation" data-cites="Olagunju">@Olagunju</span> Abdulrahman has joined the channel</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2020-06-12</h2>
+<p><strong>Johannes Rainer</strong> (09:48:54): &gt; <span class="citation" data-cites="Johannes">@Johannes</span> Rainer has joined the channel</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2020-07-07</h2>
+<p><strong>Vivek Das</strong> (02:56:57): &gt; <span class="citation" data-cites="Vivek">@Vivek</span> Das has joined the channel</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2020-07-24</h2>
+<p><strong>Isha Goel</strong> (07:47:26): &gt; <span class="citation" data-cites="Isha">@Isha</span> Goel has joined the channel</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2020-07-31</h2>
+<p><strong>Saulius Lukauskas</strong> (03:16:05): &gt; <span class="citation" data-cites="Saulius">@Saulius</span> Lukauskas has joined the channel</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2020-08-24</h2>
+<p><strong>Chris Fields</strong> (16:43:35): &gt; <span class="citation" data-cites="Chris">@Chris</span> Fields has joined the channel</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2020-09-17</h2>
+<p><strong>Johannes Rainer</strong> (10:55:48): &gt; Excuse me for mis-using this channel for a job-ad - but I’m looking for a postdoc with experience in R and interested in large scale metabolomics data analysis. If you are interested or know somebody that maybe is, here’s the official job post:<a href="http://bit.ly/35INbUa">bit.ly/35INbUa</a></p>
+<p><strong>Laurent Gatto</strong> (15:13:57) (in thread): &gt; There’s also the#jobschannel and a jobs posts on the support site.</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2020-10-11</h2>
+<p><strong>Kozo Nishida</strong> (21:43:29): &gt; <span class="citation" data-cites="Kozo">@Kozo</span> Nishida has joined the channel</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2020-10-15</h2>
+<p><strong>Kevin Blighe</strong> (19:42:28): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Blighe has left the channel</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2020-10-28</h2>
+<p><strong>Gavin Rhys Lloyd</strong> (11:56:33): &gt; <span class="citation" data-cites="Gavin">@Gavin</span> Rhys Lloyd has joined the channel</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2020-11-19</h2>
+<p><strong>Kevin Blighe</strong> (08:30:01): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Blighe has joined the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2020-12-12</h2>
+<p><strong>Huipeng Li</strong> (00:39:38): &gt; <span class="citation" data-cites="Huipeng">@Huipeng</span> Li has joined the channel</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2020-12-14</h2>
+<p><strong>Thomas Naake</strong> (08:56:06): &gt; <span class="citation" data-cites="Thomas">@Thomas</span> Naake has joined the channel</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2020-12-17</h2>
+<p><strong>James MacDonald</strong> (11:12:55): &gt; <span class="citation" data-cites="James">@James</span> MacDonald has joined the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2021-01-22</h2>
+<p><strong>Annajiat Alim Rasel</strong> (15:44:33): &gt; <span class="citation" data-cites="Annajiat">@Annajiat</span> Alim Rasel has joined the channel</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2021-01-27</h2>
+<p><strong>Mirko Signorelli</strong> (03:53:25): &gt; <span class="citation" data-cites="Mirko">@Mirko</span> Signorelli has joined the channel</p>
+<p><strong>Mirko Signorelli</strong> (03:59:41): &gt; Hi all! I am analysing a dataset gathered in a multiomic experiment and comprising measurements of RNA transcripts, metabolites and lipids. I’m fairly new to metabolomics, and I am wondering if for metabolites (and lipids) there exist specific ontologies that are the equivalent of GO or KEGG. Do you have suggestions?:pray:</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2021-01-28</h2>
+<p><strong>Mirko Signorelli</strong> (09:21:52) (in thread): &gt; Thanks! It does indeed allow to do enrichment analyses with the methods implemented in their webtool, but it does not seem possible to download a list of the pathways that they test with the corresponding metabolites - I would need that list to apply a different test (PCGSEA)</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2021-02-01</h2>
+<p><strong>Johannes Rainer</strong> (03:21:46) (in thread): &gt; I’ve never done that before, but quite some information about metabolites and pathways and links to genes is in KEGG. Also, it should in theory be possible to download stuff from HMDB (human metabolom database) that also provide annotations/ontologies.</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2021-03-20</h2>
+<p><strong>watanabe_st</strong> (01:57:43): &gt; <span class="citation" data-cites="watanabe_st">@watanabe_st</span> has joined the channel</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2021-03-24</h2>
+<p><strong>Jan Stanstrup</strong> (10:20:32): &gt; <span class="citation" data-cites="Jan">@Jan</span> Stanstrup has joined the channel</p>
+<p><strong>Gonçalo Graça</strong> (12:19:52): &gt; <span class="citation" data-cites="Gonçalo">@Gonçalo</span> Graça has joined the channel</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2021-05-11</h2>
+<p><strong>Megha Lal</strong> (16:44:14): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has joined the channel</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2021-07-23</h2>
+<p><strong>Batool Almarzouq</strong> (15:53:20): &gt; <span class="citation" data-cites="Batool">@Batool</span> Almarzouq has joined the channel</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2021-07-29</h2>
+<p><strong>Johannes Rainer</strong> (02:54:08): &gt; Hi all! we’re currently implementing<strong>core functionality</strong>for metabolomics analyses (chemical formula processing, adduct definition, isotope identification) in the <a href="[https://rformassspectrometry.github.io/MetaboCoreUtils](https://rformassspectrometry.github.io/MetaboCoreUtils)">MetaboCoreUtils</a>, utilities simplifying annotation of untargeted metabolomics data in <a href="[https://rformassspectrometry.github.io/MetaboAnnotation](https://rformassspectrometry.github.io/MetaboAnnotation)">MetaboAnnotation</a> and with <a href="[https://euracbiomedicalresearch.github.io/CompoundDb/index.html](https://euracbiomedicalresearch.github.io/CompoundDb/index.html)">CompoundDb</a> a package to create and use (metabolomics) annotation databases. Feedback (and eventually contributions) highly welcome! - Attachment (rformassspectrometry.github.io): <a href="https://rformassspectrometry.github.io/MetaboCoreUtils">Core Utils for Metabolomics Data</a> &gt; MetaboCoreUtils defines metabolomics-related core functionality provided as low-level functions to allow a data structure-independent usage across various R packages. This includes functions to calculate between ion (adduct) and compound mass-to-charge ratios and masses or functions to work with chemical formulas. The package provides also a set of adduct definitions and information on some commercially available internal standard mixes commonly used in MS experiments. - Attachment (rformassspectrometry.github.io): <a href="https://rformassspectrometry.github.io/MetaboAnnotation">Utilities for Annotation of Metabolomics Data</a> &gt; High level functions to assist in annotation of (metabolomics) data sets. These include functions to perform simple tentative annotations based on mass matching but also functions to consider m/z and retention times for annotation of LC-MS features given that respective reference values are available. In addition, the function provides high-level functions to simplify matching of LC-MS/MS spectra against spectral libraries and objects and functionality to represent and manage such matched data. - Attachment (euracbiomedicalresearch.github.io): <a href="https://euracbiomedicalresearch.github.io/CompoundDb/index.html">Creating and Using (Chemical) Compound Annotation Databases</a> &gt; CompoundDb provides functionality to create and use (chemical) compound annotation databases from a variety of different sources such as LipidMaps, HMDB, ChEBI.</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2021-08-05</h2>
+<p><strong>Robert M Flight</strong> (10:33:48): &gt; <span class="citation" data-cites="Robert">@Robert</span> M Flight has joined the channel</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2021-09-28</h2>
+<p><strong>Steffen Neumann</strong> (12:16:01): &gt; <span class="citation" data-cites="Steffen">@Steffen</span> Neumann has joined the channel</p>
+<p><strong>Steffen Neumann</strong> (12:16:50): &gt; Hi, application is open (deadline October 11th) for<a href="https://www.denbi.de/training/1177-3rd-de-nbi-elixir-de-metarbolomics-hackathon">https://www.denbi.de/training/1177-3rd-de-nbi-elixir-de-metarbolomics-hackathon</a>Aim of the workshop is to improve the interoperability of packages (e.g.&nbsp;using common data structures and interfaces), combine efforts (use single implementation of common functions), create and demonstrate complex workflows by integrating existing tools, identify gaps in the metaRbolomics ecosystem that need to be covered. We will also have enough discussion time to ponder challenges of the future, taking metaRbolomics into the next decade.</p>
+<p><strong>Steffen Neumann</strong> (12:17:58): &gt; In case you haven’t seen metaRbolomics yet,<a href="https://www.mdpi.com/2218-1989/9/10/200">https://www.mdpi.com/2218-1989/9/10/200</a>and<a href="https://youtu.be/LfmkZ1HmJnE">https://youtu.be/LfmkZ1HmJnE</a></p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2021-11-26</h2>
+<p><strong>Steffen Neumann</strong> (02:35:17): &gt; &lt;!channel&gt;: &gt; CompMS Workshops at <span class="citation" data-cites="MetSoc">@MetSoc</span> conference 2022 in Barcelona, Spain &gt; &gt; Dear CompMS community, &gt; One of the big events next year will be the annual conference of the International Metabolomics Society in Barcelona, Spain (June 19-23, 2020 see<a href="https://metabolomics2022.org/">https://metabolomics2022.org/</a>). &gt; Recently, the call for workshop proposals went out (see<a href="https://www.metabolomics2022.org/workshops">https://www.metabolomics2022.org/workshops</a>for the announcement), asking for workshop proposals by January 10th, 2022. &gt; As we had several coordinated proposals for workshops from the computational community in past years, and many of them got accepted, it would be great to repeat that success. This coordination might also avoid that the organising committee asks to join several proposals with overlapping content. &gt; The workshop submission system asks a number of questions, which I have collected in a google doc at<a href="https://ogy.de/ehzi">https://ogy.de/ehzi</a>for self-organised coordination of our efforts that includes a copy of the submission form questions, so the actual submission will only be a copy&amp;paste away. &gt; Yours, &gt; Steffen - Attachment (Google Docs): <a href="https://ogy.de/ehzi">CompMS activities at metabolomics2022</a> &gt; CompMS Activities 2022 The Workshop call is now out at <a href="https://www.metabolomics2022.org/workshops">https://www.metabolomics2022.org/workshops</a> Workshops will take place on Sunday afternoon, June 19 and Monday morning, June 20.The deadline for submission of workshop proposals is January 10, 2022. Our previous CompMS activities at metabol…</p>
+<p><strong>Steffen Neumann</strong> (02:57:20) (in thread): &gt; Valencia of course. Apologies for mixing up !!</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2021-11-29</h2>
+<p><strong>Johannes Rainer</strong> (01:58:16) (in thread): &gt; Great idea to synchronize efforts! I could give a workshop on the<code>Spectra</code>and<code>MetaboAnnotation</code>packages.</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2021-11-30</h2>
+<p><strong>Steffen Neumann</strong> (04:00:55): &gt; Hi, while it has “Proteomics” in the name, the PSI is also working on standards useable in metabolomics (mzML, mzTab-M, …) it would be great to have some attendands with Metabolomics / Metabolomics background at that meeting: &gt; &gt; Dear All &gt; We are currently trying to plan the 2022 Spring workshop on&nbsp;11-13th May as a hybrid event, with those able to meet face-to-face doing so on the Wellcome Trust Campus, Hinxton, Cambs, UK. It would greatly help with the planning if you would be willing to spend 2 minutes answering a very short questionnaire, which will help us to gauge how many people are likely to attend in person, and what size rooms we need to book. &gt; Please fill in the Google form<a href="https://eur04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.google.com%2Fforms%2Fd%2F1uU0lwIpNRM1merasytDOq4jijm5FcdPwJFa61MdwNb8&amp;data=04%7C01%7C%7C64529d09e08649ab23b108d9b3db6c2a%7C0934ee6c2a574efd80a9fc003defef4e%7C0%7C0%7C637738577826520279%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;sdata=uTOK5iRPCzD1DphVtv0yDSn35DUfVr%2BgVoTzULgx%2BWk%3D&amp;reserved=0">here</a>and save the date in your diaries. &gt; Many thanks &gt; Sandra</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2021-12-14</h2>
+<p><strong>Megha Lal</strong> (08:23:00): &gt; <span class="citation" data-cites="Megha">@Megha</span> Lal has left the channel</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2022-01-03</h2>
+<p><strong>Kurt Showmaker</strong> (17:05:52): &gt; <span class="citation" data-cites="Kurt">@Kurt</span> Showmaker has joined the channel</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2022-03-21</h2>
+<p><strong>Pedro Sanchez</strong> (05:02:00): &gt; <span class="citation" data-cites="Pedro">@Pedro</span> Sanchez has joined the channel</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2022-03-30</h2>
+<p><strong>Sergio Oller</strong> (23:18:35): &gt; <span class="citation" data-cites="Sergio">@Sergio</span> Oller has joined the channel</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2022-07-27</h2>
+<p><strong>saskia</strong> (19:49:49): &gt; <span class="citation" data-cites="saskia">@saskia</span> has joined the channel</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2022-08-11</h2>
+<p><strong>Rene Welch</strong> (17:15:32): &gt; <span class="citation" data-cites="Rene">@Rene</span> Welch has joined the channel</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2022-08-27</h2>
+<p><strong>Clara Pereira</strong> (11:48:42): &gt; <span class="citation" data-cites="Clara">@Clara</span> Pereira has joined the channel</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2022-10-10</h2>
+<p><strong>Mercilena Benjamin</strong> (13:56:17): &gt; <span class="citation" data-cites="Mercilena">@Mercilena</span> Benjamin has joined the channel</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2022-10-12</h2>
+<p><strong>Steffen Neumann</strong> (09:37:11): &gt; <strong><em>Subject:</em></strong>CompMS Workshops at <span class="citation" data-cites="MetSoc">@MetSoc</span> conference 2023 in Niagara Falls, Canada &gt; Dear CompMS community, &gt; It’s this time of the year again :-) One of the big events next year will be the annual conference of the International Metabolomics Society in Niagara Falls, Canada (June 18 - 22, 2023,<a href="https://metabolomics2023.org/">https://metabolomics2023.org/</a>). Recently, the Call for pre-conference workshops went out at<a href="https://www.metabolomics2023.org/workshops">https://www.metabolomics2023.org/workshops</a>. Workshops will take place on Sunday afternoon, June 18 and Monday morning, June 19. &gt; The deadline for submission of workshop proposals is November 10, 2022. &gt; As we had several coordinated proposals for workshops from the computational community in past years, and many of them got accepted, it would be great to repeat that success. This coordination might also avoid that the Conference organising committee asks to join several proposals with overlapping content after the proposal submission. &gt; The workshop submission system asks a number of questions, which I have collected in a google doc at<a href="https://ogy.de/oycb">https://ogy.de/oycb</a>for self-organised coordination of our efforts. The document includes a copy of the submission form questions, so the actual submission will only be a copy&amp;paste away. Developing &amp; Sharing your workshop here is not a requirement for submission, in fact conference organisers might not even be aware of it. &gt; I would also like to notice that there are several initiatives and mailing lists to which this mail got sent out to reach a broad audience in the CompMS community: &gt; * ELIXIR Metabolomics Community (<a href="https://elixir-europe.org/communities/metabolomics">https://elixir-europe.org/communities/metabolomics</a>) &gt; * The ICSB+HUPO+MetSoc CompMS collaboration (<a href="https://CompMS.org/">https://CompMS.org/</a>) &gt; * #metaRbolomics is a Twitter Hashtag &amp; Slack Workspace dedicated to R stuff. &gt; If you are aware of other relevant channels to disseminate this call, please get back to me. &gt; Yours, Steffen - Attachment (Google Docs): <a href="https://ogy.de/oycb">CompMS activities at metabolomics2023</a> &gt; CompMS Activities 2023 The call for pre-conference workshops is now out at <a href="https://www.metabolomics2023.org/workshops">https://www.metabolomics2023.org/workshops</a>. Workshops will take place on Workshops will take place on Sunday afternoon, June 18 and Monday morning, June 19.The deadline for submission of workshop proposals is November …</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2022-11-10</h2>
+<p><strong>Roger Giné Bertomeu</strong> (08:34:15): &gt; <span class="citation" data-cites="Roger">@Roger</span> Giné Bertomeu has joined the channel</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2022-12-12</h2>
+<p><strong>Carlos José Ferreira da Silva</strong> (18:57:29): &gt; <span class="citation" data-cites="Carlos">@Carlos</span> José Ferreira da Silva has joined the channel</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2022-12-13</h2>
+<p><strong>Xiangnan Xu</strong> (18:32:18): &gt; <span class="citation" data-cites="Xiangnan">@Xiangnan</span> Xu has joined the channel</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2023-01-11</h2>
+<p><strong>Johannes Rainer</strong> (09:40:52): &gt; Note: there is an open position in my team - if anybody here is seeking a PhD position in Computational MS and Metabolomics or knows somebody that does:<a href="https://community-bioc.slack.com/archives/CMC6T5KJ8/p1673423299437419">https://community-bioc.slack.com/archives/CMC6T5KJ8/p1673423299437419</a> - Attachment: <a href="https://community-bioc.slack.com/archives/CMC6T5KJ8/p1673423299437419">Attachment</a> &gt; Open PhD position in my team as part of the HUMAN Marie Curie Actions doctoral network. &gt; &gt; The project involves &gt; • development of methods for quality assessment, normalization and improvement of chromatographic LC-MS data &gt; • develop methods to enable reproducible annotation of untargeted metabolomics &gt; • integration of Python and web-based tools into reproducible R analysis workflows (based on the <code>Spectra</code> and other Bioconductor packages) &gt; • analysis and comparison of untargeted metabolomics data from different blood microsampling devices generated within the doctoral network &gt; For more details: <a href="https://human-dn.eu/">https://human-dn.eu/</a> &gt; &gt; To apply to the project: <a href="https://human-dn.eu/dc7/">https://human-dn.eu/dc7/</a></p>
+<p><strong>Kozo Nishida</strong> (13:26:28): &gt; Hi all, &gt; Does MsBackendRawFileReader only support rawrr (i.e.&nbsp;Thermo .raw files?)? &gt; Are Agilent or Bruker .D or Sciex .wiff files not supported yet?</p>
+<p><strong>Laurent Gatto</strong> (13:30:47) (in thread): &gt; ping@Christian Panse</p>
+<p><strong>Kozo Nishida</strong> (13:37:09) (in thread): &gt; If it’s not implemented yet, I’m interested in adding raw file support to MsBackendRawFileReader using the DLLs included in the vendor’s SDK (and mono). (I would like to imitate rawrr to do it.)</p>
+<p><strong>Christian Panse</strong> (13:42:53): &gt; <span class="citation" data-cites="Christian">@Christian</span> Panse has joined the channel</p>
+<p><strong>Laurent Gatto</strong> (13:46:27) (in thread): &gt; I think it’s only Thermo files, but I might be wrong. I always convert to mzML and am not aware of any real drawbacks in doing so (other than the conversion time and disk space, but these are irrelevant compare to other challenges).</p>
+<p><strong>Christian Panse</strong> (14:26:44) (in thread): &gt; <span class="citation" data-cites="Kozo">@Kozo</span> Nishidawouldn’t it make more sense to implement a backend for *.d files using<a href="https://CRAN.R-project.org/package=opentimsr">https://CRAN.R-project.org/package=opentimsr</a> - Attachment (cran.r-project.org): <a href="https://CRAN.R-project.org/package=opentimsr">opentimsr: An Open-Source Loader for Bruker’s timsTOF Data Files</a> &gt; A free, open-source package designed for handling .tdf data files produced by Bruker’s ‘timsTOF’ mass spectrometers. Fast, free, crossplatform, with no reading through EULAs or messing with binary .dll files involved.</p>
+<p><strong>Christian Panse</strong> (14:29:33) (in thread): &gt; and call it, e.g., MsBackendWiff similar for Bruker and Agilent</p>
+<p><strong>Christian Panse</strong> (14:30:06) (in thread): &gt; better coordinate the naming with@Laurent Gattoand@Johannes Rainer</p>
+<p><strong>Christian Panse</strong> (14:31:08) (in thread): &gt; the name RawFileReader is derived from ThermoFisherScientific’s RawFileReader library</p>
+<p><strong>Christian Panse</strong> (14:37:38) (in thread): &gt; Also, as far as I remember, there was some effort in *.d file backend development in@Johannes Rainergroup</p>
+<p><strong>Christian Panse</strong> (14:39:30) (in thread): &gt; btw:<span class="citation" data-cites="Laurent">@Laurent</span> Gatto@Johannes Rainerlet me know if there is a mzXML file converter for *.d files</p>
+<p><strong>Christian Panse</strong> (14:42:49) (in thread): &gt; <span class="citation" data-cites="Laurent">@Laurent</span> Gatto@Johannes Rainertalking about the MsBackendRawFileReader I failed to make progress with that issue:<a href="http://fgcz-ms.uzh.ch/~cpanse/talks/20211123-rawrrRcpp_MetaRbolimics2021.html">http://fgcz-ms.uzh.ch/~cpanse/talks/20211123-rawrrRcpp_MetaRbolimics2021.html</a></p>
+<p><strong>Kozo Nishida</strong> (14:46:52) (in thread): &gt; <span class="citation" data-cites="Christian">@Christian</span> PanseThank you for the information!<span class="citation" data-cites="Laurent">@Laurent</span> GattoBy the way, Is ProteoWizard often used for such conversions? (Or is any Bioconductor package used for the conversion?) &gt; I always convert to mzML</p>
+<p><strong>Christian Panse</strong> (14:57:04) (in thread): &gt; <span class="citation" data-cites="Kozo">@Kozo</span> NishidaI use<code>docker run -t -v ${PWD}:${PWD} -w ${PWD} --rm chambm/pwiz-skyline-i-agree-to-the-vendor-licenses wine msconvert $(MSCONVERTOPT_DIA) $&lt;</code>for running pwiz in docker</p>
+<p><strong>Laurent Gatto</strong> (15:20:31) (in thread): &gt; Yes,<code>msconvert</code>from Proteowizard (pwiz for short) is the standard. For Thermo files, there’s<a href="https://github.com/compomics/ThermoRawFileParser">ThermoRawFileParser</a>that uses mono and work on GNU/Linux.</p>
+<p><strong>Christian Panse</strong> (16:00:46) (in thread): &gt; I am not sure if ThermoRawFileParser is advanced enough to compete with pwiz. E.g., I did not get working mzML files for our FragPipeDIA|DDA workflow. Old story: mzML != mzML so better run pwiz in wine emulator (on GNU/Linux).</p>
+<p><strong>Kozo Nishida</strong> (21:17:49) (in thread): &gt; Thank you for information! &gt; Raw file handling is interesting for me and I might write a post about it on the Bioconductor community blog.</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2023-01-12</h2>
+<p><strong>Johannes Rainer</strong> (05:42:58) (in thread): &gt; Great@Kozo Nishida- and just to add also some information: we have our data as Sciex wiff files and usually convert them with proteowizard/docker (same as@Christian Panse). For Bruker TimsTOF we (actually Andrea who is now in@Laurent Gatto’s group) have started to implement a dedicated backend (<a href="https://github.com/rformassspectrometry/MsBackendTimsTof/">https://github.com/rformassspectrometry/MsBackendTimsTof/</a>). To make life easier for developers I’ve now also started to write a tutorial how to write a<code>MsBackend</code>for<code>Spectra</code>(<a href="https://github.com/rformassspectrometry/Spectra/pull/265">https://github.com/rformassspectrometry/Spectra/pull/265</a>) - your feedback on that would also be great if you plan your own backend. - Attachment: <a href="https://github.com/rformassspectrometry/Spectra/pull/265">#265 Add first content to the MsBackend howto</a></p>
+<p><strong>Johannes Rainer</strong> (11:18:38) (in thread): &gt; Let me know if you need any more information! am always happy for contributions :)</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2023-02-08</h2>
+<p><strong>Kozo Nishida</strong> (08:48:27): &gt; Hi all, &gt; Does anyone know if there is a Bioconductor package that converts the MS-DIAL export text table to SummarizedExperiment?</p>
+<p><strong>Laurent Gatto</strong> (09:24:29): &gt; I have never used MS-DIAL outputs, but it it’s a rather standard table, with some columns containing quantitative values, then<code>QFeatures::readSummarizedExperiment()</code>is a simple approach.</p>
+<p><strong>Laurent Gatto</strong> (09:24:57) (in thread): &gt; <a href="https://rformassspectrometry.github.io/QFeatures/reference/readQFeatures.html">https://rformassspectrometry.github.io/QFeatures/reference/readQFeatures.html</a> - Attachment (rformassspectrometry.github.io): <a href="https://rformassspectrometry.github.io/QFeatures/reference/readQFeatures.html">QFeatures from tabular data — readQFeatures</a> &gt; Convert tabular data from a spreadsheet or a data.frame into a &gt; QFeatures object.</p>
+<p><strong>Kozo Nishida</strong> (09:33:19) (in thread): &gt; Thank you. I will try<code>readQFeatures</code>.</p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2023-02-09</h2>
+<p><strong>Laurent Gatto</strong> (01:24:45) (in thread): &gt; Note that there’s<code>QFeatures::readSummarizedExperiment()</code>and<code>QFeatures::readQFeatures()</code>.</p>
+<p><strong>Kozo Nishida</strong> (22:49:25): &gt; <span class="citation" data-cites="Laurent">@Laurent</span> GattoDoes any package exist to retrieve (Quantitative) data (not raw data) from Metabolights / Metabolomics Workbench and read them as QFeatures objects?</p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2023-02-10</h2>
+<p><strong>Laurent Gatto</strong> (00:15:59): &gt; Not that I know of.</p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2023-02-14</h2>
+<p><strong>Johannes Rainer</strong> (02:45:23) (in thread): &gt; I never tried that, but if I’m not wrong<a href="https://bioconductor.org/packages/release/bioc/html/Risa.html">https://bioconductor.org/packages/release/bioc/html/Risa.html</a>allows to import the metadata and data from metabolights? - Attachment (Bioconductor): <a href="https://bioconductor.org/packages/release/bioc/html/Risa.html">Risa</a> &gt; The Investigation / Study / Assay (ISA) tab-delimited format is a general purpose framework with which to collect and communicate complex metadata (i.e.&nbsp;sample characteristics, technologies used, type of measurements made) from experiments employing a combination of technologies, spanning from traditional approaches to high-throughput techniques. Risa allows to access metadata/data in ISA-Tab format and build Bioconductor data structures. Currently, data generated from microarray, flow cytometry and metabolomics-based (i.e.&nbsp;mass spectrometry) assays are supported. The package is extendable and efforts are undergoing to support metadata associated to proteomics assays.</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2023-02-28</h2>
+<p><strong>Krithika Bhuvanesh</strong> (16:53:52): &gt; <span class="citation" data-cites="Krithika">@Krithika</span> Bhuvanesh has joined the channel</p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2023-03-01</h2>
+<p><strong>jeremymchacón</strong> (12:13:19): &gt; <span class="citation" data-cites="jeremymchacón">@jeremymchacón</span> has joined the channel</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2023-05-04</h2>
+<p><strong>Kozo Nishida</strong> (11:46:00): &gt; Hi all, &gt; Should msp file contributions be sent to AnnotationHub? &gt; Or should it be sent to MsDataHub?</p>
+<p><strong>Laurent Gatto</strong> (12:00:11): &gt; It depends on the file and its usage. I’m open.@Johannes Rainermight have an opinion?</p>
+<p><strong>Kozo Nishida</strong> (12:26:08): &gt; I would like to make that contribution by redistributing the msp files in this tweet<a href="https://twitter.com/msdial_project/status/1561613568918712320">https://twitter.com/msdial_project/status/1561613568918712320</a>. &gt; The license is CC-BY 4.0, so I can redistribute the msp files.<a href="http://prime.psc.riken.jp/compms/licence/main.html">http://prime.psc.riken.jp/compms/licence/main.html</a> - Attachment (Twitter): <a href="https://twitter.com/msdial_project/status/1561613568918712320">MS-DIAL on Twitter</a> &gt; The publicly available/distributable msp files are uploaded on our website. &gt; <a href="https://t.co/7vC3n6tn3B">https://t.co/7vC3n6tn3B</a> &gt; This should be a good ‘start up kit’ for using ms-dial program at this moment. - Attachment (prime.psc.riken.jp): <a href="http://prime.psc.riken.jp/compms/licence/main.html">CompMS | Licence</a> &gt; Computational mass spectrometry for metabolomics and lipidomics</p>
+<p><strong>Kozo Nishida</strong> (12:34:43): &gt; I am thinking of using<code>sp &lt;- Spectra(THE_MSP_FILE,</code>****<code>source</code>****<code>= MsBackendMsp())</code>anyway. &gt; I have not yet thought of any usage beyond that.</p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2023-05-05</h2>
+<p><strong>Johannes Rainer</strong> (04:04:18): &gt; If it’s for annotation (e.g.&nbsp;is a reference library with fragment spectra) then I think it should go to<code>AnnotationHub</code>. Would be really great if that file also gets a version so that multiple version can be kept on AnnotationHub - to ensure reproducibility. &gt; &gt; I did something similar with the MassBank releases - I’m converting their databases (MySQL dumps) into a<code>CompDb</code>SQLite database (for the<code>CompoundDb</code>package). These are added to AnnotationHub (there is the<a href="http://bioconductor.org/packages/release/bioc/html/AHMassBank.html">AHMassBank</a>package that provides the metadata etc for that). &gt; &gt; In your case it would even be easier because you would just have to reference the msp file and don’t have to physically add the file to the AnnotationHub. What would be nice is if the AnnotationHub resource is loaded the data is provided to the user already as a<code>Spectra</code>object… but that’s details:slightly_smiling_face:I would be really interested to also start using that resource, so it would be very nice to have that easily accessible to the user. Let me know if I can help with anything:slightly_smiling_face: - Attachment (Bioconductor): <a href="http://bioconductor.org/packages/release/bioc/html/AHMassBank.html">AHMassBank</a> &gt; Supplies AnnotationHub with MassBank metabolite/compound annotations bundled in CompDb SQLite databases. CompDb SQLite databases contain general compound annotation as well as fragment spectra representing fragmentation patterns of compounds’ ions. MassBank data is retrieved from <a href="https://massbank.eu/MassBank">https://massbank.eu/MassBank</a> and processed using helper functions from the CompoundDb Bioconductor package into redistributable SQLite databases.</p>
+</section>
+<section id="section-53" class="level2">
+<h2 class="anchored" data-anchor-id="section-53">2023-05-19</h2>
+<p><strong>Ajda Pristavec</strong> (11:14:50): &gt; <span class="citation" data-cites="Ajda">@Ajda</span> Pristavec has joined the channel</p>
+</section>
+<section id="section-54" class="level2">
+<h2 class="anchored" data-anchor-id="section-54">2023-05-29</h2>
+<p><strong>Kozo Nishida</strong> (05:17:49): &gt; Hi all, &gt; I am interested in the workflow calculating spectra similarity scores.<a href="https://rformassspectrometry.github.io/MsCoreUtils/reference/distance.html#ref-examples">https://rformassspectrometry.github.io/MsCoreUtils/reference/distance.html#ref-examples</a>shows the example, but &gt; the &gt; <code>&gt; x &lt;- matrix(c(1:5, 1:5), ncol = 2, dimnames = list(c(), c("mz", "intensity"))) &gt; y &lt;- matrix(c(1:5, 5:1), ncol = 2, dimnames = list(c(), c("mz", "intensity"))) &gt;</code> &gt; are not from a real data source. &gt; Does anyone have an idea for creating x / y from real Bioc data resources? - Attachment (rformassspectrometry.github.io): <a href="https://rformassspectrometry.github.io/MsCoreUtils/reference/distance.html#ref-examples">Spectra Distance/Similarity Measurements — distance</a> &gt; These functions provide different normalized similariy/distance measurements.</p>
+<p><strong>Laurent Gatto</strong> (06:29:56): &gt; You can use<code>Spectra</code>objects and the<code>compareSpectra()</code>function (that uses the MsCoreUtils distances) to compute distances. Some examples here:<a href="https://rformassspectrometry.github.io/docs/sec-id.html#comparing-spectra">https://rformassspectrometry.github.io/docs/sec-id.html#comparing-spectra</a> - Attachment (rformassspectrometry.github.io): <a href="https://rformassspectrometry.github.io/docs/sec-id.html#comparing-spectra">Chapter 4 Identification data | R for Mass Spectrometry</a> &gt; Chapter 4 Identification data | R for Mass Spectrometry</p>
+<p><strong>Laurent Gatto</strong> (06:30:29): &gt; (example are for proteomics though, put is applicable to metabolomics data)</p>
+</section>
+<section id="section-55" class="level2">
+<h2 class="anchored" data-anchor-id="section-55">2023-05-30</h2>
+<p><strong>Kozo Nishida</strong> (01:42:04): &gt; I would like to classify all HMDB IDs by the instrument on which they were measured. &gt; Any ideas that might be useful to do that? &gt; I’m sure CompoundDb would help that, but I’m not sure if data with instrument field for all HMDB IDs is distributed in Bioconductor.</p>
+<p><strong>Laurent Gatto</strong> (01:46:40) (in thread): &gt; <span class="citation" data-cites="Johannes">@Johannes</span> Raineris the go-to person for that</p>
+<p><strong>Johannes Rainer</strong> (02:21:36) (in thread): &gt; Yes, it should be possible to import the HMDB data with<code>CompoundDb</code>- I haven’t tried for quite some time… if you run into problems feel also free to open an issue at the CompoundDb github repo. And yes, we’re importing the instrument info from HMDB. My issue with HMDB is a bit that it lacks quite some crucial data in their downloadable files (e.g.&nbsp;the precursor m/z). And we’re not re-distributing HMDB on Bioconductor - in contrast, you can get MassBank data from<code>AnnotationHub</code>.</p>
+<p><strong>Johannes Rainer</strong> (02:22:54) (in thread): &gt; Maybe also have a look at<a href="https://github.com/jorainer/SpectraTutorials">https://github.com/jorainer/SpectraTutorials</a>that shows examples for spectra similarity calculations of experimental spectra against MassBank spectra</p>
+<p><strong>Kozo Nishida</strong> (02:29:01) (in thread): &gt; <span class="citation" data-cites="Johannes">@Johannes</span> RainerThanks for the information! &gt; I will try to make my own hmdb CompoundDb. &gt; But the hmdb_metabolites.xml (with all the information) is very large (6.04 GB). &gt; Is there a function in CompoundDb to read this (large) xml?</p>
+<p><strong>Johannes Rainer</strong> (02:38:42) (in thread): &gt; actually,<code>CompoundDb</code>requires you to install the compound information from the SDF file from HMDB (“structures” file) - for the spectra data you need to download the spectra xml file archive (which seems to be huge now). that archive contains one xml file per spectrum. See<a href="https://rformassspectrometry.github.io/CompoundDb/articles/create-compounddb.html#compdb-from-hmdb-data">https://rformassspectrometry.github.io/CompoundDb/articles/create-compounddb.html#compdb-from-hmdb-data</a>for more information on creating the HMDB CompDb… - Attachment (rformassspectrometry.github.io): <a href="https://rformassspectrometry.github.io/CompoundDb/articles/create-compounddb.html#compdb-from-hmdb-data">Creating CompoundDb annotation resources</a> &gt; CompoundDb</p>
+<p><strong>Johannes Rainer</strong> (02:50:46) (in thread): &gt; Note: I did create a<code>CompDb</code>for HMDB in 2021:<a href="https://github.com/jorainer/MetaboAnnotationTutorials/releases/tag/2021-11-02">https://github.com/jorainer/MetaboAnnotationTutorials/releases/tag/2021-11-02</a>- maybe you can use that until you managed to create a CompDb on the newest version</p>
+<p><strong>Kozo Nishida</strong> (05:17:38) (in thread): &gt; Thank you@Johannes Rainer. &gt; Thanks to your<a href="https://github.com/jorainer/MetaboAnnotationTutorials/releases/tag/2021-11-02">https://github.com/jorainer/MetaboAnnotationTutorials/releases/tag/2021-11-02</a>, &gt; Now I can see the ID to intrument[_type] associations &gt; <code>&gt; library(CompoundDb) &gt; cdb &lt;- CompDb("CompDb.Hsapiens.HMDB.5.0.sqlite") &gt; compounds(cdb, columns = c("compound_id", "instrument_type", "instrument")) &gt;</code> &gt; &gt; <code>&gt; compound_id                                   instrument_type &gt; 1   HMDB0000001                                       Quattro_QQQ &gt; 2   HMDB0000002                                              &lt;NA&gt; &gt; 3   HMDB0000002                             EI-B (HITACHI RMU-6L) &gt; 4   HMDB0000002                             EI-B (HITACHI RMU-6M) &gt; 5   HMDB0000002                               CI-B (HITACHI M-80) &gt;</code> &gt; But what I wanted to know was not the <code>instrument[_type]' information. (sorry I was wrong.) &gt; I wanted to know if it was experimentally detected or not, and the following seems to be what I want. &gt; I understand that</code>compound_id<code>with</code>FALSE<code>in the</code>predicted`column is experimentally detected. &gt; (If I am wrong about that, I would appreciate it if you could let me know.) &gt; <code>&gt; &gt; a=compounds(cdb, columns = c("compound_id", "predicted")) &gt; &gt; a &gt;     compound_id predicted &gt; 1   HMDB0000001     FALSE &gt; 2   HMDB0000002     FALSE &gt; 3   HMDB0000005     FALSE &gt; 4   HMDB0000008     FALSE &gt; 5   HMDB0000010     FALSE &gt; 6   HMDB0000011     FALSE &gt; 7   HMDB0000012     FALSE &gt; 8   HMDB0000014     FALSE &gt; 9   HMDB0000015     FALSE &gt; 10  HMDB0000016     FALSE &gt; 11  HMDB0000017     FALSE &gt; 12  HMDB0000019     FALSE &gt; 13  HMDB0000020     FALSE &gt; 14  HMDB0000021     FALSE &gt; 15  HMDB0000022     FALSE &gt; 16  HMDB0000023     FALSE &gt; 17  HMDB0000024        NA &gt;</code> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F05A1FEQN74/image.png">image.png</a></p>
+<p><strong>Johannes Rainer</strong> (06:18:39) (in thread): &gt; Ah, I see. I created this database<strong><em>only</em></strong>with experimental MS/MS spectra (I imported that “experimental_msms_spectra” xml file from HMDB. Then, I would suggest you extract the data as a<code>Spectra</code>: &gt; <code>&gt; sps &lt;- Spectra(cdb) &gt;</code></p>
+<p><strong>Johannes Rainer</strong> (06:19:51) (in thread): &gt; You have then access to all variables in the database:<code>sps$predicted</code>gives you information whether spectra are predicted (none of them are),<code>sps$compound_id</code>would return you the compound ID of the spectrum. Use<code>spectraVariables(sps)</code>to list all available information/columns from the database.</p>
+<p><strong>Johannes Rainer</strong> (06:20:31) (in thread): &gt; I’m still trying to download the full HMDB spectra data… let’s then see if I’ll be able to import that into a<code>CompDb</code>…</p>
+<p><strong>Johannes Rainer</strong> (06:21:02) (in thread): &gt; that database would then also contain the predicted spectra - if you would be interested in them (I usually ignore them…)</p>
+</section>
+<section id="section-56" class="level2">
+<h2 class="anchored" data-anchor-id="section-56">2023-05-31</h2>
+<p><strong>Johannes Rainer</strong> (07:30:40) (in thread): &gt; Note: I created now also a<code>CompDb</code>from the HMDB data including the predicted spectra (in case you want/need that). It has 24805 experimental and 455954 predicted spectra.</p>
+</section>
+<section id="section-57" class="level2">
+<h2 class="anchored" data-anchor-id="section-57">2023-06-15</h2>
+<p><strong>Indrik Wijaya</strong> (22:12:04): &gt; <span class="citation" data-cites="Indrik">@Indrik</span> Wijaya has joined the channel</p>
+</section>
+<section id="section-58" class="level2">
+<h2 class="anchored" data-anchor-id="section-58">2023-06-16</h2>
+<p><strong>Leo Lahti</strong> (04:54:45): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+<p><strong>Artur Sannikov</strong> (04:56:12): &gt; <span class="citation" data-cites="Artur">@Artur</span> Sannikov has joined the channel</p>
+<p><strong>Tuomas Borman</strong> (04:56:13): &gt; <span class="citation" data-cites="Tuomas">@Tuomas</span> Borman has joined the channel</p>
+</section>
+<section id="section-59" class="level2">
+<h2 class="anchored" data-anchor-id="section-59">2023-06-20</h2>
+<p><strong>Sudarshan</strong> (23:52:46): &gt; <span class="citation" data-cites="Sudarshan">@Sudarshan</span> has joined the channel</p>
+</section>
+<section id="section-60" class="level2">
+<h2 class="anchored" data-anchor-id="section-60">2023-07-04</h2>
+<p><strong>Shruti Shah</strong> (06:20:02): &gt; <span class="citation" data-cites="Shruti">@Shruti</span> Shah has joined the channel</p>
+</section>
+<section id="section-61" class="level2">
+<h2 class="anchored" data-anchor-id="section-61">2023-07-10</h2>
+<p><strong>Helge Hecht</strong> (22:40:27): &gt; <span class="citation" data-cites="Helge">@Helge</span> Hecht has joined the channel</p>
+</section>
+<section id="section-62" class="level2">
+<h2 class="anchored" data-anchor-id="section-62">2023-07-13</h2>
+<p><strong>Kozo Nishida</strong> (04:29:56): &gt; I would like to know if there is a package that does some kind of machine learning for<code>Spectra</code>object. &gt; If you have any ideas on how to find that, please let me know.</p>
+</section>
+<section id="section-63" class="level2">
+<h2 class="anchored" data-anchor-id="section-63">2023-07-28</h2>
+<p><strong>Benjamin Yang</strong> (15:57:54): &gt; <span class="citation" data-cites="Benjamin">@Benjamin</span> Yang has joined the channel</p>
+</section>
+<section id="section-64" class="level2">
+<h2 class="anchored" data-anchor-id="section-64">2023-08-01</h2>
+<p><strong>Johannes Rainer</strong> (09:22:57) (in thread): &gt; I’m not aware of any such package. for what purpose would you like to use ML on a<code>Spectra</code>?</p>
+</section>
+<section id="section-65" class="level2">
+<h2 class="anchored" data-anchor-id="section-65">2023-08-04</h2>
+<p><strong>Ray Su</strong> (10:05:17): &gt; <span class="citation" data-cites="Ray">@Ray</span> Su has joined the channel</p>
+</section>
+<section id="section-66" class="level2">
+<h2 class="anchored" data-anchor-id="section-66">2023-08-08</h2>
+<p><strong>Kozo Nishida</strong> (02:46:45) (in thread): &gt; I would like to predict the annotation of unknown (== not annotated from the library)<code>Spectra</code>by ML (by similarity of known and unknown<code>Spectra</code>).</p>
+</section>
+<section id="section-67" class="level2">
+<h2 class="anchored" data-anchor-id="section-67">2023-08-10</h2>
+<p><strong>Johannes Rainer</strong> (03:14:17) (in thread): &gt; that sounds great! I’m not aware of anybody having implemented that for<code>Spectra</code>- please let me know if you need help/contributions (or to eventually cross-check your code for potential optimization based on internals of<code>Spectra</code>) etc. that would be also very interesting for me:slightly_smiling_face:</p>
+</section>
+<section id="section-68" class="level2">
+<h2 class="anchored" data-anchor-id="section-68">2023-09-03</h2>
+<p><strong>Lea Seep</strong> (09:51:52): &gt; <span class="citation" data-cites="Lea">@Lea</span> Seep has joined the channel</p>
+</section>
+<section id="section-69" class="level2">
+<h2 class="anchored" data-anchor-id="section-69">2023-09-06</h2>
+<p><strong>Steffen Neumann</strong> (06:36:21): &gt; Hi, &gt; I was going through the list of to-be-deprecated BioC packages<a href="https://support.bioconductor.org/p/9152979/">https://support.bioconductor.org/p/9152979/</a>that might’ve been of interest in case someone wants to support current maintainers:<a href="https://www.bioconductor.org/packages/release/bioc/html/mbOmic.html">https://www.bioconductor.org/packages/release/bioc/html/mbOmic.html</a>mbOmic: Integrative analysis of the microbiome and metabolome<a href="https://www.bioconductor.org/packages/release/bioc/html/Metab.html">https://www.bioconductor.org/packages/release/bioc/html/Metab.html</a>Metab: An R Package for a High-Throughput Analysis of Metabolomics Data Generated by GC-MS.<a href="https://www.bioconductor.org/packages/release/bioc/html/MSstatsSampleSize.html">https://www.bioconductor.org/packages/release/bioc/html/MSstatsSampleSize.html</a>Simulation tool for optimal design of high-dimensional MS-based proteomics experiment<a href="https://www.bioconductor.org/packages/release/bioc/html/OmicsLonDA.html">https://www.bioconductor.org/packages/release/bioc/html/OmicsLonDA.html</a>OmicsLonDA: Omics Longitudinal Differential Analysis &gt; &gt; I might’ve missed others, in that case please mention here. &gt; &gt; Yours, Steffen</p>
+</section>
+<section id="section-70" class="level2">
+<h2 class="anchored" data-anchor-id="section-70">2023-09-13</h2>
+<p><strong>Christopher Chin</strong> (17:04:00): &gt; <span class="citation" data-cites="Christopher">@Christopher</span> Chin has joined the channel</p>
+</section>
+<section id="section-71" class="level2">
+<h2 class="anchored" data-anchor-id="section-71">2023-09-15</h2>
+<p><strong>Leo Lahti</strong> (04:55:28): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+</section>
+<section id="section-72" class="level2">
+<h2 class="anchored" data-anchor-id="section-72">2023-09-22</h2>
+<p><strong>Philippine Louail</strong> (03:54:09): &gt; <span class="citation" data-cites="Philippine">@Philippine</span> Louail has joined the channel</p>
+</section>
+<section id="section-73" class="level2">
+<h2 class="anchored" data-anchor-id="section-73">2023-11-14</h2>
+<p><strong>Pablo</strong> (09:23:43): &gt; <span class="citation" data-cites="Pablo">@Pablo</span> has joined the channel</p>
+</section>
+<section id="section-74" class="level2">
+<h2 class="anchored" data-anchor-id="section-74">2023-12-01</h2>
+<p><strong>Kozo Nishida</strong> (07:59:22): &gt; Hi all, &gt; I found<a href="https://www.metabolomics2024.org/">https://www.metabolomics2024.org/</a>is up and running. I heard that last year there was an informal event “Bioinformatics hub”, where several members of this community gathered. Is there anything we can prepare to come together again for this year’s conference ? (I live in Japan, the hosting country, so I thought I’d ask about this.)</p>
+</section>
+<section id="section-75" class="level2">
+<h2 class="anchored" data-anchor-id="section-75">2024-01-09</h2>
+<p><strong>Kozo Nishida</strong> (11:28:48): &gt; Hi all, &gt; does anyone know if there’s a collection of suitable parameter sets for different instruments when doing peak picking with xcms in Bioconductor? &gt; &gt; As a beginner, I’m not sure what kind of parameter settings are preferable for each instrument(, so I asked the above).</p>
+<p><strong>Roger Giné Bertomeu</strong> (11:54:17) (in thread): &gt; Hi@Kozo Nishida, I think XCMS online (<a href="https://xcmsonline.scripps.edu">https://xcmsonline.scripps.edu</a>) has some parameter sets for different instrumental configurations which you could use/copy as a starting point for your analysis - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F06D3L2RU82/image.png">image.png</a> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F06CX1CSXC6/image.png">image.png</a></p>
+<p><strong>Roger Giné Bertomeu</strong> (11:55:16) (in thread): &gt; I’m not aware if anyone has collected these parameter sets for XCMS elsewhere</p>
+<p><strong>Kozo Nishida</strong> (12:16:28) (in thread): &gt; Hi@Roger Giné BertomeuThank you for the information. &gt; Indeed, xcms online seems to be the best option. &gt; I’ll consider compiling this information to make it easily accessible from local xcms. &gt; If it works out, I’ll share it with the community.:pray:</p>
+</section>
+<section id="section-76" class="level2">
+<h2 class="anchored" data-anchor-id="section-76">2024-01-10</h2>
+<p><strong>Johannes Rainer</strong> (05:04:35) (in thread): &gt; I’m not particularly fond of these pre-defined parameter sets of xcms online… I try to estimate the parameters based on the data measured (see<a href="https://jorainer.github.io/xcmsTutorials/">here</a>for examples how that can be done). Basically, the most important parameter for<strong><em>centWave</em></strong>in<code>xcms</code>is the<code>peakwidth</code>, and that depends on the LC setup. The second important one is<code>ppm</code>- but it’s way less important. The only thing one should be careful is to not use too large values of<code>ppm</code>(in the range of thousands). I generally use<code>ppm = 40</code>for our QTOF data. All other parameters are way less important and the defaults are more or less OK. Also, I generally use<code>integrate = 2</code>since the default<code>integrate = 1</code>assumes the detected peaks to be symmetric - so, for our data it always cuts off the tail. - Attachment (jorainer.github.io): <a href="https://jorainer.github.io/xcmsTutorials/">Exploring and Analyzing LC-MS data with Spectra and xcms</a> &gt; This resource contains examples and tutorials for the analysis of &gt; LC-MS data using the <strong>MsExperiment</strong>, <strong>Spectra</strong> and <strong>xcms</strong> packages. &gt; Various examples show data handling, representation, visualization &gt; and analysis of LC-MS data with these packages. A special emphasis &gt; is given on the definition of various data set-specific parameters &gt; for analysis algorithms of the <strong>xcms</strong> package.</p>
+<p><strong>Kozo Nishida</strong> (06:27:58) (in thread): &gt; <span class="citation" data-cites="Johannes">@Johannes</span> RainerThank you for sharing that article. &gt; It’s a great resource. &gt; I will learn from it and try to provide some feedback.</p>
+<p><strong>Johannes Rainer</strong> (09:46:20) (in thread): &gt; Let me know if there is something unclear or you need more information/explanation. Also, contributions/PR to this workshop are highly welcome.</p>
+</section>
+<section id="section-77" class="level2">
+<h2 class="anchored" data-anchor-id="section-77">2024-03-10</h2>
+<p><strong>Cherishma Subhasa</strong> (19:58:20): &gt; <span class="citation" data-cites="Cherishma">@Cherishma</span> Subhasa has joined the channel</p>
+</section>
+<section id="section-78" class="level2">
+<h2 class="anchored" data-anchor-id="section-78">2024-03-11</h2>
+<p><strong>Melysssa Minto</strong> (10:15:02): &gt; <span class="citation" data-cites="Melysssa">@Melysssa</span> Minto has joined the channel</p>
+</section>
+<section id="section-79" class="level2">
+<h2 class="anchored" data-anchor-id="section-79">2024-03-12</h2>
+<p><strong>Kozo Nishida</strong> (02:21:56): &gt; Hi all, &gt; Is there a function in the Biodoncudtor package for calculating Bonanza spectrum similarity scores? &gt; If not, I would like to contribute to some package by adding that function. (perhaps MsCoreUtils?)</p>
+<p><strong>Laurent Gatto</strong> (03:17:25): &gt; Not that I’m aware of. And yes,<code>MsCoreUtils</code>has a couple of spectra similarity measures, and that would be a good place to add it, as it would then be available for<code>Spectra</code>objects.</p>
+<p><strong>Kozo Nishida</strong> (04:22:56): &gt; Thank you for the information. &gt; So I’d like to send a PR to<code>MsCoreUtils</code>. &gt; However I have a concern about the R code. &gt; I plan to write the R code that mimics<code>Spectral_Similarity_Algorithms.r</code>in the attached image. &gt; But the<code>Spectral_Similarity_Algorithms.r</code>does not have license information, and there is a copyright comment written as follows. &gt; <code>&gt; ######################################### &gt; # This script is to do the spectral comparison using four algorithms (Dot product, Bonanza, HSS and GNPS). &gt; # Shipei Xing, Aug 19, 2020 &gt; # Copyright @ The University of British Columbia &gt; ######################################### &gt;</code> &gt; If you have any advice regarding this licensing concern, please let me know. - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F06P26QPP8A/image.png">image.png</a></p>
+<p><strong>Kozo Nishida</strong> (04:33:54): &gt; Anyway, I will send the PR first rather than worrying about it:sweat_smile:</p>
+<p><strong>Laurent Gatto</strong> (17:03:48): &gt; That chunk defines copyright holder (the researcher’s employer, which is the case in many/most universities, I believe), which is different from the licencing terms. It would be good to check what the terms are if the code is to be copied. Without licence, we are technically now allowed to re-use it in another software. Might be worth contacting the author.</p>
+</section>
+<section id="section-80" class="level2">
+<h2 class="anchored" data-anchor-id="section-80">2024-03-13</h2>
+<p><strong>Kozo Nishida</strong> (06:26:05) (in thread): &gt; Understood. &gt; I will contact the author first.</p>
+</section>
+<section id="section-81" class="level2">
+<h2 class="anchored" data-anchor-id="section-81">2024-03-18</h2>
+<p><strong>Kozo Nishida</strong> (08:47:25): &gt; <span class="citation" data-cites="Steffen">@Steffen</span> NeumannHave you ever tried to convert MassBank format to mzSpecLib / mzPAF ? &gt; (I’m in HUPO-PSI Kyoto.)</p>
+<p><strong>Steffen Neumann</strong> (08:47:59) (in thread): &gt; Hi, no, we didn’t give it a shot yet.</p>
+<p><strong>Kozo Nishida</strong> (08:57:01): &gt; Proteomics people seem to use PSI CV (Controlled Vocabularies)<a href="https://www.ebi.ac.uk/ols4/ontologies/ms/classes/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FMS_0000000?lang=en">https://www.ebi.ac.uk/ols4/ontologies/ms/classes/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FMS_0000000?lang=en</a>in their standardized format. &gt; Is it okay to assume that we (#metabolomics) also should use PSI CV in the spectral library metadata? - Attachment (ebi.ac.uk): <a href="https://www.ebi.ac.uk/ols4/ontologies/ms/classes/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FMS_0000000?lang=en">Ontology Lookup Service (OLS)</a> &gt; OLS is a repository for biomedical ontologies that aims to provide a single point of access to the latest ontology versions</p>
+<p><strong>Kozo Nishida</strong> (10:02:53) (in thread): &gt; The author has allowed me to copy the bonanza function code. &gt; I submitted an issue for it.<a href="https://github.com/rformassspectrometry/MsCoreUtils/issues/124">https://github.com/rformassspectrometry/MsCoreUtils/issues/124</a>By the way, I welcome anyone who can submit a PR before I can.</p>
+</section>
+<section id="section-82" class="level2">
+<h2 class="anchored" data-anchor-id="section-82">2024-04-28</h2>
+<p><strong>Danielle Callan</strong> (08:33:33): &gt; <span class="citation" data-cites="Danielle">@Danielle</span> Callan has joined the channel</p>
+</section>
+<section id="section-83" class="level2">
+<h2 class="anchored" data-anchor-id="section-83">2024-05-22</h2>
+<p><strong>Vilhelm Suksi</strong> (05:04:39): &gt; <span class="citation" data-cites="Vilhelm">@Vilhelm</span> Suksi has joined the channel</p>
+<p><strong>Vilhelm Suksi</strong> (05:17:07): &gt; Hi! &gt; &gt; Thanks for your encouraging words@Johannes Rainer. Transitioning right away from the mailing list to this great resource. I agree that keeping the object as generic as possible has its advantages, especially if there was a consensus or guideline for how parameters are set up for extracting necessary data from the object. As it stands, it seems that there is a variety of approaches. For example, some packages require ‘colData’ columns with specific names. Thus, in absence of a consensus or guideline regarding function parameters for extracting the necessary data, the slots may be included for convenience and support for the existing following of the notame package. &gt; &gt; As I see it, the main contribution of the notame package is in it drawing on a consensus in the literature, which makes it attractive for new practitioners of untargeted LC-MS. With the SummarizedExperiment-support in xcms and the MetaboAnnotation package a full SummarizedExperiment workflow can be achieved, which is approachable to new users. Perhaps at some point it may be worth demonstrating this in a workflow package?</p>
+<p><strong>Johannes Rainer</strong> (05:33:19): &gt; Hey@Vilhelm Suksi, great to see you here! &gt; &gt; Regarding the slots vs “standard” column names in<code>colData</code>- to be as generic and flexible as possible we use parameters such as<code>mzColname = "mz"</code>and<code>rtColname = "rtmed"</code>in our functions in<code>MetaboAnnotation</code>to allow the user to choose which column from e.g.&nbsp;the<code>SummarizedExperiment</code>’s<code>colData</code>contains the relevant information. We thus don’t put constraints on the input object and make it easier to integrate/load data e.g.&nbsp;different software (that all use a different nomenclature). &gt; &gt; Totally agree on the workflow/tutorial showing how to combine packages efficiently. For different aspects of metabolomics data analysis we have currently two tutorial resources:<a href="https://jorainer.github.io/xcmsTutorials/">https://jorainer.github.io/xcmsTutorials/</a>and<a href="https://jorainer.github.io/SpectraTutorials/">https://jorainer.github.io/SpectraTutorials/</a>and my PhD student@Philippine Louailis currently working on a complete end-to-end analysis workflow/tutorial. Inclusion of notame or separate workflows but with examples of integration of other packages would be nice options here. - Attachment (jorainer.github.io): <a href="https://jorainer.github.io/xcmsTutorials/">Exploring and Analyzing LC-MS data with Spectra and xcms</a> &gt; This resource contains examples and tutorials for the analysis of LC-MS data using the <strong>MsExperiment</strong>, <strong>Spectra</strong> and <strong>xcms</strong> packages. Various examples show data handling, representation, visualization and analysis of LC-MS data with these packages. A special emphasis is given on the definition of various data set-specific parameters for analysis algorithms of the <strong>xcms</strong> package. - Attachment (jorainer.github.io): <a href="https://jorainer.github.io/SpectraTutorials/">Mass Spectrometry Data Analysis with Spectra</a> &gt; These workshops and tutorials provide use cases and examples for mass spectrometry data handling and analysis using the Spectra Bioconductor package and how these can be included into other R-based analyis workflows.</p>
+<p><strong>Gavin Rhys Lloyd</strong> (06:06:19): &gt; Hi@Vilhelm Suksi, welcome! Sorry to jump in but I have been following your thread with interest. We had similar recommendations from reviewers for<a href="https://bioconductor.org/packages/release//bioc/html/pmp.html">PMP</a>and<a href="https://bioconductor.org/packages/release//bioc/html/structToolbox.html">structToolbox</a>, which share some functionality with notame. &gt; &gt; For PMP we just allow the user to use SummarisedExperiment as input to the functions; it is fairly easy to extract the required data.frame(s) where we need it in this package. &gt; &gt; For structToolbox we were advised to extend SummarisedExperiment to DatasetExperiment, and in the package we include an<code>as_DatasetExperiment</code>function to convert from a SummarisedExperiment to a DatasetExperiment. This way the user can input SummarisedExperiment and functions/methods can convert as needed. We dont force any columns to be present in the data object itself. Instead the data processing objects have slots where the user explicitly names the relevant column to use and if the column is required for the method we dont include a default, so that the user is forced to specify it in order to use the method. &gt; &gt; In another package (not released yet, but soon!) we have some methods that require e.g.&nbsp;mz and rt columns and some that dont, so we extended DatasetExperiment to e.g.&nbsp;LCMSExperiment and provide slots in the extended dataset object where the user can name the column containing mz and rt values, and methods can then find them when they need them. Methods that require these slots then use S4 dispatch to ensure they only work with LCMSExperiment and throw an error for DatasetExperiment, while other methods that dont need mz and rt can accept DatasetExperiment or LCMSExperiment since one inherits from the other. &gt; &gt; If you wanted to include some integration of notame with e.g.&nbsp;struct/structToolbox then I am happy to help with this. &gt; &gt; Likewise@Johannes Rainerif you wanted to include PMP and/or structToolbox in your examples of integration with other packages, or to improve integration between our packages and yours, then I would be happy to discuss this and how it might work.</p>
+<p><strong>Leo Lahti</strong> (07:37:39): &gt; <span class="citation" data-cites="Vilhelm">@Vilhelm</span> Suksiperhaps would be good to invite Retu here, too?</p>
+<p><strong>Leo Lahti</strong> (07:42:18): &gt; We have used TreeSummarizedExperiment in microbiome research, that derives from SingleCellExperiment and it has some advantages: 1) reducedDim slot allows one to store ordinations of the data (like from PCA, PCoA) which are sometimes slow to compute for large data sets; 2) altExps for data versions with different numbers of features (e.g.&nbsp;different metabolomic platforms for the same samples, or aggregated feature sets); 3) metadata slot for additional information. These can be rather useful and many tools are readily available to take advantage of them. I am just wondering whether we should use TreeSummarizedExperiment as the basis for Notame for this reason. TreeSE is a SE, so this would not exclude the possibility of using any of the available SE machinery.</p>
+<p><strong>Johannes Rainer</strong> (09:20:02): &gt; hm, good point@Leo Lahti, I’ve never looked into the<code>TreeSummarizedExperiment</code>, I see the point for possibility of aggregated feature sets, but wanted to use the<code>QFeatures</code>object/package instead for that (i.e.&nbsp;to keep both the original LC-MS features in one assay and the compounded information, if isotopes, adducts of the same compound are aggregated in a separate) - that object keeps track of how the features were aggregated. &gt; IMHO I would suggest to use the simplest-possible object for general data exchange between packages - which would boil down to the<code>SummarizedExperiment</code>. Extending that support (through more complicated objects) would then be relatively easy and could be done later.</p>
+<p><strong>Leo Lahti</strong> (14:23:43): &gt; Yep.<code>SummarizedExperiment</code>is not just the simplest but also the most widely used (out of the above options) afaik (somewhere around top-15 / 2200 Bioc pkgs when I last checked).</p>
+<p><strong>Leo Lahti</strong> (14:27:37): &gt; I am not that much into metabolomics but the options seem to cover<code>SummarizedExperiment</code>,<code>TreeSummarizedExperiment</code>,<code>DatasetExperiment</code>,<code>LCMSExperiment</code>,<code>QFeatures</code>, and perhaps something else.</p>
+<p><strong>Vilhelm Suksi</strong> (16:17:15): &gt; Hi@Gavin Rhys Lloyd, and thanks for your input! The struct/structToolbox data processing objects with functionality-dependent slots are interesting but the motivation behind this is not obvious. Is it to more easily automate an assessment of the variability of results depending on the values of the parameters? I believe integration with notame is not in the immediate future, but this will definitely be kept in the back of my mind. In the meanwhile, it will be interesting to see how the further extended LCMSExperiment in the upcoming package translates to user experience!</p>
+</section>
+<section id="section-84" class="level2">
+<h2 class="anchored" data-anchor-id="section-84">2024-05-23</h2>
+<p><strong>Johannes Rainer</strong> (03:18:22): &gt; As mentioned above,<span class="citation" data-cites="Philippine">@Philippine</span> Louailis working currently on a complete end-to-end untargeted metabolomics workflow within R/Bioconductor (from raw data files to significant, annotated features). I’m super busy at present but will come back to you@Vilhelm Suksiand@Gavin Rhys Lloydfor feedback (or contribution) from you on this workflow. That would also be a nice example to test how the packages can be currently integrated or how we could adapt to improve integration.</p>
+<p><strong>Retu Haikonen</strong> (05:08:48): &gt; <span class="citation" data-cites="Retu">@Retu</span> Haikonen has joined the channel</p>
+</section>
+<section id="section-85" class="level2">
+<h2 class="anchored" data-anchor-id="section-85">2024-08-07</h2>
+<p><strong>Anton Ribbenstedt</strong> (01:59:39): &gt; <span class="citation" data-cites="Anton">@Anton</span> Ribbenstedt has joined the channel</p>
+</section>
+<section id="section-86" class="level2">
+<h2 class="anchored" data-anchor-id="section-86">2024-08-21</h2>
+<p><strong>Laura Symul</strong> (08:57:21): &gt; <span class="citation" data-cites="Laura">@Laura</span> Symul has joined the channel</p>
+</section>
+<section id="section-87" class="level2">
+<h2 class="anchored" data-anchor-id="section-87">2024-09-01</h2>
+<p><strong>Ifra</strong> (06:47:49): &gt; <span class="citation" data-cites="Ifra">@Ifra</span> has joined the channel</p>
+</section>
+<section id="section-88" class="level2">
+<h2 class="anchored" data-anchor-id="section-88">2024-09-02</h2>
+<p><strong>Kozo Nishida</strong> (12:28:45): &gt; Is there any way to convert a<code>Spectra</code>object into a<code>MSnbase</code>object of class<code>Spectrum</code>or<code>Spectrum2</code>? &gt; (Sorry if I have misunderstood something!)</p>
+<p><strong>Laurent Gatto</strong> (15:09:41): &gt; No that I can think of. If you have an mzML file, it would be easier to load it into a Specta object. If not, you should be able export the MSnbase data into an mzML, and then create the Spectra object.@Johannes Rainer- can you think of another way?</p>
+<p><strong>Kozo Nishida</strong> (21:19:38): &gt; Thanks for your reply, Laurent. &gt; By the way, I would like to create a<code>MSnbase</code>object of class<code>Spectrum</code>or<code>Spectrum2</code>from an msp file. &gt; Is there a function in<code>MSnbase</code>that reads an msp file and creates the object of class<code>Spectrum</code>or<code>Spectrum2</code>? &gt; (I don’t know the MSnbase::read_msp?, so) I used<code>MsBackendMsp</code>(and create the<code>Spectra</code>object). &gt; I ask the above because the software I want to use requires an<code>Spectrum</code>or<code>Spectrum2</code>input, not an<code>Spectra</code>.</p>
+</section>
+<section id="section-89" class="level2">
+<h2 class="anchored" data-anchor-id="section-89">2024-09-04</h2>
+<p><strong>Johannes Rainer</strong> (04:10:21): &gt; <span class="citation" data-cites="Kozo">@Kozo</span> Nishida, no we don’t have functionality yet to convert from<code>Spectra</code>to a<code>list</code>of<code>Spectrum</code>objects - I could give that however a shot to implement if it’s something you will definitely require. That might also help if you want to change in the long term to switch all software to use<code>Spectra</code>instead of<code>MSnbase</code></p>
+<p><strong>Johannes Rainer</strong> (09:16:27): &gt; Looking through the<code>MSnbase</code>code I found a function<code>extractSpectraData</code>that allows to convert from a<code>MSnbase::MSpectra</code>to a<code>Spectra::Spectra</code>object - but that’s the wrong direction ;)</p>
+</section>
+<section id="section-90" class="level2">
+<h2 class="anchored" data-anchor-id="section-90">2024-09-05</h2>
+<p><strong>Kozo Nishida</strong> (14:04:25): &gt; Thanks@Johannes Rainer, &gt; &gt; no we don’t have functionality yet to convert from<code>Spectra</code>to a<code>list</code>of<code>Spectrum</code>objects &gt; Thanks for the info. I see. &gt; &gt; I could give that however a shot to implement if it’s something you will definitely require. &gt; Sorry, Actually now I created the S4 class (for the package I need to use) myself without using the<code>MSnbase``Spectrum</code>or<code>Spectrum2</code>. &gt; Therefore, it is no longer something I definitely require.:bow: &gt; &gt; That might also help if you want to change in the long term to switch all software to use<code>Spectra</code>instead of<code>MSnbase</code> &gt; I agree with that. &gt; If making that compatibility would be a contribution, let me help in some way. &gt; &gt; Looking through the<code>MSnbase</code>code I found a function<code>extractSpectraData</code>that allows to convert from a<code>MSnbase::MSpectra</code>to a<code>Spectra::Spectra</code>object - but that’s the wrong direction:wink: &gt; That’s certainly the opposite direction:wink:Should we send a PR for function called like<code>MSnbase::createSpectrum1(SpectraObject)``MSnbase::createSpectrum2(SpectraObject)</code>?</p>
+</section>
+<section id="section-91" class="level2">
+<h2 class="anchored" data-anchor-id="section-91">2024-09-11</h2>
+<p><strong>Johannes Rainer</strong> (02:04:11) (in thread): &gt; Hi Kozo! sorry for my late reply. Actually, a contribution/PR would be nice, but I had already a look at how that could be done - using some internal code in MSnbase we have (in detail: creating a<code>list</code>of<code>Spectrum</code>objects directly in C - which is much faster than using<code>new</code>etc in R).</p>
+<p><strong>Johannes Rainer</strong> (02:08:24) (in thread): &gt; I have a PR for Spectra (<a href="https://github.com/rformassspectrometry/Spectra/pull/329">https://github.com/rformassspectrometry/Spectra/pull/329</a>) with that code - but I might add the functionality to MSnbase instead (to avoid Spectra being dependent on “older” packages) - Attachment: <a href="https://github.com/rformassspectrometry/Spectra/pull/329">#329 feat: add a function to coerce from Spectra to MSnbase::MSpectra</a> &gt; • Add backward compatibility: support changing from a <code>Spectra</code> object to a <code>MSnbase::MSpectra</code> object using the <code>as()</code> method. &gt; • Add unit tests conditional to the installation of the <em>MSnbase</em> package.</p>
+</section>
+<section id="section-92" class="level2">
+<h2 class="anchored" data-anchor-id="section-92">2024-09-16</h2>
+<p><strong>Pedro Baldoni</strong> (13:22:06): &gt; <span class="citation" data-cites="Pedro">@Pedro</span> Baldoni has joined the channel</p>
+</section>
+<section id="section-93" class="level2">
+<h2 class="anchored" data-anchor-id="section-93">2024-10-21</h2>
+<p><strong>Zahraa W Alsafwani</strong> (19:05:34): &gt; <span class="citation" data-cites="Zahraa">@Zahraa</span> W Alsafwani has joined the channel</p>
+</section>
+<section id="section-94" class="level2">
+<h2 class="anchored" data-anchor-id="section-94">2024-10-22</h2>
+<p><strong>Kozo Nishida</strong> (17:30:10): &gt; How do you(Bioconductor community) typically save annotated feature tables (for metabolomics), and in what file formats?</p>
+</section>
+<section id="section-95" class="level2">
+<h2 class="anchored" data-anchor-id="section-95">2024-10-25</h2>
+<p><strong>Johannes Rainer</strong> (05:06:56): &gt; honestly - for now as tab delimited text files. For the R object to<strong>represent</strong>that data we try to use/stick to the<code>SummarizedExperiment</code>. But we’re working also on supporting standardized file formats, such as mzTab-M. Development is currently happening in<a href="https://github.com/rformassspectrometry/MsIO">https://github.com/rformassspectrometry/MsIO</a>. feedback/suggestions/contributions welcome. having said that, I would also love to have some data exchange format with MS-DIAL:slightly_smiling_face:</p>
+</section>
+<section id="section-96" class="level2">
+<h2 class="anchored" data-anchor-id="section-96">2024-10-30</h2>
+<p><strong>Steffen Neumann</strong> (07:51:23): &gt; A few people are currently trying to improve the adoption of mzTab-M. E.g. , with output from MS-Dial and upcoming output in mzMine. xcms always had a hidden minimalistic mzTab-M output as well. On the consumer side, I think MetaboAnalyst(R) does read mzTab-M. ELIXIR-DE is contemplating an mzTab-M interoperability workshop to test/improve the readers and writers. &gt; An R package by@Nils Hoffmannis at<a href="https://github.com/lifs-tools/rmzTab-m/">https://github.com/lifs-tools/rmzTab-m/</a></p>
+</section>
+<section id="section-97" class="level2">
+<h2 class="anchored" data-anchor-id="section-97">2024-11-01</h2>
+<p><strong>Kozo Nishida</strong> (03:19:02) (in thread): &gt; &gt; honestly - for now as tab delimited text files. For the R object to<strong>represent</strong>that data we try to use/stick to the<code>SummarizedExperiment</code>. &gt; Thank you for the information. &gt; By the way, it seems that there is no culture of sharing the<code>SummarizedExperiment</code>objects in the metabolomics community. Could this be because the columns for features and samples in the<code>SummarizedExperiment</code>objects are not in a standardized ?</p>
+<p><strong>Kozo Nishida</strong> (03:45:47) (in thread): &gt; &gt; But we’re working also on supporting standardized file formats, such as mzTab-M. Development is currently happening in<a href="https://github.com/rformassspectrometry/MsIO">https://github.com/rformassspectrometry/MsIO</a>. &gt; &gt; feedback/suggestions/contributions welcome. &gt; I couldn’t find how to create an<code>MsExperiment</code>object from the previously mentioned<code>SummarizedExperiment</code>. Is there any documentation on this?</p>
+<p><strong>Kozo Nishida</strong> (03:49:17) (in thread): &gt; &gt; having said that, I would also love to have some data exchange format with MS-DIAL:slightly_smiling_face: &gt; The feature table exported by MS-DIAL is in a text file format, but its content is exactly the same as the<code>SummarizedExperiment</code>. &gt; Therefore, for me to contribute to MsIO, I need to know an example of converting SummarizedExperiment to MsExperiment.</p>
+</section>
+<section id="section-98" class="level2">
+<h2 class="anchored" data-anchor-id="section-98">2024-11-04</h2>
+<p><strong>Johannes Rainer</strong> (02:09:20) (in thread): &gt; regarding the lack of sharing<code>SummarizedExperiment</code>in the metabolomics community - I also don’t know why that’s happening. I guess mostly because developers are used to their own data structures and want to stick with them. I actually found the<code>SummarizedExperiment</code>great because it does NOT have a rigid/hard-coded format for feature and sample columns. &gt; &gt; For<code>MsIO</code>, we don’t have a way to get from a<code>SummarizedExperiment</code>to a<code>MsExperiment</code>. The analysis workflow is<code>MsExperiment</code>-&gt;<code>XcmsExperiment</code>(which extends<code>MsExperiment</code>) -&gt;<code>SummarizedExperiment</code>(with the preprocessing results). So, for interoperability, it would be great if MS-DIAL results could be imported/loaded as a<code>SummarizedExperiment</code>. Ideally, if available, with feature (<code>rowData</code>) columns<code>"mz"</code>,<code>"rt"</code>. that would be the minimum required information to proceed. &gt; &gt; If you have more information, such as MS/MS spectra etc (linked to features) then indeed you would need an<code>MsExperiment</code>- with the<code>SummarizedExperiment</code>stored in the<code>@qdata</code>slot and the MS/MS spectra in the<code>@spectra</code>slot.</p>
+</section>
+<section id="section-99" class="level2">
+<h2 class="anchored" data-anchor-id="section-99">2024-11-06</h2>
+<p><strong>Kozo Nishida</strong> (22:32:00) (in thread): &gt; Jo, thank you for your reply. &gt; Thanks to you, I now understand what<code>MsExperiment</code>is and how I can contribute to<code>MsIO</code>.</p>
+</section>
+<section id="section-100" class="level2">
+<h2 class="anchored" data-anchor-id="section-100">2024-11-13</h2>
+<p><strong>Steffen Neumann</strong> (09:58:35): &gt; Hi, for some time I get the warnings &gt; <code>&gt; Warning: multiple methods tables found for 'filterFeatures' &gt;   Warning: multiple methods tables found for 'filterMzRange' &gt;</code> &gt; when loading xcms</p>
+<p><strong>Steffen Neumann</strong> (09:59:21) (in thread): &gt; Is that just my local installation, or do we need to fix something in the NAMESPACES across some packages ?</p>
+<p><strong>Steffen Neumann</strong> (10:04:06) (in thread): &gt; I find them in &gt; <code>&gt; Spectra/NAMESPACE:exportMethods(filterMzRange) &gt; xcms/NAMESPACE:exportMethods("filterMzRange") &gt;</code> &gt; =&gt; Does that need fixing ? If so how ?</p>
+<p><strong>Gavin Rhys Lloyd</strong> (10:20:13) (in thread): &gt; I installed xcms this morning and I dont get these warnings when loading the package (Bioc 3.20, R 4.4.2)</p>
+<p><strong>Steffen Neumann</strong> (10:23:45) (in thread): &gt; Sounds like my local installation then. Maybe we need some versioned depends that avoid/prevent my combination of packages</p>
+</section>
+<section id="section-101" class="level2">
+<h2 class="anchored" data-anchor-id="section-101">2024-11-15</h2>
+<p><strong>Laurent Gatto</strong> (13:42:38) (in thread): &gt; I think we should move this method to ProtGenerics.@Johannes Rainer- what do you think?</p>
+</section>
+<section id="section-102" class="level2">
+<h2 class="anchored" data-anchor-id="section-102">2024-11-18</h2>
+<p><strong>Johannes Rainer</strong> (01:31:55) (in thread): &gt; <code>filterFeatures</code>and<code>filterMzRange</code>both are already in<code>ProtGenerics</code>- and in xcms we are also importing them from ProtGenerics - at least in the version I have locally, which we might still need to merge into the main branch</p>
+</section>
+<section id="section-103" class="level2">
+<h2 class="anchored" data-anchor-id="section-103">2025-03-18</h2>
+<p><strong>Nicolo</strong> (17:30:40): &gt; <span class="citation" data-cites="Nicolo">@Nicolo</span> has joined the channel</p>
+</section>
+<section id="section-104" class="level2">
+<h2 class="anchored" data-anchor-id="section-104">2025-04-01</h2>
+<p><strong>Johannes Rainer</strong> (06:00:15): &gt; Resource of reproducible workflows (playbooks?) metabolomics data analysis. By@Philippine Louailand contributors.<a href="https://rformassspectrometry.github.io/Metabonaut/">https://rformassspectrometry.github.io/Metabonaut/</a> - Attachment (rformassspectrometry.github.io): <a href="https://rformassspectrometry.github.io/Metabonaut/">Exploring and Analyzing LC-MS Data</a> &gt; This resource hosts tutorials and end-to-end workflows describing how to analyze LC-MS/MS data, from raw files to annotation, using Bioconductor packages.</p>
+<p><strong>Gavin Rhys Lloyd</strong> (06:25:09) (in thread): &gt; This looks very nice, great job! &gt; &gt; If you are interested I could help you to use structToolbox (<a href="https://computational-metabolomics.github.io/structToolbox/articles/data_analysis_omics_using_the_structtoolbox.html#partial-least-squares-pls-analysis-of-a-untargeted-lc-ms-based-clinical-metabolomics-dataset-">link to vignette</a>) for the multivariate (and univariate if you liked) section(s). Happy to make extra wrappers for missing steps/charts (e.g.&nbsp;I dont have one for limma… yet). &gt; &gt; Or I could add a pull request to add structToolbox as an alternative example; it might depend if your plan is to showcase workflows using different tools, or not</p>
+<p><strong>Johannes Rainer</strong> (06:53:31) (in thread): &gt; hey! that’s great! ideally a PR with a separate vignette:blush:- loading the data after preprocessing. we can also discuss through github issues at Metabonaut</p>
+</section>
+<section id="section-105" class="level2">
+<h2 class="anchored" data-anchor-id="section-105">2025-04-02</h2>
+<p><strong>Pablo</strong> (05:54:18) (in thread): &gt; I have been referring to Metabonaut a lot since it’s launch! Great job@Philippine Louailand others :)</p>
+<p><strong>Kozo Nishida</strong> (13:07:37): &gt; Does anyone know if there’s a function that returns a SummarizedExperiment of a study in MetaboLights, like the following metabolomicsWorkbenchR do_query function? &gt; <code>&gt; SE = do_query( &gt;     context = 'study', &gt;     input_item = 'study_id', &gt;     input_value = 'ST000001', &gt;     output_item = 'SummarizedExperiment' # or 'DatasetExperiment' &gt; ) &gt;</code></p>
+<p><strong>Gavin Rhys Lloyd</strong> (13:27:48) (in thread): &gt; MetaboLights is mostly raw data. SummarizedExperiment is better suited to peak tables obtained after processing the raw data. &gt; You could try something like<a href="https://rformassspectrometry.github.io/MsBackendMetaboLights/">https://rformassspectrometry.github.io/MsBackendMetaboLights/</a>combined with the xcms package to process the data into a peak table (I think xcms can output the peak table as a SummarisedExperiment).</p>
+<p><strong>Gavin Rhys Lloyd</strong> (13:30:18) (in thread): &gt; also there is a nice example of this in the Metabonaut repo posted recently:<a href="https://rformassspectrometry.github.io/Metabonaut/articles/a-end-to-end-untargeted-metabolomics.html">https://rformassspectrometry.github.io/Metabonaut/articles/a-end-to-end-untargeted-metabolomics.html</a></p>
+</section>
+<section id="section-106" class="level2">
+<h2 class="anchored" data-anchor-id="section-106">2025-04-03</h2>
+<p><strong>Kozo Nishida</strong> (00:35:41) (in thread): &gt; Thank you for your reply, Gavin. &gt; Sorry, I didn’t explain myself clearly. &gt; I wasn’t referring to the raw data in MetaboLights, but rather to the ISA-TAB file format—specifically the files starting with<strong>s_</strong>or<strong>m_</strong>. &gt; I wanted to ask whether there is already functionality to create a<code>SummarizedExperiment</code>from those files. &gt; It doesn’t seem like that functionality is included in examples MsBackendMetaboLights or Metabonaut either.</p>
+<p><strong>Kozo Nishida</strong> (00:37:52) (in thread): &gt; And if it turns out that this functionality doesn’t exist anywhere in Bioconductor, I wanted to ask this community where it might make the most sense to add it.</p>
+<p><strong>Kozo Nishida</strong> (00:48:55) (in thread): &gt; Much of what I want to do is already implemented in<a href="https://github.com/tidymass/massdataset/tree/main/R">https://github.com/tidymass/massdataset/tree/main/R</a>, but it doesn’t support database-backed approaches. &gt; The massdataset package is in<strong>tidymass</strong>framework, and it is different from Bioconductor. &gt; I’d like to discuss what kind of approach would be best for the community as a whole (for reading ISA-TABs in MetaboLights).</p>
+<p><strong>Tuomas Borman</strong> (11:14:52) (in thread): &gt; Hi! &gt; &gt; As part of a larger project, we developed a method for retrieving data tables from MetaboLights. The primary goal of the HoloFoodR package is to fetch data from the HoloFood database. However, for certain data types, the HoloFood database points to MetaboLights, so we created methods to retrieve those data tables. &gt; &gt; Initially, we didn’t plan to make the MetaboLights retrieval method directly accessible to users, but rather keep it as internal function. However, today I made it available and did some testing to ensure it works also for data outside this HoloFood project. &gt; &gt; Here is reference page:<a href="https://ebi-metagenomics.github.io/HoloFoodR/reference/getMetaboLights.html">https://ebi-metagenomics.github.io/HoloFoodR/reference/getMetaboLights.html</a>You can retrieve data specified by study identifier &gt; <code>&gt; # The latest changes are not yet in Bioc &gt; remotes::install_github("EBI-Metagenomics/HoloFoodR") &gt; library(HoloFoodR) &gt;  &gt; # Get data as list &gt; res &lt;- getMetaboLights("MTBLS11993") &gt; # Get data as SE &gt; se &lt;- getMetaboLights("MTBLS3540", output = "SE") &gt;</code> &gt; Is this what you are looking for? - Attachment (ebi-metagenomics.github.io): <a href="https://ebi-metagenomics.github.io/HoloFoodR/reference/getMetaboLights.html">Get metabolomic data from MetaboLights database — getMetaboLights</a> &gt; Get metabolomic data from MetaboLights database</p>
+<p><strong>Kozo Nishida</strong> (11:31:19) (in thread): &gt; Hi! Thank you for your reply! &gt; Yes that is what I’m looking for! (I think that’s very likely.)<a href="https://github.com/EBI-Metagenomics/HoloFoodR/blob/devel/R/getMetaboLights.R#L280">https://github.com/EBI-Metagenomics/HoloFoodR/blob/devel/R/getMetaboLights.R#L280</a>Unfortunately, I encountered the following error in my environment. &gt; <code>&gt; &gt; res &lt;- getMetaboLights("MTBLS4381") &gt; curl::curl_parse_url(url, baseurl = base_url, decode = FALSE) でエラー:  &gt;   Failed to parse URL: Bad scheme &gt;</code> &gt; But I’ll ask about it on GitHub Issues instead.<a href="https://github.com/EBI-Metagenomics/HoloFoodR/issues">https://github.com/EBI-Metagenomics/HoloFoodR/issues</a>Thanks again for your reply—I really appreciate it!</p>
+<p><strong>Tuomas Borman</strong> (11:39:59) (in thread): &gt; Thanks, I will check it ASAP</p>
+<p><strong>Tuomas Borman</strong> (12:03:44) (in thread): &gt; I was able to replicate the issue. I had older version of httr2 package. I will fix this today</p>
+<p><strong>Tuomas Borman</strong> (13:04:40) (in thread): &gt; Not the nicest start, but now the issue is fixed:<a href="https://github.com/EBI-Metagenomics/HoloFoodR/pull/41">https://github.com/EBI-Metagenomics/HoloFoodR/pull/41</a>Behavior of<code>httr2::url_parser()</code>was changed and I had not noticed that. &gt; &gt; Thanks for letting me know@Kozo NishidaPlease tell if you still encounter in problems or have feature requests.</p>
+<p><strong>Leo Lahti</strong> (16:43:17) (in thread): &gt; Cool! HoloFoodR might not be the most logical place to find the metabolights functionality, so perhaps we could in the longer run consider other, metabolomics oriented packages as a home for it. Just a thought.</p>
+</section>
+<section id="section-107" class="level2">
+<h2 class="anchored" data-anchor-id="section-107">2025-04-04</h2>
+<p><strong>Kozo Nishida</strong> (08:05:58) (in thread): &gt; Thanks@Tuomas Borman! Now the<code>getMetaboLights</code>works fine! &gt; I have a feature request/question . &gt; I added it to<a href="https://github.com/EBI-Metagenomics/HoloFoodR/issues/42">https://github.com/EBI-Metagenomics/HoloFoodR/issues/42</a> - Attachment: <a href="https://github.com/EBI-Metagenomics/HoloFoodR/issues/42">#42 When there are multiple maf.tsv files in one MTBLS study</a> &gt; Is there a way to determine from which row the data in rowData comes from a different maf.tsv file when there are multiple maf.tsv files included in one study? &gt; &gt; For example <a href="https://www.ebi.ac.uk/metabolights/editor/MTBLS12138/files">https://www.ebi.ac.uk/metabolights/editor/MTBLS12138/files</a> has the following two maf.tsv files. &gt; &gt; • m_MTBLS12138_LC-MS_negative_reverse-phase_metabolite_profiling_v2_maf.tsv (263 rows) &gt; • m_MTBLS12138_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv (495 rows) &gt; &gt; And the SummarizedExperiment object rowData has 758 (==263+495) rows. &gt; &gt; <code>&gt; &gt; res &lt;- getMetaboLights("MTBLS12138", output = "SE") &gt; &gt; dim(rowData(res)) &gt; [1] 758  21 &gt;  &gt;</code> &gt; &gt; I’m fine with the behavior where the data from the two maf.tsv files are stored in a single SummarizedExperiment object.<br>
+&gt; However, I wasn’t able to figure out how to determine which rows originated from the positive or negative mode maf.tsv file.<br>
+&gt; Is there a way to do that?</p>
+<p><strong>Kozo Nishida</strong> (08:08:45) (in thread): &gt; I agree with Leo. If Tuomas is okay with it, I’d be happy to see the functionality of the<code>getMetabolites</code>function contributed to one of the RforMassSpectrometry packages.</p>
+<p><strong>Tuomas Borman</strong> (08:16:13) (in thread): &gt; I also agree, it would be great if the function were easier to find so more people could benefit from it</p>
+</section>
+<section id="section-108" class="level2">
+<h2 class="anchored" data-anchor-id="section-108">2025-04-06</h2>
+<p><strong>Leo Lahti</strong> (09:52:42) (in thread): &gt; <span class="citation" data-cites="Vilhelm">@Vilhelm</span> Suksiis this something you could have a look at, at least tentatively?</p>
+<p><strong>Vilhelm Suksi</strong> (16:38:31) (in thread): &gt; Sure, I’ll check in with Tuomas as well as consider a suitable package and possible overlap.</p>
+</section>
+<section id="section-109" class="level2">
+<h2 class="anchored" data-anchor-id="section-109">2025-04-07</h2>
+<p><strong>Johannes Rainer</strong> (03:57:58) (in thread): &gt; Agree with@Leo Lahtion the comment above that such function should be in a maybe more obvious location. We have in the<a href="https://github.com/RforMassSpectrometry/MsBackendMetaboLights">MsBackendMetaboLights</a>package some utility code already for MetaboLights - PR would be welcome:slightly_smiling_face:- or alternatively the (still under development)<a href="https://github.com/RforMassSpectrometry/MsIO">MsIO</a>package - where we have currently code to load the raw data + experiment + sample annotations from MetaboLights - as a<code>MsExperiment</code>object. We use that in the Metabonaut resource above. &gt; &gt; The<code>MsExperiment</code>can be loaded from MetaboLights with &gt; <code>&gt; mse &lt;- readMsExperiment(MsExperiment(), MetaboLightsParam("MTBLS93")) &gt;</code> &gt; So, maybe a new &gt; <code>&gt; se &lt;- readMsExperiment(SummarizedExperiment(), MetaboLightsParam("MTBL93")) &gt;</code> &gt; would be nice to have?</p>
+<p><strong>Kozo Nishida</strong> (04:07:42) (in thread): &gt; In case<code>se &lt;- readMsExperiment(SummarizedExperiment(), MetaboLightsParam("MTBL93"))</code>, would changes to<a href="https://github.com/rformassspectrometry/MsExperiment/blob/main/R/MsExperiment-functions.R#L391">https://github.com/rformassspectrometry/MsExperiment/blob/main/R/MsExperiment-functions.R#L391</a>be necessary? &gt; Or would changes be needed somewhere else? &gt; I’d appreciate it if you could give me a rough idea of which lines might require code additions/changes.</p>
+<p><strong>Johannes Rainer</strong> (04:13:28) (in thread): &gt; ideally, it should be in a new R/SummarizedExperiment.R file in<a href="https://github.com/RforMassSpectrometry/MsIO">https://github.com/RforMassSpectrometry/MsIO</a>- something similar to the code we have for<code>MsExperiment</code>in<a href="https://github.com/rformassspectrometry/MsIO/blob/main/R/MsExperiment.R#L214-L295">https://github.com/rformassspectrometry/MsIO/blob/main/R/MsExperiment.R#L214-L295</a></p>
+<p><strong>Leo Lahti</strong> (05:55:54) (in thread): &gt; I am not familiar with MsExperiment but would be good to have support for SummarizedExperiment or TreeSummarizedExperiment , unless there is a strong reason to have MS specific container. I will perhaps need to read more about it too.@Vilhelm Suksiyou can also stay up-to-date on this and we talk later.</p>
+</section>
+<section id="section-110" class="level2">
+<h2 class="anchored" data-anchor-id="section-110">2025-04-18</h2>
+<p><strong>Juan Henao</strong> (04:43:02): &gt; <span class="citation" data-cites="Juan">@Juan</span> Henao has joined the channel</p>
+</section>
+<section id="section-111" class="level2">
+<h2 class="anchored" data-anchor-id="section-111">2025-04-23</h2>
+<p><strong>Steffen Neumann</strong> (07:10:16): &gt; Hi&lt;!channel&gt;, if you plan submitting a poster abstract to the Metabolomics conference in Prague, note the (somewhat vague) announcement:<a href="https://www.metabolomics2025.org/abstract-submissions">https://www.metabolomics2025.org/abstract-submissions</a>Poster Abstract deadline IMPORTANT UPDATE as of April 21 &gt; NOTICE: Due to the high volume of submissions, we will likely need to close poster submission early, as we’re quickly approaching capacity for poster presentations. If you’re planning to submit please do so as soon as possible to ensure your work is considered. Once we have reached the capacity limit, we will close the submission portal, very likely before May 15. - Attachment (Abstract Submissions): <a href="https://www.metabolomics2025.org/abstract-submissions">Abstract Submissions - Metabolomics 2025</a> &gt; Discover groundbreaking metabolomics research at Metabolomics 2025 in Prague.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

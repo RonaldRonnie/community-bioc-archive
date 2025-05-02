@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#zarr – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2022-06-28</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2022-07-01</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2022-07-04</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2022-07-05</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2022-07-07</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2022-07-08</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2022-07-11</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2022-08-23</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2022-09-19</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2022-09-20</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2022-11-03</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2022-11-04</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2022-11-17</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2022-11-18</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2022-11-19</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2022-11-21</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2022-11-22</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2022-12-12</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2023-01-09</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2023-02-02</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2023-02-09</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2023-03-31</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2023-04-18</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2023-06-07</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2023-08-02</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2023-08-07</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2023-09-14</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2024-01-10</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2024-05-10</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2024-05-15</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2024-06-12</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2024-06-13</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2024-06-17</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2024-06-28</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2024-06-29</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2024-07-30</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2024-08-02</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2024-08-04</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2024-08-19</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2024-09-03</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2024-09-05</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2024-09-06</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2024-10-08</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2024-10-09</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2024-10-21</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2024-10-23</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#zarr</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2022-06-28</h2>
+<p><strong>Ludwig Geistlinger</strong> (11:44:50): &gt; <span class="citation" data-cites="Ludwig">@Ludwig</span> Geistlinger has joined the channel</p>
+<p><strong>Ludwig Geistlinger</strong> (11:44:50): &gt; set the channel description: Working with data in zarr format in R</p>
+<p><strong>Vince Carey</strong> (11:45:30): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+<p><strong>Alex Mahmoud</strong> (11:45:30): &gt; <span class="citation" data-cites="Alex">@Alex</span> Mahmoud has joined the channel</p>
+<p><strong>Mark Keller</strong> (11:45:30): &gt; <span class="citation" data-cites="Mark">@Mark</span> Keller has joined the channel</p>
+<p><strong>Nils Eling</strong> (11:45:30): &gt; <span class="citation" data-cites="Nils">@Nils</span> Eling has joined the channel</p>
+<p><strong>Shila Ghazanfar</strong> (11:45:30): &gt; <span class="citation" data-cites="Shila">@Shila</span> Ghazanfar has joined the channel</p>
+<p><strong>Martin Morgan</strong> (11:47:44): &gt; <span class="citation" data-cites="Martin">@Martin</span> Morgan has joined the channel</p>
+<p><strong>Hervé Pagès</strong> (11:47:44): &gt; <span class="citation" data-cites="Hervé">@Hervé</span> Pagès has joined the channel</p>
+<p><strong>Tyrone Lee</strong> (11:47:44): &gt; <span class="citation" data-cites="Tyrone">@Tyrone</span> Lee has joined the channel</p>
+<p><strong>Isaac Virshup</strong> (11:47:44): &gt; <span class="citation" data-cites="Isaac">@Isaac</span> Virshup has joined the channel</p>
+<p><strong>Helena L. Crowell</strong> (11:47:44): &gt; <span class="citation" data-cites="Helena">@Helena</span> L. Crowell has joined the channel</p>
+<p><strong>Dario Righelli</strong> (11:47:44): &gt; <span class="citation" data-cites="Dario">@Dario</span> Righelli has joined the channel</p>
+<p><strong>Artem Sokolov</strong> (11:47:44): &gt; <span class="citation" data-cites="Artem">@Artem</span> Sokolov has joined the channel</p>
+<p><strong>Marcel Ramos Pérez</strong> (11:49:22): &gt; <span class="citation" data-cites="Marcel">@Marcel</span> Ramos Pérez has joined the channel</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2022-07-01</h2>
+<p><strong>Ludwig Geistlinger</strong> (10:44:45): &gt; Hi&lt;!channel&gt;,<span class="citation" data-cites="Alex">@Alex</span> Mahmoud,<span class="citation" data-cites="Vince">@Vince</span> Carey, and myself have been working on getting<a href="https://www.cycif.org/">CyCIF</a>image data in<a href="https://zarr.readthedocs.io/en/stable/">Zarr</a>format up on Bioconductor’s<a href="https://www.openstoragenetwork.org/">Open Storage Network</a>account. &gt; &gt; We will be turning this into a designated ExperimentHub package, but we wanted &gt; to share the data already at this point for everyone interested in doing some &gt; more experimentation with reading and working with data in Zarr format in R. &gt; &gt; The image data is from this publication:<a href="https://doi.org/10.1038/s41592-021-01308-y">https://doi.org/10.1038/s41592-021-01308-y</a>. Here, we took the image data from a<a href="https://en.wikipedia.org/wiki/Tissue_microarray">tissue microarray</a>that has been obtained as described here:<a href="https://mcmicro.org/datasets/#tissue-microarrays-tmas">https://mcmicro.org/datasets/#tissue-microarrays-tmas</a>. The data has been kindly provided by@Artem Sokolov. &gt; &gt; What we have are 123 dearrayed tiff images (64 channels each), each corresponding to one tissue core of the microarray that we read in and saved to zarr format using &gt; the<code>zarr.convenience.save</code>function from the<code>zarr</code>python package. &gt; &gt; The data is now available on the Open Storage Network here:<a href="https://mghp.osn.xsede.org/bir190004-bucket01/index.html#TMA11/zarr/">https://mghp.osn.xsede.org/bir190004-bucket01/index.html#TMA11/zarr/</a>and can be read into python like this (here for the 5th core / image): &gt; <code>&gt; import s3fs &gt; import zarr &gt; import xarray as xr &gt; fs = s3fs.S3FileSystem(anon=True, key="dummy", secret="dummy", client_kwargs={'endpoint_url': "[https://mghp.osn.xsede.org/](https://mghp.osn.xsede.org/)"}) &gt; mapper = fs.get_mapper('bir190004-bucket01/TMA11/zarr/5.zarr') &gt; zarr.load(mapper) &gt;</code> &gt; And we are looking for similar ways to read the data into R. Happy to discuss &gt; and please just let us know if you have any questions / comments regarding the data.@Vince Careyany comments from your side in addition to this?</p>
+<p><strong>Josh Moore</strong> (10:47:35): &gt; <span class="citation" data-cites="Josh">@Josh</span> Moore has joined the channel</p>
+<p><strong>Josh Moore</strong> (10:53:04) (in thread): &gt; This is great!</p>
+<p><strong>Luke Zappia</strong> (10:53:35): &gt; <span class="citation" data-cites="Luke">@Luke</span> Zappia has joined the channel</p>
+<p><strong>Josh Moore</strong> (10:54:08) (in thread): &gt; Just as a side note: I assume that the data is formatted such that existing pipelines could convert it directly to OME-Zarr for compatibility with web viewers like Vizarr.</p>
+<p><strong>Ludwig Geistlinger</strong> (10:57:08) (in thread): &gt; It’s a great point. Right now these are plain tiffs / zarrs without OME annotation. I think we want to turn to existing pipelines such as<code>bioformats2raw</code>to convert to OME-annotated formats as a next step.</p>
+<p><strong>Josh Moore</strong> (10:59:27) (in thread): &gt; I see the raw TIFFs in<a href="https://www.synapse.org/#!Synapse:syn25454905">https://www.synapse.org/#!Synapse:syn25454905</a>— is there a description of their mapping to image space? If so, I can probably create the conversion for you.</p>
+<p><strong>Vince Carey</strong> (11:00:06) (in thread): &gt; Thanks@Ludwig Geistlinger– no comments from me just now except to thank the NSF/ACCESS Open Storage Network (OSN) for allocating space for us to work on this.@Alex Mahmoudhas managed our OSN allocation and will take any technical questions about storage access.</p>
+<p><strong>Ludwig Geistlinger</strong> (11:01:00) (in thread): &gt; That would be great@Josh Moore!<span class="citation" data-cites="Artem">@Artem</span> Sokolovdo you know whether such a mapping to image space is available for these TIFFs?</p>
+<p><strong>Paul Hoffman</strong> (11:10:15): &gt; <span class="citation" data-cites="Paul">@Paul</span> Hoffman has joined the channel</p>
+<p><strong>Artem Sokolov</strong> (12:59:31) (in thread): &gt; Canyou clarifywhatyoumean byimagespace?Areyoulookingforwhereeachcorewaslocatedinthe originalTMAimage?IntermsofOMEannotations,that’ssomething still on our plate.TheoriginalTMAimageisanOME-TIFF,butourtoolforsplittingaTMAintocoreswritesplainTIFFs.It’sactuallycreatingproblemsforotherdownstreammodulesas well,soweneedto update it to outputOME-TIFFfilesinstead.</p>
+<p><strong>Peter Hickey</strong> (18:40:56): &gt; <span class="citation" data-cites="Peter">@Peter</span> Hickey has joined the channel</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2022-07-04</h2>
+<p><strong>Josh Moore</strong> (08:52:29) (in thread): &gt; <span class="citation" data-cites="Artem">@Artem</span> Sokolov: understood. If you run<code>bioformats2raw</code>on the OME-TIFF (or if you can point me to the OME-TIFF) then we’ll have a Zarr for looking at.</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2022-07-05</h2>
+<p><strong>Sanket Verma</strong> (06:42:11): &gt; <span class="citation" data-cites="Sanket">@Sanket</span> Verma has joined the channel</p>
+<p><strong>Artem Sokolov</strong> (13:58:31) (in thread): &gt; <span class="citation" data-cites="Josh">@Josh</span> MooreSurething.I’m outonholidaythisweek,butI’lluploadeithertheoriginalOME-TIFFortheZarroutputtoSynapsewhenIgetback.</p>
+<p><strong>Vince Carey</strong> (13:59:45) (in thread): &gt; <span class="citation" data-cites="Artem">@Artem</span> Sokolovwould you be willing to upload them to the Open Storage Network instead? Then they could be pushed to Synapse without egress charge… If OSN works please be in touch with@Alex Mahmoud</p>
+<p><strong>Sean Davis</strong> (19:18:49): &gt; <span class="citation" data-cites="Sean">@Sean</span> Davis has joined the channel</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2022-07-07</h2>
+<p><strong>Artem Sokolov</strong> (10:21:24) (in thread): &gt; <span class="citation" data-cites="Vince">@Vince</span> CareyNo problem to upload to OSN.@Alex MahmoudCan you please point me at the instructions to get started?</p>
+<p><strong>Alex Mahmoud</strong> (10:25:39) (in thread): &gt; Hey Artem! We can’t generate credentials for the allocation, so ideally you would upload it to a service you have access to (Google Drive, Box, OneDrive, DropBox, etc…) and I would sync it for you from there to OSN. Does that work for you/your data? Alternatively, I can give you credentials and instructions for a Jetstream2 bucket which we also have as of last week, and I can send you instructions on how to upload to there for me to copy to OSN afterwards</p>
+<p><strong>Artem Sokolov</strong> (10:30:29) (in thread): &gt; The OME-TIFF is 138GB in size. What would you suggest?</p>
+<p><strong>Alex Mahmoud</strong> (11:06:22) (in thread): &gt; The latter is probably best. I can create the credentials and send you instructions. Do you have any experience using Docker?</p>
+<p><strong>Alex Mahmoud</strong> (11:06:57) (in thread): &gt; And where does the data currently live, is it just on your local machine/a server?</p>
+<p><strong>Artem Sokolov</strong> (12:26:25) (in thread): &gt; Yep. Plenty of experience with Docker. I just pulled the file off our institutional cluster onto my local machine, so I can upload it to wherever.</p>
+<p><strong>Alex Mahmoud</strong> (12:30:50) (in thread): &gt; I’ll DM you credentials and instructions</p>
+<p><strong>Artem Sokolov</strong> (15:13:24) (in thread): &gt; It’s rolling but may take a while: &gt; <code>&gt; Transferred:          1.989 GiB / 128.907 GiB, 2%, 13.349 MiB/s, ETA 2h42m16s &gt; Transferred:            0 / 1, 0% &gt; Elapsed time:       3m1.3s &gt; Transferring: &gt;  *                                 TMA22.ome.tif:  1% /128.907Gi, 13.349Mi/s, 2h42m16s &gt;</code> &gt; It’s running on my machine in the office, so I’ll just leave it up when I take off for the day. &gt; If helpful for verifying integrity after it finishes: &gt; <code>&gt; $ md5sum *.ome.tif &gt; 97acc4168abf77aef8959e70f54d4655  TMA11.ome.tif &gt; 93657d888cf1912d958d33a0cb0de741  TMA22.ome.tif &gt;</code></p>
+<p><strong>Artem Sokolov</strong> (15:15:10) (in thread): &gt; Oh wait, I’m just now realizing that you started with TMA11, not 22.:man-facepalming:Let me get it uploading both.</p>
+<p><strong>Alex Mahmoud</strong> (15:18:09) (in thread): &gt; Make sure you add a filename in the second portion of the<code>rclone copyto</code>, as it will overwrite if not. &gt; If you’re copying a single file or directory, make sure it’s: &gt; <code>&gt; js:OME-TIFF/newdir &gt;</code> &gt; (<code>OME-TIFF</code>is the root bucket name) &gt; We can easily change directory structure and filenames after for production, just want to make sure the uploads don’t cancel each other</p>
+<p><strong>Alex Mahmoud</strong> (15:19:40) (in thread): &gt; Also, if you think the institutional cluster will have better upload speed than your machine, you could potentially try to run it directly from there. If you can’t use docker, you can try installing<code>rclone</code>directly on the cluster (<a href="https://rclone.org/install/">https://rclone.org/install/</a>) assuming you have enough permissions to do that - Attachment (rclone.org): <a href="https://rclone.org/install/">Install</a> &gt; Rclone Installation</p>
+<p><strong>Artem Sokolov</strong> (15:21:53) (in thread): &gt; Thanks,<span class="citation" data-cites="Alex">@Alex</span> Mahmoud. I stopped the transfer, since it was only at 2%. Just moving<code>TMA11.ome.tif</code>to the same directory, then going to restart using the original command to copy the entire directory over to the root bucket. Unfortunately, the transfer nodes that provide access to the data on our compute cluster are very restricted, so it’s better to pull than push.</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2022-07-08</h2>
+<p><strong>Alex Mahmoud</strong> (16:40:19) (in thread): &gt; It seems TMA11 is uploaded with 221 GB, and TMA22 with 129 GB. Can you confirm that the uploads are done, and then I can move them to OSN as well?</p>
+<p><strong>Artem Sokolov</strong> (16:42:05) (in thread): &gt; <span class="citation" data-cites="Alex">@Alex</span> MahmoudAre you able to get checksum values for the files on your end? &gt; <code>&gt; $ md5sum *.ome.tif &gt; 97acc4168abf77aef8959e70f54d4655  TMA11.ome.tif &gt; 93657d888cf1912d958d33a0cb0de741  TMA22.ome.tif &gt;</code> &gt; I left it running overnight on my office machine, but I am working remotely today.</p>
+<p><strong>Alex Mahmoud</strong> (16:58:03) (in thread): &gt; Unfortunately because of the file size, it is segmented at upload and hashes are per segment: &gt; <code>&gt; TMA11.ome.tif/1657225716.182074825/237701794480/00000000 &gt; c00981fd06b0bd3f5a4e7c438b859ca9 &gt; TMA11.ome.tif/1657225716.182074825/237701794480/00000001 &gt; ced14603e43f2a3de0060a616f710877 &gt; TMA11.ome.tif/1657225716.182074825/237701794480/00000002 &gt; 5cf944d1175c8e08ed5280cc9df18cdc &gt; ........ &gt; TMA22.ome.tif/1657225716.260260825/138413329219/00000023 &gt; f11fc03f3aeb2606ec943019340777d9 &gt; TMA22.ome.tif/1657225716.260260825/138413329219/00000024 &gt; b0cb1d2e37a6a20afd82ff85b4c76222 &gt; TMA22.ome.tif/1657225716.260260825/138413329219/00000025 &gt; a53f9ff6ff9610c692aec75784961e41 &gt;</code></p>
+<p><strong>Alex Mahmoud</strong> (16:58:28) (in thread): &gt; (although it can be downloaded outright at<a href="https://js2.jetstream-cloud.org/api/swift/containers/OME-TIFF/object/TMA11.ome.tif">https://js2.jetstream-cloud.org/api/swift/containers/OME-TIFF/object/TMA11.ome.tif</a>)</p>
+<p><strong>Alex Mahmoud</strong> (16:58:55) (in thread): &gt; I’ll go ahead and move them to OSN as is, and get the hash during that</p>
+<p><strong>Artem Sokolov</strong> (16:59:15) (in thread): &gt; Sounds good!</p>
+<p><strong>Alex Mahmoud</strong> (18:28:19) (in thread): &gt; Hashes are the same:tada:Moving from JS2 to OSN in progress &gt; <code>&gt; 97acc4168abf77aef8959e70f54d4655  TMA11.ome.tif &gt; 93657d888cf1912d958d33a0cb0de741  TMA22.ome.tif &gt;</code></p>
+<p><strong>Alex Mahmoud</strong> (20:26:25) (in thread): &gt; The upload is complete! You can see the data in the browser at<a href="https://mghp.osn.xsede.org/bir190004-bucket01/index.html#OME-TIFF/">https://mghp.osn.xsede.org/bir190004-bucket01/index.html#OME-TIFF/</a>and download for eg from<a href="https://mghp.osn.xsede.org/bir190004-bucket01/OME-TIFF/TMA11.ome.tif">https://mghp.osn.xsede.org/bir190004-bucket01/OME-TIFF/TMA11.ome.tif</a></p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2022-07-11</h2>
+<p><strong>Josh Moore</strong> (07:01:52) (in thread): &gt; A test conversion can be found at a temporary location:<a href="https://hms-dbmi.github.io/vizarr/?source=https://uk1s3.embassy.ebi.ac.uk/idr/share/community-bioc/TMA11.ome.zarr/0">https://hms-dbmi.github.io/vizarr/?source=https://uk1s3.embassy.ebi.ac.uk/idr/share/community-bioc/TMA11.ome.zarr/0</a></p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2022-08-23</h2>
+<p><strong>Vince Carey</strong> (00:48:53): &gt; <span class="citation" data-cites="Ludwig">@Ludwig</span> Geistlinger, the code you provided above yields a 64 * 3007 * 3007 array. image of one 3007x3007 slice shows the expected shape of core. but what metadata are available about this core? are they in the zarr resource?</p>
+<p><strong>Vince Carey</strong> (08:07:40): &gt; A little more precisely, is the information about 64 antibodies at<a href="https://static-content.springer.com/esm/art%3A10.1038%2Fs41592-021-01308-y/MediaObjects/41592_2021_1308_MOESM1_ESM.pdf">https://static-content.springer.com/esm/art%3A10.1038%2Fs41592-021-01308-y/MediaObjects/41592_2021_1308_MOESM1_ESM.pdf</a>relevant to the 64 ‘rows’ of the array produced by the code, and is such information routinely bound to the numerical arrays at some stage of the workflow?</p>
+<p><strong>Ludwig Geistlinger</strong> (08:28:32): &gt; Hi@Vince Carey, indeed each of the 123 zarr stores correspond to an image with 64 channels. Each of the 64 channels corresponds to one of the 64 antibody markers used for staining. As@Artem Sokolovexplains a bit further up in the thread, right now the metadata in OME format is only bound to the overall image, but not to the 123 dearrayed images given in plain tiff (which I converted here to plain zarr). Metadata on markers and tissues is currently separately available as csv in the above linked synapse dir.</p>
+<p><strong>Ludwig Geistlinger</strong> (08:29:51): &gt; Here is a small vignette that explores the different components of the TMA11 dataset (metadata, expression data, image data):</p>
+<p><strong>Ludwig Geistlinger</strong> (08:30:03): - File (HTML): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F0401TFL2AC/cycif_tma11.html">CyCIF_TMA11.html</a></p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2022-09-19</h2>
+<p><strong>Tao Liu</strong> (16:41:04): &gt; <span class="citation" data-cites="Tao">@Tao</span> Liu has joined the channel</p>
+<p><strong>Maria Doyle</strong> (16:46:43): &gt; <span class="citation" data-cites="Maria">@Maria</span> Doyle has joined the channel</p>
+<p><strong>John Kirkham US</strong> (16:51:43): &gt; <span class="citation" data-cites="John">@John</span> Kirkham US has joined the channel</p>
+<p><strong>Ryan Williams</strong> (16:53:24): &gt; <span class="citation" data-cites="Ryan">@Ryan</span> Williams has joined the channel</p>
+<p><strong>Mengbo Li</strong> (17:26:49): &gt; <span class="citation" data-cites="Mengbo">@Mengbo</span> Li has joined the channel</p>
+<p><strong>Vince Carey</strong> (17:30:32): &gt; Here are notes on the CZI discussion:<a href="https://docs.google.com/document/d/1KpMbZbn789FPCMvsgKdIrHbSm74K_XuVY2XqCbzyJHs/edit?usp=sharing">https://docs.google.com/document/d/1KpMbZbn789FPCMvsgKdIrHbSm74K_XuVY2XqCbzyJHs/edit?usp=sharing</a> - File (Google Docs): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F043QSSUR7S/bioconductor_and_big_data">CZI Zarr, R/Bioconductor and Big Data</a></p>
+<p><strong>Ludwig Geistlinger</strong> (17:36:36) (in thread): &gt; When did this happen? At EuroBioc?</p>
+<p><strong>Maria Doyle</strong> (18:06:17) (in thread): &gt; At the CZI Open Science Annual Meeting</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2022-09-20</h2>
+<p><strong>Josh Moore</strong> (05:22:19) (in thread): &gt; Sorry I couldn’t make it. (Just ran out of steam) Hope it was useful.</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2022-11-03</h2>
+<p><strong>Shila Ghazanfar</strong> (00:46:56): &gt; Hi everyone, I’m sorry if I’m asking a naive question but it’s related to using zarr for representing cell segmentation. Looking at the 10X Xenium breast cancer data that was recently preprinted<a href="https://www.biorxiv.org/content/10.1101/2022.10.06.510405v1">https://www.biorxiv.org/content/10.1101/2022.10.06.510405v1</a>my collaborator is hoping to extract the existing cell segmentation mask, listed as “Cell segmentation (Zarr)” in the download page<a href="https://www.10xgenomics.com/products/xenium-in-situ/preview-dataset-human-breast">https://www.10xgenomics.com/products/xenium-in-situ/preview-dataset-human-breast</a>however my collaborators not familiar with this format (and tbh it’s still extremely new to me) and is more used to a .tif with labels… so my questions are 1. how to convert to such a .tif file? and in any case 2. how to visualise or bring into R/Bioc setting? Would ZarrExperiment be a viable option here? &gt; &gt; Thanks in advance! I’m also curious if anyone’s interacting with these data already and have thoughts? cheers, Shila - Attachment (bioRxiv): <a href="https://www.biorxiv.org/content/10.1101/2022.10.06.510405v1">High resolution mapping of the breast cancer tumor microenvironment using integrated single cell, spatial and in situ analysis of FFPE tissue</a> &gt; Single cell and spatial technologies that profile gene expression across a whole tissue are revolutionizing the resolution of molecular states in clinical tissue samples. Commercially available methods that characterize either single cell or spatial gene expression are currently limited by low sample throughput and/or gene plexy, lack of on-instrument analysis, and the destruction of histological features and epitopes during the workflow. Here, we analyzed large, serial formalin-fixed, paraffin-embedded (FFPE) human breast cancer sections using a novel FFPE-compatible single cell gene expression workflow (Chromium Fixed RNA Profiling; scFFPE-seq), spatial transcriptomics (Visium CytAssist), and automated microscopy-based in situ technology using a 313-plex gene panel (Xenium In Situ). Whole transcriptome profiling of the FFPE tissue using scFFPE-seq and Visium facilitated the identification of 17 different cell types. Xenium allowed us to spatially resolve these cell types and their gene expression profiles with single cell resolution. Due to the non-destructive nature of the Xenium workflow, we were able to perform H&amp;E staining and immunofluorescence on the same section post-processing which allowed us to spatially register protein, histological, and RNA data together into a single image. Integration of data from Chromium scFFPE-seq, Visium, and Xenium across serial sections allowed us to do extensive benchmarking of sensitivity and specificity between the technologies. Furthermore, data integration inspired the interrogation of three molecularly distinct tumor subtypes (low-grade and high-grade ductal carcinoma in situ (DCIS), and invasive carcinoma). We used Xenium to characterize the cellular composition and differentially expressed genes within these subtypes. This analysis allowed us to draw biological insights about DCIS progression to infiltrating carcinoma, as the myoepithelial layer degrades and tumor cells invade the surrounding stroma. Xenium also allowed us to further predict the hormone receptor status of tumor subtypes, including a small 0.1 mm2 DCIS region that was triple positive for ESR1 (estrogen receptor), PGR (progesterone receptor) and ERBB2 (human epidermal growth factor receptor 2, a.k.a. HER2) RNA. In order to derive whole transcriptome information about these cells, we used Xenium data to interpolate the cell composition of Visium spots, and leveraged Visium whole transcriptome information to discover new biomarkers of breast tumor subtypes. We demonstrate that scFFPE-seq, Visium, and Xenium independently provide information about molecular signatures relevant to understanding cancer heterogeneity. However, it is the integration of these technologies that leads to even deeper insights, ushering in discoveries that will progress oncology research and the development of diagnostics and therapeutics. ### Competing Interest Statement All authors are employees and shareholders of 10x Genomics.</p>
+<p><strong>Ludwig Geistlinger</strong> (09:48:36): &gt; Hi Shila, very interesting! I saw a talk about that dataset recently, didn’t know it’s already out. There are a number of options here including going directly via python’s<code>zarr</code>package. But going down the<code>ZarrExperiment</code>route here (which reticulates around python’s<code>zarr</code>package): &gt; <code>&gt; &gt; library(ZarrExperiment) &gt; &gt; fl &lt;- "Xenium_FFPE_Human_Breast_Cancer_Rep1_cells.zarr" &gt; &gt; dir(fl) &gt; [1] "cell_id"               "cell_summary"          "homogeneous_transform" &gt; [4] "masks"                 "polygon_num_vertices"  "polygon_vertices" &gt;</code> &gt; shows the content of the zarr archive, which contains besides the masks a couple of other interesting things such as eg the cell polygons (number of vertices and coordinates of the vertices itself). Further, wrapping this into a<code>ZarrExperiment::ZarrArchive</code>gives us some more ideas about data types and dimensions: &gt; <code>&gt; &gt; arr &lt;- ZarrArchive(fl) &gt; &gt; arr &gt; class: ZarrArchive &gt; resource: Xenium_FFPE_Human_Breast_Cancer_Rep1_cells.zarr &gt; / &gt;  ├── cell_id (167782,) uint32 &gt;  ├── cell_summary (167782, 7) float64 &gt;  ├── homogeneous_transform (3, 3) float32 &gt;  ├── masks &gt;  │   ├── 0 (25779, 35416) uint32 &gt;  │   ├── 1 (25779, 35416) uint32 &gt;  │   └── homogeneous_transform (4, 4) float32 &gt;  ├── polygon_num_vertices (2, 167782) int32 &gt;  └── polygon_vertices (2, 167782, 26) float32 &gt;</code> &gt; We can proceed by eg pulling out the polygon vertices, where we seem to have two different segmentations in here for some 170k cells in total, and we can eg look at some of the coordinates of the first segmentation: &gt; <code>&gt; &gt; m &lt;- as(arr$polygon_vertices, "matrix") &gt; &gt; dim(m) &gt; [1]      2 167782     26 &gt; &gt; m[1,1:5,1:5] &gt;          [,1]     [,2]     [,3]     [,4]     [,5] &gt; [1,] 377.1875 838.7375 375.4875 839.3750 374.6375 &gt; [2,] 383.7750 856.1625 382.7125 856.5875 382.0750 &gt; [3,] 320.8750 866.5750 319.1750 867.8500 319.1750 &gt; [4,] 257.7625 848.0875 256.9125 848.3000 254.5750 &gt; [5,] 370.6000 862.1125 368.9000 863.1750 368.4750 &gt;</code> &gt; We can analogously look for the number of vertices for each cell polygon: &gt; <code>&gt; &gt; n &lt;- as(arr$polygon_num_vertices, "matrix") &gt; &gt; dim(n) &gt; [1]      2 167782 &gt; &gt; n[1,1:5] &gt; [1] 13 13 13 13 13 &gt; &gt; n[2,1:5] &gt; [1] 13 13 13 13 13 &gt;</code> &gt; where it looks like we have some 13 vertices for each cell polygon. Now from your question it seems we are primarily interested in pulling out the masks and save as tiff, and I would assume that we can equally pull out<code>arr$masks</code>and turn into matrix, and use eg the<code>tiff</code>package to write to tiff and this would go along the following lines to eg pull out the first segmentation mask: &gt; <code>&gt; &gt; m &lt;- as(arr$masks$`0`, "matrix") &gt; &gt; dim(m) &gt; [1] 25779 35416 &gt;</code></p>
+<p><strong>Shila Ghazanfar</strong> (19:48:04) (in thread): &gt; that’s phenomenal, thanks so much Ludwig!! extremely helpful.. for some reason when input directly into python the ‘masks’ wasn’t visible, which had us thinking that it wasn’t even in the file &gt; <code>&gt; import zarr &gt;  &gt; path = 'Xenium_FFPE_Human_Breast_Cancer_Rep1_cells.zarr' &gt; zarr_data = zarr.convenience.load(path) &gt;  &gt; print(zarr_data) &gt;  &gt; print(zarr_data['cell_id'].shape) &gt; print(zarr_data['cell_summary'].shape) &gt; print(zarr_data['polygon_num_vertices'].shape) &gt; print(zarr_data['polygon_vertices'].shape) &gt;</code></p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2022-11-04</h2>
+<p><strong>Shila Ghazanfar</strong> (01:46:45) (in thread): &gt; PS that script you shared worked a charm ludwig! here’s what i can see for Rep1 mask “0” and mask “1” when i input into napari, change to labels and zoom in (albeit to different regions):slightly_smiling_face:0 is nuclei then and 1 is full cells: - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F049G40DSQ3/image.png">image.png</a> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F049G6ZDAV8/image.png">image.png</a></p>
+<p><strong>Ludwig Geistlinger</strong> (08:39:15) (in thread): &gt; That’s cool, Shila!</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2022-11-17</h2>
+<p><strong>Isaac Virshup</strong> (10:30:50): &gt; Hey all, there’s a conversation on the<a href="http://image.sc">image.sc</a>forum about reading OME-NGFF zarr stores (espeically tables) from R. Would appreciate a perspective from bioconductor here<img src="https://forum.image.sc/t/accessing-ome-ngff-esp-tables-from-r/74051.png" class="img-fluid" alt="https://forum.image.sc/t/accessing-ome-ngff-esp-tables-from-r/74051"></p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2022-11-18</h2>
+<p><strong>Stephanie Hicks</strong> (06:37:28): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks has joined the channel</p>
+<p><strong>Kasper D. Hansen</strong> (11:51:17): &gt; <span class="citation" data-cites="Kasper">@Kasper</span> D. Hansen has joined the channel</p>
+<p><strong>Ludwig Geistlinger</strong> (12:31:08): &gt; Hi@Vince CareyI am a bit inclined to rename this channel to #imaging to discuss all kinds of question around image analysis with R/Bioc, and leave the big-data rep component of the zarr discussion to#bigdata-repto pull in more folks with on-disk out-of-memory format experience for this piece. Thoughts?</p>
+<p><strong>Kasper D. Hansen</strong> (14:00:30): &gt; Im new here, but that seems to be a bad idea. The channel has a very specific name</p>
+<p><strong>Kasper D. Hansen</strong> (14:00:46): &gt; Why don’t you just make a new channel and also announce it here?</p>
+<p><strong>Ludwig Geistlinger</strong> (14:40:10): &gt; Thanks, Kasper. My impression is that most folks came here because they wanted to analyze some big images and zarr is just one piece to the puzzle for them. Also the folks that really could drive some robust developments with regard to reading zarr from R are the folks in#bigdata-repnot necessarily the applied folks interested in working with image data. But creating a new channel instead is a good idea.</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2022-11-19</h2>
+<p><strong>Hieu Nim</strong> (21:03:20): &gt; <span class="citation" data-cites="Hieu">@Hieu</span> Nim has joined the channel</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2022-11-21</h2>
+<p><strong>Josh Moore</strong> (05:39:51) (in thread): &gt; for my part, being at the intersection, happy to join either or both:wink:</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2022-11-22</h2>
+<p><strong>Ellis Patrick</strong> (15:53:43): &gt; <span class="citation" data-cites="Ellis">@Ellis</span> Patrick has joined the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2022-12-12</h2>
+<p><strong>Stephanie Hicks</strong> (10:35:21): &gt; fwiw, my two cents on the discussion about renaming the channel is that my recommendation would be to keep#zarrbecause the format can be used to store images, but also others use it to store count data (e.g.<a href="https://www.nature.com/articles/s41467-022-32097-3">https://www.nature.com/articles/s41467-022-32097-3</a>). So relabeling it to just #imaging feels not quite right. &gt; &gt; Now, it’s not clear whether we want to have multiple#bigdata-repchannels (e.g.<code>#bigdata-rep-zarr</code>,<code>#bigdata-rep-hdf5</code>), but there clearly are a theme we could have all in one channel or broken up. &gt; &gt; Going back to the discussion on the proposed #imaging channel, I think that makes total sense and is long over due. - Attachment (Nature): <a href="https://www.nature.com/articles/s41467-022-32097-3">Scarf enables a highly memory-efficient analysis of large-scale single-cell genomics data</a> &gt; Nature Communications - As the scale of single-cell genomics experiments grows into the millions, the computational requirements to process this data are beyond the reach of many. Here the authors…</p>
+<p><strong>Ludwig Geistlinger</strong> (16:23:17): &gt; Thanks for the input@Kasper D. Hansen@Josh Moore@Stephanie Hicks- there is now a new channel#image-analysisproviding opportunities to discuss tools and packages for image analysis including segmentation, tiling, stitching, machine learning, image viewers, …</p>
+<p><strong>Stephanie Hicks</strong> (20:38:44): &gt; thank you for leading this@Ludwig Geistlinger!</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2023-01-09</h2>
+<p><strong>Charlotte Soneson</strong> (06:12:09): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+<p><strong>Giovanni Palla</strong> (06:21:38): &gt; <span class="citation" data-cites="Giovanni">@Giovanni</span> Palla has joined the channel</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2023-02-02</h2>
+<p><strong>Davide Risso</strong> (05:37:45): &gt; <span class="citation" data-cites="Davide">@Davide</span> Risso has joined the channel</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2023-02-09</h2>
+<p><strong>Ludwig Geistlinger</strong> (14:32:27): - Attachment: <a href="https://community-bioc.slack.com/archives/C04FKM9C7LG/p1675970998524369?thread_ts=1670921194.447239&amp;cid=C04FKM9C7LG">Attachment</a> &gt; Just as an update I’ve now submitted Rarr to Bioconductor (<a href="https://github.com/Bioconductor/Contributions/issues/2925">https://github.com/Bioconductor/Contributions/issues/2925</a>) &gt; &gt; If anyone has Zarr files and wants to test out the package it’d be great to get feedback as part of the review.</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2023-03-31</h2>
+<p><strong>Aedin Culhane</strong> (08:34:11): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+<p><strong>Ilaria Billato</strong> (08:59:09): &gt; <span class="citation" data-cites="Ilaria">@Ilaria</span> Billato has joined the channel</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2023-04-18</h2>
+<p><strong>Lukas Weber</strong> (14:06:41): &gt; <span class="citation" data-cites="Lukas">@Lukas</span> Weber has joined the channel</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2023-06-07</h2>
+<p><strong>Laura Luebbert</strong> (13:35:26): &gt; <span class="citation" data-cites="Laura">@Laura</span> Luebbert has joined the channel</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2023-08-02</h2>
+<p><strong>Beth Cimini</strong> (08:21:27): &gt; <span class="citation" data-cites="Beth">@Beth</span> Cimini has joined the channel</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2023-08-07</h2>
+<p><strong>Jiaji George Chen</strong> (11:23:41): &gt; <span class="citation" data-cites="Jiaji">@Jiaji</span> George Chen has joined the channel</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2023-09-14</h2>
+<p><strong>Mike Smith</strong> (03:50:42): &gt; <span class="citation" data-cites="Mike">@Mike</span> Smith has joined the channel</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2024-01-10</h2>
+<p><strong>Artür Manukyan</strong> (19:39:57): &gt; <span class="citation" data-cites="Artür">@Artür</span> Manukyan has joined the channel</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2024-05-10</h2>
+<p><strong>Vince Carey</strong> (11:59:29): &gt; Timetable for zarr v3 python bindings:<a href="https://github.com/zarr-developers/zarr-python/issues/1777">https://github.com/zarr-developers/zarr-python/issues/1777</a> - Attachment: <a href="https://github.com/zarr-developers/zarr-python/issues/1777">#1777 Announcement: Zarr-Python version 3 release schedule</a> &gt; This issue describes the planned development path toward the 3.0 release of Zarr-Python. &gt; &gt; <strong>Important information</strong> &gt; &gt; • <a href="https://github.com/zarr-developers/zarr-python/blob/main/v3-roadmap-and-design.md">3.0 Roadmap and Design Doc</a> &gt; • <a href="https://github.com/orgs/zarr-developers/projects/5/views/2">3.0 Project Board</a> &gt; • <a href="https://github.com/zarr-developers/zarr-python/tree/v3">3.0 Development Branch: <code>v3</code></a> &gt; &gt; <strong>Release schedule</strong> &gt; <strong>2.18.0 - May 9, 2024 (<a href="https://github.com/zarr-developers/zarr-python/milestones">Milestone</a>)</strong> &gt; &gt; • Goal: prepare the way for the 3.0 releases &gt; • Includes deprecation and/or future warnings where breaking changes are expected in 3.0 &gt; • Anticipated final minor release of 2.* series &gt; • Additional bug fix releases may be made as needed &gt; &gt; <strong>3.0.0.alpha0 - May 10, 2024 (<a href="https://github.com/zarr-developers/zarr-python/milestone/15">Milestone</a>)</strong> &gt; &gt; • Goal: facilitate testing by early adopters and downstream libraries &gt; • Includes &gt;90% of the surface area of the expected 3.0.0 release &gt; • May be missing some documentation, test coverage, or features beyond the core API &gt; &gt; <strong>3.0.0 - June 14, 2024 (<a href="https://github.com/zarr-developers/zarr-python/milestone/16">Milestone</a>)</strong> &gt; &gt; • Goal: full release of Zarr-Python 3 :tada: &gt; • Includes 100% of the expected surface area of 3.0.0 release &gt; • May or may not include extensions beyond the core spec &gt; &gt; <strong>Note to contributors</strong> &gt; &gt; Over the next 2-3 months, we expect to transition the majority of development to the <code>v3</code> branch. By no means are we ceasing support for the 2.* series but the general direction of the library is toward <code>v3</code>. If you are considering a contribution to Zarr-Python beyond the scope of a bug fix, the <code>v3</code> branch is likely your best bet.</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2024-05-15</h2>
+<p><strong>Hans-Rudolf Hotz</strong> (02:53:06): &gt; <span class="citation" data-cites="Hans-Rudolf">@Hans-Rudolf</span> Hotz has joined the channel</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2024-06-12</h2>
+<p><strong>Aedin Culhane</strong> (13:05:29): &gt; Met@Sanket Vermaat czi.The v3 alpha release of zarr-Python is now out (last night).He would like to establish a working group to consider zarr bindings, or maybe a hackathon/discussions at#biocclasses#bioc-conference-everyonebioc2024 or euroBioc?</p>
+<p><strong>Aedin Culhane</strong> (13:05:55): &gt; <span class="citation" data-cites="Isaac">@Isaac</span> Virshup</p>
+<p><strong>Vince Carey</strong> (21:59:25): &gt; Note that there will be a BOF on Zarr and R at CZI meeting on Thursday (session S, 1345, room not yet assigned)</p>
+<p><strong>Vince Carey</strong> (22:00:04): &gt; Unfortunately it collides with another BOF on python for statistics that will include Fernando Perez as discussant….</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2024-06-13</h2>
+<p><strong>Mike Smith</strong> (03:37:47): &gt; I would be interested in knowing what’s discussed if anyone attends. If it’s in anyway useful, the EOSS6 application I wrote can be found at<a href="https://github.com/grimbough/Rarr/blob/devel/inst/funding_applications/EOSS6-2024.md">https://github.com/grimbough/Rarr/blob/devel/inst/funding_applications/EOSS6-2024.md</a></p>
+<p><strong>Vince Carey</strong> (06:14:30): &gt; Thanks Mike! Will keep you posted.</p>
+<p><strong>Sanket Verma</strong> (11:39:27) (in thread): &gt; Thanks for the message@Aedin Culhane. &gt; &gt; For anyone who’s interested here’s the PyPi release:<a href="https://pypi.org/project/zarr/3.0.0a0/">https://pypi.org/project/zarr/3.0.0a0/</a> - Attachment (PyPI): <a href="https://pypi.org/project/zarr/3.0.0a0/">zarr</a> &gt; An implementation of chunked, compressed, N-dimensional arrays for Python</p>
+<p><strong>Sanket Verma</strong> (11:43:32) (in thread): &gt; We’re aiming for mid-July for the main release, i.e.&nbsp;V3.0.0 &gt; &gt; The full release schedule can be seen here:<a href="https://github.com/zarr-developers/zarr-python/issues/1777">https://github.com/zarr-developers/zarr-python/issues/1777</a>I think, now would be a good time to try out the V3 module and provide feedback before the API freezes and we ship the main release. &gt; We can also start discussing if someone from the Bioconductor community would like to work on the R bindings for Zarr-Python V3. - Attachment: <a href="https://github.com/zarr-developers/zarr-python/issues/1777">#1777 Announcement: Zarr-Python version 3 release schedule</a> &gt; This issue describes the planned development path toward the 3.0 release of Zarr-Python. &gt; &gt; <strong>Important information</strong> &gt; &gt; • <a href="https://github.com/zarr-developers/zarr-python/blob/main/v3-roadmap-and-design.md">3.0 Roadmap and Design Doc</a> &gt; • <a href="https://github.com/orgs/zarr-developers/projects/5/views/2">3.0 Project Board</a> &gt; • <a href="https://github.com/zarr-developers/zarr-python/tree/v3">3.0 Development Branch: <code>v3</code></a> &gt; &gt; <strong>Release schedule</strong> &gt; <strong>2.18.0 - May 9, 2024 (<a href="https://github.com/zarr-developers/zarr-python/milestones">Milestone</a>)</strong> &gt; &gt; • Goal: prepare the way for the 3.0 releases &gt; • Includes deprecation and/or future warnings where breaking changes are expected in 3.0 &gt; • Anticipated final minor release of 2.* series &gt; • Additional bug fix releases may be made as needed &gt; &gt; <strong>3.0.0.alpha0 - June 5, 2024 (<a href="https://github.com/zarr-developers/zarr-python/milestone/15">Milestone</a>)</strong> &gt; &gt; • Goal: facilitate testing by early adopters and downstream libraries &gt; • Includes &gt;90% of the surface area of the expected 3.0.0 release &gt; • May be missing some documentation, test coverage, or features beyond the core API &gt; &gt; <strong>3.0.0 - Mid-July, 2024 (<a href="https://github.com/zarr-developers/zarr-python/milestone/16">Milestone</a>)</strong> &gt; &gt; • Goal: full release of Zarr-Python 3 :tada: &gt; • Includes 100% of the expected surface area of 3.0.0 release &gt; • May or may not include extensions beyond the core v2 and v3 specs &gt; • Minimal breaking changes relative to 2.<em> &gt; • Complete migration guide &gt; &gt; <strong>Note to contributors</strong> &gt; &gt; Over the next 2-3 months, we expect to transition the majority of development to the <code>v3</code> branch. By no means are we ceasing support for the 2.</em> series but the general direction of the library is toward <code>v3</code>. If you are considering a contribution to Zarr-Python beyond the scope of a bug fix, the <code>v3</code> branch is likely your best bet. &gt; &gt; <em>Update 5/31/24: We have fallen off our intended timeline by a few weeks. I’ve updated the alpha release and full release dates accordingly.</em></p>
+<p><strong>Sanket Verma</strong> (11:44:43) (in thread): &gt; I can also assist if there’s an interest in organising a parallel track/theme for Zarr at the Bioconductor conference in US/Europe.</p>
+<p><strong>Robert Castelo</strong> (14:23:24): &gt; <span class="citation" data-cites="Robert">@Robert</span> Castelo has joined the channel</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2024-06-17</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (06:43:31): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht has joined the channel</p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2024-06-28</h2>
+<p><strong>Robert Castelo</strong> (09:05:52): &gt; <span class="citation" data-cites="Mike">@Mike</span> Smithand others, will you be attending Eurobioc in Oxford in September 4th-6th? If yes, would you be interested in attending a BoF session on Zarr and R/Bioconductor on Friday 6th from 11:15am to 12pm (see Eurobioc<a href="https://eurobioc2024.bioconductor.org/schedule">schedule</a>)? &gt; &gt; (if we would have enough critical mass, maybe Sanket@Sanket Vermacould come over and help us navigate through Zarr v3).</p>
+<p><strong>Sanket Verma</strong> (09:30:24) (in thread): &gt; Thanks for starting the thread,<span class="citation" data-cites="Robert">@Robert</span> Castelo. &gt; &gt; Unfortunately, I won’t be able to travel to UK around that time but I’m happy to join via Zoom call and answer questions around Zarr V3.</p>
+<p><strong>Sanket Verma</strong> (09:32:14) (in thread): &gt; As I said here:<a href="https://community-bioc.slack.com/archives/C03MKFSS7V2/p1718293483762529?thread_ts=1718211929.575479&amp;channel=C03MKFSS7V2&amp;message_ts=1718293483.762529">https://community-bioc.slack.com/archives/C03MKFSS7V2/p1718293483762529?thread_ts=1718211929.575479&amp;channel=C03MKFSS7V2&amp;message_ts=1718293483.762529</a>-I’mhappy to assist ifthere’san interest in organising a parallel track/theme for Zarr. - Attachment: <a href="https://community-bioc.slack.com/archives/C03MKFSS7V2/p1718293483762529?thread_ts=1718211929.575479&amp;channel=C03MKFSS7V2&amp;message_ts=1718293483.762529">Attachment</a> &gt; I can also assist if there’s an interest in organising a parallel track/theme for Zarr at the Bioconductor conference in US/Europe.</p>
+<p><strong>Robert Castelo</strong> (10:23:02) (in thread): &gt; Great, thanks, let’s see if there’s enough interest and we’ll let you know.</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2024-06-29</h2>
+<p><strong>Davide Risso</strong> (07:59:58) (in thread): &gt; I am definitely interested and will be attending EuroBioc</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2024-07-30</h2>
+<p><strong>Jacques SERIZAY</strong> (06:06:22): &gt; <span class="citation" data-cites="Jacques">@Jacques</span> SERIZAY has joined the channel</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2024-08-02</h2>
+<p><strong>Robert Castelo</strong> (09:42:18) (in thread): &gt; Hi,<span class="citation" data-cites="Sanket">@Sanket</span> Verma@Davide Risso@Mike SmithI’ve just opened an<a href="https://github.com/Bioconductor/EuroBioC2024/issues/53">issue</a>at the EuroBioC2024 repo proposing this BoF.@Charlotte Sonesontold me she may be also interested, so let’s have it proposed and will see whether we get enough interest. If it happens, we’ll open a Zoom call so that Sanket could join. - Attachment: <a href="https://github.com/Bioconductor/EuroBioC2024/issues/53">#53 BoF on Zarr and R/Bioconductor</a> &gt; Proposal to do a Birds-Of-a-Feather (BoF) on Zarr and R/Bioconductor at EuroBioC2024, on Friday 6th from 11:15am to 12pm (see <a href="https://eurobioc2024.bioconductor.org/schedule">EuroBioC2024 schedule</a>).</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2024-08-04</h2>
+<p><strong>Sanket Verma</strong> (03:07:29) (in thread): &gt; Sounds good,<span class="citation" data-cites="Robert">@Robert</span> Castelo. Thanks for letting me know.</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2024-08-19</h2>
+<p><strong>Dario Righelli</strong> (06:25:32) (in thread): &gt; I’m in too!</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2024-09-03</h2>
+<p><strong>Hervé Pagès</strong> (14:55:55) (in thread): &gt; <span class="citation" data-cites="Robert">@Robert</span> CasteloI’m also interested in joining the Zoom call on Friday.</p>
+<p><strong>Robert Castelo</strong> (18:05:05) (in thread): &gt; Hi@Hervé Pagès@Sanket Verma@Davide Risso@Dario Righelli@Mike SmithI’ve just create the Zoom call event, for Friday’s BoF on Zarr and R/Bioconductor. Here is the link: &gt; &gt; Topic: EuroBioC2024 BoF on Zarr and R/Bioconductor &gt; Time: Sep 6, 2024 11:15 AM London &gt; &gt; Join Zoom Meeting<a href="https://upf-edu.zoom.us/j/95461813845?pwd=IEtef3VWd2XGSsz16KcR8bbMRbmiOg.1">https://upf-edu.zoom.us/j/95461813845?pwd=IEtef3VWd2XGSsz16KcR8bbMRbmiOg.1</a>Meeting ID: 954 6181 3845 &gt; Passcode: 402675 &gt; &gt; See you soon!</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2024-09-05</h2>
+<p><strong>Sanket Verma</strong> (06:54:28) (in thread): &gt; Thanks for creating the Zoom meeting,<span class="citation" data-cites="Robert">@Robert</span> Castelo. &gt; Just to make sure, the BoF starts at 11:15 CET?</p>
+<p><strong>Robert Castelo</strong> (07:03:08) (in thread): &gt; Oh sorry, I forgot about this, we’re in Oxford, UK, so this is not CET but 11:15 GMT+1.</p>
+<p><strong>Sanket Verma</strong> (11:40:02) (in thread): &gt; Cc:<span class="citation" data-cites="Vince">@Vince</span> Carey</p>
+<p><strong>Mike Smith</strong> (11:43:23) (in thread): &gt; I’m afraid I’m still confused. Is it 11:15 or 11:45 UK time?</p>
+<p><strong>Robert Castelo</strong> (11:58:22) (in thread): &gt; According to the schedule at<a href="https://eurobioc2024.bioconductor.org/schedule">https://eurobioc2024.bioconductor.org/schedule</a>BoF sessions tomorrow take place from 11:15 to 12:00, UK time. - Attachment (eurobioc2024.bioconductor.org): <a href="https://eurobioc2024.bioconductor.org/schedule">Schedule</a> &gt; Schedule</p>
+<p><strong>Mike Smith</strong> (12:34:46) (in thread): &gt; Great thanks. I was confused by the timings on the zoom link above</p>
+<p><strong>Robert Castelo</strong> (13:19:40) (in thread): &gt; oh, you’re right, the time on the zoom call was wrong, I wanted to open it already 30 minutes before at 10:45, I’ve just corrected the time in the Zoom call.@Sanket Vermacould you prepare a few slides about Zarr, its new version 3.0 and if you have any views/suggestions/challenges in interfacing it from R?</p>
+<p><strong>Hervé Pagès</strong> (13:25:14) (in thread): &gt; I still see “Time: Sep 6, 2024 11:45 AM London” on your comment from Tuesday above. Should this be corrected too?</p>
+<p><strong>Robert Castelo</strong> (13:29:14) (in thread): &gt; Oh sorry again, yes, I’ve just corrected it, I did this too quickly without looking at twice. Thanks for asking.</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2024-09-06</h2>
+<p><strong>Vince Carey</strong> (06:15:19) (in thread): &gt; i don’t see the zoom link</p>
+<p><strong>Vince Carey</strong> (06:15:43) (in thread): &gt; maybe i do now</p>
+<p><strong>Robert Castelo</strong> (06:15:54) (in thread): &gt; <a href="https://upf-edu.zoom.us/j/95461813845?pwd=IEtef3VWd2XGSsz16KcR8bbMRbmiOg.1">https://upf-edu.zoom.us/j/95461813845?pwd=IEtef3VWd2XGSsz16KcR8bbMRbmiOg.1</a></p>
+<p><strong>Robert Castelo</strong> (06:16:34) (in thread): &gt; This is a shared Google Drive document for anyone to write in:<a href="https://docs.google.com/document/d/1tZ6Z6TkQxLULatmqkrtds9nYdhoh2DXwfnxTEBI5P1I/edit">https://docs.google.com/document/d/1tZ6Z6TkQxLULatmqkrtds9nYdhoh2DXwfnxTEBI5P1I/edit</a></p>
+<p><strong>Mike Smith</strong> (06:21:52): &gt; For those attending the Zarr BoF here:s Sanket’s link:<a href="https://github.com/zarr-developers/zarr-python">https://github.com/zarr-developers/zarr-python</a></p>
+<p><strong>Mike Smith</strong> (06:27:39): &gt; And his presentation:<a href="https://docs.google.com/presentation/d/1Mj_iBkvM5HXrPzCZ3C4VrwhZJDJd1408TPm-mRbJUWg/edit">https://docs.google.com/presentation/d/1Mj_iBkvM5HXrPzCZ3C4VrwhZJDJd1408TPm-mRbJUWg/edit</a></p>
+<p><strong>Mike Smith</strong> (06:40:24): &gt; <a href="https://github.com/zarr-developers/zarr-specs/issues/245">https://github.com/zarr-developers/zarr-specs/issues/245</a></p>
+<p><strong>Mike Smith</strong> (06:41:09) (in thread): &gt; <a href="https://github.com/GraphBLAS/binsparse-specification">https://github.com/GraphBLAS/binsparse-specification</a></p>
+<p><strong>Mike Smith</strong> (06:41:12) (in thread): &gt; <a href="https://github.com/ivirshup/binsparse-python">https://github.com/ivirshup/binsparse-python</a></p>
+<p><strong>Mike Smith</strong> (06:43:39): &gt; <a href="https://arxiv.org/pdf/2207.09503/1000">https://arxiv.org/pdf/2207.09503/1000</a></p>
+<p><strong>Mike Smith</strong> (06:58:30): &gt; <a href="https://zarr.dev/community-calls/">https://zarr.dev/community-calls/</a> - Attachment (Zarr Community Calls): <a href="https://zarr.dev/community-calls/">home</a> &gt; Zarr Community Calls</p>
+<p><strong>Artür Manukyan</strong> (07:01:13): &gt; Also<a href="https://github.com/keller-mark/pizzarr">https://github.com/keller-mark/pizzarr</a>has almost identical utility and similar API to<a href="https://github.com/zarr-developers/zarr-python">https://github.com/zarr-developers/zarr-python</a></p>
+<p><strong>Estella Dong</strong> (11:14:57): &gt; <span class="citation" data-cites="Estella">@Estella</span> Dong has joined the channel</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2024-10-08</h2>
+<p><strong>Mike Smith</strong> (06:10:30): &gt; Following the discussion at EuroBioc2024 the devel version of Rarr now includes some support for array-style semantics and****{DelayedArray}****operations. There’s also a number of performance improvements for I/O tasks, where performance degraded badly as the number of chunks increased. Happy to get any feedback from people who wanted this functionality. &gt; <code>&gt; suppressPackageStartupMessages(library(Rarr)) &gt; packageVersion('Rarr') &gt; #&gt; [1] '1.5.2' &gt;</code> &gt; &gt; <code>&gt; ## Create an array &gt; a &lt;- array(runif(1e6), dim = c(100,100,100)) &gt;  &gt; ## To write the in-memory array to Zarr we need to provide a file path and chunk dims &gt; tf1 &lt;- tempfile(fileext = ".zarr") &gt; z1 &lt;- writeZarrArray(a, tf1, chunk_dim = c(50,50,50)) &gt; ## The output is a ZarrArray &gt; z1 &gt; #&gt; &lt;100 x 100 x 100&gt; ZarrArray object of type "double": &gt; #&gt; ,,1 &gt; #&gt;             [,1]      [,2]      [,3] ...     [,99]    [,100] &gt; #&gt;   [1,] 0.5788205 0.1308598 0.5940766   . 0.3149524 0.3477633 &gt; #&gt;   [2,] 0.7481251 0.7306149 0.9987839   . 0.4490903 0.9582130 &gt; #&gt;    ...         .         .         .   .         .         . &gt; #&gt;  [99,] 0.6033049 0.6744013 0.7988372   . 0.4846736 0.7019329 &gt; #&gt; [100,] 0.7699348 0.8501355 0.1450314   . 0.2610579 0.7752824 &gt; #&gt;  &gt; #&gt; ... &gt; #&gt;  &gt; #&gt; ,,100 &gt; #&gt;              [,1]       [,2]       [,3] ...     [,99]    [,100] &gt; #&gt;   [1,]  0.9410195  0.6239022  0.2053890   . 0.9505412 0.4391817 &gt; #&gt;   [2,]  0.6959852  0.4591667  0.8982134   . 0.2267410 0.8722747 &gt; #&gt;    ...          .          .          .   .         .         . &gt; #&gt;  [99,] 0.21171740 0.66218151 0.09602749   . 0.8207834 0.8645450 &gt; #&gt; [100,] 0.54338133 0.70263702 0.22328942   . 0.1423260 0.4273642 &gt;</code> &gt; &gt; <code>&gt; ## We can use array semantics on this. &gt; ## E.g. subset with [.  It becomes a DelayedArray. &gt; z_subset &lt;- z1[1:10, 1, 1, drop = FALSE] &gt; z_subset &gt; #&gt; &lt;10 x 1 x 1&gt; DelayedArray object of type "double": &gt; #&gt; ,,1 &gt; #&gt;            [,1] &gt; #&gt;  [1,] 0.5788205 &gt; #&gt;  [2,] 0.7481251 &gt; #&gt;   ...         . &gt; #&gt;  [9,] 0.8996813 &gt; #&gt; [10,] 0.6145496 &gt;</code> &gt; &gt; <code>&gt; ## The operation is not realised on disk yet &gt; ## Call writeZarrArray() again to do so, with new writing parameters &gt; tf2 &lt;- tempfile(fileext = ".zarr") &gt; writeZarrArray(z_subset, zarr_array_path = tf2, chunk_dim = c(5,1,1)) &gt; #&gt; &lt;10 x 1 x 1&gt; ZarrArray object of type "double": &gt; #&gt; ,,1 &gt; #&gt;            [,1] &gt; #&gt;  [1,] 0.5788205 &gt; #&gt;  [2,] 0.7481251 &gt; #&gt;   ...         . &gt; #&gt;  [9,] 0.8996813 &gt; #&gt; [10,] 0.6145496 &gt;</code> &gt; &gt; <code>&gt; ## Check the created Zarr has the dims and chunkdims we expected &gt; zarr_overview(tf2) &gt; #&gt; Type: Array &gt; #&gt; Path: /tmp/RtmpcMTf7G/file5577445726c7c.zarr &gt; #&gt; Shape: 10 x 1 x 1 &gt; #&gt; Chunk Shape: 5 x 1 x 1 &gt; #&gt; No. of Chunks: 2 (2 x 1 x 1) &gt; #&gt; Data Type: float64 &gt; #&gt; Endianness: little &gt; #&gt; Compressor: zlib &gt;</code></p>
+<p><strong>Artür Manukyan</strong> (06:21:34) (in thread): &gt; Hey Mike, are you also considering on adding soon utilities to open, create and detect groups in zarr stores in Rarr, or is it available already now ?</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2024-10-09</h2>
+<p><strong>Mike Smith</strong> (03:58:08) (in thread): &gt; To be honest development is sporadic, although getting feature requests is the sort of thing that motivates me. Handling of groups is not supported in any way by Rarr at the moment. Everything is focused on single Zarr arrays. &gt; &gt; What sort of features would you like to see for working with groups? Now the<code>ZarrArray</code>class exists a really simple approach could be to just create a list containing<code>ZarrArrays</code>to replicate the Zarr store heirachy. I’d be interested to know if there are specific operations you’d like that make use of the group structure.</p>
+<p><strong>Artür Manukyan</strong> (05:37:21) (in thread): &gt; Thanks Mike! I have been just reviewing the<code>rhdf5</code>package where you can create groups (or nested groups it seems) using<code>h5createGroup</code>. A similar implementation using zarr can ultimately help with creating and tapping into, for example, subsub groups within a zarr store and create<code>ZarrArrays</code>in there, which now you can do with a combination of<code>h5createGroup</code>and<code>writeHDF5Array</code>using the<code>name</code>argument. Here, the name can be the name of an array under a group<code>&lt;group_name&gt;/&lt;array_name&gt;</code>, or under a group of a group ? <code>&lt;group_name&gt;/&lt;subgroup_name&gt;/&lt;array_name&gt;</code> &gt; &gt; A lot of folks (including myself) would like to achieve R/Python interoperability for up-and-coming spatial data objects, such as SpatialData (<a href="https://spatialdata.scverse.org/en/stable/">https://spatialdata.scverse.org/en/stable/</a>) where there are multiple zarrarrays sit on multiple groups. &gt; &gt; I can currently do this using a combination of a custom R native<code>zarr</code>interface (<a href="https://github.com/keller-mark/pizzarr">https://github.com/keller-mark/pizzarr</a>) and another DelayedArray implementation that I cooked myself which uses pizzarr (<a href="https://github.com/BIMSBbioinfo/ZarrArray">https://github.com/BIMSBbioinfo/ZarrArray</a>). However, I would love it if this is available for a bioconductor native package too.</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2024-10-21</h2>
+<p><strong>Artür Manukyan</strong> (14:24:42) (in thread): &gt; <span class="citation" data-cites="Mike">@Mike</span> Smithwe discuss here R packages for manipulating SpatialData objects, which will require zarr engines such as Rarr (fyi the package already depends on Rarr). SpatialData objects are fully stored in zarr.<a href="https://community-bioc.slack.com/archives/C0558SHL814">https://community-bioc.slack.com/archives/C0558SHL814</a></p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2024-10-23</h2>
+<p><strong>Sounkou Mahamane Toure</strong> (11:49:49): &gt; <span class="citation" data-cites="Sounkou">@Sounkou</span> Mahamane Toure has joined the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

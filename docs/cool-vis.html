@@ -1,0 +1,2418 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#cool-vis – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2019-10-29</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2019-10-30</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2019-10-31</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2019-11-01</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2019-11-04</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2019-11-07</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2019-11-08</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2019-11-12</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2019-11-13</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2019-11-14</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2019-11-25</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2019-12-03</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2019-12-04</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2019-12-09</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2019-12-14</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2019-12-20</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2019-12-23</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2020-01-27</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2020-02-08</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2020-02-14</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2020-02-17</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2020-02-18</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2020-02-19</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2020-02-20</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2020-02-25</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2020-03-02</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2020-03-03</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2020-03-04</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2020-03-05</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2020-03-16</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2020-03-17</a></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">2020-03-31</a></li>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">2020-04-01</a></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">2020-04-02</a></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">2020-04-03</a></li>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">2020-04-24</a></li>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">2020-04-29</a></li>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">2020-04-30</a></li>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">2020-05-07</a></li>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">2020-05-10</a></li>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">2020-05-20</a></li>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">2020-06-10</a></li>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">2020-07-08</a></li>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">2020-07-15</a></li>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">2020-07-29</a></li>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">2020-07-30</a></li>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">2020-07-31</a></li>
+  <li><a href="#section-47" id="toc-section-47" class="nav-link" data-scroll-target="#section-47">2020-08-03</a></li>
+  <li><a href="#section-48" id="toc-section-48" class="nav-link" data-scroll-target="#section-48">2020-08-07</a></li>
+  <li><a href="#section-49" id="toc-section-49" class="nav-link" data-scroll-target="#section-49">2020-08-18</a></li>
+  <li><a href="#section-50" id="toc-section-50" class="nav-link" data-scroll-target="#section-50">2020-08-20</a></li>
+  <li><a href="#section-51" id="toc-section-51" class="nav-link" data-scroll-target="#section-51">2020-08-24</a></li>
+  <li><a href="#section-52" id="toc-section-52" class="nav-link" data-scroll-target="#section-52">2020-08-27</a></li>
+  <li><a href="#section-53" id="toc-section-53" class="nav-link" data-scroll-target="#section-53">2020-08-28</a></li>
+  <li><a href="#section-54" id="toc-section-54" class="nav-link" data-scroll-target="#section-54">2020-08-30</a></li>
+  <li><a href="#section-55" id="toc-section-55" class="nav-link" data-scroll-target="#section-55">2020-09-01</a></li>
+  <li><a href="#section-56" id="toc-section-56" class="nav-link" data-scroll-target="#section-56">2020-09-04</a></li>
+  <li><a href="#section-57" id="toc-section-57" class="nav-link" data-scroll-target="#section-57">2020-09-10</a></li>
+  <li><a href="#section-58" id="toc-section-58" class="nav-link" data-scroll-target="#section-58">2020-09-11</a></li>
+  <li><a href="#section-59" id="toc-section-59" class="nav-link" data-scroll-target="#section-59">2020-09-14</a></li>
+  <li><a href="#section-60" id="toc-section-60" class="nav-link" data-scroll-target="#section-60">2020-09-17</a></li>
+  <li><a href="#section-61" id="toc-section-61" class="nav-link" data-scroll-target="#section-61">2020-09-23</a></li>
+  <li><a href="#section-62" id="toc-section-62" class="nav-link" data-scroll-target="#section-62">2020-09-24</a></li>
+  <li><a href="#section-63" id="toc-section-63" class="nav-link" data-scroll-target="#section-63">2020-10-01</a></li>
+  <li><a href="#section-64" id="toc-section-64" class="nav-link" data-scroll-target="#section-64">2020-10-05</a></li>
+  <li><a href="#section-65" id="toc-section-65" class="nav-link" data-scroll-target="#section-65">2020-10-10</a></li>
+  <li><a href="#section-66" id="toc-section-66" class="nav-link" data-scroll-target="#section-66">2020-10-11</a></li>
+  <li><a href="#section-67" id="toc-section-67" class="nav-link" data-scroll-target="#section-67">2020-10-17</a></li>
+  <li><a href="#section-68" id="toc-section-68" class="nav-link" data-scroll-target="#section-68">2020-10-19</a></li>
+  <li><a href="#section-69" id="toc-section-69" class="nav-link" data-scroll-target="#section-69">2020-10-23</a></li>
+  <li><a href="#section-70" id="toc-section-70" class="nav-link" data-scroll-target="#section-70">2020-10-26</a></li>
+  <li><a href="#section-71" id="toc-section-71" class="nav-link" data-scroll-target="#section-71">2020-10-27</a></li>
+  <li><a href="#section-72" id="toc-section-72" class="nav-link" data-scroll-target="#section-72">2020-11-04</a></li>
+  <li><a href="#section-73" id="toc-section-73" class="nav-link" data-scroll-target="#section-73">2020-11-12</a></li>
+  <li><a href="#section-74" id="toc-section-74" class="nav-link" data-scroll-target="#section-74">2020-11-16</a></li>
+  <li><a href="#section-75" id="toc-section-75" class="nav-link" data-scroll-target="#section-75">2020-11-19</a></li>
+  <li><a href="#section-76" id="toc-section-76" class="nav-link" data-scroll-target="#section-76">2020-11-20</a></li>
+  <li><a href="#section-77" id="toc-section-77" class="nav-link" data-scroll-target="#section-77">2020-12-12</a></li>
+  <li><a href="#section-78" id="toc-section-78" class="nav-link" data-scroll-target="#section-78">2020-12-13</a></li>
+  <li><a href="#section-79" id="toc-section-79" class="nav-link" data-scroll-target="#section-79">2020-12-14</a></li>
+  <li><a href="#section-80" id="toc-section-80" class="nav-link" data-scroll-target="#section-80">2020-12-17</a></li>
+  <li><a href="#section-81" id="toc-section-81" class="nav-link" data-scroll-target="#section-81">2020-12-18</a></li>
+  <li><a href="#section-82" id="toc-section-82" class="nav-link" data-scroll-target="#section-82">2021-01-01</a></li>
+  <li><a href="#section-83" id="toc-section-83" class="nav-link" data-scroll-target="#section-83">2021-01-12</a></li>
+  <li><a href="#section-84" id="toc-section-84" class="nav-link" data-scroll-target="#section-84">2021-01-19</a></li>
+  <li><a href="#section-85" id="toc-section-85" class="nav-link" data-scroll-target="#section-85">2021-01-22</a></li>
+  <li><a href="#section-86" id="toc-section-86" class="nav-link" data-scroll-target="#section-86">2021-01-29</a></li>
+  <li><a href="#section-87" id="toc-section-87" class="nav-link" data-scroll-target="#section-87">2021-03-23</a></li>
+  <li><a href="#section-88" id="toc-section-88" class="nav-link" data-scroll-target="#section-88">2021-04-23</a></li>
+  <li><a href="#section-89" id="toc-section-89" class="nav-link" data-scroll-target="#section-89">2021-05-05</a></li>
+  <li><a href="#section-90" id="toc-section-90" class="nav-link" data-scroll-target="#section-90">2021-05-21</a></li>
+  <li><a href="#section-91" id="toc-section-91" class="nav-link" data-scroll-target="#section-91">2021-06-02</a></li>
+  <li><a href="#section-92" id="toc-section-92" class="nav-link" data-scroll-target="#section-92">2021-07-19</a></li>
+  <li><a href="#section-93" id="toc-section-93" class="nav-link" data-scroll-target="#section-93">2021-07-23</a></li>
+  <li><a href="#section-94" id="toc-section-94" class="nav-link" data-scroll-target="#section-94">2021-07-29</a></li>
+  <li><a href="#section-95" id="toc-section-95" class="nav-link" data-scroll-target="#section-95">2021-08-04</a></li>
+  <li><a href="#section-96" id="toc-section-96" class="nav-link" data-scroll-target="#section-96">2021-08-06</a></li>
+  <li><a href="#section-97" id="toc-section-97" class="nav-link" data-scroll-target="#section-97">2021-08-19</a></li>
+  <li><a href="#section-98" id="toc-section-98" class="nav-link" data-scroll-target="#section-98">2021-09-06</a></li>
+  <li><a href="#section-99" id="toc-section-99" class="nav-link" data-scroll-target="#section-99">2021-09-16</a></li>
+  <li><a href="#section-100" id="toc-section-100" class="nav-link" data-scroll-target="#section-100">2021-09-25</a></li>
+  <li><a href="#section-101" id="toc-section-101" class="nav-link" data-scroll-target="#section-101">2021-10-26</a></li>
+  <li><a href="#section-102" id="toc-section-102" class="nav-link" data-scroll-target="#section-102">2021-10-27</a></li>
+  <li><a href="#section-103" id="toc-section-103" class="nav-link" data-scroll-target="#section-103">2021-10-28</a></li>
+  <li><a href="#section-104" id="toc-section-104" class="nav-link" data-scroll-target="#section-104">2021-11-08</a></li>
+  <li><a href="#section-105" id="toc-section-105" class="nav-link" data-scroll-target="#section-105">2022-02-10</a></li>
+  <li><a href="#section-106" id="toc-section-106" class="nav-link" data-scroll-target="#section-106">2022-02-15</a></li>
+  <li><a href="#section-107" id="toc-section-107" class="nav-link" data-scroll-target="#section-107">2022-02-25</a></li>
+  <li><a href="#section-108" id="toc-section-108" class="nav-link" data-scroll-target="#section-108">2022-03-05</a></li>
+  <li><a href="#section-109" id="toc-section-109" class="nav-link" data-scroll-target="#section-109">2022-03-10</a></li>
+  <li><a href="#section-110" id="toc-section-110" class="nav-link" data-scroll-target="#section-110">2022-04-25</a></li>
+  <li><a href="#section-111" id="toc-section-111" class="nav-link" data-scroll-target="#section-111">2022-05-10</a></li>
+  <li><a href="#section-112" id="toc-section-112" class="nav-link" data-scroll-target="#section-112">2022-05-19</a></li>
+  <li><a href="#section-113" id="toc-section-113" class="nav-link" data-scroll-target="#section-113">2022-06-09</a></li>
+  <li><a href="#section-114" id="toc-section-114" class="nav-link" data-scroll-target="#section-114">2022-06-12</a></li>
+  <li><a href="#section-115" id="toc-section-115" class="nav-link" data-scroll-target="#section-115">2022-06-27</a></li>
+  <li><a href="#section-116" id="toc-section-116" class="nav-link" data-scroll-target="#section-116">2022-07-02</a></li>
+  <li><a href="#section-117" id="toc-section-117" class="nav-link" data-scroll-target="#section-117">2022-07-29</a></li>
+  <li><a href="#section-118" id="toc-section-118" class="nav-link" data-scroll-target="#section-118">2022-08-04</a></li>
+  <li><a href="#section-119" id="toc-section-119" class="nav-link" data-scroll-target="#section-119">2022-08-24</a></li>
+  <li><a href="#section-120" id="toc-section-120" class="nav-link" data-scroll-target="#section-120">2022-08-30</a></li>
+  <li><a href="#section-121" id="toc-section-121" class="nav-link" data-scroll-target="#section-121">2022-09-07</a></li>
+  <li><a href="#section-122" id="toc-section-122" class="nav-link" data-scroll-target="#section-122">2022-09-12</a></li>
+  <li><a href="#section-123" id="toc-section-123" class="nav-link" data-scroll-target="#section-123">2022-09-19</a></li>
+  <li><a href="#section-124" id="toc-section-124" class="nav-link" data-scroll-target="#section-124">2022-09-27</a></li>
+  <li><a href="#section-125" id="toc-section-125" class="nav-link" data-scroll-target="#section-125">2022-12-12</a></li>
+  <li><a href="#section-126" id="toc-section-126" class="nav-link" data-scroll-target="#section-126">2022-12-13</a></li>
+  <li><a href="#section-127" id="toc-section-127" class="nav-link" data-scroll-target="#section-127">2022-12-23</a></li>
+  <li><a href="#section-128" id="toc-section-128" class="nav-link" data-scroll-target="#section-128">2023-01-12</a></li>
+  <li><a href="#section-129" id="toc-section-129" class="nav-link" data-scroll-target="#section-129">2023-01-31</a></li>
+  <li><a href="#section-130" id="toc-section-130" class="nav-link" data-scroll-target="#section-130">2023-03-07</a></li>
+  <li><a href="#section-131" id="toc-section-131" class="nav-link" data-scroll-target="#section-131">2023-03-10</a></li>
+  <li><a href="#section-132" id="toc-section-132" class="nav-link" data-scroll-target="#section-132">2023-04-12</a></li>
+  <li><a href="#section-133" id="toc-section-133" class="nav-link" data-scroll-target="#section-133">2023-04-28</a></li>
+  <li><a href="#section-134" id="toc-section-134" class="nav-link" data-scroll-target="#section-134">2023-05-18</a></li>
+  <li><a href="#section-135" id="toc-section-135" class="nav-link" data-scroll-target="#section-135">2023-05-31</a></li>
+  <li><a href="#section-136" id="toc-section-136" class="nav-link" data-scroll-target="#section-136">2023-06-07</a></li>
+  <li><a href="#section-137" id="toc-section-137" class="nav-link" data-scroll-target="#section-137">2023-06-12</a></li>
+  <li><a href="#section-138" id="toc-section-138" class="nav-link" data-scroll-target="#section-138">2023-06-27</a></li>
+  <li><a href="#section-139" id="toc-section-139" class="nav-link" data-scroll-target="#section-139">2023-06-28</a></li>
+  <li><a href="#section-140" id="toc-section-140" class="nav-link" data-scroll-target="#section-140">2023-07-07</a></li>
+  <li><a href="#section-141" id="toc-section-141" class="nav-link" data-scroll-target="#section-141">2023-07-10</a></li>
+  <li><a href="#section-142" id="toc-section-142" class="nav-link" data-scroll-target="#section-142">2023-07-25</a></li>
+  <li><a href="#section-143" id="toc-section-143" class="nav-link" data-scroll-target="#section-143">2023-07-28</a></li>
+  <li><a href="#section-144" id="toc-section-144" class="nav-link" data-scroll-target="#section-144">2023-08-03</a></li>
+  <li><a href="#section-145" id="toc-section-145" class="nav-link" data-scroll-target="#section-145">2023-08-20</a></li>
+  <li><a href="#section-146" id="toc-section-146" class="nav-link" data-scroll-target="#section-146">2023-08-24</a></li>
+  <li><a href="#section-147" id="toc-section-147" class="nav-link" data-scroll-target="#section-147">2023-09-04</a></li>
+  <li><a href="#section-148" id="toc-section-148" class="nav-link" data-scroll-target="#section-148">2023-09-15</a></li>
+  <li><a href="#section-149" id="toc-section-149" class="nav-link" data-scroll-target="#section-149">2023-09-21</a></li>
+  <li><a href="#section-150" id="toc-section-150" class="nav-link" data-scroll-target="#section-150">2023-12-01</a></li>
+  <li><a href="#section-151" id="toc-section-151" class="nav-link" data-scroll-target="#section-151">2023-12-13</a></li>
+  <li><a href="#section-152" id="toc-section-152" class="nav-link" data-scroll-target="#section-152">2023-12-18</a></li>
+  <li><a href="#section-153" id="toc-section-153" class="nav-link" data-scroll-target="#section-153">2023-12-27</a></li>
+  <li><a href="#section-154" id="toc-section-154" class="nav-link" data-scroll-target="#section-154">2024-01-08</a></li>
+  <li><a href="#section-155" id="toc-section-155" class="nav-link" data-scroll-target="#section-155">2024-01-10</a></li>
+  <li><a href="#section-156" id="toc-section-156" class="nav-link" data-scroll-target="#section-156">2024-03-05</a></li>
+  <li><a href="#section-157" id="toc-section-157" class="nav-link" data-scroll-target="#section-157">2024-04-28</a></li>
+  <li><a href="#section-158" id="toc-section-158" class="nav-link" data-scroll-target="#section-158">2024-05-01</a></li>
+  <li><a href="#section-159" id="toc-section-159" class="nav-link" data-scroll-target="#section-159">2024-05-06</a></li>
+  <li><a href="#section-160" id="toc-section-160" class="nav-link" data-scroll-target="#section-160">2024-05-18</a></li>
+  <li><a href="#section-161" id="toc-section-161" class="nav-link" data-scroll-target="#section-161">2024-07-02</a></li>
+  <li><a href="#section-162" id="toc-section-162" class="nav-link" data-scroll-target="#section-162">2024-07-26</a></li>
+  <li><a href="#section-163" id="toc-section-163" class="nav-link" data-scroll-target="#section-163">2024-07-29</a></li>
+  <li><a href="#section-164" id="toc-section-164" class="nav-link" data-scroll-target="#section-164">2024-08-04</a></li>
+  <li><a href="#section-165" id="toc-section-165" class="nav-link" data-scroll-target="#section-165">2024-08-19</a></li>
+  <li><a href="#section-166" id="toc-section-166" class="nav-link" data-scroll-target="#section-166">2024-09-05</a></li>
+  <li><a href="#section-167" id="toc-section-167" class="nav-link" data-scroll-target="#section-167">2024-09-20</a></li>
+  <li><a href="#section-168" id="toc-section-168" class="nav-link" data-scroll-target="#section-168">2024-10-01</a></li>
+  <li><a href="#section-169" id="toc-section-169" class="nav-link" data-scroll-target="#section-169">2024-11-02</a></li>
+  <li><a href="#section-170" id="toc-section-170" class="nav-link" data-scroll-target="#section-170">2024-11-13</a></li>
+  <li><a href="#section-171" id="toc-section-171" class="nav-link" data-scroll-target="#section-171">2024-11-25</a></li>
+  <li><a href="#section-172" id="toc-section-172" class="nav-link" data-scroll-target="#section-172">2025-03-18</a></li>
+  <li><a href="#section-173" id="toc-section-173" class="nav-link" data-scroll-target="#section-173">2025-04-23</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#cool-vis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2019-10-29</h2>
+<p><strong>Aaron Lun</strong> (14:38:43): &gt; <span class="citation" data-cites="Aaron">@Aaron</span> Lun has joined the channel</p>
+<p><strong>Aaron Lun</strong> (14:38:44): &gt; set the channel description: Artsy visualizations that may or may not be useful.</p>
+<p><strong>Aaron Lun</strong> (14:38:50): &gt; First</p>
+<p><strong>Aaron Lun</strong> (14:39:25): &gt; code to produce this is at<a href="https://github.com/LTLA/artsc">https://github.com/LTLA/artsc</a></p>
+<p><strong>Aaron Lun</strong> (14:44:08): &gt; PRs welcome for this and new plots. The sexier the better.</p>
+<p><strong>Charlotte Soneson</strong> (14:48:52): &gt; <span class="citation" data-cites="Charlotte">@Charlotte</span> Soneson has joined the channel</p>
+<p><strong>Jared Andrews</strong> (15:36:36): &gt; <span class="citation" data-cites="Jared">@Jared</span> Andrews has joined the channel</p>
+<p><strong>Sridhar N</strong> (15:47:50): &gt; <span class="citation" data-cites="Sridhar">@Sridhar</span> N has joined the channel</p>
+<p><strong>Federico Marini</strong> (16:16:47): &gt; <span class="citation" data-cites="Federico">@Federico</span> Marini has joined the channel</p>
+<p><strong>Aaron Lun</strong> (16:50:34): &gt; set the channel description: Truth and beauty. But mostly the latter.</p>
+<p><strong>Constantin Ahlmann-Eltze</strong> (16:52:42): &gt; <span class="citation" data-cites="Constantin">@Constantin</span> Ahlmann-Eltze has joined the channel</p>
+<p><strong>Kevin Rue-Albrecht</strong> (17:32:46): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Rue-Albrecht has joined the channel</p>
+<p><strong>Vince Carey</strong> (18:10:09): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has joined the channel</p>
+<p><strong>Dan Bunis</strong> (18:23:21): &gt; <span class="citation" data-cites="Dan">@Dan</span> Bunis has joined the channel</p>
+<p><strong>hcorrada</strong> (21:19:20): &gt; <span class="citation" data-cites="hcorrada">@hcorrada</span> has joined the channel</p>
+<p><strong>Peter Hickey</strong> (22:16:08): &gt; <span class="citation" data-cites="Peter">@Peter</span> Hickey has joined the channel</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2019-10-30</h2>
+<p><strong>Almut</strong> (02:13:42): &gt; <span class="citation" data-cites="Almut">@Almut</span> has joined the channel</p>
+<p><strong>Shila Ghazanfar</strong> (06:38:08): &gt; <span class="citation" data-cites="Shila">@Shila</span> Ghazanfar has joined the channel</p>
+<p><strong>Fabiola Curion</strong> (06:48:22): &gt; <span class="citation" data-cites="Fabiola">@Fabiola</span> Curion has joined the channel</p>
+<p><strong>Keegan Korthauer</strong> (10:25:14): &gt; <span class="citation" data-cites="Keegan">@Keegan</span> Korthauer has joined the channel</p>
+<p><strong>Jayaram Kancherla</strong> (14:38:31): &gt; <span class="citation" data-cites="Jayaram">@Jayaram</span> Kancherla has joined the channel</p>
+<p><strong>Elana Fertig</strong> (18:53:11): &gt; <span class="citation" data-cites="Elana">@Elana</span> Fertig has joined the channel</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2019-10-31</h2>
+<p><strong>Aaron Lun</strong> (01:24:54): &gt; Well, it wasn’t easy, but now you can do this: &gt; <code>&gt; stuff &lt;- data.frame(X=rep(LETTERS, 5), Y=as.character(rep(1:5, each=26)), LogFC=rnorm(26*5), NDetected=runif(26*5)) &gt;  ggplot(stuff) + geom_himawari(aes(x=X, y=Y, color=LogFC, percent=NDetected)) &gt;</code> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FPS49682V/test.png">test.png</a></p>
+<p><strong>Aaron Lun</strong> (01:38:33): &gt; Hacked my way around<code>grid</code>, but I got it working in the end.</p>
+<p><strong>Rob Amezquita</strong> (10:36:04): &gt; <span class="citation" data-cites="Rob">@Rob</span> Amezquita has joined the channel</p>
+<p><strong>Dan Bunis</strong> (12:54:56): &gt; This is great@Aaron Lun!</p>
+<p><strong>Dan Bunis</strong> (12:56:35): &gt; One suggestion though is to swap color -&gt; fill. Color is normally for the lines, no?</p>
+<p><strong>Aaron Lun</strong> (14:22:53): &gt; That’s correct, and it was done.</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2019-11-01</h2>
+<p><strong>Aaron Lun</strong> (01:14:06): &gt; <code>&gt; ggplot(diamonds) + geom_snowy_ridges(aes(x=carat, y=cut, fill=cut)) + scale_fill_discrete() &gt;</code> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FQ1LMJ85T/snow.png">snow.png</a></p>
+<p><strong>Aaron Lun</strong> (01:15:19): &gt; Ridge plots, but without having to worry about masking small peaks in the previous distribution.</p>
+<p><strong>Aaron Lun</strong> (01:17:47): &gt; This is slightly “better” than having constant transparency; a small peak in the previous distribution is more visible here due to the intensity of its color at lower values.</p>
+<p><strong>Aaron Lun</strong> (01:20:38): &gt; I didn’t quite have the skill to make the transparency scale comparable across distributions, though it seems difficult to compare anyway.</p>
+<p><strong>Aaron Lun</strong> (01:33:54): &gt; Admittedly the reasoning above works better in theory than in practice, things just get cluttered if you have a front large peak overlapping a small back peak.</p>
+<p><strong>Aaron Lun</strong> (01:52:12): &gt; But it is nice how the emphasis isn’t dominated by the distribution that happens to be in front.</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2019-11-04</h2>
+<p><strong>Izaskun Mallona</strong> (08:03:23): &gt; <span class="citation" data-cites="Izaskun">@Izaskun</span> Mallona has joined the channel</p>
+<p><strong>Joan</strong> (13:57:57): &gt; <span class="citation" data-cites="Joan">@Joan</span> has joined the channel</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2019-11-07</h2>
+<p><strong>Kevin Blighe</strong> (11:27:12): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Blighe has joined the channel</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2019-11-08</h2>
+<p><strong>Alan O’C</strong> (08:21:41): &gt; <span class="citation" data-cites="Alan">@Alan</span> O’C has joined the channel</p>
+<p><strong>Brendan Innes</strong> (11:59:17): &gt; <span class="citation" data-cites="Brendan">@Brendan</span> Innes has joined the channel</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2019-11-12</h2>
+<p><strong>Dan Bunis</strong> (18:58:58): &gt; Is the plan to eventually add artsc to bioconductor? I definitely want to implement both of these in dittoSeq.</p>
+<p><strong>Aaron Lun</strong> (19:07:22): &gt; I’d like to see a clear demarcation of responsibilities between artsc and dittoseq and other sc visualziation packages.</p>
+<p><strong>Aaron Lun</strong> (19:07:38): &gt; For example, one approach would be to mvoe ALL of scater’s vis functions into artsc. Or dittoseq. I dunno.</p>
+<p><strong>Aaron Lun</strong> (19:07:54): &gt; Another option would be to have artsc provide the base geoms and dittoseq provide convenient wrappers.</p>
+<p><strong>Aaron Lun</strong> (19:08:17): &gt; Perhaps we could get someone to collate all single-cell viz packages to bring some order to the chaos.</p>
+<p><strong>Dan Bunis</strong> (19:20:04): &gt; &gt; Another option would be to have artsc provide the base geoms and dittoseq provide convenient wrappers. &gt; This is what I was thinking.</p>
+<p><strong>Dan Bunis</strong> (19:23:41): &gt; not sure exactly what you mean by “collate all single-cell viz” packages, just make a list?</p>
+<p><strong>Dan Bunis</strong> (19:23:59): &gt; I did plan to go through scater and see if dittoSeq adaptations of the viz’s would be possible.</p>
+<p><strong>Dan Bunis</strong> (19:24:13): &gt; Could also aim to do that for others as well</p>
+<p><strong>Aaron Lun</strong> (19:26:03): &gt; The dream would be to have a one-stop shop for common viz modes.</p>
+<p><strong>Aaron Lun</strong> (19:26:44): &gt; I, for one, hate writing viz functions.</p>
+<p><strong>Aaron Lun</strong> (19:26:53): &gt; Or at least, I hate writing it alongside analysis functions.</p>
+<p><strong>Aaron Lun</strong> (19:27:08): &gt; So I just want to move it to another package where the aesthetic choices are someone else’s problem.</p>
+<p><strong>Dan Bunis</strong> (19:28:39): &gt; Ha, well good news: I prefer to write the visualization functions than to make the analysis decisions lol</p>
+<p><strong>Aaron Lun</strong> (19:29:43): &gt; Looks like we have a deal, then.</p>
+<p><strong>Aaron Lun</strong> (19:30:52): &gt; I can write a few functions in<strong>scater</strong>to convert a SCE to a data.frame for easy ggplotting on your end.</p>
+<p><strong>Aaron Lun</strong> (19:31:18): &gt; I did mention this some time ago, but check out<code>retrieveCellInfo</code>for an example of what this might look like.</p>
+<p><strong>Dan Bunis</strong> (19:32:21): &gt; That shouldn’t be necessary. dittoSeq works directly with SCEs already</p>
+<p><strong>Dan Bunis</strong> (19:33:48): &gt; Though perhaps for the alt experiment stuff it would be needed?</p>
+<p><strong>Aaron Lun</strong> (19:34:08): &gt; That’s right; the question is whether you want to offload that munging to me so you don’t have to worry about it.</p>
+<p><strong>Aaron Lun</strong> (19:34:42): &gt; The contract is that you will get a long-form/per-cell/per-feature DF with columns filled out, then you can just proceed off that.</p>
+<p><strong>Dan Bunis</strong> (19:36:03): &gt; Ahhh I think that would indeed be helpful.</p>
+<p><strong>Dan Bunis</strong> (19:36:22): &gt; But would it be a slow calculation for large objects?</p>
+<p><strong>Aaron Lun</strong> (19:36:46): &gt; Well, if you want a long-form df with all features, then yes, it would be pretty slow. But you’d probably be subsetting to some features anyway.</p>
+<p><strong>Dan Bunis</strong> (19:38:30): &gt; I would definitely be subsetting pretty quick, but still we’d be hindered by initial calc, no?</p>
+<p><strong>Dan Bunis</strong> (19:41:36): &gt; You may already have jumped to this, but all I’m getting at is that the -&gt;DF fucntion should be made able to only grab the right subset</p>
+<p><strong>Aaron Lun</strong> (19:42:06): &gt; Uh. Yes?</p>
+<p><strong>Aaron Lun</strong> (19:42:26): &gt; I mean, I’m not making a DF of everything, if that’s what you’re worried about</p>
+<p><strong>Aaron Lun</strong> (19:43:21): &gt; Anyway, I personally feel that the heatmap is the most problematic, so if you have a smooth ggplot wrapper around that, I would be happy.</p>
+<p><strong>Aaron Lun</strong> (19:44:52): &gt; pheatmap SEGFAULTS sometimes, which is unacceptable.</p>
+<p><strong>Aaron Lun</strong> (19:44:59): &gt; I mean, how is that even possible?</p>
+<p><strong>Aaron Lun</strong> (19:45:02): &gt; ¯*(ツ)*/¯</p>
+<p><strong>Dan Bunis</strong> (19:45:30): &gt; :man-shrugging:</p>
+<p><strong>Dan Bunis</strong> (19:46:49): &gt; So…. except of the dittoHeatmap doc: &gt; &gt; Details &gt; &gt; This function serves as a wrapper for creating<strong><em>pheatmap</em></strong>heatmaps from bulk or single-cell RNAseq data</p>
+<p><strong>Dan Bunis</strong> (19:47:46): &gt; I’ve never gotten a segfault myself. do you know if that happened in clustering???</p>
+<p><strong>Dan Bunis</strong> (19:49:40): &gt; I have an<a href="http://order.by">order.by</a>input in dittoHeatmap now to functionally get around a need for clustering. It works similar to the<code>cells.order</code>input in SingleR’s + also can take in a metadata slot name or a gene name.</p>
+<p><strong>Jared Andrews</strong> (20:12:59): &gt; pheatmap clustering doesn’t work with &gt;65k elements, but I can’t remember if it actually segfaults.</p>
+<p><strong>Jared Andrews</strong> (20:13:44): &gt; Think it just uses<code>hclust</code>, so I don’t know if it’s really a pheatmap problem or not.</p>
+<p><strong>Dan Bunis</strong> (20:22:52): &gt; I’ve tried ComplexHeatmap before. My issue was that its output wasn’t the actual plot but was instead just the parameters for making the plot. So then outputting the actual plots each time was pretty slow. But maybe there’s a better way?</p>
+<p><strong>Jared Andrews</strong> (20:25:51): &gt; Yeah, ComplexHeatmap is really nice, but is a bit slow. Crazy flexible though, the guy thought of damn near everything.</p>
+<p><strong>Aaron Lun</strong> (20:26:33): &gt; I don’t really care as long as I can get a one-liner in my analysis script.</p>
+<p><strong>Aaron Lun</strong> (20:27:12): &gt; Here’s an acceptance criterion: go through the OSCA book and see all the plots, and see if you can reproduce them in fewer lines of code.</p>
+<p><strong>Aaron Lun</strong> (20:27:40): &gt; And it can’t just be one super long line either.</p>
+<p><strong>Aaron Lun</strong> (20:31:11): &gt; Well, some of the more custom plots can probably be ignored. But it should be easy to do the standard things and possible to do the custom things.</p>
+<p><strong>Dan Bunis</strong> (21:03:56): &gt; ? Your request is quite broad! But for a heatmap: &gt; <code>&gt; pbmc &lt;- Seurat::pbmc_small &gt; dittoHeatmap(c("MS4A1","GNLY","CD3E","CD14","FCER1A", &gt;     "FCGR3A","LYZ","PPBP","CD8A"), &gt;     object = pbmc, &gt;     annotation.metas = "ident") &gt;</code></p>
+<p><strong>Dan Bunis</strong> (21:04:11): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FQFM1A536/image.png">image.png</a></p>
+<p><strong>Dan Bunis</strong> (21:04:20): &gt; And with just a bit more…</p>
+<p><strong>Dan Bunis</strong> (21:04:49): &gt; <code>&gt; dittoHeatmap(c("MS4A1","GNLY","CD3E","CD14","FCER1A", &gt;     "FCGR3A","LYZ","PPBP","CD8A"), &gt;     object = pbmc, &gt;     annotation.metas = "ident",[order.by](http://order.by)= "ident", &gt;     show.colnames = FALSE, &gt;     scaled.to.max = TRUE) &gt;</code> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FQJ11AYET/image.png">image.png</a></p>
+<p><strong>Aaron Lun</strong> (22:57:24): &gt; <code>scater::plotHeatmap</code>takes the position that (translated in your argument names)<a href="http://order.by">order.by</a><code>=</code>implies<code>annotation.metas=</code>, such that<code>annotation.metas=</code><a href="http://order.by">order.by</a>by default.</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2019-11-13</h2>
+<p><strong>Dan Bunis</strong> (00:57:46): &gt; I find it useful to show the splits. And to sometimes annotate with more than one. &gt; = above but with<code>annotation.metas = c("ident", "groups", "letter.idents")</code> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FQFRH43T6/image.png">image.png</a></p>
+<p><strong>Aaron Lun</strong> (01:01:14): &gt; Well, sure, but if you were to set<code>annotation.metas=</code><a href="http://order.by">order.by</a>in the args, most users would only need to specify one arg.</p>
+<p><strong>Aaron Lun</strong> (01:01:36): &gt; Then if people want to do something more complex, then they can specify both, but that’s on them.</p>
+<p><strong>Dan Bunis</strong> (01:13:45): &gt; Could do.</p>
+<p><strong>Dan Bunis</strong> (01:27:51): &gt; I just added<a href="http://order.by">order.by</a>yesterday, so clustering currently runs by default. I hate messing with the defaults.</p>
+<p><strong>Aaron Lun</strong> (01:29:17): &gt; I don’t think people will be all that bothered.</p>
+<p><strong>Aaron Lun</strong> (01:29:31): &gt; For example, roxygen’s defaults just changed in the latest devtools.</p>
+<p><strong>Dan Bunis</strong> (01:32:09): &gt; I also made dittoSeq for bulk RNAseq, where clustering is generally useful.</p>
+<p><strong>Dan Bunis</strong> (01:32:51): &gt; Something I’d really love to do is build a way for people to easily adjust their own defaults.</p>
+<p><strong>Aaron Lun</strong> (01:34:26): &gt; Usually requires some global args, e.g.,<code>register</code>from BiocParallel.</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2019-11-14</h2>
+<p><strong>Aedin Culhane</strong> (17:06:49): &gt; <span class="citation" data-cites="Aedin">@Aedin</span> Culhane has joined the channel</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2019-11-25</h2>
+<p><strong>Stephanie Hicks</strong> (13:09:52): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks has joined the channel</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2019-12-03</h2>
+<p><strong>Princy Parsana</strong> (23:32:02): &gt; <span class="citation" data-cites="Princy">@Princy</span> Parsana has joined the channel</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2019-12-04</h2>
+<p><strong>Jonathan Carroll</strong> (17:38:42): &gt; <span class="citation" data-cites="Jonathan">@Jonathan</span> Carroll has joined the channel</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2019-12-09</h2>
+<p><strong>Luke Zappia</strong> (04:19:16): &gt; <span class="citation" data-cites="Luke">@Luke</span> Zappia has joined the channel</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2019-12-14</h2>
+<p><strong>Teun van den Brand</strong> (13:04:36): &gt; <span class="citation" data-cites="Teun">@Teun</span> van den Brand has joined the channel</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2019-12-20</h2>
+<p><strong>Domenick Braccia</strong> (08:37:33): &gt; <span class="citation" data-cites="Domenick">@Domenick</span> Braccia has joined the channel</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2019-12-23</h2>
+<p><strong>Ruth Isserlin</strong> (11:40:33): &gt; <span class="citation" data-cites="Ruth">@Ruth</span> Isserlin has joined the channel</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2020-01-27</h2>
+<p><strong>darlanminussi</strong> (11:32:37): &gt; <span class="citation" data-cites="darlanminussi">@darlanminussi</span> has joined the channel</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2020-02-08</h2>
+<p><strong>Thanh Le Viet</strong> (16:39:15): &gt; <span class="citation" data-cites="Thanh">@Thanh</span> Le Viet has joined the channel</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2020-02-14</h2>
+<p><strong>Ines de Santiago</strong> (04:46:26): &gt; <span class="citation" data-cites="Ines">@Ines</span> de Santiago has joined the channel</p>
+<p><strong>Andrew Skelton</strong> (05:04:29): &gt; <span class="citation" data-cites="Andrew">@Andrew</span> Skelton has joined the channel</p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2020-02-17</h2>
+<p><strong>Teun van den Brand</strong> (03:08:58): &gt; I’ve made some progress sheparding Vector-based classes through ggplot. Any thoughts on what classes would be cool to have in ggplot? &gt; <code>&gt; df &lt;- DataFrame( &gt;   x = GRanges(c("chr1:1000-2000", "chr1:1500-2500",  &gt;                 "chr2:3000-4000", "chr3:4000-4500")), &gt;   y = c(1, 2, 3, 2) &gt; ) &gt;  &gt; ggplot(df, aes(xmin = x, xmax = x, ymin = y - 0.2, ymax = y + 0.2)) + &gt;   geom_rect() &gt;</code></p>
+<p><strong>Teun van den Brand</strong> (03:09:24): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FTQCFMM4J/image.png">image.png</a></p>
+<p><strong>Peter Hickey</strong> (05:51:57): &gt; <code>S4Vectors::DataFrame()</code></p>
+<p><strong>Peter Hickey</strong> (06:03:50): &gt; fyi they’re rather different.<strong>DataFrame</strong>is an S4 class with similar API to<strong>data.frame</strong>but it’s not a<strong>data.frame</strong></p>
+<p><strong>Peter Hickey</strong> (06:04:35): &gt; e.g., you typically can’t use a<strong>DataFrame</strong>in a tidyverse-style workflow without converting to a<strong>data.frame</strong>/<strong>tibble</strong></p>
+<p><strong>Peter Hickey</strong> (06:04:55): &gt; conversely, there are good reasons for using<strong>DataFrame</strong>in a BioC-heavy workflow</p>
+<p><strong>Alan O’C</strong> (06:15:30): &gt; There’s a package being written with dplyr verbs for DataFrame<a href="https://github.com/jonocarroll/DFplyr/">https://github.com/jonocarroll/DFplyr/</a>but I assume there’s many other tidyverse packages that have no equivalent</p>
+<p><strong>Teun van den Brand</strong> (07:45:05): &gt; My goal was not necessarily to make a pretty plot, but to make Vector-based classes (a large number of the BioC classes) compatible with ggplot2 such that stats, position adjustments and geoms can work without too much of a fuss. People only recently realised that S4 objects can be base::data.frame columns, so in theory they could be chaperoned through the internals of ggplot. If typical genome viz plots are your jam, you could have a gander at ggbio.</p>
+<p><strong>Alan O’C</strong> (07:50:41): &gt; Where are you doing this? Are you making a ggplot2 extension of sorts?</p>
+<p><strong>Teun van den Brand</strong> (07:51:58): &gt; I’m trying to. At the moments it’s still crappy in all sorts of way but I’ll post it on github once it is semi-usable</p>
+<p><strong>Alan O’C</strong> (07:56:12): &gt; Side note: I love that ggplot2 says that objects should be coercible by fortify, but the fortify documentation suggests to use broom and that fortify is likely to be deprecated</p>
+<p><strong>Teun van den Brand</strong> (07:57:02): &gt; Exactly, fortify is the main hook to modify data to be compatible. They might reconsider though:<a href="https://github.com/tidyverse/ggplot2/issues/3816">https://github.com/tidyverse/ggplot2/issues/3816</a></p>
+<p><strong>Peter Hickey</strong> (15:57:15) (in thread): &gt; Re use of S4 objects as<strong>data.frame</strong>columns, I think I’m not understanding / missing something. It seems the<code>data.frame()</code>constructor does some coercion of its arguments, so how do you preserve the class of the S4 objects when making it a<strong>data.frame</strong>column? Thanks! &gt; <code>&gt; suppressPackageStartupMessages(library(S4Vectors)) &gt; x &lt;- Factor(letters[1:10]) &gt; is(x, "Vector") &gt; #&gt; [1] TRUE &gt; data.frame(x = x) # Errors &gt; #&gt; Error in as.vector(x): no method for coercing this S4 class to a vector &gt;  &gt; suppressPackageStartupMessages(library(Biostrings)) &gt; y &lt;- DNAString(c("ATGC")) &gt; is(y, "Vector") &gt; #&gt; [1] TRUE &gt; data.frame(y = y) # Works but loses S4 class &gt; #&gt;   y &gt; #&gt; 1 A &gt; #&gt; 2 T &gt; #&gt; 3 G &gt; #&gt; 4 C &gt; str(data.frame(y = y)) &gt; #&gt; 'data.frame':    4 obs. of  1 variable: &gt; #&gt;  $ y: Factor w/ 18 levels "A","C","G","T",..: 1 4 3 2 &gt;  &gt; suppressPackageStartupMessages(library(GenomicRanges)) &gt; gr &lt;- GRanges("chr1", IRanges(1:3, width = 4)) &gt; is(gr, "Vector") &gt; #&gt; [1] TRUE &gt; data.frame(gr = gr) # Works but loses S4 class &gt; #&gt;   gr.seqnames gr.start gr.end gr.width gr.strand &gt; #&gt; 1        chr1        1      4        4         * &gt; #&gt; 2        chr1        2      5        4         * &gt; #&gt; 3        chr1        3      6        4         * &gt;</code></p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2020-02-18</h2>
+<p><strong>Teun van den Brand</strong> (05:28:43) (in thread): &gt; Yeah, the<code>data.frame</code>constructor does some unpleasant coercion internally by calling<code>as.data.frame()</code>so you can’t really use that. But if we think about what a<code>data.frame</code>is, it is just a list wherein list-elements are the same length and it has rownames, so we can use that to convert a<code>DataFrame</code>to<code>data.frame.</code>My converter looks like the following: &gt; <code>&gt; DataFrame2data.frame &lt;- function(df) { &gt;   df &lt;- as.list(df) &gt;   class(df) &lt;- "data.frame" &gt;   attr(df, "row.names") &lt;- .set_row_names(max(lengths(df))) &gt;   df &gt; } &gt;</code> &gt; And the result acts like you’d expect a<code>data.frame</code>to behave most of the time. &gt; <code>&gt;  &gt;</code></p>
+<p><strong>Teun van den Brand</strong> (05:31:17) (in thread): &gt; <code>&gt; # We'd need to show the S4 objects nicely &gt; format.Vector &lt;- function(x, ...) {showAsCell(x)} &gt;  &gt; DF &lt;- DataFrame(x = Rle(1:5),  &gt;                 y = GRanges("chr1", IRanges(1:5, width = 4))) &gt;  &gt; df &lt;- DataFrame2data.frame(DF) &gt;  &gt; cbind(df, df) &gt;  &gt; df[2:3,] &gt;  &gt; df[, 2] &gt;  &gt; df[, 2, drop = FALSE] &gt;</code></p>
+<p><strong>Teun van den Brand</strong> (05:31:55) (in thread): &gt; The only expection (I’ve spotted so far) is that I haven’t seen<code>rbind(df, df)</code>work properly</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2020-02-19</h2>
+<p><strong>Daniel Newhouse</strong> (11:26:55): &gt; <span class="citation" data-cites="Daniel">@Daniel</span> Newhouse has joined the channel</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2020-02-20</h2>
+<p><strong>Aaron Lun</strong> (12:41:25): &gt; I’m just going to say that the thing I did in#singlecellexperimentwas pretty awesome for seamless SCE&lt;-&gt;ggplot compatibility.</p>
+<p><strong>Teun van den Brand</strong> (18:35:45): &gt; <span class="citation" data-cites="Aaron">@Aaron</span> Lun - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/FUCEDEP8E/image.png">image.png</a></p>
+<p><strong>Aaron Lun</strong> (18:36:08): &gt; :konata:</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2020-02-25</h2>
+<p><strong>Hervé Pagès</strong> (04:18:23): &gt; <span class="citation" data-cites="Hervé">@Hervé</span> Pagès has joined the channel</p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2020-03-02</h2>
+<p><strong>Jonathan Carroll</strong> (05:34:59) (in thread): &gt; (only just now catching up with this)<code>DFplyr</code>adds a<code>fortify.DataFrame</code>method and that makes a <code>DataFrame</code> with just S3 or atomic vector columns work in<code>ggplot2</code>. I’m interested in what other changes are required.</p>
+<p><strong>Teun van den Brand</strong> (14:56:37) (in thread): &gt; Hi Jonathan, yes I’ve done the same in the planned ggplot extension. I’ll try out your version of the function and run some of my unit tests to see what would be different</p>
+<p><strong>Teun van den Brand</strong> (15:18:04) (in thread): &gt; So, I had a look and what would make your<code>fortify.DataFrame</code>incompatible with how I planned to structure my package is that it doesn’t preserve S4 classes such as GRanges. Now don’t get me wrong, that is the way to go with vanilla ggplot since it doesn’t accept S4 classes, but I’m making an effort to make ggplot a bit more lenient in that sense (See<a href="https://github.com/tidyverse/ggplot2/pull/3837">https://github.com/tidyverse/ggplot2/pull/3837</a>). The next problem is that scales don’t know how to deal with S4Vector classes, which is what I’m adressing in my extention. &gt; &gt; This is how your fortify method works on some test data: &gt; <code>&gt; df &lt;- DataFrame(x = GRanges("chr1", IRanges(1:3, width = 5)), y =1:3) &gt; fdf &lt;- fortify(df) &gt; print(fdf) &gt; #&gt; # A tibble: 3 x 6 &gt; #&gt;   x.seqnames x.start x.end x.width x.strand     y &gt; #&gt;   &lt;fct&gt;        &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;fct&gt;    &lt;int&gt; &gt; #&gt; 1 chr1             1     5       5 *            1 &gt; #&gt; 2 chr1             2     6       5 *            2 &gt; #&gt; 3 chr1             3     7       5 *            3 &gt; str(fdf) &gt; #&gt; Classes 'tbl_df', 'tbl' and 'data.frame':    3 obs. of  6 variables: &gt; #&gt;  $ x.seqnames: Factor w/ 1 level "chr1": 1 1 1 &gt; #&gt;  $ x.start   : int  1 2 3 &gt; #&gt;  $ x.end     : int  5 6 7 &gt; #&gt;  $ x.width   : int  5 5 5 &gt; #&gt;  $ x.strand  : Factor w/ 3 levels "+","-","*": 3 3 3 &gt; #&gt;  $ y         : int  1 2 3 &gt;</code> &gt; And this is what my fortify does on the same test data: &gt; <code>&gt; df &lt;- DataFrame(x = GRanges("chr1", IRanges(1:3, width = 5)), y =1:3) &gt; fdf &lt;- fortify(df) &gt; print(fdf) &gt; #&gt;          x y &gt; #&gt; 1 chr1:1-5 1 &gt; #&gt; 2 chr1:2-6 2 &gt; #&gt; 3 chr1:3-7 3 &gt; str(fdf) &gt; #&gt; 'data.frame':    3 obs. of  2 variables: &gt; #&gt;  $ x:Formal class 'GRanges' [package "GenomicRanges"] with 7 slots &gt; #&gt;   .. ..@ seqnames       :Formal class 'Rle' [package "S4Vectors"] with 4 slots &gt; #&gt;   .. .. .. ..@ values         : Factor w/ 1 level "chr1": 1 &gt; #&gt;   .. .. .. ..@ lengths        : int 3 &gt; #&gt;   .. .. .. ..@ elementMetadata: NULL &gt; #&gt;   .. .. .. ..@ metadata       : list() &gt; #&gt;   .. ..@ ranges         :Formal class 'IRanges' [package "IRanges"] with 6 slots &gt; #&gt;   .. .. .. ..@ start          : int  1 2 3 &gt; #&gt;   .. .. .. ..@ width          : int  5 5 5 &gt; #&gt;   .. .. .. ..@ NAMES          : NULL &gt; #&gt;   .. .. .. ..@ elementType    : chr "ANY" &gt; #&gt;   .. .. .. ..@ elementMetadata: NULL &gt; #&gt;   .. .. .. ..@ metadata       : list() &gt; #&gt;   .. ..@ strand         :Formal class 'Rle' [package "S4Vectors"] with 4 slots &gt; #&gt;   .. .. .. ..@ values         : Factor w/ 3 levels "+","-","*": 3 &gt; #&gt;   .. .. .. ..@ lengths        : int 3 &gt; #&gt;   .. .. .. ..@ elementMetadata: NULL &gt; #&gt;   .. .. .. ..@ metadata       : list() &gt; #&gt;   .. ..@ seqinfo        :Formal class 'Seqinfo' [package "GenomeInfoDb"] with 4 slots &gt; #&gt;   .. .. .. ..@ seqnames   : chr "chr1" &gt; #&gt;   .. .. .. ..@ seqlengths : int NA &gt; #&gt;   .. .. .. ..@ is_circular: logi NA &gt; #&gt;   .. .. .. ..@ genome     : chr NA &gt; #&gt;   .. ..@ elementMetadata:Formal class 'DFrame' [package "S4Vectors"] with 6 slots &gt; #&gt;   .. .. .. ..@ rownames       : NULL &gt; #&gt;   .. .. .. ..@ nrows          : int 3 &gt; #&gt;   .. .. .. ..@ listData       : Named list() &gt; #&gt;   .. .. .. ..@ elementType    : chr "ANY" &gt; #&gt;   .. .. .. ..@ elementMetadata: NULL &gt; #&gt;   .. .. .. ..@ metadata       : list() &gt; #&gt;   .. ..@ elementType    : chr "ANY" &gt; #&gt;   .. ..@ metadata       : list() &gt; #&gt;  $ y: int  1 2 3 &gt;</code></p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2020-03-03</h2>
+<p><strong>Jonathan Carroll</strong> (07:10:32) (in thread): &gt; Nice! I only got as far as S3 columns but it looks like you have a solid approach. I’ll add a link to yours on the<code>DFplyr</code>repo. Cheers!</p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2020-03-04</h2>
+<p><strong>Jialin Ma</strong> (15:02:24): &gt; <span class="citation" data-cites="Jialin">@Jialin</span> Ma has joined the channel</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2020-03-05</h2>
+<p><strong>Teun van den Brand</strong> (02:49:44): &gt; Hey@Alan O’C, it seems now that most of the basic stuff in my planned ggplot2 extension is semi-useable, so have a look if you want:<a href="https://github.com/teunbrand/ggnomics/tree/BioC/">https://github.com/teunbrand/ggnomics/tree/BioC/</a>. Fair warning though, it is the first time I had to deal with S4 heavily myself, so don’t expect any miracles!</p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2020-03-16</h2>
+<p><strong>Dan Bunis</strong> (17:00:40): &gt; Hey all! My “universal” single-cell and bulk visualization package has been accepted into BioC now:smiley:. It’s pretty comprehensive in terms of easy figure modifications (<span class="citation" data-cites="Jared">@Jared</span> Andrewscan confirm? =p), color blindness friendly, and is directly compatible with SingleCellExperiments, SummarizedExperiments, and Seurats. Hopefully having the same code for Seurat vs SE/SCE means it can be easier to communicate with, and pull over to Bioc, Seurat users. I do have some tweaks and doc updates that I plan to make in the next week or so, but the functionality is all there now. Check it out maybe? Hopefully you’ll find it useful<img src="https://github.com/dtm2451/dittoSeq.png" class="img-fluid" alt="https://github.com/dtm2451/dittoSeq"></p>
+<p><strong>Aaron Lun</strong> (17:01:16): &gt; :+1:</p>
+<p><strong>Jared Andrews</strong> (17:03:03): &gt; Can confirm, it’s pretty got-dang nice.</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2020-03-17</h2>
+<p><strong>Giuseppe D’Agostino</strong> (07:26:37): &gt; <span class="citation" data-cites="Giuseppe">@Giuseppe</span> D’Agostino has joined the channel</p>
+<p><strong>Jianhong</strong> (20:04:12): &gt; <span class="citation" data-cites="Jianhong">@Jianhong</span> has joined the channel</p>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">2020-03-31</h2>
+<p><strong>Aaron Lun</strong> (00:40:39): &gt; <span class="citation" data-cites="Dan">@Dan</span> Bunis@Kevin Blighegive me a chapter dudes</p>
+<p><strong>Aaron Lun</strong> (00:40:57): &gt; Probably two sections each on your views on how things should be visualized.</p>
+<p><strong>Aaron Lun</strong> (00:41:06): &gt; Each section should probably start with a taster for the more vanilla plots</p>
+<p><strong>Aaron Lun</strong> (00:41:17): &gt; and then ramp up to the most beautiful things you can produce for the main course.</p>
+<p><strong>Aaron Lun</strong> (00:41:47): &gt; And then, as a dessert, possibly some bits and pieces that are more fun than useful.</p>
+<p><strong>Dan Bunis</strong> (13:27:17): &gt; <span class="citation" data-cites="Aaron">@Aaron</span> Lunyou’re asking for the Orchestrating Single Cell Analysis book, right? I’m down.@Kevin Blighefrom what I’ve seen, the book is mostly single-cell RNAseq focused right now, but we could either put together a single chapter including an explanation of how Flow/CyTOF data are similar to scRNAseq in many but not all ways, OR we can have two separate chapters.<a href="https://github.com/Bioconductor/OSCABase">https://github.com/Bioconductor/OSCABase</a></p>
+<p><strong>Dan Bunis</strong> (13:31:16): &gt; I have other thoughts that are perhaps meant for the#osca-bookchannel.</p>
+<p><strong>Dan Bunis</strong> (13:39:20): &gt; nvm as I see my question of whether there should be entire section on flow/CyTOF has already been discussed in#osca-book. (Summary: although the OSCA title is non-restrictive to scRNAseq, the book is already quite long and consequently hard to manage. Thus, entire sections on pipelines for flow/CyTOF are thought to be best for a separate book.)</p>
+<p><strong>Dan Bunis</strong> (13:43:01): &gt; I certainly won’t be able to put much together until later this week, but I could take a crack at getting us going with an intro bit for a joint chapter (scRNAseq &amp; flow/CyTOF together) if you would still be interested, Kevin.</p>
+<p><strong>Aaron Lun</strong> (15:15:39): &gt; Yes, you know what I like.</p>
+<p><strong>Aaron Lun</strong> (17:06:15): &gt; damn straight</p>
+<p><strong>Aaron Lun</strong> (17:06:52): &gt; I was thinking of just a chapter on visualization for scRNA-seq. There will be a separate book for flow/mass.</p>
+<p><strong>Aaron Lun</strong> (17:07:40): &gt; Anyone who thinks it should all be in one book does not understand the pain.</p>
+<p><strong>Aaron Lun</strong> (17:07:55): &gt; The sheer, unmitigated pain of trying to build the damn thing with its &gt;200 dependencies.</p>
+<p><strong>Aaron Lun</strong> (17:08:16): &gt; If we included flow/mass, it would probably hit &gt;300 dependencies.</p>
+<p><strong>Aaron Lun</strong> (17:24:20): &gt; yeah give me some artwork</p>
+<p><strong>USLACKBOT</strong> (21:36:18): &gt; This message was deleted.</p>
+<p><strong>Aaron Lun</strong> (21:36:41): &gt; god how many points is that</p>
+<p><strong>Sridhar N</strong> (21:36:57): &gt; that is a cute salamander</p>
+<p><strong>Sridhar N</strong> (21:37:18): &gt; :lizard:</p>
+<p><strong>Aaron Lun</strong> (21:39:56): &gt; I’m surprised ggplot didn’t just throw up</p>
+<p><strong>Aaron Lun</strong> (21:40:37): &gt; well, it is pretty. dunno about its scientific utility, but I guess I didn’t ask for that.</p>
+<p><strong>Sridhar N</strong> (21:45:47): &gt; its XY plot, if you control the point size i guess it should be fine no?</p>
+<p><strong>Giuseppe D’Agostino</strong> (22:53:32): &gt; regarding single cell viz, one thing I have done recently is kind of a hack to remake<code>schex</code>but adding transparency to show abundance of points in each hexagonal cell (I just applied the<code>ggplot.multistats</code>package as suggested by the author in the github issues so it’s<strong><em>really</em></strong>just a hack). I personally like the result</p>
+<p><strong>Giuseppe D’Agostino</strong> (22:53:50): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F01186NRM6K/pca1.png">pca1.png</a></p>
+<p><strong>Giuseppe D’Agostino</strong> (22:55:32): &gt; not sure what’s the best way to share this since the idea is not original, I just implemented it</p>
+<p><strong>Aaron Lun</strong> (22:55:49): &gt; I’m sure a home for ti could be found.</p>
+<p><strong>Giuseppe D’Agostino</strong> (23:31:34): &gt; That’s very good looking. I think that they are complementary approaches, as in the hex summarization you have both a value (like total UMI or class proportion) and the local density by transparency. It is a rough summarization/binning though, so you could not apply contours</p>
+</section>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">2020-04-01</h2>
+<p><strong>Dan Bunis</strong> (13:43:47): &gt; dittoSeq’s similar method for these is simply allowing adjustment of opacity. Building in a density gradient method has been a back-burner idea for me, but I like the<code>schex</code>plots method. I’d happily take in your implementation@Giuseppe D’Agostinoif you’d be interested. - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F010VB5J682/image.png">image.png</a></p>
+<p><strong>Dan Bunis</strong> (13:50:10) (in thread): &gt; The likely home would be dittoScatterPlot (which dittoDimPlot utilizes). By-cell data gather is handled before the plot is made, so I’d propose a<code>do.hex</code>input + &gt; <code>&gt; # Before plotting &gt; [Transformation of per-cell Target_data dataframe to per-hex dataframe] &gt;  &gt; # within plotting &gt; if (do.hex) { &gt;     p &lt;- p + [schex code] &gt; } else { &gt;     p &lt;- p + [current geom_point code] &gt; } &gt;</code></p>
+</section>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">2020-04-02</h2>
+<p><strong>Domenick Braccia</strong> (12:57:03) (in thread): &gt; looks like the firefox logo !</p>
+<p><strong>Giuseppe D’Agostino</strong> (23:01:41) (in thread): &gt; that’s interesting. my code so far has some hardcoded parts and only works<code>SingleCellExperiment</code>classes but that can be changed.</p>
+<p><strong>Dan Bunis</strong> (23:05:32) (in thread): &gt; Oh hardcoded for what parts? The dataframe I’m mentioning has all the target expression &amp; dimensionality reduction /axes already grabbed. if you share the code, I would help in the conversion.</p>
+</section>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">2020-04-03</h2>
+<p><strong>Federico Marini</strong> (11:02:17) (in thread): &gt; I do see a sea snake or so, with open mouth</p>
+<p><strong>Federico Marini</strong> (11:02:29) (in thread): &gt; but it is probably just quarantine week #3</p>
+</section>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">2020-04-24</h2>
+<p><strong>Anthony</strong> (20:08:50): &gt; <span class="citation" data-cites="Anthony">@Anthony</span> has joined the channel</p>
+</section>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">2020-04-29</h2>
+<p><strong>Nitesh Turaga</strong> (14:07:43): &gt; <span class="citation" data-cites="Nitesh">@Nitesh</span> Turaga has joined the channel</p>
+</section>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">2020-04-30</h2>
+<p><strong>Sridhar N</strong> (01:34:53): &gt; what do y’all use to create gene tracks</p>
+<p><strong>Sridhar N</strong> (01:35:19): &gt; looking for reco’s except gviz</p>
+<p><strong>hcorrada</strong> (09:11:59) (in thread): &gt; Maybe this can help:<a href="https://bioconductor.org/packages/release/bioc/html/epivizrChart.html">https://bioconductor.org/packages/release/bioc/html/epivizrChart.html</a> - Attachment (Bioconductor): <a href="https://bioconductor.org/packages/release/bioc/html/epivizrChart.html">epivizrChart</a> &gt; This package provides an API for interactive visualization of genomic data using epiviz web components. Objects in R/BioConductor can be used to generate interactive R markdown/notebook documents or can be visualized in the R Studio’s default viewer.</p>
+<p><strong>Jialin Ma</strong> (11:56:08) (in thread): &gt; I wrote<a href="https://www.bioconductor.org/packages/release/bioc/html/TnT.html">TnT</a>a few years ago but haven’t touched it for a while. See if that works for you. - Attachment (Bioconductor): <a href="https://www.bioconductor.org/packages/release/bioc/html/TnT.html">TnT</a> &gt; A R interface to the TnT javascript library (<a href="https://github.com/">https://github.com/</a> tntvis) to provide interactive and flexible visualization of track-based genomic data.</p>
+</section>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">2020-05-07</h2>
+<p><strong>Ben Story</strong> (11:16:38): &gt; <span class="citation" data-cites="Ben">@Ben</span> Story has joined the channel</p>
+</section>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">2020-05-10</h2>
+<p><strong>Dan Bunis</strong> (13:12:12): &gt; FYI for anyone interested, I’ve added density plotting to dittoSeq’s devel via 2 new functions, dittoDimHex() and dittoScatterHex(), as well as by adding ‘do.contour’ inputs for these and their dittoDimPlot()/dittoScatterPlot() counterparts. A significant amount of the hex functionality is adapted from@Giuseppe D’Agostino’s code:slightly_smiling_face: - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F012XMHM4MD/ditto-density.png">ditto-density.png</a></p>
+<p><strong>Kevin Rue-Albrecht</strong> (13:13:43): &gt; Neat:slightly_smiling_face:If you ever get bored, iSEEu is waiting for interactive panels with open arms:innocent:</p>
+<p><strong>Kevin Rue-Albrecht</strong> (13:15:28): &gt; <strong>Small</strong>learning curve, you know the drill:stuck_out_tongue:</p>
+<p><strong>Dan Bunis</strong> (13:29:07): &gt; “If I ever get bored” LOL. But that does sound interesting.</p>
+<p><strong>Kevin Rue-Albrecht</strong> (13:30:45): &gt; &gt; If you ever get bored &gt; I adopted that catchphrase in my academic one-man-show ;)</p>
+<p><strong>Dan Bunis</strong> (13:33:47) (in thread): &gt; Perhaps I could watch a recording of this show when I’m picking up iSEE/iSEEu? If I ever get bored.</p>
+<p><strong>Kevin Rue-Albrecht</strong> (13:35:53) (in thread): &gt; Turn of phrase. It’s just fun to throw those words around when you know the odds aren’t in your favour :P</p>
+<p><strong>Dan Bunis</strong> (13:39:07) (in thread): &gt; Yup! Was also fishing… I have a labmate who occasionally performs standup =p</p>
+<p><strong>Kevin Rue-Albrecht</strong> (13:41:53) (in thread): &gt; That sounds awesome! I’ve never tried standup, actually, I’m more of a musician, small town orchestra type.</p>
+<p><strong>Dan Bunis</strong> (13:45:33) (in thread): &gt; Also super cool… I just:fire:my free time playing video games</p>
+<p><strong>Kevin Rue-Albrecht</strong> (13:50:13) (in thread): &gt; I was a heavy player including during my PhD. I occasionally miss those times BBQ/LoL days with housemates:slightly_smiling_face:</p>
+<p><strong>Giuseppe D’Agostino</strong> (21:34:08): &gt; yay!</p>
+</section>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">2020-05-20</h2>
+<p><strong>Nitesh Turaga</strong> (15:13:31): &gt; <span class="citation" data-cites="Nitesh">@Nitesh</span> Turaga has left the channel</p>
+</section>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">2020-06-10</h2>
+<p><strong>Jonathan Griffiths</strong> (05:49:08): &gt; <span class="citation" data-cites="Jonathan">@Jonathan</span> Griffiths has joined the channel</p>
+</section>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">2020-07-08</h2>
+<p><strong>Atul Deshpande</strong> (08:20:24): &gt; <span class="citation" data-cites="Atul">@Atul</span> Deshpande has joined the channel</p>
+</section>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">2020-07-15</h2>
+<p><strong>Spencer Nystrom</strong> (08:50:57): &gt; <span class="citation" data-cites="Spencer">@Spencer</span> Nystrom has joined the channel</p>
+<p><strong>wmuehlhaeuser</strong> (09:20:31): &gt; <span class="citation" data-cites="wmuehlhaeuser">@wmuehlhaeuser</span> has joined the channel</p>
+</section>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">2020-07-29</h2>
+<p><strong>Nick Owen</strong> (13:03:18): &gt; <span class="citation" data-cites="Nick">@Nick</span> Owen has joined the channel</p>
+<p><strong>Arshi Arora</strong> (15:42:59): &gt; <span class="citation" data-cites="Arshi">@Arshi</span> Arora has joined the channel</p>
+</section>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">2020-07-30</h2>
+<p><strong>Lukas Weber</strong> (10:44:45): &gt; <span class="citation" data-cites="Lukas">@Lukas</span> Weber has joined the channel</p>
+<p><strong>Daniela Cassol</strong> (10:44:54): &gt; <span class="citation" data-cites="Daniela">@Daniela</span> Cassol has joined the channel</p>
+<p><strong>Iara Souza</strong> (10:46:16): &gt; <span class="citation" data-cites="Iara">@Iara</span> Souza has joined the channel</p>
+<p><strong>Joselyn Chávez</strong> (10:46:51): &gt; <span class="citation" data-cites="Joselyn">@Joselyn</span> Chávez has joined the channel</p>
+<p><strong>Nur-Taz Rahman</strong> (10:46:54): &gt; <span class="citation" data-cites="Nur-Taz">@Nur-Taz</span> Rahman has joined the channel</p>
+<p><strong>Markus Schroeder</strong> (10:51:29): &gt; <span class="citation" data-cites="Markus">@Markus</span> Schroeder has joined the channel</p>
+<p><strong>Adrija Kalvisa</strong> (10:53:08): &gt; <span class="citation" data-cites="Adrija">@Adrija</span> Kalvisa has joined the channel</p>
+<p><strong>sani</strong> (10:58:50): &gt; <span class="citation" data-cites="sani">@sani</span> has joined the channel</p>
+<p><strong>Liz Ing-Simmons</strong> (11:05:57): &gt; <span class="citation" data-cites="Liz">@Liz</span> Ing-Simmons has joined the channel</p>
+<p><strong>Bharati Mehani</strong> (11:36:01): &gt; <span class="citation" data-cites="Bharati">@Bharati</span> Mehani has joined the channel</p>
+<p><strong>Ayush Aggarwal</strong> (12:57:08): &gt; <span class="citation" data-cites="Ayush">@Ayush</span> Aggarwal has joined the channel</p>
+<p><strong>Sunil Nahata</strong> (16:13:58): &gt; <span class="citation" data-cites="Sunil">@Sunil</span> Nahata has joined the channel</p>
+</section>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">2020-07-31</h2>
+<p><strong>Saulius Lukauskas</strong> (03:14:50): &gt; <span class="citation" data-cites="Saulius">@Saulius</span> Lukauskas has joined the channel</p>
+<p><strong>bogdan tanasa</strong> (13:58:41): &gt; <span class="citation" data-cites="bogdan">@bogdan</span> tanasa has joined the channel</p>
+<p><strong>Dr Awala Fortune O.</strong> (16:25:00): &gt; <span class="citation" data-cites="Dr">@Dr</span> Awala Fortune O. has joined the channel</p>
+</section>
+<section id="section-47" class="level2">
+<h2 class="anchored" data-anchor-id="section-47">2020-08-03</h2>
+<p><strong>Rene Welch</strong> (19:26:01): &gt; <span class="citation" data-cites="Rene">@Rene</span> Welch has joined the channel</p>
+</section>
+<section id="section-48" class="level2">
+<h2 class="anchored" data-anchor-id="section-48">2020-08-07</h2>
+<p><strong>Federico Marini</strong> (06:19:31): &gt; Not really genomics, but belongs fully to the cool vis topic</p>
+<p><strong>Federico Marini</strong> (06:19:32): &gt; <a href="https://www.malofiejgraphics.com/2020/08/general/the-new-york-times-and-national-geographic-win-the-endesa-best-of-show-award/">https://www.malofiejgraphics.com/2020/08/general/the-new-york-times-and-national-geographic-win-the-endesa-best-of-show-award/</a> - Attachment (Malofiej): <a href="https://www.malofiejgraphics.com/2020/08/general/the-new-york-times-and-national-geographic-win-the-endesa-best-of-show-award/">The New York Times and National Geographic win the Endesa Best of Show Award</a> &gt; The graphic&nbsp;‘What Path Takes You to Congress’ published in The New York Times wins the&nbsp;Endesa Best of Show&nbsp;Award in the print category. The Endesa Best of</p>
+<p><strong>Federico Marini</strong> (06:20:37): &gt; I always check out this non-sci visualizations award, it is interesting to see how the storytelling can evolve, especially in journalism</p>
+</section>
+<section id="section-49" class="level2">
+<h2 class="anchored" data-anchor-id="section-49">2020-08-18</h2>
+<p><strong>Will Macnair</strong> (09:09:03): &gt; <span class="citation" data-cites="Will">@Will</span> Macnair has joined the channel</p>
+</section>
+<section id="section-50" class="level2">
+<h2 class="anchored" data-anchor-id="section-50">2020-08-20</h2>
+<p><strong>Bharati Mehani</strong> (03:08:35): &gt; I have a simple question related to tSNE, how to identify subgroups and the membership from the tSNE coordinates? Anybody here can help me please?</p>
+<p><strong>Aaron Lun</strong> (03:11:03): &gt; It is not particularly hard but I would question whether that’s something you really want to do: see comments<a href="https://osca-dev.bioconductor.org/dimensionality-reduction.html#visualization-interpretation">https://osca-dev.bioconductor.org/dimensionality-reduction.html#visualization-interpretation</a>. - Attachment (osca-dev.bioconductor.org): <a href="https://osca-dev.bioconductor.org/dimensionality-reduction.html#visualization-interpretation">Chapter 9 Dimensionality reduction | Orchestrating Single-Cell Analysis with Bioconductor</a> &gt; Or: how I learned to stop worrying and love the t-SNEs.</p>
+<p><strong>Bharati Mehani</strong> (03:13:44): &gt; Hi thanks for your reply. Actually i am looking for sample wise cluster membership info</p>
+<p><strong>Bharati Mehani</strong> (03:14:57): &gt; I used Rtsne and have coordinates also but don’t know how to get the sample-wise positioning on the tsne</p>
+<p><strong>Dan Bunis</strong> (14:00:34): &gt; I’m not sure of an algorithm for exactly what you are trying to do, but that’s because it is better to use clustering algorithms that rely on the underlying data which your tsne was built on rather than the further-removed-from-the-data tsne coordinates.</p>
+<p><strong>Dan Bunis</strong> (14:04:41): &gt; Once you have your cluster groups though,<code>dittoSeq::dittoBarPlot(object, var = clustering, group.by = sampleIdentities)</code>can help with the visualization. And you can throw in<code>data.out = TRUE</code>as well to have it spit out the plot + the dataframe of per-sample percentages.</p>
+</section>
+<section id="section-51" class="level2">
+<h2 class="anchored" data-anchor-id="section-51">2020-08-24</h2>
+<p><strong>Jose Alquicira</strong> (11:49:46): &gt; <span class="citation" data-cites="Jose">@Jose</span> Alquicira has joined the channel</p>
+</section>
+<section id="section-52" class="level2">
+<h2 class="anchored" data-anchor-id="section-52">2020-08-27</h2>
+<p><strong>Aaron Lun</strong> (01:44:52): &gt; IT HAS BEGUN:<a href="https://ltla.github.io/SCEGallery/">https://ltla.github.io/SCEGallery/</a> - Attachment (ltla.github.io): <a href="https://ltla.github.io/SCEGallery/">SCE Gallery</a> &gt; SCE Gallery</p>
+<p><strong>Aaron Lun</strong> (19:26:13): &gt; The goal is for me to put out a chapter + its scater “reference” visualization at some periodic interval, and@Dan Bunisand@Kevin Blighe(and any others) can make PRs to see if they can “beat” scater’s reference plots.</p>
+<p><strong>Aaron Lun</strong> (19:26:43): &gt; Points will be awarded based on conciseness of the code versus how pretty the plots are.</p>
+<p><strong>Aaron Lun</strong> (19:26:56): &gt; Tagging@Alan O’C.</p>
+<p><strong>Aaron Lun</strong> (19:28:35): &gt; Happy to tune the dataset settings if you think that there’s something better</p>
+<p><strong>Aaron Lun</strong> (19:30:09): &gt; Upcoming chapters will be: &gt; * Feature expression plots &gt; * Heatmaps &gt; * Dotplots &gt; I don’t think I use any more plots, but I’m open to more suggestions. Also happy to take miscellaneous chapters if you want to showcase something package-specific but, e.g., don’t have a big enough dataset in your package vignette to do it justice.</p>
+<p><strong>Aaron Lun</strong> (20:31:23) (in thread): &gt; well, I was thinking of something from scDataviz.</p>
+<p><strong>Aaron Lun</strong> (20:31:35) (in thread): &gt; it’s an SCE gallery, after all.</p>
+<p><strong>Alan O’C</strong> (21:37:48): &gt; Great idea! I somehow have never seen the Bioc gif before, it’s very pleasant</p>
+<p><strong>Aaron Lun</strong> (21:38:10): &gt; mdae by the other Kevin</p>
+</section>
+<section id="section-53" class="level2">
+<h2 class="anchored" data-anchor-id="section-53">2020-08-28</h2>
+<p><strong>Federico Marini</strong> (02:48:49): &gt; You can even use it here:bioc-load:<span class="citation" data-cites="Alan">@Alan</span> O’C</p>
+<p><strong>Dan Bunis</strong> (17:28:47): &gt; Very down for this!</p>
+<p><strong>Dan Bunis</strong> (17:31:10): &gt; Excited to contribute. Speaking of… where would I PR to?</p>
+<p><strong>Aaron Lun</strong> (18:43:55): &gt; living at<a href="https://github.com/LTLA/SCEGallery">https://github.com/LTLA/SCEGallery</a></p>
+<p><strong>Aaron Lun</strong> (19:54:33): &gt; give me your saltiest text, i don’t care</p>
+<p><strong>Aaron Lun</strong> (21:53:02): &gt; if that floats your boat</p>
+<p><strong>Aaron Lun</strong> (21:53:15): &gt; or should I say, floateth yonder boateth.</p>
+</section>
+<section id="section-54" class="level2">
+<h2 class="anchored" data-anchor-id="section-54">2020-08-30</h2>
+<p><strong>Federico Marini</strong> (17:19:09): &gt; <a href="https://github.com/darlanminussi/scrappy">https://github.com/darlanminussi/scrappy</a></p>
+<p><strong>Federico Marini</strong> (17:19:29): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F01AFUT7U7J/image.png">image.png</a></p>
+<p><strong>Stephanie Hicks</strong> (21:12:54): &gt; <span class="citation" data-cites="Stephanie">@Stephanie</span> Hicks has left the channel</p>
+</section>
+<section id="section-55" class="level2">
+<h2 class="anchored" data-anchor-id="section-55">2020-09-01</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (11:12:08) (in thread): &gt; I guess the brown ones are empty droplets (nothing but c…), and the green ones doublets (too full)</p>
+<p><strong>Federico Marini</strong> (11:44:46) (in thread): &gt; ehehe</p>
+<p><strong>Federico Marini</strong> (11:44:53) (in thread): &gt; could be a meaningful match</p>
+<p><strong>Federico Marini</strong> (11:45:13) (in thread): &gt; probably indeed the browns are hi MT content</p>
+<p><strong>Kevin Rue-Albrecht</strong> (11:45:34) (in thread): &gt; I seem to recall ASCII to emoji translation of PHRED scores recently</p>
+<p><strong>Federico Marini</strong> (11:45:52) (in thread): &gt; oh yes that was also funny</p>
+<p><strong>Kevin Rue-Albrecht</strong> (11:46:17) (in thread): &gt; <a href="https://fastqe.com/">https://fastqe.com/</a>?</p>
+</section>
+<section id="section-56" class="level2">
+<h2 class="anchored" data-anchor-id="section-56">2020-09-04</h2>
+<p><strong>Bharati Mehani</strong> (04:08:33): &gt; Hi everyone, I don’t know why does both the plot_ly and plot3d not working on my terminal in order to generate 3D tsne. It is neither giving any error nor generating any figure. Here are my commands - File (JPEG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F019WKZECEA/image_from_ios.jpg">Image from iOS</a></p>
+<p><strong>Bharati Mehani</strong> (04:09:04): &gt; Can any of you please help what I am missing here?</p>
+<p><strong>Bharati Mehani</strong> (04:23:47): &gt; Just to clarify, I have the same information in both the cases: tsne1 and d_tsne</p>
+<p><strong>Giuseppe D’Agostino</strong> (05:46:13) (in thread): &gt; in order to get help it’s always useful to provide some information, e.g.&nbsp;are you using<code>rgl</code>? what OS are you on?</p>
+<p><strong>Giuseppe D’Agostino</strong> (05:51:07) (in thread): &gt; in my experience using<code>rgl</code>in MacOS, it fails to produce an output when X11/XQuartz are not running</p>
+<p><strong>Alan O’C</strong> (06:10:10) (in thread): &gt; <code>dev.off</code>isn’t needed, plotly will open a web browser not a graphics device</p>
+<p><strong>Alan O’C</strong> (06:22:29) (in thread): &gt; Plotly 3D scatter traces require webGL if I remember well</p>
+<p><strong>Alan O’C</strong> (06:22:59) (in thread): &gt; I generally don’t see a reason to use a 3D t-SNE projection rather than a 2D one though</p>
+<p><strong>Bharati Mehani</strong> (10:51:31): &gt; And now the channel deleted to follow it up:grimacing:</p>
+<p><strong>Bharati Mehani</strong> (10:54:52) (in thread): &gt; Yes i am using rgl and running this directly on the linux terminal which i am using remotely</p>
+<p><strong>Alan O’C</strong> (10:55:56) (in thread): &gt; I assume you have X forwarding set up</p>
+<p><strong>Bharati Mehani</strong> (10:56:11) (in thread): &gt; I already tested 2d tsne and was able to plot that using ggplot but it was not helpful</p>
+<p><strong>Bharati Mehani</strong> (10:57:16) (in thread): &gt; Hi@Alan O’Cif that is the case, how can I resolve this ?</p>
+<p><strong>Alan O’C</strong> (10:58:47) (in thread): &gt; If you were able to get a 2D plot window to pop up with ggplot, X forwarding probably isn’t the issue. Why would a 3rd dimension for t-SNE make the visualisation more useful?</p>
+<p><strong>Bharati Mehani</strong> (11:00:12) (in thread): &gt; No for 2d plot also i used dev.off() to save the image</p>
+<p><strong>Bharati Mehani</strong> (11:00:43) (in thread): &gt; That’s how I could save and see the image</p>
+<p><strong>Alan O’C</strong> (11:01:12) (in thread): &gt; <code>dev.off()</code>doesn’t save an image it closes an open graphics device</p>
+<p><strong>Bharati Mehani</strong> (11:02:38) (in thread): &gt; i also used pdf(“image..pdf”) before running my ggplot()</p>
+<p><strong>Bharati Mehani</strong> (11:03:18) (in thread): &gt; But here with plot_ly and plot3d, its not working</p>
+<p><strong>Alan O’C</strong> (11:03:37) (in thread): &gt; <code>pdf("foo.pdf")</code>opens a PDF graphics device. You presumably can’t save an OpenGL plot object to pdf so that won’t work</p>
+<p><strong>Alan O’C</strong> (11:04:19) (in thread): &gt; Look at htmlwidgets, I think you can export rgl stuff to html, and plotly is a javascript library so only works in a htmlwidget context<a href="https://www.rdocumentation.org/packages/htmlwidgets/versions/1.5.1/topics/saveWidget">https://www.rdocumentation.org/packages/htmlwidgets/versions/1.5.1/topics/saveWidget</a></p>
+<p><strong>Alan O’C</strong> (11:05:33) (in thread): &gt; Also I would again suggest you consider not making 3D t-SNE plots, since the whole point of t-SNE embedding is to make high dimensional data easy to visualise, and 3D plots are notoriously poor for this purpose</p>
+<p><strong>Bharati Mehani</strong> (11:06:20) (in thread): &gt; Oh ok, I’ll try that. Thanks for your help.</p>
+<p><strong>Bharati Mehani</strong> (11:07:51) (in thread): &gt; Actually I could not see much of the separation between the groups using 2d thus was trying to see If 3d can help and resolve them</p>
+<p><strong>Alan O’C</strong> (11:14:37) (in thread): &gt; You could try to change some of the other parameters like perplexity and epsilon; these may have more impact on the separation between observations in the final embedding. I like this interactive guide<a href="https://distill.pub/2016/misread-tsne/">https://distill.pub/2016/misread-tsne/</a> - Attachment (Distill): <a href="https://distill.pub/2016/misread-tsne/">How to Use t-SNE Effectively</a> &gt; Although extremely useful for visualizing high-dimensional data, t-SNE plots can sometimes be mysterious or misleading.</p>
+<p><strong>Bharati Mehani</strong> (11:16:44) (in thread): &gt; Oh it looks very helpful. Thanks for sharing this.</p>
+<p><strong>Bharati Mehani</strong> (11:43:42) (in thread): &gt; Thanks@Alan O’Ci could save the plot in html. Thanks.</p>
+<p><strong>Bharati Mehani</strong> (11:44:22) (in thread): &gt; Will also try different parameters to resolve my clusters. This was really helpful. Thanks again</p>
+</section>
+<section id="section-57" class="level2">
+<h2 class="anchored" data-anchor-id="section-57">2020-09-10</h2>
+<p><strong>Aaron Lun</strong> (01:47:13): &gt; No one is helping me fill the gallery!</p>
+<p><strong>Jared Andrews</strong> (10:17:09): &gt; Same, though I’ve now at least added it to Todoist, so consider it shoved into the dustiest crevice of my mind somewhere.</p>
+<p><strong>Dan Bunis</strong> (16:33:44): &gt; I have some “extra” time this week while I’m newer at this new job… I’ll see if I can throw in a dittoSeq chunk for the red-dim section.</p>
+</section>
+<section id="section-58" class="level2">
+<h2 class="anchored" data-anchor-id="section-58">2020-09-11</h2>
+<p><strong>Aaron Lun</strong> (00:31:29): &gt; it’s going to be so awesome.</p>
+<p><strong>Aaron Lun</strong> (00:31:47): &gt; I’m learning JS now, so I’m going to fill every bit of space with D3.</p>
+<p><strong>Aaron Lun</strong> (00:32:24): &gt; Or stuff like<a href="https://meowni.ca/emoji-rain/components/emoji-rain/demo/">https://meowni.ca/emoji-rain/components/emoji-rain/demo/</a></p>
+<p><strong>Sridhar N</strong> (00:32:31): &gt; good on ya mate!</p>
+<p><strong>Sridhar N</strong> (00:32:37): &gt; JS is awesome</p>
+<p><strong>Aaron Lun</strong> (00:32:48): &gt; There’s not going to be anything that is NOT interactive.</p>
+<p><strong>Aaron Lun</strong> (00:33:01): &gt; The letters will change color on mouse over.</p>
+<p><strong>Aaron Lun</strong> (00:33:50): &gt; and of course we need voice recognition.</p>
+<p><strong>Sridhar N</strong> (00:34:05): &gt; sounds like ISEE</p>
+<p><strong>Sridhar N</strong> (00:34:22): &gt; oh wait that is already done</p>
+<p><strong>Aaron Lun</strong> (00:35:06): &gt; to my chagrin, yes, it was done.</p>
+<p><strong>Jared Andrews</strong> (01:13:06): &gt; dittoSeq with<code>hover = TRUE</code>already yields interactivity on a lot of plots.</p>
+<p><strong>Jared Andrews</strong> (01:14:09): &gt; Oh nice, Dash for R is actually in CRAN now.<a href="https://github.com/plotly/dashR">https://github.com/plotly/dashR</a></p>
+<p><strong>Giuseppe D’Agostino</strong> (01:14:31): &gt; can you make each cell appear separately, powerpoint typewriter style?</p>
+<p><strong>Aaron Lun</strong> (01:19:47): &gt; flying in from the top of the page, of course</p>
+<p><strong>Giuseppe D’Agostino</strong> (01:20:02): &gt; with a woosh</p>
+<p><strong>Aaron Lun</strong> (01:21:39): &gt; Indeed</p>
+<p><strong>Aaron Lun</strong> (01:24:10): &gt; Anyway, I’ve personally struggled with using plotly. It is always just<strong>not quite enough</strong>for me, and I fall back to using Shiny instead.</p>
+<p><strong>Aaron Lun</strong> (01:24:43): &gt; I also think it looks ugly, but that’s neither here or there.</p>
+<p><strong>Dan Bunis</strong> (02:24:41): &gt; When the purpose is quickly making a pre-made ggplot be interactive with custom data display, but without a need to start over from scratch…<code>plotly::ggplotly(gg_obj, tooltip="text")</code>does well.</p>
+<p><strong>Dan Bunis</strong> (02:26:25): &gt; I wouldn’t say it’s the prettiest every time, cuz things do change, but I never tried to learn their “raw” code.</p>
+<p><strong>Kevin Rue-Albrecht</strong> (05:46:29): &gt; <span class="citation" data-cites="Aaron">@Aaron</span> Lungood that notifications bring me back to this channel. I’m preparing “challenges” for EuroBioc2020, and one that crossed my mind is a gallery of plots. Not necessarily only single cell, just a free-for-all gallery of plots that people could browser and search for inspiration and template code. &gt; &gt; Do you have written guidelines anywhere, to contribute to your gallery? (those challenges should be approachable by participants from all levels). &gt; &gt; I’ll make a GitHub repo for Bioc challenges, and you can dump instructions for this gallery in an issue. I’ll take some time to figure what the main content of the repo should be. I’m thinking a simple markdown website in a first instance.</p>
+<p><strong>Kevin Rue-Albrecht</strong> (05:50:40) (in thread): &gt; there ya go:<a href="https://github.com/kevinrue/BiocChallenges">https://github.com/kevinrue/BiocChallenges</a></p>
+<p><strong>Kevin Rue-Albrecht</strong> (05:57:01) (in thread): &gt; Feel free to mess with<a href="https://github.com/kevinrue/BiocChallenges/issues/1">https://github.com/kevinrue/BiocChallenges/issues/1</a></p>
+<p><strong>Alan O’C</strong> (06:01:51): &gt; Karl Broman’s QTLcharts package has some nice D3 HTMLwidget examples, written with coffeescript</p>
+</section>
+<section id="section-59" class="level2">
+<h2 class="anchored" data-anchor-id="section-59">2020-09-14</h2>
+<p><strong>Vince Carey</strong> (07:18:18): &gt; I see very scant mention of TnT<a href="https://www.bioconductor.org/packages/release/bioc/html/TnT.html">https://www.bioconductor.org/packages/release/bioc/html/TnT.html</a>that I have found a little difficult to control but very nice for zoomable gene models in vignettes. - Attachment (Bioconductor): <a href="https://www.bioconductor.org/packages/release/bioc/html/TnT.html">TnT</a> &gt; A R interface to the TnT javascript library (<a href="https://github.com/">https://github.com/</a> tntvis) to provide interactive and flexible visualization of track-based genomic data.</p>
+</section>
+<section id="section-60" class="level2">
+<h2 class="anchored" data-anchor-id="section-60">2020-09-17</h2>
+<p><strong>rizoic</strong> (13:29:54): &gt; <span class="citation" data-cites="rizoic">@rizoic</span> has joined the channel</p>
+</section>
+<section id="section-61" class="level2">
+<h2 class="anchored" data-anchor-id="section-61">2020-09-23</h2>
+<p><strong>Bharati Mehani</strong> (10:05:55): &gt; Hi All, I am using plotly with type scatter3d and symbol in R to make 3d tsne and its working fine. But if I want to highlight a particular datapoint, is there a way to do that? &gt; Thanks in advance!</p>
+</section>
+<section id="section-62" class="level2">
+<h2 class="anchored" data-anchor-id="section-62">2020-09-24</h2>
+<p><strong>Bharati Mehani</strong> (10:58:06): &gt; Any clue or help for this:point_up_2:will be highly appreciated.</p>
+<p><strong>Jared Andrews</strong> (10:59:38): &gt; Plotly has no connection with bioconductor. You’re likely to get better answers via Biostars/stack overflow/the plotly forums.</p>
+<p><strong>Bharati Mehani</strong> (11:01:13): &gt; Oh ok, thought if anybody has some experience with this. Sure will post there. Thanks</p>
+</section>
+<section id="section-63" class="level2">
+<h2 class="anchored" data-anchor-id="section-63">2020-10-01</h2>
+<p><strong>Dan Bunis</strong> (15:52:49) (in thread): &gt; clearly, my contributing to<a href="https://github.com/LTLA/SCEGallery">https://github.com/LTLA/SCEGallery</a>got side-tracked lol. I’d had trouble building myself a sufficient Dev environment before, but I’ve figured out how I can fix that issue with docker:smiley:. &gt; &gt; Now I just need to find the time again…:face_palm:</p>
+<p><strong>Aaron Lun</strong> (23:31:10): &gt; yeah!</p>
+</section>
+<section id="section-64" class="level2">
+<h2 class="anchored" data-anchor-id="section-64">2020-10-05</h2>
+<p><strong>Ines de Santiago</strong> (19:50:06): &gt; <span class="citation" data-cites="Ines">@Ines</span> de Santiago has left the channel</p>
+</section>
+<section id="section-65" class="level2">
+<h2 class="anchored" data-anchor-id="section-65">2020-10-10</h2>
+<p><strong>Hervé Pagès</strong> (04:08:55): &gt; <span class="citation" data-cites="Hervé">@Hervé</span> Pagès has left the channel</p>
+</section>
+<section id="section-66" class="level2">
+<h2 class="anchored" data-anchor-id="section-66">2020-10-11</h2>
+<p><strong>Kozo Nishida</strong> (21:43:51): &gt; <span class="citation" data-cites="Kozo">@Kozo</span> Nishida has joined the channel</p>
+</section>
+<section id="section-67" class="level2">
+<h2 class="anchored" data-anchor-id="section-67">2020-10-17</h2>
+<p><strong>Kevin Blighe</strong> (10:17:53): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Blighe has joined the channel</p>
+</section>
+<section id="section-68" class="level2">
+<h2 class="anchored" data-anchor-id="section-68">2020-10-19</h2>
+<p><strong>Lukas Weber</strong> (08:40:52): &gt; <span class="citation" data-cites="Lukas">@Lukas</span> Weber has left the channel</p>
+</section>
+<section id="section-69" class="level2">
+<h2 class="anchored" data-anchor-id="section-69">2020-10-23</h2>
+<p><strong>Rebecca Howard</strong> (08:17:33): &gt; <span class="citation" data-cites="Rebecca">@Rebecca</span> Howard has joined the channel</p>
+</section>
+<section id="section-70" class="level2">
+<h2 class="anchored" data-anchor-id="section-70">2020-10-26</h2>
+<p><strong>Aaron Lun</strong> (23:39:00): &gt; I need some SCE-compatible visium plotting functions.</p>
+</section>
+<section id="section-71" class="level2">
+<h2 class="anchored" data-anchor-id="section-71">2020-10-27</h2>
+<p><strong>Aaron Lun</strong> (03:26:40): &gt; did dittoseq already do this?</p>
+<p><strong>Charlotte Soneson</strong> (03:34:31) (in thread): &gt; check out the#spatialexperimentchannel</p>
+<p><strong>Jared Andrews</strong> (09:13:56): &gt; If your data’s in an SCE, dittoSeq should work.</p>
+<p><strong>Dan Bunis</strong> (12:40:04): &gt; I haven’t worked with visium data yet, but I’d guess that<code>dittoScatterPlot()</code>or<code>dittoScatterHex()</code>would be what you need, and that you would give<code>x.var</code>/<code>y.var</code>the x/y metadata.</p>
+<p><strong>Aaron Lun</strong> (12:40:34): &gt; I thought you already had somethingt oshow the H&amp;E?</p>
+<p><strong>Jared Andrews</strong> (12:47:04): &gt; Nope, but I can’t imagine it’d be that hard to add. How is that stored? Is it just a straightup image?</p>
+<p><strong>Aaron Lun</strong> (13:01:09): &gt; Think it’s a TIF. Haven’t tried myself, I’m just scoping things out.</p>
+<p><strong>Dan Bunis</strong> (13:03:48): &gt; The<code>theme</code>input could probably be used to shove an image into the bottom layer of the plot. I’ve never tried that though.</p>
+<p><strong>Dan Bunis</strong> (13:08:31): &gt; There’s nothing specific now, but depending on how hard it is to get to work, we could potentially add this to dittoSeq’s 3.13 plans.</p>
+<p><strong>Spencer Nystrom</strong> (15:06:44): &gt; There might be a way to use<code>cowplot</code>to draw the plot on top of it. I seem to recall the docs showing an example of this.</p>
+<p><strong>Spencer Nystrom</strong> (15:09:28): &gt; Yeah:<code>ggdraw() + &gt; ``   draw_image(&lt;tif&gt;) + &gt; ``   draw_plot(&lt;your plot&gt;) &gt;</code></p>
+<p><strong>Dan Bunis</strong> (16:04:56): &gt; Can be done for sure! I found this earlier, which uses a ggplot2 fxn:<a href="https://www.engineeringbigdata.com/how-to-add-a-background-image-in-ggplot2-with-r/">https://www.engineeringbigdata.com/how-to-add-a-background-image-in-ggplot2-with-r/</a> &gt; <code>&gt; ggplot() + &gt;   annotation_custom(rasterGrob(png::readPNG("shark_background.png"),  &gt;                                width = unit(1,"npc"),  &gt;                                height = unit(1,"npc")),  &gt;                     xmin = -Inf, xmax = Inf, &gt;                     ymin = -Inf, ymax = Inf) + &gt;   geom_... &gt;</code> &gt; And so one could plug<code>theme = theme_bw() + annotation_custom(…)</code>or something similar right into dittoSeq functions. - Attachment (R-ALGO Engineering Big Data): <a href="https://www.engineeringbigdata.com/how-to-add-a-background-image-in-ggplot2-with-r/">How to Add a Background Image in ggplot2 with R | R-ALGO Engineering Big Data</a> &gt; Learn how to add background image in ggplot2 with R. This is a simple code change and will add creativity to your plots in R.</p>
+</section>
+<section id="section-72" class="level2">
+<h2 class="anchored" data-anchor-id="section-72">2020-11-04</h2>
+<p><strong>Krutika</strong> (11:57:00): &gt; <span class="citation" data-cites="Krutika">@Krutika</span> has joined the channel</p>
+</section>
+<section id="section-73" class="level2">
+<h2 class="anchored" data-anchor-id="section-73">2020-11-12</h2>
+<p><strong>Philippe Boileau</strong> (15:08:25): &gt; <span class="citation" data-cites="Philippe">@Philippe</span> Boileau has joined the channel</p>
+</section>
+<section id="section-74" class="level2">
+<h2 class="anchored" data-anchor-id="section-74">2020-11-16</h2>
+<p><strong>Carmen Abaurre</strong> (06:34:59): &gt; <span class="citation" data-cites="Carmen">@Carmen</span> Abaurre has joined the channel</p>
+</section>
+<section id="section-75" class="level2">
+<h2 class="anchored" data-anchor-id="section-75">2020-11-19</h2>
+<p><strong>Kevin Blighe</strong> (08:29:35): &gt; <span class="citation" data-cites="Kevin">@Kevin</span> Blighe has joined the channel</p>
+</section>
+<section id="section-76" class="level2">
+<h2 class="anchored" data-anchor-id="section-76">2020-11-20</h2>
+<p><strong>ImranF</strong> (00:24:57): &gt; <span class="citation" data-cites="ImranF">@ImranF</span> has joined the channel</p>
+</section>
+<section id="section-77" class="level2">
+<h2 class="anchored" data-anchor-id="section-77">2020-12-12</h2>
+<p><strong>Huipeng Li</strong> (00:40:36): &gt; <span class="citation" data-cites="Huipeng">@Huipeng</span> Li has joined the channel</p>
+</section>
+<section id="section-78" class="level2">
+<h2 class="anchored" data-anchor-id="section-78">2020-12-13</h2>
+<p><strong>Paul Harrison</strong> (19:22:33): &gt; <span class="citation" data-cites="Paul">@Paul</span> Harrison has joined the channel</p>
+</section>
+<section id="section-79" class="level2">
+<h2 class="anchored" data-anchor-id="section-79">2020-12-14</h2>
+<p><strong>Thomas Naake</strong> (08:55:47): &gt; <span class="citation" data-cites="Thomas">@Thomas</span> Naake has joined the channel</p>
+</section>
+<section id="section-80" class="level2">
+<h2 class="anchored" data-anchor-id="section-80">2020-12-17</h2>
+<p><strong>Kelly Street</strong> (11:06:37): &gt; <span class="citation" data-cites="Kelly">@Kelly</span> Street has joined the channel</p>
+</section>
+<section id="section-81" class="level2">
+<h2 class="anchored" data-anchor-id="section-81">2020-12-18</h2>
+<p><strong>Marion Shadbolt</strong> (12:11:22): &gt; <span class="citation" data-cites="Marion">@Marion</span> Shadbolt has joined the channel</p>
+</section>
+<section id="section-82" class="level2">
+<h2 class="anchored" data-anchor-id="section-82">2021-01-01</h2>
+<p><strong>Bernd</strong> (14:04:34): &gt; <span class="citation" data-cites="Bernd">@Bernd</span> has joined the channel</p>
+</section>
+<section id="section-83" class="level2">
+<h2 class="anchored" data-anchor-id="section-83">2021-01-12</h2>
+<p><strong>Regina Reynolds</strong> (04:44:47): &gt; <span class="citation" data-cites="Regina">@Regina</span> Reynolds has joined the channel</p>
+</section>
+<section id="section-84" class="level2">
+<h2 class="anchored" data-anchor-id="section-84">2021-01-19</h2>
+<p><strong>Pablo Rodriguez</strong> (04:56:27): &gt; <span class="citation" data-cites="Pablo">@Pablo</span> Rodriguez has joined the channel</p>
+</section>
+<section id="section-85" class="level2">
+<h2 class="anchored" data-anchor-id="section-85">2021-01-22</h2>
+<p><strong>Annajiat Alim Rasel</strong> (15:43:27): &gt; <span class="citation" data-cites="Annajiat">@Annajiat</span> Alim Rasel has joined the channel</p>
+</section>
+<section id="section-86" class="level2">
+<h2 class="anchored" data-anchor-id="section-86">2021-01-29</h2>
+<p><strong>Magali Michaut</strong> (04:17:30): &gt; <span class="citation" data-cites="Magali">@Magali</span> Michaut has joined the channel</p>
+</section>
+<section id="section-87" class="level2">
+<h2 class="anchored" data-anchor-id="section-87">2021-03-23</h2>
+<p><strong>Lambda Moses</strong> (23:04:41): &gt; <span class="citation" data-cites="Lambda">@Lambda</span> Moses has joined the channel</p>
+</section>
+<section id="section-88" class="level2">
+<h2 class="anchored" data-anchor-id="section-88">2021-04-23</h2>
+<p><strong>hcorrada</strong> (15:49:52): &gt; Hello&lt;!here&gt;wanted to bring this position at Genentech to your attention:<a href="https://www.gene.com/careers/detail/202103-108065/Research-Engineer-Visualization-and-Interactive-Data-Analysis">https://www.gene.com/careers/detail/202103-108065/Research-Engineer-Visualization-and-Interactive-Data-Analysis</a>please do not hesitate to reach out for more information. - Attachment (gene.com): <a href="https://www.gene.com/careers/detail/202103-108065/Research-Engineer-Visualization-and-Interactive-Data-Analysis">Genentech: Research Engineer - Visualization and Interactive Data Analysis</a> &gt; The little things we do every day add up to big breakthroughs. Making a difference in the lives of millions starts when you make a change in yours.</p>
+</section>
+<section id="section-89" class="level2">
+<h2 class="anchored" data-anchor-id="section-89">2021-05-05</h2>
+<p><strong>Abel Torres Espin</strong> (09:54:39): &gt; <span class="citation" data-cites="Abel">@Abel</span> Torres Espin has joined the channel</p>
+</section>
+<section id="section-90" class="level2">
+<h2 class="anchored" data-anchor-id="section-90">2021-05-21</h2>
+<p><strong>Guido Barzaghi</strong> (04:15:32): &gt; <span class="citation" data-cites="Guido">@Guido</span> Barzaghi has joined the channel</p>
+</section>
+<section id="section-91" class="level2">
+<h2 class="anchored" data-anchor-id="section-91">2021-06-02</h2>
+<p><strong>Alan O’C</strong> (10:56:07): &gt; Suggested by Aaron, a standalone package to bundle various color palettes. Any suggestions for other palettes to include?<a href="https://github.com/Alanocallaghan/BiocColors">https://github.com/Alanocallaghan/BiocColors</a></p>
+<p><strong>Jayaram Kancherla</strong> (13:51:23) (in thread): &gt; <code>ggsci</code>has some pretty cool palettes</p>
+</section>
+<section id="section-92" class="level2">
+<h2 class="anchored" data-anchor-id="section-92">2021-07-19</h2>
+<p><strong>Leo Lahti</strong> (17:01:11): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+</section>
+<section id="section-93" class="level2">
+<h2 class="anchored" data-anchor-id="section-93">2021-07-23</h2>
+<p><strong>Batool Almarzouq</strong> (15:52:33): &gt; <span class="citation" data-cites="Batool">@Batool</span> Almarzouq has joined the channel</p>
+</section>
+<section id="section-94" class="level2">
+<h2 class="anchored" data-anchor-id="section-94">2021-07-29</h2>
+<p><strong>Gurpreet Kaur</strong> (01:03:03): &gt; <span class="citation" data-cites="Gurpreet">@Gurpreet</span> Kaur has joined the channel</p>
+</section>
+<section id="section-95" class="level2">
+<h2 class="anchored" data-anchor-id="section-95">2021-08-04</h2>
+<p><strong>Ayush Aggarwal</strong> (19:19:38): &gt; <span class="citation" data-cites="Ayush">@Ayush</span> Aggarwal has joined the channel</p>
+</section>
+<section id="section-96" class="level2">
+<h2 class="anchored" data-anchor-id="section-96">2021-08-06</h2>
+<p><strong>ChiaSin</strong> (20:00:25): &gt; <span class="citation" data-cites="ChiaSin">@ChiaSin</span> has joined the channel</p>
+</section>
+<section id="section-97" class="level2">
+<h2 class="anchored" data-anchor-id="section-97">2021-08-19</h2>
+<p><strong>Ava Hoffman (she/her)</strong> (11:33:16): &gt; <span class="citation" data-cites="Ava">@Ava</span> Hoffman (she/her) has joined the channel</p>
+</section>
+<section id="section-98" class="level2">
+<h2 class="anchored" data-anchor-id="section-98">2021-09-06</h2>
+<p><strong>Eddie</strong> (08:22:30): &gt; <span class="citation" data-cites="Eddie">@Eddie</span> has joined the channel</p>
+</section>
+<section id="section-99" class="level2">
+<h2 class="anchored" data-anchor-id="section-99">2021-09-16</h2>
+<p><strong>Henry Miller</strong> (18:35:52): &gt; <span class="citation" data-cites="Henry">@Henry</span> Miller has joined the channel</p>
+</section>
+<section id="section-100" class="level2">
+<h2 class="anchored" data-anchor-id="section-100">2021-09-25</h2>
+<p><strong>Haichao Wang</strong> (07:21:08): &gt; <span class="citation" data-cites="Haichao">@Haichao</span> Wang has joined the channel</p>
+</section>
+<section id="section-101" class="level2">
+<h2 class="anchored" data-anchor-id="section-101">2021-10-26</h2>
+<p><strong>Catherine Ross</strong> (11:48:15): &gt; <span class="citation" data-cites="Catherine">@Catherine</span> Ross has joined the channel</p>
+</section>
+<section id="section-102" class="level2">
+<h2 class="anchored" data-anchor-id="section-102">2021-10-27</h2>
+<p><strong>Mikie Phan</strong> (10:44:23): &gt; <span class="citation" data-cites="Mikie">@Mikie</span> Phan has joined the channel</p>
+</section>
+<section id="section-103" class="level2">
+<h2 class="anchored" data-anchor-id="section-103">2021-10-28</h2>
+<p><strong>Sudarshan</strong> (11:15:48): &gt; <span class="citation" data-cites="Sudarshan">@Sudarshan</span> has joined the channel</p>
+</section>
+<section id="section-104" class="level2">
+<h2 class="anchored" data-anchor-id="section-104">2021-11-08</h2>
+<p><strong>Paula Nieto García</strong> (03:26:28): &gt; <span class="citation" data-cites="Paula">@Paula</span> Nieto García has joined the channel</p>
+</section>
+<section id="section-105" class="level2">
+<h2 class="anchored" data-anchor-id="section-105">2022-02-10</h2>
+<p><strong>Wes W</strong> (19:39:50): &gt; <span class="citation" data-cites="Wes">@Wes</span> W has joined the channel</p>
+</section>
+<section id="section-106" class="level2">
+<h2 class="anchored" data-anchor-id="section-106">2022-02-15</h2>
+<p><strong>Gene Cutler</strong> (12:00:21): &gt; <span class="citation" data-cites="Gene">@Gene</span> Cutler has joined the channel</p>
+</section>
+<section id="section-107" class="level2">
+<h2 class="anchored" data-anchor-id="section-107">2022-02-25</h2>
+<p><strong>Joshua Sodicoff</strong> (16:20:08): &gt; <span class="citation" data-cites="Joshua">@Joshua</span> Sodicoff has joined the channel</p>
+</section>
+<section id="section-108" class="level2">
+<h2 class="anchored" data-anchor-id="section-108">2022-03-05</h2>
+<p><strong>Anshul Kundaje</strong> (20:27:39): &gt; <span class="citation" data-cites="Anshul">@Anshul</span> Kundaje has joined the channel</p>
+</section>
+<section id="section-109" class="level2">
+<h2 class="anchored" data-anchor-id="section-109">2022-03-10</h2>
+<p><strong>Shian Su</strong> (18:47:57): &gt; <span class="citation" data-cites="Shian">@Shian</span> Su has joined the channel</p>
+</section>
+<section id="section-110" class="level2">
+<h2 class="anchored" data-anchor-id="section-110">2022-04-25</h2>
+<p><strong>Antoine de Weck</strong> (19:58:01): &gt; <span class="citation" data-cites="Antoine">@Antoine</span> de Weck has joined the channel</p>
+</section>
+<section id="section-111" class="level2">
+<h2 class="anchored" data-anchor-id="section-111">2022-05-10</h2>
+<p><strong>michaelkleymn</strong> (23:00:23): &gt; <span class="citation" data-cites="michaelkleymn">@michaelkleymn</span> has joined the channel</p>
+</section>
+<section id="section-112" class="level2">
+<h2 class="anchored" data-anchor-id="section-112">2022-05-19</h2>
+<p><strong>Thai Nguyen</strong> (18:27:25): &gt; <span class="citation" data-cites="Thai">@Thai</span> Nguyen has joined the channel</p>
+</section>
+<section id="section-113" class="level2">
+<h2 class="anchored" data-anchor-id="section-113">2022-06-09</h2>
+<p><strong>John Hutchinson</strong> (09:07:52): &gt; <span class="citation" data-cites="John">@John</span> Hutchinson has joined the channel</p>
+</section>
+<section id="section-114" class="level2">
+<h2 class="anchored" data-anchor-id="section-114">2022-06-12</h2>
+<p><strong>Karat Sidhu</strong> (12:37:15): &gt; <span class="citation" data-cites="Karat">@Karat</span> Sidhu has joined the channel</p>
+</section>
+<section id="section-115" class="level2">
+<h2 class="anchored" data-anchor-id="section-115">2022-06-27</h2>
+<p><strong>SFS Worms</strong> (08:53:06): &gt; <span class="citation" data-cites="SFS">@SFS</span> Worms has joined the channel</p>
+</section>
+<section id="section-116" class="level2">
+<h2 class="anchored" data-anchor-id="section-116">2022-07-02</h2>
+<p><strong>Sarah Pierce</strong> (13:52:13): &gt; <span class="citation" data-cites="Sarah">@Sarah</span> Pierce has joined the channel</p>
+</section>
+<section id="section-117" class="level2">
+<h2 class="anchored" data-anchor-id="section-117">2022-07-29</h2>
+<p><strong>Ryan C. Thompson</strong> (15:41:52): &gt; <span class="citation" data-cites="Ryan">@Ryan</span> C. Thompson has joined the channel</p>
+<p><strong>Ryan C. Thompson</strong> (15:44:37): &gt; I may as well share my lightning talk slides from BioC 2022 here, since my talk was all about visualization. - File (PDF): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F03S0AM6JQZ/ryan_thompson_bioc2022_lightning_talk_mislabels.pdf">Ryan_Thompson_BioC2022_Lightning_Talk_Mislabels.pdf</a></p>
+<p><strong>Ryan C. Thompson</strong> (17:34:28): &gt; Please also enjoy this circular dendrogram that has a tragically low ratio of utility to beauty</p>
+<p><strong>Ryan C. Thompson</strong> (17:38:02): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F03SBS6RB88/image.png">image.png</a></p>
+<p><strong>Alan O’C</strong> (17:53:48) (in thread): &gt; That is very beautiful, but utterly useless. Thank you</p>
+</section>
+<section id="section-118" class="level2">
+<h2 class="anchored" data-anchor-id="section-118">2022-08-04</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (06:53:07): &gt; autocompletion of feature names available in iSEE heatmaps:smile:long overdue, so shoutout to the person who requested the feature in a github issue<img src="https://youtu.be/cv8UwzFKw5E.png" class="img-fluid" alt="https://youtu.be/cv8UwzFKw5E"> - Attachment (YouTube): <a href="https://youtu.be/cv8UwzFKw5E">[Feature request] Issue 586 - Fix and demo</a></p>
+</section>
+<section id="section-119" class="level2">
+<h2 class="anchored" data-anchor-id="section-119">2022-08-24</h2>
+<p><strong>Vince Carey</strong> (19:25:23): &gt; gosling written up in nature,<a href="https://www.nature.com/articles/d41586-022-02191-z">https://www.nature.com/articles/d41586-022-02191-z</a>, also<a href="https://osf.io/6evmb/">https://osf.io/6evmb/</a> - Attachment (Nature): <a href="https://www.nature.com/articles/d41586-022-02191-z">A graphics toolkit for visualizing genome data</a> &gt; Powerful ‘grammar’ allows geneticists to display their data in interactive and scalable illustrations. - Attachment (OSF Preprints): <a href="https://osf.io/6evmb/">Gosling: A Grammar-based Toolkit for Scalable and Interactive Genomics Data Visualization</a> &gt; The combination of diverse data types and analysis tasks in genomics has resulted in the development of a wide range of visualization techniques and tools. However, most existing tools are tailored to a specific problem or data type and offer limited customization, making it challenging to optimize visualizations for new analysis tasks or datasets. To address this challenge, we designed Gosling—a grammar for interactive and scalable genomics data visualization. Gosling balances expressiveness for comprehensive multi-scale genomics data visualizations with accessibility for domain scientists. Our accompanying JavaScript toolkit called Gosling.js provides scalable and interactive rendering. Gosling.js is built on top of an existing platform for web-based genomics data visualization to further simplify the visualization of common genomics data formats. We demonstrate the expressiveness of the grammar through a variety of real-world examples. Furthermore, we show how Gosling supports the design of novel genomics visualizations. An online editor and examples of Gosling.js and its source code are available at <a href="https://gosling.js.org">https://gosling.js.org</a>.</p>
+</section>
+<section id="section-120" class="level2">
+<h2 class="anchored" data-anchor-id="section-120">2022-08-30</h2>
+<p><strong>Lisa Breckels</strong> (07:11:39): &gt; <span class="citation" data-cites="Lisa">@Lisa</span> Breckels has joined the channel</p>
+</section>
+<section id="section-121" class="level2">
+<h2 class="anchored" data-anchor-id="section-121">2022-09-07</h2>
+<p><strong>Federico Marini</strong> (12:08:02) (in thread): &gt; Maybe also equally interesting for us R fans,<a href="https://github.com/gosling-lang/grosling">https://github.com/gosling-lang/grosling</a></p>
+</section>
+<section id="section-122" class="level2">
+<h2 class="anchored" data-anchor-id="section-122">2022-09-12</h2>
+<p><strong>Vince Carey</strong> (13:31:27): &gt; Some points to ponder &gt; <code>&gt; In this moment of collective migration into digital and virtual realms, data has become, in a very tangible sense, our new reality. Art cannot escape, ignore, or bypass data if it wishes to remain relevant to the post-visual processes that shape our society. &gt;  &gt; Artists with a Big Data practice can bring to light the unseeable beneath, capturing the fabric of associations and chains of actions between people, environments, events, and things that govern our world. &gt;  &gt; Dataism goes beyond mimesis by accurately rendering dimensions of reality that lie underneath its visible surface. Realism or naturalism is art's attempt to represent subject matter truthfully. Yet realism, being retinally governed, is exclusively focused on depicting the visible. In contrast, dataism captures a reality that transcends (or underlies) physicality. It documents, like an X-ray of sorts, invisible but objective societal processes, connections, associations, affiliations, correlations, causes, and consequences, aspects of reality that are simply not accessible to retinal art. &gt;  &gt; If Leonardo were with us today, the same instincts and curiosity that drove him to anatomy would inevitably turn him into a dataist. Indeed, the hidden architectures that shape the visible today no longer consist of muscles and nerves, but of data and networks. &gt;  &gt; [excerpts from "Dataism and Our Postvisual Reality" by Albert-Laszlo Barabasi, 2021] &gt;</code></p>
+</section>
+<section id="section-123" class="level2">
+<h2 class="anchored" data-anchor-id="section-123">2022-09-19</h2>
+<p><strong>Ryan Williams</strong> (16:52:08): &gt; <span class="citation" data-cites="Ryan">@Ryan</span> Williams has joined the channel</p>
+</section>
+<section id="section-124" class="level2">
+<h2 class="anchored" data-anchor-id="section-124">2022-09-27</h2>
+<p><strong>Jennifer Holmes</strong> (16:15:01): &gt; <span class="citation" data-cites="Jennifer">@Jennifer</span> Holmes has joined the channel</p>
+</section>
+<section id="section-125" class="level2">
+<h2 class="anchored" data-anchor-id="section-125">2022-12-12</h2>
+<p><strong>Umran</strong> (17:57:47): &gt; <span class="citation" data-cites="Umran">@Umran</span> has joined the channel</p>
+<p><strong>Lexi Bounds</strong> (17:57:56): &gt; <span class="citation" data-cites="Lexi">@Lexi</span> Bounds has joined the channel</p>
+</section>
+<section id="section-126" class="level2">
+<h2 class="anchored" data-anchor-id="section-126">2022-12-13</h2>
+<p><strong>Lea Seep</strong> (08:56:51): &gt; <span class="citation" data-cites="Lea">@Lea</span> Seep has joined the channel</p>
+</section>
+<section id="section-127" class="level2">
+<h2 class="anchored" data-anchor-id="section-127">2022-12-23</h2>
+<p><strong>Pierre Gestraud</strong> (08:39:42): &gt; <span class="citation" data-cites="Pierre">@Pierre</span> Gestraud has joined the channel</p>
+</section>
+<section id="section-128" class="level2">
+<h2 class="anchored" data-anchor-id="section-128">2023-01-12</h2>
+<p><strong>Leo Lahti</strong> (14:44:30) (in thread): &gt; Approaching dadaism.</p>
+</section>
+<section id="section-129" class="level2">
+<h2 class="anchored" data-anchor-id="section-129">2023-01-31</h2>
+<p><strong>Ahmad Al Ajami</strong> (08:27:42): &gt; <span class="citation" data-cites="Ahmad">@Ahmad</span> Al Ajami has joined the channel</p>
+</section>
+<section id="section-130" class="level2">
+<h2 class="anchored" data-anchor-id="section-130">2023-03-07</h2>
+<p><strong>Thomas Klammsteiner</strong> (05:51:26): &gt; <span class="citation" data-cites="Thomas">@Thomas</span> Klammsteiner has joined the channel</p>
+</section>
+<section id="section-131" class="level2">
+<h2 class="anchored" data-anchor-id="section-131">2023-03-10</h2>
+<p><strong>Edel Aron</strong> (15:28:07): &gt; <span class="citation" data-cites="Edel">@Edel</span> Aron has joined the channel</p>
+</section>
+<section id="section-132" class="level2">
+<h2 class="anchored" data-anchor-id="section-132">2023-04-12</h2>
+<p><strong>Jianhong</strong> (10:09:38): &gt; <span class="citation" data-cites="Jianhong">@Jianhong</span> has left the channel</p>
+</section>
+<section id="section-133" class="level2">
+<h2 class="anchored" data-anchor-id="section-133">2023-04-28</h2>
+<p><strong>Vince Carey</strong> (16:06:13): &gt; <span class="citation" data-cites="Vince">@Vince</span> Carey has left the channel</p>
+</section>
+<section id="section-134" class="level2">
+<h2 class="anchored" data-anchor-id="section-134">2023-05-18</h2>
+<p><strong>Oluwafemi Oyedele</strong> (05:54:37): &gt; <span class="citation" data-cites="Oluwafemi">@Oluwafemi</span> Oyedele has joined the channel</p>
+</section>
+<section id="section-135" class="level2">
+<h2 class="anchored" data-anchor-id="section-135">2023-05-31</h2>
+<p><strong>Alyssa Obermayer</strong> (14:14:30): &gt; <span class="citation" data-cites="Alyssa">@Alyssa</span> Obermayer has joined the channel</p>
+</section>
+<section id="section-136" class="level2">
+<h2 class="anchored" data-anchor-id="section-136">2023-06-07</h2>
+<p><strong>Alyssa Obermayer</strong> (18:28:54): &gt; <span class="citation" data-cites="Alyssa">@Alyssa</span> Obermayer has joined the channel</p>
+</section>
+<section id="section-137" class="level2">
+<h2 class="anchored" data-anchor-id="section-137">2023-06-12</h2>
+<p><strong>Natasha</strong> (10:51:20): &gt; <span class="citation" data-cites="Natasha">@Natasha</span> has joined the channel</p>
+</section>
+<section id="section-138" class="level2">
+<h2 class="anchored" data-anchor-id="section-138">2023-06-27</h2>
+<p><strong>Giulio Benedetti</strong> (05:11:55): &gt; <span class="citation" data-cites="Giulio">@Giulio</span> Benedetti has joined the channel</p>
+<p><strong>Giulio Benedetti</strong> (06:33:51): &gt; Hi! Is there a high-level way to modify existing layers of a ggplot? Now I’m using for example<code>p$layers[[1]]$aes_params$shape &lt;- "triangle"</code>. Referring in particular to the plotting functions from the scater package (like<code>plotReducedDim</code>), where point size/shape and other aes cannot be controlled through the function itself.</p>
+<p><strong>Giulio Benedetti</strong> (06:39:12): &gt; Here’s a working example: &gt; <code>&gt; library(mia) &gt; library(scater) &gt;  &gt; data("GlobalPatterns", package = "mia") &gt; tse &lt;- GlobalPatterns &gt;  &gt; tse &lt;- transformCounts(tse, &gt;                        method = "relabundance") &gt;  &gt; tse &lt;- scater::runMDS(tse, &gt;                       FUN = vegan::vegdist, &gt;                       method = "bray", &gt;                       name = "bray", &gt;                       assay.type = "relabundance") &gt;  &gt; # generate plot &gt; p &lt;- scater::plotReducedDim(tse, "bray", &gt;                             ncomponents = 2, &gt;                             colour_by = "SampleType") &gt;  &gt; # change aes after plot is generated &gt; p$layers[[1]]$aes_params$size &lt;- 3 &gt; p$layers[[1]]$aes_params$shape &lt;- "triangle" &gt;</code> &gt; It would be nice if something like<code>p + geom_point(size = 3)</code>would update the existing layer, so aes don’t have to be accessed directly. Thanks for any help or suggestions:slightly_smiling_face:</p>
+<p><strong>Shila Ghazanfar</strong> (07:10:26): &gt; hi giulio! i believe there are additional params you can pass to plotReducedDim to change these, i.e. &gt; <code>&gt; p &lt;- scater::plotReducedDim(tse, "bray", &gt;                             ncomponents = 2, &gt;                             colour_by = "SampleType", &gt;                             point_size = 3, &gt;                             point_shape = "triangle") &gt; p &gt;</code> &gt; hope this helps!</p>
+<p><strong>Shila Ghazanfar</strong> (07:11:27): &gt; (but no i dont think there is a way to change the geom afterwards, happy to be corrected if there is!)</p>
+<p><strong>Giulio Benedetti</strong> (07:37:03) (in thread): &gt; Great to know, thanks!</p>
+<p><strong>Jared Andrews</strong> (08:03:04): &gt; You might also take a look at dittoSeq, which is pretty expansive.</p>
+</section>
+<section id="section-139" class="level2">
+<h2 class="anchored" data-anchor-id="section-139">2023-06-28</h2>
+<p><strong>Andrew Ghazi</strong> (10:59:58): &gt; <span class="citation" data-cites="Andrew">@Andrew</span> Ghazi has joined the channel</p>
+</section>
+<section id="section-140" class="level2">
+<h2 class="anchored" data-anchor-id="section-140">2023-07-07</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (09:09:05): &gt; :raised_back_of_hand::microphone::boom:<a href="https://rehwinkellab.shinyapps.io/ifnresource/">https://rehwinkellab.shinyapps.io/ifnresource/</a>First application of iSEEindex, just accepted a few days ago in Bioconductor. In the meantime, see here<a href="https://isee.github.io/iSEEindex/">https://isee.github.io/iSEEindex/</a>:blush: - Attachment (isee.github.io): <a href="https://isee.github.io/iSEEindex/">iSEE extension for a landing page to a custom collection of data sets</a> &gt; This package provides an interface to any collection of data sets &gt; within a single iSEE web-application. The main functionality of this package is &gt; to define a custom landing page allowing app maintainers to list a custom &gt; collection of data sets that users can selected from and directly load &gt; objects into an iSEE web-application.</p>
+</section>
+<section id="section-141" class="level2">
+<h2 class="anchored" data-anchor-id="section-141">2023-07-10</h2>
+<p><strong>Hans-Rudolf Hotz</strong> (04:48:57): &gt; <span class="citation" data-cites="Hans-Rudolf">@Hans-Rudolf</span> Hotz has joined the channel</p>
+</section>
+<section id="section-142" class="level2">
+<h2 class="anchored" data-anchor-id="section-142">2023-07-25</h2>
+<p><strong>Ahmad Al Ajami</strong> (08:07:58): &gt; Hi everyone, is there anyone familiar with the<code>Gviz</code>package by Hahne F &amp; Ivanek R? &gt; I’ve aligned my reads using<code>STAR</code>version<code>2.7.10b_alpha_23-06-09</code>. I have checked them through<a href="https://igv.org/app/">https://igv.org/app/</a>to make sure things have worked and they indeed have. When trying to use<code>AlignmentsTrack</code>(or any other track really) on my BAM file, I keep getting an empty output plot or<code>DNAStringSet object of length 0</code>. I am not sure why this is the case? &gt; My chromosome headers do<strong><em>not</em></strong>include the<code>chr</code>prefix, but even if I change the BAM file to include it, things still don’t work. &gt; Any help is appreciated!:pray:</p>
+<p><strong>Charlotte Soneson</strong> (08:18:10) (in thread): &gt; Tagging@Robert Ivánek. You can also set<code>options(ucscChromosomeNames=FALSE)</code>if you don’t have UCSC style chromosome names. &gt; Do you have an index file for the bam file in the same directory?</p>
+<p><strong>Robert Ivánek</strong> (08:18:20): &gt; <span class="citation" data-cites="Robert">@Robert</span> Ivánek has joined the channel</p>
+<p><strong>Ahmad Al Ajami</strong> (08:30:22) (in thread): &gt; I do have the index file in the same directory. &gt; Adding<code>options(ucscChromosomeNames=FALSE)</code>solved the issue and now I can see the reads with<code>plotTracks</code>! Although the<code>AlignmentsTrack</code>still shows a<code>DNAStringSet object of length 0</code>, even after specifying the chromosome number. &gt; &gt; I also wonder now why it didn’t work when I changed the BAM file to have UCSC style chromosome names:thinking_face:Anyway, thank you so much for your quick help!!:pray:</p>
+</section>
+<section id="section-143" class="level2">
+<h2 class="anchored" data-anchor-id="section-143">2023-07-28</h2>
+<p><strong>Konstantinos Daniilidis</strong> (13:47:20): &gt; <span class="citation" data-cites="Konstantinos">@Konstantinos</span> Daniilidis has joined the channel</p>
+<p><strong>Benjamin Yang</strong> (15:57:04): &gt; <span class="citation" data-cites="Benjamin">@Benjamin</span> Yang has joined the channel</p>
+</section>
+<section id="section-144" class="level2">
+<h2 class="anchored" data-anchor-id="section-144">2023-08-03</h2>
+<p><strong>Ritika Giri</strong> (15:57:23): &gt; <span class="citation" data-cites="Ritika">@Ritika</span> Giri has joined the channel</p>
+</section>
+<section id="section-145" class="level2">
+<h2 class="anchored" data-anchor-id="section-145">2023-08-20</h2>
+<p><strong>Jacques SERIZAY</strong> (10:38:41): &gt; <span class="citation" data-cites="Jacques">@Jacques</span> SERIZAY has joined the channel</p>
+</section>
+<section id="section-146" class="level2">
+<h2 class="anchored" data-anchor-id="section-146">2023-08-24</h2>
+<p><strong>Lachlan Baer</strong> (01:20:48): &gt; <span class="citation" data-cites="Lachlan">@Lachlan</span> Baer has joined the channel</p>
+</section>
+<section id="section-147" class="level2">
+<h2 class="anchored" data-anchor-id="section-147">2023-09-04</h2>
+<p><strong>Richard White</strong> (08:00:37): &gt; <span class="citation" data-cites="Richard">@Richard</span> White has joined the channel</p>
+</section>
+<section id="section-148" class="level2">
+<h2 class="anchored" data-anchor-id="section-148">2023-09-15</h2>
+<p><strong>Leo Lahti</strong> (04:54:11): &gt; <span class="citation" data-cites="Leo">@Leo</span> Lahti has joined the channel</p>
+</section>
+<section id="section-149" class="level2">
+<h2 class="anchored" data-anchor-id="section-149">2023-09-21</h2>
+<p><strong>Philippine Louail</strong> (16:40:13): &gt; <span class="citation" data-cites="Philippine">@Philippine</span> Louail has joined the channel</p>
+<p><strong>Philippine Louail</strong> (16:40:14): &gt; <span class="citation" data-cites="Philippine">@Philippine</span> Louail has left the channel</p>
+<p><strong>Philippine Louail</strong> (16:40:15): &gt; <span class="citation" data-cites="Philippine">@Philippine</span> Louail has joined the channel</p>
+</section>
+<section id="section-150" class="level2">
+<h2 class="anchored" data-anchor-id="section-150">2023-12-01</h2>
+<p><strong>Tyrone Lee</strong> (09:07:37): &gt; <span class="citation" data-cites="Tyrone">@Tyrone</span> Lee has joined the channel</p>
+<p><strong>Tyrone Lee</strong> (09:08:17): &gt; <a href="https://blog.datawrapper.de/beautifulcolors/">https://blog.datawrapper.de/beautifulcolors/</a> - Attachment (Datawrapper Blog): <a href="https://blog.datawrapper.de/beautifulcolors/">How to pick more beautiful colors for your data visualizations - Datawrapper Blog</a> &gt; Choosing good colors for your charts is hard. This article tries to make it easier.</p>
+</section>
+<section id="section-151" class="level2">
+<h2 class="anchored" data-anchor-id="section-151">2023-12-13</h2>
+<p><strong>Paul Myers</strong> (09:44:07): &gt; <span class="citation" data-cites="Paul">@Paul</span> Myers has joined the channel</p>
+</section>
+<section id="section-152" class="level2">
+<h2 class="anchored" data-anchor-id="section-152">2023-12-18</h2>
+<p><strong>Gene Cutler</strong> (13:50:49) (in thread): &gt; Thanks for sharing. These are really good colors</p>
+</section>
+<section id="section-153" class="level2">
+<h2 class="anchored" data-anchor-id="section-153">2023-12-27</h2>
+<p><strong>Cindy Reichel</strong> (14:38:34): &gt; <span class="citation" data-cites="Cindy">@Cindy</span> Reichel has joined the channel</p>
+</section>
+<section id="section-154" class="level2">
+<h2 class="anchored" data-anchor-id="section-154">2024-01-08</h2>
+<p><strong>Connie Li Wai Suen</strong> (17:26:00): &gt; <span class="citation" data-cites="Connie">@Connie</span> Li Wai Suen has joined the channel</p>
+</section>
+<section id="section-155" class="level2">
+<h2 class="anchored" data-anchor-id="section-155">2024-01-10</h2>
+<p><strong>Bernie Mulvey</strong> (15:04:04): &gt; <span class="citation" data-cites="Bernie">@Bernie</span> Mulvey has joined the channel</p>
+</section>
+<section id="section-156" class="level2">
+<h2 class="anchored" data-anchor-id="section-156">2024-03-05</h2>
+<p><strong>Pratibha Panwar</strong> (01:24:55): &gt; <span class="citation" data-cites="Pratibha">@Pratibha</span> Panwar has joined the channel</p>
+</section>
+<section id="section-157" class="level2">
+<h2 class="anchored" data-anchor-id="section-157">2024-04-28</h2>
+<p><strong>Danielle Callan</strong> (08:28:59): &gt; <span class="citation" data-cites="Danielle">@Danielle</span> Callan has joined the channel</p>
+</section>
+<section id="section-158" class="level2">
+<h2 class="anchored" data-anchor-id="section-158">2024-05-01</h2>
+<p><strong>Kevin Rue-Albrecht</strong> (09:42:01): &gt; The operator makes it challenging to google: who knows which package provides the<code>|</code>operator that is used to combine ggplot objects in this example? &gt; Having opened a fresh session, it seems to be readily available as soon as<code>ggplot2</code>is loaded, so I guess that’s where it’s coming from but I can’t find any documentation in ggplot2 or patchwork (which provides<code>+</code>for that purpose). - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F071L0V7360/image.png">image.png</a></p>
+<p><strong>Charlotte Soneson</strong> (09:45:25) (in thread): &gt; What about<a href="https://github.com/thomasp85/patchwork/blob/d9437579a1fbbbfe20da0e4d44814008c1b98bb2/R/arithmetic.R#L96-L110">https://github.com/thomasp85/patchwork/blob/d9437579a1fbbbfe20da0e4d44814008c1b98bb2/R/arithmetic.R#L96-L110</a></p>
+<p><strong>Charlotte Soneson</strong> (09:46:24) (in thread): &gt; There is some documentation in<code>?plot_arithmetic</code></p>
+<p><strong>Kevin Rue-Albrecht</strong> (09:46:53) (in thread): &gt; ohh, so the<code>+</code>is actually from ggplot2 and the<code>|</code>is in patchwork</p>
+<p><strong>Kevin Rue-Albrecht</strong> (09:47:41) (in thread): &gt; I just managed to get to it via &gt; &gt; ?<code>|.ggplot</code> &gt; but &gt; &gt; ?plot_arithmetic &gt; looks a lot better thanks!:smile:</p>
+<p><strong>Edel Aron</strong> (10:08:36) (in thread): &gt; <a href="https://patchwork.data-imaginist.com/articles/guides/assembly.html#stacking-and-packing">https://patchwork.data-imaginist.com/articles/guides/assembly.html#stacking-and-packing</a></p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:15:51) (in thread): &gt; Awesome, thanks! Great link for the lesson I’m using this in</p>
+<p><strong>Edel Aron</strong> (10:16:59) (in thread): &gt; Since you are grouping by the same metadata column each time, you could also do just one legend:<a href="https://patchwork.data-imaginist.com/articles/guides/layout.html#controlling-guides">https://patchwork.data-imaginist.com/articles/guides/layout.html#controlling-guides</a></p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:19:19) (in thread): &gt; well, full disclosure: the screenshot i sent wasn’t written by me, but comes from here<a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis">https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis</a>so I can’t change it there, but I definitely appreciate the trick to throw into my own lesson:wink: - Attachment (satijalab.org): <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis">Integrative analysis in Seurat v5</a> &gt; Seurat</p>
+<p><strong>Edel Aron</strong> (10:20:56) (in thread): &gt; Hahaha gotcha! I make UMAPs and use patchwork all of the time, so I figured I’d point it out. If you change your<code>Idents</code>to<code>cca_clusters</code>, you wouldn’t even have to specify<code>group.by</code>each time (although it can be good for reproducibility).</p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:23:22) (in thread): &gt; oh yeah, I’m not even sure why they picked CCA to be honest. They’re the developers so I’d think they know what they’re doing and why, but they’re not giving much explanation for their choices in that part of the vignette</p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:24:05) (in thread): &gt; Seems more a technical demonstration of plots than a guided analysis</p>
+<p><strong>Edel Aron</strong> (10:27:12) (in thread): &gt; Yeah it’s just to show what you can do, the CCA could be replaced with anything else in that object</p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:32:36) (in thread): &gt; Having followed your suggestion, I think I know why they repeatedly used<code>group.by = c("cca_clusters")</code>That’s what’s automatically giving each of their plot its ggtitle. &gt; Not saying that their way is better, but if I set Idents() and then implicitly let that group the colouring, the plots have no title (I’d have to manually add it myself to each of them, no biggie, but still) - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F071HMPUTGB/image.png">image.png</a></p>
+<p><strong>Edel Aron</strong> (10:33:47) (in thread): &gt; Yes that’s true! I tend to give my plots more descriptive titles anyways, or if you’re grouping like this, I might do one big title on top of everything</p>
+<p><strong>Kevin Rue-Albrecht</strong> (10:38:12) (in thread): &gt; Anyway, thanks for the pointers. I do have to temper the exciting cool visuals, sticking with code that I can reasonably ask students to write themselves, when they’re fairly new to both ggplot2 and Seurat. No point making them struggle for ‘perfect’ figures before I get them to get draft plots the ‘easy’ way first.:slightly_smiling_face:</p>
+<p><strong>Edel Aron</strong> (10:38:40) (in thread): &gt; Absolutely!! Good luck with your lesson.</p>
+<p><strong>Tyrone Lee</strong> (16:13:31) (in thread): &gt; Just seeing this thread now. Not much to add other than that the<a href="https://github.com/lee-t/iSEE_molecule_example/blob/main/custom_img_panel.R">image panel</a>I shared a while back leverages<a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html">wrap_plots</a>to scale an<strong>n</strong>amount of ggplots in a single iSEE panel. Basically it uses a loop for each slice selected in the app to dynmically plot each slice as a separate gg plot and then wrap them together into one ggplot output for the panel.</p>
+<p><strong>Kevin Rue-Albrecht</strong> (16:21:31) (in thread): &gt; Oh yeahI’veused wrap_plots before. Thanks for the reminder. This whole story here was me trying to cover my bases knowing where an operator was coming from before teaching it:sweat_smile:</p>
+<p><strong>Kevin Rue-Albrecht</strong> (16:22:38) (in thread): &gt; Ps:can’twait to get some funding (=time) to clean up iSEE and make it easier to extend iSEE.</p>
+</section>
+<section id="section-159" class="level2">
+<h2 class="anchored" data-anchor-id="section-159">2024-05-06</h2>
+<p><strong>Michal Kolář</strong> (11:56:35): &gt; <span class="citation" data-cites="Michal">@Michal</span> Kolář has joined the channel</p>
+</section>
+<section id="section-160" class="level2">
+<h2 class="anchored" data-anchor-id="section-160">2024-05-18</h2>
+<p><strong>Maria Doyle</strong> (04:36:18): &gt; <span class="citation" data-cites="Maria">@Maria</span> Doyle has joined the channel</p>
+</section>
+<section id="section-161" class="level2">
+<h2 class="anchored" data-anchor-id="section-161">2024-07-02</h2>
+<p><strong>Diána Pejtsik</strong> (11:00:12): &gt; <span class="citation" data-cites="Diána">@Diána</span> Pejtsik has joined the channel</p>
+</section>
+<section id="section-162" class="level2">
+<h2 class="anchored" data-anchor-id="section-162">2024-07-26</h2>
+<p><strong>Qiwen Octavia Huang</strong> (19:52:23): &gt; <span class="citation" data-cites="Qiwen">@Qiwen</span> Octavia Huang has joined the channel</p>
+</section>
+<section id="section-163" class="level2">
+<h2 class="anchored" data-anchor-id="section-163">2024-07-29</h2>
+<p><strong>JP Flores</strong> (17:08:40): &gt; <span class="citation" data-cites="JP">@JP</span> Flores has joined the channel</p>
+</section>
+<section id="section-164" class="level2">
+<h2 class="anchored" data-anchor-id="section-164">2024-08-04</h2>
+<p><strong>sunnyday</strong> (14:59:23): &gt; <span class="citation" data-cites="sunnyday">@sunnyday</span> has joined the channel</p>
+</section>
+<section id="section-165" class="level2">
+<h2 class="anchored" data-anchor-id="section-165">2024-08-19</h2>
+<p><strong>Rema Gesaka</strong> (09:38:43): &gt; <span class="citation" data-cites="Rema">@Rema</span> Gesaka has joined the channel</p>
+</section>
+<section id="section-166" class="level2">
+<h2 class="anchored" data-anchor-id="section-166">2024-09-05</h2>
+<p><strong>Mauro Masiero</strong> (03:10:02): &gt; <span class="citation" data-cites="Mauro">@Mauro</span> Masiero has joined the channel</p>
+</section>
+<section id="section-167" class="level2">
+<h2 class="anchored" data-anchor-id="section-167">2024-09-20</h2>
+<p><strong>Camille Guillermin</strong> (09:30:51): &gt; <span class="citation" data-cites="Camille">@Camille</span> Guillermin has joined the channel</p>
+</section>
+<section id="section-168" class="level2">
+<h2 class="anchored" data-anchor-id="section-168">2024-10-01</h2>
+<p><strong>Caroline Schreiber</strong> (04:10:08): &gt; <span class="citation" data-cites="Caroline">@Caroline</span> Schreiber has joined the channel</p>
+</section>
+<section id="section-169" class="level2">
+<h2 class="anchored" data-anchor-id="section-169">2024-11-02</h2>
+<p><strong>skuba</strong> (14:01:23): &gt; <span class="citation" data-cites="skuba">@skuba</span> has joined the channel</p>
+</section>
+<section id="section-170" class="level2">
+<h2 class="anchored" data-anchor-id="section-170">2024-11-13</h2>
+<p><strong>Mihail Anton</strong> (10:22:59): &gt; <span class="citation" data-cites="Mihail">@Mihail</span> Anton has joined the channel</p>
+</section>
+<section id="section-171" class="level2">
+<h2 class="anchored" data-anchor-id="section-171">2024-11-25</h2>
+<p><strong>rohitsatyam102</strong> (16:16:34): &gt; <span class="citation" data-cites="rohitsatyam102">@rohitsatyam102</span> has joined the channel</p>
+</section>
+<section id="section-172" class="level2">
+<h2 class="anchored" data-anchor-id="section-172">2025-03-18</h2>
+<p><strong>Andres Wokaty</strong> (14:26:48): &gt; <span class="citation" data-cites="Andres">@Andres</span> Wokaty has joined the channel</p>
+</section>
+<section id="section-173" class="level2">
+<h2 class="anchored" data-anchor-id="section-173">2025-04-23</h2>
+<p><strong>Silvia González</strong> (08:38:08): &gt; <span class="citation" data-cites="Silvia">@Silvia</span> González has joined the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

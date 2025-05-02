@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>#easylift – Bioconductor Slack Export</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">General</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-general">    
+        <li>
+    <a class="dropdown-item" href="./general.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./random.html">
+ <span class="dropdown-text">Random</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./introductions.html">
+ <span class="dropdown-text">Introductions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./jobs.html">
+ <span class="dropdown-text">Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./papersandpreprints.html">
+ <span class="dropdown-text">Papers &amp; Preprints</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./FCF05URJ0P021Welcome_material.html">
+ <span class="dropdown-text">Welcome Material</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-development" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Development</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-development">    
+        <li>
+    <a class="dropdown-item" href="./developers-forum.html">
+ <span class="dropdown-text">Developers Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_git.html">
+ <span class="dropdown-text">Bioc Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-builds.html">
+ <span class="dropdown-text">Bioc Builds</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package_submissions.html">
+ <span class="dropdown-text">Package Submissions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r7.html">
+ <span class="dropdown-text">R7 Object System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./github-actions.html">
+ <span class="dropdown-text">GitHub Actions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./wasm.html">
+ <span class="dropdown-text">WASM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cpp.html">
+ <span class="dropdown-text">CPP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gpus.html">
+ <span class="dropdown-text">GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-working-group.html">
+ <span class="dropdown-text">Cloud WG</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cloud-github-actions-subgroup.html">
+ <span class="dropdown-text">Cloud GitHub Actions Subgroup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./containers.html">
+ <span class="dropdown-text">Containers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singularity.html">
+ <span class="dropdown-text">Singularity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arm-linux.html">
+ <span class="dropdown-text">ARM Linux</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioccheck-a-thon.html">
+ <span class="dropdown-text">BiocCheck-a-thon</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocverse.html">
+ <span class="dropdown-text">BiocVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2u.html">
+ <span class="dropdown-text">Bioc2u</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gitdevtest.html">
+ <span class="dropdown-text">GitDevTest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./new_packages.html">
+ <span class="dropdown-text">New Packages (Archived?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./nullranges.html">
+ <span class="dropdown-text">Null Ranges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./oma-developers.html">
+ <span class="dropdown-text">OMA Developers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./other-distros.html">
+ <span class="dropdown-text">Other Distros</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./package-submission.html">
+ <span class="dropdown-text">Package Submission (Old?)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./palmtree.html">
+ <span class="dropdown-text">Palm Tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rcwl.html">
+ <span class="dropdown-text">RCWL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rhdf5client.html">
+ <span class="dropdown-text">RHDF5 Client</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rowdatafix.html">
+ <span class="dropdown-text">RowDataFix</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conferences--events" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conferences &amp; Events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conferences--events">    
+        <li>
+    <a class="dropdown-item" href="./bioc2018.html">
+ <span class="dropdown-text">BioC 2018</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2018-workshops.html">
+ <span class="dropdown-text">BioC 2018 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2019.html">
+ <span class="dropdown-text">BioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020.html">
+ <span class="dropdown-text">BioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bioconductor-100_introduction-to-bioconductor-annotation-resources.html">
+ <span class="dropdown-text">BioC 2020 Annotation Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-bof-10sr.html">
+ <span class="dropdown-text">BioC 2020 BoF 10sr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2020-workshops.html">
+ <span class="dropdown-text">BioC 2020 Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2021.html">
+ <span class="dropdown-text">BioC 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_experiment_bioc2021.html">
+ <span class="dropdown-text">BioC 2021 Microbiome Wksh</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2022.html">
+ <span class="dropdown-text">BioC 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc2024.html">
+ <span class="dropdown-text">BioC 2024</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-everyone.html">
+ <span class="dropdown-text">BioC Conf Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-noncompeting.html">
+ <span class="dropdown-text">BioC Conf Non-Competing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-sponsorship.html">
+ <span class="dropdown-text">BioC Conf Sponsorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-conference-web.html">
+ <span class="dropdown-text">BioC Conf Web</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia.html">
+ <span class="dropdown-text">BioCAsia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2020.html">
+ <span class="dropdown-text">BioCAsia 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2021.html">
+ <span class="dropdown-text">BioCAsia 2021</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2022.html">
+ <span class="dropdown-text">BioCAsia 2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocasia2023.html">
+ <span class="dropdown-text">BioCAsia 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./calendar-events.html">
+ <span class="dropdown-text">Calendar Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./csama2023.html">
+ <span class="dropdown-text">CSAMA 2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2019.html">
+ <span class="dropdown-text">EuroBioC 2019</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020.html">
+ <span class="dropdown-text">EuroBioC 2020</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-chairs.html">
+ <span class="dropdown-text">EuroBioC 2020 Chairs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc2020-isee-transcripts.html">
+ <span class="dropdown-text">EuroBioC 2020 iSEE Transcripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./eurobioc-conference-everyone.html">
+ <span class="dropdown-text">EuroBioC Everyone</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./events.html">
+ <span class="dropdown-text">Events</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hacktoberfest.html">
+ <span class="dropdown-text">Hacktoberfest</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ibt2025-kushcentregroup1.html">
+ <span class="dropdown-text">IBT2025 KushCentreGroup1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ismb-osca.html">
+ <span class="dropdown-text">ISMB OSCA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./meetups.html">
+ <span class="dropdown-text">Meetups</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community--outreach" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community &amp; Outreach</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community--outreach">    
+        <li>
+    <a class="dropdown-item" href="./accessible-vis.html">
+ <span class="dropdown-text">Accessible Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./beginners_and_schools.html">
+ <span class="dropdown-text">Beginners &amp; Schools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc_africa.html">
+ <span class="dropdown-text">Bioc Africa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./carpentries.html">
+ <span class="dropdown-text">Carpentries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./community-advisory-board.html">
+ <span class="dropdown-text">Community Advisory Board</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./developers-mentorship.html">
+ <span class="dropdown-text">Developers Mentorship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./diversebioc.html">
+ <span class="dropdown-text">DiverseBioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./education-and-training.html">
+ <span class="dropdown-text">Education &amp; Training</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./humble-brag.html">
+ <span class="dropdown-text">Humble Brag</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mentorship_program_microstasis.html">
+ <span class="dropdown-text">Mentorship Program Microstasis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./outreachy.html">
+ <span class="dropdown-text">Outreachy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./queer-bioc.html">
+ <span class="dropdown-text">Queer Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-ladies.html">
+ <span class="dropdown-text">R-Ladies</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./social-media.html">
+ <span class="dropdown-text">Social Media</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./support-site.html">
+ <span class="dropdown-text">Support Site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-advisory-board.html">
+ <span class="dropdown-text">Technical Advisory Board</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects--topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects &amp; Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects--topics">    
+        <li>
+    <a class="dropdown-item" href="./alpha-missense.html">
+ <span class="dropdown-text">Alpha Missense</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./annotation-roadmap.html">
+ <span class="dropdown-text">Annotation Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anvil.html">
+ <span class="dropdown-text">Anvil</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./artifactdb.html">
+ <span class="dropdown-text">ArtifactDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bigdata-rep.html">
+ <span class="dropdown-text">Big Data Rep</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocbooks.html">
+ <span class="dropdown-text">BioC Books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocchallenges.html">
+ <span class="dropdown-text">BioC Challenges</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocclasses.html">
+ <span class="dropdown-text">BioC Classes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bioc-connect.html">
+ <span class="dropdown-text">BioC Connect</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biochubs.html">
+ <span class="dropdown-text">BioC Hubs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocpython.html">
+ <span class="dropdown-text">BioC Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocwebsite.html">
+ <span class="dropdown-text">BioC Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./biocworkshops.html">
+ <span class="dropdown-text">BioC Workshops</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./bugsigdb.html">
+ <span class="dropdown-text">BugSigDB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancerdata.html">
+ <span class="dropdown-text">Cancer Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cancer-related.html">
+ <span class="dropdown-text">Cancer Related</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cbioportal-data-r.html">
+ <span class="dropdown-text">cBioPortal Data R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./channel-requests.html">
+ <span class="dropdown-text">Channel Requests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./clinical.html">
+ <span class="dropdown-text">Clinical</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cool-vis.html">
+ <span class="dropdown-text">Cool Vis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cyto-spec-book.html">
+ <span class="dropdown-text">Cyto Spec Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./database.html">
+ <span class="dropdown-text">Database</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./delayed_array.html">
+ <span class="dropdown-text">Delayed Array</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./documentation-translation.html">
+ <span class="dropdown-text">Doc Translation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easylift.html">
+ <span class="dropdown-text">EasyLift</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./easyplot.html">
+ <span class="dropdown-text">EasyPlot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./edam-collaboration.html">
+ <span class="dropdown-text">EDAM Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./elixir.html">
+ <span class="dropdown-text">Elixir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./funding.html">
+ <span class="dropdown-text">Funding</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./genai-bioc.html">
+ <span class="dropdown-text">GenAI Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gseabase.html">
+ <span class="dropdown-text">GSEABase</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./gwas-data.html">
+ <span class="dropdown-text">GWAS Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hash-multi-species.html">
+ <span class="dropdown-text">Hash Multi Species</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_clustering.html">
+ <span class="dropdown-text">HCA Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca-data-insights.html">
+ <span class="dropdown-text">HCA Data Insights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hca_rfa.html">
+ <span class="dropdown-text">HCA RFA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./histopathology-image-analysis.html">
+ <span class="dropdown-text">Histopathology Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hubmapr.html">
+ <span class="dropdown-text">HuBMAPr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./image-analysis.html">
+ <span class="dropdown-text">Image Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./industry.html">
+ <span class="dropdown-text">Industry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./isee.html">
+ <span class="dropdown-text">iSEE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./llms-for-bioc.html">
+ <span class="dropdown-text">LLMs for Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./long-read-study-group.html">
+ <span class="dropdown-text">Long Read Study Group</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./longread.html">
+ <span class="dropdown-text">Longread</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./machine-learning.html">
+ <span class="dropdown-text">Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-discussion.html">
+ <span class="dropdown-text">MAE Discussion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mae-updates.html">
+ <span class="dropdown-text">MAE Updates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mass-spectrometry.html">
+ <span class="dropdown-text">Mass Spectrometry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./metabolomics.html">
+ <span class="dropdown-text">Metabolomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse.html">
+ <span class="dropdown-text">MiaVerse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./miaverse-admins.html">
+ <span class="dropdown-text">MiaVerse Admins</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microbiome_metagenome.html">
+ <span class="dropdown-text">Microbiome/Metagenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./microsoft-azure-collaboration.html">
+ <span class="dropdown-text">Microsoft Azure Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./molevolvr.html">
+ <span class="dropdown-text">MolEvolvR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multiomics.html">
+ <span class="dropdown-text">Multiomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./omicidx.html">
+ <span class="dropdown-text">OmicIdx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book.html">
+ <span class="dropdown-text">OSCA Book</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./osca-book-club.html">
+ <span class="dropdown-text">OSCA Book Club</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pangenome.html">
+ <span class="dropdown-text">Pangenome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pharmacogenomics.html">
+ <span class="dropdown-text">Pharmacogenomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./proteomics.html">
+ <span class="dropdown-text">Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./raggedexperiment.html">
+ <span class="dropdown-text">Ragged Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./reproducibility.html">
+ <span class="dropdown-text">Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./salmon2bioc.html">
+ <span class="dropdown-text">Salmon2Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./scalability.html">
+ <span class="dropdown-text">Scalability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-batch-correction.html">
+ <span class="dropdown-text">SC Batch Correction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-repertoires.html">
+ <span class="dropdown-text">SC Repertoires</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-signature.html">
+ <span class="dropdown-text">SC Signature</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sc-velocity.html">
+ <span class="dropdown-text">SC Velocity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./shiny.html">
+ <span class="dropdown-text">Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecellexperiment.html">
+ <span class="dropdown-text">Single Cell Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./singlecell-queries.html">
+ <span class="dropdown-text">Single Cell Queries</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial.html">
+ <span class="dropdown-text">Spatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialdata-devel.html">
+ <span class="dropdown-text">Spatial Data Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment.html">
+ <span class="dropdown-text">Spatial Experiment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatialexperiment-devel.html">
+ <span class="dropdown-text">Spatial Experiment Devel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spatial-interoperability.html">
+ <span class="dropdown-text">Spatial Interoperability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sweave2rmd.html">
+ <span class="dropdown-text">Sweave2Rmd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./terra.html">
+ <span class="dropdown-text">Terra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tess-integration.html">
+ <span class="dropdown-text">TeSS Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tidiness_in_bioc.html">
+ <span class="dropdown-text">Tidiness in Bioc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./translation-fr.html">
+ <span class="dropdown-text">Translation FR</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tree-like-se.html">
+ <span class="dropdown-text">Tree-like SE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./voyager.html">
+ <span class="dropdown-text">Voyager</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./workflows.html">
+ <span class="dropdown-text">Workflows</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./zarr.html">
+ <span class="dropdown-text">Zarr</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2023-07-26</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2023-07-30</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2023-07-31</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2023-08-04</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">2023-08-05</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">2023-08-06</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">2023-08-07</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">2023-08-08</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">2023-08-11</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">2023-08-12</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">2023-08-15</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">2023-08-23</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">2023-08-24</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">2023-08-25</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">2023-08-26</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">2023-08-28</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">2023-08-29</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">2023-09-13</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">2023-09-24</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">2023-09-25</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">2023-09-27</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">2023-09-29</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">2023-10-12</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">2023-10-16</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">2023-10-25</a></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">2024-02-06</a></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">2024-02-07</a></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">2024-02-09</a></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">2024-02-16</a></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">2024-02-20</a></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">2024-05-14</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">#easylift</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2023-07-26</h2>
+<p><strong>Michael Love</strong> (09:15:55): &gt; <span class="citation" data-cites="Michael">@Michael</span> Love has joined the channel</p>
+<p><strong>Abdullah Al Nahid</strong> (09:16:02): &gt; <span class="citation" data-cites="Abdullah">@Abdullah</span> Al Nahid has joined the channel</p>
+<p><strong>Michael Love</strong> (09:18:01): &gt; hi@Abdullah Al Nahidhappy to work with you on this, here are my recommended steps for writing your first package:</p>
+<p><strong>Michael Love</strong> (09:21:13): &gt; * I usually start with just an R script and a data object, and I try to write the function i’m interested in working on, in this case the object could be GRanges in hg19 and the goal is to write a function<code>easylift</code>that moves the coordinates into some other build, e.g.&nbsp;hg38 &gt; * once you have a working function, you can use<code>biocthis</code>to build a package skeleton &gt; * i then usually will write some tests that i can use to keep doing development, those have a particular structure and live in<code>/tests/testthat</code> &gt; * the function then moves into an R script in<code>/R</code>subdirectory &gt; * then you can start using<code>devtools</code>to iterative build &lt;—&gt; test your function &gt; * finally when it looks good, you can use<code>pkgdown</code>to build a website, and submit to Bioconductor</p>
+<p><strong>Abdullah Al Nahid</strong> (09:22:54): &gt; Thank you so much, Professor!</p>
+<p><strong>Abdullah Al Nahid</strong> (09:23:35): &gt; are we going to allow liftOver from hg19 to something else only or any to any?</p>
+<p><strong>Abdullah Al Nahid</strong> (09:24:08): &gt; from hg19 to hg38 and vice versa?</p>
+<p><strong>Abdullah Al Nahid</strong> (09:24:32): &gt; I am going to start with hg19 first</p>
+<p><strong>Michael Love</strong> (09:25:21): &gt; Proposal for the function usage: &gt; <code>&gt; new_gr &lt;- easylift(gr, to="hg38", chain="...") &gt;</code> &gt; It would expect that<code>genome(gr)</code>is provided, e.g.&nbsp;in this case maybe it is<code>"hg19"</code>.</p>
+<p><strong>Michael Love</strong> (09:25:42): &gt; I would recommend to lift from<code>genome(gr)</code>to whatever the user specifies</p>
+<p><strong>Michael Love</strong> (09:26:06): &gt; <a href="https://hgdownload.soe.ucsc.edu/gbdb/hg19/liftOver/">https://hgdownload.soe.ucsc.edu/gbdb/hg19/liftOver/</a></p>
+<p><strong>Abdullah Al Nahid</strong> (09:26:19): &gt; awesome! thank you!</p>
+<p><strong>Michael Love</strong> (09:27:15): &gt; one note: the user will have to download the<code>hg19ToHg38.over.chain.gz</code>file themselves, we can’t distribute these files because of the license</p>
+<p><strong>Abdullah Al Nahid</strong> (09:27:31): &gt; got it, thanks!</p>
+<p><strong>Abdullah Al Nahid</strong> (09:28:01): &gt; is it necessary to have the “to” when they already specify the chain file path?</p>
+<p><strong>Michael Love</strong> (09:28:33): &gt; yes, so i have a reason for this part … but i have to run to a meeting, can i reply back in 30 min?</p>
+<p><strong>Abdullah Al Nahid</strong> (09:28:49): &gt; Professor, you can reply to me whenever you want to</p>
+<p><strong>Abdullah Al Nahid</strong> (09:29:01): &gt; Thanks again</p>
+<p><strong>Michael Love</strong> (09:29:28): &gt; you are in Bangladesh time zone?</p>
+<p><strong>Michael Love</strong> (09:29:55): &gt; just checking, as i guess it will be easiest for us to work asynchronously</p>
+<p><strong>Abdullah Al Nahid</strong> (09:29:57): &gt; Yes Professor</p>
+<p><strong>Michael Love</strong> (09:30:02): &gt; :ok_hand:</p>
+<p><strong>Michael Love</strong> (09:30:10): &gt; feel free to just call me Mike:slightly_smiling_face:</p>
+<p><strong>Abdullah Al Nahid</strong> (09:30:53): &gt; I will. Thanks</p>
+<p><strong>Michael Love</strong> (10:15:01): &gt; i’d recommend the user specify either<code>to</code>or<code>chain</code>or both: &gt; * just<code>to</code>- we can load the correct chain file from BiocFileCache &gt; * just<code>chain</code>- as you say we can infer<code>to</code>from the filename &gt; * both, we can confirm that<code>to</code>is correct wrt the filename</p>
+<p><strong>Abdullah Al Nahid</strong> (11:58:36): &gt; I am going with the third option</p>
+<p><strong>Abdullah Al Nahid</strong> (12:00:07): &gt; <code>rtracklayer</code>,<code>GenomicRanges</code>,<code>BSgenome</code></p>
+<p><strong>Abdullah Al Nahid</strong> (12:00:13): &gt; using these 3 packages for now</p>
+<p><strong>Abdullah Al Nahid</strong> (13:46:45): &gt; <code>&gt; library(rtracklayer) &gt; library(GenomicRanges) &gt;  &gt; easylift &lt;- function(gr, to, chain) { &gt;   # Check if genome(gr) is provided &gt;   if (is.null(genome(gr))) { &gt;     stop("The source genome is not specified in the 'gr' object.") &gt;   } &gt;    &gt;   # Get the source genome from gr &gt;   from_genome &lt;- genome(gr) &gt;    &gt;   # Load the chain data using rtracklayer &gt;   chain_data &lt;- import.chain(chain) &gt;    &gt;   # Perform liftOver operation from the source genome to the target genome &gt;   converted_range &lt;- liftOver(gr, chain_data) &gt;    &gt;   # Get the target genome's seqinfo using getChromInfoFromUCSC &gt;   to_seqinfo &lt;- getChromInfoFromUCSC(to, assembled.molecules.only=TRUE, as.Seqinfo=TRUE) &gt;    &gt;   # Unlist the seqlengths to access individual sequence lengths &gt;   to_seqlengths &lt;- unlist(seqlengths(to_seqinfo)) &gt;    &gt;   # Remove duplicated seqlevels from converted_range &gt;   converted_range &lt;- unique(converted_range) &gt;    &gt;   # Update the Seqinfo and seqlengths for the converted_range &gt;   for (chr in seqlevels(converted_range)) { &gt;     new_seqlength &lt;- to_seqlengths[as.character(chr)] &gt;     seqlengths(converted_range)[seqnames(converted_range) == chr] &lt;- new_seqlength &gt;     seqlevels(converted_range)[seqnames(converted_range) == chr] &lt;- chr &gt;   } &gt;    &gt;   seqinfo(converted_range) &lt;- to_seqinfo &gt;   return(converted_range) &gt; } &gt;  &gt; gr &lt;- GRanges("chr1", IRanges(100, 300), genome = "hg19") &gt; to &lt;- "hg38" &gt; chain &lt;- "hg19ToHg38.over.chain" &gt;  &gt; print(easylift(gr, to = to, chain = chain)) &gt;</code></p>
+<p><strong>Abdullah Al Nahid</strong> (13:46:58): &gt; Mike, does it work for you? Can you kindly test if possible?</p>
+<p><strong>Abdullah Al Nahid</strong> (13:47:39): &gt; Please kindly let me know if there’s an error</p>
+<p><strong>Abdullah Al Nahid</strong> (13:48:04): &gt; <code>&gt; GRangesList object of length 1: &gt; [[1]] &gt; GRanges object with 0 ranges and 1 metadata column: &gt;    seqnames    ranges strand |      genome &gt;       &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt; &gt;   ------- &gt;   seqinfo: 25 sequences (1 circular) from hg38 genome &gt;</code> &gt; This is what I got as output</p>
+<p><strong>Abdullah Al Nahid</strong> (13:50:14): &gt; I don’t think it’s correct</p>
+<p><strong>Abdullah Al Nahid</strong> (13:50:39): &gt; If you have a sample input and sample output, then I could test</p>
+<p><strong>Abdullah Al Nahid</strong> (14:00:36): &gt; yes, it’s wrong</p>
+<p><strong>Abdullah Al Nahid</strong> (14:00:38): &gt; my apologies</p>
+<p><strong>Michael Love</strong> (14:05:25): &gt; i’ve got to go offline for 2 days, but I’d recommend to make a GitHub repo called<code>easylift</code>and you can start with just this one R script — i’ll be able to check it in a few days and give feedback</p>
+<p><strong>Abdullah Al Nahid</strong> (14:06:12): &gt; Thank you, Mike. I will do that</p>
+<p><strong>Abdullah Al Nahid</strong> (15:43:00): &gt; <a href="https://github.com/nahid18/easylift">https://github.com/nahid18/easylift</a></p>
+<p><strong>Abdullah Al Nahid</strong> (16:00:24): &gt; Mike, the name is used by another package</p>
+<p><strong>Abdullah Al Nahid</strong> (16:00:26): &gt; <a href="https://github.com/caleblareau/easyLift">https://github.com/caleblareau/easyLift</a></p>
+<p><strong>Abdullah Al Nahid</strong> (16:00:34): &gt; and it does the liftOver as well</p>
+<p><strong>Abdullah Al Nahid</strong> (16:00:45): &gt; doesn’t use the chain file I think</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2023-07-30</h2>
+<p><strong>Abdullah Al Nahid</strong> (07:04:51): &gt; I pushed a minor update with some error handling</p>
+<p><strong>Abdullah Al Nahid</strong> (07:05:42): &gt; if the script works as intended, then I will work on it to make it dynamic and extensible</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2023-07-31</h2>
+<p><strong>Michael Love</strong> (01:08:24): &gt; thanks! I’ve got free time today to review</p>
+<p><strong>Michael Love</strong> (01:08:35): &gt; i’m flying 8 hours:slightly_smiling_face:i will check out now and put up notes</p>
+<p><strong>Michael Love</strong> (01:08:59): &gt; i’ve got these commits locally now &gt; <code>&gt; * 71044ff (HEAD -&gt; main, origin/main, origin/HEAD) feat: error handling &gt; * 97f4dc9 feat: update readme &gt; * 24b4894 feat: variable name fix &gt; * ab721b4 feat: init &gt;</code></p>
+<p><strong>Abdullah Al Nahid</strong> (07:18:07): &gt; thank you so much!</p>
+<p><strong>Abdullah Al Nahid</strong> (07:18:38): &gt; Wishing you a smooth journey. Best of luck</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2023-08-04</h2>
+<p><strong>Abdullah Al Nahid</strong> (09:56:57): &gt; Thank you for the recommended change@Michael Love! I will now work on it to make it a package</p>
+<p><strong>Abdullah Al Nahid</strong> (14:25:06): &gt; <a href="https://github.com/nahid18/easylift">https://github.com/nahid18/easylift</a></p>
+<p><strong>Abdullah Al Nahid</strong> (14:25:21): &gt; package developed and the build is working as intented@Michael Love</p>
+<p><strong>Abdullah Al Nahid</strong> (14:25:44): &gt; <code>&gt; BiocManager::install("nahid18/easylift") &gt; BiocManager::install("GenomicRanges") &gt;  &gt; library("easylift") &gt; library("GenomicRanges") &gt;  &gt; gr &lt;- GenomicRanges::GRanges(seqname = Rle(paste("chr", 1, sep = "")), &gt;               ranges = IRanges(start = 1, end = 200000)) &gt; genome(gr) &lt;- "hg19" &gt; to &lt;- "hg38" &gt; chain &lt;- "hg19ToHg38.over.chain.gz" &gt;  &gt; lifted &lt;- easylift(gr, to, chain) &gt;  &gt; seqinfo(gr) &gt; seqinfo(lifted) &gt;</code> &gt; tested this code and it worked</p>
+<p><strong>Abdullah Al Nahid</strong> (14:26:03): &gt; Also, deleted<code>main</code>branch and the only branch is<code>devel</code>branch</p>
+<p><strong>Abdullah Al Nahid</strong> (14:26:38): &gt; Thank you so much,<span class="citation" data-cites="Michael">@Michael</span> Love!</p>
+<p><strong>Abdullah Al Nahid</strong> (14:28:20): &gt; Didn’t add any kind of tests inside the package though</p>
+<p><strong>Abdullah Al Nahid</strong> (14:36:07): &gt; <code>devtools::check()</code>returned 0 issues, 0 warnings, 0 notes</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">2023-08-05</h2>
+<p><strong>Michael Love</strong> (16:17:58): &gt; Heading home this weekend but can check out on Monday, thanks Abdullah</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">2023-08-06</h2>
+<p><strong>Abdullah Al Nahid</strong> (00:23:24): &gt; Wishing you a smooth journey again. Best of luck. Thank you so much!</p>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">2023-08-07</h2>
+<p><strong>Michael Love</strong> (17:06:04): &gt; instead of<code>library</code>at the top of your R script, you should use roxygen tags to specify which packages your depends on</p>
+<p><strong>Michael Love</strong> (17:10:12): &gt; <a href="https://r-pkgs.org/dependencies-in-practice.html#sec-dependencies-NAMESPACE-workflow">https://r-pkgs.org/dependencies-in-practice.html#sec-dependencies-NAMESPACE-workflow</a> - Attachment (r-pkgs.org): <a href="https://r-pkgs.org/dependencies-in-practice.html#sec-dependencies-NAMESPACE-workflow">R Packages (2e) - 11&nbsp; Dependencies: In Practice</a> &gt; Learn how to create a package, the fundamental unit of shareable, reusable, and reproducible R code.</p>
+<p><strong>Abdullah Al Nahid</strong> (22:52:43): &gt; done and code pushed to github - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F05LNHY6R1T/image.png">image.png</a></p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">2023-08-08</h2>
+<p><strong>Michael Love</strong> (08:07:43): &gt; nice, i’ll take a look today &gt; &gt; another thing you can do, good for visibility of your work is pkgdown</p>
+<p><strong>Michael Love</strong> (08:08:21): &gt; it is minimal extra work, mostly writing this config file:<a href="https://github.com/mikelove/mrlocus/blob/master/_pkgdown.yml">https://github.com/mikelove/mrlocus/blob/master/_pkgdown.yml</a></p>
+<p><strong>Michael Love</strong> (08:08:46): &gt; then you get a nicely rendered website from your<a href="http://github.io">github.io</a></p>
+<p><strong>Michael Love</strong> (08:09:42): &gt; there are some options whether pkgdown should render to a gh-pages branch or within your main branch. I think you’d want to go for gh-pages branch</p>
+<p><strong>Abdullah Al Nahid</strong> (08:47:31): &gt; thanks, will work on that</p>
+<p><strong>Abdullah Al Nahid</strong> (11:30:39): &gt; this is some kind of magic</p>
+<p><strong>Abdullah Al Nahid</strong> (11:30:43): &gt; pkgdown</p>
+<p><strong>Abdullah Al Nahid</strong> (11:30:45): &gt; woah</p>
+<p><strong>Abdullah Al Nahid</strong> (11:53:57): &gt; <span class="citation" data-cites="Michael">@Michael</span> Love, I have pushed the pkgdown code to github</p>
+<p><strong>Abdullah Al Nahid</strong> (11:54:02): &gt; here’s the website:<a href="https://nahid18.github.io/easylift">https://nahid18.github.io/easylift</a> - Attachment (nahid18.github.io): <a href="https://nahid18.github.io/easylift">An R package to perform genomic liftOver</a> &gt; The package performs genomic liftover given genomicRanges and chain file.</p>
+<p><strong>Michael Love</strong> (12:22:44): &gt; nice!</p>
+<p><strong>Abdullah Al Nahid</strong> (12:23:01): &gt; Thank you so much!</p>
+<p><strong>Michael Love</strong> (12:23:37): &gt; ok so i will now start to look into the cache thing and give some pointers</p>
+<p><strong>Abdullah Al Nahid</strong> (12:24:15): &gt; Okay. I’ll try my best to implement that as well according to your instructions</p>
+<p><strong>Michael Love</strong> (12:28:36): &gt; it may take me a few days bc i’ve got some todays this week that i put off while I was at BioC, but i’ll try to get back to you by Monday</p>
+<p><strong>Abdullah Al Nahid</strong> (12:30:15): &gt; No problem at all. Thank you so much!</p>
+<p><strong>Abdullah Al Nahid</strong> (12:31:26): &gt; Professor Mike, are you hiring PhD students for Fall ’24? I apologize for asking irrelevant question here</p>
+<p><strong>Michael Love</strong> (12:34:01): &gt; no worries — so at UNC you first enter a PhD program and then later join a lab (in BCB you join one year after entering, in Biostat you join 2 years after entering)</p>
+<p><strong>Michael Love</strong> (12:34:25): &gt; so if you are considering UNC, you can apply to the BCB program or to Biostat directly</p>
+<p><strong>Abdullah Al Nahid</strong> (12:34:41): &gt; Thank you so much!</p>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">2023-08-11</h2>
+<p><strong>Michael Love</strong> (15:45:10): &gt; you’ll need to put this README in the<code>extdata</code>dir:<a href="https://hgdownload.cse.ucsc.edu/goldenpath/hg19/liftOver/">https://hgdownload.cse.ucsc.edu/goldenpath/hg19/liftOver/</a></p>
+<p><strong>Michael Love</strong> (15:45:31): &gt; <code>&gt; redistribution of UCSC Chain &gt; Files by you must include this README file with these license restrictions, in &gt; the same archive or directory with the chain files. &gt;</code> &gt; &gt; &gt;</p>
+<p><strong>Michael Love</strong> (15:46:04): &gt; It would be good to add at a few tests<a href="https://r-pkgs.org/testing-basics.html">https://r-pkgs.org/testing-basics.html</a> - Attachment (r-pkgs.org): <a href="https://r-pkgs.org/testing-basics.html">R Packages (2e) - 13&nbsp; Testing basics</a> &gt; Learn how to create a package, the fundamental unit of shareable, reusable, and reproducible R code.</p>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">2023-08-12</h2>
+<p><strong>Abdullah Al Nahid</strong> (02:23:37) (in thread): &gt; on it</p>
+<p><strong>Abdullah Al Nahid</strong> (02:24:06) (in thread): &gt; ok, I will take a look into this</p>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">2023-08-15</h2>
+<p><strong>Abdullah Al Nahid</strong> (17:09:21): &gt; <span class="citation" data-cites="Michael">@Michael</span> Love, I am building my personal site for PhD application. Is it okay if I do this about the tidyomics challenge paper? - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F05N0JYSEJG/image.png">image.png</a></p>
+<p><strong>Abdullah Al Nahid</strong> (17:09:40): &gt; Please feel free to suggest any change</p>
+<p><strong>Abdullah Al Nahid</strong> (17:11:08): &gt; I apologize in advance for any mistake</p>
+<p><strong>Michael Love</strong> (17:18:33): &gt; Sure, no problem. Maybe put, project lead: Stefano Mangiola and Michael Love, instead of “advisor”</p>
+<p><strong>Abdullah Al Nahid</strong> (17:20:14): &gt; Thanks. Will change that</p>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">2023-08-23</h2>
+<p><strong>Abdullah Al Nahid</strong> (05:25:45): &gt; <span class="citation" data-cites="Michael">@Michael</span> Love, I have tried this code: &gt; <code>&gt; gr |&gt; easylift(to, chain) |&gt; &gt;   group_by(id) |&gt; &gt;   mutate(left = min(start), right = max(end)) |&gt; &gt;   ungroup() &gt;</code> &gt; It prints out &gt; <code>&gt; GRanges object with 5 ranges and 3 metadata columns: &gt;       seqnames          ranges strand |        id      left     right &gt;          &lt;Rle&gt;       &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt; &lt;integer&gt; &lt;integer&gt; &gt;   [1]     chr5  999885-1785328      * |         1    999885   1999886 &gt;   [2]     chr5 1785330-1999886      * |         1    999885   1999886 &gt;   [3]     chr7  960364-1941276      * |         2    960364   1960365 &gt;   [4]     chr7 1941278-1960365      * |         2    960364   1960365 &gt;   [5]     chr9 1000000-2000000      * |         3   1000000   2000000 &gt;   ------- &gt;   seqinfo: 25 sequences (1 circular) from hg38 genome &gt;</code> &gt; Does this look okay?</p>
+<p><strong>Abdullah Al Nahid</strong> (05:28:20): &gt; How can I do this:<strong><em>filling gaps in output, as non-default behavior</em></strong>? &gt; Should the easylift source code be changed in any way? or, should I just provide the code above in the vignette?</p>
+<p><strong>Michael Love</strong> (08:12:47): &gt; So after I made that issue I realized it’s harder than I thought, there is no facility in plyranges to do what I want, so it’s a separate issue. I’m going to drop the issue and move it to plyranges</p>
+<p><strong>Michael Love</strong> (08:17:31): &gt; I’d say what’s left is to submit to Bioc:slightly_smiling_face:you’ll need a minimal vignette</p>
+<p><strong>Michael Love</strong> (08:17:45): &gt; <a href="https://contributions.bioconductor.org/">https://contributions.bioconductor.org/</a> - Attachment (contributions.bioconductor.org): <a href="https://contributions.bioconductor.org/">Welcome | Bioconductor Packages: Development, Maintenance, and Peer Review</a> &gt; This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.</p>
+<p><strong>Abdullah Al Nahid</strong> (08:48:02): &gt; I’ll add at least a test case, and a minimal vignette</p>
+<p><strong>Abdullah Al Nahid</strong> (08:48:08): &gt; Thank you so much!</p>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">2023-08-24</h2>
+<p><strong>Abdullah Al Nahid</strong> (17:25:37) (in thread): &gt; <code>&gt; The data files ("UCSC Chain Files") in this directory are property of The &gt; Regents of the University of California, and made available free for &gt; non-commercial use by Independent Researchers and Nonprofit Organizations. Any &gt; other use of UCSC Chain Files requires a commercial license, for which users &gt; should contact genomebrowser@ucsc.edu. As used herein, "Independent &gt; Researcher" means an individual who is autonomous with respect to the &gt; research activities for which he or she uses the UCSC Chain Files (note: such &gt; use does not extend to any use of the UCSC Chain Files at the direction and/or &gt; for the benefit of a for-profit organization); and "Nonprofit &gt; Organization" means a university or other institution of higher education, &gt; or a not-for-profit organization officially recognized or qualified under the &gt; laws of the country in which it is organized or located, or any nonprofit &gt; scientific or educational organization qualified under a federal, state or local &gt; jurisdiction's nonprofit organization statute. Downloading or using UCSC Chain &gt; Files indicates your acceptance of the End User License Agreement (EULA) posted &gt; at "[https://genome.ucsc.edu/license/EULA.pdf](https://genome.ucsc.edu/license/EULA.pdf)"; redistribution of UCSC Chain &gt; Files by you must include this README file with these license restrictions, in &gt; the same archive or directory with the chain files. &gt;  &gt; This directory contains the data files required as input to the &gt; liftOver utility. This tool -- which requires a Linux platform -- &gt; allows the mass conversion of coordinates from one assembly to &gt; another. The executable file for the utility can be downloaded from[http://hgdownload.soe.ucsc.edu/admin/exe/liftOver.gz](http://hgdownload.soe.ucsc.edu/admin/exe/liftOver.gz). &gt;  &gt; The file names reflect the assembly conversion data contained within &gt; in the format &lt;db1&gt;To&lt;Db2&gt;.over.chain.gz. For example, a file named &gt; hg15ToHg16.over.chain.gz file contains the liftOver data needed to &gt; convert hg15 (Human Build 33) coordinates to hg16 (Human Build 34). &gt; If no file is available for the assembly in which you're interested, &gt; please send a request to the genome mailing list &gt; (genome@soe.ucsc.edu) and we will attempt to provide you with one. &gt;  &gt; To download a large file or multiple files from this directory, &gt; we recommend that you use ftp rather than downloading the files via our &gt; website. To do so, ftp to hgdownload.soe.ucsc.edu (user: anonymous), &gt; then cd to goldenPath/hg19/liftOver.  To download multiple files, &gt; use the "mget" command: &gt;  &gt;     mget &lt;filename1&gt; &lt;filename2&gt; ... &gt;     - or - &gt;     mget -a (to download all the files in the directory) &gt;  &gt; ------------------------------------------------------- &gt; Please refer to the credits page &gt; ([http://genome.ucsc.edu/goldenPath/credits.html](http://genome.ucsc.edu/goldenPath/credits.html)) for guidelines and &gt; restrictions regarding data use for these assemblies. &gt; ------------------------------------------------------- &gt; Alternate methods to ftp access. &gt;  &gt; Using an rsync command to download the entire directory: &gt;     rsync -avzP[rsync://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/](rsync://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/). &gt; For a single file, e.g. hg19ToHg18.over.chain.gz &gt;     rsync -avzP[rsync://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg18.over.chain.gz](rsync://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg18.over.chain.gz). &gt;     (Hg18 is merely an example here, not necessarily existing.) &gt;  &gt; Or with wget, all files: &gt;     wget --timestamping  &gt;         '[ftp://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/*](ftp://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/*)' &gt; With wget, a single file: &gt;     wget --timestamping  &gt;         '[ftp://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg18.over.chain.gz](ftp://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg18.over.chain.gz)'   &gt;         -O hg19ToHg18.over.chain.gz &gt;  &gt; To uncompress the *.chain.gz files: &gt;     gunzip &lt;file&gt;.chain.gz  &gt; The liftOver utility can read the files in their .gz format, &gt; it is not necessary to uncompress them to use with the liftOver command. &gt;</code> &gt; Added this whole text as<code>README.md</code>to<code>extdata</code>dir</p>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">2023-08-25</h2>
+<p><strong>Abdullah Al Nahid</strong> (04:11:48): &gt; <span class="citation" data-cites="Michael">@Michael</span> Loveadded 6 tests and pushed to github</p>
+<p><strong>Abdullah Al Nahid</strong> (07:34:30): &gt; <span class="citation" data-cites="Michael">@Michael</span> Loveadded a vignette (.Rmd + .html)</p>
+<p><strong>Michael Love</strong> (08:06:58): &gt; will look over today</p>
+<p><strong>Abdullah Al Nahid</strong> (08:46:25): &gt; Thank you so much!</p>
+<p><strong>Michael Love</strong> (16:47:03): &gt; looks great</p>
+<p><strong>Michael Love</strong> (16:47:07): &gt; i made a small change just now</p>
+<p><strong>Michael Love</strong> (16:47:26): &gt; if you’re passing<code>R CMD check</code>and BiocCheck you can then submit to Bioc:slightly_smiling_face:</p>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">2023-08-26</h2>
+<p><strong>Abdullah Al Nahid</strong> (11:28:16): &gt; On it</p>
+<p><strong>Abdullah Al Nahid</strong> (13:11:41): &gt; rcmdcheck(“easylift_0.0.4.tar.gz”) result - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F05PPACR16W/screenshot_from_2023-08-26_23-09-25.png">Screenshot from 2023-08-26 23-09-25.png</a></p>
+<p><strong>Abdullah Al Nahid</strong> (15:01:04): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F05QD5CS56C/image.png">image.png</a></p>
+<p><strong>Abdullah Al Nahid</strong> (15:14:31): &gt; <span class="citation" data-cites="Michael">@Michael</span> Love, Submitted the package to Bioconductor:<a href="https://github.com/Bioconductor/Contributions/issues/3122">https://github.com/Bioconductor/Contributions/issues/3122</a> - Attachment: <a href="https://github.com/Bioconductor/Contributions/issues/3122">#3122 easylift</a> &gt; Update the following URL to point to the GitHub repository of<br>
+&gt; the package you wish to submit to <em>Bioconductor</em> &gt; &gt; • Repository: <a href="https://github.com/nahid18/easylift">https://github.com/nahid18/easylift</a> &gt; &gt; Confirm the following by editing each check box to ‘[x]’ &gt; &gt; I understand that by submitting my package to <em>Bioconductor</em>,<br>
+&gt; the package source and all review commentary are visible to the<br>
+&gt; general public. &gt; I have read the <em>Bioconductor</em> <a href="https://bioconductor.org/developers/package-submission/">Package Submission</a><br>
+&gt; instructions. My package is consistent with the <em>Bioconductor</em><br>
+&gt; <a href="https://contributions.bioconductor.org/">Package Guidelines</a>. &gt; I understand Bioconductor &lt;https://bioconductor.org/developers/package-submission/#naming|Package Naming Policy&gt; and acknowledge<br>
+&gt; Bioconductor may retain use of package name. &gt; I understand that a minimum requirement for package acceptance<br>
+&gt; is to pass R CMD check and R CMD BiocCheck with no ERROR or WARNINGS.<br>
+&gt; Passing these checks does not result in automatic acceptance. The<br>
+&gt; package will then undergo a formal review and recommendations for<br>
+&gt; acceptance regarding other Bioconductor standards will be addressed. &gt; My package addresses statistical or bioinformatic issues related<br>
+&gt; to the analysis and comprehension of high throughput genomic data. &gt; I am committed to the long-term maintenance of my package. This<br>
+&gt; includes monitoring the <a href="https://support.bioconductor.org">support site</a> for issues that users may<br>
+&gt; have, subscribing to the <a href="https://stat.ethz.ch/mailman/listinfo/bioc-devel">bioc-devel</a> mailing list to stay aware<br>
+&gt; of developments in the <em>Bioconductor</em> community, responding promptly<br>
+&gt; to requests for updates from the Core team in response to changes in<br>
+&gt; <em>R</em> or underlying software. &gt; I am familiar with the <a href="https://bioconductor.org/about/code-of-conduct/">Bioconductor code of conduct</a> and<br>
+&gt; agree to abide by it. &gt; &gt; I am familiar with the essential aspects of <em>Bioconductor</em> software<br>
+&gt; management, including: &gt; &gt; ☑︎ The ‘devel’ branch for new packages and features. &gt; ☑︎ The stable ‘release’ branch, made available every six<br>
+&gt; months, for bug fixes. &gt; ☑︎ <em>Bioconductor</em> version control using <a href="http://bioconductor.org/developers/how-to/git/">Git</a><br>
+&gt; (optionally <a href="http://bioconductor.org/developers/how-to/git/sync-existing-repositories/">via GitHub</a>). &gt; &gt; For questions/help about the submission process, including questions about<br>
+&gt; the output of the automatic reports generated by the SPB (Single Package<br>
+&gt; Builder), please use the #package-submission channel of our Community Slack.<br>
+&gt; Follow the link on the home page of the <a href="https://bioconductor.org/">Bioconductor website</a> to sign up.</p>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">2023-08-28</h2>
+<p><strong>Abdullah Al Nahid</strong> (14:58:54): &gt; <span class="citation" data-cites="Michael">@Michael</span> Love, I can work on this project:<a href="https://github.com/tidyomics/genomics-todos/issues/5">https://github.com/tidyomics/genomics-todos/issues/5</a> - Attachment: <a href="https://github.com/tidyomics/genomics-todos/issues/5">#5 New package idea, facilitate easily: genomic ranges |&gt; filter_by_overlaps(window) |&gt; plotgardener or Gviz</a> &gt; See here for an example of plotgardener for ranges: &gt; &gt; <a href="https://tidybiology.github.io/tidy-ranges-tutorial/gene-plots.html">https://tidybiology.github.io/tidy-ranges-tutorial/gene-plots.html</a> &gt; &gt; It would be nice to hide away some of the layout code in a function, so this could be more a part of an EDA workflow.</p>
+<p><strong>Abdullah Al Nahid</strong> (14:59:03): &gt; at least will try my best</p>
+<p><strong>Abdullah Al Nahid</strong> (14:59:17): &gt; can you kindly provide the pointers?</p>
+<p><strong>Abdullah Al Nahid</strong> (14:59:22): &gt; thank you so much!</p>
+<p><strong>Abdullah Al Nahid</strong> (15:00:49): &gt; if I do work on this, can you kindly suggest a package name that you see fit?</p>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">2023-08-29</h2>
+<p><strong>Michael Love</strong> (09:13:17): &gt; let’s either make a new channel or we can swap over to the GH issues page? just in case others want to contribute</p>
+<p><strong>Michael Love</strong> (09:13:43): &gt; <strong>easyplot</strong>?</p>
+<p><strong>Abdullah Al Nahid</strong> (11:27:03): &gt; ok sure</p>
+<p><strong>Abdullah Al Nahid</strong> (11:27:11): &gt; you can provide the pointers in the GH issue page</p>
+<p><strong>Abdullah Al Nahid</strong> (11:27:13): &gt; no problem</p>
+<p><strong>Abdullah Al Nahid</strong> (11:27:28): &gt; ok I will go with the******easyplot******then</p>
+<p><strong>Michael Love</strong> (11:45:16): &gt; nice. a whole easy ecosystem:slightly_smiling_face:</p>
+<p><strong>Abdullah Al Nahid</strong> (11:46:39): &gt; haha</p>
+<p><strong>Michael Love</strong> (11:47:10): &gt; no such package on CRAN so i think you’re good</p>
+<p><strong>Abdullah Al Nahid</strong> (11:47:46): &gt; Thank you so much!</p>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">2023-09-13</h2>
+<p><strong>Abdullah Al Nahid</strong> (15:46:09): &gt; I am currently working on addressing the review comments by the bioconductor team for the<code>easylift</code>package</p>
+<p><strong>Michael Love</strong> (15:48:03): &gt; nice</p>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">2023-09-24</h2>
+<p><strong>Abdullah Al Nahid</strong> (19:36:44): &gt; <span class="citation" data-cites="Michael">@Michael</span> Love, I have resolved all the comments made by the bioconductor team</p>
+<p><strong>Abdullah Al Nahid</strong> (19:37:45): &gt; <code>&gt; easylift &lt;- function(x, to, chain) { &gt;   # Check if genome(x) has multiple unique values &gt;   unique_genomes &lt;- unique(GenomeInfoDb::genome(x)) &gt;   if (length(unique_genomes) &gt; 1) { &gt;     stop("The 'GRanges' object 'x' contains genomic coordinates from multiple genomes. ", &gt;          "Please provide 'x' with coordinates from a single genome assembly.") &gt;   } &gt;</code> &gt; Added this bit to check if genome(x) has more than one genome</p>
+<p><strong>Abdullah Al Nahid</strong> (19:38:12): &gt; Added 3 new unit tests to cover<code>BiocFileCache</code></p>
+<p><strong>Abdullah Al Nahid</strong> (19:38:35): &gt; <a href="https://github.com/Bioconductor/Contributions/issues/3122#issuecomment-1732698406">https://github.com/Bioconductor/Contributions/issues/3122#issuecomment-1732698406</a></p>
+<p><strong>Abdullah Al Nahid</strong> (19:39:01): &gt; ^ the updates have been pushed to biocondutor as well</p>
+<p><strong>Abdullah Al Nahid</strong> (19:39:42): &gt; overall changes: 11 changed files with 208 additions and 52 deletions.</p>
+<p><strong>Abdullah Al Nahid</strong> (19:40:20): &gt; added documentation for<code>BiocFileCache</code>everywhere as well</p>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">2023-09-25</h2>
+<p><strong>Michael Love</strong> (10:18:01): &gt; i made a few tweaks and pushed just now</p>
+<p><strong>Abdullah Al Nahid</strong> (11:22:04): &gt; Thank you so much!</p>
+<p><strong>Abdullah Al Nahid</strong> (11:22:33): &gt; I will push your changes to bioconductor</p>
+<p><strong>Abdullah Al Nahid</strong> (11:37:10): &gt; done</p>
+<p><strong>Abdullah Al Nahid</strong> (11:52:25): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F05TW387AE8/image.png">image.png</a></p>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">2023-09-27</h2>
+<p><strong>Abdullah Al Nahid</strong> (15:06:53): &gt; <span class="citation" data-cites="Michael">@Michael</span> Love, if a user provides inputs like this &gt; &gt; easylift(gr, “hg38”, BiocFileCache()) aka messing up the positional arguments &gt; &gt; should we stop the function and show error message or should we assign the variable properly internally?</p>
+<p><strong>Michael Love</strong> (15:10:46): &gt; yeah i guess that’s easiest — TBH i haven’t full parsed what’s going on with this error</p>
+<p><strong>Abdullah Al Nahid</strong> (15:11:30): &gt; we have positional arguements like this &gt; &gt; easylift ( x = GRanges, to = target genome character, chain = chain file path character, bfc = BiocFileCache object)</p>
+<p><strong>Abdullah Al Nahid</strong> (15:11:39): &gt; here x and to are required</p>
+<p><strong>Abdullah Al Nahid</strong> (15:11:43): &gt; chain and bfc are optional</p>
+<p><strong>Abdullah Al Nahid</strong> (15:12:01): &gt; someone could technically skip chain and pass bfc in 3rd position</p>
+<p><strong>Michael Love</strong> (15:12:18): &gt; ahhh i see</p>
+<p><strong>Michael Love</strong> (15:12:46): &gt; i would say that, since this is a rare side case, we should just error this case</p>
+<p><strong>Michael Love</strong> (15:12:56): &gt; if someone provides an unnamed arg with BFC</p>
+<p><strong>Michael Love</strong> (15:13:06): &gt; it’s rare that someone wouldn’t use the default BFC</p>
+<p><strong>Abdullah Al Nahid</strong> (15:13:30): &gt; which would be not passing anything (resulting in default BFC location), yes</p>
+<p><strong>Abdullah Al Nahid</strong> (15:13:43): &gt; although rare, coding practices demand us to put a sanity check</p>
+<p><strong>Abdullah Al Nahid</strong> (15:13:48): &gt; so I am going to stop the func</p>
+<p><strong>Abdullah Al Nahid</strong> (15:13:51): &gt; and show an error</p>
+<p><strong>Abdullah Al Nahid</strong> (15:13:53): &gt; thank you</p>
+<p><strong>Michael Love</strong> (15:18:17): &gt; I was thinking to ask Herve if he is willing to be listed as a package contributor, as he has helped so much. sound ok?</p>
+<p><strong>Abdullah Al Nahid</strong> (15:23:12): &gt; I am totally fine with it</p>
+<p><strong>Abdullah Al Nahid</strong> (15:23:27): &gt; That would be great</p>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">2023-09-29</h2>
+<p><strong>Abdullah Al Nahid</strong> (09:54:23): &gt; <span class="citation" data-cites="Michael">@Michael</span> Loveeasylift has been accepted to Bioconductor. &gt; &gt; Thank you so much for your patience and kind support</p>
+<p><strong>Michael Love</strong> (10:04:37): &gt; congrats, you should promote online (maybe wait until Monday bc more people looking)</p>
+<p><strong>Michael Love</strong> (10:04:49): &gt; Twitter / Mastodon or Bluesky:slightly_smiling_face:</p>
+<p><strong>Abdullah Al Nahid</strong> (10:05:29): &gt; Yes, I will. Thank you Professor</p>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">2023-10-12</h2>
+<p><strong>Abdullah Al Nahid</strong> (11:51:38): &gt; <code>easylift</code>Bioconductor page is live:<a href="https://bioconductor.org/packages/devel/bioc/html/easylift.html">https://bioconductor.org/packages/devel/bioc/html/easylift.html</a>But few tests were failing. &gt; I fixed the issues and pushed. &gt; Hopefully the errors will go away in 24-48 hours. - Attachment (Bioconductor): <a href="https://bioconductor.org/packages/devel/bioc/html/easylift.html">easylift (development version)</a> &gt; The easylift package provides a convenient tool for genomic liftover operations between different genome assemblies. It seamlessly works with Bioconductor’s GRanges objects and chain files from the UCSC Genome Browser, allowing for straightforward handling of genomic ranges across various genome versions. One noteworthy feature of easylift is its integration with the BiocFileCache package. This integration automates the management and caching of chain files necessary for liftover operations. Users no longer need to manually specify chain file paths in their function calls, reducing the complexity of the liftover process.</p>
+<p><strong>Michael Love</strong> (11:57:40): &gt; :raised_hands:exciting!</p>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">2023-10-16</h2>
+<p><strong>Abdullah Al Nahid</strong> (16:16:34): &gt; Finally, &gt; All tests have passed. &gt; And, all the build statuses have turned green</p>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">2023-10-25</h2>
+<p><strong>Abdullah Al Nahid</strong> (19:23:21): &gt; Version 1.0.0 released<a href="https://bioconductor.org/packages/release/bioc/html/easylift.html">https://bioconductor.org/packages/release/bioc/html/easylift.html</a></p>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">2024-02-06</h2>
+<p><strong>Alan Aw</strong> (11:25:38): &gt; <span class="citation" data-cites="Alan">@Alan</span> Aw has joined the channel</p>
+<p><strong>Alan Aw</strong> (11:41:28): &gt; Hi&lt;!channel&gt;, sorry for joining without an invitation. I was using<code>easylift</code>for a project, and ran into two issues with a particular use case. Thought I should share it, both for my own learning and for potential issue fixing. &gt; &gt; My use case is as follows. I have a list of coordinates that I’d like to lift from hg19 to hg38. For concreteness, this list looks like the following. (Chromosome is 22, object below is a data.frame) &gt; <code>&gt; START     STOP &gt; 1 16050408 17674295 &gt; 2 17675014 18296088 &gt; 3 18488219 19595292 &gt; 4 19912358 20948839 &gt; 5 22357325 22877795 &gt; 6 23712647 23717905 &gt;</code> &gt; I wrote a function that converts the dataframe to a GRanges, and applied easylift. (Chain file downloaded from UCSC Browser.) &gt; <code>&gt; liftOver_hg19_to_hg38 &lt;- function(input_df,chr) { &gt;   # Define chain file for hg19 to hg38 liftover &gt;   chain_path &lt;- "/Users/alanaw/Documents/admix_prs/results/020124/hg19ToHg38.over_tabs.chain" &gt;    &gt;   # Convert to GRanges &gt;   gr &lt;- GRanges(seqnames = paste0("chr",chr), &gt;                 ranges = IRanges(start = input_df$START, end = input_df$STOP)) &gt;    &gt;   # Specify genome build of input gr &gt;   genome(gr) &lt;- "hg19" &gt;    &gt;   # Liftover &gt;   lo &lt;- easylift(gr, "hg38", chain_path) &gt;    &gt;   # Return the lifted over positions &gt;   return(lo) &gt; } &gt;</code> &gt; Here are the issues. &gt; 1. <strong><em>Longer output than input.</em></strong>The actual input dataframe has 24 lines, so converting into GRanges should yield 24 ranges. But the output looks like it has 878 ranges. I was expecting 24 ranges, where each genomic position is simply converted from hg19 to hg38. Why does the observed not match my expectation? &gt; 2. <strong><em>Discrepancy (possible error?) in lifting.</em></strong>I manually checked the lift-over coordinate for the first genomic position in hg19 — chr22:16050408. Pasting this into the Broad’s online<a href="https://liftover.broadinstitute.org/#input=22%3A16050408&amp;hg=hg19-to-hg38">liftOver webpage</a>, I see that the output is chr22:15927609. I have no idea whether Broad is right or wrong, but the discrepancy is worrying me.</p>
+<p><strong>Alan Aw</strong> (11:43:03) (in thread): &gt; Happy to share my R code, source file and output screen if it helps clarify the issues I’ve raised!</p>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">2024-02-07</h2>
+<p><strong>Abdullah Al Nahid</strong> (10:27:15) (in thread): &gt; Hi, thank you for sharing the issues. Especially the discrepancy is worrying. Kindly share your R code and if possible input outputs, so that I can reproduce the issues.</p>
+<p><strong>Abdullah Al Nahid</strong> (10:37:17) (in thread): &gt; About 1, I think the intention was to return the complete conversion output rather than returning selectively based on the input.</p>
+<p><strong>Abdullah Al Nahid</strong> (10:43:29) (in thread): &gt; <span class="citation" data-cites="Alan">@Alan</span> Aw, is it possible for you to run this tool and see how the outputs look like?<a href="https://genome.ucsc.edu/cgi-bin/hgLiftOver">https://genome.ucsc.edu/cgi-bin/hgLiftOver</a></p>
+<p><strong>Alan Aw</strong> (13:07:26): &gt; Thank you for writing back, Abdullah. Here is the R code. &gt; <code>&gt; ## Load required libraries &gt; library(easylift) &gt;  &gt; ## Helper function -------------- &gt; liftOver_hg19_to_hg38 &lt;- function(input_df,chr) { &gt;   # Define chain file for hg19 to hg38 liftover &gt;   chain_path &lt;- "/Users/alanaw/Documents/admix_prs/results/020124/hg19ToHg38.over_tabs.chain" &gt;    &gt;   # Convert to GRanges &gt;   gr &lt;- GRanges(seqnames = paste0("chr",chr), &gt;                 ranges = IRanges(start = input_df$START, end = input_df$STOP)) &gt;    &gt;   # Specify genome build of input gr &gt;   genome(gr) &lt;- "hg19" &gt;    &gt;   # Liftover &gt;   lo &lt;- easylift(gr, "hg38", chain_path) &gt;    &gt;   # Return the lifted over positions &gt;   return(lo) &gt; } &gt;  &gt; ## Read File -------------------- &gt; input_df &lt;- as.data.frame(readr::read_csv("chr22_test_file.csv")) &gt;  &gt; ## Run easylift ----------------- &gt; foo &lt;- liftOver_hg19_to_hg38(input_df,chr=22) &gt;</code> &gt; I have also attached the input file. - File (CSV): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F06JD2MMJSU/chr22_test_file.csv">chr22_test_file.csv</a></p>
+<p><strong>Alan Aw</strong> (13:09:18): &gt; Here is the output object as shown in R: &gt; <code>&gt; &gt; liftOver_hg19_to_hg38(input_df,chr=22) &gt; GRangesList object of length 24: &gt; [[1]] &gt; GRanges object with 100 ranges and 0 metadata columns: &gt;         seqnames            ranges strand &gt;            &lt;Rle&gt;         &lt;IRanges&gt;  &lt;Rle&gt; &gt;     [1]    chr22 16367189-16386925      * &gt;     [2]    chr22 16386926-16386968      * &gt;     [3]    chr22 16386970-16387016      * &gt;     [4]    chr22 16387017-16387112      * &gt;     [5]    chr22 16387128-16395489      * &gt;     ...      ...               ...    ... &gt;    [96]    chr22 15908187-15910237      * &gt;    [97]    chr22 15907962-15908172      * &gt;    [98]    chr22 15906030-15907960      * &gt;    [99]    chr22 15281640-15906029      * &gt;   [100]    chr22 15280114-15281637      * &gt;   ------- &gt;   seqinfo: 5 sequences from an unspecified genome; no seqlengths &gt;  &gt; ... &gt; &lt;23 more elements&gt; &gt;</code> &gt; &gt; <code>&gt; &gt; str(liftOver_hg19_to_hg38(input_df,chr=22)) &gt; Formal class 'CompressedGRangesList' [package "GenomicRanges"] with 5 slots &gt;   ..@ unlistData     :Formal class 'GRanges' [package "GenomicRanges"] with 7 slots &gt;   .. .. ..@ seqnames       :Formal class 'Rle' [package "S4Vectors"] with 4 slots &gt;   .. .. .. .. ..@ values         : Factor w/ 5 levels "chr22","chr10",..: 1 2 3 4 5 1 &gt;   .. .. .. .. ..@ lengths        : int [1:6] 211 2 1 1 2 661 &gt;   .. .. .. .. ..@ elementMetadata: NULL &gt;   .. .. .. .. ..@ metadata       : list() &gt;   .. .. ..@ ranges         :Formal class 'IRanges' [package "IRanges"] with 6 slots &gt;   .. .. .. .. ..@ start          : int [1:878] 16367189 16386926 16386970 16387017 16387128 16395491 16395528 16395841 16395860 16395956 ... &gt;   .. .. .. .. ..@ width          : int [1:878] 19737 43 47 96 8362 36 312 18 95 33 ... &gt;   .. .. .. .. ..@ NAMES          : NULL &gt;   .. .. .. .. ..@ elementType    : chr "ANY" &gt;   .. .. .. .. ..@ elementMetadata: NULL &gt;   .. .. .. .. ..@ metadata       : list() &gt;   .. .. ..@ strand         :Formal class 'Rle' [package "S4Vectors"] with 4 slots &gt;   .. .. .. .. ..@ values         : Factor w/ 3 levels "+","-","*": 3 &gt;   .. .. .. .. ..@ lengths        : int 878 &gt;   .. .. .. .. ..@ elementMetadata: NULL &gt;   .. .. .. .. ..@ metadata       : list() &gt;   .. .. ..@ seqinfo        :Formal class 'Seqinfo' [package "GenomeInfoDb"] with 4 slots &gt;   .. .. .. .. ..@ seqnames   : chr [1:5] "chr22" "chr10" "chr4" "chr16" ... &gt;   .. .. .. .. ..@ seqlengths : int [1:5] NA NA NA NA NA &gt;   .. .. .. .. ..@ is_circular: logi [1:5] NA NA NA NA NA &gt;   .. .. .. .. ..@ genome     : chr [1:5] NA NA NA NA ... &gt;   .. .. ..@ elementMetadata:Formal class 'DFrame' [package "S4Vectors"] with 6 slots &gt;   .. .. .. .. ..@ rownames       : NULL &gt;   .. .. .. .. ..@ nrows          : int 878 &gt;   .. .. .. .. ..@ elementType    : chr "ANY" &gt;   .. .. .. .. ..@ elementMetadata: NULL &gt;   .. .. .. .. ..@ metadata       : list() &gt;   .. .. .. .. ..@ listData       : Named list() &gt;   .. .. ..@ elementType    : chr "ANY" &gt;   .. .. ..@ metadata       : list() &gt;   ..@ elementMetadata:Formal class 'DFrame' [package "S4Vectors"] with 6 slots &gt;   .. .. ..@ rownames       : NULL &gt;   .. .. ..@ nrows          : int 24 &gt;   .. .. ..@ elementType    : chr "ANY" &gt;   .. .. ..@ elementMetadata: NULL &gt;   .. .. ..@ metadata       : list() &gt;   .. .. ..@ listData       : Named list() &gt;   ..@ elementType    : chr "GRanges" &gt;   ..@ metadata       : list() &gt;   ..@ partitioning   :Formal class 'PartitioningByEnd' [package "IRanges"] with 5 slots &gt;   .. .. ..@ end            : int [1:24] 100 217 232 334 696 697 699 703 746 752 ... &gt;   .. .. ..@ NAMES          : NULL &gt;   .. .. ..@ elementType    : chr "ANY" &gt;   .. .. ..@ elementMetadata: NULL &gt;   .. .. ..@ metadata       : list() &gt;</code></p>
+<p><strong>Alan Aw</strong> (13:12:47) (in thread): &gt; Sure, I just ran the first row, and it seems like when unchecking “Allow multiple output regions” there is an error message: &gt; <code>&gt; #Split in new &gt; chr22:16050408-17674295 &gt;</code> - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F06H9NW4S0P/screenshot_2024-02-07_at_1.11.26_pm.png">Screenshot 2024-02-07 at 1.11.26 PM.png</a></p>
+<p><strong>Alan Aw</strong> (13:16:59) (in thread): &gt; I believe this error message is returned because the sequence I provided insufficiently intersects multiple chains in the chain file. Here is where the sequence is approximately located (seems near the centromere): - File (PNG): <a href="https://community-bioc.slack.com/files/U34P8RS3B/F06HHMF4LR4/screenshot_2024-02-07_at_1.14.50_pm.png">Screenshot 2024-02-07 at 1.14.50 PM.png</a></p>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">2024-02-09</h2>
+<p><strong>Alan Aw</strong> (10:07:25): &gt; When I ran liftOver on the command line, the outputs were &gt; &gt; (1) hg38 coordinates of segments that could be lifted over; &gt; (2) the segments that failed to be lifted over &gt; &gt; As a user, I feel like this should be the output of a liftOver function for segments (but that is just my personal feedback…)</p>
+<p><strong>Abdullah Al Nahid</strong> (16:49:06) (in thread): &gt; The easylift package is basically a wrapper using rtracklayer package underneath. It allows integrating chain file within biocfilecache as well as simplifying multiple commands in one-line. &gt; &gt; Based on your experience with different outputs from multiple tools for the same function, I think it needs a deeper exploration and perhaps a new research into finding these edge cases and comparing. &gt; &gt; I will try my best to help but if you find a solution, feel free to contribute to easylift’s github repo. &gt; &gt; Thanks a lot!</p>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">2024-02-16</h2>
+<p><strong>Abdullah Al Nahid</strong> (11:38:00) (in thread): &gt; <span class="citation" data-cites="Alan">@Alan</span> Awcan you try this and see the outputs look like?</p>
+<p><strong>Abdullah Al Nahid</strong> (11:38:03) (in thread): &gt; <a href="https://academic.oup.com/bioinformatics/article/40/2/btae038/7585532">https://academic.oup.com/bioinformatics/article/40/2/btae038/7585532</a></p>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">2024-02-20</h2>
+<p><strong>Alan Aw</strong> (08:39:09) (in thread): &gt; Sure, will do at some point.</p>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">2024-05-14</h2>
+<p><strong>Lori Shepherd</strong> (10:03:19): &gt; archived the channel</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
