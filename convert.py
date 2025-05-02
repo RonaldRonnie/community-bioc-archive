@@ -48,6 +48,8 @@ def parse_slack_markdown(text, user_map=None, channel_map=None):
 
     # Also handle the specific malformed case found in general.qmd
     text = text.replace('```r', '```')
+    # Also handle the specific malformed case found in bioc_git.qmd
+    text = text.replace('```{r ', '```{')
 
     # --- END REVISED ---
 
