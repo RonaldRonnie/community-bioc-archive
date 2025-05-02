@@ -10,8 +10,7 @@ import html # Import the html module for unescaping
 def parse_slack_markdown(text, user_map=None, channel_map=None):
     """
     Converts basic Slack mrkdwn formatting to standard Markdown,
-    and replaces user/channel IDs if maps are provided.
-    Also removes 'r ' prefix from inline code like `r code()`.
+    replaces user/channel IDs, and escapes potential inline R snippets.
     """
     if not text:
         return ""
@@ -20,38 +19,32 @@ def parse_slack_markdown(text, user_map=None, channel_map=None):
     # --- Link Replacements ---
     def link_replacer(match):
         url = match.group(1)
-        # Escape brackets within link text
         text_content = match.group(2).replace('[', '\\[').replace(']', '\\]')
         return f'[{text_content}]({url})'
-    text = re.sub(r'<([^\|>@#]+)\|([^>]+)>', link_replacer, text) # Avoid matching mentions/channels
-    text = re.sub(r'<(https?://[^\|>]+)>', r'[\1](\1)', text) # Bare URLs
+    text = re.sub(r'<([^\|>@#]+)\|([^>]+)>', link_replacer, text)
+    text = re.sub(r'<(https?://[^\|>]+)>', r'[\1](\1)', text)
 
     # --- Basic Formatting ---
-    text = re.sub(r'(?<!\w)\*(?!\s)(.*?)(?<!\s)\*(?!\w)', r'**\1**', text) # Bold
-    text = re.sub(r'(?<!\w)_(?!\s)(.*?)(?<!\s)_(?!\w)', r'*\1*', text)     # Italics
-    text = re.sub(r'(?<!\w)~(?! )(.*?)(?<! )~(?!\w)', r'~~\1~~', text)   # Strikethrough
-    # NOTE: Slack's single backtick for inline code doesn't usually need conversion
-    # IF it appears like ```code``` it's handled by rich text parser.
-    # If it's just `code`, Markdown usually handles it.
+    text = re.sub(r'(?<!\w)\*(?!\s)(.*?)(?<!\s)\*(?!\w)', r'**\1**', text)
+    text = re.sub(r'(?<!\w)_(?!\s)(.*?)(?<!\s)_(?!\w)', r'*\1*', text)
+    text = re.sub(r'(?<!\w)~(?! )(.*?)(?<! )~(?!\w)', r'~~\1~~', text)
 
-    # --- ID Replacements (if maps provided) ---
+    # --- ID Replacements ---
     if user_map:
-        # Replace user mentions like <@U123ABC> with @Username or @U123ABC
         text = re.sub(r'<@(U[A-Z0-9]+)>',
                       lambda m: f"@{user_map.get(m.group(1), m.group(1))}", text)
     if channel_map:
-        # Replace channel links like <#C123ABC|channel-name> or <#C123ABC>
         def channel_replacer(match):
             channel_id = match.group(1)
-            piped_name = match.group(2) # Name explicitly given after |
-            # Look up channel name from map, fallback to piped name, fallback to ID
+            piped_name = match.group(2)
             channel_name = channel_map.get(channel_id, piped_name or channel_id)
-            return f"#{channel_name}" # Format as #channel-name
+            return f"#{channel_name}"
         text = re.sub(r'<#(C[A-Z0-9]+)(?:\|([^>]+))?>', channel_replacer, text)
 
-    # This targets single backticks specifically containing 'r ' at the start, which are still
-    # evaluated by quarto even with eval: false
-    text = re.sub(r'`r\s+(.*?)`', r'`\1`', text)
+    # --- **REVISED:** Escape backticks around `r ...` to prevent parsing errors ---
+    # This finds `r ...` and adds backslashes before the backticks
+    text = re.sub(r'`(r\s+.*?)`', r'\\`\1\\`', text)
+    # --- END REVISED ---
 
     return text.strip()
 
