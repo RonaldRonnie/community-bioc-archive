@@ -45,6 +45,10 @@ def parse_slack_markdown(text, user_map=None, channel_map=None):
     # This avoids Quarto attempting to parse it as R code.
     # It specifically targets `r` followed by one or more spaces inside single backticks.
     text = re.sub(r'`r\s+(.*?)`', r'`\1`', text)
+
+    # Also handle the specific malformed case found in general.qmd
+    text = text.replace('```r', '```')
+
     # --- END REVISED ---
 
     return text.strip()
