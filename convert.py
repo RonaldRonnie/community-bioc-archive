@@ -10,11 +10,16 @@ import html # Import the html module for unescaping
 def parse_slack_markdown(text, user_map=None, channel_map=None):
     """
     Converts basic Slack mrkdwn formatting to standard Markdown,
-    replaces user/channel IDs, and removes 'r ' prefix from potential inline R.
+    replaces user/channel IDs, removes 'r ' prefix from potential inline R.
     """
     if not text:
         return ""
     text = html.unescape(text)
+
+    # --- Escape potential fenced divs to prevent Quarto errors ---
+    text = text.replace(':::', '\\:\\:\\:')
+    # --- Added: Escape R package double colons (e.g., scRNAseq::function) ---
+    text = re.sub(r'(\w+)::(\w+)', r'\1\\:\\:\2', text)
 
     # --- Link Replacements ---
     def link_replacer(match):
@@ -50,6 +55,19 @@ def parse_slack_markdown(text, user_map=None, channel_map=None):
     text = text.replace('```r', '```')
     # Also handle the specific malformed case found in bioc_git.qmd
     text = text.replace('```{r ', '```{')
+
+    # --- **ADDED:** Additional handling for 'r' or 'R' prefixes ---
+    # Log potential R code for debugging
+    if '```r' in text or '```{r' in text or '`r' in text or '```R' in text or '```{R' in text or '`R' in text:
+        print(f"  Debug: Found potential R code in text: {text[:100]}...")
+    # Inline code: Remove r/R prefix with optional spaces
+    text = re.sub(r'`[rR]\s*(.*?)`', r'`\1`', text)
+    # Code blocks: Convert to plaintext for consistent rendering
+    text = re.sub(r'```[rR]\b', r'```plaintext', text)
+    # Code blocks with attributes
+    text = re.sub(r'```{[rR]\s*', r'```{plaintext ', text)
+    # Fix incomplete code block attributes
+    text = re.sub(r'```\{[^}]*$', r'```', text)
 
     # --- END REVISED ---
 
@@ -141,6 +159,11 @@ def parse_rich_text_block(block_elements, user_map=None, channel_map=None):
             # Code blocks: process elements without replacing user/channel mentions inside
             code_parts = [parse_rich_text_element(sub, user_map=None, channel_map=None) for sub in element.get('elements', [])]
             code_text = ''.join(code_parts)
+            # --- **ADDED:** Normalize newlines to preserve formatting ---
+            code_text = code_text.replace('\r\n', '\n').replace('\r', '\n')
+            # Log code blocks without newlines for debugging
+            if '\n' not in code_text:
+                print(f"  Warn: Code block lacks newlines: {code_text[:50]}...")
             # Attempt basic language detection (simple first line check)
             lines = code_text.split('\n', 1)
             lang_hint = ""
@@ -148,7 +171,7 @@ def parse_rich_text_block(block_elements, user_map=None, channel_map=None):
                  lang_hint = "{" + lines[0].strip().lower() + "}"
                  code_text = lines[1] # Use text after the hint
             # Format as Quarto code block ```{lang} or ```
-            markdown_parts.append(f"\n```{lang_hint}\n{code_text}\n```\n")
+            markdown_parts.append(f"\n```{lang_hint or 'plaintext'}\n{code_text.rstrip()}\n```\n")
         elif el_type == 'rich_text_quote':
             # Blockquotes: process elements normally
             quote_parts = [parse_rich_text_element(sub, user_map, channel_map) for sub in element.get('elements', [])]
@@ -400,12 +423,11 @@ if __name__ == "__main__":
     output_dir_default = 'quarto_export' # Default output directory changed
 
     export_dir = input(f"Enter the path to the main Slack export directory (default: '{export_dir_default}'): ") or export_dir_default
-    output_dir = input(f"Enter the directory to save Quarto (.qmd) files (default: '{output_dir_default}'): ") or output_dir_default
+    output_dir = input(f"Enter the directory to save Markdown (.qmd) files (default: '{output_dir_default}'): ") or output_dir_default
 
     # Resolve to absolute path for clarity in messages
     export_dir = os.path.abspath(export_dir)
     output_dir = os.path.abspath(output_dir)
-
 
     if not os.path.isdir(export_dir):
         print(f"Error: Slack export directory '{export_dir}' not found.")
@@ -440,23 +462,22 @@ if __name__ == "__main__":
 
                     if channel_markdown_lines is not None: # Check if processing was successful
                         channel_name_for_file = sanitize_filename(item_name)
-                        # --- Filename uses .qmd extension ---
                         output_filename = f"{channel_name_for_file}.qmd"
                         output_path = os.path.join(output_dir, output_filename)
 
-                        # --- Add Quarto YAML front matter ---
-                        quarto_title_line = f"---\ntitle: \"#{item_name}\"\n---\n" # REMOVED format: gfm
+                        # --- Added: Markdown header ---
+                        markdown_header = f"# {item_name}\n"
 
-                        # Write channel qmd file
+                        # Write channel md file
                         if channel_markdown_lines: # Only write if there are messages
                             print(f"  Writing {len(channel_markdown_lines)} lines to {output_path}...")
                             try:
                                 with open(output_path, 'w', encoding='utf-8') as f:
-                                    f.write(quarto_title_line + "\n") # Write Quarto front matter
+                                    f.write(markdown_header + "\n") # Write Markdown header
                                     f.write("\n".join(channel_markdown_lines))
                                 processed_channels.append((item_name, output_filename))
                             except IOError as e:
-                                print(f"  Error writing Quarto file {output_path}: {e}")
+                                print(f"  Error writing Markdown file {output_path}: {e}")
                             except Exception as e:
                                  print(f"  An unexpected error occurred while writing {output_path}: {e}")
                         else:
@@ -468,7 +489,6 @@ if __name__ == "__main__":
              print(f"Error: Could not list items in directory '{export_dir}'. Please check the path.")
         except Exception as e:
              print(f"An unexpected error occurred while iterating through directories: {e}")
-
 
         # --- Generate README.md Index (linking to .qmd) ---
         if processed_channels:
