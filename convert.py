@@ -10,11 +10,27 @@ import html # Import the html module for unescaping
 def parse_slack_markdown(text, user_map=None, channel_map=None):
     """
     Converts basic Slack mrkdwn formatting to standard Markdown,
-    replaces user/channel IDs, and removes 'r ' prefix from potential inline R.
+    replaces user/channel IDs, and handles code blocks safely.
     """
     if not text:
         return ""
     text = html.unescape(text)
+
+    # Handle code blocks first
+    def code_block_handler(match):
+        code = match.group(1).strip()
+        # Remove R-specific markers
+        if code.startswith('r\n'):
+            code = code[2:]
+        elif code.startswith('{r}') or code.startswith('r '):
+            code = code[code.find('\n'):]
+        return f"```\n{code}\n```"
+
+    # Replace triple backtick code blocks
+    text = re.sub(r'```(.+?)```', code_block_handler, text, flags=re.DOTALL)
+    
+    # Handle inline code blocks with r prefix
+    text = re.sub(r'`r\s+(.*?)`', r'`\1`', text)
 
     # --- Link Replacements ---
     def link_replacer(match):
@@ -41,20 +57,7 @@ def parse_slack_markdown(text, user_map=None, channel_map=None):
             return f"#{channel_name}"
         text = re.sub(r'<#(C[A-Z0-9]+)(?:\|([^>]+))?>', channel_replacer, text)
 
-    # --- **REVISED:** Remove 'r ' prefix from potential inline code like `r code()` ---
-    # This avoids Quarto attempting to parse it as R code.
-    # It specifically targets `r` followed by one or more spaces inside single backticks.
-    text = re.sub(r'`r\s+(.*?)`', r'`\1`', text)
-
-    # Also handle the specific malformed case found in general.qmd
-    text = text.replace('```r', '```')
-    # Also handle the specific malformed case found in bioc_git.qmd
-    text = text.replace('```{r ', '```{')
-
-    # --- END REVISED ---
-
     return text.strip()
-
 def parse_rich_text_element(sub_element, user_map=None, channel_map=None):
     """
     Parses a single rich text sub-element into Markdown, replacing IDs.
@@ -116,52 +119,56 @@ def parse_rich_text_block(block_elements, user_map=None, channel_map=None):
 
         # Handle potential nested blocks first
         if el_type == 'rich_text':
-             markdown_parts.append(parse_rich_text_block(element.get('elements', []), user_map, channel_map))
-             continue # Skip further processing for this wrapper block
+            markdown_parts.append(parse_rich_text_block(element.get('elements', []), user_map, channel_map))
+            continue
 
         # Process specific block types
         if el_type == 'rich_text_section':
-            # Join parsed sub-elements within the section
-            section_parts = [parse_rich_text_element(sub, user_map, channel_map) for sub in element.get('elements', [])]
+            section_parts = [parse_rich_text_element(sub, user_map, channel_map) 
+                           for sub in element.get('elements', [])]
             markdown_parts.append("".join(section_parts))
+        
+        elif el_type == 'rich_text_preformatted':
+            # Process code blocks without user/channel replacements
+            code_parts = [parse_rich_text_element(sub, user_map=None, channel_map=None) 
+                         for sub in element.get('elements', [])]
+            code_text = ''.join(code_parts).strip()
+            
+            # Remove R-specific markers and format
+            if code_text.startswith('```{r}') or code_text.startswith('```r'):
+                code_text = re.sub(r'^```(\{r\}|r)\s*\n?', '```\n', code_text)
+            elif code_text.startswith('r\n'):
+                code_text = code_text[2:]
+            
+            # Ensure proper line breaks and formatting
+            lines = code_text.split('\n')
+            cleaned_lines = [line for line in lines if line.strip()]
+            if cleaned_lines:
+                markdown_parts.append(f"\n```\n{'\n'.join(cleaned_lines)}\n```\n")
+            
         elif el_type == 'rich_text_list':
             list_parts = []
             indent = "  " * element.get('indent', 0)
-            list_type = element.get('style', 'bullet') # 'bullet' or 'ordered'
-            start = element.get('start', 1) # For ordered lists
+            list_type = element.get('style', 'bullet')
+            start = element.get('start', 1)
+            
             for i, item_element in enumerate(element.get('elements', [])):
-                # Determine prefix based on list type
                 prefix = f"{indent}* " if list_type == 'bullet' else f"{indent}{start + i}. "
-                # Recursively parse the content of the list item (might contain sections etc.)
                 item_text = parse_rich_text_block([item_element], user_map, channel_map)
                 list_parts.append(prefix + item_text)
-            # Join list items with newlines, ensure list block has surrounding newlines
+            
             markdown_parts.append("\n" + "\n".join(list_parts) + "\n")
-        elif el_type == 'rich_text_preformatted':
-            # Code blocks: process elements without replacing user/channel mentions inside
-            code_parts = [parse_rich_text_element(sub, user_map=None, channel_map=None) for sub in element.get('elements', [])]
-            code_text = ''.join(code_parts)
-            # Attempt basic language detection (simple first line check)
-            lines = code_text.split('\n', 1)
-            lang_hint = ""
-            if len(lines) > 1 and len(lines[0].strip()) < 20 and re.match(r'^[a-zA-Z0-9+#_-]+$', lines[0].strip()):
-                 lang_hint = "{" + lines[0].strip().lower() + "}"
-                 code_text = lines[1] # Use text after the hint
-            # Format as Quarto code block ```{lang} or ```
-            markdown_parts.append(f"\n```{lang_hint}\n{code_text}\n```\n")
+            
         elif el_type == 'rich_text_quote':
-            # Blockquotes: process elements normally
-            quote_parts = [parse_rich_text_element(sub, user_map, channel_map) for sub in element.get('elements', [])]
-            # Join parts and prepend markdown quote syntax to each line
+            quote_parts = [parse_rich_text_element(sub, user_map, channel_map) 
+                          for sub in element.get('elements', [])]
             quoted_text = '> ' + ''.join(quote_parts).replace('\n', '\n> ')
             markdown_parts.append(f"\n{quoted_text}\n")
+            
         else:
-            # Fallback for unknown block types
             markdown_parts.append(f"\n[Unsupported block type: {el_type}]\n")
 
-    # Join all parts from the block_elements list
     return "".join(markdown_parts).strip()
-
 
 def convert_slack_ts_to_readable(ts_string, format='%Y-%m-%d %H:%M:%S'):
     """Converts Slack timestamp string to a specified format."""
